@@ -3,9 +3,9 @@ remote_theme: pmarsceill/just-the-docs
 search_enabled: true
 aux_links:
     "Issues / Knowledge Base":
-      - "https://github.com/raspibolt/raspibolt/issues"
+      - "https://github.com/twofaktor/minibolt/issues"
     "Contribute! Source on GitHub":
-      - "https://github.com/raspibolt/raspibolt/"
+      - "https://github.com/twofaktor/minibolt"
 
 color_scheme: raspibolt-dark.scss
 
@@ -19,10 +19,10 @@ defaults:
 # jekyll-seo-tag
 twitter:
   card: summary_large_image
-  username: raspibolt
+  username: twofaktor
 
-title: RaspiBolt
-tagline: "Bitcoin & Lightning on a Raspberry Pi"
+title: MiniBolt
+tagline: "Bitcoin & Lightning on a PC"
 description: "Build your own 'do-everything-yourself' Bitcoin full node. No need to trust anyone else."
 type: website
 
