@@ -23,20 +23,38 @@ Let's start with the configuration.
 
 ---
 
-## Create a new connection
+## Add the admin user (and log in with it)
 
-We will use the primary user "admin" which we already configured in the Raspberry Pi Imager (see [Configure boot options](operating-system.md#configure-boot-options) section).
+We will use the primary user "admin" instead of "temp" to make this guide more universal.
 
-* Log in again using SSH (see [Access with Secure Shell](remote-access.md#access-with-secure-shell) section), with user "admin" and your `password [A]`
+* Create a new user called "admin" with your `password [A]`
 
   ```sh
-  $ ssh admin@raspibolt.local
+  $ sudo adduser --gecos "" admin
   ```
 
-* You can exit your session any time with
+* Make this new user a superuser by adding it to the "sudo" and old "temp" user groups.
 
   ```sh
-  $ exit
+  $ usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
+  ```
+
+* Logout `temp` user and login with `admin` user
+
+  ```sh
+  $ logout
+  ```
+
+  ```sh
+  > admin
+  > password [A]
+  ```
+
+* Delete the `temp` user. Do not worry about the `userdel: temp mail spool (/var/mail/temp) not found` message
+
+  ```sh
+  $ sudo userdel -rf temp
+  > userdel: temp mail spool (/var/mail/temp) not found
   ```
 
 To change the system configuration and files that don't belong to user "admin", you have to prefix commands with `sudo`.
@@ -60,8 +78,7 @@ The “Advanced Packaging Tool” (apt) makes this easy.
 * Update the operating system and all installed software packages
 
   ```sh
-  $ sudo apt update
-  $ sudo apt full-upgrade
+  $ sudo apt update && sudo apt full-upgrade
   ```
 
   💡 Do this regularly every few months to get security-related updates.

@@ -17,11 +17,11 @@ No need to trust anyone else.
 
 ---
 
-## What is the RaspiBolt?
+## What is the MiniBolt?
 
 With this guide, you can set up a Bitcoin and Lightning node from scratch, doing everything yourself.
 You will learn about Linux, Bitcoin, and Lightning.
-As a result, you'll have your very own RaspiBolt node, built by you and no one else.
+As a result, you'll have your very own MiniBolt node, built by you and no one else.
 
 There are many reasons why you should run your own Bitcoin node.
 
@@ -34,7 +34,7 @@ Did we mention that it's fun, as well?
 
 ---
 
-## RaspiBolt overview
+## MiniBolt overview
 
 This guide explains how to set up your own Bitcoin node on a cheap Raspberry Pi.
 But it works on most hardware platforms because it only uses standard Debian Linux commands.

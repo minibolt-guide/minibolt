@@ -9,7 +9,7 @@ nav_order: 10
 # Backstory
 {: .no_toc }
 
-Hey, I'm [Stadicus](https://stadicus.com){:target="_blank"}, and I wrote the first version of this guide back in 2017 when Lightning was pretty obscure.
+Hey, I'm [TwoFakTor](https://github.com/twofaktor){:target="_blank"}, and I wrote the first version of this guide back in 2017 when Lightning was pretty obscure.
 I love to tinker and build stuff.
 
 ## Why am I excited about Bitcoin and Lightning?
@@ -34,10 +34,10 @@ Still, the technology is well researched, committed to the cypherpunk open-sourc
 Bitcoin's security model requires both full nodes and miners to be decentralized.
 While the full-node-using economy must be decentralized to stop fake bitcoins that do not abide by consensus from being accepted as payments, the miners must be decentralized to stop censorship of transactions and make transactions irreversible.
 
-To preserve the decentralized nature of this monetary system, I think it is important that everybody can run their own trustless Bitcoin full node, preferably on cheap hardware like a Raspberry Pi.
+To preserve the decentralized nature of this monetary system, I think it is important that everybody can run their own trustless Bitcoin full node, preferably on cheap hardware like a personal computer.
 If Bitcoin is digital gold, then a full node is your own personal goldsmith who checks that received payments are genuine.
 
-This is why I set out to build my **RaspiBolt**.
+This is why I set out to build my **MiniBolt**.
 Through numerous iterations, I now have quite an exemplary configuration, which I would like to share as my modest contribution to the community.
 I am not a systems specialist, so please feel free to point out improvements.
 

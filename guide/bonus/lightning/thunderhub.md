@@ -126,7 +126,7 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 
 * Edit the following lines, save and exit:
 
-  ```ini
+  ```sh
   # -----------
   # Server Configs
   # -----------
@@ -148,10 +148,10 @@ We are going to install Thunderhub in the home directory since it doesn't need t
   $ nano thubConfig.yaml 
   ```
 
-  ```ini
+  ```sh
   masterPassword: 'PASSWORD' # Default password unless defined in account
   accounts:
-    - name: 'RaspiBolt'
+    - name: 'MiniBolt'
       serverUrl: '127.0.0.1:10009'
       macaroonPath: '/home/thunderhub/admin.macaroon'
       certificatePath: '/home/thunderhub/.lnd/tls.cert'
@@ -197,7 +197,7 @@ In order to do that we create a systemd unit that starts the service on boot dir
 * Paste the following configuration. Save and exit.
 
   ```ini
-  # RaspiBolt: systemd unit for Thunderhub
+  # MiniBolt: systemd unit for Thunderhub
   # /etc/systemd/system/thunderhub.service
 
   [Unit]

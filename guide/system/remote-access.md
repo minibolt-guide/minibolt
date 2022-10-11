@@ -22,7 +22,7 @@ We connect to your Raspberry Pi by using the Secure Shell.
 
 ---
 
-## Find your Raspberry Pi
+## Find your PC
 
 The Pi is starting and gets a new address from your home network.
 Give it a few minutes to come to life.
@@ -34,16 +34,16 @@ Give it a few minutes to come to life.
   Press `Ctrl`-`C` to interrupt.
 
   ```sh
-  $ ping raspibolt.local
-  > PING raspibolt.local (192.168.0.20) 56(84) bytes of data.
+  $ ping minibolt.local
+  > PING minibolt.local (192.168.0.20) 56(84) bytes of data.
   > 64 bytes from 192.168.0.20 (192.168.0.20): icmp_seq=1 ttl=64 time=88.1 ms
   > 64 bytes from 192.168.0.20 (192.168.0.20): icmp_seq=2 ttl=64 time=61.5 ms
   ```
 
-* If the `ping` command fails or does not return anything, you need to manually look for your Pi.
+* If the `ping` command fails or does not return anything, you need to manually look for your PC.
   This is a common challenge: just follow the official Raspberry Pi guidance on [how to find your IP Address](https://www.raspberrypi.org/documentation/remote-access/ip-address.md){:target="_blank"}.
 
-* You should now be able to reach your Pi, either with the hostname `raspibolt.local` or an IP address like `192.168.0.20`.
+* You should now be able to reach your Pi, either with the hostname `minibolt.local` or an IP address like `192.168.0.20`.
 
 ## Access with Secure Shell
 
@@ -54,14 +54,14 @@ Install and start the SSH client for your operating system:
 
 * Windows: PuTTY ([Website](https://www.putty.org){:target="_blank"})
 * MacOS and Linux: from the Terminal, use the native command:
-  * `ssh admin@raspibolt.local` or
-  * `ssh admin@192.168.0.20`
+  * `ssh temp@minibolt.local` or
+  * `ssh temp@192.168.0.20`
 
 If you need to provide connection details, use the following settings:
 
 * host name: `raspibolt.local` or the ip address like `192.168.0.20`
 * port: `22`
-* username: `admin`
+* username: `temp`
 * password:  `password [A]`
 
 🔍 *more: [using SSH with Raspberry Pi](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md){:target="_blank"}*
