@@ -2,6 +2,8 @@
 remote_theme: pmarsceill/just-the-docs
 search_enabled: true
 aux_links:
+    "Pull requests"
+      - "https://github.com/twofaktor/minibolt/pulls"
     "Issues / Knowledge Base":
       - "https://github.com/twofaktor/minibolt/issues"
     "Contribute! Source on GitHub":
@@ -22,7 +24,7 @@ twitter:
   username: twofaktor
 
 title: MiniBolt
-tagline: "Bitcoin & Lightning on a PC"
+tagline: "Bitcoin & Lightning on a Personal Computer"
 description: "Build your own 'do-everything-yourself' Bitcoin full node. No need to trust anyone else."
 type: website
 

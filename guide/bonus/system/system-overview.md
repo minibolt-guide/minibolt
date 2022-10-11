@@ -34,17 +34,11 @@ This script can be run by user "admin" without root privileges, but you should s
   $ sudo apt install jq net-tools netcat
   ```
 
-* Download the script.
-  Make sure to get the right script for the RaspiBolt version you run.
+* Enter `tmp` folder and download the script
 
   ```sh
   $ cd /tmp/
-
-  # RaspiBolt version 3 (current)
   $ wget https://raw.githubusercontent.com/raspibolt/raspibolt/master/resources/20-raspibolt-welcome
-
-  # RaspiBolt v2 (deprecated) -- DON'T RUN THIS unless you run an old RaspiBolt version!
-  $ wget https://raw.githubusercontent.com/raspibolt/raspibolt/master/resources/20-raspibolt-welcome-v2 -O 20-raspibolt-welcome
   ```
 
 * Inspect the script to make sure it does not do bad things.
@@ -99,6 +93,6 @@ In earlier versions, the script was executed by the "Message of the day" mechani
 
 <br /><br />
 
-------
+---
 
-<< Back: [+ Raspberry Pi](index.md)
+<< Back: [+ System](index.md)
