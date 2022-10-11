@@ -32,7 +32,7 @@ We'll download, verify and install LND.
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.2-beta/lnd-linux-arm64-v0.15.2-beta.tar.gz
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.2-beta/lnd-linux-amd64-v0.15.2-beta.tar.gz
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.2-beta/manifest-v0.15.2-beta.txt
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.2-beta/manifest-roasbeef-v0.15.2-beta.sig
   ```
@@ -60,14 +60,14 @@ We'll download, verify and install LND.
 
   ```sh
   $ sha256sum --check manifest-v0.15.2-beta.txt --ignore-missing
-  > lnd-linux-arm64-v0.15.2-beta.tar.gz: OK
+  > lnd-linux-amd64-v0.15.2-beta.tar.gz: OK
   ```
 
 * Install LND
 
   ```sh
-  $ tar -xzf lnd-linux-arm64-v0.15.2-beta.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-arm64-v0.15.2-beta/*
+  $ tar -xzf lnd-linux-amd64-v0.15.2-beta.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.15.2-beta/*
   $ lnd --version
   > lnd version 0.15.2-beta commit=v0.15.2-beta
   ```
@@ -114,6 +114,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
   ```sh
   $ ls -la
   ```
+
   ![symlinks](../../images/lnd-symlink-colour.png)
 
 ### Wallet password
@@ -153,14 +154,15 @@ To improve the security of your wallet, check out these more advanced methods:
   ```
 
   ```sh
-  # RaspiBolt: lnd configuration
+  # MiniBolt: lnd configuration
   # /data/lnd/lnd.conf
 
   [Application Options]
-  alias=YOUR_FANCY_ALIAS
-  debuglevel=info
+  alias=YOUR_FANCY_ALIAS #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
   maxpendingchannels=5
+  color=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
   listen=localhost
+  debuglevel=info
 
   # Password: automatically unlock wallet with the password in this file
   # -- comment out to manually unlock wallet, and see RaspiBolt guide for more secure options
@@ -168,17 +170,26 @@ To improve the security of your wallet, check out these more advanced methods:
   wallet-unlock-allow-create=true
 
   # Channel settings
-  bitcoin.basefee=1000
-  bitcoin.feerate=1
-  minchansize=100000
+  # Fee settings - default LND base fee = 1000 (mSat), default LND fee rate = 1 (ppm) #You can choose whatever you want i.e ZeroFeeRouting (0,0)
+  #bitcoin.basefee=0
+  #bitcoin.feerate=0
+
+  # Minimum channel size (in satoshis, default and minimun from source code is 20,000 sats) # You can choose whatever you want
+  #minchansize=20000
+
   accept-keysend=true
   accept-amp=true
   protocol.wumbo-channels=true
   protocol.no-anchors=false
   coop-close-target-confs=24
 
-  # Watchtower
+  # Watchtower client
   wtclient.active=true
+  # Specify the fee rate with which justice transactions will be signed. The default is 10 sat/byte.
+  #wtclient.sweep-fee-rate=10
+
+  # Watchtower server
+  watchtower.active=1
 
   # Performance
   gc-canceled-invoices-on-startup=true
@@ -189,8 +200,8 @@ To improve the security of your wallet, check out these more advanced methods:
 
   # Database
   [bolt]
-  db.bolt.auto-compact=true
-  db.bolt.auto-compact-min-age=168h
+  db.bolt.auto-compact=true # False to disable auto-compact DB and fast boot and comment the next line
+  db.bolt.auto-compact-min-age=168h # Set this value to "0" do DB compact at every LND reboot
 
   [Bitcoin]
   bitcoin.active=1
@@ -200,7 +211,6 @@ To improve the security of your wallet, check out these more advanced methods:
   [tor]
   tor.active=true
   tor.v3=true
-  tor.streamisolation=true
   ```
 
 🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options, and visit the [Lightning Node Management](https://www.lightningnode.info/){:target="_blank"} site by Openoms to learn more.*
@@ -327,7 +337,7 @@ Now, let's set up LND to start automatically on system startup.
   ```
 
   ```sh
-  # RaspiBolt: systemd unit for lnd
+  # MiniBolt: systemd unit for lnd
   # /etc/systemd/system/lnd.service
 
   [Unit]
@@ -463,7 +473,6 @@ As soon as your funding transaction is mined (1 confirmation), LND will show its
 💡 If you want to open a few channels, you might want to send a few transactions.
 If you have only one UTXO, you need to wait for the change to return to your wallet after every new channel opening.
 
-
 ### Opening channels
 
 Although LND features an optional "autopilot", we manually open some channels.
@@ -525,7 +534,6 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
     * lncli sendpayment --dest 02acd93e3352fd59066ca3f23e8865de1926301e8be03c6a52f0f7e43533fe9888 --amt 1 --keysend
     ```
 
-
 ### Adding watchtowers
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
@@ -564,6 +572,7 @@ It's good practice to add a few watchtowers, just to be on the safe side.
       ]
   }
   ```
+
 * Check out this [list of altruistic public watchtowers](https://github.com/openoms/lightning-node-management/issues/4){:target="_blank"} maintained by Openoms, and add a few more.
 
 * If you want to list your towers
@@ -656,6 +665,15 @@ A quick reference with common commands to play around with:
   $ lncli addinvoice [AMOUNT_IN_SATOSHIS]
   ```
 
+* Create an Re-Usable Static AMP invoice:
+  
+  ```sh
+  $ lncli addinvoice --memo <your memo here> --amt <amount in sats> --expiry <time in seconds> --amp
+  ```
+
+Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
+💡 Flags `--memo <your memo here> --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time are 30 days and the rest can be empty.
+
 * List all invoices:
   [`listinvoices`](https://api.lightning.community/#listinvoices){:target="_blank"}
 
@@ -678,7 +696,7 @@ A quick reference with common commands to play around with:
   $ lncli closechannel --force [FUNDING_TXID] [OUTPUT_INDEX]
   ```
 
-🔍 _more: full [LND API reference](https://api.lightning.community/){:target="_blank"}_
+🔍 _more: full [LND API reference](https://api.lightning.community/){:target="_blank"}
 
 ---
 

@@ -36,14 +36,14 @@ Desktop wallets like [Sparrow](https://sparrowwallet.com/){:target="_blank"}, th
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync)#prepare-nginx-reverse-proxy after full sync.
+Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync) after full sync.
 
 ### Install dependencies
 
 * Install build tools needed to compile Electrs from the source code
 
   ```sh
-  $ sudo apt install cargo clang cmake
+  $ sudo apt install cargo clang cmake build-essential librocksdb-dev
   ```
 
 ### Firewall & reverse proxy
@@ -62,7 +62,6 @@ Now we can add the Electrs configuration.
   upstream electrs {
     server 127.0.0.1:50001;
   }
-
   server {
     listen 50002 ssl;
     proxy_pass electrs;
@@ -79,7 +78,7 @@ Now we can add the Electrs configuration.
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow 50002/tcp comment 'allow Electrum SSL'
+  $ sudo ufw allow 50002 comment 'allow Electrum SSL'
   ```
 
 ---
@@ -98,8 +97,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   Other releases might not have been properly tested with the rest of the RaspiBolt configuration, though.
 
   ```sh
-  $ mkdir /home/admin/rust
-  $ cd /home/admin/rust
+  $ cd /tmp
   $ git clone --branch v0.9.9 https://github.com/romanz/electrs.git
   $ cd electrs
   ```
@@ -115,12 +113,17 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
   ```
 
-* Now compile the source code into an executable binary and install it.
-  The compilation process can take up to one hour.
+* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
 
   ```sh
-  $ cargo build --locked --release
-  $ sudo cp ./target/release/electrs /usr/local/bin/
+  $ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
+  ```
+
+* Delete `electrs` folder to be ready for the next update
+
+  ```sh
+  $ rm -r electrs
   ```
 
 ### Configuration
@@ -147,12 +150,13 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   ```
 
   ```sh
-  # RaspiBolt: electrs configuration
+  # MiniBolt: electrs configuration
   # /data/electrs/electrs.conf
 
   # Bitcoin Core settings
   network = "bitcoin"
-  daemon_dir= "/home/bitcoin/.bitcoin"
+  daemon_dir= "/data/bitcoin"
+  cookie_file= "/data/bitcoin/.cookie"
   daemon_rpc_addr = "127.0.0.1:8332"
   daemon_p2p_addr = "127.0.0.1:8333"
 
@@ -173,7 +177,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   ```
 
   ```sh
-  Starting electrs 0.9.9 on aarch64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/home/bitcoin/.bitcoin", daemon_auth: CookieFile("/home/bitcoin/.bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: Some(1000), reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs 0.9.9 (Electrum Rust Server)!", args: [] }
+  Starting electrs 0.9.9 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs 0.9.9 (Electrum Rust Server)!", args: [] }
   [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
   [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 127.0.0.1:50001
   [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
@@ -186,7 +190,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   ...
   ```
 
-* Stop Electrs with `Ctrl`-`C` and exit the "electrs" user session.
+* Stop Electrs with `Ctrl`-`C` and exit the "electrs" user session
 
   ```sh
   $ exit
@@ -196,14 +200,14 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
 Electrs needs to start automatically on system boot.
 
-* As user "admin", create the Electrs systemd unit and copy/paste the following configuration. Save and exit.
+* As user "admin", create the Electrs systemd unit and copy/paste the following configuration. Save and exit
 
   ```sh
   $ sudo nano /etc/systemd/system/electrs.service
   ```
 
   ```sh
-  # RaspiBolt: systemd unit for electrs
+  # MiniBolt: systemd unit for electrs
   # /etc/systemd/system/electrs.service
 
   [Unit]
@@ -215,7 +219,7 @@ Electrs needs to start automatically on system boot.
 
   # Service execution
   ###################
-  ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf
+  ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
 
   # Process management
   ####################
@@ -238,6 +242,12 @@ Electrs needs to start automatically on system boot.
   # Provide a private /tmp and /var/tmp.
   PrivateTmp=true
 
+  # Mount /usr, /boot/ and /etc read-only for the process.
+  ProtectSystem=full
+
+  # Deny access to /home, /root and /run/user
+  ProtectHome=true
+
   # Use a new /dev namespace only populated with API pseudo devices
   # such as /dev/null, /dev/zero and /dev/random.
   PrivateDevices=true
@@ -249,14 +259,14 @@ Electrs needs to start automatically on system boot.
   WantedBy=multi-user.target
   ```
 
-* Enable and start Electrs.
+* Enable and start Electrs
 
   ```sh
   $ sudo systemctl enable electrs
   $ sudo systemctl start electrs
   ```
 
-* Check the systemd journal to see Electrs' log output.
+* Check the systemd journal to see Electrs' log output
 
   ```sh
   $ sudo journalctl -f -u electrs
@@ -268,25 +278,24 @@ Electrs needs to start automatically on system boot.
 * Exit the log output with `Ctrl`-`C`
 
 ### Remote access over Tor (optional)
-
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service.
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family.
 Note that the remote device needs to have Tor installed as well.
 
-* Add the following three lines in the section for "location-hidden services" in the `torrc` file.
+* Add the following three lines in the section for "location-hidden services" in the `torrc` file
 
   ```sh
   $ sudo nano /etc/tor/torrc
   ```
 
   ```sh
-  ############### This section is just for location-hidden services ###
+  # Hidden Service Electrs SSL
   HiddenServiceDir /var/lib/tor/hidden_service_electrs/
   HiddenServiceVersion 3
   HiddenServicePort 50002 127.0.0.1:50002
   ```
 
-* Reload Tor configuration and get your connection address.
+* Reload Tor configuration and get your connection address
 
   ```sh
   $ sudo systemctl reload tor
@@ -295,7 +304,6 @@ Note that the remote device needs to have Tor installed as well.
   ```
 
 ---
-
 💡 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets.
 This can take a few hours.
 Only proceed with the [next section](desktop-wallet.md) once Electrs is ready.
@@ -307,7 +315,6 @@ Only proceed with the [next section](desktop-wallet.md) once Electrs is ready.
   ```
 
 ---
-
 ## For the future: Electrs upgrade
 
 Updating Electrs is straight-forward.
@@ -322,36 +329,21 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
   $ electrs --version
   ```
 
-* If a newer release is available, you can upgrade by executing the following commands with user "admin"
+* Stop Electrs
 
   ```sh
-  $ cd /home/admin/rust/electrs
+  $ sudo systemctl stop electrs
+  ```
 
-  # update the local source code and show the latest release tag (example: v0.9.9)
-  $ git fetch
-  $ git tag | sort --version-sort | tail -n 1
-  > v0.9.9
+* Download, verify it, compile it to an executable binary and install it as described in the [Build from source code section](electrum-server.md#build-from-source-code) of this guide.
 
-  # check out the most recent release (replace v0.9.9 with the actual version)
-  $ git checkout v0.9.9
-
-  # Compile the source code
-  $ cargo clean
-  $ cargo build --locked --release
-
-  # Back up the old version and update
-  $ sudo cp /usr/local/bin/electrs /usr/local/bin/electrs-old
-  $ sudo mv ./target/release/electrs /usr/local/bin/
-
-  # Update the Electrs configuration if necessary (see release notes)
-  $ nano /data/electrs/electrs.conf
-
-  # Start Electrs
-  $ sudo systemctl restart electrs
+* Start Electrs again
+  
+  ```sh
+  $ sudo systemctl start electrs
   ```
 
 <br /><br />
 
 ---
-
 Next: [Desktop wallet >>](desktop-wallet.md)
