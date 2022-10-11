@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Trezor Agent
-parent: + Raspberry Pi
+parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
 
 ## Bonus guide: Trezor Agent
+
 {: .no_toc }
 
 Difficulty: Easy

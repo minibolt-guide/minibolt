@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Odroid Setup
-parent: + Raspberry Pi
+parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
 
 ## Bonus guide: Odroid XU Setup Guide
+
 {: .no_toc }
 
 Difficulty: Intermediate

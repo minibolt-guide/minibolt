@@ -1,13 +1,14 @@
 ---
 layout: default
 title: System overview
-parent: + Raspberry Pi
+parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
 
 # Bonus guide: System overview
+
 {: .no_toc }
 
 To get a quick overview of the system status, you can use [a shell script](https://github.com/raspibolt/raspibolt/blob/master/resources/20-raspibolt-welcome){:target="_blank"} that gathers the most relevant data.

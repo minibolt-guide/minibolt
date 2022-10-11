@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Boot from microSD card
-parent: + Raspberry Pi
+parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
 
 ## Bonus Guide: Boot from microSD instead of external drive
+
 {: .no_toc }
 
 ---
@@ -35,13 +36,16 @@ Table of contents
 To boot from a microSD card and store the data on an external drive, there are a few additional steps compared to the default RaspiBolt guide.
 Below is a summary of the main differences, with detailed guidance in the following sections.
 
-1. [Operating system](../../raspberry-pi/operating-system.md):
-  * write the operating system to the microSD card instead of the external drive
-1. [System configuration](../../raspberry-pi/system-configuration.md):
-  * attach the external drive
-  * test the USB3 performance
-  * format the drive
-  * mount the drive to `/data`
+1. [Operating system](../../system/operating-system.md):
+
+    * write the operating system to the microSD card instead of the external drive
+
+1. [System configuration](../../system/system-configuration.md):
+
+    * attach the external drive
+    * test the USB3 performance
+    * format the drive
+    * mount the drive to `/data`
 
 ---
 
@@ -58,7 +62,6 @@ Connect your external drive to the Raspberry Pi using one of the blue USB3 ports
 Follow the [System configuration](../../raspberry-pi/system-configuration.md) section until you reach [Data directory](../../raspberry-pi/system-configuration.md#data-directory), continuing with the instructions below.
 
 In case your external drive shows poor performance, follow the [Fix bad USB3 performance](../../troubleshooting.md#fix-bad-usb3-performance) instructions, as mentioned in the guide.
-
 
 #### Format external drive
 
@@ -112,7 +115,7 @@ The external drive is then attached to the file system and becomes available as 
   $ sudo nano /etc/fstab
   ```
 
-  ```
+  ```sh
   UUID=123456 /data ext4 rw,nosuid,dev,noexec,noatime,nodiratime,auto,nouser,async,nofail 0 2
   ```
 
@@ -149,7 +152,8 @@ Therefore, we move the swap file to the external drive and increase its size as 
   ```sh
   $ sudo nano /etc/dphys-swapfile
   ```
-  ```
+
+  ```sh
   CONF_SWAPFILE=/data/swapfile
 
   # comment or delete the CONF_SWAPSIZE line. It will then be created dynamically
@@ -171,6 +175,6 @@ That's it: your Raspberry Pi now boots from the microSD card while the data dire
 
 You can now continue with the RaspiBolt guide.
 
-------
+---
 
-<< Back: [+ Raspberry Pi](index.md)
+<< Back: [+ System](index.md)

@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Pimp the CLI
-parent: + Raspberry Pi
+parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
 
 ## Bonus guide: Pimp the command line
+
 {: .no_toc }
 
 Difficulty: Easy

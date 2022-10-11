@@ -1,14 +1,15 @@
 ---
 layout: default
 title: Configure UPS NUT
-parent: + Raspberry Pi
-grand_parent: Bonus Section
+parent: + System
+grand_parent: System
 nav_exclude: true
 has_toc: false
 
 ---
 
 ## Bonus Guide: Configure NUT to safely shutdown your node
+
 {: .no_toc }
 
 ---

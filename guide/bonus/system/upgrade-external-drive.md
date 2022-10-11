@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Upgrade External Drive
-parent: + Raspberry Pi
-grand_parent: Bonus Section
+parent: + System
+grand_parent: System
 nav_exclude: true
 has_toc: false
 ---
 
 ## Bonus Guide: Upgrade External Drive
+
 {: .no_toc }
 
 Difficulty: Intermediate

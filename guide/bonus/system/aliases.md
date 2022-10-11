@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Aliases
-parent: + Raspberry Pi
+parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
 
 # Bonus guide: Aliases
+
 {: .no_toc }
 
 ---
