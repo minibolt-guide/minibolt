@@ -2,10 +2,6 @@
 remote_theme: pmarsceill/just-the-docs
 search_enabled: true
 aux_links:
-    "Pull requests"
-      - "https://github.com/twofaktor/minibolt/pulls"
-    "Issues / Knowledge Base":
-      - "https://github.com/twofaktor/minibolt/issues"
     "Contribute! Source on GitHub":
       - "https://github.com/twofaktor/minibolt"
 
