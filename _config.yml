@@ -7,7 +7,7 @@ aux_links:
     "Contribute! Source on GitHub":
       - "https://github.com/twofaktor/minibolt"
 
-color_scheme: raspibolt-dark.scss
+color_scheme: minibolt-dark.scss
 
 # defaults
 defaults:
