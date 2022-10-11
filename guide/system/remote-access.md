@@ -119,4 +119,4 @@ $ ls -la
 
 ---
 
-Next: [System configuration >>](system-configuration.md)
+Next: [System configuration >>](configuration.md)

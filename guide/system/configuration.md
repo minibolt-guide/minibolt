@@ -1,6 +1,6 @@
 ---
 layout: default
-title: System configuration
+title: Configuration
 nav_order: 30
 parent: System
 ---

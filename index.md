@@ -64,7 +64,7 @@ If you like to learn about Linux, Bitcoin, and Lightning, then this guide is for
 
 We aim to keep the core of this guide well maintained and up-to-date:
 
-1. [Raspberry Pi](guide/raspberry-pi/index.md): prepare the hardware and set up the operating system
+1. [System](guide/system/index.md): prepare the hardware and set up the operating system
 1. [Bitcoin](guide/bitcoin/index.md): sync your own Bitcoin full node, Electrum server, and Blockchain Explorer
 1. [Lightning](guide/lightning/index.md): run your own Lightning client with web-based node management
 
