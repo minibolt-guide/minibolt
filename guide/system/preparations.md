@@ -2,7 +2,7 @@
 layout: default
 title: Preparations
 nav_order: 10
-parent: Raspberry Pi
+parent: System
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD040 -->
 {% include include_metatags.md %}

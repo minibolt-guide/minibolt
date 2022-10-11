@@ -16,7 +16,7 @@ In the following categories, you can find various additional and optional guides
 
 ## Bonus guide categories
 
-* **[Raspberry Pi](raspberry-pi/index.md)**
+* **[System](system/index.md)**
 * **[Bitcoin](bitcoin/index.md)**
 * **[Lightning](lightning/index.md)**
 

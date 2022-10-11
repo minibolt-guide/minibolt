@@ -2,7 +2,7 @@
 layout: default
 title: System configuration
 nav_order: 30
-parent: Raspberry Pi
+parent: System
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 {% include include_metatags.md %}

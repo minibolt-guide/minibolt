@@ -2,7 +2,7 @@
 layout: default
 title: Privacy
 nav_order: 50
-parent: Raspberry Pi
+parent: System
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 {% include include_metatags.md %}
