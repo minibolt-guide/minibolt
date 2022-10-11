@@ -7,7 +7,7 @@ has_children: false
 has_toc: false
 ---
 
-# Bonus Section: Raspberry Pi guides
+# Bonus Section: System guides
 
 ---
 
