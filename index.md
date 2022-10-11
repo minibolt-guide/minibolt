@@ -33,7 +33,7 @@ Did we mention that it's fun, as well?
 
 ## MiniBolt overview
 
-This guide explains how to set up your own Bitcoin node on a cheap Raspberry Pi.
+This guide explains how to set up your own Bitcoin node on a Personal Computer.
 But it works on most hardware platforms because it only uses standard Debian Linux commands.
 
 ### Features
