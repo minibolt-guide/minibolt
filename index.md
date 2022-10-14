@@ -83,9 +83,9 @@ Running into issues?
 This is a community project.
 Find help and other RaspiBolt users on the following platforms:
 
-* [Github Issues / Knowledge Base](https://github.com/raspibolt/raspibolt/issues){:target="_blank"}
-* Reddit sub: [r/raspibolt](https://www.reddit.com/r/raspibolt/){:target="_blank"}
-* Telegram group: [t.me/raspibolt](https://t.me/raspibolt){:target="_blank"}
+* [Github Issues / Knowledge Base](){:target="_blank"}
+* Reddit sub: [r/minibolt](){:target="_blank"}
+* Telegram group: [t.me/minibolt](){:target="_blank"}
 
 And feel free to join the many other contributors if you see something that can be improved!
 

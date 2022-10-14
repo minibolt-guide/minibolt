@@ -44,10 +44,16 @@ Table of contents
 
 ### Installation
 
-* Ensure that you are logged with user "admin" and use PPA repository
+* Ensure that you are logged with user "admin" and install apt-transport-https package
 
   ```sh
-  $ sudo add-apt-repository ppa:purplei2p/i2pd
+  $ sudo apt install apt-transport-https
+  ```
+
+* Automatically add repository
+
+  ```sh
+  $ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
   ```
 
 * Install i2pd as any other software package
@@ -72,7 +78,7 @@ Table of contents
   ```sh
   $ sudo systemctl restart i2pd
   ```
-
+  
 * Enable autoboot on start
 
   ```sh
@@ -89,16 +95,16 @@ Table of contents
 
   ```sh
   * i2pd.service - I2P Router written in C++
-     Loaded: loaded (/lib/systemd/system/i2pd.service; enabled; vendor preset: enabled)
-     Active: active (running) since Thu 2022-08-11 15:35:54 UTC; 3 days ago
+      Loaded: loaded (/lib/systemd/system/i2pd.service; enabled; vendor preset: enabled)
+      Active: active (running) since Thu 2022-08-11 15:35:54 UTC; 3 days ago
         Docs: man:i2pd(1)
               https://i2pd.readthedocs.io/en/latest/
-     Main PID: 828 (i2pd)
+    Main PID: 828 (i2pd)
         Tasks: 14 (limit: 9274)
-     Memory: 56.1M
-       CPU: 33min 28.265s
-     CGroup: /system.slice/i2pd.service
-             -175224 /usr/sbin/i2pd --conf=/etc/i2pd/i2pd.conf --tunconf=/etc/i2pd/tunnels.conf --tunnel...
+      Memory: 56.1M
+          CPU: 33min 28.265s
+      CGroup: /system.slice/i2pd.service
+              -175224 /usr/sbin/i2pd --conf=/etc/i2pd/i2pd.conf --tunconf=/etc/i2pd/tunnels.conf --tunnel...
   Sep 27 18:54:57 minibolt systemd[1]: Starting I2P Router written in C++...
   Sep 27 18:54:57 minibolt systemd[1]: Started I2P Router written in C++.
   [...]
@@ -107,19 +113,24 @@ Table of contents
 * Ensure that i2pd service is working and listening at the default ports
 
   ```sh
-  $ sudo lsof -i -P -n | grep i2pd | grep LISTEN
+  $ sudo ss -tulpn | grep i2pd | grep LISTEN
+  ```
+
+Output expected:
+
+  ```sh
+  tcp   LISTEN 0      4096            0.0.0.0:23570       0.0.0.0:*    users:(("i2pd",pid=827,fd=17))
+  tcp   LISTEN 0      4096           127.0.0.1:4444       0.0.0.0:*    users:(("i2pd",pid=827,fd=29))
+  tcp   LISTEN 0      4096           127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",pid=827,fd=22))
+  tcp   LISTEN 0      4096           127.0.0.1:4447       0.0.0.0:*    users:(("i2pd",pid=827,fd=30))
+  tcp   LISTEN 0      4096           127.0.0.1:7656       0.0.0.0:*    users:(("i2pd",pid=827,fd=38))
+  tcp   LISTEN 0      4096           127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",pid=827,fd=34))
   ```
 
 * See “i2p” in action by monitoring its log file. Exit with Ctrl-C
 
   ```sh
   $ sudo tail -f /var/log/i2pd/i2pd.log
-  ```
-
-💡 If the prompt show you "sudo: lsof: command not found", it means that you don't have "lsof" installed yet, install it with next command and try again
-
-  ```sh
-  $ sudo apt install lsof
   ```
 
 ### Configure Bitcoin Core
@@ -163,7 +174,7 @@ We need to set up settings in Bitcoin Core configuration file to enable I2P conn
 
   ```sh
   Bitcoin Core client v23.0.0 - server 70016/Satoshi:23.0.0/
-          ipv4    ipv6   onion   i2p   total   block
+            ipv4    ipv6   onion   i2p   total   block
   in          0       0      25     2      27
   out         7       0       2     1      10       2
   total       7       0      27     3      37

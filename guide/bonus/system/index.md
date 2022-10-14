@@ -1,6 +1,6 @@
 ---
 layout: default
-title: + System
+title: + Raspberry Pi
 nav_order: 1000
 parent: Bonus Section
 has_children: false
@@ -34,6 +34,7 @@ has_toc: false
 ## Resilience
 
 * **[UPS NUT](ups-nut.md)** - have your RaspiBolt automatically and safely shutdown when a connected UPS reaches a critical power level
+* **[Tor Bridge](tor-bridge.md)** - run an obfs4 bridge to help censored users connect to the Tor network
 
 ---
 

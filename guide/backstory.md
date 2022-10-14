@@ -9,7 +9,7 @@ nav_order: 10
 # Backstory
 {: .no_toc }
 
-Hey, I'm [TwoFakTor](https://github.com/twofaktor){:target="_blank"}, and I wrote the first version of this guide back in 2017 when Lightning was pretty obscure.
+Hey, I'm [2FakTor](https://github.com/twofaktor){:target="_blank"}, and I wrote the first version of this guide back in 2017 when Lightning was pretty obscure.
 I love to tinker and build stuff.
 
 ## Why am I excited about Bitcoin and Lightning?
