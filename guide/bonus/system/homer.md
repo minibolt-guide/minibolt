@@ -63,8 +63,6 @@ This guide assumes that you have followed the main RaspiBolt guide and installed
   $ sudo ufw status
   ```
 
----
-
 ## Homer
 
 ### Installation
@@ -139,7 +137,7 @@ However, if you want to re-install Homer for whatever reason, you will have to r
 
 * Create a nginx configuration file for the Homer website with a HTTPS server listening on port 4091
 
-  ```sh 
+  ```sh
   $ sudo nano /etc/nginx/sites-available/homer-ssl.conf
   ```
 
@@ -590,7 +588,8 @@ You can search for icons from the [Font Awesome website](https://fontawesome.com
 * Paste this code snippet, between double quotes, as value after `icon:`
 
 **Notes:**
-* Not all Font Awesome icons are accepted by Homer. 
+
+* Not all Font Awesome icons are accepted by Homer.
 * You can replace `fa-solid` by `fas`; `fa-brands` by `fab` etc.
 
 ### More
@@ -722,6 +721,6 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
 
 <br /><br />
 
-------
+---
 
-<< Back: [+ Raspberry Pi](index.md)
+<< Back: [+ System](index.md)
