@@ -196,7 +196,7 @@ In order to do that we create a systemd unit that starts the service on boot dir
 
 * Paste the following configuration. Save and exit.
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for Thunderhub
   # /etc/systemd/system/thunderhub.service
 
@@ -243,7 +243,7 @@ You can easily do so by adding a Tor hidden service on the RaspiBolt and accessi
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```ini
+  ```sh
   ############### This section is just for location-hidden services ###
   # Hidden Service Thunderhub
   HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
@@ -394,4 +394,4 @@ After possible data corruption of your LND node, ensure that this old node is co
   
 <br /><br />
 
-<<Back: [+ Lightning](index.md)
+<< Back: [+ Lightning](index.md)

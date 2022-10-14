@@ -117,7 +117,8 @@ You're set! You can now use Zap on your computer to send and receive LN payments
 
 ## Update
 
-Zap download and install updates automatically by default. If you want to disable the auto-update and update Zap manually: 
+Zap download and install updates automatically by default. If you want to disable the auto-update and update Zap manually:
+
 * Go to "File" > "Preferences" > "General"
 * Click on the autoupdate slider
 * Click "Save"
