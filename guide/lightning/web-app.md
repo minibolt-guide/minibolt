@@ -73,7 +73,7 @@ Now we can add the RTL configuration.
 * Configure firewall to allow incoming HTTPS requests:
 
   ```sh
-  $ sudo ufw allow 4001/tcp comment 'allow RTL SSL'
+  $ sudo ufw allow 4001 comment 'allow Ride The Lightning SSL'
   $ sudo ufw status
   ```
 

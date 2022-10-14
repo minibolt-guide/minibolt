@@ -5,6 +5,7 @@ nav_order: 10
 parent: Lightning
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
 # Lightning client
 {: .no_toc }
 
@@ -115,7 +116,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
   $ ls -la
   ```
 
-  ![symlinks](../../images/lnd-symlink-colour.png)
+![symlinks](../../images/lnd-symlink-colour.png)
 
 ### Wallet password
 

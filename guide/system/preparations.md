@@ -33,16 +33,13 @@ It only uses standard Debian instructions.
 You need the following hardware:
 
 * Personal Computer, with 4+ GB RAM
-* Internal storage: 1+ TB with USB3, an SSD is recommended
+* Internal storage: 1+ TB, a SSD is recommended
 
 The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 500 GB and growing.
-You can buy a cheap hard disk enclosure and reuse an old hard disk.
-We recommend getting a modern 2.5" SSD that can be powered through the USB connection to the Pi directly.
-This also speeds up the initial sync time for the blockchain significantly.
 
 You might also want to get this optional hardware:
 
-*
+* UPS (uninterruptible power supply)
 
 ---
 

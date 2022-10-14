@@ -61,9 +61,9 @@ NOTE: Depending on the driver/hardware of your system, you may need to comment o
 
   ```sh
   [UPS-Name]
-  	driver = usbhid-ups
-  	port = auto
-  	desc = “UPS Make Model or whatever”
+  driver = usbhid-ups
+  port = auto
+  desc = “UPS Make Model or whatever”
   ```
 
 Configure the daemon to know what all it needs to run (ie. Server, client, etc). The assumption for this scenario is you’re running a single device directly connected to the data port of the UPS and do not care about any other devices connected to the UPS (in terms of shutting them down).
@@ -103,12 +103,12 @@ Configure the monitor that will alert watch, alert, and shutdown the device if n
 
   ```ini
   [admin]
-  	password = secretpassword
-  	actions = SET
-  	instcmds = ALL
+  password = secretpassword
+  actions = SET
+  instcmds = ALL
   [upsmon] 
-  	password = secretpassword1
-  	upsmon master
+  password = secretpassword1
+  upsmon master
   ```
 
 Modify `upsmon.conf` with what it should do as events occur. Pretty large config file, but the primary item to find is the MONITOR area (capital letters are necessary). You’re telling it to monitor your UPS that is locally connected. The 1 is the power value and shouldn’t be changed unless you’re connected to multiple UPS (not typical). You then use the `upsmon` username and password you configured in `upsd.users` and the master indicates that it’ll shut down this computer last (which is fine since this is a single node application)
@@ -191,8 +191,8 @@ Add a new user for upsmon on the client to use to access the server status. Appe
 
   ```ini
   [upsmon-remote]
-  	password = secretpassword2
-  	upsmon slave
+  password = secretpassword2
+  upsmon slave
   ```
 
 Modify `upsd.conf` to tell the server to listen for connections. The loopback is for ‘localhost’ connections. Change 192.168.1.2 to be whatever address you have assigned to the server. If you get settings dynamically from DHCP, you’ll need to configure a means to set a static address. Or modify /etc/hosts on multiple systems. 3493 is the default port that NUT uses. It seems silly to have to use both addresses, but it’s been the only way I’ve had success in a server/client configuration.

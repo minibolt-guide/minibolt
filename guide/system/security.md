@@ -127,7 +127,7 @@ We'll open the port for Electrs and web applications later if needed.
   ```sh
   $ sudo ufw default deny incoming
   $ sudo ufw default allow outgoing
-  $ sudo ufw allow SSH
+  $ sudo ufw allow from 192.168.0.0/16 to any port 22 comment 'allow SSH from local network'
   $ sudo ufw logging off
   $ sudo ufw enable
   ```
@@ -146,8 +146,7 @@ We'll open the port for Electrs and web applications later if needed.
   >
   > To                         Action      From
   > --                         ------      ----
-  > SSH                        ALLOW       Anywhere
-  > SSH (v6)                   ALLOW       Anywhere (v6)
+  > SSH                        ALLOW       192.168.0.0/16
   ```
 
 🔍 *more: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands){:target="_blank"}*

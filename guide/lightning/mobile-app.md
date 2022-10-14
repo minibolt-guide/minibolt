@@ -5,6 +5,7 @@ nav_order: 60
 parent: Lightning
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
 # Mobile app
 {: .no_toc }
 
@@ -37,6 +38,7 @@ Zeus will access the node via Tor.
 
   ```ini
   ############### This section is just for location-hidden services ###
+  # Hidden Service LND API
   HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
   HiddenServiceVersion 3
   HiddenServicePort 8080 127.0.0.1:8080
@@ -60,9 +62,9 @@ Zeus will access the node via Tor.
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-arm64-v0.2.0.tar.gz
-  $ tar -xvf lndconnect-linux-arm64-v0.2.0.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-arm64-v0.2.0/lndconnect
+  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-amd64-v0.2.0.tar.gz
+  $ tar -xvf lndconnect-linux-amd64-v0.2.0.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v0.2.0/lndconnect
   $ cd
   ```
 
@@ -146,6 +148,8 @@ To uninstall, you need to uninstall the app on your phone and deactivate the LND
   ```
 
   ```ini
+  ############### This section is just for location-hidden services ###
+  # Hidden Service LND API
   #HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
   #HiddenServiceVersion 3
   #HiddenServicePort 8080 127.0.0.1:8080

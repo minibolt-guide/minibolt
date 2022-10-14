@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Boot from microSD card
+title: Store data in a secondary disk
 parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
 
-## Bonus Guide: Boot from microSD instead of external drive
+## Bonus Guide: Store data in a secondary disk
 
 {: .no_toc }
 

@@ -54,12 +54,7 @@ It should display a "Success" message after.
 
 * Safely eject the Pen Drive from your computer
 * Connect it to your Personal Computer
-* Start the PC and select pen drive as boot divice
-
-## Fallback: if you can't boot from your external drive
-
-We assume that you can boot directly from the external drive.
-This method works for most modern drives, but if it doesn't work in your case, please follow the fallback instructions [Boot from microSD card instead of external drive](../bonus/raspberry-pi/boot-from-microsd-card.md).
+* Start the PC and select pen drive as boot device
 
 <br /><br />
 

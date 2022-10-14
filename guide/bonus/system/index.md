@@ -40,7 +40,7 @@ has_toc: false
 
 ## Hardware
 
-* **[Boot from microSD card](boot-from-microsd-card.md)** - if your Raspberry Pi is not able to boot directly from the external drive, these instructions explain how to boot from a microSD card and attach the external drive for data storage
+* **[Store data in a secondary disk](store-data-secondary-disk.md)** - if your Raspberry Pi is not able to boot directly from the external drive, these instructions explain how to boot from a microSD card and attach the external drive for data storage
 * **[Upgrade external drive](upgrade-external-drive.md)** - periodically, as the size of the blockchain grows, you will need to upgrade to a larger drive
 * **[Odroid setup: an alternative to Raspberry Pi](odroid-setup.md)** - how to setup RaspiBolt using an Odroid XU4 or compatible hardware
 
