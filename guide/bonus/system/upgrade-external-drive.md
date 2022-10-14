@@ -118,7 +118,7 @@ We will now check if your drive works well as-is, or if additional configuration
 
   Once the system recognizes it, details are automatically displayed by the `dmesg` command.
 
-  ```
+  ```sh
   [816984.221283] usb 2-2: new SuperSpeed Gen 1 USB device number 3 using xhci_hcd
   [816984.252697] usb 2-2: New USB device found, idVendor=152d, idProduct=1561, bcdDevice= 2.04
   [816984.252713] usb 2-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
@@ -189,7 +189,7 @@ We will now check if your drive works well as-is, or if additional configuration
     Make sure that there is a single space character (` `) between our addition and the next parameter.
     Save and exit.
 
-    ```
+    ```sh
     usb-storage.quirks=152d:1561:u ..............
     ```
 
@@ -242,13 +242,13 @@ We will now check if your drive works well as-is, or if additional configuration
   $ sudo nano /etc/fstab
   ```
 
-  ```
+  ```sh
   UUID=123456 /mnt/extnew ext4 rw,nosuid,dev,noexec,noatime,nodiratime,auto,nouser,async,nofail 0 2
   ```
 
   Here is an example of the new mount point for the new drive along side the original drive
 
-  ```
+  ```sh
   proc            /proc           proc    defaults          0       0
   PARTUUID=738a4d67-01  /boot           vfat    defaults          0       2
   PARTUUID=738a4d67-02  /               ext4    defaults,noatime  0       1
@@ -287,12 +287,12 @@ Presumably, the new external drive is more performant then the original.  We wil
   $ sudo nano /etc/dphys-swapfile
   ```
 
-   ```ini
-   CONF_SWAPFILE=/mnt/extnew/swapfile
+  ```sh
+  CONF_SWAPFILE=/mnt/extnew/swapfile
 
-   # comment or delete the CONF_SWAPSIZE line. It will then be created dynamically
-   #CONF_SWAPSIZE=
-   ```
+  # comment or delete the CONF_SWAPSIZE line. It will then be created dynamically
+  #CONF_SWAPSIZE=
+  ```
 
 * Recreate new swapfile on ssd (will be active after reboot)
 
@@ -314,7 +314,8 @@ We'll use rsync to copy the files, preserving permissions and extended attribute
   ```
 
   The output will show file progression
-  ```
+
+  ```sh
   > sending incremental file list
   > ./
   > bitcoin/
@@ -344,7 +345,7 @@ We'll use rsync to copy the files, preserving permissions and extended attribute
   Over the course of the synchronization, the incremental recursion check can increase until it transitions
   to show `to-chk` in place of `ir-chk` as depicted below.  Once this happens, it has discovered all files to copy.
 
-  ```
+  ```sh
   > bitcoin/indexes/txindex/206971.ldb
   > 360,288,743,724  84%   59.23MB/s    1:36:41 (xfr#19033, to-chk=1695/20739)
   > bitcoin/indexes/txindex/206972.ldb
@@ -363,6 +364,7 @@ We'll use rsync to copy the files, preserving permissions and extended attribute
   ```
 
   And when it finishes it should look something like this
+
   ```sh
   > lost+found/
   > 426,795,633,281 100%   54.07MB/s    2:05:28 (xfr#20717, to-chk=0/20739)
@@ -372,6 +374,7 @@ We'll use rsync to copy the files, preserving permissions and extended attribute
   ```
 
   You can do a cursory check to verify the used space is equal between original and new drive
+
   ```sh
   $ df -h
   > Filesystem      Size  Used Avail Use% Mounted on
@@ -387,14 +390,11 @@ We'll use rsync to copy the files, preserving permissions and extended attribute
   > /dev/sdb1       938G  398G  493G  45% /mnt/extnew
   ```
 
-
-
 ---
 
 ### Swap drive mounts
 
 #### Set swap back to original location
-
 
 * Turn off the current swapfile
 
@@ -562,6 +562,6 @@ Now that the new drive contains all the old files, we will remount it in place o
 **Congratulations**, you have now completed the upgrade of your external drive!
 As the blockchain continues to grow you'll be able to repeat these steps in the future.
 
-------
+---
 
-<< Back: [+ Raspberry Pi](index.md)
+<< Back: [+ System](index.md)

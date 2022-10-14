@@ -22,22 +22,18 @@ Let's get all the necessary hardware parts and prepare some passwords.
 
 ---
 
-## Raspberry Pi & other hardware platforms
-This guide builds on the readily available and very flexible Raspberry Pi 4.
-It is a fantastic piece of hardware, a tiny computer-on-a-chip that costs about $60 and consumes very little energy.
+## Personal computer
+This guide builds on the readily available Personal
 
-While the Raspberry Pi is the best choice for most, this guide also works with other computing platforms, clouds servers, or virtual machines that run Debian.
+While a Personal Computer is the best choice for most, this guide also works with other computing platforms, clouds servers, or virtual machines that run Debian.
 It only uses standard Debian instructions.
 
 ## Hardware requirements
 
 You need the following hardware:
 
-* Raspberry Pi 4, with 4+ GB RAM
-* official Raspberry Pi power adapter: other adapters are a common cause for reliability issues
-* external storage: 1+ TB with USB3, an SSD is recommended
-
-Whaaat? No microSD card? Yes, we'll boot the operating system directly to the external drive.
+* Personal Computer, with 4+ GB RAM
+* Internal storage: 1+ TB with USB3, an SSD is recommended
 
 The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 500 GB and growing.
 You can buy a cheap hard disk enclosure and reuse an old hard disk.
@@ -46,8 +42,7 @@ This also speeds up the initial sync time for the blockchain significantly.
 
 You might also want to get this optional hardware:
 
-* optional: Raspberry Pi case to protect your Pi and cool it down
-* optional: a small USB thumbdrive or microSD card to create regular local backups of your Lightning channels
+*
 
 ---
 
@@ -61,7 +56,7 @@ They should be unique and very secure, at least 12 characters in length. Do **no
 [ B ] Bitcoin RPC password
 [ C ] LND wallet password
 [ D ] BTC-RPC-Explorer password (optional)
-[ E ] Ride The Lightning password
+[ E ] Thunderhub
 ```
 
 ![xkcd: Password Strength](../../images/preparations_xkcd.png)
@@ -73,7 +68,7 @@ Store a copy of your passwords somewhere safe (preferably in an open-source pass
 
 ## Secure your home network and devices
 
-While the guide will show you how to secure your node, you will interact with it from your computer and mobile phone and using your home internet network. Before building your RaspiBolt, it is recommended to secure your home network and devices.
+While the guide will show you how to secure your node, you will interact with it from your computer and mobile phone and using your home internet network. Before building your MiniBolt, it is recommended to secure your home network and devices.
 
 * Follow Part 1 and 2 of this ["How to Secure Your Home Network Against Threats"](https://restoreprivacy.com/secure-home-network/){:target="_blank"} tutorial by Heinrich Long, and try to implement as many points as possible (some might not apply to your router/device).
 

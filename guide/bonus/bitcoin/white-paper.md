@@ -9,6 +9,7 @@ has_toc: false
 ---
 
 ## Bonus guide: Download the bitcoin whitepaper directly from your own blockchain
+
 {: .no_toc }
 
 ---
@@ -152,12 +153,11 @@ The BTC-RPC-Explorer has also a functionality to extract the data from the node 
 
 ![Explorer white paper page](../../../images/white-paper-transac.png)
 
-
 * Open your Explorer at [https://raspibolt.local:4000/](https://raspibolt.local:4000/){:target="_blank"} (replace raspibolt.local with your node IP address if needed). 
 * Look-up the transaction ID in the explorer: `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713`
 * Click on the link "bitcoin whitepaper" in the top box, this will generate the PDF from the node blockchain and displays it as a pdf file in the browser.
 * Alternatively, use the following URL: [https://raspibolt.local:4000/bitcoin-whitepaper](https://raspibolt.local:4000/bitcoin-whitepaper){:target="_blank"}
- 
+
 ---
 
 << Back: [+ Bitcoin](index.md)

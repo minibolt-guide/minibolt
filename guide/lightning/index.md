@@ -14,7 +14,6 @@ Now you're all set up for Bitcoin.
 But Bitcoin is not primarily designed for fast and cheap payments.
 The blockchain that records all transactions cannot grow without limit if we want to keep the whole system decentralized and nodes like this RaspiBolt feasible.
 
-
 Building on top of the Bitcoin base layer, the Lightning Network enables instant and cheap everyday payments.
 Your coffee purchase doesn't necessarily need to be validated and recorded by all Bitcoin nodes worldwide if you think about it.
 

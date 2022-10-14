@@ -16,7 +16,7 @@ has_toc: false
 
 Have your RaspiBolt safely shutdown when a connected UPS reaches a critical power level.
 
-Difficulty: Easy’ish
+Difficulty: Easy
 {: .label .label-yellow }
 
 Status: Tested v3
@@ -122,7 +122,7 @@ Modify `upsmon.conf` with what it should do as events occur. Pretty large config
   ```
 
 Other items of interest in `upsmon.conf`
-	
+
 * NOTIFYFLAG section. I like to uncomment ONLINE and ONBATT so that we see state changes in the UPS
 
 * Review SHUTDOWNCMD and ensure it works based on your OS. I believe it determine best command during install
@@ -268,6 +268,6 @@ Check connectivity with NUT master
 You should now see the configuration of the UPS.
 Proceed to test the system with the disconnect/reconnect power or do the full outage testing. Be sure to keep terminal windows open to master and slave to watch as it happens. If configured properly, the client will shutdown first, followed by the server, when the UPS battery is approaching empty. The server will shutdown 5 seconds later (configurable on server’s `/etc/nut/upsmon.conf` with the `FINALDELAY` field if you want to run other scripts on the server prior to shutdown.
 
-------
+---
 
-<< Back: [+ Raspberry Pi](index.md)
+<< Back: [+ System](index.md)

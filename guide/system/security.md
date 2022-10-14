@@ -36,8 +36,8 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
 * You have now generated three new files.
   Keep them safe!
 
-  * `RaspiBolt-Private-Key.ppk`
-  * `RaspiBolt-Public-Key`
+  * `MiniBolt-Private-Key.ppk`
+  * `MiniBolt-Public-Key`
   * `authorized-Keys.txt`
 
 * You also copied the content of `authorized-Keys.txt` into the file `~/.ssh/authorized_keys` on your Pi and changed the directory's permissions to `700`.
@@ -89,6 +89,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   ```sh
   $ sudo nano /etc/ssh/sshd_config
   ```
+
   ```sh
   PasswordAuthentication no
   ChallengeResponseAuthentication no
@@ -124,7 +125,6 @@ We'll open the port for Electrs and web applications later if needed.
 * With user "admin", configure and enable the firewall rules
 
   ```sh
-  $ sudo apt install ufw
   $ sudo ufw default deny incoming
   $ sudo ufw default allow outgoing
   $ sudo ufw allow SSH
@@ -204,7 +204,6 @@ session required                        pam_limits.so
 $ sudo nano /etc/pam.d/common-session-noninteractive
 session required                        pam_limits.so
 ```
----
 
 ## Prepare NGINX reverse proxy
 

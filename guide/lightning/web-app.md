@@ -37,6 +37,7 @@ If you installed BTC RPC Explorer, then you've already accomplished this step.
   ```
 
 * Install Node.js using the apt package manager
+
   ```
   $ sudo apt install nodejs
   ```
@@ -51,7 +52,8 @@ Now we can add the RTL configuration.
   ```sh
   $ sudo nano /etc/nginx/streams-enabled/rtl-reverse-proxy.conf
   ```
-  ```nginx
+
+  ```sh
   upstream rtl {
     server 127.0.0.1:3000;
   }
@@ -82,6 +84,7 @@ Now we can add the RTL configuration.
 We do not want to run Ride the Lightning alongside bitcoind and lnd because of security reasons. For that we will create a separate user and we will be running the code as the new user. We are going to install Ride the Lightning in the home directory since it doesn’t take much space and doesn’t use a database.
 
 * Create a new user, copy the LND credentials and open a new session
+  
   ```sh
   $ sudo adduser --disabled-password --gecos "" rtl
   $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/rtl/admin.macaroon
@@ -167,16 +170,15 @@ Now we take the sample configuration file and add change it to our needs.
 
 * Save and exit
 
-
 ### First start
 
 Test starting "Ride the Lightning" manually first to make sure it works.
 
-```sh
-$ cd /home/rtl/RTL
-$ node rtl
-> Server is up and running, please open the UI at http://localhost:3000
-```
+  ```sh
+  $ cd /home/rtl/RTL
+  $ node rtl
+  > Server is up and running, please open the UI at http://localhost:3000
+  ```
 
 Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://raspibolt.local:4001> (or your nodes ip address, e.g. <https://192.168.0.20:4001>).
 
@@ -186,9 +188,9 @@ Click on "Advanced" and proceed to the RTL web interface.
 
 If everything worked, stop RTL in the terminal with `CTRL`-`C` and exit the "rtl" user session.
 
-```sh
-$ exit
-```
+  ```sh
+  $ exit
+  ```
 
 ### Autostart on boot
 
@@ -251,7 +253,7 @@ You can easily add a Tor hidden service on the RaspiBolt and access the Ride the
   HiddenServicePort 80 127.0.0.1:3000
   ```
 
-  Update Tor configuration changes and get your connection address.
+Update Tor configuration changes and get your connection address.
 
   ```sh
   $ sudo systemctl reload tor

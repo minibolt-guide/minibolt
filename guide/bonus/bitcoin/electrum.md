@@ -9,6 +9,7 @@ has_toc: false
 ---
 
 ## Bonus guide: Electrum wallet
+
 {: .no_toc }
 
 Difficulty: Easy

@@ -3,10 +3,13 @@ layout: default
 title: FAQ
 nav_order: 220
 ---
+
 # Frequently Asked Questions
+
 {: .no_toc }
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -142,16 +145,17 @@ For a specific command, you can enter `man [command]` to display the manual page
 ---
 
 ## Where can I get more information?
+
 If you want to learn more about Bitcoin and are curious about the inner workings of the Lightning Network, the following articles in Bitcoin Magazine offer a very good introduction:
 
 * [What is Bitcoin?](https://bitcoinmagazine.com/guides/what-bitcoin){:target="_blank"}
 * [Understanding the Lightning Network](https://bitcoinmagazine.com/articles/understanding-the-lightning-network-part-building-a-bidirectional-payment-channel-1464710791/){:target="_blank"}
 * [Bitcoin resources](https://www.lopp.net/bitcoin-information.html){:target="_blank"} and [Lightning Network resources](https://www.lopp.net/lightning-information.html){:target="_blank"} by Jameson Lopp
 
-
 ---
 
 ## Setting a fixed address on the Raspberry Pi
+
 If your router does not support setting a static ip address for a single device, you can also do this directly on the Raspberry Pi.
 
 This can be done by configuring the DHCP-Client (on the Pi) to advertise a static IP address to the DHCP-Server (often the router) before it automatically assigns a different one to the Raspberry Pi.
@@ -162,7 +166,7 @@ This can be done by configuring the DHCP-Client (on the Pi) to advertise a stati
 2. Configure the static IP address for the Pi, the gateway path and a DNS server.
    The configuration for the DHCP client (Pi) is located in the `/etc/dhcpcd.conf` file:
 
-   ```
+   ```sh
    sudo nano /etc/dhcpcd.conf
    ```
 
@@ -170,7 +174,7 @@ This can be done by configuring the DHCP-Client (on the Pi) to advertise a stati
 
    Add the following to the `/etc/dhcpcd.conf` file:
 
-   ```
+   ```sh
    # Configuration static IP address (CHANGE THE VALUES TO FIT FOR YOUR NETWORK)
    interface eth0
    static ip_address=192.168.178.100/24
@@ -181,6 +185,6 @@ This can be done by configuring the DHCP-Client (on the Pi) to advertise a stati
 3. Restart networking system
   `sudo /etc/init.d/networking restart`
 
-------
+---
 
 << Back: [Troubleshooting](troubleshooting.md)

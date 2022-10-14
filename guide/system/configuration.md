@@ -81,13 +81,7 @@ The “Advanced Packaging Tool” (apt) makes this easy.
   $ sudo apt update && sudo apt full-upgrade
   ```
 
-  💡 Do this regularly every few months to get security-related updates.
-
-* Make sure that all necessary software packages are installed:
-
-  ```sh
-  $ sudo apt install wget curl gpg git --install-recommends
-  ```
+💡 Do this regularly every few months to get security-related updates.
 
 ---
 
@@ -95,15 +89,8 @@ The “Advanced Packaging Tool” (apt) makes this easy.
 
 A performant USB3 drive is essential for your node.
 The Raspberry Pi 4 supports these out of the box, but is a bit picky.
-Some USB3 adapters for external drives are not compatible and need a workaround to be usable.
 
 Let's check if your drive works well as-is, or if additional configuration is needed.
-
-* Install the software to measure the performance of your drive
-
-  ```sh
-  $ sudo apt install hdparm
-  ```
 
 * Your external disk should be connected as `/dev/sda`.
   Check if this is the case by listing the names of connected block devices
