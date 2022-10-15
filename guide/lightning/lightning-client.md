@@ -147,6 +147,8 @@ To improve the security of your wallet, check out these more advanced methods:
 
 ### Configuration
 
+#### Configure LND
+
 * Create the LND configuration file and paste the following content (adjust to your alias).
   Save and exit.
 
@@ -216,24 +218,48 @@ To improve the security of your wallet, check out these more advanced methods:
 
 🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options, and visit the [Lightning Node Management](https://www.lightningnode.info/){:target="_blank"} site by Openoms to learn more.*
 
+#### Configure Bitcoin Core
+
+We need to set up settings in Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
+
+* Exit to return `"admin"` user, edit `bitcoin.conf`, and add the following lines. Save and exit
+
+  ```sh
+  exit
+  ```
+
+  ```sh
+  $ sudo nano /data/bitcoin/bitcoin.conf
+  ```
+
+  ```sh
+  # LND RPC connection
+  zmqpubrawblock=tcp://127.0.0.1:28332
+  zmqpubrawtx=tcp://127.0.0.1:28333
+  ```
+
 ---
 
 ## Run LND
 
-Still with user "lnd", we first start LND manually to check if everything works fine.
+Return to user "lnd", we first start LND manually to check if everything works fine.
 
-```sh
-$ lnd
-```
+  ```sh
+  $ sudo su lnd
+  ```
 
-```
-Attempting automatic RPC configuration to bitcoind
-Automatically obtained bitcoind's RPC credentials
-2021-11-13 08:16:34.985 [INF] LTND: Version: 0.14.2-beta commit=v0.14.2-beta, build=production, logging=default, debuglevel=info
-2021-11-13 08:16:34.985 [INF] LTND: Active chain: Bitcoin (network=mainnet)
-...
-2021-11-13 08:16:35.028 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
-```
+  ```sh
+  $ lnd
+  ```
+
+  ```sh
+  Attempting automatic RPC configuration to bitcoind
+  Automatically obtained bitcoind's RPC credentials
+  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.14.2-beta commit=v0.14.2-beta, build=production, logging=default, debuglevel=info
+  2021-11-13 08:16:34.985 [INF] LTND: Active chain: Bitcoin (network=mainnet)
+  ...
+  2021-11-13 08:16:35.028 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
+  ```
 
 The daemon prints the status information directly to the command line.
 This means that we cannot use that session without stopping the server.
@@ -249,7 +275,7 @@ Once LND is started, the process waits for us to create the integrated Bitcoin w
 * Start a "lnd" user session
 
   ```sh
-  $2 sudo su - lnd
+  $2 sudo su lnd
   ```
 
 * Create the LND wallet

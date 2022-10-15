@@ -248,11 +248,11 @@ We'll also set the proper access permissions.
   #dns=0
   #dnsseed=0
 
-  # Slow devices optimizations
+  # Slow devices optimizations (comment/uncomment depending if you use slow device)
   #maxconnections=40
   #maxuploadtarget=5000
 
-  # Maintain coinstats index used by the gettxoutsetinfo RPC.
+  # Maintain coinstats index used by the gettxoutsetinfo RPC 
   #coinstatsindex=1
 
   # Set the number of threads to service RPC calls
