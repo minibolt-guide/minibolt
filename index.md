@@ -103,6 +103,37 @@ We recommend setting up the RaspiBolt from scratch, but you can then copy over e
 
 If you're looking for an older version of this guide, you can still check out the archived source files for [version 1](https://github.com/raspibolt/raspibolt/blob/raspibolt-v1-deprecated/index.md){:target="_blank"} and [version 2](https://v2.raspibolt.org){:target="_blank"}.
 
+---
+
+## Rating
+
+All guides are rated with labels to help you assess the difficulty of each guide, and if it is tested against the most recent version of the main guide.
+
+* Difficulty: indicates how difficult the bonus guide is in term of installation procedure or usage
+
+Difficulty: Easy
+{: .label .label-green }
+
+Difficulty: Medium
+{: .label .label-yellow }
+
+Difficulty: Hard
+{: .label .label-red }
+
+* Tested: indicates if the guide has been updated and tested on the RaspiBolt v3 and MiniBolt. If this is not the case, you might have to modify part of the guide to make it work on a RaspiBolt v3 ort MiniBolt.
+
+Status: Tested MiniBolt
+{: .label .label-blue }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
+
+Status: Tested RaspiBolt v3
+{: .label .label-green }
+
+Status: Not tested RaspiBolt v3
+{: .label .label-yellow }
+
 <br /><br />
 
 ---
