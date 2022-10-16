@@ -14,6 +14,9 @@ parent: Lightning
 
 We set up a local or remote "Static Channel Backup" for Lightning. A monitoring script keeps it up-to-date to enable the recovery of your Lightning funds in case of hardware failure.
 
+Status: Not tested MiniBolt
+{: .label .label-red }
+
 ![GitHub remote backup](../../images/remote-scb-backup.png)
 
 ---

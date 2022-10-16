@@ -14,6 +14,9 @@ parent: Lightning
 
 We set up [LND](https://github.com/lightningnetwork/lnd/blob/master/README.md){:target="_blank"}, the Lightning Network Daemon by [Lightning Labs](https://lightning.engineering/){:target="_blank"}.
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
 ---
 
 ## Table of contents

@@ -16,6 +16,9 @@ parent: System
 
 We connect to your Personal Computer by using the Secure Shell.
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
 ---
 
 ## Table of contents

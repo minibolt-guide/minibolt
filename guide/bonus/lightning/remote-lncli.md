@@ -17,8 +17,11 @@ has_toc: false
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Not tested v3
-{: .label .label-yellow }
+Status: Tested RaspiBolt v3
+{: .label .label-green }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ---
 

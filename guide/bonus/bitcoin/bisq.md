@@ -21,8 +21,8 @@ It is a desktop application that aims at providing a secure, private and censors
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![Bisq](../../../images/bisq.png)
 

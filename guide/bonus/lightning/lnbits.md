@@ -21,8 +21,11 @@ has_toc: false
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested v3
+Status: Tested RaspiBolt v3
 {: .label .label-green }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ![LNBits](../../../images/lnbits.png)
 

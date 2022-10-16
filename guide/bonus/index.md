@@ -30,28 +30,28 @@ All bonus guides are rated with labels to help you assess the difficulty of each
 
 * Difficulty: indicates how difficult the bonus guide is in term of installation procedure or usage
 
-  Difficulty: Easy
-  {: .label .label-green }
+Difficulty: Easy
+{: .label .label-green }
 
-  Difficulty: Medium
-  {: .label .label-yellow }
+Difficulty: Medium
+{: .label .label-yellow }
 
-  Difficulty: Hard
-  {: .label .label-red }
+Difficulty: Hard
+{: .label .label-red }
 
 * Tested: indicates if the guide has been updated and tested on the RaspiBolt v3. If this is not the case, you might have to modify part of the guide to make it work on a RaspiBolt v3.
 
-  Status: Tested MiniBolt
-  {: .label .label-blue }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
-  Status: Not tested MiniBolt
-  {: .label .label-red }
+Status: Not tested MiniBolt
+{: .label .label-red }
 
-  Status: Tested RaspiBolt v3
-  {: .label .label-green }
+Status: Tested RaspiBolt v3
+{: .label .label-green }
 
-  Status: Not tested RaspiBolt v3
-  {: .label .label-yellow }
+Status: Not tested RaspiBolt v3
+{: .label .label-yellow }
 
 <br /><br />
 

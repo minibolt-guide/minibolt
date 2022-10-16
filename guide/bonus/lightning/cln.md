@@ -21,8 +21,11 @@ It can be used for the RaspiBolt as a replacement for LND or it can be run along
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Tested v3
+Status: Tested RaspiBolt v3
 {: .label .label-green }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ![Core Lightning](../../../images/core-lightning.png)
 

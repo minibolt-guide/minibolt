@@ -16,6 +16,9 @@ parent: System
 
 We configure the PC and install the Linux operating system.
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
 ---
 
 ## Table of contents

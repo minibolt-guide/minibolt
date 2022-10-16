@@ -28,8 +28,11 @@ Before using this setup, please familiarize yourself with all components by sett
 Difficulty: Intermediate
 {: .label .label-yellow }
 
-Status: Not tested v3
+Status: Not tested RaspiBolt v3
 {: .label .label-yellow }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ---
 

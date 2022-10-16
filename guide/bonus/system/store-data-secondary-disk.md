@@ -14,13 +14,16 @@ has_toc: false
 
 ---
 
-If the Raspberry Pi is not able to boot from your external drive, you can boot from a microSD card and use the external drive to store all the application data.
+If you want to use a different disk to store data (blockchain and others databases) independently of the disk of the system, you can follow these instructions.
 
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested v3
+Status: Tested RaspiBolt v3
 {: .label .label-green }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ---
 

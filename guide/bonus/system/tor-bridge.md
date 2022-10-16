@@ -19,8 +19,8 @@ The design of the Tor network means that the IP address of Tor relays is public.
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![Tor Bridge](../../../images/tor-bridge.png)
 

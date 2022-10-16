@@ -16,6 +16,9 @@ parent: System
 You are now on the command line of your own Bitcoin node.
 Let's start with the configuration.
 
+Status: Not tested MiniBolt
+{: .label .label-red }
+
 ---
 
 ## Table of contents
@@ -95,7 +98,7 @@ The Raspberry Pi 4 supports these out of the box, but is a bit picky.
 
 Let's check if your drive works well as-is, or if additional configuration is needed.
 
-* Your external disk should be connected as `/dev/sda`.
+* Your disk should be detected as `/dev/sda`.
   Check if this is the case by listing the names of connected block devices
 
   ```sh

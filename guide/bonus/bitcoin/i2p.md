@@ -24,8 +24,8 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![I2P](../../../images/i2pd.png)
 

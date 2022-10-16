@@ -16,6 +16,9 @@ parent: System
 
 We configure Tor to run your node anonymously.
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
 ---
 
 ## Table of contents

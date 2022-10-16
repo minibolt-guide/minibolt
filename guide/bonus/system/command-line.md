@@ -17,8 +17,8 @@ has_toc: false
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ---
 

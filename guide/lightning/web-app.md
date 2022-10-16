@@ -14,6 +14,9 @@ parent: Lightning
 
 We install [Ride The Lightning](https://github.com/Ride-The-Lightning/RTL#readme){:target="_blank"}, a powerful web interface to manage your Lightning node.
 
+Status: Not tested MiniBolt
+{: .label .label-red }
+
 ![Ride The Lightning dashboard](../../images/rtl-homepage.png)
 
 ---

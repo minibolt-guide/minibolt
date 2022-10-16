@@ -16,11 +16,11 @@ has_toc: false
 
 We set up [Homer](https://github.com/bastienwirtz/homer#readme){:target="_blank"}, a simple browser-based dashboard for quick access to all our self-hosted web services and other useful links for a lighnting node operator. The dashboard can be easily edited from a YAML configuration file. 
 
-Difficulty: Easy
+Status: Tested RaspiBolt v3
 {: .label .label-green }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ![Homer](../../../images/homer.png)
 

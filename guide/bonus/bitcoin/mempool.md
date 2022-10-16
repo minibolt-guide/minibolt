@@ -20,8 +20,11 @@ has_toc: false
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Tested v3
+Status: Tested RaspiBolt v3
 {: .label .label-green }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ![Mempool](../../../images/mempool.png)
 

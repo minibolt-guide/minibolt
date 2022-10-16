@@ -16,11 +16,11 @@ has_toc: false
 
 Have your RaspiBolt safely shutdown when a connected UPS reaches a critical power level.
 
-Difficulty: Easy
-{: .label .label-yellow }
-
-Status: Tested v3
+Status: Tested RaspiBolt v3
 {: .label .label-green }
+
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ---
 

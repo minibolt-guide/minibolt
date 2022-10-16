@@ -19,8 +19,8 @@ Aliases are shortcuts for commands that can save time and make it easier to exec
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![alias](../../../images/alias-example2.png)
 

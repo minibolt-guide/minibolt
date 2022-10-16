@@ -16,6 +16,9 @@ parent: System
 
 We make sure that your RaspiBolt is secured against unauthorized remote access.
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
 ---
 
 ## Table of contents

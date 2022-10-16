@@ -19,8 +19,8 @@ has_toc: false
 Difficulty: Easy
 {: .label .label-yellow }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![Electrum Wallet Desktop logo](../../../images/electrum_wallet_logo.png)
 
