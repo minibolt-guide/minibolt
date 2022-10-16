@@ -26,7 +26,7 @@ We make sure that your RaspiBolt is secured against unauthorized remote access.
 
 ---
 
-The RaspiBolt will be visible from the internet and therefore needs to be secured against online attacks using various methods.
+The MiniBolt will be visible from the internet and therefore needs to be secured against online attacks using various methods.
 
 ## Login with SSH keys
 
@@ -73,7 +73,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   You will be prompted for your SSH login password once.
 
   ```sh
-  $ ssh-copy-id admin@raspibolt.local
+  $ ssh-copy-id admin@minibolt.local
   ```
 
 💡 If you are on macOS and encounter an error, you might need install `ssh-copy-id` first by running the following command on your Mac's command line:
@@ -84,7 +84,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
 
 ### Disable password login
 
-* Log in to the Raspberry Pi as "admin" using SSH with your SSH key.
+* Log in to the PC as "admin" using SSH with your SSH key.
   You shouldn't be prompted for the admin's password anymore.
 
 * Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following two options and setting their value to `no`.
@@ -112,7 +112,7 @@ You can no longer log in with a password.
 User "admin" is the only user that has the necessary SSH keys, no other user can log in remotely.
 
 🚨 **Backup your SSH keys!**
-You will need to attach a screen and keyboard to your Pi if you lose them.
+You will need to attach a screen and keyboard to your PC if you lose them.
 
 ---
 
@@ -136,12 +136,6 @@ We'll open the port for Electrs and web applications later if needed.
   $ sudo ufw enable
   ```
 
-* Make sure that the UFW is started automatically on boot
-
-  ```sh
-  $ sudo systemctl enable ufw
-  ```
-
 * Check if the UFW is properly configured and active
 
   ```sh
@@ -150,7 +144,7 @@ We'll open the port for Electrs and web applications later if needed.
   >
   > To                         Action      From
   > --                         ------      ----
-  > SSH                        ALLOW       192.168.0.0/16
+  > SSH                        ALLOW       192.168.0.0/16       # allow SSH from local network
   ```
 
 🔍 *more: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands){:target="_blank"}*
@@ -161,7 +155,7 @@ We'll open the port for Electrs and web applications later if needed.
 
 ## fail2ban
 
-The SSH login to the Pi must be specially protected.
+The SSH login to the PC must be specially protected.
 An additional measure is to install "fail2ban", which prevents an attacker from gaining access via brute force.
 It simply cuts off any remote system with five failed login attempts for ten minutes.
 
@@ -182,7 +176,7 @@ The initial configuration is fine, as it protects SSH by default.
 
 ## Increase your open files limit
 
-If your RaspiBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the "can't accept connection: too many open files" error.
+If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the "can't accept connection: too many open files" error.
 This is due to the limit of open files (representing individual TCP connections) set too low.
 
 Create the file `/etc/security/limits.d/90-limits.conf`, copy these lines into it, save and exit.
@@ -278,10 +272,10 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
 
 ## Disable wireless interfaces
 
-Raspberry Pis come with Wifi and Bluetooth built-in.
+Some PC come with Wifi and Bluetooth built-in.
 That's great for most projects, but we should turn off all radios that are not needed for a security-focused device.
 
-* Open the RasPi OS configuration file, go to the following comment and add the applicable options below
+* Open the Ubuntu Server configuration file, go to the following comment and add the applicable options below
 
   ```sh
   $ sudo nano /boot/config.txt

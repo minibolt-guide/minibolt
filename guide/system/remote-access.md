@@ -14,7 +14,7 @@ parent: System
 
 ---
 
-We connect to your Raspberry Pi by using the Secure Shell.
+We connect to your Personal Computer by using the Secure Shell.
 
 ---
 
@@ -28,13 +28,13 @@ We connect to your Raspberry Pi by using the Secure Shell.
 
 ## Find your PC
 
-The Pi is starting and gets a new address from your home network.
+Your Personal Computer is starting and gets a new address from your home network.
 Give it a few minutes to come to life.
 
 * On your regular computer, open the Terminal (also known as "command line").
   Here are a few links with additional details how to do that for [Windows](https://www.computerhope.com/issues/chusedos.htm){:target="_blank"}, [MacOS](https://macpaw.com/how-to/use-terminal-on-mac){:target="_blank"} and [Linux](https://www.howtogeek.com/140679/beginner-geek-how-to-start-using-the-linux-terminal/){:target="_blank"}.
 
-* Try to ping the Raspberry Pi using the hostname you configured above (e.g., `raspibolt`).
+* Try to ping the Personal Computer using the hostname you configured above (e.g., `minibolt`).
   Press `Ctrl`-`C` to interrupt.
 
   ```sh
@@ -45,9 +45,8 @@ Give it a few minutes to come to life.
   ```
 
 * If the `ping` command fails or does not return anything, you need to manually look for your PC.
-  This is a common challenge: just follow the official Raspberry Pi guidance on [how to find your IP Address](https://www.raspberrypi.org/documentation/remote-access/ip-address.md){:target="_blank"}.
 
-* You should now be able to reach your Pi, either with the hostname `minibolt.local` or an IP address like `192.168.0.20`.
+* You should now be able to reach your PC, either with the hostname `minibolt.local` or an IP address like `192.168.0.20`.
 
 ## Access with Secure Shell
 
@@ -63,20 +62,18 @@ Install and start the SSH client for your operating system:
 
 If you need to provide connection details, use the following settings:
 
-* host name: `raspibolt.local` or the ip address like `192.168.0.20`
+* host name: `minibolt.local` or the ip address like `192.168.0.20`
 * port: `22`
 * username: `temp`
 * password:  `password [A]`
-
-🔍 *more: [using SSH with Raspberry Pi](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md){:target="_blank"}*
 
 ---
 
 ## The command line
 
-We will work on the command line of the Pi, which may be new to you.
+We will work on the command line of the PC, which may be new to you.
 Find some basic information below.
-It will help you navigate and interact with your Pi.
+It will help you navigate and interact with your PC.
 
 You enter commands and the Pi answers by printing the results below your command.
 To clarify where a command begins, every command in this guide starts with the `$` sign. The system response is marked with the `>` character.

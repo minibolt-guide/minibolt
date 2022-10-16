@@ -147,7 +147,6 @@ We need to set up settings in Bitcoin Core configuration file to enable I2P conn
   debug=i2p
   
   # Network
-
   # Enable I2P
   i2pacceptincoming=1
   i2psam=127.0.0.1:7656

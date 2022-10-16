@@ -210,7 +210,7 @@ We have our Bitcoin Core configuration file set up and now we can move to next p
 
   ```sh
   $ tar -xvf Fulcrum-1.8.2-x86_64-linux.tar.gz
-  $ tar -xvf Fulcrum-1.8.2-x86_64-linux.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.8.2-x86_64-linux/Fulcrum Fulcrum-1.8.2-x86_64-linux/FulcrumAdmin 
   $ Fulcrum --version
   > Fulcrum 1.8.2 (Release d330248)
   compiled: gcc 8.4.0
