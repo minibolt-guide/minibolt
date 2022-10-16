@@ -5,7 +5,9 @@ nav_order: 10
 parent: Bitcoin
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
 # Bitcoin client
+
 {: .no_toc }
 
 We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/){:target="_blank"}, the reference client implementation of the Bitcoin network.
@@ -24,16 +26,13 @@ We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/){:target="_blank"
 
 Bitcoin Core will download the full Bitcoin blockchain, and validate all transactions since 2009.
 We're talking more than 700'000 blocks with a size of over 400 GB, so this is not an easy task.
-It's great that the Raspberry Pi 4 can do it, even if it takes a few days, as this was simply not possible with earlier models.
 
 ---
-
-## Installation
 
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum.
 This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-### Preparations
+## Preparations
 
 * Login as "admin" and change to a temporary directory which is cleared on reboot.
 
@@ -90,10 +89,9 @@ This is a precaution to make sure that this is an official release and not a mal
 
 ### Timestamp check
 
-* The binary checksum file is timestamped on the Bitcoin blockchain via the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed prior to some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
+* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed prior to some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
 
   * https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS
-
   * https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS.ots
 
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/){:target="_blank"}
@@ -103,7 +101,7 @@ This is a precaution to make sure that this is an official release and not a mal
 
 ![Bitcoin timestamp check](../../images/bitcoin-ots-check.PNG)
 
-### Installation
+## Installation
 
 * If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
@@ -156,7 +154,7 @@ Instead of creating this directory, we create a data directory in the general da
 * Switch to user "bitcoin"
 
   ```sh
-  $ sudo su - bitcoin
+  $ sudo su bitcoin
   ```
 
 * Create the symbolic link `.bitcoin` that points to that directory
@@ -217,7 +215,7 @@ We'll also set the proper access permissions.
   ```
 
   ```sh
-  # Minibolt: bitcoind configuration
+  # MiniBolt: bitcoind configuration
   # /home/bitcoin/.bitcoin/bitcoin.conf
 
   # Bitcoin daemon
@@ -265,7 +263,7 @@ We'll also set the proper access permissions.
   blocksonly=1
   ```
 
-  🔍 *more: [configuration options](https://en.bitcoin.it/wiki/Running_Bitcoin#Command-line_arguments){:target="_blank"} in Bitcoin Wiki*
+🔍 *more: [configuration options](https://en.bitcoin.it/wiki/Running_Bitcoin#Command-line_arguments){:target="_blank"} in Bitcoin Wiki*
 
 * Set permissions: only the user 'bitcoin' and members of the 'bitcoin' group can read it
 
@@ -273,8 +271,7 @@ We'll also set the proper access permissions.
   $ chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
   ```
 
-  🔍 *more: [The Chmod Command and Linux File Permissions Explained](https://www.makeuseof.com/tag/chmod-command-linux-file-permissions/){:target="_blank"}
-
+🔍 *more: [The Chmod Command and Linux File Permissions Explained](https://www.makeuseof.com/tag/chmod-command-linux-file-permissions/){:target="_blank"}
 
 ---
 
@@ -313,7 +310,7 @@ Still logged in as user "bitcoin", let's start "bitcoind" manually.
 ### Autostart on boot
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in.
-We use “systemd“, a daemon that controls the startup process using configuration files.
+We use "systemd", a daemon that controls the startup process using configuration files.
 
 * Create the configuration file in the Nano text editor and copy the following paragraph.
   Save and exit.
@@ -480,7 +477,7 @@ We also now want to enable the node to listen to and relay transactions.
   ```
 
   ```
-  #dbcache=2000
+  #dbcache=2048
   #blocksonly=1
   ```
 
@@ -488,6 +485,25 @@ We also now want to enable the node to listen to and relay transactions.
 
   ```sh
   $ sudo systemctl restart bitcoind
+  ```
+
+---
+
+## OpenTimestamps client
+When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. 
+In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third-party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
+Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client){:target="_blank"} to locally verify the timestamp of the binaries checksums file.
+
+* With user "admin", globally install the OpenTimestamp client
+
+  ```sh
+  $ sudo pip3 install opentimestamps-client
+  ```
+
+* Display the OpenTimestamps client version to check that it is properly installed
+
+  ```sh
+  $ ots --version
   ```
 
 ---

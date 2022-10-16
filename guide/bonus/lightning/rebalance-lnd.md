@@ -6,8 +6,10 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: rebalance-lnd
+# Bonus guide: rebalance-lnd
+
 {: .no_toc }
 
 ---
@@ -45,6 +47,7 @@ Table of contents
 pip is not installed by default on Raspberry Pi OS Lite (64-bit), check if it is already installed and install it if needed.
 
 * With user "admin", check if pip3 is already installed with the following command. If you don't get an output with a version number it means you need to install pip3 (otherwise, move to the next section 'Install rebalance-lnd').
+
   ```sh
   $ pip3 --version
   ```

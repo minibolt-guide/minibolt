@@ -7,6 +7,7 @@ parent: Lightning
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 # Channel backup
+
 {: .no_toc }
 
 We set up a local or remote "Static Channel Backup" for Lightning. A monitoring script keeps it up-to-date to enable the recovery of your Lightning funds in case of hardware failure.

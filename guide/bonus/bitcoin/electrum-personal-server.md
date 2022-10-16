@@ -7,8 +7,10 @@ nav_exclude: true
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: Electrum Personal Server
+# Bonus guide: Electrum Personal Server
+
 {: .no_toc }
 
 Difficulty: Intermediate
@@ -17,16 +19,17 @@ Difficulty: Intermediate
 Status: Not tested v3
 {: .label .label-yellow }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
+---
+
+Table of contents
+{: .text-delta }
+
 1. TOC
 {:toc}
-</details>
 
-### Introduction
+---
+
+## Introduction
 
 The best way to safekeep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [Ledger](https://www.ledgerwallet.com/){:target="_blank"} or [Trezor](https://trezor.io/)){:target="_blank"} in combination with your own Bitcoin node. This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
 
@@ -38,15 +41,17 @@ The new [Electrum Personal Server](https://github.com/chris-belcher/electrum-per
 
 Before using this setup, please familiarize yourself with all components by setting up your own Electrum wallet, visiting the linked project websites and reading [The Electrum Personal Server Will Give Users the Full Node Security They Need](https://bitcoinmagazine.com/articles/electrum-personal-server-will-give-users-full-node-security-they-need/){:target="_blank"} in Bitcoin Magazine.
 
-### Preparations
+## Preparations
 
 * With user 'admin', make sure Python3 and PIP are installed. Also the 'setuptools' package is required.
-  ```
+
+  ```sh
   $ sudo apt install -y python3 python3-pip
   $ sudo pip3 install setuptools
   ```
 
 * Configure firewall to allow incoming requests (please check if you need to adjust the subnet mask as [described in original setup](../../raspberry-pi/security.md#enabling-the-uncomplicated-firewall))
+
   ```sh
   $ sudo ufw allow from 192.168.0.0/24 to any port 50002 comment 'allow EPS from local network'
   $ sudo ufw enable
@@ -90,6 +95,7 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
   ```
 
 * Copy and edit configuration template (skip this step when updating)
+
   ```sh
   $ cp electrum-personal-server-eps-v0.2.0/config.ini_sample config.cfg
   $ nano config.cfg
@@ -98,20 +104,23 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
   * Add your wallet master public keys or watch-only addresses to the `[master-public-keys]` and `[watch-only-addresses]` sections. Master public keys for an Electrum wallet can be found in the Electrum client menu `Wallet` -> `Information`.
 
   * In `[bitcoin-rpc]`, uncomment and complete the lines.
-    ```ini
+
+    ```sh
     rpc_user = raspibolt
     rpc_password = [PASSWORD_B]
     ```
 
   * In `[electrum-server]`, change the listening `host` to `0.0.0.0`, so that you can reach it from a remote computer. The firewall only accepts connections from within the home network, not from the internet.
-    ```ini
+
+    ```sh
     host = 0.0.0.0
     ```
 
 * Save and exit
 
 * Install Electrum Personal Server
-  ```
+
+  ```sh
   $ cd electrum-personal-server-eps-v0.2.0/
   # Install the wheel package first, which is required
   $ pip3 install wheel
@@ -121,46 +130,58 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
   ![Install Electrum Personal Server with Python Pip](../../../images/60_eps_pip_install.png)
   
 ### Setup default wallet with `bitcoind` and set it to autoload on daemon start
+
 eps needs a "dummy" wallet configured in bitcoind to correctly scan for transactions.
 Create a basic wallet with
-```
-$ bitcoin-cli createwallet "default" "true" "true" "" "true"
-```
-and then add directive to autoload it into `bitcoin.conf`: 
-```
-$ nano ~/.bitcoin/bitcoin.conf
-```
+
+  ```sh
+  $ bitcoin-cli createwallet "default" "true" "true" "" "true"
+  ```
+
+and then add directive to autoload it into `bitcoin.conf`:
+
+  ```sh
+  $ nano ~/.bitcoin/bitcoin.conf
+  ```
+
 following can be placed after the `# Connections` stanza
-```
-# Default wallet
-wallet=/data/bitcoin/default
-```
+
+  ```sh
+  # Default wallet
+  wallet=/data/bitcoin/default
+  ```
+
 The default wallet will be automatically loaded after creation, and the autoload directive will take care of loading it at each restart.
 
 ### First start
+
 The Electrum Personal Server scripts are installed in the directory `/home/bitcoin/.local/bin/`. Unfortunately, in Raspberry Pi OS this directory is not in the system path, so the full path needs to be specified when calling these scripts. Alternatively, just [add this directory to your $PATH environment variable](https://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path){:target="_blank"}, but it's not necessary in this guide.
 
-  * The first time the server is run it will import all configured addresses as watch-only into the Bitcoin node. This can take up to 10 minutes, after that the program will exit.
-    ```sh
-    $ /home/bitcoin/.local/bin/electrum-personal-server /home/bitcoin/electrum-personal-server/config.cfg
-    ```
+* The first time the server is run it will import all configured addresses as watch-only into the Bitcoin node. This can take up to 10 minutes, after that the program will exit.
 
-  * If your wallet has previous transactions, Electrum Personal Server needs to rescan the Bitcoin blockchain to get the historical information. This can take a long time for the whole blockchain, therefore you can set the start date of the scan (it will still take more than 1 hour per year of history).
-    ```sh
-    $ /home/bitcoin/.local/bin/electrum-personal-server --rescan /home/bitcoin/electrum-personal-server/config.cfg
-    ```
+  ```sh
+  $ /home/bitcoin/.local/bin/electrum-personal-server /home/bitcoin/electrum-personal-server/config.cfg
+  ```
 
-  * You can monitor the rescan progress in the Bitcoin Core logfile from a second SSH session:
-    ```sh
-    $ sudo tail -f /home/bitcoin/.bitcoin/debug.log
-    ```
+* If your wallet has previous transactions, Electrum Personal Server needs to rescan the Bitcoin blockchain to get the historical information. This can take a long time for the whole blockchain, therefore you can set the start date of the scan (it will still take more than 1 hour per year of history).
 
-  * Run Electrum Personal Server again and connect your Electrum wallet from your regular computer.
-    ```sh
-    $ /home/bitcoin/.local/bin/electrum-personal-server /home/bitcoin/electrum-personal-server/config.cfg
-    ```
+  ```sh
+  $ /home/bitcoin/.local/bin/electrum-personal-server --rescan /home/bitcoin/electrum-personal-server/config.cfg
+  ```
 
-  [![Run Electrum Personal Server manually](../../../images/60_eps_first-start.png)
+* You can monitor the rescan progress in the Bitcoin Core logfile from a second SSH session:
+
+  ```sh
+  $ sudo tail -f /home/bitcoin/.bitcoin/debug.log
+  ```
+
+* Run Electrum Personal Server again and connect your Electrum wallet from your regular computer.
+
+  ```sh
+  $ /home/bitcoin/.local/bin/electrum-personal-server /home/bitcoin/electrum-personal-server/config.cfg
+  ```
+
+![Run Electrum Personal Server manually](../../../images/60_eps_first-start.png)
 
 ### Connect Electrum
 
@@ -170,16 +191,17 @@ On your regular computer, configure Electrum to use your RaspiBolt:
 * Uncheck "Select server automatically"
 * Enter the IP of your RaspiBolt (eg. 192.168.0.20) in the address field
 
-  [![Connect Electrum to RaspiBolt](../../../images/60_eps_electrum-connect.png)
+![Connect Electrum to RaspiBolt](../../../images/60_eps_electrum-connect.png)
 
 * `Close` and check connection in tab "Console"
 
-  [![Check Electrum console](../../../images/60_eps_electrumwallet.png)
+![Check Electrum console](../../../images/60_eps_electrumwallet.png)
 
 * This can also be achived by starting the Electrum wallet with the following command line arguments:
   `--oneserver --server 192.168.0.20:50002:s`
 
 ### Automate startup
+
 If everything works as expected, we will now automate the start of Electrum Personal Server on the RaspiBolt.
 
 * On the Pi, exit Electrum Personal Server by pressing `Ctrl-C`
@@ -188,28 +210,29 @@ If everything works as expected, we will now automate the start of Electrum Pers
   `exit`
 
 * As "admin", set up the systemd unit for automatic start on boot, save and exit
-  ```
+
+  ```sh
   $ sudo nano /etc/systemd/system/eps.service
   ```
 
-```ini
-[Unit]
-Description=Electrum Personal Server
-After=bitcoind.service
+  ```sh
+  [Unit]
+  Description=Electrum Personal Server
+  After=bitcoind.service
 
-[Service]
-ExecStart=/usr/bin/python3 /home/bitcoin/.local/bin/electrum-personal-server /home/bitcoin/electrum-personal-server/config.cfg
-User=bitcoin
-Group=bitcoin
-Type=simple
-KillMode=process
-TimeoutSec=60
-Restart=always
-RestartSec=60
+  [Service]
+  ExecStart=/usr/bin/python3 /home/bitcoin/.local/bin/electrum-personal-server /home/bitcoin/electrum-personal-server/config.cfg
+  User=bitcoin
+  Group=bitcoin
+  Type=simple
+  KillMode=process
+  TimeoutSec=60
+  Restart=always
+  RestartSec=60
 
-[Install]
-WantedBy=multi-user.target
-```
+  [Install]
+  WantedBy=multi-user.target
+  ```
 
 * Enable and start the eps.service unit
   `$ sudo systemctl enable eps.service`
@@ -220,7 +243,7 @@ WantedBy=multi-user.target
 
 ---
 
-### Don't trust, verify.
+### Don't trust, verify
 
 Congratulations, you have now one of the best Bitcoin desktop wallet, capable of securing your bitcoin with support of a hardware wallet, running with your own trustless Bitcoin full node!
 

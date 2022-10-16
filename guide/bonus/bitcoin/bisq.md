@@ -7,12 +7,11 @@ nav_exclude: true
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 # Bonus guide: Bisq
 
 {: .no_toc }
-
----
 
 [Bisq](https://bisq.network/){:target="_blank"} is a decentralized bitcoin exchange.
 It is a desktop application that aims at providing a secure, private and censorship-resistant way of exchanging bitcoin for national currencies and other cryptocurrencies over the internet.

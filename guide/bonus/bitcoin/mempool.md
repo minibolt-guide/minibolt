@@ -7,11 +7,11 @@ nav_exclude: true
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: The Mempool Open Source Project
+# Bonus guide: The Mempool Open Source Project
+
 {: .no_toc }
-
----
 
 [Mempool](https://github.com/mempool/mempool){:target="_blank"} is a self-hosted Bitcoin blockchain and mempool visualizer/explorer. Look up your onchain transactions and estimate transaction fees without any privacy leaks.
 

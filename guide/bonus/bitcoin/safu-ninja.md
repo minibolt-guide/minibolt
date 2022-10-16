@@ -7,11 +7,11 @@ nav_exclude: true
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: Safu Ninja, a DIY steel mnemonic backup
+# Bonus guide: Safu Ninja, a DIY steel mnemonic backup
+
 {: .no_toc }
-
----
 
 [Safu Ninja](https://safu.ninja/){:target="_blank"} is a DIY way to make resilient mnemonic word backups with off-the-shelf components for complete privacy.
 

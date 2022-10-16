@@ -6,6 +6,9 @@ parent: Bonus Section
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
+{% include include_metatags.md %}
 
 # Bonus Section: Bitcoin guides
 

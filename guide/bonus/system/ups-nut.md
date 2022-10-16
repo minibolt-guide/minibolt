@@ -5,10 +5,10 @@ parent: + System
 grand_parent: System
 nav_exclude: true
 has_toc: false
-
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus Guide: Configure NUT to safely shutdown your node
+# Bonus Guide: Configure NUT to safely shutdown your node
 
 {: .no_toc }
 

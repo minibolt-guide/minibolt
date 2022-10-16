@@ -7,8 +7,9 @@ nav_exclude: true
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: Download the bitcoin whitepaper directly from your own blockchain
+# Bonus guide: Download the bitcoin whitepaper directly from your own blockchain
 
 {: .no_toc }
 

@@ -6,8 +6,10 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: Zap iOS Lightning Wallet
+# Bonus guide: Zap iOS Lightning Wallet
+
 {: .no_toc }
 
 Difficulty: Intermediate

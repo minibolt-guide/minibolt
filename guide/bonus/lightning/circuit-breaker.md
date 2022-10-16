@@ -6,8 +6,10 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 # Bonus guide: Circuit Breaker, a lightning 'firewall'
+
 {: .no_toc }
 
 ---

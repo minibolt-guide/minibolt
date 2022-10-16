@@ -6,47 +6,57 @@ parent: Bonus Section
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD036 MD040 -->
+
+{% include include_metatags.md %}
 
 # Bonus Section: Lightning guides
 
 ---
 
 ## Lightning clients
+
 * **[Core Lightning (CLN)](cln.md)** - An alternative lightning client to LND or if you want to run a Core Lightning node alongside your LND node.
 
 ---
 
 ## Maintenance
-* **[Auto unlock LND on startup](auto-unlock.md)** - (for RaspiBolt v1 & v2) a script to automatically unlocks the wallet on startup or service-restart
+
 * **[Use lncli on a different computer](remote-lncli.md)** - control your Lightning node from a different computer within you network, eg. from a Windows machine
 
 ---
 
 ## Security
+
 * **[Circuit Breaker](circuit-breaker.md)** - a lightning firewall to protect your node against HTLC flooding attacks
 
 ---
 
 ## Dashboards & Wallets
 
-#### *CLI-only*
+### *CLI-only*
+
 * **[lntop](lntop.md)** - lntop is an interactive text-mode channels viewer for Unix systems
 * **[lnbalance](lnbalance.md)** -  a simple node balances viewer
 * **[lnchannels](lnchannels.md)** - a simple channels viewer
 
-#### *GUI - Desktop*
+### *GUI - Desktop*
+
 * **[Zap](zap-desktop.md)** - a cross platform Lightning Network wallet focused on user experience and ease of use
 
-#### *GUI - Mobile*
+### *GUI - Mobile*
+
 * **[Zap (iOS)](zap-ios.md)** - a neat interface to manage peers & channels, make payments and create invoices
 
-#### *GUI, API - Web*
+### *GUI, API - Web*
+
 * **[LNBits](lnbits.md)** - a lightning wallet/accounts system
 * **[ThunderHub](thunderhub.md)** - a browser interface to manage all parts of your LN node like forwarding fees, channel opening/closing, usage of lnurl and much more.
 
 ---
 
 ## Liquidity management
+
 * **[Balance of Satoshis](balance-of-satoshis.md)** - a tool to rebalance your channels and set up a LN node monitoring Telegram bot
 * **[Lightning Terminal](lightning-terminal.md)** - a browser-based GUI for managing channel liquidity with Loop and Pool
 * **[rebalance-lnd](rebalance-lnd.md)** - a simple script to manage your channel liquidity by doing circular rebalancing
@@ -55,11 +65,12 @@ has_toc: false
 ---
 
 ## Fee management
+
 * **[charge-lnd](charge-lnd.md)** - a simple policy-based fee manager for LND
 
 ---
 
-## Even more Extras 
+## Even more Extras
 
 ### [RaspiBolt Extras by Rob Clark](https://github.com/robclark56/RaspiBolt-Extras/blob/master/README.md){:target="_blank"}
 

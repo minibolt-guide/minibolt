@@ -7,7 +7,9 @@ nav_exclude: true
 has_toc: false
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
 # Bonus guide: JoinMarket clientserver
+
 {: .no_toc }
 
 Difficulty: Intermediate

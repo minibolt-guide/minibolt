@@ -6,8 +6,9 @@ grand_parent: System
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus Guide: Upgrade External Drive
+# Bonus Guide: Upgrade External Drive
 
 {: .no_toc }
 

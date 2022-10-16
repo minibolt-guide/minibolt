@@ -6,8 +6,10 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 # Bonus guide: Zap Desktop
+
 {: .no_toc }
 
 The [desktop app Zap](https://github.com/LN-Zap/zap-desktop){:target="_blank"} is a cross-platform Lightning Network wallet focused on user experience and ease of use.

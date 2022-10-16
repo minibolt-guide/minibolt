@@ -5,6 +5,7 @@ nav_order: 30
 has_children: true
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD040 -->
+
 {% include include_metatags.md %}
 
 # Bitcoin

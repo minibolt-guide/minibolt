@@ -7,14 +7,11 @@ nav_exclude: true
 has_children: false
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: I2P - The Invisible Internet Protocol
+# Bonus guide: I2P - The Invisible Internet Protocol
 
 {: .no_toc }
-
----
-
-## I2P
 
 [I2P](https://geti2p.net/en/){:target="_blank"} is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted, participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
 

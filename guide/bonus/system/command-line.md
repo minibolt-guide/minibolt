@@ -6,8 +6,9 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: Pimp the command line
+# Bonus guide: Pimp the command line
 
 {: .no_toc }
 
@@ -28,10 +29,12 @@ Table of contents
 ---
 
 ### Command prompt
+
 You can prettify your command prompt for each user by enabling color output and setting a custom prompt.
 
 * Open and edit `.bashrc`  as shown below, save and exit
-```
+
+```sh
 $ nano /home/admin/.bashrc
 ```
 
@@ -50,7 +53,8 @@ alias ls='ls -la --color=always'
 ![Pimp prompt](../../../images/60_pimp_prompt.png)
 
 * Reload configuration
-```
+
+```sh
 $ source /home/admin/.bashrc
 ```
 
@@ -68,6 +72,6 @@ $ sudo cp *.bash-completion /etc/bash_completion.d/
 
 Bash completion will be enabled after your next login.
 
-------
+---
 
-<< Back: [+ Raspberry Pi](index.md)
+<< Back: [+ System](index.md)

@@ -7,7 +7,16 @@ parent: Bitcoin
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 # Desktop wallet
+
 {: .no_toc }
+
+Table of contents
+{: .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow){:target="_blank"} on a computer and connect it to your Electrum server on your node for private bitcoin on-chain transactions.  
 

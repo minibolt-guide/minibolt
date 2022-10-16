@@ -6,8 +6,10 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 # Bonus guide: Lightning Terminal
+
 {: .no_toc }
 
 [Lightning Terminal](https://github.com/lightninglabs/lightning-terminal){:target="_blank"} is a web UI to help LND node operators managing their channels liquidity with the use of the Loop and Pool commercial services.

@@ -7,6 +7,7 @@ parent: Bitcoin
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD036 MD040 -->
 
 # Blockchain explorer
+
 {: .no_toc }
 
 Run your own private blockchain explorer with [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer){:target="_blank"}. Trust your node, not some external services.

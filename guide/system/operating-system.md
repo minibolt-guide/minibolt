@@ -5,9 +5,11 @@ nav_order: 20
 parent: System
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
 {% include include_metatags.md %}
 
 # Operating system
+
 {: .no_toc }
 
 We configure the PC and install the Linux operating system.

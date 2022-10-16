@@ -6,12 +6,11 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: Electrum Wallet Desktop
+# Bonus guide: Electrum Wallet Desktop
 
 {: .no_toc }
-
----
 
 [Electrum wallet Desktop](https://electrum.org){:target="_blank"} is a well-established, feature-rich Bitcoin wallet for power-users that supports most hardware wallets.
 
