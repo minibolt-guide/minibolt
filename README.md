@@ -4,7 +4,7 @@
 
 ---
 
-![MiniBolt Logo](images/minibolt-logo-home-small.png)
+![MiniBolt Logo](images/minibolt-logo-home-btc.png)
 
 ### The MiniBolt Guide is available on GitHub Pages
 
