@@ -2,8 +2,6 @@
 
 ## A complete guide to build a Bitcoin & Lightning full node on a Personal Computer
 
----
-
 ![MiniBolt Logo](images/minibolt-logo-home-btc.png)
 
 ### The MiniBolt Guide is available on GitHub Pages
