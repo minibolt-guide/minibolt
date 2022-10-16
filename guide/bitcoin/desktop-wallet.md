@@ -14,6 +14,9 @@ parent: Bitcoin
 
 We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow){:target="_blank"} on a computer and connect it to your Electrum server on your node for private bitcoin on-chain transactions.  
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
 ![Sparrow wallet](../../images/sparrow.png)
 
 ---

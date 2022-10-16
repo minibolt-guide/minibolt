@@ -41,10 +41,16 @@ All bonus guides are rated with labels to help you assess the difficulty of each
 
 * Tested: indicates if the guide has been updated and tested on the RaspiBolt v3. If this is not the case, you might have to modify part of the guide to make it work on a RaspiBolt v3.
 
-  Status: Tested v3
+  Status: Tested MiniBolt
+  {: .label .label-blue }
+
+  Status: Not tested MiniBolt
+  {: .label .label-red }
+
+  Status: Tested RaspiBolt v3
   {: .label .label-green }
 
-  Status: Not tested v3
+  Status: Not tested RaspiBolt v3
   {: .label .label-yellow }
 
 <br /><br />

@@ -17,9 +17,9 @@ has_toc: false
 
 The Specter Desktop app is a project that's working on making a convenient and user-friendly GUI around Bitcoin Core with a focus on ***multisignature setup with hardware wallets and airgapped devices***.
 
-The application communicates directly with a Bitcoin full node via its RPC interface. This guide lays out how to install the Specter application to a Raspibolt device and have it communicate with `bitcoind` to execute its operations.
+The application communicates directly with a Bitcoin full node via its RPC interface. This guide lays out how to install the Specter application to a MiniBolt device and have it communicate with `bitcoind` to execute its operations.
 
-The default setup guides you on how to allow for plugging in your hardware devices _directly to the Raspibolt device_ to do multisig operations. There are some additional guides linked further down that explain how to configure Specter differently to plug your hardware devices into the laptop/computer you're using instead of directly into the Pi.
+The default setup guides you on how to allow for plugging in your hardware devices _directly to the MiniBolt device_ to do multisig operations. There are some additional guides linked further down that explain how to configure Specter differently to plug your hardware devices into the laptop/computer you're using instead of directly into the PC.
 
 Difficulty: Intermediate
 {: .label .label-yellow }
@@ -37,7 +37,7 @@ Status: Tested v3
 
 ---
 
-## Preparation on the Pi
+## Preparation on the PC
 
 - Make the following changes to the bitcoin configuration file
 
@@ -351,7 +351,7 @@ Test Specter Desktop manually first to make sure it works.
   $ /home/specter/.env/bin/python3 -m cryptoadvance.specter server --host 0.0.0.0
   ```
 
-- Now point your browser to http://raspibolt.local:25441 (or whatever you chose as hostname) or the ip address (e.g. http://192.168.0.20:25441). You should see the home page of Specter Desktop.
+- Now point your browser to http://minibolt.local:25441 (or whatever you chose as hostname) or the ip address (e.g. http://192.168.0.20:25441). You should see the home page of Specter Desktop.
 
 - Next we will test that Specter Desktop can detect your hardware wallet. Go to **Settings _(top right)_** -> **USB Devices _(tab)_** -> **Test connection _(bottom)_**. A blue popup should appear to the top of the page with the message `"Device detected successfully! USB connections configured correctly!"`
 
@@ -364,7 +364,7 @@ Test Specter Desktop manually first to make sure it works.
   ```
 
 ### Autostart on boot
-Now we’ll make sure Specter Desktop starts as a service on the Raspberry Pi so it’s always running. In order to do that we create a systemd unit that starts the service on boot directly after Bitcoin Core.
+Now we’ll make sure Specter Desktop starts as a service on the PC so it’s always running. In order to do that we create a systemd unit that starts the service on boot directly after Bitcoin Core.
 
 - As user “admin”, create the service file.
 
@@ -407,17 +407,17 @@ Now we’ll make sure Specter Desktop starts as a service on the Raspberry Pi so
 
 ## Connect Hardware Wallet to Laptop Instead
 
-If you would like to connect your hardware wallets to your laptop/computer instead of directly to the Raspberry Pi, there are a few different ways that this can be done.
+If you would like to connect your hardware wallets to your laptop/computer instead of directly to the PC, there are a few different ways that this can be done.
 
 ### Option 1: HWI Bridge mode
 
-With this, Specter is also downloaded and installed on the laptop/computer and then connected to the instance running on the Raspberry Pi. The two instances then communicate with the local laptop/computer instance handling the direct USB connection and the remote instance handling the connection to `bitcoind` via its RPC interface.
+With this, Specter is also downloaded and installed on the laptop/computer and then connected to the instance running on the PC. The two instances then communicate with the local laptop/computer instance handling the direct USB connection and the remote instance handling the connection to `bitcoind` via its RPC interface.
 
 ** Instructions for configuring this setup can be found at [hwibridge.md](https://github.com/cryptoadvance/specter-desktop/blob/v1.12.0/docs/hwibridge.md){:target="_blank"}.**
 
 **Advantages**
 
-- The Bitcoin RPC ports remains locked down and local only to the Raspberry Pi
+- The Bitcoin RPC ports remains locked down and local only to the PC
 
 **Disadvantages**
 
@@ -429,7 +429,7 @@ With this, Specter is also downloaded and installed on the laptop/computer and t
 
 With this option, Specter is installed ***only*** on the user's laptop/computer and then made to talk directly to the Bitcoin RPC to get its blockchain data and access to the Bitcoin network.
 
-** Instructions for configuring this setup can be found at [connect-your-node.md](https://github.com/cryptoadvance/specter-desktop/blob/v1.12.0/docs/connect-your-node.md){:target="_blank"}.**
+**Instructions for configuring this setup can be found at [connect-your-node.md](https://github.com/cryptoadvance/specter-desktop/blob/v1.12.0/docs/connect-your-node.md){:target="_blank"}.**
 
 **Advantages**
 
@@ -437,7 +437,7 @@ With this option, Specter is installed ***only*** on the user's laptop/computer 
 
 **Disadvantages**
 
-- The Bitcoin RPC port must be made available outside of the Raspberry Pi's internal `localhost` network. It must first be made available to the local LAN network, and then optionally to the wider web via port forwarding if the user wishes to use Specter outside the local LAN network.
+- The Bitcoin RPC port must be made available outside of the PC's internal `localhost` network. It must first be made available to the local LAN network, and then optionally to the wider web via port forwarding if the user wishes to use Specter outside the local LAN network.
 
     This comes with its own security considerations that the user should be wary of.
 
@@ -451,9 +451,9 @@ This 3rd option is more involved though since the user must also install/configu
 
 **Advantages**
 
-- The Bitcoin RPC ports remains locked down and local only to the Raspberry Pi
+- The Bitcoin RPC ports remains locked down and local only to the PC
 
-- No ports need to be forwarded of configured on the Raspberry Pi's firewall to be accessible from outside the Raspberry Pi's local LAN network
+- No ports need to be forwarded of configured on the PC's firewall to be accessible from outside the PC's local LAN network
 
 **Disadvantages**
 

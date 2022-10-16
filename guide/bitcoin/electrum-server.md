@@ -14,6 +14,9 @@ parent: Bitcoin
 
 We set up [Electrs](https://github.com/romanz/electrs/){:target="_blank"} to serve as a full Electrum server for use with your Bitcoin software or hardware wallets.
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
 ---
 
 ## Table of contents
