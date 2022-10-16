@@ -13,6 +13,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 The best way to safekeep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [Ledger](https://www.ledgerwallet.com/){:target="_blank"} or [Trezor](https://trezor.io/)){:target="_blank"} in combination with your own Bitcoin node. This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
 
 With the RaspiBolt setup, the Bitcoin Core wallet on the node can only be used from the command line as no graphical user interface is installed. As Bitcoin Core does not offer support for hardware wallets, only a "hot wallet" (exposed to the internet) can be realized.

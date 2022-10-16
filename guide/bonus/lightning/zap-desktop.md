@@ -12,6 +12,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 The [desktop app Zap](https://github.com/LN-Zap/zap-desktop){:target="_blank"} is a cross-platform Lightning Network wallet focused on user experience and ease of use.
 
 Difficulty: Easy

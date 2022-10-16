@@ -13,6 +13,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 You can run your RaspiBolt node on testnet to develop and experiment with new applications, without putting real money at risk. This bonus guide highlights all configuration changes compared to the main guide.
 
 Difficulty: Medium

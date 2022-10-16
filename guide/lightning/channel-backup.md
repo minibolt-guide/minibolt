@@ -10,6 +10,8 @@ parent: Lightning
 
 {: .no_toc }
 
+---
+
 We set up a local or remote "Static Channel Backup" for Lightning. A monitoring script keeps it up-to-date to enable the recovery of your Lightning funds in case of hardware failure.
 
 ![GitHub remote backup](../../images/remote-scb-backup.png)

@@ -12,6 +12,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 Difficulty: Easy
 {: .label .label-green }
 

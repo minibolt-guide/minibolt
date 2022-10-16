@@ -10,6 +10,8 @@ parent: Lightning
 
 {: .no_toc }
 
+---
+
 We set up [LND](https://github.com/lightningnetwork/lnd/blob/master/README.md){:target="_blank"}, the Lightning Network Daemon by [Lightning Labs](https://lightning.engineering/){:target="_blank"}.
 
 ---

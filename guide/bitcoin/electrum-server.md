@@ -10,6 +10,8 @@ parent: Bitcoin
 
 {: .no_toc }
 
+---
+
 We set up [Electrs](https://github.com/romanz/electrs/){:target="_blank"} to serve as a full Electrum server for use with your Bitcoin software or hardware wallets.
 
 ---

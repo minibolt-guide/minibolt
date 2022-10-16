@@ -12,6 +12,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 [Lightning Terminal](https://github.com/lightninglabs/lightning-terminal){:target="_blank"} is a web UI to help LND node operators managing their channels liquidity with the use of the Loop and Pool commercial services.
 
 Difficulty: Medium

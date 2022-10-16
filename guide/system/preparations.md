@@ -9,7 +9,10 @@ parent: System
 {% include include_metatags.md %}
 
 # Preparations
+
 {: .no_toc }
+
+---
 
 Let's get all the necessary hardware parts and prepare some passwords.
 

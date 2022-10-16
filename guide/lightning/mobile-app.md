@@ -7,7 +7,10 @@ parent: Lightning
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 # Mobile app
+
 {: .no_toc }
+
+---
 
 We install [Zeus](https://zeusln.app/){:target="_blank"}, a cross-platform mobile app that connect to your LN node over Tor.
 Make payments with lightning or on-chain and manage your channels while you're on the go.

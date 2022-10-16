@@ -9,7 +9,10 @@ parent: System
 {% include include_metatags.md %}
 
 # Security
+
 {: .no_toc }
+
+---
 
 We make sure that your RaspiBolt is secured against unauthorized remote access.
 

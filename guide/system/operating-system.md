@@ -12,6 +12,8 @@ parent: System
 
 {: .no_toc }
 
+---
+
 We configure the PC and install the Linux operating system.
 
 ---

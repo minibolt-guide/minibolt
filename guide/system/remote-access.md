@@ -9,7 +9,10 @@ parent: System
 {% include include_metatags.md %}
 
 # Remote access
+
 {: .no_toc }
+
+---
 
 We connect to your Raspberry Pi by using the Secure Shell.
 

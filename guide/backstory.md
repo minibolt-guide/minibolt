@@ -8,7 +8,10 @@ nav_order: 10
 {% include include_metatags.md %}
 
 # Backstory
+
 {: .no_toc }
+
+---
 
 Hey, I'm [2FakTor](https://github.com/twofaktor){:target="_blank"}, and I wrote the first version of this guide back in 2017 when Lightning was pretty obscure.
 I love to tinker and build stuff.

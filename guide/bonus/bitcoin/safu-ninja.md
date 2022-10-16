@@ -13,6 +13,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 [Safu Ninja](https://safu.ninja/){:target="_blank"} is a DIY way to make resilient mnemonic word backups with off-the-shelf components for complete privacy.
 
 Difficulty: Easy

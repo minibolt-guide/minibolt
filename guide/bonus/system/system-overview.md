@@ -12,6 +12,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 To get a quick overview of the system status, you can use [a shell script](https://github.com/raspibolt/raspibolt/blob/master/resources/20-raspibolt-welcome){:target="_blank"} that gathers the most relevant data.
 You can configure it to be shown on each login.
 

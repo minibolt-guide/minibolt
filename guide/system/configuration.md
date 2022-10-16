@@ -8,7 +8,10 @@ parent: System
 {% include include_metatags.md %}
 
 # System configuration
+
 {: .no_toc }
+
+---
 
 You are now on the command line of your own Bitcoin node.
 Let's start with the configuration.

@@ -12,6 +12,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 [Electrum wallet Desktop](https://electrum.org){:target="_blank"} is a well-established, feature-rich Bitcoin wallet for power-users that supports most hardware wallets.
 
 Difficulty: Easy

@@ -9,7 +9,10 @@ parent: System
 {% include include_metatags.md %}
 
 # Privacy
+
 {: .no_toc }
+
+---
 
 We configure Tor to run your node anonymously.
 

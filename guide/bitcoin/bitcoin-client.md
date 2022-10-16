@@ -10,6 +10,8 @@ parent: Bitcoin
 
 {: .no_toc }
 
+---
+
 We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/){:target="_blank"}, the reference client implementation of the Bitcoin network.
 
 ---

@@ -12,6 +12,8 @@ has_toc: false
 
 {: .no_toc }
 
+---
+
 We set up [Joinmarket clientserver](https://github.com/JoinMarket-Org/joinmarket-clientserver){:target="blank"}, a decentralized marketplace for executing and providing liquidity to CoinJoin transactions. Run it to help improve the confidentiality and privacy of bitcoin transactions (and probably make a few sats while you're at it).
 
 Difficulty: Intermediate
