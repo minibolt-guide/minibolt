@@ -12,8 +12,6 @@ has_toc: false
 
 {: .no_toc }
 
----
-
 [CLN - Core Lightning](https://github.com/ElementsProject/lightning/blob/master/README.md){:target="_blank"} 
 is a lightweight, highly customizable and standard compliant implementation of the Lightning Network protocol. 
 It can be used for the RaspiBolt as a replacement for LND or it can be run alongside it to create a second lightning nodes running on the same machine.
@@ -28,7 +26,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC
@@ -107,7 +105,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   $ cd lightning
   $ git fetch --all --tags
   $ git reset --hard v0.11.2
-  ``` 
+  ```
 
 * Don't trust, verify! Check who released the current version and get their signing keys and verify checksums. Verification step should output `Good Signature`.
 
@@ -295,7 +293,6 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 
 * It is at least recommended to backup the wallet file `hsm_secret` that you can find in CLN's data directory `home/lightningd/.lightning/bitcoin/`. 
 * For more detailed information, please have a look at the official [docs](https://lightning.readthedocs.io/FAQ.html#how-to-backup-my-wallet) and RaspiBlitz' incredible [FAQ](https://github.com/rootzoll/raspiblitz/blob/dev/FAQ.cl.md#backups).
-
 
 ## Upgrade CLN
 

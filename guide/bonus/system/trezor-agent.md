@@ -20,7 +20,7 @@ Status: Not tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC

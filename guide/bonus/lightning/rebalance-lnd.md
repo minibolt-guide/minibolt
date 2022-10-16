@@ -27,7 +27,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC
@@ -35,7 +35,7 @@ Table of contents
 
 ---
 
-### Requirements
+## Requirements
 
 * LND (or LND as part of Lightning Terminal/litd)
 * Python

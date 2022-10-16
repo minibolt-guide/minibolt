@@ -24,7 +24,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC
@@ -443,7 +443,7 @@ You can use Pool using the CLI (check `litpool --help`), the Lightning Terminal 
   >   frcli - command line tool for faraday
   > [...]
   ```
- 
+
 * **For more information:** Check out the Faraday [documentation page](https://docs.lightning.engineering/lightning-network-tools/faraday){:target="_blank"}, the [GitHub repository](https://github.com/lightninglabs/faraday){:target="_blank"}, the Lightning Labs [blog post announcement](https://lightning.engineering/posts/2020-04-02-faraday/){:target="_blank"} and their latest feature [blog post](https://lightning.engineering/posts/2020-09-15-faraday-accounting/){:target="_blank"}.
 
 ---

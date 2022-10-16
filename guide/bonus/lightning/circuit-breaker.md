@@ -12,8 +12,6 @@ has_toc: false
 
 {: .no_toc }
 
----
-
 [Circuit Breaker](https://github.com/lightningequipment/circuitbreaker){:target="_blank"} protects your node from being flooded with HTLCs in what is known as a [griefing attack](https://bitcoinmagazine.com/technical/good-griefing-a-lingering-vulnerability-on-lightning-network-that-still-needs-fixing){:target="_blank"}.
 
 Difficulty: Easy
@@ -26,7 +24,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC

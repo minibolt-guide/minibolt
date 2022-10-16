@@ -13,6 +13,8 @@ has_toc: false
 
 {: .no_toc }
 
+The [BitBoxApp](https://shiftcrypto.ch/app/){:target="_blank"} is a beginner-friendly companion app to the BitBox02 hardware wallet by Shift Crypto.
+
 Difficulty: Easy
 {: .label .label-green }
 
@@ -32,8 +34,6 @@ Table of contents
 ---
 
 ## Connect BitBoxApp
-
-The [BitBoxApp](https://shiftcrypto.ch/app/){:target="_blank"} is a beginner-friendly companion app to the BitBox02 hardware wallet by Shift Crypto.
 
 ### General
 

@@ -20,7 +20,7 @@ Status: Not tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC
@@ -45,7 +45,8 @@ First we make sure that LND is listening for connections from other computers on
 
   Add the following lines to the section `[Application Options]`:
   `$ sudo nano /home/bitcoin/.lnd/lnd.conf`
-  ```
+
+  ```sh
   rpclisten=0.0.0.0:10009
   tlsextraip=0.0.0.0
   ```
@@ -57,7 +58,8 @@ First we make sure that LND is listening for connections from other computers on
   `$ sudo systemctl restart lnd`
 
 * Copy the files `tls.cert` and `lnd.conf` to user "admin", as it is needed for lncli:
-  ```
+
+  ```sh
   $ sudo cp /home/bitcoin/.lnd/{tls.cert,lnd.conf} /home/admin/.lnd
   $ sudo cp /home/bitcoin/.lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/admin/.lnd/data/chain/bitcoin/mainnet
   ```
@@ -76,22 +78,27 @@ First we make sure that LND is listening for connections from other computers on
 The nifty helper tool LND Connect helps to pair the RaspiBolt with the iPhone, encoding connection and authorization information either into a QR code or a connection string.
 
 * As user "admin", download, extract and install the current release from the [release page](https://github.com/LN-Zap/lndconnect/releases).
-  ```
+
+  ```sh
   $ cd /tmp
   $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-armv7-v0.2.0.tar.gz
   $ sudo tar -xvf lndconnect-linux-armv7-v0.2.0.tar.gz --strip=1 -C /usr/local/bin
   ```
+
 * Display the help page to make sure it works.
-  ```
+
+  ```sh
   $ lndconnect -h
   ```
 
 ### Connect Zap iOS to your RaspiBolt
 
 * Now simply run lndconnect to generate the QR code we’ll scan from our iPhone
-  ```
+
+  ```sh
   $ lndconnect --lnddir=/home/admin/.lnd -i
   ```
+
   Depending on your screen size use `CMD`+`+` and `CMD`+`-` to adjust the size of the QR code.
 
 * If you can't resize the QR code or have visualization problems, you can
@@ -115,17 +122,19 @@ The nifty helper tool LND Connect helps to pair the RaspiBolt with the iPhone, e
 ### Connect Zap iOS to RaspiBolt over Tor
 
 * Edit LND config file to enable REST interface on port 8080
-  ```
+
+  ```sh
   $ sudo nano /home/bitcoin/.lnd/lnd.conf
   ```
 
-  ```
+  ```sh
   # add the following line in the [Application Options] section
   restlisten=localhost:8080
   ```
 
 * Add a hidden service to torrc
-  ```
+
+  ```sh
   $ sudo nano /etc/tor/torrc
   ```
 
@@ -136,17 +145,20 @@ The nifty helper tool LND Connect helps to pair the RaspiBolt with the iPhone, e
   ```
 
 * Restart tor
-  ```
+
+  ```sh
   $ sudo systemctl restart tor
   ```
 
 * Find and copy onion hostname
-  ```
+
+  ```sh
   $ sudo cat /var/lib/tor/lnd/hostname
   ```
 
 * Display LNDConnect QR code
-  ```
+
+  ```sh
   $ lndconnect --host=ENTER_ONION_ADDRESS --port=8080
   ```
 

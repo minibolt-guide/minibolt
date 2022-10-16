@@ -12,8 +12,6 @@ has_toc: false
 
 {: .no_toc }
 
----
-
 [CLBoss](https://github.com/ZmnSCPxj/clboss){:target="_blank"} 
 is an automated manager for CLN nodes. It's capable of automatically opening channels to useful nodes, acquiring inbound capacity through boltz swaps, rebalancing existing channels and setting competitive forwarding fees.
 Read more about it [here](https://zmnscpxj.github.io/clboss/index.html){:target="_blank"}.
@@ -26,7 +24,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC

@@ -25,7 +25,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC
@@ -55,11 +55,9 @@ For example, a popular DIY method relies on standard steel washers stacked and l
 
 As far as I know, Safu Ninja was the first one to come up with [this idea](https://www.reddit.com/r/Bitcoin/comments/h0j136/cheap_and_easy_diy_metal_bitcoin_seed_storage/){:target="_blank"} back in June 2020. You can check their [website](https://safu.ninja/){:target="_blank"}.
 
-
 This metal backup has been stress tested by Jameson Lopp. Check his full review [here](https://blog.lopp.net/metal-bitcoin-seed-storage-stress-test-iv/){:target="_blank"} and below is a summary:
 
 ![Stress test](../../../images/safu-ninja-stress-test-result.PNG)
-
 
 Let's get started!
 
@@ -77,6 +75,7 @@ You will need the following hardware components:
 Quantities are dependent on how many backups you plan to make and how many words there are in each backup (12 or 24 usually). One backup of 24 mnemonic words will require only one bolt and wingnut and 24 washers. Although, a few more would be useful for pratice or if you make mistakes while stamping.
 
 The key thing is to make sure that all the sizes are compatible with each other:
+
 * The washers must have the same inner diameter as the bolt
 * The length of the bolt must be longer than the length of the stacked washers
 * The metal stamps width must be smaller than the width of the washer metallic band

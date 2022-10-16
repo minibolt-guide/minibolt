@@ -25,6 +25,14 @@ Status: Tested v3
 
 ---
 
+## Table of contents
+{: .text-delta }
+
+1. TOC
+{:toc}
+
+---
+
 ## Installation
 
 This script can be run by user "admin" without root privileges, but you should still check it yourself.

@@ -13,8 +13,6 @@ has_toc: false
 
 {: .no_toc }
 
----
-
 Download the Bitcoin white paper PDF directly from the blockchain data on your own node and witness the power of a decentralized network to fight censorship.
 
 Difficulty: Easy
@@ -27,7 +25,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC

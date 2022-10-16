@@ -13,6 +13,12 @@ has_toc: false
 
 {: .no_toc }
 
+The Specter Desktop app is a project that's working on making a convenient and user-friendly GUI around Bitcoin Core with a focus on ***multisignature setup with hardware wallets and airgapped devices***.
+
+The application communicates directly with a Bitcoin full node via its RPC interface. This guide lays out how to install the Specter application to a Raspibolt device and have it communicate with `bitcoind` to execute its operations.
+
+The default setup guides you on how to allow for plugging in your hardware devices _directly to the Raspibolt device_ to do multisig operations. There are some additional guides linked further down that explain how to configure Specter differently to plug your hardware devices into the laptop/computer you're using instead of directly into the Pi.
+
 Difficulty: Intermediate
 {: .label .label-yellow }
 
@@ -21,19 +27,13 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC
 {:toc}
 
 ---
-
-The Specter Desktop app is a project that's working on making a convenient and user-friendly GUI around Bitcoin Core with a focus on ***multisignature setup with hardware wallets and airgapped devices***.
-
-The application communicates directly with a Bitcoin full node via its RPC interface. This guide lays out how to install the Specter application to a Raspibolt device and have it communicate with `bitcoind` to execute its operations.
-
-The default setup guides you on how to allow for plugging in your hardware devices _directly to the Raspibolt device_ to do multisig operations. There are some additional guides linked further down that explain how to configure Specter differently to plug your hardware devices into the laptop/computer you're using instead of directly into the Pi.
 
 ## Preparation on the Pi
 

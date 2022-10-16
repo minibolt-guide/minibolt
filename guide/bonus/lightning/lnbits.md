@@ -28,7 +28,7 @@ Status: Tested v3
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC
@@ -280,6 +280,7 @@ Your browser will display a warning because we use a self-signed SSL certificate
 
 You can fund your wallet and then send or receive lightning payments. You can also enable one or more extensions built by the community.
 Below is a list of resources to learn how to use LNBits and the extensions:
+
 * [Awesome LNBits](https://github.com/cryptoteun/awesome-lnbits){:target="_blank"}: a list of resources for the extensions and projects built on LNBits
 * [the LNBits Youtube channel](https://www.youtube.com/channel/UCGXU2Ae5x5K-5aKdmKqoLYg){:target="_blank"}
 * [the LNBits GitHub channel](https://github.com/lnbits/lnbits)
