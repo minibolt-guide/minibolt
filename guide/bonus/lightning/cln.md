@@ -27,7 +27,7 @@ Status: Tested RaspiBolt v3
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-![Core Lightning](../../../images/core-lightning.png)
+![Core Lightning](/images/core-lightning.png)
 
 ---
 

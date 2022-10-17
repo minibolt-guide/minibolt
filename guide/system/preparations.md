@@ -39,7 +39,7 @@ It only uses standard Debian instructions.
 
 You need the following hardware:
 
-* Personal Computer, with 4+ GB RAM
+* Personal Computer with Intel/AMD processor, with 4+ GB RAM
 * Internal storage: 1+ TB, a SSD is recommended
 
 The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 500 GB and growing.

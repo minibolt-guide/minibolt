@@ -26,7 +26,7 @@ Status: Not tested RaspiBolt v3
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-![BitBoxApp](../../images/electrum_BitBoxApp.png)
+![BitBoxApp](/images/electrum_BitBoxApp.png)
 
 ---
 
