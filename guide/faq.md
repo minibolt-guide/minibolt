@@ -67,7 +67,7 @@ Copy it to a USB thumbdrive, so that you can restore it later.
 * Copy the whole LND data directory to the thumbdrive
 
   ```sh
-  $ sudo rsync -rhvPog --append-verify /mnt/ext/lnd /mnt/thumbdrive/
+  $ sudo rsync -rhvPog --append-verify /data/lnd /mnt/thumbdrive/
   ```
 
 * Also make sure to create a Static Channel Backup file and copy it to the thumbdrive
@@ -78,10 +78,10 @@ That could result in you losing all your funds.
 * Move your LND directory to prevent the node starting again by accident.
 
   ```sh
-  $ sudo mv /mnt/ext/lnd /mnt/ext/lnd-do-never-start-again
+  $ sudo mv /data/lnd /data/lnd-do-never-start-again
   ```
 
-Once you set up your new RaspiBolt 3, restore your old LND node setup.
+Once you set up your new MiniBolt, restore your old LND node setup.
 
 * Quickly start the new LND instance without creating a wallet.
   Stop LND again.
@@ -103,18 +103,18 @@ If you're ok with downloading the blockchain again, which may take a few days, t
 
 Otherwise, you can of course copy the whole bitcoin data directory directly to your new node.
 
-When **Reusing the old drive** for your new node, you must first copy the data to a different drive or computer, either by connecting the drive, or over the network. When you **use a new drive**, you can set the RaspiBolt up first and then copy the data directly from drive to drive.
+When **Reusing the old drive** for your new node, you must first copy the data to a different drive or computer, either by connecting the drive, or over the network. When you **use a new drive**, you can set the MiniBolt up first and then copy the data directly from drive to drive.
 
 * Example for network copy
 
     ```sh
-    $ rsync -rhvPog --append-verify admin@raspibolt.local:/mnt/ext/bitcoin /your-local-directory
+    $ rsync -rhvPog --append-verify admin@MiniBolt.local:/mnt/ext/bitcoin /your-local-directory
     ```
 
 * Example for local drive-to-drive copy with both drives mounted
 
     ```sh
-    $ rsync -rhvPog --append-verify /mnt/old-raspibolt-drive/bitcoin /mnt/raspibolt-v3-drive/data
+    $ rsync -rhvPog --append-verify /mnt/old-MiniBolt-drive/bitcoin /mnt/MiniBolt-v3-drive/data
     ```
 
 ---

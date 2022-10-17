@@ -141,7 +141,7 @@ Anywhere                   ALLOW       192.168.0.0/24 1900/udp    # allow local 
 
 ### Have all users and home directories been created?
 
-```
+```sh
 $ cat /etc/passwd
 .
 .
@@ -157,7 +157,7 @@ It's important that the following symbolic links are in the "bitcoin" users' hom
 
 User "bitcoin" must have write access (depicted in the 3rd character "w" in "lr**w**xrwxrwx" below). Check with `touch`.
 
-```
+```sh
 $ sudo su - bitcoin
 $ touch /home/bitcoin/test
 $ ls -la /home/bitcoin/
@@ -170,7 +170,7 @@ lrwxrwxrwx 1 bitcoin bitcoin   12 Nov 13 22:28 .lnd -> /data/lnd
 
 Not all bitcoin files must be present, but bitcoin must have write access of the current directory (check with `touch`).
 
-```
+```sh
 $ touch /home/bitcoin/.bitcoin/test
 $ ls -la /home/bitcoin/.bitcoin/
 total 7232
@@ -196,7 +196,7 @@ drwxr-xr-x 5 bitcoin bitcoin    4096 Nov 25 05:31 testnet3
 
 If LND has been started at least once, the following files and directories should be present.
 
-```
+```sh
 $ touch /home/bitcoin/.lnd/test
 $ ls -la /home/bitcoin/.lnd/
 total 28
@@ -212,7 +212,7 @@ drwx------ 3 bitcoin bitcoin 4096 Nov 13 22:30 logs
 
 Don't forget to exit the "bitcoin" user session:
 
-```
+```sh
 $ exit
 ```
 
@@ -222,7 +222,7 @@ $ exit
 
 First, let's disable the systemd autostart and reboot the Pi to run everything manually.
 
-```
+```sh
 $ sudo systemctl disable bitcoind
 $ sudo systemctl disable lnd
 $ sudo shutdown -r now
@@ -230,7 +230,7 @@ $ sudo shutdown -r now
 
 If the base setup seems fine, lets open a "bitcoin" user session, check the Bitcoin Core configuration, start the program and check the output.
 
-```
+```sh
 $ sudo su - bitcoin
 
 $ cat /home/bitcoin/.bitcoin/bitcoin.conf
@@ -351,7 +351,7 @@ $ exit
 
 Back to normal operations: enable & start the services again.
 
-```
+```sh
 $ sudo systemctl enable bitcoind
 $ sudo systemctl start bitcoind
 $ sudo systemctl enable lnd
@@ -364,7 +364,7 @@ $ sudo systemctl start lnd
 
 Let's check the configuration and operations of LND.
 
-```
+```sh
 $ sudo systemctl stop lnd
 $ sudo su - bitcoin
 
@@ -406,7 +406,7 @@ Automatically obtained bitcoind's RPC credentials
 
 As this "bitcoin" user session is now occupied by LND, open a second SSH session (shown here with prefix `$2`) with your node and unlock your wallet.
 
-```
+```sh
 $2 sudo su - bitcoin
 $2 lncli unlock
 ```
@@ -462,7 +462,7 @@ Back in your first SSH session, the wallet is shown as unlocked and LND starts c
 
 To get back to normal operations, shut down LND with `Ctrl-C`, then
 
-```
+```sh
 ...
 2018-11-25 19:43:27.382 [INF] PEER: Disconnecting 104.196.6.10:9735, reason: server: disconnecting peer 104.196.6.10:9735
 2018-11-25 19:43:27.494 [INF] LTND: Shutdown complete
@@ -473,7 +473,7 @@ $ sudo systemctl start lnd
 
 Log files are located in the directory `/home/bitcoin/.lnd/logs/bitcoin/mainnet` (or `testnet`), you can check them as follows:
 
-```
+```sh
 $ tail -f /home/bitcoin/.lnd/logs/bitcoin/mainnet/lnd.log
 ```
 
