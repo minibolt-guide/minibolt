@@ -1,3 +1,3 @@
-<!-- Metatags for OpenGraph & Twitter link perview -->
+<!-- Metatags for OpenGraph & Twitter link preview -->
 <meta property="og:type" content="website" />
 <meta name="twitter:description" content="Build your own “DIY” Bitcoin & Lightning full node on a personal computer. No need to trust anyone else.">

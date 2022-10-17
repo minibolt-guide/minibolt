@@ -9,7 +9,7 @@ assignees: ''
 
 ### What & why
 
-Is your feature request related to a problem, or a new addition to the guide? Provide a clear and concise description of what you'd like added to the RaspiBolt guide. If possible, please phrase it as a user story:
+Is your feature request related to a problem, or a new addition to the guide? Provide a clear and concise description of what you'd like added to the MiniBolt guide. If possible, please phrase it as a user story:
 
 > As a [description of user], I want [functionality] so that [benefit].
 

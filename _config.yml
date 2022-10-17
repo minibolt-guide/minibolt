@@ -12,7 +12,7 @@ defaults:
   - scope:
       path: ""
     values:
-      image: https://twofaktor.github.io/minibolt/images/minibolt-home-screen.png
+      image: https://twofaktor.github.io/minibolt/images/minibolt-og-image.png
 
 # jekyll-seo-tag
 twitter:
