@@ -6,6 +6,8 @@ nav_order: 1
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 {% include include_metatags.md %}
 
+### <span style="color:red">⚠️ Attention! This project is a fork under construction, some chapters could not be attached to the reference use case. Be careful and act at your own risk.</span>
+
 ![MiniBolt Logo](images/minibolt-home-screen.png)
 
 Build your own "do-everything-yourself" Bitcoin full node that will make you a sovereign peer in the Bitcoin and Lightning network.
