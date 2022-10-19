@@ -74,7 +74,7 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 7. Confirm destructive action by selecting the "Continue" option
 8. Fill the profile setup form with the next values and your PASSWORD [A]
 
-![profile setup](../../images/ubuntu-profile-setup.png)
+![Ubuntu profile setup](../../images/ubuntu-profile-setup.PNG)
 
 9. Check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again
 11. If you want to preinstall some additional software (not recommended), select them, if not, press "done" directly to jump to the installation next step
