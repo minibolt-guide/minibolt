@@ -72,11 +72,8 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 1. If you don't want to use an alternative mirror for Ubuntu, press done directly
 1. Configure a guided storage layout, or create a custom one. Press done
 1. Confirm destructive action by selecting the "Continue" option
-1. Fill the profile setup form with the next values and your **PASSWORD [ A ]**
-
-![Ubuntu profile setup](../../images/ubuntu-profile-setup.PNG)
-
-9. Check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again
+1. Fill the profile setup form with user called "temp" and your **PASSWORD [A]**
+1. Check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again
 1. If you want to preinstall some additional software (not recommended), select them, if not, press "done" directly to jump to the installation next step
 1. Wait until installation finishes and press "Reboot now" when the option appears you
 1. When the prompt shows you "Please remove the installation medium, then press ENTER", extract the pen drive of the PC and press ENTER

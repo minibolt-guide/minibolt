@@ -41,6 +41,8 @@ You need the following hardware:
 
 * Personal Computer with Intel/AMD processor, with 4+ GB RAM
 * Internal storage: 1+ TB, a SSD is recommended
+* Temporary monitor screen
+* Temporary keyboard USB/PS2
 
 The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 500 GB and growing.
 

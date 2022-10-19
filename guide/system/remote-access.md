@@ -42,14 +42,14 @@ Give it a few minutes to come to life.
 
   ```sh
   $ ping minibolt.local
-  > PING minibolt.local (192.168.x.xxx) 56(84) bytes of data.
-  > 64 bytes from 192.168.0.20 (192.168.x.xxx): icmp_seq=1 ttl=64 time=88.1 ms
-  > 64 bytes from 192.168.0.20 (192.168.x.xxx): icmp_seq=2 ttl=64 time=61.5 ms
+  > PING minibolt.local (192.168.X.XXX) 56(84) bytes of data.
+  > 64 bytes from 192.168.X.XXX (192.168.X.XXX): icmp_seq=1 ttl=64 time=88.1 ms
+  > 64 bytes from 192.168.X.XXX (192.168.X.XXX): icmp_seq=2 ttl=64 time=61.5 ms
   ```
 
 * If the `ping` command fails or does not return anything, you need to manually look for your PC.
 
-* You should now be able to reach your PC, either with the hostname `minibolt.local` or an IP address like `192.168.x.xxx`.
+* You should now be able to reach your PC, either with the hostname `minibolt.local` or an IP address like `192.168.X.XXX`.
 
 ## Access with Secure Shell
 
@@ -61,11 +61,11 @@ Install and start the SSH client for your operating system:
 * Windows: PuTTY ([Website](https://www.putty.org){:target="_blank"})
 * MacOS and Linux: from the Terminal, use the native command:
   * `ssh temp@minibolt.local` or
-  * `ssh temp@192.168.x.xxx`
+  * `ssh temp@192.168.X.XXX`
 
 If you need to provide connection details, use the following settings:
 
-* host name: `minibolt.local` or the ip address like `192.168.x.xxx`
+* host name: `minibolt.local` or the ip address like `192.168.X.XXX`
 * port: `22`
 * username: `temp`
 * password:  `password [A]`
