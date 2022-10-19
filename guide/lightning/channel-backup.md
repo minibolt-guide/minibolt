@@ -17,7 +17,7 @@ We set up a local or remote "Static Channel Backup" for Lightning. A monitoring 
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-![GitHub remote backup](../../images/remote-scb-backup.png)
+![GitHub remote backup](/images/remote-scb-backup.png)
 
 ---
 
@@ -250,7 +250,7 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
 * Once formatted, plug the storage device into your Pi. If using a thumbdrive, use one of the black USB2 ports.
 
-###  Set up a mounting point for the storage device
+### Set up a mounting point for the storage device
 
 * Create the mounting directory and make it immutable
 
