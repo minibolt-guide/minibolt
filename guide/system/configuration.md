@@ -93,10 +93,9 @@ The “Advanced Packaging Tool” (apt) makes this easy.
 
 ## Check USB3 drive performance
 
-A performant USB3 drive is essential for your node.
-The Raspberry Pi 4 supports these out of the box, but is a bit picky.
+A performant SSD is essential for your node.
 
-Let's check if your drive works well as-is, or if additional configuration is needed.
+Let's check if your drive works well as-is.
 
 * Your disk should be detected as `/dev/sda`.
   Check if this is the case by listing the names of connected block devices
@@ -112,11 +111,7 @@ Let's check if your drive works well as-is, or if additional configuration is ne
   > Timing O_DIRECT disk reads: 932 MB in  3.00 seconds = 310.23 MB/sec
   ```
 
-If the measured speed is more than 50 MB/s, you're good, no further action needed.
-
-If the speed of your USB3 drive is not acceptable, we need to configure the USB driver to ignore the UAS interface.
-
-Check the [Fix bad USB3 performance](../troubleshooting.md#fix-bad-usb3-performance) entry in the Troubleshooting guide to learn how.
+If the measured speed is more than 50 MB/s, you're good.
 
 ---
 
@@ -131,32 +126,6 @@ Additionally, it's easier to move that directory somewhere else, for instance to
   ```sh
   $ sudo mkdir /data
   $ sudo chown admin:admin /data
-  ```
-
----
-
-## Increase swap file size
-
-The swap file acts as slower memory and is essential for system stability.
-The standard size of 100M is way too small.
-
-* Edit the configuration file and comment the entry `CONF_SWAPSIZE` by placing a `#` in front of it.
-  Save and exit.
-
-  ```sh
-  $ sudo nano /etc/dphys-swapfile
-  ```
-
-  ```
-  # comment or delete the CONF_SWAPSIZE line. It will then be created dynamically
-  #CONF_SWAPSIZE=100
-  ```
-
-* Recreate and activate new swapfile
-
-  ```sh
-  $ sudo dphys-swapfile install
-  $ sudo systemctl restart dphys-swapfile.service
   ```
 
 <br /><br />
