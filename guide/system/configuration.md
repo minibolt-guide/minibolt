@@ -42,7 +42,7 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
 * Make this new user a superuser by adding it to the "sudo" and old "temp" user groups.
 
   ```sh
-  $ usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
+  $ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
   ```
 
 * Logout `temp` user and login with `admin` user

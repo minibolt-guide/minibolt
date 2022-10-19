@@ -47,7 +47,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   * `MiniBolt-Public-Key`
   * `authorized-Keys.txt`
 
-* You also copied the content of `authorized-Keys.txt` into the file `~/.ssh/authorized_keys` on your Pi and changed the directory's permissions to `700`.
+* You also copied the content of `authorized-Keys.txt` into the file `~/.ssh/authorized_keys` on your PC and changed the directory's permissions to `700`.
 
 * After specifying your private key file in the PuTTY configuration, you're all set.
 
@@ -162,7 +162,7 @@ The SSH login to the PC must be specially protected.
 An additional measure is to install "fail2ban", which prevents an attacker from gaining access via brute force.
 It simply cuts off any remote system with five failed login attempts for ten minutes.
 
-![fail2ban](/images/security_fail2ban.png)
+![fail2ban](../../images/security_fail2ban.png)
 *Me locking myself out by entering wrong passwords*
 
 * Install "fail2ban", which activates automatically
