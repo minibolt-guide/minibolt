@@ -39,9 +39,9 @@ We'll download, verify and install LND.
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.2-beta/lnd-linux-amd64-v0.15.3-beta.tar.gz
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.2-beta/manifest-v0.15.3-beta.txt
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.2-beta/manifest-roasbeef-v0.15.3-beta.sig
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.3-beta/lnd-linux-amd64-v0.15.3-beta.tar.gz
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.3-beta/manifest-v0.15.3-beta.txt
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.3-beta/manifest-roasbeef-v0.15.3-beta.sig
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.0-beta/manifest-roasbeef-v0.15.3-beta.sig.ots
   ```
 
@@ -51,7 +51,7 @@ We'll download, verify and install LND.
 
   ```sh
   $ sha256sum --check manifest-v0.15.3-beta.txt --ignore-missing
-  > lnd-linux-arm64-v0.15.3-beta.tar.gz: OK
+  > lnd-linux-amd64-v0.15.3-beta.tar.gz: OK
   ```
 
 ### Signature check
