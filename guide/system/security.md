@@ -117,8 +117,6 @@ User "admin" is the only user that has the necessary SSH keys, no other user can
 🚨 **Backup your SSH keys!**
 You will need to attach a screen and keyboard to your PC if you lose them.
 
----
-
 ## Enabling the Uncomplicated Firewall
 
 A firewall controls what kind of outside traffic your machine accepts and which applications can send data out.
@@ -154,8 +152,6 @@ We'll open the port for Electrs and web applications later if needed.
 
 💡 If you find yourself locked out by mistake, you can connect a keyboard and screen to your Pi to log in locally and fix these settings (especially for the SSH port 22).
 
----
-
 ## fail2ban
 
 The SSH login to the PC must be specially protected.
@@ -173,9 +169,19 @@ It simply cuts off any remote system with five failed login attempts for ten min
 
 The initial configuration is fine, as it protects SSH by default.
 
-🔍 *more: [customize fail2ban configuration](https://linode.com/docs/security/using-fail2ban-for-security/){:target="_blank"}*
+* You can obtain a fail2ban little report with this command
 
----
+  ```sh
+  $ sudo fail2ban-client status sshd
+  ```
+
+* See fail2ban in action by monitoring its log file. Exit with Ctrl-C
+
+  ```sh
+  $ sudo tail -f /var/log/fail2ban.log
+  ```
+
+🔍 *more: [customize fail2ban configuration](https://linode.com/docs/security/using-fail2ban-for-security/){:target="_blank"}*
 
 ## Increase your open files limit
 
@@ -204,6 +210,28 @@ session required                        pam_limits.so
 $ sudo nano /etc/pam.d/common-session-noninteractive
 session required                        pam_limits.so
 ```
+
+## Monitoring auth logs
+
+You can monitor authentication general logs in your system in real-time
+
+  ```sh
+  $ sudo tail -f /var/log/auth.log
+  ```
+
+* Or filtering only by ssh authentication logs in the last 500 lines
+
+  ```sh
+  $ sudo tail --lines 500 /var/log/auth.log | grep sshd
+  ```
+
+* Discarding your own connections from your regular computer in local network
+
+  ```sh
+  $ sudo tail --lines 500 /var/log/auth.log | grep sshd | grep -v 192.168.X.XXX
+  ```
+
+In this way, you can detect a possible brute-force attack and take appropriate mitigation measures.
 
 ## Prepare NGINX reverse proxy
 

@@ -76,24 +76,6 @@ We recommend to use both methods, but you can choose either one of them, dependi
 
 We prepare a shell script that automatically updates the LND SCB file on a change in your backup location(s).
 
-### Check SCB file location
-
-By default, LND saves the SCB file here: `~/.lnd/data/chain/bitcoin/mainnet/channel.backup`. Ensure that the `lnd.conf` does not contain the `backupfilepath` option that modifies the backup location (as was used in a previous version of the RaspiBolt v3).
-
-* With the "admin" user, check that your `lnd.conf` file does not contain this line. If so, delete it or comment it out and restart LND.
-
-  ```sh
-  $ sudo nano /data/lnd/lnd.conf
-  ```
-
-  ```ini
-  #backupfilepath=/data/lnd-backup/channel.backup
-  ```
-
-  ```sh
-  $ sudo systemctl restart lnd
-  ```
-
 ### Install inotify-tools
 
 Installing `inotify-tools` allows us to use `inotify`, an application that monitors files and directories for changes.
@@ -209,7 +191,7 @@ We set up the backup script as a systemd service to run in the background and st
 * Paste the following lines. Save and exit.
 
   ```ini
-  # RaspiBolt: systemd unit for automatic SCB backup
+  # MiniBolt: systemd unit for automatic SCB backup
   # /etc/systemd/system/scb-backup.service
 
   [Unit]
@@ -346,21 +328,21 @@ Follow this section if you want a remote backup. If you already set up a local b
 
   ```sh
   $ cat ~/.ssh/id_rsa.pub
-  > ssh-rsa 1234abcd... lnd@raspibolt
+  > ssh-rsa 1234abcd... lnd@minibolt
   ```
 
 * Go back to the GitHub repository webpage
   * Click on "Settings", then "Deploy keys", then "Add deploy key"
   * Type a title (e.g., "SCB")
-  * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 5678efgh... lnd@raspibolt`)
+  * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 5678efgh... lnd@minibolt`)
   * Tick the box "Allow write access" to enable this key to push changes to the repository
   * Click "Add key"
 
 * Set up global Git configuration values (the name and email are required but can be dummy values). Then, move to the LND data folder and clone your newly created empty repository. Replace `YourUserName` with your own GitHub username. When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter".
 
   ```sh
-  $ git config --global user.name "RaspiBolt"
-  $ git config --global user.email "raspibolt@dummyemail.com"
+  $ git config --global user.name "MiniBolt"
+  $ git config --global user.email "minibolt@dummyemail.com"
   $ git config --global core.sshCommand "torsocks ssh"
   $ cd ~/.lnd
   $ git clone git@github.com:YourUserName/remote-lnd-backup.git
@@ -423,7 +405,7 @@ Then we check if a copy gets stored at the intended backup location(s).
   ```sh
   $ sudo journalctl -f -u scb-backup.service
   > [...]
-  > Feb 05 10:55:09 raspibolt scb-backup.sh[25782]: Watches established.
+  > Feb 05 10:55:09 minibolt scb-backup.sh[25782]: Watches established.
   ```
 
 * Start your SSH program (eg. PuTTY) a second time and log in as "admin". Commands for the second session start with the prompt $2.
@@ -438,12 +420,12 @@ Then we check if a copy gets stored at the intended backup location(s).
 
   ```sh
   > [...]
-  > Feb 05 11:05:11 raspibolt scb-backup.sh[25885]: Local backup is enabled
-  > Feb 05 11:05:11 raspibolt scb-backup.sh[25885]: Copying backup file to local storage device...
-  > Feb 05 11:05:11 raspibolt scb-backup.sh[25885]: Success! The file is now locally backed up!
+  > Feb 05 11:05:11 minibolt scb-backup.sh[25885]: Local backup is enabled
+  > Feb 05 11:05:11 minibolt scb-backup.sh[25885]: Copying backup file to local storage device...
+  > Feb 05 11:05:11 minibolt scb-backup.sh[25885]: Success! The file is now locally backed up!
   > [...]
-  > Feb 05 11:05:13 raspibolt scb-backup.sh[25885]: Success! The file is now remotely backed up!
-  > Feb 05 11:05:13 raspibolt scb-backup.sh[25885]: Waiting for an update of the SCB file...
+  > Feb 05 11:05:13 minibolt scb-backup.sh[25885]: Success! The file is now remotely backed up!
+  > Feb 05 11:05:13 minibolt scb-backup.sh[25885]: Waiting for an update of the SCB file...
   > [...]
   ```
 
@@ -463,4 +445,3 @@ You're set! Each time you open a new channel or close an existing one, the monit
 ---
 
 Next: [Web app >>](web-app.md)
-
