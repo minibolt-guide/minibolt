@@ -91,7 +91,7 @@ The “Advanced Packaging Tool” (apt) makes this easy.
 
 ---
 
-## Check USB3 drive performance
+## Check drive performance
 
 A performant SSD is essential for your node.
 

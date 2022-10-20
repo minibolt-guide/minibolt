@@ -60,13 +60,13 @@ Install and start the SSH client for your operating system:
 
 * Windows: PuTTY ([Website](https://www.putty.org){:target="_blank"})
 * MacOS and Linux: from the Terminal, use the native command:
-  * `ssh temp@minibolt.local` or
-  * `ssh temp@192.168.X.XXX`
+  * `ssh -p <your custom SSH port> temp@minibolt.local` or
+  * `ssh -p <your custom SSH port> temp@192.168.X.XXX`
 
 If you need to provide connection details, use the following settings:
 
 * host name: `minibolt.local` or the ip address like `192.168.X.XXX`
-* port: `22`
+* port: `<your custom SSH port>`
 * username: `temp`
 * password:  `password [A]`
 

@@ -85,13 +85,12 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   $ brew install ssh-copy-id
   ```
 
-### Disable password login
+### Disable password login and configure a custom SSH port (recommended)
 
 * Log in to the PC as "admin" using SSH with your SSH key.
   You shouldn't be prompted for the admin's password anymore.
 
 * Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following two options and setting their value to `no`.
-  Save and exit.
 
   ```sh
   $ sudo nano /etc/ssh/sshd_config
@@ -100,6 +99,12 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   ```sh
   PasswordAuthentication no
   ChallengeResponseAuthentication no
+  ```
+
+* Change the default SSH to your custom port. Uncomment the `Port` parameter and change `22` to your custom one. Save and exit.
+
+  ```sh
+  Port <your custom SSH port>
   ```
 
 * Restart the SSH daemon, then exit your session
@@ -132,7 +137,7 @@ We'll open the port for Electrs and web applications later if needed.
   ```sh
   $ sudo ufw default deny incoming
   $ sudo ufw default allow outgoing
-  $ sudo ufw allow from 192.168.0.0/16 to any port 22 comment 'allow SSH from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port <your custom SSH port> comment 'allow SSH from local network'
   $ sudo ufw logging off
   $ sudo ufw enable
   ```
@@ -211,9 +216,9 @@ $ sudo nano /etc/pam.d/common-session-noninteractive
 session required                        pam_limits.so
 ```
 
-## Monitoring auth logs
+## Monitoring authentication logs
 
-You can monitor authentication general logs in your system in real-time
+* You can monitor authentication general logs in your system in real-time
 
   ```sh
   $ sudo tail -f /var/log/auth.log
@@ -232,6 +237,8 @@ You can monitor authentication general logs in your system in real-time
   ```
 
 In this way, you can detect a possible brute-force attack and take appropriate mitigation measures.
+
+💡 Do this regularly to get security-related incidents.
 
 ## Prepare NGINX reverse proxy
 
@@ -300,36 +307,6 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
   > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
   > nginx: configuration file /etc/nginx/nginx.conf test is successful
   ```
-
-## Disable wireless interfaces
-
-Some PC come with Wifi and Bluetooth built-in.
-That's great for most projects, but we should turn off all radios that are not needed for a security-focused device.
-
-* Open the Ubuntu Server configuration file, go to the following comment and add the applicable options below
-
-  ```sh
-  $ sudo nano /boot/config.txt
-  ```
-
-  ```sh
-  # Additional overlays and parameters are documented /boot/overlays/README
-  ```
-
-  * Disable Bluetooth by adding this line
-
-    ```
-    dtoverlay=disable-bt
-    ```
-
-  * If you're running your RaspiBolt with a network cable, disable wifi by adding this line
-
-    ```
-    dtoverlay=disable-wifi
-    ```
-
-Save and exit.
-The disabled radios will no longer be active on the next reboot.
 
 <br /><br />
 
