@@ -71,40 +71,9 @@ The guide will show you how to:
   $ sudo ufw allow 8333 comment 'allow Bitcoin Core' 
   ```
 
-### Configure Bitcoin Core
+### Obtain your Bitcoin Core `onion` address
 
-For Bisq to connect to your Bitcoin Core node, the bloom filters have to be activated and the P2P connection has to be whitelisted.
-
-* Open `bitcoin.conf` to add `peerbloomfilters=1` under `"# Bitcoin daemon"` to activate bloom filters
-
-  ```sh
-  $ sudo nano /data/bitcoin/bitcoin.conf
-  ```
-
-  ```sh
-  # Filters
-  peerbloomfilters=1   # for Bisq
-  ```
-
-* Add the following line under `"whitelist=download@127.0.0.1       # for Electrs"` line to whitelist our own P2P connection.
-
-  ```sh
-  whitelist=bloomfilter@0.0.0.0   # for Bisq
-  ```
-
-* By default `bind` configuration of Bitcoin Core is `0.0.0.0`. To connect Bisq from your personal computer in your local network, comment or delete `bind=127.0.0.1`. Save and exit.
-
-  ```sh
-  #bind=127.0.0.1
-  ```
-
-* Restart Bitcoin Core (if you didn't set up automatic LND wallet unlock, remember to unlock it after `bitcoind` restarted).
-
-  ```sh
-  $ sudo systemctl restart bitcoind
-  ```
-
-* Still with user admin, wait a few minutes until Bitcoin Core starts completely and run the following command and make a copy of the .onion address and port (e.g. here, `123...abc.onion:8333`).
+Still with user admin, run the following command and make a copy of the .onion address and port (e.g. here, `123...abc.onion:8333`).
 
   ```sh
   $ bitcoin-cli getnetworkinfo | grep address.*onion
@@ -245,27 +214,6 @@ Bisq will let you know when a new update is available. Simply follow the instruc
 ---
 
 ## Uninstall
-
-### Uninstall BTC Core configuration
-
-If you stop using Bisq for an extended period of time, it is worth deactivating the bloom filter feature in Bitcoin Core.
-
-* In `bitcoin.conf`, comment out the following line. Save and exit.
-
-  ```sh
-  $ sudo nano /data/bitcoin/bitcoin.conf
-  ```
-
-  ```sh
-  #peerbloomfilters=1  # for Bisq
-  #whitelist=bloomfilter@0.0.0.0   # for Bisq
-  ```
-
-* Restart Bitcoin Core (if you didn't set up automatic LND wallet unlock, remember to unlock it after `bitcoind` restarted)
-
-  ```sh
-  $ sudo systemctl restart bitcoind
-  ```
 
 ### Uninstall FW configuration
 

@@ -287,7 +287,7 @@ Return to user "lnd", we first start LND manually to check if everything works f
   ```sh
   Attempting automatic RPC configuration to bitcoind
   Automatically obtained bitcoind's RPC credentials
-  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.14.2-beta commit=v0.14.2-beta, build=production, logging=default, debuglevel=info
+  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.14.3-beta commit=v0.14.3-beta, build=production, logging=default, debuglevel=info
   2021-11-13 08:16:34.985 [INF] LTND: Active chain: Bitcoin (network=mainnet)
   ...
   2021-11-13 08:16:35.028 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
@@ -587,11 +587,11 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
   
-  To try, why not send me a single satoshi! You simply need to input my node pukey [`Stadicus node`](https://amboss.space/node/02acd93e3352fd59066ca3f23e8865de1926301e8be03c6a52f0f7e43533fe9888){:target="_blank"}, the amount in satoshis and add the –keysend flag. 
+To try, why not send me satoshis! You simply need to input my node pukey [`⚡2FakTor⚡`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128){:target="_blank"}, the amount in satoshis and add the –keysend flag
 
-    ```sh
-    * lncli sendpayment --dest 02acd93e3352fd59066ca3f23e8865de1926301e8be03c6a52f0f7e43533fe9888 --amt 1 --keysend
-    ```
+  ```sh
+  $ lncli sendpayment --dest 02acd93e3352fd59066ca3f23e8865de1926301e8be03c6a52f0f7e43533fe9888 --amt <amount in sats whatever you want> --keysend
+  ```
 
 ### Adding watchtowers
 
@@ -612,7 +612,13 @@ It's good practice to add a few watchtowers, just to be on the safe side.
   $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
   ```
 
-* Check if the watchtower is active
+* Or the clearnet address
+
+  ```sh
+  $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
+  ```
+
+* If you want to list your towers and active watchtowers
 
   ```sh
   $ lncli wtclient towers
@@ -630,14 +636,6 @@ It's good practice to add a few watchtowers, just to be on the safe side.
           },
       ]
   }
-  ```
-
-* Check out this [list of altruistic public watchtowers](https://github.com/openoms/lightning-node-management/issues/4){:target="_blank"} maintained by Openoms, and add a few more.
-
-* If you want to list your towers
-
-  ```sh
-  $ lncli wtclient towers
   ```
 
 * If you want to deactivate an active tower
@@ -703,11 +701,24 @@ A quick reference with common commands to play around with:
   $ lncli payinvoice [INVOICE]
   ```
 
+* Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
+
+  ```sh
+  $ lncli payinvoice --amt <amount> <amp invoice>
+  ```
+
 * Send a payment to a node without invoice using AMP (both sender and receiver nodes have to have AMP enabled):
   [`sendpayment`](https://api.lightning.community/#sendpayment){:target="_blank"}
 
   ```sh
-  $ lncli sendpayment --amp --fee_limit 1 --dest=<node_pubkey> --final_cltv_delta=144 --amt=<amount_in_sats>
+  $ lncli sendpayment --dest <destination public key> --amt <amount> --amp
+  ```
+
+* Send a payment to a node without invoice using Keysend (both sender and receiver nodes have to have Keysend enabled):
+  [`sendpayment`](https://api.lightning.community/#sendpayment){:target="_blank"}
+
+  ```sh
+  $ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
   ```
 
 * Check the payments that you sent:
@@ -754,6 +765,12 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
   ```sh
   $ lncli closechannel --force [FUNDING_TXID] [OUTPUT_INDEX]
   ```
+
+* to close all channels in cooperative mode
+
+  ```sh
+  $ lncli closeallchannels --sat_per_byte <sat/byte>
+  ````
 
 🔍 _more: full [LND API reference](https://api.lightning.community/){:target="_blank"}
 
