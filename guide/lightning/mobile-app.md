@@ -32,6 +32,20 @@ Status: Not tested MiniBolt
 
 ## Preparations
 
+### Install lndconnect
+
+[lndconnect](https://github.com/LN-Zap/lndconnect){:target="_blank"}, created by Zap, is a utility that generates QR Code or URI to connect applications to lnd instances.
+
+* Download the binary and install it
+
+  ```sh
+  $ cd /tmp
+  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-amd64-v0.2.0.tar.gz
+  $ tar -xvf lndconnect-linux-amd64-v0.2.0.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v0.2.0/lndconnect
+  $ cd
+  ```
+
 ### Access over Tor
 
 Zeus will access the node via Tor.
@@ -59,20 +73,6 @@ Zeus will access the node via Tor.
    ```
 
 * Save the onion address in a safe place (e.g., password manager)
-
-### Install lndconnect
-
-[lndconnect](https://github.com/LN-Zap/lndconnect){:target="_blank"}, created by Zap, is a utility that generates QR Code or URI to connect applications to lnd instances.
-
-* Download the binary and install it
-
-  ```sh
-  $ cd /tmp
-  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-amd64-v0.2.0.tar.gz
-  $ tar -xvf lndconnect-linux-amd64-v0.2.0.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v0.2.0/lndconnect
-  $ cd
-  ```
 
 ### Create a lndconnect QR code
 
