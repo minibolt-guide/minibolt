@@ -218,8 +218,8 @@ Electrs needs to start automatically on system boot.
 
   [Unit]
   Description=Electrs daemon
-  Wants=bitcoind.service
   After=bitcoind.service
+  PartOf=bitcoind.service
 
   [Service]
 

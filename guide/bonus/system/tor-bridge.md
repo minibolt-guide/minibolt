@@ -62,7 +62,7 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   [...]
   ```
 
-💡 If not obtain results, follow the [Privacy section](../../raspberry-pi/privacy.md#installation) to install it.
+💡 If not obtain results, follow the [Privacy section](../../system/privacy.md#installation) to install it.
 
 ### Configuration
 
@@ -257,11 +257,13 @@ One of the most important things to keep your relay secure is to install securit
   $ sudo apt install nyx
   ````
 
-* Execute with
+* Execute with and press the right key to navigate to page 2/5 to show your bridge data information
 
   ```sh
   $ sudo nyx
   ```
+
+![Nyx Tor bridge](../../../images/nyx-tor-bridge.png)
 
 * Press `q` key two times to exit
 

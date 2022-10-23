@@ -203,8 +203,8 @@ In order to do that we create a systemd unit that starts the service on boot dir
 
   [Unit]
   Description=Thunderhub
-  Wants=lnd.service
-  After=network.target lnd.service
+  After=lnd.service
+  PartOf=lnd.service
 
   [Service]
   WorkingDirectory=/home/thunderhub/thunderhub

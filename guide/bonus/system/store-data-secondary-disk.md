@@ -19,9 +19,6 @@ If you want to use a different disk to store data (blockchain and others databas
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 
@@ -37,69 +34,55 @@ Status: Not tested MiniBolt
 
 ### Steps required
 
-To boot from a microSD card and store the data on an external drive, there are a few additional steps compared to the default RaspiBolt guide.
+To use a different disk to store data (blockchain and others databases) independently of the disk of the system, there are a few additional steps compared to the default MiniBolt guide.
 Below is a summary of the main differences, with detailed guidance in the following sections.
 
-1. [Operating system](../../system/operating-system.md):
+1. [Operating system](../../system/operating-system.md)
 
-    * write the operating system to the microSD card instead of the external drive
+    * write the data (blockchain and others databases) in a secondary disk instead of the primary disk
 
-1. [System configuration](../../system/system-configuration.md):
+1. [System configuration](../../system/system-configuration.md)
 
-    * attach the external drive
-    * test the USB3 performance
-    * format the drive
-    * mount the drive to `/data`
-
----
-
-### Operating system
-
-When writing RasPiOS to the boot medium, use a high-quality microSD card of 8+ GB instead of the external drive.
+    * attach the secondary disk
+    * format the disk
+    * mount the disk to `/data`
 
 ---
 
 ### System configuration
 
-Connect your external drive to the Raspberry Pi using one of the blue USB3 ports.
+Follow the [System configuration](../../system/configuration.md) section until you reach [Data directory](../../system/configuration.md#data-directory), continuing with the instructions below.
 
-Follow the [System configuration](../../raspberry-pi/system-configuration.md) section until you reach [Data directory](../../raspberry-pi/system-configuration.md#data-directory), continuing with the instructions below.
+#### Format secondary disk
 
-In case your external drive shows poor performance, follow the [Fix bad USB3 performance](../../troubleshooting.md#fix-bad-usb3-performance) instructions, as mentioned in the guide.
-
-#### Format external drive
-
-We will now format the external drive.
-As a server installation, the Linux native file system Ext4 is the best choice for the external hard disk.
+We will now format the secondary disk.
+As a server installation, the Linux native file system Ext4 is the best choice for the secondary hard disk.
 
 * List all block devices with additional information.
   The list shows the devices (e.g. `sda`) and the partitions they contain (e.g. `sda1`).
 
   ```sh
   $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
-  > NAME        MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL  MODEL
-  > sda                                                                931.5G        Ext_SSD
-  > `-sda1                 2219-782E                            vfat   931.5G
-  > mmcblk0                                                             14.8G
-  > |-mmcblk0p1 /boot      DBF3-0E3A                            vfat     256M boot
-  > `-mmcblk0p2 /          b73b1dc9-6e12-4e68-9d06-1a1892663226 ext4    14.6G rootfs
+  > NAME          MOUNTPOINT UUID                          FSTYPE   SIZE    LABEL  MODEL
+  > sda                                                             931.5G         Ext_SSD
+  > sda1                     2219-782E                     ext4     931.5G
   ```
 
-* If your drive does not contain any partitions, follow this [How to Create a Disk Partitions in Linux](https://www.tecmint.com/create-disk-partitions-in-linux/){:target="_blank"} guide first.
+* If your disk does not contain any partitions, follow this [How to Create a Disk Partitions in Linux](https://www.tecmint.com/create-disk-partitions-in-linux/){:target="_blank"} guide first.
 
-* Make a note of the partition name of your external drive (in this case "sda1").
+* Make a note of the partition name of your secondary disk (in this case "sda1").
 
-* Format the partition on the external drive with Ext4 (use `[NAME]` from above, e.g. `sda1`)
+* Format the partition on the secondary disk with Ext4 (use `[NAME]` from above, e.g. `sda1`)
 
-  🚨 **This will delete all existing data on the external drive!**
+  🚨 **This will delete all existing data on the secondary disk!**
 
   ```sh
   $ sudo mkfs.ext4 /dev/[NAME]
   ```
 
-#### Mount external drive
+#### Mount secondary disk
 
-The external drive is then attached to the file system and becomes available as a regular folder (this is called “mounting”).
+The secondary disk is then attached to the file system and becomes available as a regular folder (this is called “mounting”).
 
 * List the block devices once more and copy the new partition's `UUID` into a text editor on your main machine.
 
@@ -108,9 +91,6 @@ The external drive is then attached to the file system and becomes available as 
   > NAME        MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL  MODEL
   > sda                                                                931.5G        Ext_SSD
   > └─sda1                 3aab0952-3ed4-4652-b203-d994c4fdff20 ext4   931.5G
-  > mmcblk0                                                             14.8G
-  > |-mmcblk0p1 /boot      DBF3-0E3A                            vfat     256M boot
-  > `-mmcblk0p2 /          b73b1dc9-6e12-4e68-9d06-1a1892663226 ext4    14.6G rootfs
   ```
 
 * Edit the `fstab` file and add the following as a new line at the end, replacing `123456` with your own `UUID`.
@@ -120,13 +100,13 @@ The external drive is then attached to the file system and becomes available as 
   ```
 
   ```sh
-  UUID=123456 /data ext4 rw,nosuid,dev,noexec,noatime,nodiratime,auto,nouser,async,nofail 0 2
+  UUID=123456 /data ext4 defaults 0 2
   ```
 
   🔍 *more: [complete fstab guide](https://linuxconfig.org/how-fstab-works-introduction-to-the-etc-fstab-file-on-linux){:target="_blank"}*
 
 * Create the data directory as a mount point.
-  We also make the directory immutable to prevent data from being written on the microSD card if the external drive is not mounted.
+  We also make the directory immutable to prevent data from being written on the system primary disk if the secondary disk is not mounted.
 
   ```sh
   $ sudo mkdir /data
@@ -134,7 +114,7 @@ The external drive is then attached to the file system and becomes available as 
   $ sudo chattr +i /data
   ```
 
-* Mount all drives and check the file system.
+* Mount all disks and check the file system.
   Is “/data” listed?
 
   ```sh
@@ -144,11 +124,17 @@ The external drive is then attached to the file system and becomes available as 
   > /dev/sda1       938G   77M  891G   1% /data
   ```
 
-#### Move swap file to New Drive
+#### Custom swap size file
 
 The swap file acts as slower memory and is essential for system stability.
 MicroSD cards are not very performant and degrade over time under constant read/write activity.
-Therefore, we move the swap file to the external drive and increase its size as well.
+Therefore, we move the swap file to the secondary disk and increase its size as well.
+
+* Install dphys-swapfile
+
+  ```sh
+  $ sudo apt install dphys-swapfile
+  ```
 
 * Edit the configuration file, add the `CONF_SWAPFILE` line, and comment the entry `CONF_SWAPSIZE` out by placing a `#` in front of it.
   Save and exit.
@@ -175,7 +161,7 @@ Therefore, we move the swap file to the external drive and increase its size as 
 
 ### Continue with the guide
 
-That's it: your Raspberry Pi now boots from the microSD card while the data directory `/data/` is located on the external drive.
+That's it: your Raspberry Pi now boots from the microSD card while the data directory `/data/` is located on the secondary disk.
 
 You can now continue with the RaspiBolt guide.
 

@@ -83,9 +83,9 @@ We will connect Zap to the RaspiBolt using a connection string that includes the
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-arm64-v0.2.0.tar.gz
-  $ tar -xvf lndconnect-linux-arm64-v0.2.0.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-arm64-v0.2.0/lndconnect
+  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-amd64-v0.2.0.tar.gz
+  $ tar -xvf lndconnect-linux-amd64-v0.2.0.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v0.2.0/lndconnect
   $ cd
   ```
 
@@ -111,7 +111,7 @@ Download and install Zap for your operating system following [this guide from Za
 * Launch Zap
 * Choose the `Connect to your node` option
 * Paste the connection string generated above (starting with with `lndconnect://...`)
-* Add a wallet name (e.g., "MyRaspiBoltNode")
+* Add a wallet name (e.g., "MyMiniBoltNode")
 * Click "Next". In the new window, check that the displayed IP belongs to your node, then click "Next".
 
 ### Security

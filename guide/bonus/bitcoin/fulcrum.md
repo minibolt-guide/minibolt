@@ -315,8 +315,8 @@ Fulcrum needs to start automatically on system boot.
   
   [Unit]
   Description=Fulcrum
-  PartOf=bitcoind.service
   After=bitcoind.service
+  PartOf=bitcoind.service
   StartLimitBurst=2
   StartLimitIntervalSec=20
   

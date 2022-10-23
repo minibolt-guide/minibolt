@@ -97,8 +97,7 @@ A performant SSD is essential for your node.
 
 Let's check if your drive works well as-is.
 
-* Your disk should be detected as `/dev/sda`.
-  Check if this is the case by listing the names of connected block devices
+* Your disk should be detected as `/dev/sda`. Check if this is the case by listing the names of connected block devices
 
   ```sh
   $ lsblk -pli

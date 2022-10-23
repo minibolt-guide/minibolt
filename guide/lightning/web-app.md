@@ -219,6 +219,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
   [Unit]
   Description=Ride the Lightning
   After=lnd.service
+  PartOf=lnd.service
 
   [Service]
   WorkingDirectory=/home/rtl/RTL

@@ -145,7 +145,7 @@ Because Pool is alpha software, Lightning Terminal is also alpha software.
 
 * Open a “lit” user session
   
-  ```sh 
+  ```sh
   $ sudo su - lit
   ```
 
@@ -178,7 +178,7 @@ The settings for Pool, Faraday, Loop can all be put in the configuration file
   ```
   
   ```ini  
-  # RaspiBolt: Lightning Terminal configuration
+  # MiniBolt: Lightning Terminal configuration
   # /home/lit/.lit/lit.conf
   
   #######################
@@ -274,12 +274,13 @@ Now we’ll make sure Lightning Terminal starts as a service on the Raspberry Pi
   ```
 
   ```ini
-  # RaspiBolt: systemd unit for litd
+  # MiniBolt: systemd unit for litd
   # /etc/systemd/system/litd.service
   
   [Unit]
   Description=Lightning Terminal Daemon
   After=lnd.service
+  PartOf=lnd.service
   
   [Service]
   
