@@ -83,25 +83,25 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
   $ cd electrum-personal-server
 
   # download release
-  $ wget https://github.com/chris-belcher/electrum-personal-server/archive/eps-v0.2.0.tar.gz
-  $ wget https://github.com/chris-belcher/electrum-personal-server/releases/download/eps-v0.2.0/eps-v0.2.0.tar.gz.asc
+  $ wget https://github.com/chris-belcher/electrum-personal-server/archive/eps-v0.2.4.tar.gz
+  $ wget https://github.com/chris-belcher/electrum-personal-server/releases/download/eps-v0.2.4/eps-v0.2.4.tar.gz.asc
   $ wget https://raw.githubusercontent.com/chris-belcher/electrum-personal-server/master/docs/pubkeys/belcher.asc
 
   # verify that the release is signed by Chris Belcher (check the fingerprint)
   $ gpg --import belcher.asc
-  $ gpg --verify eps-v0.2.0.tar.gz.asc
+  $ gpg --verify eps-v0.2.4.tar.gz.asc
   > gpg: Good signature from "Chris Belcher <false@email.com>" [unknown]
   > Primary key fingerprint: 0A8B 038F 5E10 CC27 89BF  CFFF EF73 4EA6 77F3 1129
 
-  $ tar -xvf eps-v0.2.0.tar.gz
+  $ tar -xvf eps-v0.2.4.tar.gz
   $ rm *.gz*
   ```
 
 * Copy and edit configuration template (skip this step when updating)
 
   ```sh
-  $ cp electrum-personal-server-eps-v0.2.0/config.ini_sample config.cfg
-  $ nano config.cfg
+  $ cp electrum-personal-server-eps-v0.2.4/config.ini_sample config.ini
+  $ nano config.ini
   ```
 
   * Add your wallet master public keys or watch-only addresses to the `[master-public-keys]` and `[watch-only-addresses]` sections. Master public keys for an Electrum wallet can be found in the Electrum client menu `Wallet` -> `Information`.
@@ -122,15 +122,15 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
 * Save and exit
 
 * Install Electrum Personal Server
-
+  
   ```sh
-  $ cd electrum-personal-server-eps-v0.2.0/
+  $ cd electrum-personal-server-eps-v0.2.4/
   # Install the wheel package first, which is required
   $ pip3 install wheel
   $ pip3 install --user .
   ```
 
-  ![Install Electrum Personal Server with Python Pip](../../../images/60_eps_pip_install.png)
+![Install Electrum Personal Server with Python Pip](../../../images/60_eps_pip_install.png)
   
 ### Setup default wallet with `bitcoind` and set it to autoload on daemon start
 
