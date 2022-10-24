@@ -280,7 +280,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   # Set fast-sync accorling with your device, recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   fast-sync = 2048
 
-  ## Slow device optimizations
+  ## Slow device first-time start optimizations
   #bitcoind_timeout = 600
   #bitcoind_clients = 1
   #worker_threads = 1

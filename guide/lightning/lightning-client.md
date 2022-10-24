@@ -200,7 +200,7 @@ To improve the security of your wallet, check out these more advanced methods:
   debuglevel=info
 
   # Password: automatically unlock wallet with the password in this file
-  # -- comment out to manually unlock wallet, and see RaspiBolt guide for more secure options
+  # -- comment out to manually unlock wallet, and see MiniBolt guide for more secure options
   wallet-unlock-password-file=/data/lnd/password.txt
   wallet-unlock-allow-create=true
 

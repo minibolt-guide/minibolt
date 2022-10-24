@@ -442,7 +442,8 @@ Now we’ll make sure Mempool starts as a service on the Raspberry Pi so it’s 
 
   [Unit]
   Description=mempool
-  After=bitcoind.service
+  After=bitcoind.service fulcrum.service
+  PartOf=bitcoind.service
 
   [Service]
   WorkingDirectory=/home/mempool/mempool/backend

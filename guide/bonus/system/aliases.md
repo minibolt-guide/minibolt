@@ -49,6 +49,13 @@ The following list of aliases was derived from contributions by [RobClark56](htt
   $ wget https://raw.githubusercontent.com/raspibolt/raspibolt/master/resources/.bash_aliases -O .bash_aliases
   ```
 
+* If you have a custom aliases list in a personal private or public GitHub repository
+
+  ```sh
+  $ cd /home/admin
+  $ wget <personal URL RAW list aliases> -O .bash_aliases
+  ```
+
 * Inspect the list of aliases to make sure it does not do bad things and modify it with your personal aliases if you want. Exit with Ctrl-X
 
   ```sh
