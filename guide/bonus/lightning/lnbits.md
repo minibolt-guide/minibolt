@@ -232,7 +232,7 @@ Your browser will display a warning because we use a self-signed SSL certificate
 * Paste the following configuration. Save and exit.
 
   ```sh
-  # RaspiBolt: systemd unit for LNBits
+  # MiniBolt: systemd unit for LNBits
   # /etc/systemd/system/lnbits.service
 
   Description=LNBits

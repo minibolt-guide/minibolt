@@ -101,7 +101,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   ChallengeResponseAuthentication no
   ```
 
-* Change the default SSH to your custom port. Uncomment the `Port` parameter and change `22` to your custom one. Save and exit.
+* (Optional) If you want to change the default SSH to your custom port (recommended), uncomment the `Port` parameter and change `22` to your custom one. Save and exit.
 
   ```sh
   Port <your custom SSH port>
@@ -145,12 +145,12 @@ We'll open the port for Electrs and web applications later if needed.
 * Check if the UFW is properly configured and active
 
   ```sh
-  $ sudo ufw status
+  $ sudo ufw status verbose
   > Status: active
   >
-  > To                         Action      From
-  > --                         ------      ----
-  > SSH                        ALLOW       192.168.0.0/16       # allow SSH from local network
+  > To                            Action      From
+  > --                            ------      ----
+  > <your custom SSH port>        ALLOW       192.168.0.0/16       # allow SSH from local network
   ```
 
 🔍 *more: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands){:target="_blank"}*
@@ -172,18 +172,49 @@ It simply cuts off any remote system with five failed login attempts for ten min
   $ sudo apt install fail2ban
   ```
 
-The initial configuration is fine, as it protects SSH by default.
+If you choose to change the default SSH port (22) to custom one, follow this instructions, if not, the initial configuration is fine, as it protects SSH on port 22 by default.
 
-* You can obtain a fail2ban little report with this command
+* (Optional) Create jail.local for editing
 
   ```sh
-  $ sudo fail2ban-client status sshd
+  $ cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+  ```
+
+* Edit `jail.local` file to change SSH port
+
+  ```sh
+  $ sudo nano /etc/fail2ban/jail.local
+  ```
+
+* Down to `"[sshd]"` section and replace `port = ssh` to `port = <custom SSH port>`
+
+  ```sh
+  [sshd]
+  port = <custom SSH port>
+  ```
+
+* Restart and enable autoboot `fail2ban`
+
+  ```sh
+  $ sudo systemctl restart fail2ban
+  ```
+
+* 
+
+  ```sh
+  $ sudo systemctl enable fail2ban
   ```
 
 * See fail2ban in action by monitoring its log file. Exit with Ctrl-C
 
   ```sh
   $ sudo tail -f /var/log/fail2ban.log
+  ```
+
+* You can obtain a fail2ban report with this command
+
+  ```sh
+  $ sudo fail2ban-client status sshd
   ```
 
 🔍 *more: [customize fail2ban configuration](https://linode.com/docs/security/using-fail2ban-for-security/){:target="_blank"}*

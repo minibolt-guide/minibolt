@@ -62,7 +62,7 @@ Status: Not tested MiniBolt
   $ ls -la
   ```
 
-* Move the file to the  global bin(aries) folder and clean the `/tmp` directory
+* Move the file to the  global binaries folder and clean the `/tmp` directory
 
   ```sh
   $ sudo mv lnchannels /usr/local/bin

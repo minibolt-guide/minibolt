@@ -39,49 +39,24 @@ Status: Not tested MiniBolt
 
 ## Install lntop
 
-* As user “admin”, download the application, checksums, and the corresponding signature file
+* As user “admin”, download the application
 
   ```sh
   $ cd /tmp/
-  $ wget https://github.com/edouardparis/lntop/releases/download/v0.3.0/lntop-v0.3.0-Linux-arm64.tar.gz
-  $ wget https://github.com/edouardparis/lntop/releases/download/v0.3.0/checksums-lntop-v0.3.0.txt
-  $ wget https://github.com/edouardparis/lntop/releases/download/v0.3.0/checksums-lntop-v0.3.0.txt.sig
-  ```
+  $ wget https://github.com/edouardparis/lntop/releases/download/v0.1.0/lntop_Linux_x86_64.tar.gz
 
-* Get the PGP key from Edouard, developer of lntop.
-  You can compare the fingerprint against the one in his [Twitter profile](https://twitter.com/edouardparis){:target="_blank"}
+* Install the application
 
   ```sh
-  $ curl https://edouard.paris/key.asc | gpg --import
-  > ...
-  > gpg: key 47EEBB014DD80918: public key "Edouard (Personal) <m@edouard.paris>" imported
-  > ...
+  $ tar -xvf lntop_Linux_x86_64.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./lntop
   ```
 
-* Verify the signature of the text file containing the checksums for the application
+* Check the correct installation
 
   ```sh
-  $ gpg --verify checksums-lntop-v0.3.0.txt.sig checksums-lntop-v0.3.0.txt
-  > gpg: Signature made Fri Jan 14 09:37:27 2022 GMT
-  > gpg:                using RSA key A8BA5205BFCBC668853D560247EEBB014DD80918
-  > gpg: Good signature from "Edouard (Personal) <m@edouard.paris>" [unknown]
-  > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: A8BA 5205 BFCB C668 853D  5602 47EE BB01 4DD8 0918
-  ```
-
-* Verify the signed checksum against the actual checksum of your download
-
-  ```sh
-  $ sha256sum --check checksums-lntop-v0.3.0.txt --ignore-missing
-  > lntop-v0.3.0-Linux-arm64.tar.gz: OK
-  ```
-
-* If everything checks out, you can install the application
-
-  ```sh
-  $ tar -xvf lntop-v0.3.0-Linux-arm64.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin release-v0.3.0/lntop
+  $ lntop --version
+  > lntop version v0.1.0
   ```
 
 ---
@@ -104,9 +79,9 @@ To use all the functionalities of lntop, use the following keys:
 
 * **F2 (or m)** = Display a Menu bar on the left
   1. Navigate the Menu with the up and down keys (see below); there are three options:
-    *  CHANNEL = (the home page/default view), a table of all channels
-    *  TRANSAC = a table of lightning transactions
-    *  ROUTING = a table of routing event as they happen (no historical events shown, and any displayed event will be deleted if you quit lntop)
+  * CHANNEL = (the home page/default view), a table of all channels
+  * TRANSAC = a table of lightning transactions
+  * ROUTING = a table of routing event as they happen (no historical events shown, and any displayed event will be deleted if you quit lntop)
   1. Press Enter to see the desired view
   1. Press F2 to enter the desired view and exit the left Menu bar
 

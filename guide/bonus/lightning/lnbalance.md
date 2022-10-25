@@ -62,7 +62,7 @@ Status: Not tested MiniBolt
   $ ls -la
   ```
 
-* Move the file to the  global bin(aries) folder
+* Move the file to the  global binaries folder
 
   ```sh
   $ sudo mv lnbalance /usr/local/bin

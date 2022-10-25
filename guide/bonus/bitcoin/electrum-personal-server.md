@@ -17,7 +17,7 @@ has_toc: false
 
 The best way to safekeep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [Ledger](https://www.ledgerwallet.com/){:target="_blank"} or [Trezor](https://trezor.io/)){:target="_blank"} in combination with your own Bitcoin node. This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
 
-With the RaspiBolt setup, the Bitcoin Core wallet on the node can only be used from the command line as no graphical user interface is installed. As Bitcoin Core does not offer support for hardware wallets, only a "hot wallet" (exposed to the internet) can be realized.
+With the MiniBolt setup, the Bitcoin Core wallet on the node can only be used from the command line as no graphical user interface is installed. As Bitcoin Core does not offer support for hardware wallets, only a "hot wallet" (exposed to the internet) can be realized.
 
 One possibility to use Bitcoin Core with more functionality is to set up an additional [ElectrumX](https://github.com/kyuupichan/electrumx){:target="_blank"} server and then use the great [Electrum wallet](https://electrum.org/){:target="_blank"} (on your regular computer) that integrates with hardware wallets. But this setup is not easy, and the overhead is more than a Raspberry Pi can handle.
 

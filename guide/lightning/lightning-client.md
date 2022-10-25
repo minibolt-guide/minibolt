@@ -181,7 +181,7 @@ To improve the security of your wallet, check out these more advanced methods:
 
 #### Configure LND
 
-* Create the LND configuration file and paste the following content (adjust to your alias).
+* Create the LND configuration file and paste the following content (adjust to your alias, your color, your minimum channel size and fees).
   Save and exit.
 
   ```sh
@@ -741,8 +741,9 @@ A quick reference with common commands to play around with:
   $ lncli addinvoice --memo <your memo here> --amt <amount in sats> --expiry <time in seconds> --amp
   ```
 
-Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
 💡 Flags `--memo <your memo here> --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time are 30 days and the rest can be empty.
+
+Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
 
 * List all invoices:
   [`listinvoices`](https://api.lightning.community/#listinvoices){:target="_blank"}
