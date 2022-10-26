@@ -252,71 +252,6 @@ We'll also set the proper access permissions.
   dbcache=2048
   blocksonly=1
 
-  ## Slow devices optimizations (comment/uncomment depending if you use a slow device)
-  # Network (uncomment)
-  #maxconnections=40
-  # Maintain coinstats index used by the gettxoutsetinfo RPC (comment)
-  #coinstatsindex=1
-  # Set the number of threads to service RPC calls (uncomment)
-  #rpcthreads=128
-  # Set the depth of the work queue to service RPC calls (uncomment)
-  #rpcworkqueue=512
-  ```
-
-#### Privacy mode (optional)
-
-* Add this lines to the end of `bitcoin.conf` file, remember add seed nodes
-
-  ```sh
-  # Privacy mode
-  onlynet=onion
-  onlynet=i2p
-  dns=0
-  dnsseed=0
-
-  ##Tor seed nodes
-  seednode=5g72ppm3krkorsfopcm2bi7wlv4ohhs4u4mlseymasn7g7zhdcyjpfid.onion:8333
-  seednode=b64xcbleqmwgq2u46bh4hegnlrzzvxntyzbmucn3zt7cssm7y4ubv3id.onion:8333
-  seednode=fjdyxicpm4o42xmedlwl3uvk5gmqdfs5j37wir52327vncjzvtpfv7yd.onion:8333
-  seednode=fpz6r5ppsakkwypjcglz6gcnwt7ytfhxskkfhzu62tnylcknh3eq6pad.onion:8333
-  seednode=gxo5anvfnffnftfy5frkgvplq3rpga2ie3tcblo2vl754fvnhgorn5yd.onion:8333
-  seednode=ifdu5qvbofrt4ekui2iyb3kbcyzcsglazhx2hn4wfskkrx2v24qxriid.onion:8333
-  seednode=itz3oxsihs62muvknc237xabl5f6w6rfznfhbpayrslv2j2ubels47yd.onion:8333
-  seednode=kpgvmscirrdqpekbqjsvw5teanhatztpp2gl6eee4zkowvwfxwenqaid.onion:8333
-  seednode=m7cbpjolo662uel7rpaid46as2otcj44vvwg3gccodnvaeuwbm3anbyd.onion:8333
-  seednode=mwmfluek4au6mxxpw6fy7sjhkm65bdfc7izc7lpz3trewfdghyrzsbid.onion:8333
-  seednode=rp7k2go3s5lyj3fnj6zn62ktarlrsft2ohlsxkyd7v3e3idqyptvread.onion:8333
-
-  ##I2P seed nodes
-  seednode=255fhcp6ajvftnyo7bwz3an3t4a4brhopm3bamyh2iu5r3gnr2rq.b32.i2p:0
-  seednode=27yrtht5b5bzom2w5ajb27najuqvuydtzb7bavlak25wkufec5mq.b32.i2p:0
-  seednode=2el6enckmfyiwbfcwsygkwksovtynzsigmyv3bzyk7j7qqahooua.b32.i2p:0
-  seednode=3gocb7wc4zvbmmebktet7gujccuux4ifk3kqilnxnj5wpdpqx2hq.b32.i2p:0
-  seednode=3tns2oov4tnllntotazy6umzkq4fhkco3iu5rnkxtu3pbfzxda7q.b32.i2p:0
-  seednode=4fcc23wt3hyjk3csfzcdyjz5pcwg5dzhdqgma6bch2qyiakcbboa.b32.i2p:0
-  seednode=4osyqeknhx5qf3a73jeimexwclmt42cju6xdp7icja4ixxguu2hq.b32.i2p:0
-  seednode=4umsi4nlmgyp4rckosg4vegd2ysljvid47zu7pqsollkaszcbpqq.b32.i2p:0
-  seednode=52v6uo6crlrlhzphslyiqblirux6olgsaa45ixih7sq5np4jujaa.b32.i2p:0
-  seednode=6j2ezegd3e2e2x3o3pox335f5vxfthrrigkdrbgfbdjchm5h4awa.b32.i2p:0
-  seednode=6n36ljyr55szci5ygidmxqer64qr24f4qmnymnbvgehz7qinxnla.b32.i2p:0
-  seednode=72yjs6mvlby3ky6mgpvvlemmwq5pfcznrzd34jkhclgrishqdxva.b32.i2p:0
-  seednode=7r4ri53lby2i3xqbgpw3idvhzeku7ubhftlf72ldqkg5kde6dauq.b32.i2p:0
-  seednode=a5qsnv3maw77mlmmzlcglu6twje6ttctd3fhpbfwcbpmewx6fczq.b32.i2p:0
-  seednode=aovep2pco7v2k4rheofrgytbgk23eg22dczpsjqgqtxcqqvmxk6a.b32.i2p:0
-  seednode=bddbsmkas3z6fakorbkfjhv77i4hv6rysyjsvrdjukxolfghc23q.b32.i2p:0
-  seednode=bitcoi656nll5hu6u7ddzrmzysdtwtnzcnrjd4rfdqbeey7dmn5a.b32.i2p:0
-  seednode=brifkruhlkgrj65hffybrjrjqcgdgqs2r7siizb5b2232nruik3a.b32.i2p:0
-  seednode=c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p:0
-  seednode=day3hgxyrtwjslt54sikevbhxxs4qzo7d6vi72ipmscqtq3qmijq.b32.i2p:0
-  seednode=di2zq6fr3fegf2jdcd7hdwyql4umr462gonsns2nxz5qg5vz4bka.b32.i2p:0
-  seednode=e55k6wu46rzp4pg5pk5npgbr3zz45bc3ihtzu2xcye5vwnzdy7pq.b32.i2p:0
-  seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
-  seednode=ejlnngarmhqvune74ko7kk55xtgbz5i5ncs4vmnvjpy3l7y63xaa.b32.i2p:0
-  seednode=g47cqoppu26pr4n2cfaioqx7lbdi7mea7yqhlrkdz3wjwxjxdh2a.b32.i2p:0
-  seednode=h3r6bkn46qxftwja53pxiykntegfyfjqtnzbm6iv6r5mungmqgmq.b32.i2p:0
-  seednode=hhfi4yqkg2twqiwezrfksftjjofbyx3ojkmlnfmcwntgnrjjhkya.b32.i2p:0
-  seednode=hpiibrflqkbrcshfhmrtwfyeb7mds7a3obzwrgarejevddzamvsq.b32.i2p:0
-  seednode=i4pyhsfdq4247dunel7paatdaq5gusi2hnybp2yf5wxwdnrgxaqq.b32.i2p:0
   ```
 
 * Set permissions: only the user 'bitcoin' and members of the 'bitcoin' group can read it
@@ -535,7 +470,85 @@ We also now want to enable the node to listen to and relay transactions.
 
 ---
 
-## OpenTimestamps client
+## Extras (optional)
+
+### Privacy mode
+
+* As user `admin` add this lines to the end of `bitcoin.conf` file, remember add seed nodes
+
+  ```sh
+  $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+  ```
+
+  ```sh
+  # Privacy mode
+  onlynet=onion
+  onlynet=i2p
+  dns=0
+  dnsseed=0
+
+  ##Tor seed nodes
+  seednode=5g72ppm3krkorsfopcm2bi7wlv4ohhs4u4mlseymasn7g7zhdcyjpfid.onion:8333
+  seednode=b64xcbleqmwgq2u46bh4hegnlrzzvxntyzbmucn3zt7cssm7y4ubv3id.onion:8333
+  seednode=fjdyxicpm4o42xmedlwl3uvk5gmqdfs5j37wir52327vncjzvtpfv7yd.onion:8333
+  seednode=fpz6r5ppsakkwypjcglz6gcnwt7ytfhxskkfhzu62tnylcknh3eq6pad.onion:8333
+  seednode=gxo5anvfnffnftfy5frkgvplq3rpga2ie3tcblo2vl754fvnhgorn5yd.onion:8333
+  seednode=ifdu5qvbofrt4ekui2iyb3kbcyzcsglazhx2hn4wfskkrx2v24qxriid.onion:8333
+  seednode=itz3oxsihs62muvknc237xabl5f6w6rfznfhbpayrslv2j2ubels47yd.onion:8333
+  seednode=kpgvmscirrdqpekbqjsvw5teanhatztpp2gl6eee4zkowvwfxwenqaid.onion:8333
+  seednode=m7cbpjolo662uel7rpaid46as2otcj44vvwg3gccodnvaeuwbm3anbyd.onion:8333
+  seednode=mwmfluek4au6mxxpw6fy7sjhkm65bdfc7izc7lpz3trewfdghyrzsbid.onion:8333
+  seednode=rp7k2go3s5lyj3fnj6zn62ktarlrsft2ohlsxkyd7v3e3idqyptvread.onion:8333
+
+  ##I2P seed nodes
+  seednode=255fhcp6ajvftnyo7bwz3an3t4a4brhopm3bamyh2iu5r3gnr2rq.b32.i2p:0
+  seednode=27yrtht5b5bzom2w5ajb27najuqvuydtzb7bavlak25wkufec5mq.b32.i2p:0
+  seednode=2el6enckmfyiwbfcwsygkwksovtynzsigmyv3bzyk7j7qqahooua.b32.i2p:0
+  seednode=3gocb7wc4zvbmmebktet7gujccuux4ifk3kqilnxnj5wpdpqx2hq.b32.i2p:0
+  seednode=3tns2oov4tnllntotazy6umzkq4fhkco3iu5rnkxtu3pbfzxda7q.b32.i2p:0
+  seednode=4fcc23wt3hyjk3csfzcdyjz5pcwg5dzhdqgma6bch2qyiakcbboa.b32.i2p:0
+  seednode=4osyqeknhx5qf3a73jeimexwclmt42cju6xdp7icja4ixxguu2hq.b32.i2p:0
+  seednode=4umsi4nlmgyp4rckosg4vegd2ysljvid47zu7pqsollkaszcbpqq.b32.i2p:0
+  seednode=52v6uo6crlrlhzphslyiqblirux6olgsaa45ixih7sq5np4jujaa.b32.i2p:0
+  seednode=6j2ezegd3e2e2x3o3pox335f5vxfthrrigkdrbgfbdjchm5h4awa.b32.i2p:0
+  seednode=6n36ljyr55szci5ygidmxqer64qr24f4qmnymnbvgehz7qinxnla.b32.i2p:0
+  seednode=72yjs6mvlby3ky6mgpvvlemmwq5pfcznrzd34jkhclgrishqdxva.b32.i2p:0
+  seednode=7r4ri53lby2i3xqbgpw3idvhzeku7ubhftlf72ldqkg5kde6dauq.b32.i2p:0
+  seednode=a5qsnv3maw77mlmmzlcglu6twje6ttctd3fhpbfwcbpmewx6fczq.b32.i2p:0
+  seednode=aovep2pco7v2k4rheofrgytbgk23eg22dczpsjqgqtxcqqvmxk6a.b32.i2p:0
+  seednode=bddbsmkas3z6fakorbkfjhv77i4hv6rysyjsvrdjukxolfghc23q.b32.i2p:0
+  seednode=bitcoi656nll5hu6u7ddzrmzysdtwtnzcnrjd4rfdqbeey7dmn5a.b32.i2p:0
+  seednode=brifkruhlkgrj65hffybrjrjqcgdgqs2r7siizb5b2232nruik3a.b32.i2p:0
+  seednode=c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p:0
+  seednode=day3hgxyrtwjslt54sikevbhxxs4qzo7d6vi72ipmscqtq3qmijq.b32.i2p:0
+  seednode=di2zq6fr3fegf2jdcd7hdwyql4umr462gonsns2nxz5qg5vz4bka.b32.i2p:0
+  seednode=e55k6wu46rzp4pg5pk5npgbr3zz45bc3ihtzu2xcye5vwnzdy7pq.b32.i2p:0
+  seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
+  seednode=ejlnngarmhqvune74ko7kk55xtgbz5i5ncs4vmnvjpy3l7y63xaa.b32.i2p:0
+  seednode=g47cqoppu26pr4n2cfaioqx7lbdi7mea7yqhlrkdz3wjwxjxdh2a.b32.i2p:0
+  seednode=h3r6bkn46qxftwja53pxiykntegfyfjqtnzbm6iv6r5mungmqgmq.b32.i2p:0
+  seednode=hhfi4yqkg2twqiwezrfksftjjofbyx3ojkmlnfmcwntgnrjjhkya.b32.i2p:0
+  seednode=hpiibrflqkbrcshfhmrtwfyeb7mds7a3obzwrgarejevddzamvsq.b32.i2p:0
+  seednode=i4pyhsfdq4247dunel7paatdaq5gusi2hnybp2yf5wxwdnrgxaqq.b32.i2p:0
+  ```
+
+### Slow device mode
+
+* As user `admin` add this lines to the end of `bitcoin.conf` file, remember add seed nodes
+
+  ```sh
+  ## Slow devices optimizations (comment/uncomment depending if you use a slow device)
+  # Network (uncomment)
+  #maxconnections=40
+  # Maintain coinstats index used by the gettxoutsetinfo RPC (comment)
+  #coinstatsindex=1
+  # Set the number of threads to service RPC calls (uncomment)
+  #rpcthreads=128
+  # Set the depth of the work queue to service RPC calls (uncomment)
+  #rpcworkqueue=512
+  ```
+
+### OpenTimestamps client
 
 When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website.
 In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third-party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
