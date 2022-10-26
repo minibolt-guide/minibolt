@@ -175,11 +175,11 @@ found 12 vulnerabilities (8 moderate, 4 high)
   BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
   ```
 
-* Uncomment this line:
+* Uncomment this line
 
-```sh
-BTCEXP_SLOW_DEVICE_MODE=false
-```
+  ```sh
+  BTCEXP_SLOW_DEVICE_MODE=false
+  ```
 
 #### Optional
 
@@ -298,13 +298,17 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 ### Slow device mode
 
-```sh
-$ sudo su btcrpcexplorer
-```
+* With user `admin`, change to the `btcrpcexplorer` user
 
-```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-```
+  ```sh
+  $ sudo su btcrpcexplorer
+  ```
+
+* Edit `.env` configuration file
+
+  ```sh
+  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+  ```
 
 * Extend the timeout period due to the limited resources of your possible PC
 
@@ -312,7 +316,7 @@ $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
   BTCEXP_BITCOIND_RPC_TIMEOUT=10000
   ```
 
-* Keep commented this line
+* Comment this line if it is uncommented
 
   ```sh
   #BTCEXP_SLOW_DEVICE_MODE=false
