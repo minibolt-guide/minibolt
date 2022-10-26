@@ -36,7 +36,7 @@ Sparrow Wallet is an excellent software wallet to use with your RaspiBolt: it's 
 You can also use the following alternatives instead of Sparrow Wallet, according to your preferences and needs:
 
 * [BitBoxApp](../bonus/bitcoin/bitboxapp.md): wallet for users of BitBox hardware wallets
-* [Electrum](../bonus/bitcoin/electrum.md): a well-established poweruser wallet
+* [Electrum Wallet Desktop](../bonus/bitcoin/electrum-wallet-desktop.md): a well-established poweruser wallet
 * [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true){:target="_blank"}: wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin Core)
 * [Specter Desktop](../bonus/bitcoin/specter-desktop.md): a multisig-focused wallet (this wallet connects directly to Bitcoin Core)
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5){:target="_blank"}: wallet for users of Trezor hardware wallets
@@ -55,7 +55,7 @@ Sparrow also connects to a couple of external services to get the Bitcoin price 
 
 On your local computer, download, verify and install Sparrow Wallet.
 
-* [Using the instructions on this page](https://www.sparrowwallet.com/download/){:target="_blank"}: 
+* [Using the instructions on this page](https://www.sparrowwallet.com/download/){:target="_blank"}:
   * Download the required version for your OS
   * Download the manifest and manifest signature files
   * Verify the release

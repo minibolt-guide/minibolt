@@ -26,4 +26,4 @@ In the following categories, you can find various additional and optional guides
 
 ---
 
-Next: [Troubleshooting](../troubleshooting.md) >>
+Next: [System](system/index.md) >>

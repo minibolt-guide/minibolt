@@ -39,7 +39,7 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
   $ sudo adduser --gecos "" admin
   ```
 
-* Make this new user a superuser by adding it to the "sudo" and old "temp" user groups.
+* Make this new user a superuser by adding it to the "sudo" and old "temp" user groups
 
   ```sh
   $ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
@@ -52,8 +52,8 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
   ```
 
   ```sh
-  > admin
-  > password [A]
+  > minibolt login: admin
+  > Password: password [A]
   ```
 
 * Delete the `temp` user. Do not worry about the `userdel: temp mail spool (/var/mail/temp) not found` message
@@ -116,9 +116,11 @@ If the measured speed is more than 50 MB/s, you're good.
 
 ## Data directory
 
-We'll store all application data in the dedicated directory `/data/`.
+We'll store all application data in the dedicated directory `/data`.
 This allows for better security because it's not inside any user's home directory.
-Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data/`.
+Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
+
+💡 Remember that `"sudo mkdir /data"` command is not necessary if you have previously mounted `"/data"` folder in a secondary disk in the Ubuntu Server process installation
 
 * Create the data directory
 

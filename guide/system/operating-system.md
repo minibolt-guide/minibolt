@@ -32,9 +32,9 @@ Status: Tested MiniBolt
 ## Which operating system to use?
 
 We use Ubuntu Server Operating System, without a graphical user interface, and in the 64-bit version.
-This provides the best stability for the Raspberry Pi and makes the initial setup a breeze.
+This provides the best stability for PC and makes the initial setup a breeze.
 
-Ubuntu Server is based on the [Debian 11](https://www.debian.org/){:target="_blank"} Linux distribution, which is available for most  hardware platforms.
+Ubuntu Server is based on the [Debian](https://www.debian.org/){:target="_blank"} Linux distribution, which is available for most  hardware platforms.
 To make this guide as universal as possible, it uses only standard Debian commands.
 As a result, it should work smoothly with a personal computer while still being compatible with most other hardware platforms running Debian.
 
@@ -75,7 +75,13 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 
 1. If you don't want to use an alternative mirror for Ubuntu, press done directly
 
-1. Configure a guided storage layout, or create a custom one, you will need to mount a filesystem at `"/"` and select a boot disk. Press done
+1. Configure a guided storage layout, or create a custom one, you will need to mount a filesystem at primary disk `("/")` and select a boot disk
+
+    💡 If you want to use a secondary disk to storage data (blockchain, indexes, etc), you have to:
+
+    * > Format the secondary disk as Ext4 filesystem type and mount `"/data"` directory on it. Press done
+
+    🚨 In this case, when you are log in with the `"admin"` user, remember to assign the owner of the `/data` directory to the `"admin"` user, in the step [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory), discarding the creating of the `"/data"` folder already created in the before step.
 
 1. Confirm destructive action by selecting the "Continue" option
 
@@ -86,7 +92,7 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
     * > **server name:** minibolt
     * > **password:** PASSWORD [A]
 
-1. Check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again. ⚠️ IMPORTANT!
+1. Check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again. ⚠️ IMPORTANT step!
 
 1. If you want to preinstall some additional software (not recommended), select them, if not, press "done" directly to jump to the installation next step
 
@@ -94,7 +100,7 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 
 1. When the prompt shows you "Please remove the installation medium, then press ENTER", extract the pen drive of the PC and press ENTER
 
-Now the PC should reboot and show you the prompt to log in. You can now disconnect the keyboard and screen from the PC and proceed to connect remotely to the node from your regular computer to continue with the installation.
+🥳 Now the PC should reboot and show you the prompt to log in. You can disconnect the keyboard and the screen of the MiniBolt node, and proceed to connect remotely from your regular computer to continue with the installation.
 
 <br /><br />
 

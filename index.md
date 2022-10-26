@@ -75,11 +75,6 @@ Everything is optional.
 
 * [Bonus guides](guide/bonus/index.md)
 
-Running into issues?
-
-* [Troubleshooting](guide/troubleshooting.md): first aid to debug your system
-* [FAQ](guide/faq.md): frequently asked questions and further reading
-
 ---
 
 ## Community
@@ -87,25 +82,11 @@ Running into issues?
 This is a community project.
 Find help and other RaspiBolt users on the following platforms:
 
-* [Github Issues / Knowledge Base](){:target="_blank"}
+* [Github Issues / Knowledge Base](https://github.com/twofaktor/minibolt/issues){:target="_blank"}
 * Reddit sub: [r/minibolt](){:target="_blank"}
 * Telegram group: [t.me/minibolt](){:target="_blank"}
 
 And feel free to join the many other contributors if you see something that can be improved!
-
----
-
-## Already running an earlier version of the RaspiBolt?
-
-Unfortunately, a seamless update is not possible because RaspiBolt 3 uses an entirely different 64-bit operating system.
-The general structure of the setup stays the same, however.
-We recommend setting up the RaspiBolt from scratch, but you can then copy over essential data.
-
-[Read how to do that in the FAQ section](guide/faq.md#can-i-update-my-raspibolt-2-to-the-new-version).
-
-## Looking for an older version of this guide?
-
-If you're looking for an older version of this guide, you can still check out the archived source files for [version 1](https://github.com/raspibolt/raspibolt/blob/raspibolt-v1-deprecated/index.md){:target="_blank"} and [version 2](https://v2.raspibolt.org){:target="_blank"}.
 
 ---
 
