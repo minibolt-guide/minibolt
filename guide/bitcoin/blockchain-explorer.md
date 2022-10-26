@@ -139,7 +139,7 @@ Installation can take some time, up to 20 minutes.
 There might be a lot of confusing output, but if you see something similar to the following, the installation was successful:
 
 ```
-Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-arm64-83/binding.node
+Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-amd64-83/binding.node
 added 480 packages from 307 contributors and audited 482 packages in 570.14s
 
 43 packages are looking for funding
@@ -159,24 +159,12 @@ found 12 vulnerabilities (8 moderate, 4 high)
   $ nano .env
   ```
 
-* If you don't use Nginx reverse proxy configuration to receive and send the request to the browser, you will need to open BTC RPC Explorer to connect from the local network, uncomment and replace this line and configure FW accordingly (not recommended)
-
-  ```sh
-  BTCEXP_HOST=0.0.0.0
-  ```
-
 * Instruct BTC RPC Explorer to connect to local Bitcoin Core
 
   ```sh
   BTCEXP_BITCOIND_HOST=127.0.0.1
   BTCEXP_BITCOIND_PORT=8332
   BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
-  ```
-
-* Extend the timeout period due to the limited resources of your possible PC
-
-  ```sh
-  BTCEXP_BITCOIND_RPC_TIMEOUT=10000
   ```
 
 * To get address balances, either an Electrum server or an external service is necessary.
@@ -186,6 +174,12 @@ found 12 vulnerabilities (8 moderate, 4 high)
   BTCEXP_ADDRESS_API=electrum
   BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
   ```
+
+* Uncomment this line:
+
+```sh
+BTCEXP_SLOW_DEVICE_MODE=false
+```
 
 #### Optional
 
@@ -205,10 +199,10 @@ found 12 vulnerabilities (8 moderate, 4 high)
     BTCEXP_NO_RATES=true
     ```
 
-* You may want to share your onion address with people safe with your BTC RPC Explorer with limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled), then you need to enable this. Remember to provide them with the password [D] if you add password protection in the next step.
+* If you don't use Nginx reverse proxy configuration to receive and send the request to the browser, you will need to open BTC RPC Explorer to connect from the local network, uncomment and replace this line and configure FW accordingly (not recommended)
 
   ```sh
-  BTCEXP_DEMO=true
+  BTCEXP_HOST=0.0.0.0
   ```
 
 * You can add password protection to the web interface.
@@ -219,7 +213,7 @@ found 12 vulnerabilities (8 moderate, 4 high)
   BTCEXP_BASIC_AUTH_PASSWORD=YourPassword[D]
   ```
 
-* Decide whether you prefer a `light` or `dark` theme
+* Decide whether you prefer a `light` or `dark` theme by default
 
   ```sh
   BTCEXP_UI_THEME=dark
@@ -297,6 +291,33 @@ In order to do that, we create a systemd unit that starts the service on boot di
 
 * You can now access your own BTC RPC Explorer from within your local network by browsing to <https://raspibolt.local:4000>{:target="_blank"} (or your equivalent IP address).
 
+**Congratulations!**
+You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node.
+
+## Extras
+
+### Slow device mode
+
+```sh
+$ sudo su btcrpcexplorer
+```
+
+```sh
+$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+* Extend the timeout period due to the limited resources of your possible PC
+
+  ```sh
+  BTCEXP_BITCOIND_RPC_TIMEOUT=10000
+  ```
+
+* Keep commented this line
+
+  ```sh
+  #BTCEXP_SLOW_DEVICE_MODE=false
+  ```
+
 ### Remote access over Tor (optional)
 
 Do you want to access your personal blockchain explorer remotely?
@@ -327,8 +348,13 @@ You can easily do so by adding a Tor hidden service on the RaspiBolt and accessi
 
 * With the [Tor browser](https://www.torproject.org){:target="_blank"}, you can access this onion address from any device.
 
-**Congratulations!**
-You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node.
+### Sharing your Explorer
+
+You may want to share your **onion** address with people safe with your BTC RPC Explorer with limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204)), then you need to enable this. Remember to provide them with the `password [D]` if you add password protection in the next step.
+
+  ```sh
+  BTCEXP_DEMO=true
+  ```
 
 ---
 

@@ -226,6 +226,7 @@ We'll also set the proper access permissions.
   ## Bitcoin daemon
   server=1
   txindex=1
+  # Assign read permission to the Bitcoin group users 
   startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
 
   # Enable all compact filters
@@ -534,18 +535,27 @@ We also now want to enable the node to listen to and relay transactions.
 
 ### Slow device mode
 
-* As user `admin` add this lines to the end of `bitcoin.conf` file, remember add seed nodes
+* As user `admin` add this lines to the end of the exist `bitcoin.conf` file
+
+ ```sh
+  $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+  ```
 
   ```sh
-  ## Slow devices optimizations (comment/uncomment depending if you use a slow device)
-  # Network (uncomment)
-  #maxconnections=40
-  # Maintain coinstats index used by the gettxoutsetinfo RPC (comment)
+  ## Slow devices optimizations (add or comment depending if you use a slow device)
+  # Network
+  maxconnections=40
+  # Set the number of threads to service RPC calls
+  rpcthreads=128
+  # Set the depth of the work queue to service RPC calls
+  rpcworkqueue=512
+  ```
+
+* Comment this line to the exist `bitcoin.conf` file
+
+  ```sh
+  # Maintain coinstats index used by the gettxoutsetinfo RPC
   #coinstatsindex=1
-  # Set the number of threads to service RPC calls (uncomment)
-  #rpcthreads=128
-  # Set the depth of the work queue to service RPC calls (uncomment)
-  #rpcworkqueue=512
   ```
 
 ### OpenTimestamps client

@@ -77,7 +77,7 @@ Status: Not tested MiniBolt
 * Configure the firewall to allow incoming HTTPS requests.
 
   ```sh
-  $ sudo ufw allow 4003/tcp comment 'allow LNBits SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4003/tcp comment 'allow LNBits SSL'
   $ sudo ufw status
   ```
 

@@ -96,18 +96,6 @@ Log in to your RaspiBolt via SSH as user "admin" and install Tor.
   [...]
   ```
 
-* Ensure that the Tor service is working and listening at the default port `9050`.
-
-  ```sh
-  $ sudo lsof -i -P -n | grep tor | grep LISTEN
-  ```
-
-💡 If the prompt show you "sudo: lsof: command not found", it means that you don't have "lsof" installed yet, install it with next command and try again
-
-  ```sh
-  $ sudo apt install lsof
-  ```
-
 ## Configuration
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network.
@@ -132,6 +120,19 @@ Save and exit
 
   ```sh
   $ sudo systemctl reload tor
+  ```
+
+* Ensure that the Tor service is working and listening at the default ports `9050` and `9051`.
+
+  ```sh
+  $ sudo ss -tulpn | grep tor | grep LISTEN
+  ```
+
+Output expected:
+
+  ```sh
+  tcp   LISTEN 0      4096             127.0.0.1:9050       0.0.0.0:*    users:(("tor",pid=795,fd=6))
+  tcp   LISTEN 0      4096             127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=795,fd=7))
   ```
 
 * Check the systemd journal to see Tor real time updates output logs.
