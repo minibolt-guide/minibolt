@@ -15,8 +15,8 @@ lnd_dir="/data/lnd"
 # set to mount point of secondary storage. This is used to calculate secondary USB usage %
 ext_storage2nd="/mnt/ext"
 
-# set to network device name (usually "eth0" for ethernet, and "wlan0" for wifi)
-network_name="wlan0"
+# set to network device name
+network_name="eno1"
 
 
 # Helper functionality
@@ -63,7 +63,7 @@ fi
 # Print first welcome message
 # ------------------------------------------------------------------------------
 printf "
-${color_yellow}RaspiBolt %s:${color_grey} Sovereign Bitcoin full node
+${color_yellow}MiniBolt %s:${color_grey} Sovereign Bitcoin full node
 ${color_yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 " "3"
 

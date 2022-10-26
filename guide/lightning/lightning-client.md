@@ -42,7 +42,7 @@ We'll download, verify and install LND.
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.3-beta/lnd-linux-amd64-v0.15.3-beta.tar.gz
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.3-beta/manifest-v0.15.3-beta.txt
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.3-beta/manifest-roasbeef-v0.15.3-beta.sig
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.0-beta/manifest-roasbeef-v0.15.3-beta.sig.ots
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.3-beta/manifest-roasbeef-v0.15.3-beta.sig.ots
   ```
 
 ### Checksum check
@@ -71,7 +71,7 @@ Now that we've verified the integrity of the downloaded binary, we need to check
 
   ```sh
   $ gpg --verify manifest-roasbeef-v0.15.3-beta.sig manifest-v0.15.3-beta.txt
-  > gpg: Signature made Mon Oct 17 22:18:02 2022 UTC
+  > gpg: Signature made Mon 17 Oct 2022 10:18:02 PM UTC
   > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
   > gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
@@ -87,12 +87,15 @@ We can also check that the manifest file was in existence around the time of the
 * Let's verify the timestamp of the file matches the release date.
 
   ```sh
-  $ ots verify manifest-roasbeef-v0.15.3-beta.sig.ots -f manifest-roasbeef-v0.15.3-beta.sig
-  > [...]
-  > Success! Bitcoin block 742091 attests existence as of 2022-06-24 EEST
+  $ ots --no-cache verify manifest-roasbeef-v0.15.3-beta.sig.ots -f manifest-roasbeef-v0.15.3-beta.sig
+  > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+  > Success! Bitcoin block 759141 attests existence as of 2022-10-17 UTC
   ```
   
-* Check that the date of the timestamp (here 2022-08-31) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-08-30).
+* Check that the date of the timestamp (here 2022-10-18) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-10-17).
 
 ## Installation
 

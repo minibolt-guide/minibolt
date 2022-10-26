@@ -76,7 +76,7 @@ You can follow the progress using `tail -f ~/.bitcoin/debug.log`.
 
 ### Firewall & reverse proxy
 
-In the [Security section](../raspberry-pi/security.md#prepare-nginx-reverse-proxy), we set up NGINX as a reverse proxy.
+In the [Security section](../system/security.md#prepare-nginx-reverse-proxy), we set up NGINX as a reverse proxy.
 Now we can add the BTC RPC Explorer configuration.
 
 * Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer
@@ -105,7 +105,7 @@ Now we can add the BTC RPC Explorer configuration.
 * Configure the firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow 4000 comment 'allow BTC RPC Explorer SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4000 comment 'allow BTC RPC Explorer SSL from local network'
   $ sudo ufw status
   ```
 
@@ -159,7 +159,7 @@ found 12 vulnerabilities (8 moderate, 4 high)
   $ nano .env
   ```
 
-* If you don't use Nginx reverse proxy configuration to receive and send the request to the browser, you will need to open BTC RPC Explorer to connect from the local network
+* If you don't use Nginx reverse proxy configuration to receive and send the request to the browser, you will need to open BTC RPC Explorer to connect from the local network, uncomment and replace this line and configure FW accordingly (not recommended)
 
   ```sh
   BTCEXP_HOST=0.0.0.0
@@ -173,7 +173,7 @@ found 12 vulnerabilities (8 moderate, 4 high)
   BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
   ```
 
-* Extend the timeout period due to the limited resources of the Raspberry Pi
+* Extend the timeout period due to the limited resources of your possible PC
 
   ```sh
   BTCEXP_BITCOIND_RPC_TIMEOUT=10000
@@ -267,7 +267,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
 * Paste the following configuration. Save and exit
 
   ```sh
-  # RaspiBolt: systemd unit for BTC RPC Explorer
+  # MiniBolt: systemd unit for BTC RPC Explorer
   # /etc/systemd/system/btcrpcexplorer.service
 
   [Unit]

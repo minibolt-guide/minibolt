@@ -30,21 +30,22 @@ Status: Tested MiniBolt
 ---
 
 ## Personal computer
-This guide builds on the readily available Personal
 
-While a Personal Computer is the best choice for most, this guide also works with other computing platforms, clouds servers, or virtual machines that run Debian.
+This guide builds on the readily available personal computer.
+
+While a personal computer is the best choice for most, this guide also works with other computing platforms, clouds servers, or virtual machines that run Debian.
 It only uses standard Debian instructions.
 
 ## Hardware requirements
 
 You need the following hardware:
 
-* Personal Computer with Intel/AMD processor, with 4+ GB RAM
+* Personal Computer with Intel/AMD processor, with 2+ GB RAM, a 4+ GB RAM is recommended
 * Internal storage: 1+ TB, a SSD is recommended
 * Temporary monitor screen or television
 * Temporary keyboard USB/PS2
 
-The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 500 GB and growing.
+The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 430 GB and growing.
 
 You might also want to get this optional hardware:
 
@@ -57,12 +58,12 @@ You might also want to get this optional hardware:
 You will need several passwords, and it's easiest to write them all down in the beginning, instead of bumping into them throughout the guide.
 They should be unique and very secure, at least 12 characters in length. Do **not use uncommon special characters**, spaces, or quotes (‘ or “).
 
-```console
+```sh
 [ A ] Master user password
 [ B ] Bitcoin RPC password
 [ C ] LND wallet password
 [ D ] BTC-RPC-Explorer password (optional)
-[ E ] Thunderhub
+[ E ] Ride The Lightning password
 ```
 
 ![xkcd: Password Strength](../../images/preparations_xkcd.png)

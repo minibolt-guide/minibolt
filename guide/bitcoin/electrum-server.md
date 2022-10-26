@@ -54,7 +54,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-cli
 
 ### Firewall & reverse proxy
 
-In the [Security section](../raspberry-pi/security.md), we already set up NGINX as a reverse proxy.
+In the [Security section](../system/security.md), we already set up NGINX as a reverse proxy.
 Now we can add the Electrs configuration.
 
 * Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication.
@@ -84,7 +84,7 @@ Now we can add the Electrs configuration.
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow 50002 comment 'allow Electrum SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 comment 'allow Electrum SSL from local network'
   ```
 
 ---
@@ -166,7 +166,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   daemon_rpc_addr = "127.0.0.1:8332"
   daemon_p2p_addr = "127.0.0.1:8333"
 
-  # Electrs settings
+  # Electrs settings. If you chose to connect locally without Nginx reverse proxy, configure: `electrum_rpc_addr = "0.0.0.0:50001"` and configure FW accordingly (not recommended)
   electrum_rpc_addr = "127.0.0.1:50001"
   db_dir = "/data/electrs/db"
 
@@ -278,12 +278,19 @@ Electrs needs to start automatically on system boot.
   $ sudo journalctl -f -u electrs
   ```
 
+* Ensure that electrs service is working and listening at the default port
+
+  ```sh
+  $ sudo ss -tulpn | grep electrs | grep LISTEN
+  ```
+
   Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets.
   With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
 
 * Exit the log output with `Ctrl`-`C`
 
 ### Remote access over Tor (optional)
+
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service.
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family.
 Note that the remote device needs to have Tor installed as well.

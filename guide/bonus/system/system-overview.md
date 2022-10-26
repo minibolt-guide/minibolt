@@ -59,8 +59,7 @@ This script can be run by user "admin" without root privileges, but you should s
   $ nano 20-raspibolt-welcome --linenumbers
   ```
 
-* If you use a network cable instead of a wifi connection, go to line 19 and change `wlan0` to `eth0`.
-  Save with `Ctrl`-`O`and exit `nano` with `Ctrl`-`X`.
+* Show your network device name typing `tcpdump --list-interfaces` go to line 19 and change `wlan0` to the correct one name interface that you show "[Up, Running, Connected]". Save with `Ctrl`-`O`and exit `nano` with `Ctrl`-`X`.
 
   ```sh
   # set to network device name (usually "eth0" for ethernet, and "wlan0" for wifi)

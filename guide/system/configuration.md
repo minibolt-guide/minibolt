@@ -93,7 +93,7 @@ The “Advanced Packaging Tool” (apt) makes this easy.
 
 ## Check drive performance
 
-A performant SSD is essential for your node.
+A performant unit storage is essential for your node.
 
 Let's check if your drive works well as-is.
 
@@ -103,14 +103,21 @@ Let's check if your drive works well as-is.
   $ lsblk -pli
   ```
 
-* Measure the speed of your external drive
+* Measure the speed of your drive
 
   ```sh
   $ sudo hdparm -t --direct /dev/sda
-  > Timing O_DIRECT disk reads: 932 MB in  3.00 seconds = 310.23 MB/sec
+  > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
   ```
 
-If the measured speed is more than 50 MB/s, you're good.
+💡 If you use a secondary unit storage for `"/data"` folder, normally it should be detected as `/dev/sdb`, check it with `lsblk -pli` command and measure the speed of your secondary drive with
+
+  ```sh
+  $ sudo hdparm -t --direct /dev/sdb
+  > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
+  ```
+
+If the measured speeds are more than 50 MB/s, you're good.
 
 ---
 
@@ -120,7 +127,7 @@ We'll store all application data in the dedicated directory `/data`.
 This allows for better security because it's not inside any user's home directory.
 Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
 
-💡 Remember that `"sudo mkdir /data"` command is not necessary if you have previously mounted `"/data"` folder in a secondary disk in the Ubuntu Server process installation
+💡 Remember that `"sudo mkdir /data"` command is not necessary if you previously mounted `"/data"` folder in a secondary unit storage in the [Ubuntu Server process installation](https://twofaktor.github.io/minibolt/guide/system/operating-system.html#ubuntu-server-installation)
 
 * Create the data directory
 

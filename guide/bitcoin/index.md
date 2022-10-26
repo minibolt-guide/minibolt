@@ -19,6 +19,7 @@ Your Bitcoin client also acts as a data source for other applications, like the 
 ---
 
 We first install Bitcoin Core and Electrs on the node.
-We then set up the powerful Sparrow desktop wallet on your computer and connect it to your Electrs server 
-for secure and private base layer operations, such as sending and receiving payments from and to your hardware wallet.
+We then set up the powerful Sparrow desktop wallet on your computer and connect it to your Electrs server for secure and private base layer operations, such as sending and receiving payments from and to your hardware wallet.
 Finally, we install BTC RPC Explorer on the node, a lite blockchain explorer with a clean web UI for privately checking your transactions and the mempool.
+
+Next: [Bitcoin client >>](bitcoin-client.md)

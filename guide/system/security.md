@@ -85,7 +85,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   $ brew install ssh-copy-id
   ```
 
-### Disable password login and configure a custom SSH port (recommended)
+### Disable password login
 
 * Log in to the PC as "admin" using SSH with your SSH key.
   You shouldn't be prompted for the admin's password anymore.

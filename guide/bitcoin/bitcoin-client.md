@@ -536,7 +536,8 @@ We also now want to enable the node to listen to and relay transactions.
 ---
 
 ## OpenTimestamps client
-When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. 
+
+When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website.
 In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third-party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
 Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client){:target="_blank"} to locally verify the timestamp of the binaries checksums file.
 
@@ -563,16 +564,31 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 ## For the future: upgrade Bitcoin Core
 
 The latest release can be found on the Github page of the Bitcoin Core project:
-
 <https://github.com/bitcoin/bitcoin/releases>
-
 Always read the RELEASE NOTES first!
 When upgrading, there might be breaking changes, or changes in the data structure that need special attention.
 
 * There's no need to stop the application.
+
   Simply install the new version and restart the service.
 
-* Download, verify, extract and install the Bitcoin Core binaries as described in the [Bitcoin section](bitcoin-client.md#installation) of this guide.
+* Download, verify, extract and install the Bitcoin Core binaries as described in the [Bitcoin section](bitcoin-client.md#installation) of this guide. When checking the timestamp, instead of using the website, use the following commands:
+
+  ```sh
+  # Download the timestamp in the same directory as the checksum and signature files, i.e. /tmp
+  $ wget https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS
+  $ wget https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS.ots
+  
+  # Verify the timestamp
+  $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
+  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+  > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+  > Success! Bitcoin block 733490 attests existence as of 2022-04-25 UTC
+  
+  # Now, just check that the timestamp date is close to the release date of the version you're installing.
+  ```
 
 * Restart the Bitcoin Core systemd unit
 

@@ -22,8 +22,10 @@ Check out [Understanding the Lightning Network](https://bitcoinmagazine.com/tech
 
 ---
 
-To enable the Lightning Network on your RaspiBolt, we install LND, the "Lightning Network Daemon".
-We then set up an automatic Static Channel Backup to protect ourselves in case of failure of the SSD drive.
+To enable the Lightning Network on your MiniBolt, we install LND, the "Lightning Network Daemon".
+We then set up an automatic Static Channel Backup to protect ourselves in case of failure of the SSD drives.
 We'll then add "Ride The Lightning", a web-based node management tool.
 Finally, we'll install the Zeus mobile app to make on-chain and LN payments and manage our node while we're on the go.
 Together, they make operating your node a breeze.
+
+Next: [Lightning client >>](lightning-client.md)

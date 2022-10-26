@@ -80,11 +80,11 @@ Everything is optional.
 ## Community
 
 This is a community project.
-Find help and other RaspiBolt users on the following platforms:
+Find help and other MiniBolters on the following platforms:
 
 * [Github Issues / Knowledge Base](https://github.com/twofaktor/minibolt/issues){:target="_blank"}
-* Reddit sub: [r/minibolt](){:target="_blank"}
-* Telegram group: [t.me/minibolt](){:target="_blank"}
+* Reddit sub: [r/minibolt](coming soon..){:target="_blank"}
+* Telegram group: [t.me/minibolt](coming soon..){:target="_blank"}
 
 And feel free to join the many other contributors if you see something that can be improved!
 
@@ -123,4 +123,4 @@ Status: Not tested RaspiBolt v3
 
 ---
 
-Get started: [Backstory >>](guide/backstory.md)
+Get started: [System >>](guide/system/index.md)

@@ -31,10 +31,10 @@ Status: Tested MiniBolt
 
 ## Which operating system to use?
 
-We use Ubuntu Server Operating System, without a graphical user interface, and in the 64-bit version.
+We use Ubuntu Server OS, without a graphical user interface.
 This provides the best stability for PC and makes the initial setup a breeze.
 
-Ubuntu Server is based on the [Debian](https://www.debian.org/){:target="_blank"} Linux distribution, which is available for most  hardware platforms.
+Ubuntu Server is based on the [Debian](https://www.debian.org/){:target="_blank"} Linux distribution, which is available for most hardware platforms.
 To make this guide as universal as possible, it uses only standard Debian commands.
 As a result, it should work smoothly with a personal computer while still being compatible with most other hardware platforms running Debian.
 
@@ -44,11 +44,11 @@ In order to write the operating system to the external drive, we will use the [B
 
 * Download Ubuntu Server doing click [here](https://softlibre.unizar.es/ubuntu/releases/22.04.1/ubuntu-22.04.1-live-server-amd64.iso)
 * Start the Balena Etcher
-* Select "Flash from file" > Select Ubuntu Server .iso previously downloaded
+* Select "Flash from file" > Select Ubuntu Server .iso file previously downloaded
 
 ## Write the operating system to the pen drive
 
-* Connect pendrive to your regular computer
+* Connect pen drive to your regular computer
 * Click on "Select target"
 * Select your pen drive unit
 * Click on "Flash!"
@@ -77,9 +77,9 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 
 1. Configure a guided storage layout, or create a custom one, you will need to mount a filesystem at primary disk `("/")` and select a boot disk
 
-    💡 If you want to use a secondary disk to storage data (blockchain, indexes, etc), you have to:
+    💡 If you want to use a secondary unit storage to storage data (blockchain, indexes, etc), you have to:
 
-    * > Format the secondary disk as Ext4 filesystem type and mount `"/data"` directory on it. Press done
+    * > Format the secondary unit storage as Ext4 filesystem type and mount `"/data"` directory on it. Press done
 
     🚨 In this case, when you are log in with the `"admin"` user, remember to assign the owner of the `/data` directory to the `"admin"` user, in the step [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory), discarding the creating of the `"/data"` folder already created in the before step.
 
