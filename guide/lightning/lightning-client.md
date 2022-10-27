@@ -201,6 +201,8 @@ To improve the security of your wallet, check out these more advanced methods:
   color=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
   listen=localhost
   debuglevel=info
+  coop-close-target-confs=60
+  bitcoind.estimatemode=ECONOMICAL
 
   # Password: automatically unlock wallet with the password in this file
   # -- comment out to manually unlock wallet, and see MiniBolt guide for more secure options
@@ -596,7 +598,26 @@ To try, why not send me satoshis! You simply need to input my node pukey [`⚡2F
   $ lncli sendpayment --dest 02acd93e3352fd59066ca3f23e8865de1926301e8be03c6a52f0f7e43533fe9888 --amt <amount in sats whatever you want> --keysend
   ```
 
-### Adding watchtowers
+### Watchtower server
+
+  ```sh
+  $ lncli tower info
+  ```
+
+  ```sh
+  {
+    "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
+    "listeners": [
+        "[::]:9911"
+    ],
+    "uris": [
+        "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
+    ]
+  }
+
+  ```
+
+### Watchtower client
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
 If your RaspiBolt goes down for a longer period of time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
