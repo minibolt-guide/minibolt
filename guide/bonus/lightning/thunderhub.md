@@ -8,7 +8,7 @@ has_toc: false
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Bonus Guide: Install ThunderHub
+# Bonus guide: Install ThunderHub
 
 {: .no_toc }
 
@@ -18,6 +18,9 @@ has_toc: false
 
 Difficulty: Medium
 {: .label .label-yellow }
+
+Status: Tested RaspiBolt v3
+{: .label .label-green }
 
 Status: Tested MiniBolt
 {: .label .label-blue }

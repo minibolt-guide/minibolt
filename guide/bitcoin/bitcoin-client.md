@@ -34,10 +34,12 @@ We're talking more than 700'000 blocks with a size of over 400 GB, so this is no
 
 ---
 
+## Installation
+
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum.
 This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-## Preparations
+### Preparations
 
 * Login as "admin" and change to a temporary directory which is cleared on reboot.
 
@@ -45,7 +47,7 @@ This is a precaution to make sure that this is an official release and not a mal
   $ cd /tmp
   ```
 
-* Get the latest download links at [bitcoincore.org/en/download](https://bitcoincore.org/en/download){:target="_blank"} (ARM Linux 64 bit), they change with each update.
+* Get the latest download links at [bitcoincore.org/en/download](https://bitcoincore.org/en/download){:target="_blank"} (x86/amd64 Linux), they change with each update.
 
   ```sh
   # download Bitcoin Core binary
@@ -106,7 +108,7 @@ This is a precaution to make sure that this is an official release and not a mal
 
 ![Bitcoin timestamp check](../../images/bitcoin-ots-check.PNG)
 
-## Installation
+### Installation
 
 * If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
@@ -542,7 +544,7 @@ We also now want to enable the node to listen to and relay transactions.
   ```
 
   ```sh
-  ## Slow devices optimizations (add or comment depending if you use a slow device)
+  ## Slow devices optimizations
   # Network
   maxconnections=40
   # Set the number of threads to service RPC calls
@@ -595,23 +597,32 @@ When upgrading, there might be breaking changes, or changes in the data structur
 
   Simply install the new version and restart the service.
 
-* Download, verify, extract and install the Bitcoin Core binaries as described in the [Bitcoin section](bitcoin-client.md#installation) of this guide. When checking the timestamp, instead of using the website, use the following commands:
+Download, verify, extract and install the Bitcoin Core binaries as described in the [Bitcoin section](bitcoin-client.md#installation) of this guide. When checking the timestamp, instead of using the website, use the following command:
+
+* Download the timestamp in the same directory as the checksum and signature files, i.e. /tmp
 
   ```sh
-  # Download the timestamp in the same directory as the checksum and signature files, i.e. /tmp
   $ wget https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS
   $ wget https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS.ots
-  
-  # Verify the timestamp
+  ```
+
+* Verify the timestamp
+
+  ```sh
   $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
+  ```
+
+* Expected output
+
+  ```sh
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
   > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
   > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
   > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
   > Success! Bitcoin block 733490 attests existence as of 2022-04-25 UTC
-  
-  # Now, just check that the timestamp date is close to the release date of the version you're installing.
   ```
+
+Now, just check that the timestamp date is close to the release date of the version you're installing.
 
 * Restart the Bitcoin Core systemd unit
 

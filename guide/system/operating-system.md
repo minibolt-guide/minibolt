@@ -31,7 +31,7 @@ Status: Tested MiniBolt
 
 ## Which operating system to use?
 
-We use Ubuntu Server OS, without a graphical user interface.
+We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interface.
 This provides the best stability for PC and makes the initial setup a breeze.
 
 Ubuntu Server is based on the [Debian](https://www.debian.org/){:target="_blank"} Linux distribution, which is available for most hardware platforms.
@@ -42,9 +42,9 @@ As a result, it should work smoothly with a personal computer while still being 
 
 In order to write the operating system to the external drive, we will use the [Balena Etcher](https://www.balena.io/etcher/){:target="_blank"} application, download the correct binarie accordly to your OS.
 
-* Download Ubuntu Server doing click [here](https://softlibre.unizar.es/ubuntu/releases/22.04.1/ubuntu-22.04.1-live-server-amd64.iso)
+* Download Ubuntu Server LTS doing click [here](https://softlibre.unizar.es/ubuntu/releases/22.04.1/ubuntu-22.04.1-live-server-amd64.iso)
 * Start the Balena Etcher
-* Select "Flash from file" > Select Ubuntu Server .iso file previously downloaded
+* Select "Flash from file" > Select Ubuntu Server LTS .iso file previously downloaded
 
 ## Write the operating system to the pen drive
 
@@ -53,29 +53,30 @@ In order to write the operating system to the external drive, we will use the [B
 * Select your pen drive unit
 * Click on "Flash!"
 
-Balena Etcher will now flash the operating system to your drive and validate it. It should display a "Fash Complete!" message after.
+Balena Etcher will now flash the operating system to your drive and validate it. It should display a "Flash Complete!" message after.
 
 ## Start your PC
 
-* Safely eject the Pen Drive from your computer
-* Connect it to your Personal Computer
-* Start the PC and select pen drive as boot device
+* Safely eject the pen drive from your regular computer
+* Connect it to your MiniBolt node (PC)
+* Attach screen, keyboard and Ethernet wire (not case for Wifi connection) to the PC and start the PC
+* Press the key fastly to enter to BIOS setup or directly to the boot menu to select the pen drive as the boot device (normally press F9, Esc, F12, or Supr keys)
 
 ## Ubuntu Server installation
 
-Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to select your lenguage. Follow the next instructions:
+Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to select your lenguage (English recommended). Follow the next instructions:
 
-1. Select your keyboard layout and press done
+1. Select your keyboard layout (Spanish recommended to Spanish native speakers) and press done
 
 1. Choose "Ubuntu Server" as the base for the installation
 
-1. Check the network connection that you choose to use and take note of your IP obtained automatically through DHCP. Press done
+1. Select interface network connection that you choose to use (Ethernet or Wifi), take note of your IP obtained automatically through DHCP. Press done
 
 1. Leave empty next option if you don't want to use an HTTP proxy to access. Press done
 
 1. If you don't want to use an alternative mirror for Ubuntu, press done directly
 
-1. Configure a guided storage layout, or create a custom one, you will need to mount a filesystem at primary disk `("/")` and select a boot disk
+1. Configure a guided storage layout, or create a custom one, you will need to mount a filesystem at primary unit storage `("/")` and select a boot disk
 
     💡 If you want to use a secondary unit storage to storage data (blockchain, indexes, etc), you have to:
 
@@ -85,7 +86,7 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 
 1. Confirm destructive action by selecting the "Continue" option
 
-1. Fill the profile setup form with the follows
+1. Fill the profile setup form with the follows ⚠️ IMPORTANT step!
 
     * > **name:** temp
     * > **user:** temp

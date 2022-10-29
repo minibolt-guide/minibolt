@@ -56,14 +56,14 @@ Status: Not tested MiniBolt
 * Check on the download page what is the SHA256 checksum of the file, e.g. for above: 57a9171682e297df1a5bd287be056ed0280195ad079af90af16dcad4f64710cb.
 Calculate the SHA256 hash of the downloaded file, it should be the same number as the one on the website
   
-  ```sh 
+  ```sh
   $ sha256sum go1.17.8.linux-arm64.tar.gz
   > 57a9171682e297df1a5bd287be056ed0280195ad079af90af16dcad4f64710cb  go1.17.8.linux-arm64.tar.gz
   ```
   
 * Install Go in the `/usr/local` directory
   
-  ```sh 
+  ```sh
   $ sudo tar -xvf go1.17.8.linux-arm64.tar.gz -C /usr/local
   $ rm go1.17.8.linux-arm64.tar.gz
   ```
@@ -103,7 +103,7 @@ Calculate the SHA256 hash of the downloaded file, it should be the same number a
   $ sudo adduser --disabled-password --gecos "" circuitbreaker
   $ sudo adduser circuitbreaker lnd
   ```
- 
+
 * With user "circuitbreaker", create a symbolic link to the `lnd` directory, in order for `circuitbreaker` to be allowed to interact with `lnd`
 
   ```sh
@@ -111,17 +111,17 @@ Calculate the SHA256 hash of the downloaded file, it should be the same number a
   $ ln -s /data/lnd /home/circuitbreaker/.lnd
   ```
 
-* Clone the project and install it 
- 
+* Clone the project and install it
+
   ```sh
   $ git clone https://github.com/lightningequipment/circuitbreaker.git
   $ cd circuitbreaker
   $ go install
-  ``` 
- 
+  ```
+
 * Make Circuit Breaker executable without having to provide the full path to the Go binary directory
 
-  ```sh 
+  ```sh
   $ echo 'export PATH=$PATH:/home/circuitbreaker/go/bin' >> /home/circuitbreaker/.bashrc
   $ source /home/circuitbreaker/.bashrc
   ```
@@ -140,16 +140,16 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   $ mkdir ~/.circuitbreaker
   $ cp ~/circuitbreaker/circuitbreaker-example.yaml ~/.circuitbreaker/circuitbreaker.yaml
   $ nano .circuitbreaker/circuitbreaker.yaml
-  ``` 
- 
+  ```
+
 * Circuit Breaker suggests 5 maximum pending htlcs, set the number of htlcs that you feel comfortable with in case of a griefing attack
- 
+
   ```ini
   maxPendingHtlcs: 3
   ```
- 
+
 * If you don't want to use exception groups, uncomment the entire section
- 
+
   ```ini
   #groups:
    # For two peers, the pending and rate limits are
@@ -166,26 +166,6 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
        #peers:
        #- 035cb74e3232e98ba6a866c485f1076dca5e42147dc1e3fbf9ea7241d359988e4d
    ```
-  
-* If you don't want to use the hold fees simulation, uncomment the entire section
-
-  ```ini
-  #holdFee:
-    # Set the base hold fee to 500 sat per hour to compensate for the usage of an
-    # htlc slot. If an imaginary channel of 1 BTC would have all of its 483 slots
-    # occupied for a full year, the total hold fee would be 24 * 365 * 483 =
-    # 4231080 sats. This translates to a yearly return on the staked bitcoin of
-    # ~4.2%.
-  #  baseSatPerHr: 1
-    # Set the hold fee rate to 5 parts per million. If an imaginary channel of 1
-    # BTC would have all of its funds time-locked for a full year, the total hold
-    # fee would be 24 * 365 * 100000000 * 5 / 1000000 = 4380000. This translates
-    # to a yearly return on the staked bitcoin of ~4.4%.
-  #  ratePpmPerHr: 5
-
-    # Report (virtually) collected hold fees once per hour.
-  #  reportingInterval: 1h*
-  ```
 
 * Once edited, save and exit.
 
@@ -209,9 +189,10 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   > circuitbreaker - A new cli application
   > [...]
   ```
+
 * Finally, launch `circuitbreaker`
   
-  ```sh 
+  ```sh
   $ circuitbreaker
   $ 2021-12-08T18:33:28.557Z	INFO	Read config file	{"file": "/home/circuitbreaker/.circuitbreaker/circuitbreaker.yaml"}
   $ 2021-12-08T18:33:28.561Z	INFO	CircuitBreaker started
@@ -220,11 +201,11 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   $ 2021-12-08T18:33:28.814Z	INFO	Interceptor/notification handlers registered
   $ 2021-12-08T18:33:28.814Z	INFO	Hold fee reporting disabled
   ```
- 
- *  Stop `circuitbreaker` with Ctrl+C
+
+* Stop `circuitbreaker` with Ctrl+C
 
 ---
- 
+
 ## Autostart on boot
 
 * Exit the "circuitbreaker" user session back to "admin"
@@ -234,13 +215,13 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   ```
 
 * Create a circuitbreaker systemd service unit with the following content, save and exit 
- 
+
   ```sh
   $ sudo nano /etc/systemd/system/circuitbreaker.service
   ```
   
   ```ini
-  # RaspiBolt: systemd unit for circuitbreaker
+  # MiniBoltBolt: systemd unit for circuitbreaker
   # /etc/systemd/system/circuitbreaker.service
 
   [Unit]
@@ -302,7 +283,7 @@ Updating to a new release should be straight-forward, but make sure to check out
   ```
   
 * Fetch the latest GitHub repository information and check out the new release
- 
+
   ```sh
   $ cd ~/circuitbreaker
   $ git fetch
