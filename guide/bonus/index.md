@@ -22,8 +22,6 @@ In the following categories, you can find various additional and optional guides
 * **[Bitcoin](bitcoin/index.md)**
 * **[Lightning](lightning/index.md)**
 
-<br /><br />
-
 ---
 
 Next: [System >>](system/index.md)

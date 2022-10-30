@@ -10,8 +10,12 @@ has_children: true
 # Personal Computer
 {: .no_toc }
 
-This guide builds on the easily available personal computer
+This guide builds on the easily available personal computer.
 
 ![Personal Computer](../../images/personal-computer.jpg)
 
 In the following sections, we will start it up and prepare the operating system for your MiniBolt.
+
+---
+
+Next: [Preparationes >>](preparations.md)
