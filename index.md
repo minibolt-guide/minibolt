@@ -10,10 +10,10 @@ nav_order: 1
 
 ![MiniBolt Logo](images/minibolt-home-screen.png)
 
-Build your own "do-everything-yourself" Bitcoin full node that will make you a sovereign peer in the Bitcoin and Lightning network.
+Build your own "do-everything-yourself" Bitcoin full node on a personal computer, that will make you a sovereign peer in the Bitcoin and Lightning network.
 {: .fs-6 }
 
-No need to trust anyone else.
+No need to trust anyone else. Don't trust, verify!
 {: .fs-6 }
 
 ---

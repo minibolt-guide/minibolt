@@ -30,7 +30,7 @@ Status: Tested MiniBolt
 ## This may take some time
 
 Bitcoin Core will download the full Bitcoin blockchain, and validate all transactions since 2009.
-We're talking more than 700'000 blocks with a size of over 400 GB, so this is not an easy task.
+We're talking more than 700'000 blocks with a size of over 430 GB, so this is not an easy task.
 
 ---
 
