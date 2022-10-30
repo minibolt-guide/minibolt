@@ -107,7 +107,7 @@ By OS:
 
 * **Windows**: download, install and run [Tor Browser](https://www.torproject.org){:target="_blank"}
   * The application must be started manually and run in the background when you want to connect over Tor.
-  * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
+  * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 
 * **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
   
@@ -125,7 +125,7 @@ Expected output:
 * **macOS**: download, verify, install, and run [Tor Browser](https://www.torproject.org/){:target="_blank"}
 
   * The application must be started manually when you want to connect over Tor
-  * By default, when you have Tor Browser running, Tor proxy is available on port 9150
+  * By default, when you have Tor Browser running, Tor proxy is available on port 9150, use this port instead of `9050` port
 
 Now we need to specify the Tor address for Electrum Server and the local Tor proxy port in the Electrum Wallet configuration.
 

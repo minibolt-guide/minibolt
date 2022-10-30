@@ -134,8 +134,7 @@ If you want to use Sparrow outside your home network, when you're on the go, you
 
 To connect via Tor to Electrs, the server must have a Tor hidden service connection address. Make sure you have set up a Tor hidden service as explained in the ["Electrum server" guide](electrum-server.md#remote-access-over-tor-optional).
 
-If you've already set up the hidden service but lost the connection address, 
-you can obtain it again by running the following command with "admin" on your node:
+If you've already set up the hidden service but lost the connection address, you can obtain it again by running the following command with "admin" on your node:
 
   ```
   $ sudo cat /var/lib/tor/hidden_service_electrs/hostname`
@@ -174,14 +173,29 @@ If you're using a local connection, we recommend that you set up this external T
 
 For Sparrow Wallet to connect to the external services via Tor, Tor has to be running on your computer. You can run the Tor Browser and use port 9150 on localhost or else run Tor as a background service and use port 9050.
 
-Here, we'll use the Tor Browser and port 9150 as it is easier to set up on Windows and macOS.
+By OS:
 
-* Install the Tor Browser on your computer by following [this guide](https://tb-manual.torproject.org/installation/){:target="_blank"}.
-* Launch the Tor Browser
-* Click on "Always connect automatically" and "Connect"
-* Keep the Tor Browser running while using Sparrow
+* **Windows**: download, install and run [Tor Browser](https://www.torproject.org){:target="_blank"}
+  * The application must be started manually and run in the background when you want to connect over Tor.
+  * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 
-*Note:* For Linux Debian-based OS users, you might prefer to just have Tor running in the background and not have to open the Tor Browser each time you're using Sparrow Wallet. If so, instead of intalling the browser, simply install Tor with `sudo apt install tor` and check that it is running with `systemctl status tor`. Remember that when using the Tor daemon, the Tor proxy will communicate on port 9050.
+* **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
+  
+  ```sh
+  $ sudo ss -tulpn | grep tor | grep LISTEN
+  ```
+
+Expected output:
+
+  ```sh
+  tcp   LISTEN 0      4096           127.0.0.1:9050       0.0.0.0:*    users:(("tor",pid=1847,fd=6))
+  tcp   LISTEN 0      4096           127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=1847,fd=7))
+  ```
+
+* **macOS**: download, verify, install, and run [Tor Browser](https://www.torproject.org/){:target="_blank"}
+
+  * The application must be started manually when you want to connect over Tor
+  * By default, when you have Tor Browser running, Tor proxy is available on port 9150, use this port instead of `9050` port
 
 ### Wallet configuration
 

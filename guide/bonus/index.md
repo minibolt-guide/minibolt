@@ -12,7 +12,7 @@ has_toc: false
 # Bonus Section
 {: .no_toc }
 
-In the following categories, you can find various additional and optional guides that make your RaspiBolt run even smoother.
+In the following categories, you can find various additional and optional guides that make your MiniBolt run even smoother.
 
 ---
 
