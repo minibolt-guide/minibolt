@@ -16,8 +16,8 @@ parent: System
 You are now on the command line of your own Bitcoin node.
 Let's start with the configuration.
 
-Status: Not tested MiniBolt
-{: .label .label-red }
+Status: Tested RaspiBolt v3
+{: .label .label-green }
 
 ---
 
