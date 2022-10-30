@@ -110,7 +110,7 @@ This is a precaution to make sure that this is an official release and not a mal
 
 ![Bitcoin timestamp check](../../images/bitcoin-ots-check.PNG)
 
-### Installation
+### Binaries installation
 
 * If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
@@ -256,7 +256,6 @@ We'll also set the proper access permissions.
   ## recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   dbcache=2048
   blocksonly=1
-
   ```
 
 * Set permissions: only the user 'bitcoin' and members of the 'bitcoin' group can read it
@@ -476,6 +475,10 @@ We also now want to enable the node to listen to and relay transactions.
 ---
 
 ## Extras (optional)
+
+### Enable I2P network in Bitcoin Core
+
+You can enable I2P network as a second private network in Bitcoin Core follow existing MiniBolt [I2P bonus guide](../bonus/bitcoin/i2p.md)
 
 ### Privacy mode
 

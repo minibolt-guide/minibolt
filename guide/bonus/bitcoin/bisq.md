@@ -68,7 +68,7 @@ The guide will show you how to:
 * Configure the firewall to allow incoming requests to Bitcoin Core from the local network.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 8333 comment 'allow Bitcoin Core from local network' 
+  $ sudo ufw allow from 192.168.0.0/16 to any port 8333/tcp comment 'allow Bitcoin Core from local network' 
   ```
 
 ### Obtain your Bitcoin Core `onion` address
@@ -165,9 +165,9 @@ For the national currency account and trading configuration options, please refe
 * Click on the three dots of the "Bitcoin Explorer" section
 
 * Use the following information:
-  * Name: Choose a name (e.g., `RaspiBolt`)
-  * Transaction URL: `https://raspibolt.local:4000/tx/` (replace raspibolt.local with your node IP address if required)
-  * Address URL: `https://raspibolt.local:4000/address/` (replace raspibolt.local with your node IP address if required)
+  * Name: Choose a name (e.g., `MiniBolt`)
+  * Transaction URL: `https://minibolt.local:4000/tx/` (replace raspibolt.local with your node IP address if required)
+  * Address URL: `https://minibolt.local:4000/address/` (replace raspibolt.local with your node IP address if required)
 
 * Click "Save"
 
@@ -217,7 +217,7 @@ Bisq will let you know when a new update is available. Simply follow the instruc
 
 ### Uninstall FW configuration
 
-* Delete firewall rule with the comment 'allow Fulcrum SSL' identifying the number of the rule
+* Delete firewall rule with the comment 'allow BTC Core from local network' identifying the number of the rule
 
   ```sh
   $ sudo ufw status numbered
@@ -227,7 +227,7 @@ Bisq will let you know when a new update is available. Simply follow the instruc
   Status: active
      To                         Action      From
      --                         ------      ----
-  [X] 8333                       ALLOW IN    Anywhere            # allow BTC Core
+  [X] 8333                      ALLOW IN    192.168.0.0/16            # allow BTC Core from local network
   ```
 
 * Delete the rule with the correct number and confir with "yes"

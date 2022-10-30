@@ -34,7 +34,7 @@ Status: Tested MiniBolt
 The best way to safekeep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://shiftcrypto.ch/bitbox02){:target="_blank"}, [Coldcard](https://coldcard.com/){:target="_blank"} , [Ledger](https://www.ledger.com){:target="_blank"} or [Trezor](https://trezor.io){:target="_blank"}) in combination with your own Bitcoin node.
 This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
 
-Bitcoin Core on the RaspiBolt itself is not meant to hold funds.
+Bitcoin Core on the MiniBolt itself is not meant to hold funds.
 
 One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Electrum server as middleware.
 It imports data from Bitcoin Core and provides it to software wallets supporting the Electrum protocol.

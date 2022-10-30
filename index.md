@@ -33,6 +33,8 @@ There are many reasons why you should run your own Bitcoin node.
 
 Did we mention that it's fun, as well?
 
+![Bitcoin Network](images/bitcoin-network-small.png)
+
 ---
 
 ## MiniBolt overview

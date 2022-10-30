@@ -42,23 +42,6 @@ It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin 
 
 ## Preparations
 
-### Transaction indexing
-
-For the BTC RPC Explorer to work, you need your full node to index all transactions.
-
-* If you followed this guide, the transaction index parameter is already enabled (`txindex=1`), and you can skip to the next section.
-
-* If this is not the case, you need to set the `txindex=1` parameter in your Bitcoin Core configuration file (`bitcoin.conf`): [Bitcoin node configuration](bitcoin-client.md#configuration).
-
-* After adding the parameter, restart Bitcoin Core, which will now index the whole blockchain
-
-  ```sh
-  $ sudo systemctl restart bitcoind
-  ```
-
-Please note that reindexing can take more than a day.
-You can follow the progress using `tail -f ~/.bitcoin/debug.log`.
-
 ### Install Node.js
 
 * Add the [Node.js](https://nodejs.org){:target="_blank"} package repository from user "admin".
@@ -322,6 +305,15 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
   #BTCEXP_SLOW_DEVICE_MODE=false
   ```
 
+### Sharing your Explorer
+
+You may want to share your **onion** address with people safe with your BTC RPC Explorer with limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204)), then you need to enable this. 
+Remember to provide them with the `password [D]` if you add password protection in the next step.
+
+  ```sh
+  BTCEXP_DEMO=true
+  ```
+
 ### Remote access over Tor (optional)
 
 Do you want to access your personal blockchain explorer remotely?
@@ -351,14 +343,6 @@ You can easily do so by adding a Tor hidden service on the RaspiBolt and accessi
   ```
 
 * With the [Tor browser](https://www.torproject.org){:target="_blank"}, you can access this onion address from any device.
-
-### Sharing your Explorer
-
-You may want to share your **onion** address with people safe with your BTC RPC Explorer with limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204)), then you need to enable this. Remember to provide them with the `password [D]` if you add password protection in the next step.
-
-  ```sh
-  BTCEXP_DEMO=true
-  ```
 
 ---
 
