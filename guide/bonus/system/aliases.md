@@ -22,7 +22,7 @@ Difficulty: Easy
 Status: Tested MiniBolt
 {: .label .label-blue }
 
-![alias](../../../images/alias-example2.png)
+![alias](../../../images/aliases-demo.png)
 
 ---
 
@@ -91,23 +91,15 @@ The following list of aliases was derived from contributions by [RobClark56](htt
   $ showmainversion
   > The installed versions of the services are as follows:
   > Bitcoin Core version v23.0.0
-  > lnd version 0.15.0-beta commit=v0.15.0-beta
+  > lnd version 0.15.3-beta commit=v0.15.3-beta
   > BTC RPC Explorer: "version": "3.3.0",
-  > Electrs: v0.9.8
+  > Electrs: v0.9.9
   > RTL: "version": "0.12.3",
-  > Tor version 0.4.5.10.
-  > NPM: v8.5.0
-  > NodeJS: v16.14.2
+  > Tor version 0.4.7.10.
+  > NPM: v8.15.0
+  > NodeJS: v16.17.1
   > htop 3.0.5
-  > lntop version v0.3.0
-  > nginx version: nginx/1.18.0
-  ```
-
-  ```sh
-  $ livehealth
-  > Every 1.0s: vcgencmd measure_clock arm; vcgencmd measure_temp raspibolt: Tue Dec 14 15:00:21 2021
-  > frequency(48)= 124121523
-  > temp=37.0'C
+  > nginx version: nginx/1.18.0 (Ubuntu)
   ```
 
 ---

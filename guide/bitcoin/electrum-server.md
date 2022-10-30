@@ -17,6 +17,8 @@ We set up [Electrs](https://github.com/romanz/electrs/){:target="_blank"} to ser
 Status: Tested MiniBolt
 {: .label .label-blue }
 
+![Electrs logo](../../images/electrs-logo.png)
+
 ---
 
 ## Table of contents

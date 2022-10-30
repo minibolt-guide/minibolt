@@ -19,6 +19,8 @@ We configure Tor to run your node anonymously.
 Status: Tested MiniBolt
 {: .label .label-blue }
 
+![Tor logo](../../images/tor-logo.png)
+
 ---
 
 ## Table of contents
@@ -146,12 +148,14 @@ But we now have the base to configure sensitive applications to use it.
 
 ---
 
-## SSH remote access through Tor (optional)
+## Extras
+
+### SSH remote access through Tor (optional)
 
 If you want to log into your RaspiBolt with SSH when you're away, you can easily do so by adding a Tor hidden service.
 This makes "calling home" very easy, without the need to configure anything on your internet router.
 
-### SSH server
+#### SSH server
 
 * Add the following three lines in the "location-hidden services" section of the `torrc` file.
 Save and exit
@@ -178,7 +182,7 @@ Save and exit
 
 * Save the Tor address in a secure location, e.g., your password manager.
 
-### SSH client
+#### SSH client
 
 You also need to have Tor installed on your regular computer where you start the SSH connection.
 Usage of SSH over Tor differs by client and operating system.

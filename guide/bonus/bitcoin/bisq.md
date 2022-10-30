@@ -68,7 +68,7 @@ The guide will show you how to:
 * Configure the firewall to allow incoming requests to Bitcoin Core from the local network.
 
   ```sh
-  $ sudo ufw allow 8333 comment 'allow Bitcoin Core' 
+  $ sudo ufw allow from 192.168.0.0/16 to any port 8333 comment 'allow Bitcoin Core from local network' 
   ```
 
 ### Obtain your Bitcoin Core `onion` address

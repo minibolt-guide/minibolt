@@ -58,9 +58,9 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 ## Start your PC
 
 * Safely eject the pen drive from your regular computer
-* Connect it to your MiniBolt node (PC)
-* Attach screen, keyboard and Ethernet wire (not case for Wifi connection) to the PC and start the PC
-* Press the key fastly to enter to BIOS setup or directly to the boot menu to select the pen drive as the boot device (normally press F9, Esc, F12, or Supr keys)
+* Connect it to your selected PC to the MiniBolt node
+* Attach a screen, a keyboard and the Ethernet wire (not case for Wifi connection) to the PC and start it
+* Press the key fastly to enter to BIOS setup or directly to the boot menu to select the pen drive as the boot device (normally F9, Esc, F12, or Supr keys)
 
 ## Ubuntu Server installation
 
@@ -74,7 +74,7 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 
 1. Leave empty next option if you don't want to use an HTTP proxy to access. Press done
 
-1. If you don't want to use an alternative mirror for Ubuntu, press done directly
+1. If you don't want to use an alternative mirror for Ubuntu, leave empty and press done directly
 
 1. Configure a guided storage layout, or create a custom one, you will need to mount a filesystem at primary unit storage `("/")` and select a boot disk
 

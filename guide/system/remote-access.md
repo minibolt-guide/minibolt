@@ -53,7 +53,7 @@ Give it a few minutes to come to life.
 
 ## Access with Secure Shell
 
-Now it’s time to connect to the Pi via Secure Shell (SSH) and get to work.
+Now it’s time to connect to the MiniBolt via Secure Shell (SSH) and get to work.
 For that, we need an SSH client.
 
 Install and start the SSH client for your operating system:

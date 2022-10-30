@@ -68,7 +68,7 @@ To run Mempool, we need to run Node.js v16 or above.
 * Configure the UFW firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4081/tcp comment 'allow Mempool SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4081/tcp comment 'allow Mempool SSL from local network'
   $ sudo ufw status
   ```
 

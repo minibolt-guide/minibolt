@@ -17,6 +17,8 @@ We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/){:target="_blank"
 Status: Tested MiniBolt
 {: .label .label-blue }
 
+![Bitcoin Core logo](../../images/bitcoin-core-logo-trans.png)
+
 ---
 
 ## Table of contents
