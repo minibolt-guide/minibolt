@@ -39,7 +39,7 @@ This guide describes how to use Zap iOS from within your own network, the same t
 
 Zap is a free Lightning Network wallet focused on good user experience and ease of use. It is in alpha testing, so **use it at your own risk**. You can find more details in the [Zap iOS GitHub repository](https://github.com/LN-Zap/zap-iOS){:target="_blank"}. If you find bugs, you can contribute to this project by [reporting issues](https://github.com/LN-Zap/zap-iOS/issues){:target="_blank"}.
 
-### Preparation on the RaspiBolt
+### Preparation on the MiniBolt
 
 #### Prepare LND Node for gRPC access
 First we make sure that LND is listening for connections from other computers on the gRPC interface.
@@ -49,7 +49,10 @@ First we make sure that LND is listening for connections from other computers on
 * Allow connections to the RaspiBolt from your own network. Check how the ip address of your Pi is starting with, eg. 192.168.0 or 192.168.1 , and use the address accordingly. Ending with .0/24 will allow all IP addresses from that network.
 
   Add the following lines to the section `[Application Options]`:
-  `$ sudo nano /home/bitcoin/.lnd/lnd.conf`
+
+  ```sh
+  $ sudo nano /home/bitcoin/.lnd/lnd.conf
+  ```
 
   ```sh
   rpclisten=0.0.0.0:10009
@@ -57,10 +60,16 @@ First we make sure that LND is listening for connections from other computers on
   ```
 
 * Delete tls.cert (restarting LND will recreate it):
-  `$ sudo rm /home/bitcoin/.lnd/tls.*`
+
+  ```sh
+  $ sudo rm /home/bitcoin/.lnd/tls.*`
+  ```
 
 * Restart LND :
-  `$ sudo systemctl restart lnd`
+
+  ```sh
+  $ sudo systemctl restart lnd
+  ```
 
 * Copy the files `tls.cert` and `lnd.conf` to user "admin", as it is needed for lncli:
 
@@ -70,16 +79,19 @@ First we make sure that LND is listening for connections from other computers on
   ```
 
 * Unlock wallet
-  `$ lncli unlock`
+
+  ```sh
+  $ lncli unlock
+  ```
 
 * Allow the ufw firewall to listen on 10009 from the LAN:
-  `$ sudo ufw allow from 192.168.0.0/24 to any port 10009 comment 'allow LND grpc from local LAN'`
 
-* restart and check the firewall:
-  `$ sudo ufw enable`
-  `$ sudo ufw status`
+  ```sh
+  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 comment 'allow LND grpc from local network'
+  ```
 
 #### Install LND Connect
+
 The nifty helper tool LND Connect helps to pair the RaspiBolt with the iPhone, encoding connection and authorization information either into a QR code or a connection string.
 
 * As user "admin", download, extract and install the current release from the [release page](https://github.com/LN-Zap/lndconnect/releases).
@@ -143,7 +155,7 @@ The nifty helper tool LND Connect helps to pair the RaspiBolt with the iPhone, e
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```
+  ```sh
   # add to the hidden service section
   HiddenServiceDir /var/lib/tor/lnd/
   HiddenServicePort 8080 127.0.0.1:8080

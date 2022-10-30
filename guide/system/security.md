@@ -31,7 +31,7 @@ Status: Tested MiniBolt
 
 The MiniBolt will be visible from the internet and therefore needs to be secured against online attacks using various methods.
 
-## Login with SSH keys
+## Login with SSH keys (optional)
 
 One of the best options to secure the sensitive SSH login is to disable passwords altogether and require an SSH key certificate.
 Only someone with physical possession of the private certificate key can log in.
@@ -85,7 +85,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   $ brew install ssh-copy-id
   ```
 
-### Disable password login
+### Disable password login (only if you chose SSH keys method)
 
 * Log in to the PC as "admin" using SSH with your SSH key.
   You shouldn't be prompted for the admin's password anymore.

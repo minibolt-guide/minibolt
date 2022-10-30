@@ -107,7 +107,7 @@ On Android, if you can't or do not want to use Google Play, you can get Zeus fro
 
 * Tap on "Connect a node" and then tap on the "+" at the top right to add your node
 
-* Enter a Nickname for your node (e.g., "RaspiBolt")
+* Enter a Nickname for your node (e.g., "MiniBolt")
 
 * Click on "SCAN LNDCONNECT CONFIG" and, if prompted, allow Zeus to use the camera
 

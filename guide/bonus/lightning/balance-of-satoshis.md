@@ -376,6 +376,7 @@ To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or
   $ sudo su - bos
   $ nano balanceofsatoshis/proxy_agent.json
   ```
+
   ```ini
    {
       "host": "127.0.0.1",
@@ -417,7 +418,7 @@ To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or
 
 ### Permanent connection and autostart on boot
 
-Now we’ll make sure our Telegram Bot command starts as a systemd service on the Raspberry Pi so it’s always running.
+Now we’ll make sure our Telegram Bot command starts as a systemd service on the personal computer so it’s always running.
 
 * As user "admin", create the service file.
 
@@ -428,6 +429,7 @@ Now we’ll make sure our Telegram Bot command starts as a systemd service on th
 * Paste the following configuration. Replace YourConnectionCode with your own connection code provided by your bot above. Save and exit.
 
   ```ini
+  # MiniBolt: systemd unit for BOS Telegram bot
   # /etc/systemd/system/bos-telegram.service
 
   [Unit]

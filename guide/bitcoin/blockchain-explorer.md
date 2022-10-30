@@ -105,7 +105,7 @@ Now we can add the BTC RPC Explorer configuration.
 * Configure the firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4000 comment 'allow BTC RPC Explorer SSL from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4000/tcp comment 'allow BTC RPC Explorer SSL from local network'
   $ sudo ufw status
   ```
 

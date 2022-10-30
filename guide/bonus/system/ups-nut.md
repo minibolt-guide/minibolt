@@ -38,13 +38,13 @@ This is to use Network UPS Tools (NUT; https://networkupstools.org/ ) in order t
 
 NUT is nice in that it allows for a single device to communicate to other devices to safely shut them down (client-server relationship). For this scenario, ensure your UPS data port is plugged into the Raspberry Pi.
 
-Verify you can view the UPS device
+* Verify you can view the UPS device
 
   ```sh
   $ lsusb
   ```
 
-Install NUT.
+* Install NUT.
 
   ```sh
   $ sudo apt-get install nut
@@ -66,7 +66,7 @@ NOTE: Depending on the driver/hardware of your system, you may need to comment o
   desc = “UPS Make Model or whatever”
   ```
 
-Configure the daemon to know what all it needs to run (ie. Server, client, etc). The assumption for this scenario is you’re running a single device directly connected to the data port of the UPS and do not care about any other devices connected to the UPS (in terms of shutting them down).
+* Configure the daemon to know what all it needs to run (ie. Server, client, etc). The assumption for this scenario is you’re running a single device directly connected to the data port of the UPS and do not care about any other devices connected to the UPS (in terms of shutting them down).
 
   ```sh
   $ sudo nano /etc/nut/nut.conf`
@@ -76,20 +76,20 @@ Configure the daemon to know what all it needs to run (ie. Server, client, etc).
   MODE=standalone
   ```
 
-Start the service. If successful, you should get a list of drivers used.
+* Start the service. If successful, you should get a list of drivers used.
 
   ```sh
   $ sudo upsdrvctl start
   ```
 
-Check status to verify service is active.
+* Check status to verify service is active.
 
   ```sh
   $ sudo service nut-server restart
   $ sudo service nut-server status
   ```
 
-Use the `upsc` command to view additional status. Replace `UPS-Name` with whatever you used in `ups.conf`. You should see the configuration of the UPS.
+* Use the `upsc` command to view additional status. Replace `UPS-Name` with whatever you used in `ups.conf`. You should see the configuration of the UPS.
 
   ```sh
   $ upsc UPS-Name
@@ -173,7 +173,7 @@ Note: If you see an option for `beeper.disable`, that will permanently turn off 
 
 Whichever system has the UPS data port plugged into it is the server/master and the device(s) plugged into the UPS, but not with a data connection to the UPS are the client/slave.
 
-Reconfigure the server. Change the mode from `standalone` to `netserver`.
+* Reconfigure the server. Change the mode from `standalone` to `netserver`.
 
   ```sh
   $ sudo nano /etc/nut/nut.conf
@@ -183,7 +183,7 @@ Reconfigure the server. Change the mode from `standalone` to `netserver`.
   MODE=netserver
   ```
 
-Add a new user for upsmon on the client to use to access the server status. Append it to the end after `upsmon` (or whatever you named your previous monitoring user). Note that we tag it as slave so it knows it’s has to get its status from the master (server).
+* Add a new user for upsmon on the client to use to access the server status. Append it to the end after `upsmon` (or whatever you named your previous monitoring user). Note that we tag it as slave so it knows it’s has to get its status from the master (server).
 
   ```sh
   $ sudo nano /etc/nut/upsd.users
@@ -195,7 +195,7 @@ Add a new user for upsmon on the client to use to access the server status. Appe
   upsmon slave
   ```
 
-Modify `upsd.conf` to tell the server to listen for connections. The loopback is for ‘localhost’ connections. Change 192.168.1.2 to be whatever address you have assigned to the server. If you get settings dynamically from DHCP, you’ll need to configure a means to set a static address. Or modify /etc/hosts on multiple systems. 3493 is the default port that NUT uses. It seems silly to have to use both addresses, but it’s been the only way I’ve had success in a server/client configuration.
+* Modify `upsd.conf` to tell the server to listen for connections. The loopback is for ‘localhost’ connections. Change 192.168.1.2 to be whatever address you have assigned to the server. If you get settings dynamically from DHCP, you’ll need to configure a means to set a static address. Or modify /etc/hosts on multiple systems. 3493 is the default port that NUT uses. It seems silly to have to use both addresses, but it’s been the only way I’ve had success in a server/client configuration.
 
   ```sh
   $ sudo nano /etc/nut/upsd.conf
@@ -206,21 +206,21 @@ Modify `upsd.conf` to tell the server to listen for connections. The loopback is
   LISTEN 192.168.1.2 3493
   ```
 
-Modify the firewall to allow for 3493 to come into your system.
+* Modify the firewall to allow for 3493 to come into your system.
 
   ```sh
-  $ sudo ufw allow 3493/tcp comment ‘all UPS NUT Client’
+  $ sudo ufw allow from 192.168.0.0/16 to any port 3493/tcp comment 'allow UPS NUT Client from local network’
   $ sudo ufw status
   ```
 
-Reload the server daemons to have it read the new configuration.
+* Reload the server daemons to have it read the new configuration.
 
   ```sh
   $ sudo service nut-server restart
   $ sudo service nut-client restart
   ```
 
-In another window, open a terminal to the client system.
+* In another window, open a terminal to the client system.
 
   ```sh
   client$ sudo apt-get install nut

@@ -14,7 +14,7 @@ has_toc: false
 
 ---
 
-We set up [Homer](https://github.com/bastienwirtz/homer#readme){:target="_blank"}, a simple browser-based dashboard for quick access to all our self-hosted web services and other useful links for a lighnting node operator. The dashboard can be easily edited from a YAML configuration file. 
+We set up [Homer](https://github.com/bastienwirtz/homer#readme){:target="_blank"}, a simple browser-based dashboard for quick access to all our self-hosted web services and other useful links for a lighnting node operator. The dashboard can be easily edited from a YAML configuration file.
 
 Status: Tested RaspiBolt v3
 {: .label .label-green }
@@ -60,7 +60,7 @@ This guide assumes that you have followed the main RaspiBolt guide and installed
 * Configure the UFW firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow 4091/tcp comment 'allow Homer SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4091/tcp comment 'allow Homer SSL'
   $ sudo ufw status
   ```
 
@@ -68,7 +68,7 @@ This guide assumes that you have followed the main RaspiBolt guide and installed
 
 ### Installation
 
-* Create the "homer" service user, create the data directory and open a new session 
+* Create the "homer" service user, create the data directory and open a new session
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" homer
@@ -97,7 +97,7 @@ Homer allows for the use of icons and images. We'll import a few logos to make t
   $ cd /data/homer/tools
   ```
 
-* Download the RaspiBolt, BTC RPC Explorer and Ride The Lightning logos from our [Awesome Bitcoin Logos repository](https://github.com/raspibolt/awesome-bitcoin-logos){:target="_blank"} containing a collection of Bitcoin and Lightning FOSS apps logos. 
+* Download the RaspiBolt, BTC RPC Explorer and Ride The Lightning logos from our [Awesome Bitcoin Logos repository](https://github.com/raspibolt/awesome-bitcoin-logos){:target="_blank"} containing a collection of Bitcoin and Lightning FOSS apps logos.
 Then check that all the logos are in the folder.
 
   ```sh
@@ -124,7 +124,7 @@ The build command generated all the required files for the Homer website. We jus
   $ sudo rsync -av --delete /home/homer/homer/dist/ /var/www/homer/
   ```
 
-By default, the logos for Homer are located in the `/var/www/homer/assets/tools` folder. 
+By default, the logos for Homer are located in the `/var/www/homer/assets/tools` folder.
 However, if you want to re-install Homer for whatever reason, you will have to re-download and re-move all the logos. Instead, let's create a symlink to our folder containing all the logos.
 
 * Delete the existing tools directory and replace it with a symlink to the logos folder
@@ -255,7 +255,7 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
   ################################
   # HOMEPAGE CONFIGURATION       #
   ################################
-  title: "RaspiBolt Web Services"
+  title: "MiniBolt Web Services"
   subtitle: "Homer dashboard"
   logo: "assets/tools/raspibolt3.png"
   
@@ -461,7 +461,7 @@ Now we’ll make sure Homer starts as a service on the Raspberry Pi so it’s al
   ```
 
   ```ini
-  # RaspiBolt: systemd unit for Homer
+  # MiniBolt: systemd unit for Homer
   # /etc/systemd/system/homer.service
   
   [Unit]
@@ -513,9 +513,9 @@ You can easily personalize your Homer homepage by editing the YAML configuration
 
 ### Adding a new group
 
-This guide set three groups: "Bitcoin", "Lightning" and "Resources". You can add as many groups as you want. 
+This guide set three groups: "Bitcoin", "Lightning" and "Resources". You can add as many groups as you want.
 
-* If you want to add a new group (e.g., a "Sysadmin" group), go to the "Services" section at the end of the file 
+* If you want to add a new group (e.g., a "Sysadmin" group), go to the "Services" section at the end of the file
 * Add the following lines under the `Services:` entry:
   
   ```ini
@@ -658,9 +658,7 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 4091/tcp                   ALLOW IN    Anywhere                   # allow Homer SSL
-  > [...]
-  > [Y] 4091/tcp (v6)              ALLOW IN    Anywhere (v6)              # allow Homer SSL
+  > [X] 4091/tcp                   ALLOW IN    192.168.0.0/16                   # allow Homer SSL from local network
   ```
 
 * Delete the two Homer rules (check that the rule to be deleted is the correct one and type “y” and “Enter” when prompted)
