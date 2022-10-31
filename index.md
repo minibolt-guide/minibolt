@@ -11,10 +11,10 @@ nav_order: 1
 ![MiniBolt Logo](images/minibolt-home-screen.png)
 
 Build your own "do-everything-yourself" Bitcoin full node on a personal computer, that will make you a sovereign peer in the Bitcoin and Lightning network.
-{: .fs-6 }
+{: .fs-5 }
 
 No need to trust anyone else. Don't trust, verify!
-{: .fs-6 }
+{: .fs-4 }
 
 ---
 
@@ -30,8 +30,6 @@ There are many reasons why you should run your own Bitcoin node.
 * **Take back your sovereignty.** Let your node validate your own Bitcoin transactions. No need to ask someone else to tell you what's happening in the Bitcoin network.
 * **Improve your privacy.** Connect your wallets to your node so that you no longer need to reveal their whole financial history to external servers.
 * **Be part of Lightning.** Run your own Lightning node for everyday payments and help building a robust, decentralized Bitcoin Lightning network.
-
-Did we mention that it's fun, as well?
 
 ![Bitcoin Network](images/bitcoin-network-small.png)
 
