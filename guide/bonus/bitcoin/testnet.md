@@ -20,9 +20,6 @@ You can run your RaspiBolt node on testnet to develop and experiment with new ap
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

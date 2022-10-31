@@ -20,9 +20,6 @@ The [BitBoxApp](https://shiftcrypto.ch/app/){:target="_blank"} is a beginner-fri
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Not tested RaspiBolt v3
-{: .label .label-yellow }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

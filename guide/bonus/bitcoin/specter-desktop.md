@@ -24,9 +24,6 @@ The default setup guides you on how to allow for plugging in your hardware devic
 Difficulty: Intermediate
 {: .label .label-yellow }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

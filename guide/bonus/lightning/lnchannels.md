@@ -19,9 +19,6 @@ The following script was created by [RobClark56](https://github.com/robclark56){
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

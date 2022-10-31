@@ -20,9 +20,6 @@ Download the Bitcoin white paper PDF directly from the blockchain data on your o
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

@@ -213,7 +213,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
 * Paste the following configuration. Save and exit.
 
   ```ini
-  # RaspiBolt: systemd unit for Ride the Lightning
+  # MiniBolt: systemd unit for Ride the Lightning
   # /etc/systemd/system/rtl.service
 
   [Unit]

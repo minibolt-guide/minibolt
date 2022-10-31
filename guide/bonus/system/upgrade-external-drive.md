@@ -17,9 +17,6 @@ has_toc: false
 Difficulty: Intermediate
 {: .label .label-yellow }
 
-Status: Not tested RaspiBolt v3
-{: .label .label-yellow }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

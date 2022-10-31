@@ -18,6 +18,7 @@ Status: Tested MiniBolt
 {: .label .label-blue }
 
 ![Lightning Network Daemon logo](../../images/lightning-network-daemon-logo.png)
+
 ---
 
 ## Table of contents

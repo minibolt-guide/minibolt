@@ -20,9 +20,6 @@ You just pay the routing fees and can set up some maximum fees that you're ok to
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

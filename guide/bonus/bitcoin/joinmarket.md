@@ -19,9 +19,6 @@ We set up [Joinmarket clientserver](https://github.com/JoinMarket-Org/joinmarket
 Difficulty: Intermediate
 {: .label .label-yellow }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

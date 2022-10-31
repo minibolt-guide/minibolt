@@ -19,9 +19,6 @@ The [desktop app Zap](https://github.com/LN-Zap/zap-desktop){:target="_blank"} i
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 

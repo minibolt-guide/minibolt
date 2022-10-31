@@ -20,9 +20,6 @@ has_toc: false
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 
@@ -108,14 +105,14 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   $ sudo apt install mariadb-server mariadb-client
   ```
 
-* Generate random password for "mempool" MariaDB user. This password will be needed for one command and then in config file below. Let's call it "Password[M]".
+* Generate random password for "mempool" MariaDB user. This password will be needed for one command and then in config file below. Let's call it "Password[M]"
 
   ```sh
   $ gpg --gen-random --armor 1 16
   > G53Lp+V7JYmo9JpVa72bGw==
   ```
 
-* Now, open the MariaDB shell. 
+* Now, open the MariaDB shell
 
   ```sh
   $ sudo mysql
@@ -152,7 +149,6 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   ```
 
 * Paste the following lines. In the CORE_RPC section, replace the username and password with your username (e.g., "raspibolt") and password [B]. Change "Password[M]" to the random password generated above.
-
 
   ```sh
   {
@@ -246,7 +242,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
 The Mempool configuration file contains the Bitcoin Core RPC username and password which are sensitive information. We'll restrict reading access to this file by user "mempool" only.
 
 * Still with user "admin", change the ownership of the configuration file
- 
+
   ```sh
   $ sudo chmod 600 /home/mempool/mempool/backend/mempool-config.json
   ```
@@ -426,7 +422,7 @@ We now need to modify the nginx configuration to create a web server for the web
 
 ### Autostart on boot
 
-Now we’ll make sure Mempool starts as a service on the Raspberry Pi so it’s always running. In order to do that, we create a systemd unit that starts the service on boot directly after Bitcoin Core.
+Now we’ll make sure Mempool starts as a service on the PC so it’s always running. In order to do that, we create a systemd unit that starts the service on boot directly after Bitcoin Core.
 
 * As user “admin”, create the service file
 
@@ -436,14 +432,13 @@ Now we’ll make sure Mempool starts as a service on the Raspberry Pi so it’s 
   
 * Paste the following configuration. Save and exit.  
   
-  ```ini 
-  # RaspiBolt: systemd unit for Mempool           
+  ```ini
+  # MiniBolt: systemd unit for Mempool           
   # /etc/systemd/system/mempool.service
 
   [Unit]
   Description=mempool
-  After=bitcoind.service fulcrum.service
-  PartOf=bitcoind.service
+  After=bitcoind.service
 
   [Service]
   WorkingDirectory=/home/mempool/mempool/backend
@@ -476,15 +471,15 @@ Now we’ll make sure Mempool starts as a service on the Raspberry Pi so it’s 
 
 ## Mempool in action
 
-Point your browser to the secure access point provided by the nginx web proxy, for example [https://raspibolt.local:4081](https://raspibolt.local:4081){:target="_blank"} (or your nodes IP address, e.g. https://192.168.0.20:4081).
+Point your browser to the secure access point provided by the nginx web proxy, for example [https://minibolt.local:4081](https://minibolt.local:4081){:target="_blank"} (or your nodes IP address, e.g. https://192.168.0.20:4081).
 
 ---
 
 ## Remote access over Tor (optional)
 
-To expose Mempool app via a Tor hidden service (if only Tor address is used, no ports need to be opened by the firewall): 
+To expose Mempool app via a Tor hidden service (if only Tor address is used, no ports need to be opened by the firewall):
 
-* Edit `torrc` file 
+* Edit `torrc` file
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -497,7 +492,7 @@ To expose Mempool app via a Tor hidden service (if only Tor address is used, no 
   HiddenServiceDir /var/lib/tor/hidden_service_mempool
   HiddenServiceVersion 3
   HiddenServicePort 443 127.0.0.1:4081
-  ``` 
+  ```
 
 * Reload Tor config (sometimes a restart is needed)
 
@@ -507,10 +502,10 @@ To expose Mempool app via a Tor hidden service (if only Tor address is used, no 
 
 * Get onion address
 
-  ```sh 
+  ```sh
   $ sudo cat /var/lib/tor/hidden_service_mempool/hostname
   > afjubiu3brwo3tb34otb3......onion
-  ``` 
+  ```
 
 * Open Tor browser and insert the address:
 
@@ -543,8 +538,8 @@ Updating to a new release is straight-forward. Make sure to read the release not
 * Then follow the installation process described in the guide in the [Backend section](#backend) up to, and including the nginx section .
 
 * Start the service again
- 
-  ```sh 
+
+  ```sh
   $ sudo systemctl start mempool
   $ sudo journalctl -f -u mempool
   ```
@@ -556,8 +551,8 @@ Updating to a new release is straight-forward. Make sure to read the release not
 ## Uninstall
 
 * Stop, disable and delete the Mempool systemd service
- 
-  ```sh 
+
+  ```sh
   $ sudo systemctl stop mempool
   $ sudo systemctl disable mempool
   $ sudo rm /etc/systemd/system/mempool.service
@@ -568,9 +563,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 4081/tcp                   ALLOW IN    Anywhere                   # allow Mempool SSL
-  > [...]
-  > [Y] 4081/tcp (v6)              ALLOW IN    Anywhere (v6)              # allow Mempool SSL
+  > [X] 4081/tcp                   ALLOW IN    192.168.0.0/16                   # allow Mempool SSL from local network
   ```
 
 * Delete the two Mempool rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
@@ -582,7 +575,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
 
 * Remove the nginx configurations for Mempool
 
-  ```sh 
+  ```sh
   $ sudo rm -R /var/www/mempool
   $ sudo rm /etc/nginx/snippets/nginx-mempool.conf
   $ sudo rm /etc/nginx/sites-enabled/mempool-ssl.conf

@@ -141,6 +141,10 @@ We'll open the port for Electrs and web applications later if needed.
   ```sh
   $ sudo ufw status verbose
   > Status: active
+  > Logging: off
+  > Default: deny (incoming), allow (outgoing), disabled (routed)
+  > New profiles: skip
+
   >
   > To                            Action      From
   > --                            ------      ----

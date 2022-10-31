@@ -14,7 +14,7 @@ Build your own "do-everything-yourself" Bitcoin full node on a personal computer
 {: .fs-5 }
 
 No need to trust anyone else. Don't trust, verify!
-{: .fs-4 }
+{: .fs-5 }
 
 ---
 
@@ -22,9 +22,9 @@ No need to trust anyone else. Don't trust, verify!
 
 With this guide, you can set up a Bitcoin and Lightning node from scratch, doing everything yourself.
 You will learn about Linux, Bitcoin, and Lightning.
-As a result, you'll have your very own MiniBolt node, built by you and no one else.
+As a result, you'll have your very own Bitcoin node, built by you and no one else.
 
-There are many reasons why you should run your own Bitcoin node.
+There are many reasons why you should run your own Bitcoin node:
 
 * **Keep Bitcoin decentralized.** Use your node to help enforce your Bitcoin consensus rules.
 * **Take back your sovereignty.** Let your node validate your own Bitcoin transactions. No need to ask someone else to tell you what's happening in the Bitcoin network.
@@ -53,10 +53,10 @@ Your Bitcoin node will offer the following functionality:
 
 ### Target audience
 
-We strive to give foolproof instructions.
-But the goal is also to do everything ourselves.
-Shortcuts that involve trusting someone else are not allowed.
-This makes this guide quite technical, but we try to make it as straightforward as possible.
+We strive to give foolproof instructions. But the goal is also to do everything ourselves.
+
+Shortcuts that involve trusting someone else are not allowed. This makes this guide quite technical, but we try to make it as straightforward as possible.
+
 You'll gain a basic understanding of the how and why.
 
 If you like to learn about Linux, Bitcoin, and Lightning, then this guide is for you.
@@ -79,12 +79,7 @@ Everything is optional.
 
 ## Community
 
-This is a community project.
-Find help and other MiniBolters on the following platforms:
-
 * [Github Issues / Knowledge Base](https://github.com/twofaktor/minibolt/issues){:target="_blank"}
-* Reddit sub: r/minibolt (coming soon..)
-* Telegram group: t.me/minibolt (coming soon..)
 
 And feel free to join the many other contributors if you see something that can be improved!
 
@@ -94,7 +89,7 @@ And feel free to join the many other contributors if you see something that can 
 
 All guides are rated with labels to help you assess the difficulty of each guide, and if it is tested against the most recent version of the main guide.
 
-* Difficulty: indicates how difficult the bonus guide is in term of installation procedure or usage
+* Difficulty: indicates how difficult the bonus guide is in term of installation procedure or usage.
 
 Difficulty: Easy
 {: .label .label-green }
@@ -105,19 +100,13 @@ Difficulty: Medium
 Difficulty: Hard
 {: .label .label-red }
 
-* Tested: indicates if the guide has been updated and tested on the RaspiBolt v3 and MiniBolt. If this is not the case, you might have to modify part of the guide to make it work on a RaspiBolt v3 ort MiniBolt.
+* Tested: indicates if the guide has been updated and tested on the MiniBolt. If this is not the case, you might have to modify part of the guide to make it work on MiniBolt.
 
 Status: Tested MiniBolt
 {: .label .label-blue }
 
 Status: Not tested MiniBolt
 {: .label .label-red }
-
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
-Status: Not tested RaspiBolt v3
-{: .label .label-yellow }
 
 <br /><br />
 

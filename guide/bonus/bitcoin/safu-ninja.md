@@ -20,11 +20,8 @@ has_toc: false
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
-Status: Not tested MiniBolt
-{: .label .label-red }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![DIY steel mnemonic backup](../../../images/diy-steel-mnemonic-backup.png)
 

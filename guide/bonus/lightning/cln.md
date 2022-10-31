@@ -21,17 +21,14 @@ It can be used for the RaspiBolt as a replacement for LND or it can be run along
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Tested RaspiBolt v3
-{: .label .label-green }
-
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-![Core Lightning](/images/core-lightning.png)
+![Core Lightning](../../../images/core-lightning.png)
 
 ---
 
-## Table of contents
+Table of contents
 {: .text-delta }
 
 1. TOC
@@ -219,8 +216,10 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   
   [Unit]
   Description=Core Lightning daemon
+  Requires=bitcoind.service
   After=bitcoind.service
-  PartOf=bitcoind.service
+  Wants=network-online.target
+  After=network-online.target
   
   [Service]
   ExecStart=/bin/sh -c '/home/lightningd/lightning/lightningd/lightningd \
