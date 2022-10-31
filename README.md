@@ -14,7 +14,7 @@ https://twofaktor.github.io/minibolt
 
 Inspired by [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt)
 
-By [⚡2 FakTor⚡](https://twitter.com/twofaktor)
+Created by [⚡2 FakTor⚡](https://twitter.com/twofaktor)
 
 ---
 
