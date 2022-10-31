@@ -41,10 +41,7 @@ In these instructions, it is assumed the lncli computer is on the same LAN as th
 - Allow port 10009 in the firewall
 
   ```sh
-  admin ~  ฿  sudo su
-  root@RaspiBolt:/home/admin#  ufw allow from 192.168.0.0/24 to any port  10009 comment 'allow lnd rpc from Local LAN'
-  root@RaspiBolt:/home/admin#  ufw status
-  root@RaspiBolt:/home/admin#  exit
+  $ sudo ufw allow from 192.168.0.0/16 to any port 10009/tcp comment 'allow LND RPC server from local network'
   ```
 
 - Add one new line in the [Application Options] section of lnd.conf to allow rpc from more than just the default localhost

@@ -1,4 +1,4 @@
-# MiniBolt-draft
+# MiniBolt
 
 ## A complete guide to build a Bitcoin & Lightning full node on a Personal Computer
 

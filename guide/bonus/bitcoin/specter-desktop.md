@@ -67,8 +67,6 @@ Status: Not tested MiniBolt
 
   ```sh
   $ sudo ufw allow from 192.168.0.0/16 to any port 25441 comment 'allow Specter Desktop from local network'
-  $ sudo ufw enable
-  $ sudo ufw status
   ```
 
 - Install the following required system dependencies

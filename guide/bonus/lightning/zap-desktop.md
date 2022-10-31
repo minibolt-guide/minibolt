@@ -54,7 +54,7 @@ We enable access to LND through Remote Procedure Calls (RPC), allowing the Zap D
   rpclisten=0.0.0.0:10009
   ```
   
-* Backup and delete the existing `tls.cert` and `tls.key` files and restart LND to recreate them. 
+* Backup and delete the existing `tls.cert` and `tls.key` files and restart LND to recreate them
 
   ```sh
   $ sudo mv ~/.lnd/tls.cert ~/.lnd/tls.cert.bak
@@ -67,13 +67,13 @@ We enable access to LND through Remote Procedure Calls (RPC), allowing the Zap D
 * Configure the UFW firewall to allow incoming requests from the local network only  
   
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 comment 'allow LND grpc from local LAN'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 10009/tcp comment 'allow LND RPC server from local network'
   $ sudo ufw status
   ```
 
 ### Install lndconnect
 
-We will connect Zap to the RaspiBolt using a connection string that includes the connection and authentication information. 
+We will connect Zap to the RaspiBolt using a connection string that includes the connection and authentication information.
 [lndconnect](https://github.com/LN-Zap/lndconnect){:target="_blank"}, created by Zap, is a utility that generates a QR Code or URI to connect applications to LND instances.
 
 * Still with the "admin" user, download the binary and install it
@@ -144,7 +144,7 @@ If you stop using Zap, it is safer to restrict access to LND gRPC. But make sure
   #rpclisten=0.0.0.0:10009
   ```
 
-* Backup and delete the existing `tls.cert` and `tls.key` files and restart LND to recreate them. 
+* Backup and delete the existing `tls.cert` and `tls.key` files and restart LND to recreate them.
 
   ```sh
   $ sudo mv ~/.lnd/tls.cert ~/.lnd/tls.cert.bak
@@ -152,12 +152,12 @@ If you stop using Zap, it is safer to restrict access to LND gRPC. But make sure
   $ sudo systemctl restart lnd
   ```
 
-* Display the firewall status and note the number of LND grpc rule (e.g. below, X)
+* Display the firewall status and note the number of LND RPC server (e.g. below, X)
   
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [ X] 10009                      ALLOW IN    192.168.0.0/16             # allow LND grpc from local LAN
+  > [X] 10009                      ALLOW IN    192.168.0.0/16             # allow LND grpc from local LAN
   > [...]
   ```
 

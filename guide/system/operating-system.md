@@ -62,6 +62,8 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 * Attach a screen, a keyboard and the Ethernet wire (not case for Wifi connection) to the PC and start it
 * Press the key fastly to enter to BIOS setup or directly to the boot menu to select the pen drive as the boot device (normally F9, Esc, F12, or Supr keys)
 
+   💡 In this step, you might want to take advantage of activating the **"Restore on AC/Power Loss"** utility in the BIOS setup. Normally found in Advanced > **ACPI Configuration**, switching to "Power ON" or Advanced > Power-On Options > **After Power Loss** switching to "On". With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
+
 ## Ubuntu Server installation
 
 Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to select your lenguage (English recommended). Follow the next instructions:

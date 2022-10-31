@@ -17,6 +17,7 @@ has_toc: false
 ## Electrum servers
 
 * **[Fulcrum](fulcrum.md)** - a fast & nimble SPV server for Bitcoin Cash, Bitcoin BTC, and Litecoin.
+* **[Electrum Personal Server](electrum-personal-server.md)** - an alternative to Electrs
 
 ---
 
@@ -61,7 +62,7 @@ has_toc: false
 
 ## Testnet
 
-* **[Running a Testnet RaspiBolt Node](testnet.md)** - configure your RaspiBolt for use on testnet
+* **[Running a Testnet MiniBolt Node](testnet.md)** - configure your MiniBolt for use on testnet
 
 ---
 

@@ -58,7 +58,7 @@ Zeus will access the node via Tor.
 
   ```ini
   ############### This section is just for location-hidden services ###
-  # Hidden Service LND API
+  # Hidden Service LND gRPC proxy API
   HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
   HiddenServiceVersion 3
   HiddenServicePort 8080 127.0.0.1:8080
@@ -155,7 +155,7 @@ To uninstall, you need to uninstall the app on your phone and deactivate the LND
 
   ```ini
   ############### This section is just for location-hidden services ###
-  # Hidden Service LND API
+  # Hidden Service LND gRPC proxy
   #HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
   #HiddenServiceVersion 3
   #HiddenServicePort 8080 127.0.0.1:8080

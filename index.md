@@ -20,7 +20,7 @@ No need to trust anyone else. Don't trust, verify!
 
 ## What is the MiniBolt?
 
-With this guide, you can set up a Bitcoin and Lightning node from scratch, doing everything yourself.
+With this guide, you can set up a Bitcoin and Lightning node on a personal computer from scratch, doing everything yourself.
 You will learn about Linux, Bitcoin, and Lightning.
 As a result, you'll have your very own Bitcoin node, built by you and no one else.
 
@@ -66,8 +66,8 @@ If you like to learn about Linux, Bitcoin, and Lightning, then this guide is for
 We aim to keep the core of this guide well maintained and up-to-date:
 
 1. [System](guide/system/index.md): prepare the hardware and set up the operating system
-1. [Bitcoin](guide/bitcoin/index.md): sync your own Bitcoin full node, Electrum server, and Blockchain Explorer
-1. [Lightning](guide/lightning/index.md): run your own Lightning client with web-based node management
+1. [Bitcoin](guide/bitcoin/index.md): sync your own Bitcoin full node, Electrum server, Blockchain Explorer, and connect a desktop wallet to the Electrum server
+1. [Lightning](guide/lightning/index.md): run your own Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup
 
 The bonus section contains more specific guides that build on top of the main section.
 More fun, lots of knowledge, but with lesser maintenance guarantees.

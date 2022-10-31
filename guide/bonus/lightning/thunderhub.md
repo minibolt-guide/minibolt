@@ -52,7 +52,7 @@ Status: Tested MiniBolt
 * Configure firewall to allow incoming HTTP requests from your local network to the web server.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4002 comment 'allow ThunderHub SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4002/tcp comment 'allow ThunderHub SSL'
   ```
 
 * Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to Thunderhub

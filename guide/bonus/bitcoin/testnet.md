@@ -9,13 +9,13 @@ has_toc: false
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Bonus guide: RaspiBolt on Testnet
+# Bonus guide: MiniBolt on Testnet
 
 {: .no_toc }
 
 ---
 
-You can run your RaspiBolt node on testnet to develop and experiment with new applications, without putting real money at risk. This bonus guide highlights all configuration changes compared to the main guide.
+You can run your MiniBolt node on testnet to develop and experiment with new applications, without putting real money at risk. This bonus guide highlights all configuration changes compared to the main guide.
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -44,7 +44,7 @@ The great news is that most of the RaspiBolt guide can be used as-is. The small 
 File location: `/data/bitcoin/bitcoin.conf`
 
   ```sh
-  # RaspiBolt: bitcoind configuration for testnet node
+  # MiniBolt: bitcoind configuration for testnet node
 
   # [chain]
   # main, test, signet, regtest
@@ -153,7 +153,7 @@ Your nginx might need to be reloaded using
   ```sh
   $ sudo nginx -t
   $ sudo systemctl reload nginx
-  $ sudo ufw allow 60002/tcp comment 'allow Electrum SSL Testnet'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 60002/tcp comment 'allow Electrum SSL Testnet from local network'
   ```
 
 ### Tor
@@ -164,6 +164,7 @@ File location: `/etc/tor/torrc`
 
   ```sh
   ############### This section is just for location-hidden services ###
+  # Hidden Service Electrs Testnet
   HiddenServiceDir /var/lib/tor/hidden_service_electrs_testnet/
   HiddenServiceVersion 3
   HiddenServicePort 60002 127.0.0.1:60002
