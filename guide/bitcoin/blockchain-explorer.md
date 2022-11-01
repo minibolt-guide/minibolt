@@ -307,7 +307,7 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 ### Sharing your Explorer
 
-You may want to share your **onion** address with people safe with your BTC RPC Explorer with limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204)), then you need to enable this. 
+You may want to share your **onion** address with people safe with your BTC RPC Explorer with limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204)), then you need to enable this.
 Remember to provide them with the `password [D]` if you add password protection in the next step.
 
   ```sh

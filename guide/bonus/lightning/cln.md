@@ -24,7 +24,7 @@ Difficulty: Medium
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-![Core Lightning](../../../images/core_lightning.png)
+![Core Lightning](../../../images/core-lightning.png)
 
 ---
 

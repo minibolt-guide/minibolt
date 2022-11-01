@@ -14,7 +14,15 @@ https://twofaktor.github.io/minibolt
 
 Inspired by [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt)
 
-Created by [⚡2 FakTor⚡](https://twitter.com/twofaktor)
+This guide has been adapted from the popular [RaspiBolt v3](https://raspibolt.org/) guide project, originally made by Stadicus and now maintained for the community, those are the most relevant changes:
+
+- Changed OS from Raspberry Pi OS Lite (64-bits) to **Ubuntu Server LTS 64-bit** - PC (AMD64)
+- Changed binaries and signatures of the programs to adapt them to **x86/amd64** architecture processors
+- Deleted unnecessary tools and steps, and added others according to this case of use
+- Added some useful authentication logs monitoring commands in the security section
+- Added interesting parameters in the configuration of some services and related commands to activate and take advantage of new features
+
+Created by [⚡2 FakTor⚡](https://twitter.com/twofaktor) member of [Bitcoin Barcelona Community](https://bitcoinbarcelona.xyz/)
 
 ---
 
