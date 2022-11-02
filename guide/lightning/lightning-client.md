@@ -88,7 +88,7 @@ We can also check that the manifest file was in existence around the time of the
 * Let's verify the timestamp of the file matches the release date.
 
   ```sh
-  $ ots --no-cache verify manifest-roasbeef-v0.15.4-beta.sig.ots -f manifest-roasbeef-v0.15.4-beta.sig
+  $ ots --no-cache verify manifest-guggero-v0.15.4-beta.sig.ots -f manifest-guggero-v0.15.4-beta.sig
   > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
   > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
