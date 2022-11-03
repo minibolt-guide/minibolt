@@ -82,6 +82,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
     autoconf automake build-essential git libtool libgmp-dev libsqlite3-dev \
     python3 python3-pip net-tools zlib1g-dev libsodium-dev gettext
   $ pip3 install --user --upgrade pip
+  $ pip3 install --user poetry
   ```
 
 * Open a "lightningd" user session and create symbolic links to `bitcoin` and `lightningd` data directories.
@@ -148,8 +149,11 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 * Insert the following content, adjust parameters in brackets to your likings. At least remove the brackets else lightningd will not start up correctly! Choose if you want to replicate CLN's channel database file to separate storage. It's good practice to keep a synchronous state of the database somewhere else to be able to recover off-chain funds in case of emergency.
 
   ```ini
-  alias=<your fancy alias>
-  rgb=<your hex color>
+  # MiniBolt: cln configuration
+  # /home/lightningd/.lightning/config
+
+  alias=YOUR_FANCY_ALIAS #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
+  rgb=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
   network=bitcoin
   log-file=/data/lightningd/cln.log
   log-level=info
