@@ -106,7 +106,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ cd /tmp
-  $ git clone --branch v0.9.9 https://github.com/romanz/electrs.git
+  $ git clone --branch v0.9.10 https://github.com/romanz/electrs.git
   $ cd electrs
   ```
 
@@ -114,8 +114,21 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ curl https://romanzey.de/pgp.txt | gpg --import
-  $ git verify-tag v0.9.9
+  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  >                                    Dload  Upload   Total   Spent    Left  Speed
+  > 100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
+  > gpg: key 87CAE5FA46917CBB: public key "Roman Zeyde <me@romanzey.de>" imported
+  > gpg: Total number processed: 1
+  > gpg:               imported: 1
+  ```
+
+  ```sh
+  $ git verify-tag v0.9.10
+  > gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
+  > gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
+  > gpg:                issuer "me@romanzey.de"
   > gpg: Good signature from "Roman Zeyde <me@romanzey.de>" [unknown]
+  > gpg:                 aka "Roman Zeyde <roman.zeyde@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg:          There is no indication that the signature belongs to the owner.
   > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
@@ -128,7 +141,14 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
   ```
 
-* Delete `electrs` folder to be ready for the next update
+* Check the correct installation
+
+  ```sh
+  $ electrs --version
+  > v0.9.10
+  ```
+
+* Delete `electrs` folder to be ready for the next update, if prompt ask you `rm: remove write-protected regular file...` put `yes` and press `enter`
 
   ```sh
   $ rm -r electrs
@@ -168,9 +188,11 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   daemon_rpc_addr = "127.0.0.1:8332"
   daemon_p2p_addr = "127.0.0.1:8333"
 
-  # Electrs settings. If you chose to connect locally without Nginx reverse proxy, configure: `electrum_rpc_addr = "0.0.0.0:50001"` and configure FW accordingly (not recommended)
+  # Electrs settings. If you chose to connect locally without Nginx reverse proxy, 
+  # configure: `electrum_rpc_addr = "0.0.0.0:50001"` and configure FW accordingly (not recommended)
   electrum_rpc_addr = "127.0.0.1:50001"
   db_dir = "/data/electrs/db"
+  server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
 
   # Logging
   log_filters = "INFO"
@@ -185,7 +207,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   ```
 
   ```sh
-  Starting electrs 0.9.9 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs 0.9.9 (Electrum Rust Server)!", args: [] }
+  Starting electrs 0.9.10 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs 0.9.10 (Electrum Rust Server)!", args: [] }
   [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
   [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 127.0.0.1:50001
   [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows

@@ -1,6 +1,7 @@
 ---
 name: Support question
 about: Ask for help if you're stuck
+title: "[SUPPORT] "
 labels: support
 assignees: ''
 

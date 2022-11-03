@@ -289,7 +289,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   # 4GB RAM 
   #db_max_open_files = 200
   
-  # 8GB RAM (comment the last line and uncomment the next)
+  # 8GB RAM (comment the last line and uncomment this)
   #db_max_open_files = 400
   ```
 
