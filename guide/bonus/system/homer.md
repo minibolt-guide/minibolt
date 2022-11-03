@@ -14,7 +14,7 @@ has_toc: false
 
 ---
 
-We set up [Homer](https://github.com/bastienwirtz/homer#readme){:target="_blank"}, a simple browser-based dashboard for quick access to all our self-hosted web services and other useful links for a lighnting node operator. The dashboard can be easily edited from a YAML configuration file.
+We set up [Homer](https://github.com/bastienwirtz/homer#readme){:target="_blank"}, a simple browser-based dashboard for quick access to all our self-hosted web services and other useful links for a Lightning node operator. The dashboard can be easily edited from a YAML configuration file.
 
 Status: Not tested MiniBolt
 {: .label .label-red }
