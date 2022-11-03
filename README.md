@@ -12,9 +12,7 @@
 
 https://twofaktor.github.io/minibolt
 
-Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt)
-
-This guide has been adapted from the popular [RaspiBolt v3](https://raspibolt.org/) guide project, originally made by Stadicus and now maintained for the community, those are the most relevant changes:
+Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originally made by Stadicus and now maintained for the community, those are the most relevant changes:
 
 - Changed OS from Raspberry Pi OS Lite (64-bits) to **Ubuntu Server LTS 64-bit** - PC (AMD64)
 - Changed binaries and signatures of the programs to adapt them to **x86/amd64** architecture processors
