@@ -40,7 +40,7 @@ It only uses standard Debian instructions.
 
 You need the following hardware:
 
-* Personal Computer with Intel/AMD processor, with 2+ GB RAM, a 4+ GB RAM is recommended
+* Personal Computer with Intel/AMD processor (2010+ gen), with 2+ GB RAM (only Bitcoin section), a 4+ GB RAM is recommended (for Bitcoin + Lightning + bonus)
 * Internal storage: 1+ TB, a SSD is recommended
 * Pen drive: 4+ GB
 * Temporary monitor screen or television

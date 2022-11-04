@@ -39,10 +39,10 @@ Table of contents
 
 ### General
 
-On your regular computer, configure the BitBoxApp to use your RaspiBolt:
+On your regular computer, configure the BitBoxApp to use your MiniBolt:
 
 * In the sidebar, select `Settings` > `Connect your own full node`
-* In the field "Enter the endpoint" enter the hostname or ip address and the port, e.g. `raspibolt.local:50002`
+* In the field "Enter the endpoint" enter the hostname or ip address and the port, e.g. `minibolt.local:50002`
 * Click on "Download remote certificate"
 * Click "Check", you should be prompted with the message "Successfully establised a connection"
 * Click "Add" to add your server to the list on the top
@@ -50,7 +50,7 @@ On your regular computer, configure the BitBoxApp to use your RaspiBolt:
 
 ### Tor
 
-If you have Tor installed on your computer, you can access your RaspiBolt remotely over Tor.
+If you have Tor installed on your computer, you can access your MiniBolt remotely over Tor.
 
 * In the sidebar, select `Settings` > `Enable tor proxy`
 * Enable it and confirm the proxy address (usually the default `127.0.0.1:9050`)

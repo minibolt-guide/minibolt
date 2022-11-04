@@ -68,7 +68,7 @@ The guide will show you how to:
 * Configure the firewall to allow incoming requests to Bitcoin Core from the local network.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 8333/tcp comment 'allow Bitcoin Core from local network' 
+  $ sudo ufw allow from 192.168.0.0/16 to any port 8333 proto tcp comment 'allow Bitcoin Core from local network' 
   ```
 
 ### Obtain your Bitcoin Core `onion` address
@@ -166,8 +166,8 @@ For the national currency account and trading configuration options, please refe
 
 * Use the following information:
   * Name: Choose a name (e.g., `MiniBolt`)
-  * Transaction URL: `https://minibolt.local:4000/tx/` (replace raspibolt.local with your node IP address if required)
-  * Address URL: `https://minibolt.local:4000/address/` (replace raspibolt.local with your node IP address if required)
+  * Transaction URL: `https://minibolt.local:4000/tx/` (replace minibolt.local with your node IP address if required)
+  * Address URL: `https://minibolt.local:4000/address/` (replace minibolt.local with your node IP address if required)
 
 * Click "Save"
 

@@ -107,7 +107,7 @@ Because the authentication cookie now located in `/data/bitcoin/testnet3/.cookie
 File location: `/data/electrs/electrs.conf`
 
 ```sh
-# RaspiBolt: electrs configuration for testnet node
+# MiniBolt: electrs configuration for testnet node
 # /data/electrs/electrs.conf
 
 # Bitcoin Core settings
@@ -153,7 +153,7 @@ Your nginx might need to be reloaded using
   ```sh
   $ sudo nginx -t
   $ sudo systemctl reload nginx
-  $ sudo ufw allow from 192.168.0.0/16 to any port 60002/tcp comment 'allow Electrum SSL Testnet from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 60002 proto tcp comment 'allow Electrum SSL Testnet from local network'
   ```
 
 ### Tor

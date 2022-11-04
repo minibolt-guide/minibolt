@@ -334,7 +334,7 @@ Tumbler is a program that does series of CoinJoins with various amounts and timi
 
 ### Other notes
 
-Every time you disconnect from the RaspiBolt and connect again, if you are in a fresh session, before running any JoinMarket commands, you need to switch to the joinmarket user and run the activate.sh script created above:
+Every time you disconnect from the MiniBolt and connect again, if you are in a fresh session, before running any JoinMarket commands, you need to switch to the joinmarket user and run the activate.sh script created above:
 
 ```sh
 $ sudo su - joinmarket

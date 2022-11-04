@@ -21,7 +21,7 @@ With the MiniBolt setup, the Bitcoin Core wallet on the node can only be used fr
 
 One possibility to use Bitcoin Core with more functionality is to set up an additional [ElectrumX](https://github.com/kyuupichan/electrumx){:target="_blank"} server and then use the great [Electrum wallet](https://electrum.org/){:target="_blank"} (on your regular computer) that integrates with hardware wallets. But this setup is not easy, and the overhead is more than a Raspberry Pi can handle.
 
-The new [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server){:target="_blank"} makes it possible to connect Electrum (using your hardware wallet) directly to your RaspiBolt. In contrast to ElectrumX, this is not a full server that serves multiple users, but your own dedicated backend.
+The new [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server){:target="_blank"} makes it possible to connect Electrum (using your hardware wallet) directly to your MiniBolt. In contrast to ElectrumX, this is not a full server that serves multiple users, but your own dedicated backend.
 
 Before using this setup, please familiarize yourself with all components by setting up your own Electrum wallet, visiting the linked project websites and reading [The Electrum Personal Server Will Give Users the Full Node Security They Need](https://bitcoinmagazine.com/articles/electrum-personal-server-will-give-users-full-node-security-they-need/){:target="_blank"} in Bitcoin Magazine.
 
@@ -53,7 +53,7 @@ Table of contents
 * Configure firewall to allow incoming requests (please check if you need to adjust the subnet mask as [described in original setup](../../raspberry-pi/security.md#enabling-the-uncomplicated-firewall))
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002/tcp comment 'allow EPS from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow EPS from local network'
   ```
 
 Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresses to monitor the blockchain for you.
@@ -104,7 +104,7 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
   * In `[bitcoin-rpc]`, uncomment and complete the lines.
 
     ```sh
-    rpc_user = raspibolt
+    rpc_user = minibolt
     rpc_password = [PASSWORD_B]
     ```
 
@@ -187,9 +187,9 @@ On your regular computer, configure Electrum to use your MiniBoltt:
 
 * In menu: `Tools > Network > Server`
 * Uncheck "Select server automatically"
-* Enter the IP of your RaspiBolt (eg. 192.168.0.20) in the address field
+* Enter the IP of your MiniBolt (eg. 192.168.0.20) in the address field
 
-![Connect Electrum to RaspiBolt](../../../images/60_eps_electrum-connect.png)
+![Connect Electrum to MiniBolt](../../../images/60_eps_electrum-connect.png)
 
 * `Close` and check connection in tab "Console"
 
@@ -200,7 +200,7 @@ On your regular computer, configure Electrum to use your MiniBoltt:
 
 ### Automate startup
 
-If everything works as expected, we will now automate the start of Electrum Personal Server on the RaspiBolt.
+If everything works as expected, we will now automate the start of Electrum Personal Server on the MiniBolt.
 
 * On the Pi, exit Electrum Personal Server by pressing `Ctrl-C`
 

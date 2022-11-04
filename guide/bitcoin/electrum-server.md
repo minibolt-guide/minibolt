@@ -86,7 +86,7 @@ Now we can add the Electrs configuration.
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002/tcp comment 'allow Electrum SSL from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Electrum SSL from local network'
   ```
 
 ---
@@ -102,7 +102,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
 * Download the source code for the latest Electrs release.
   You can check the [release page](https://github.com/romanz/electrs/releases){:target="_blank"} to see if a newer release is available.
-  Other releases might not have been properly tested with the rest of the RaspiBolt configuration, though.
+  Other releases might not have been properly tested with the rest of the MiniBolt configuration, though.
 
   ```sh
   $ cd /tmp
@@ -148,9 +148,10 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   > v0.9.10
   ```
 
-* Delete `electrs` folder to be ready for the next update, if prompt ask you `rm: remove write-protected regular file...` put `yes` and press `enter`
+* Return to home folder `tmp` and delete `/electrs` folder installation to clean and be ready for the next update, if prompt ask you `rm: remove write-protected regular file...` put `yes` and press `enter`
 
   ```sh
+  $ cd
   $ rm -r /tmp/electrs
   ```
 

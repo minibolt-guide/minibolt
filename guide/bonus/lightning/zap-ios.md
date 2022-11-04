@@ -84,7 +84,7 @@ First we make sure that LND is listening for connections from other computers on
 * Allow the ufw firewall to listen on 10009 from the local network:
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 comment 'allow LND RPC server from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 proto tcp comment 'allow LND RPC server from local network'
   ```
 
 #### Install LND Connect

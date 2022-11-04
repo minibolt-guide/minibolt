@@ -31,7 +31,7 @@ Status: Tested MiniBolt
 
 ## Introduction
 
-Sparrow Wallet is an excellent software wallet to use with your RaspiBolt: it's reliable and transparently shows what it's doing under the hood.
+Sparrow Wallet is an excellent software wallet to use with your MiniBolt: it's reliable and transparently shows what it's doing under the hood.
 
 You can also use the following alternatives instead of Sparrow Wallet, according to your preferences and needs:
 
@@ -76,7 +76,7 @@ We now configure Sparrow to connect to your node within your local network.
 ### Connect to Electrs
 
 * Click on the "Private Electrum" tab
-* On the "URL" line, paste `raspibolt.local` or your node IP (e.g., `192.168.X.XXX`) in the first box and `50002` in the second box
+* On the "URL" line, paste `minibolt.local` or your node IP (e.g., `192.168.X.XXX`) in the first box and `50002` in the second box
 * Enable SSL by clicking on the slider
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
@@ -165,7 +165,7 @@ You're set! Sparrow is now configured to connect to your node over Tor and you c
 
 If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin etc - even transaction broadcasting is then done via external service (like blockstream.info) over Tor for additional privacy. Where-ever possible, the onion URLs of these services are used.
 
-Sparrow can be configured to use an internal (bundled) or external Tor proxy. To use the internal proxy, an onion Electrum server URL must be specified, and the 'Use Proxy' toggle must be off. Therefore, the following section only applies if you connect to your Electrum server using the local IP address within your local network (e.g., `raspibolt.local` or `192.168.X.XXX`). If you're using a Tor onion address to connect to your node, then Sparrow is already using the internal proxy and there is nothing else to be done!
+Sparrow can be configured to use an internal (bundled) or external Tor proxy. To use the internal proxy, an onion Electrum server URL must be specified, and the 'Use Proxy' toggle must be off. Therefore, the following section only applies if you connect to your Electrum server using the local IP address within your local network (e.g., `minibolt.local` or `192.168.X.XXX`). If you're using a Tor onion address to connect to your node, then Sparrow is already using the internal proxy and there is nothing else to be done!
 
 If you're using a local connection, we recommend that you set up this external Tor proxy as described below for maximal privacy.
 

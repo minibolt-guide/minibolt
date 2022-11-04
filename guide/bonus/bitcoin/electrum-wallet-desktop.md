@@ -47,7 +47,7 @@ On your local computer, download, verify and install Electrum Wallet.
 
 ### Force single server Electrum connection to only your node
 
-To preserve privacy, we will constrain Electrum to only connect to a single server (your RaspiBolt). How to do this depends on whether you are connecting via Local Area Network or via Tor and the operating system that you use on your regular computer.
+To preserve privacy, we will constrain Electrum to only connect to a single server (your MiniBolt). How to do this depends on whether you are connecting via Local Area Network or via Tor and the operating system that you use on your regular computer.
 
 ### Local connection
 
@@ -58,15 +58,15 @@ If you plan to use Electrum from only within your own secured local area network
   * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
 
   ```sh
-  ./electrum -1 -s raspibolt.local:50002:s
+  ./electrum -1 -s minibolt.local:50002:s
   ```
 
 * **Windows**
 
-  * Find the new Electrum desktop shortcut, right-click it and go to "Properties", click shortcut tab at the top bar, in the box named target, put "-1 -s raspibolt.local:50002:s" after "electrum.exe" (replace raspibolt.local with your node IP if necessary)
+  * Find the new Electrum desktop shortcut, right-click it and go to "Properties", click shortcut tab at the top bar, in the box named target, put "-1 -s minibolt.local:50002:s" after "electrum.exe" (replace minibolt.local with your node IP if necessary)
 
   ```sh
-  "C:\Program Files (x86)\Electrum\electrum.exe" -1 -s raspibolt.local:50002:s
+  "C:\Program Files (x86)\Electrum\electrum.exe" -1 -s minibolt.local:50002:s
   ```
 
 * Apply, accept and execute by double-clicking on the new shortcut.
@@ -78,7 +78,7 @@ If you plan to use Electrum from only within your own secured local area network
   * Execute this command in the Terminal application to -1 (connect to single server only) -s (server address)
 
   ```sh
-  /Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s raspibolt.local:50002:s
+  /Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s minibolt.local:50002:s
   ```
 
 * After using this command for the first run, close Electrum, and open the Electrum config file with the following customized command:
@@ -92,7 +92,7 @@ If you plan to use Electrum from only within your own secured local area network
   ```sh
   "auto_connect": false,
   "oneserver": true,
-  "server": "raspibolt.local:50002:s",
+  "server": "minibolt.local:50002:s",
   ```
 
 After opening a wallet or creating a new one, Electrum will indicate an active connection to a local server with a green dot in the bottom right corner of the screen.
@@ -129,7 +129,7 @@ Expected output:
 
 Now we need to specify the Tor address for Electrum Server and the local Tor proxy port in the Electrum Wallet configuration.
 
-First, get the onion address of your Electrum server directly on the RaspiBolt, depending on whether you chose the Electrs or Fulcrum service
+First, get the onion address of your Electrum server directly on the MiniBolt, depending on whether you chose the Electrs or Fulcrum service
 
 * For Electrs:
 

@@ -145,7 +145,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002/tcp comment 'allow Fulcrum SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Fulcrum SSL'
   ```
 
 ### Configure Bitcoin Core

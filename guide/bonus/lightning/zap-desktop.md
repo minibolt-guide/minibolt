@@ -67,7 +67,7 @@ We enable access to LND through Remote Procedure Calls (RPC), allowing the Zap D
 * Configure the UFW firewall to allow incoming requests from the local network only  
   
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 10009/tcp comment 'allow LND RPC server from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 proto tcp comment 'allow LND RPC server from local network'
   $ sudo ufw status
   ```
 

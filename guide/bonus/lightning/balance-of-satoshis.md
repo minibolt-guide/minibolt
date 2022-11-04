@@ -195,6 +195,7 @@ A good illustration is provided in Chapter 5 of 'Mastering the Lightning Network
   ```
 
 * E.g. using the example above:
+
   *  with node B being the [Bitrefill node](https://amboss.space/node/03d607f3e69fd032524a867b288216bfab263b6eaee4e07783799a6fe69bb84fac){:target="_blank"},
   *  node C being the [CoinOS node](https://amboss.space/node/02868e12f320073cad0c2959c42559fbcfd1aa326fcb943492ed7f02c9820aa399){:target="_blank"}
   *  rebalancing 50,000 sats
@@ -453,7 +454,7 @@ Now we’ll make sure our Telegram Bot command starts as a systemd service on th
   [...]
   ExecStart=/home/bos/balanceofsatoshis/bos telegram --use-small-units --connect YourConnectionCode --use-proxy /home/bos/balanceofsatoshis/proxy_agent.json
   [...]
-  ``` 
+  ```
 
 * Enable the service, start it and check the status of the service. You should also receive a connection message from your TG bot ('Connect to ...').
 

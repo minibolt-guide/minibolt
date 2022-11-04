@@ -31,7 +31,7 @@ Status: Tested MiniBolt
 
 ## Run your own blockchain explorer
 
-After the RaspiBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with Electrs, the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer.
+After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with Electrs, the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer.
 It lets you query transactions, addresses, and blocks of your choice.
 You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
 
@@ -88,7 +88,7 @@ Now we can add the BTC RPC Explorer configuration.
 * Configure the firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4000/tcp comment 'allow BTC RPC Explorer SSL from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4000 proto tcp comment 'allow BTC RPC Explorer SSL from local network'
   $ sudo ufw status
   ```
 
@@ -215,13 +215,13 @@ Test starting the explorer manually first to make sure it works.
   $ npm run start
   ```
 
-Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://raspibolt.local:4000> (or your nodes IP address like <https://192.168.0.20:4000>).
+Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://minibolt.local:4000> (or your nodes IP address like <https://192.168.0.20:4000>).
 
 Your browser will display a warning because we use a self-signed SSL certificate.
 We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
 Click on "Advanced" and proceed to the Block Explorer web interface.
 
-* If you see a lot of errors on the RaspiBolt command line, then Bitcoin Core might still be indexing the blockchain.
+* If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain.
   You need to wait until reindexing is done before using the BTC RPC Explorer.
 
 * Stop the Explorer in the terminal with `Ctrl`-`C` and exit the "btcrpcexplorer" user session.
@@ -272,7 +272,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
   $ sudo journalctl -f -u btcrpcexplorer
   ```
 
-* You can now access your own BTC RPC Explorer from within your local network by browsing to <https://raspibolt.local:4000>{:target="_blank"} (or your equivalent IP address).
+* You can now access your own BTC RPC Explorer from within your local network by browsing to <https://minibolt.local:4000>{:target="_blank"} (or your equivalent IP address).
 
 **Congratulations!**
 You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node.
@@ -317,7 +317,7 @@ Remember to provide them with the `password [D]` if you add password protection 
 ### Remote access over Tor (optional)
 
 Do you want to access your personal blockchain explorer remotely?
-You can easily do so by adding a Tor hidden service on the RaspiBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
+You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
 
 * Add the following three lines in the "location-hidden services" section in the `torrc` file.
   Save and exit.

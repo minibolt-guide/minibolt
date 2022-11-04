@@ -65,7 +65,7 @@ To run Mempool, we need to run Node.js v16 or above.
 * Configure the UFW firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4081/tcp comment 'allow Mempool SSL from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4081 proto tcp comment 'allow Mempool SSL from local network'
   $ sudo ufw status
   ```
 
@@ -90,7 +90,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   ```sh
   $ git clone https://github.com/mempool/mempool
   $ cd mempool
-  $ git checkout v2.3.1
+  $ git checkout v2.4.0
   $ exit
   ```
 
@@ -172,7 +172,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
     "CORE_RPC": {
       "HOST": "127.0.0.1",
       "PORT": 8332,
-      "USERNAME": "raspibolt",
+      "USERNAME": "minibolt",
       "PASSWORD": "Password[B]"
     },
     "ELECTRUM": {
@@ -206,7 +206,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   npm run start
   ```
   
-* After a few minutes, we should see outputs like this. 
+* After a few minutes, we should see outputs like this
 
   ```sh
   > Updating mempool
@@ -369,7 +369,7 @@ We now need to modify the nginx configuration to create a web server for the web
   $ sudo nano /etc/nginx/nginx.conf
   ```
 
-* Paste the following configuration lines. Save and exit.
+* Paste the following configuration lines. Save and exit
 
   ```ini
   user www-data;
@@ -489,7 +489,8 @@ To expose Mempool app via a Tor hidden service (if only Tor address is used, no 
 * and add the following entry under section `hidden services`:
 
   ```ini
-  # Mempool Hidden Service
+  ############### This section is just for location-hidden services ###
+  # Hidden Service Mempool
   HiddenServiceDir /var/lib/tor/hidden_service_mempool
   HiddenServiceVersion 3
   HiddenServicePort 443 127.0.0.1:4081
@@ -529,7 +530,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
 
 * Fetch the latest GitHub repository information and update:
 
-  ```sh 
+  ```sh
   $ cd mempool
   $ git fetch
   $ latestrelease=$(curl -s https://api.github.com/repos/mempool/mempool/releases/latest|grep tag_name|head -1|cut -d '"' -f4)
@@ -570,8 +571,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
 * Delete the two Mempool rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
 
   ```sh
-  $ sudo ufw delete Y
-  $ sudo ufw delete X  
+  $ sudo ufw delete X
   ```
 
 * Remove the nginx configurations for Mempool

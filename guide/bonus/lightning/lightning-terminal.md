@@ -55,7 +55,7 @@ Because Pool is alpha software, Lightning Terminal is also alpha software.
 * Configure the UFW firewall to allow incoming HTTPS requests:
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 8443/tcp comment 'allow Lightning Terminal SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 8443 proto tcp comment 'allow Lightning Terminal SSL'
   $ sudo ufw status
   ```
 
