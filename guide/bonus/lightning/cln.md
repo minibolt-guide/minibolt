@@ -82,7 +82,6 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
     autoconf automake build-essential git libtool libgmp-dev libsqlite3-dev \
     python3 python3-pip net-tools zlib1g-dev libsodium-dev gettext
   $ pip3 install --user --upgrade pip
-  $ pip3 install --user poetry
   ```
 
 * Open a "lightningd" user session and create symbolic links to `bitcoin` and `lightningd` data directories.
