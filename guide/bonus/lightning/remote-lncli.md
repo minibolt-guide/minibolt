@@ -41,7 +41,7 @@ In these instructions, it is assumed the lncli computer is on the same LAN as th
 - Allow port 10009 in the firewall
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 10009/tcp comment 'allow LND RPC server from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 proto tcp comment 'allow LND RPC server from local network'
   ```
 
 - Add one new line in the [Application Options] section of lnd.conf to allow rpc from more than just the default localhost
@@ -100,14 +100,14 @@ In these instructions, it is assumed the lncli computer is on the same LAN as th
 
  ![Files to Copy](../../../images/60_winLND.png)
 
-- Back on the RaspiBolt: Reset admin.macaroon permissions
+- Back on the MiniBolt: Reset admin.macaroon permissions
    `admin ~  ฿ sudo chmod 600 /home/bitcoin/.lnd/admin.macaroon`
 
 - Run lncli on the PC
 
   ```sh
   > cd %USERPROFILE%\desktop
-  > lncli  --rpcserver ip.of.your.raspibolt:10009  getinfo
+  > lncli  --rpcserver ip.of.your.minibolt:10009  getinfo
   ```
 
 ## A word on Permisson Files (Macaroons)
@@ -117,7 +117,7 @@ By default, *lncli* will load *admin.macaroon* and hence have full privileges. T
 Example:
 
   ```sh
-  >lncli  --macaroonpath %LOCALAPPDATA%\Lnd\readonly.macaroon --rpcserver ip.of.your.raspibolt:10009  addinvoice --amt=100
+  >lncli  --macaroonpath %LOCALAPPDATA%\Lnd\readonly.macaroon --rpcserver ip.of.your.minibolt:10009  addinvoice --amt=100
   [lncli] rpc error: code = Unknown desc = permission denied
   ```
 

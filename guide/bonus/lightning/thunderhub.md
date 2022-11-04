@@ -315,8 +315,6 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
   $ sudo ufw status numbered
   > [...]
   > [X] 4002                   ALLOW IN    Anywhere                   # allow Thunderhub SSL
-  > [...]
-  > [Y] 4002 (v6)              ALLOW IN    Anywhere (v6)              # allow Thunderhub SSL
   ```
 
 * Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)

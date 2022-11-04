@@ -126,14 +126,20 @@ For now, only SSH should be reachable from the outside.
 Bitcoin Core and LND are using Tor and don't need incoming ports.
 We'll open the port for Electrs and web applications later if needed.
 
-* With user "admin", configure and enable the firewall rules
+* With user "admin", configure and enable the firewall rules, when the prompt ask you `Command may disrupt existing ssh connections. Proceed with operation (y|n)?` type `y` key and enter
 
   ```sh
   $ sudo ufw default deny incoming
   $ sudo ufw default allow outgoing
-  $ sudo ufw allow from 192.168.0.0/16 to any port 22 comment 'allow SSH from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 22 proto tcp comment 'allow SSH from local network'
   $ sudo ufw logging off
   $ sudo ufw enable
+  ```
+
+Expected output:
+
+  ```sh
+  > Firewall is active and enabled on system startup
   ```
 
 * Check if the UFW is properly configured and active
