@@ -20,8 +20,8 @@ The script is based on Carsten Otto's [bash](https://gist.github.com/C-Otto/cd5d
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Tested v3
-{: .label .label-green }
+Status: Not tested MiniBolt
+{: .label .label-red }
 
 ![ambossping](../../../images/ambossping.jpg)
 

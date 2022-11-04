@@ -148,7 +148,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   > v0.9.10
   ```
 
-* Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` put `yes` and press `enter`
+* Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
 
   ```sh
   $ cd
