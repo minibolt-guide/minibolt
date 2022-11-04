@@ -86,7 +86,7 @@ Now we can add the Electrs configuration.
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002/tcp comment 'allow Electrum SSL from local network'
+  $ sudo ufw allow 50002/tcp comment 'allow Electrum SSL'
   ```
 
 ---
