@@ -129,6 +129,8 @@ Additionally, it's easier to move that directory somewhere else, for instance to
 
 💡 Remember that `"sudo mkdir /data"` command is not necessary if you previously mounted `"/data"` folder in a secondary unit storage in the [Ubuntu Server process installation](https://twofaktor.github.io/minibolt/guide/system/operating-system.html#ubuntu-server-installation)
 
+💡 If you did not add an extra drive during the instalation step but now wish to add an external hardrive as the location of the "/data" folder, it requires mounting a drive upon login and mapping the drive to the "/data" folder. This [guide](https://www.fosslinux.com/64306/how-to-mount-drive-in-ubuntu.htm) will help with drive mapping and automounting. Skip the data creation step if you follow the linked guide with "/data" folder creation.
+
 * Create the data directory
 
   ```sh
