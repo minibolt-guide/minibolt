@@ -151,7 +151,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 * Delete `electrs` folder to be ready for the next update, if prompt ask you `rm: remove write-protected regular file...` put `yes` and press `enter`
 
   ```sh
-  $ rm -r electrs
+  $ rm -r /tmp/electrs
   ```
 
 ### Configuration

@@ -65,7 +65,7 @@ The following list of aliases was derived from contributions by [RobClark56](htt
 * Execute a `source` command to register changes of the `.bash_aliases` file in the .bashrc file
 
   ```sh
-  $ source /home/admin/.bashrc 
+  $ source /home/admin/.bashrc
   ```
 
 ---
