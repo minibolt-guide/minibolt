@@ -151,8 +151,8 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   # MiniBolt: cln configuration
   # /home/lightningd/.lightning/config
 
-  alias=YOUR_FANCY_ALIAS #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-  rgb=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
+  alias=[[YOUR_FANCY_ALIAS #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
+  rgb=[[#ff9900]] #You can choose whatever you want on https://www.color-hex.com/
   network=bitcoin
   log-file=/data/lightningd/cln.log
   log-level=info
@@ -160,9 +160,9 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   rpc-file-mode=0660
   
   # default fees and channel min size
-  fee-base=<1000>
-  fee-per-satoshi=<1>
-  min-capacity-sat=<your minchansize>
+  fee-base=[[1000]]
+  fee-per-satoshi=[[1]]
+  min-capacity-sat=[[your minchansize]]
   
   ## optional
   # wumbo channels
