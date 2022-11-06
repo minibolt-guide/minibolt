@@ -145,14 +145,14 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   $ nano config
   ```
 
-* Insert the following content, adjust parameters in brackets to your likings. At least remove the brackets else lightningd will not start up correctly! Choose if you want to replicate CLN's channel database file to separate storage. It's good practice to keep a synchronous state of the database somewhere else to be able to recover off-chain funds in case of emergency.
+* Insert the following content, adjust parameters in brackets to your likings. At least remove the brackets else lightningd will not start up correctly! Choose if you want to replicate CLN's channel database file to separate storage. It's good practice to keep a synchronous state of the database somewhere else to be able to recover off-chain funds in case of emergency. Pay attention to parameters between `<>` as areas that would need modification.
 
   ```ini
   # MiniBolt: cln configuration
   # /home/lightningd/.lightning/config
 
-  alias=YOUR_FANCY_ALIAS #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-  rgb=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
+  alias=<YOUR_FANCY_ALIAS> #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
+  rgb=<#ff9900> #You can choose whatever you want on https://www.color-hex.com/
   network=bitcoin
   log-file=/data/lightningd/cln.log
   log-level=info
