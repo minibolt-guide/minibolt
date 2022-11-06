@@ -286,7 +286,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   # Set fast-sync accorling with your device, recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   fast-sync = 2048
   # Banner
-  banner = /data/fulcrum/banner.txt
+  banner = /data/fulcrum/fulcrum-banner.txt
 
   ## Slow device first-time start optimizations
   #bitcoind_timeout = 600
