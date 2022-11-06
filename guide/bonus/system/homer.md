@@ -57,7 +57,7 @@ This guide assumes that you have followed the main RaspiBolt guide and installed
 * Configure the UFW firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4091/tcp comment 'allow Homer SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4091 proto tcp comment 'allow Homer SSL from local network'
   $ sudo ufw status
   ```
 

@@ -249,7 +249,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
 
   [Unit]
   Description=BTC RPC Explorer
-  After=bitcoind.service fulcrum.service
+  After=bitcoind.service electrs.service
   PartOf=bitcoind.service
 
   [Service]
