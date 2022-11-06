@@ -490,7 +490,7 @@ To expose Mempool app via a Tor hidden service (if only Tor address is used, no 
 
   ```ini
   ############### This section is just for location-hidden services ###
-  # Hidden Service Mempool
+  # Hidden Service Mempool SSL
   HiddenServiceDir /var/lib/tor/hidden_service_mempool
   HiddenServiceVersion 3
   HiddenServicePort 443 127.0.0.1:4081

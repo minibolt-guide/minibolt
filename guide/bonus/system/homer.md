@@ -58,7 +58,6 @@ This guide assumes that you have followed the main RaspiBolt guide and installed
 
   ```sh
   $ sudo ufw allow from 192.168.0.0/16 to any port 4091 proto tcp comment 'allow Homer SSL from local network'
-  $ sudo ufw status
   ```
 
 ## Homer
@@ -94,7 +93,7 @@ Homer allows for the use of icons and images. We'll import a few logos to make t
   $ cd /data/homer/tools
   ```
 
-* Download the RaspiBolt, BTC RPC Explorer and Ride The Lightning logos from our [Awesome Bitcoin Logos repository](https://github.com/raspibolt/awesome-bitcoin-logos){:target="_blank"} containing a collection of Bitcoin and Lightning FOSS apps logos.
+* Download the RaspiBolt, BTC RPC Explorer and Ride The Lightning logos from our [Awesome Bitcoin Logos repository](https://github.com/twofaktor/awesome-bitcoin-logos){:target="_blank"} containing a collection of Bitcoin and Lightning FOSS apps logos.
 Then check that all the logos are in the folder.
 
   ```sh
