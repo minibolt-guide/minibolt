@@ -255,6 +255,12 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
   ```
 
+* Doownload custom Fulcrum banner based on MiniBolt
+
+  ```sh
+  $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/fulcrum-banner.txt
+  ```
+
 ### Configuration
 
 * Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for Raspberry Pi. Choose either one for Raspberry 4GB or 8GB depending on your hardware. Create the config file with the following content. Save and exit
@@ -279,6 +285,8 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   peering = false
   # Set fast-sync accorling with your device, recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   fast-sync = 2048
+  # Banner
+  banner = /data/fulcrum/banner.txt
 
   ## Slow device first-time start optimizations
   #bitcoind_timeout = 600
