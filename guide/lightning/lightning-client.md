@@ -293,7 +293,7 @@ Return to user "lnd", we first start LND manually to check if everything works f
   ```sh
   Attempting automatic RPC configuration to bitcoind
   Automatically obtained bitcoind's RPC credentials
-  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.14.3-beta commit=v0.14.3-beta, build=production, logging=default, debuglevel=info
+  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.15.4-beta commit=v0.15.4-beta, build=production, logging=default, debuglevel=info
   2021-11-13 08:16:34.985 [INF] LTND: Active chain: Bitcoin (network=mainnet)
   ...
   2021-11-13 08:16:35.028 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
@@ -305,7 +305,7 @@ We need to open a second SSH session.
 
 ### Wallet setup
 
-Start your SSH program (eg. PuTTY) a second time, connect to the Pi and log in as "admin".
+Start your SSH program (eg. PuTTY) a second time, connect to the PC and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 Once LND is started, the process waits for us to create the integrated Bitcoin wallet.
@@ -411,45 +411,20 @@ Now, let's set up LND to start automatically on system startup.
   PartOf=bitcoind.service
 
   [Service]
-
-  # Service execution
-  ###################
   ExecStart=/usr/local/bin/lnd
   ExecStop=/usr/local/bin/lncli stop
-
-  # Process management
-  ####################
   Type=simple
   Restart=always
   RestartSec=30
   TimeoutSec=240
   LimitNOFILE=128000
-
-  # Directory creation and permissions
-  ####################################
   User=lnd
-
-  # /run/lightningd
   RuntimeDirectory=lightningd
   RuntimeDirectoryMode=0710
-
-  # Hardening measures
-  ####################
-  # Provide a private /tmp and /var/tmp.
   PrivateTmp=true
-
-  # Mount /usr, /boot/ and /etc read-only for the process.
   ProtectSystem=full
-
-  # Disallow the process and all of its children to gain
-  # new privileges through execve().
   NoNewPrivileges=true
-
-  # Use a new /dev namespace only populated with API pseudo devices
-  # such as /dev/null, /dev/zero and /dev/random.
   PrivateDevices=true
-
-  # Deny the creation of writable and executable memory mappings.
   MemoryDenyWriteExecute=true
 
   [Install]
@@ -507,7 +482,7 @@ To make the user "admin" the main administrative user, we make sure it can inter
 Now your Lightning node is ready.
 This is also the point of no return.
 Up until now, you can just start over.
-Once you send real bitcoin to your RaspiBolt, you have "skin in the game".
+Once you send real bitcoin to your MiniBolt, you have "skin in the game".
 
 ### Funding your Lightning node
 

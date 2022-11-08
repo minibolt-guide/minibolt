@@ -247,43 +247,19 @@ Electrs needs to start automatically on system boot.
   PartOf=bitcoind.service
 
   [Service]
-
-  # Service execution
-  ###################
   ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
-
-  # Process management
-  ####################
   Type=simple
   Restart=always
   TimeoutSec=120
   RestartSec=30
   KillMode=process
-
-  # Directory creation and permissions
-  ####################################
   User=electrs
-
-  # /run/electrs
   RuntimeDirectory=electrs
   RuntimeDirectoryMode=0710
-
-  # Hardening measures
-  ####################
-  # Provide a private /tmp and /var/tmp.
   PrivateTmp=true
-
-  # Mount /usr, /boot/ and /etc read-only for the process.
   ProtectSystem=full
-
-  # Deny access to /home, /root and /run/user
   ProtectHome=true
-
-  # Use a new /dev namespace only populated with API pseudo devices
-  # such as /dev/null, /dev/zero and /dev/random.
   PrivateDevices=true
-
-  # Deny the creation of writable and executable memory mappings.
   MemoryDenyWriteExecute=true
 
   [Install]

@@ -319,49 +319,23 @@ We use "systemd", a daemon that controls the startup process using configuration
   After=network.target
 
   [Service]
-
-  # Service execution
-  ###################
-
   ExecStart=/usr/local/bin/bitcoind -daemon \
                                     -pid=/run/bitcoind/bitcoind.pid \
                                     -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
                                     -datadir=/home/bitcoin/.bitcoin
-
-  # Process management
-  ####################
   Type=forking
   PIDFile=/run/bitcoind/bitcoind.pid
   Restart=on-failure
   TimeoutSec=300
   RestartSec=30
-
-  # Directory creation and permissions
-  ####################################
   User=bitcoin
   UMask=0027
-
-  # /run/bitcoind
   RuntimeDirectory=bitcoind
   RuntimeDirectoryMode=0710
-
-  # Hardening measures
-  ####################
-  # Provide a private /tmp and /var/tmp.
   PrivateTmp=true
-
-  # Mount /usr, /boot/ and /etc read-only for the process.
   ProtectSystem=full
-
-  # Disallow the process and all of its children to gain
-  # new privileges through execve().
   NoNewPrivileges=true
-
-  # Use a new /dev namespace only populated with API pseudo devices
-  # such as /dev/null, /dev/zero and /dev/random.
   PrivateDevices=true
-
-  # Deny the creation of writable and executable memory mappings.
   MemoryDenyWriteExecute=true
 
   [Install]

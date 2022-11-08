@@ -108,6 +108,14 @@ Status: Tested MiniBolt
 Status: Not tested MiniBolt
 {: .label .label-red }
 
+* Paid service: indicates if the service used in the guide is a free o a paid service.
+
+Cost: Paid service
+{: .label .label-yellow }
+
+Cost: Free service
+{: .label .label-green }
+
 <br /><br />
 
 ---
