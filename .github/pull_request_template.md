@@ -1,6 +1,6 @@
 #### What
 
-What is the reason of this change?
+What is the reason for this change?
 
 #### Why
 

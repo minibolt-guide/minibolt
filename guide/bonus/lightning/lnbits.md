@@ -74,7 +74,7 @@ Status: Not tested MiniBolt
 * Configure the firewall to allow incoming HTTPS requests.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4003 proto tcp comment 'allow LNBits SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4003 proto tcp comment 'allow LNBits SSL from local network'
   $ sudo ufw status
   ```
 
@@ -231,14 +231,14 @@ Your browser will display a warning because we use a self-signed SSL certificate
   ```sh
   # MiniBolt: systemd unit for LNBits
   # /etc/systemd/system/lnbits.service
-
+  
+  [Unit]
   Description=LNBits
   After=lnd.service
   PartOf=lnd.service
 
   [Service]
   WorkingDirectory=/home/lnbits/lnbits
-
   ExecStart=/home/lnbits/lnbits/venv/bin/uvicorn lnbits.__main__:app --port 5000
   User=lnbits
   Restart=always
@@ -246,8 +246,6 @@ Your browser will display a warning because we use a self-signed SSL certificate
   RestartSec=30
   StandardOutput=journal
   StandardError=journal
-
-  # Hardening measures
   PrivateTmp=true
   ProtectSystem=full
   NoNewPrivileges=true

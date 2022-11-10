@@ -256,7 +256,6 @@ In order to do that, we create a systemd unit that starts the service on boot di
   WorkingDirectory=/home/btcrpcexplorer/btc-rpc-explorer
   ExecStart=/usr/bin/npm start
   User=btcrpcexplorer
-
   Restart=always
   RestartSec=30
 

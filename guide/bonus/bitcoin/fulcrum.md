@@ -55,7 +55,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../../bitco
   $ sudo apt install libssl-dev
   ```
 
-### Install zram-swap (optional)
+### Install zram-swap (recommended for slow devices, optional)
 
 zram-swap is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
 
@@ -277,7 +277,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   bitcoind = 127.0.0.1:8332
   rpccookie = /home/bitcoin/.bitcoin/.cookie
   
-  ## Fulcrum server settings
+  ## Fulcrum server general settings
   datadir = /data/fulcrum/fulcrum_db
   cert = /data/fulcrum/cert.pem
   key = /data/fulcrum/key.pem

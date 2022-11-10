@@ -22,6 +22,8 @@ Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originall
 - Added some useful authentication logs monitoring commands in the security section
 - Added interesting parameters in the configuration of some services and related commands to activate and take advantage of new features
 
+---
+
 Created by [⚡2 FakTor⚡](https://twitter.com/twofaktor) member of [Bitcoin Barcelona Community](https://bitcoinbarcelona.xyz/)
 
 ---

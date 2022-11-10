@@ -88,7 +88,7 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 
 1. Confirm destructive action by selecting the "Continue" option
 
-1. Fill the profile setup form with the follows ⚠️ IMPORTANT step!
+1. The admin username is reserved for the system to use in the first place, so we are going to create a temporary user which we will delete later. Complete the profile configuration form with the following. ⚠️ IMPORTANT step!
 
     * > **name:** temp
     * > **user:** temp
