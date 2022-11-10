@@ -54,7 +54,7 @@ Each node decrypts only the layer of information addressed to it, learning only 
 
 ## Installation
 
-Log in to your RaspiBolt via SSH as user "admin" and install Tor.
+Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
 * Install apt-transport-https
 
@@ -152,7 +152,7 @@ But we now have the base to configure sensitive applications to use it.
 
 ### SSH remote access through Tor (optional)
 
-If you want to log into your RaspiBolt with SSH when you're away, you can easily do so by adding a Tor hidden service.
+If you want to log into your MiniBolt with SSH when you're away, you can easily do so by adding a Tor hidden service.
 This makes "calling home" very easy, without the need to configure anything on your internet router.
 
 #### SSH server
@@ -191,7 +191,7 @@ A few examples:
 
 * **Windows**: configure PuTTY as described in this guide [Torifying PuTTY](https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/Putty){:target="_blank"} by the Tor Project.
 
-  * **Note:** If you are using PuTTy and fail to connect to your Pi by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
+  * **Note:** If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
 
 * **Linux**: use `torify` or `torsocks`.
   Both work similarly; just use whatever you have available:
@@ -212,7 +212,7 @@ A few examples:
   $ brew install tor && brew services start tor
   ```
 
-  You can SSH to your Pi "out of the box" with the following proxy command:
+  You can SSH to your PC "out of the box" with the following proxy command:
 
   ```sh
   $ ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg..............xyz.onion
@@ -239,7 +239,7 @@ A few examples:
   $ brew services restart tor
   ```
 
-  You should now be able to SSH to your Pi with
+  You should now be able to SSH to your PC with
 
   ```sh
   $ ssh HOSTNICKNAME
