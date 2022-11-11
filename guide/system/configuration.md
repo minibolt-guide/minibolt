@@ -45,15 +45,10 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
   $ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
   ```
 
-* Logout `temp` user and login with `admin` user
+* Logout `temp` user and repeat [access with SSH section](../system/remote-access#access-with-secure-shell) but this time login with `admin` user
 
   ```sh
   $ logout
-  ```
-
-  ```sh
-  > minibolt login: admin
-  > Password: password [A]
   ```
 
 * Delete the `temp` user. Do not worry about the `userdel: temp mail spool (/var/mail/temp) not found` message
@@ -127,7 +122,7 @@ We'll store all application data in the dedicated directory `/data`.
 This allows for better security because it's not inside any user's home directory.
 Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
 
-💡 Remember that `"sudo mkdir /data"` command is not necessary if you previously mounted `"/data"` folder in a secondary unit storage in the [Ubuntu Server process installation](https://twofaktor.github.io/minibolt/guide/system/operating-system.html#ubuntu-server-installation)
+💡 Remember that `"sudo mkdir /data"` command is not necessary if you previously mounted `"/data"` folder in a secondary unit storage in the [Ubuntu Server process installation](../system/operating-system#ubuntu-server-installation)
 
 💡 If you did not add an extra drive during the instalation step but now wish to add an external hardrive as the location of the "/data" folder, it requires mounting a drive upon login and mapping the drive to the "/data" folder. This [guide](https://www.fosslinux.com/64306/how-to-mount-drive-in-ubuntu.htm) will help with drive mapping and automounting. Skip the data creation step if you follow the linked guide with "/data" folder creation.
 

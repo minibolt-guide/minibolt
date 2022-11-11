@@ -66,19 +66,23 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 
 ## Ubuntu Server installation
 
-Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to select your lenguage (English recommended). Follow the next instructions:
+Use UP, Down and ENTER keys of your keyboard to navigate for the options. Follow the next instructions:
 
-1. Select your keyboard layout (Spanish recommended to Spanish native speakers) and press done
+1. In the first screen, select your lenguage (English recommended)
 
-1. Choose "Ubuntu Server" as the base for the installation
+1. If there are an installer update available, select "Update to the new installer", press ENTER and wait
 
-1. Select interface network connection that you choose to use (Ethernet or Wifi), take note of your IP obtained automatically through DHCP. Press done
+1. Select your keyboard layout and variant (Spanish recommended to Spanish native speakers) and press done
+
+1. Keep select "Ubuntu Server" as the base for the installation, down to "Done" and press ENTER
+
+1. Select interface network connection that you choose to use (Ethernet or Wifi) and take note of your IP obtained automatically through DHCP. Press done
 
 1. Leave empty next option if you don't want to use an HTTP proxy to access. Press done
 
 1. If you don't want to use an alternative mirror for Ubuntu, leave empty and press done directly
 
-1. Configure a guided storage layout, or create a custom one, you will need to mount a filesystem at primary unit storage `("/")` and select a boot disk
+1. Configure a guided storage layout (check "Use an entire disk"), or create a custom one ("Custom storage layout"), in this last case, you will need to mount a filesystem at primary unit storage `("/")` and select a boot disk. Press done
 
     💡 If you want to use a secondary unit storage to storage data (blockchain, indexes, etc), you have to:
 
@@ -86,16 +90,16 @@ Use your keyboard to navigate for the options. Use UP, Down and ENTER keys to se
 
     🚨 In this case, when you are log in with the `"admin"` user, remember to assign the owner of the `/data` directory to the `"admin"` user, in the step [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory), discarding the creating of the `"/data"` folder already created in the before step.
 
-1. Confirm destructive action by selecting the "Continue" option
+1. Confirm destructive action by selecting the "Continue" option. Pres ENTER
 
-1. The admin username is reserved for the system to use in the first place, so we are going to create a temporary user which we will delete later. Complete the profile configuration form with the following. ⚠️ IMPORTANT step!
+1. The username "admin" is reserved for use by the system, to use in the first place, so we are going to create a temporary user which we will delete later. Complete the profile configuration form with the following. ⚠️ IMPORTANT step!
 
     * > **name:** temp
     * > **user:** temp
     * > **server name:** minibolt
     * > **password:** PASSWORD [A]
 
-1. Check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again. ⚠️ IMPORTANT step!
+1. Press ENTER to check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again. ⚠️ IMPORTANT step!
 
 1. If you want to preinstall some additional software (not recommended), select them, if not, press "done" directly to jump to the installation next step
 
