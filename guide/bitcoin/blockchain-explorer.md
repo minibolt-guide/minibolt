@@ -89,7 +89,6 @@ Now we can add the BTC RPC Explorer configuration.
 
   ```sh
   $ sudo ufw allow from 192.168.0.0/16 to any port 4000 proto tcp comment 'allow BTC RPC Explorer SSL from local network'
-  $ sudo ufw status
   ```
 
 ---

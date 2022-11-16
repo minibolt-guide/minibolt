@@ -186,6 +186,12 @@ This is created automatically and can be read by all users that are members of t
 
 Bitcoin Core provides a simple Python program to generate the configuration line for the config file.
 
+* Return to the home Bitcoin user folder typing `cd` command
+
+  ```sh
+  $ cd
+  ```
+
 * In the Bitcoin folder, download the RPCAuth program
 
   ```sh
@@ -443,6 +449,30 @@ We also now want to enable the node to listen to and relay transactions.
   $ sudo systemctl restart bitcoind
   ```
 
+## OpenTimestamps client
+
+When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website.
+In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third-party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
+Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client){:target="_blank"} to locally verify the timestamp of the binaries checksums file.
+
+* Install dependencies
+
+  ```sh
+  $ sudo apt-get install python3 python3-dev python3-pip python3-setuptools python3-wheel
+  ```
+
+* With user "admin", globally install the OpenTimestamp client
+
+  ```sh
+  $ sudo pip3 install opentimestamps-client
+  ```
+
+* Display the OpenTimestamps client version to check that it is properly installed
+
+  ```sh
+  $ ots --version
+  ```
+
 ---
 
 ## Extras (optional)
@@ -534,30 +564,6 @@ You can enable I2P network as a second private network in Bitcoin Core follow ex
   ```sh
   # Maintain coinstats index used by the gettxoutsetinfo RPC
   #coinstatsindex=1
-  ```
-
-### OpenTimestamps client
-
-When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website.
-In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third-party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
-Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client){:target="_blank"} to locally verify the timestamp of the binaries checksums file.
-
-* Install dependencies
-
-  ```sh
-  $ sudo apt-get install python3 python3-dev python3-pip python3-setuptools python3-wheel
-  ```
-
-* With user "admin", globally install the OpenTimestamp client
-
-  ```sh
-  $ sudo pip3 install opentimestamps-client
-  ```
-
-* Display the OpenTimestamps client version to check that it is properly installed
-
-  ```sh
-  $ ots --version
   ```
 
 ---

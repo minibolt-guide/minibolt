@@ -202,8 +202,6 @@ To improve the security of your wallet, check out these more advanced methods:
   color=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
   listen=localhost
   debuglevel=info
-  coop-close-target-confs=60
-  bitcoind.estimatemode=ECONOMICAL
 
   # Password: automatically unlock wallet with the password in this file
   # -- comment out to manually unlock wallet, and see MiniBolt guide for more secure options
@@ -242,7 +240,10 @@ To improve the security of your wallet, check out these more advanced methods:
   # Database
   [bolt]
   db.bolt.auto-compact=true # False to disable auto-compact DB and fast boot and comment the next line
-  db.bolt.auto-compact-min-age=168h # Set this value to "0" do DB compact at every LND reboot
+  #db.bolt.auto-compact-min-age=168h # Set this value to "0" do DB compact at every LND reboot (default: 168h)
+
+  [Bitcoind]
+  bitcoind.estimatemode=ECONOMICAL
 
   [Bitcoin]
   bitcoin.active=1
@@ -258,7 +259,7 @@ To improve the security of your wallet, check out these more advanced methods:
 
 #### Configure Bitcoin Core
 
-We need to set up settings in Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
+Before run LND, we need to set up settings in Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
 
 * Exit to return `"admin"` user, edit `bitcoin.conf`, and add the following lines. Save and exit
 
@@ -352,7 +353,7 @@ For this, the Static Channel Backup stored at `/data/lnd-backup/channel.backup` 
 
 * **Write these 24 words down manually on a piece of paper and store it in a safe place.**
 
-You can use a simple piece of paper, write them on the custom themed [RaspiBolt backup card](https://github.com/raspibolt/raspibolt/blob/master/resources/raspibolt-backup-card.pdf){:target="_blank"}, or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
+You can use a simple piece of paper, write them on the custom themed [RaspiBolt backup card](https://github.com/twofaktor/minibolt/blob/master/resources/raspibolt-backup-card.pdf){:target="_blank"}, or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
 This piece of paper is all an attacker needs to completely empty your on-chain wallet!
 Do not store it on a computer.
 Do not take a picture with your mobile phone.
@@ -576,9 +577,13 @@ To try, why not send me satoshis! You simply need to input my node pukey [`⚡2F
 
 ### Watchtower server
 
+Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. This was previously activated in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
+
   ```sh
   $ lncli tower info
   ```
+
+Example output:
 
   ```sh
   {
@@ -593,10 +598,12 @@ To try, why not send me satoshis! You simply need to input my node pukey [`⚡2F
 
   ```
 
+⚠️ This service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
+
 ### Watchtower client
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
-If your RaspiBolt goes down for a longer period of time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
+If your MiniBolt goes down for a longer period of time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
 Watchtowers are other Lightning nodes that can monitor your channels for you.
 If they detect such bad behavior, they can react on your behalf, and send a punishing transaction to close this channel.
@@ -738,10 +745,10 @@ A quick reference with common commands to play around with:
 * Create an Re-Usable Static AMP invoice:
   
   ```sh
-  $ lncli addinvoice --memo <your memo here> --amt <amount in sats> --expiry <time in seconds> --amp
+  $ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
   ```
 
-💡 Flags `--memo <your memo here> --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time are 30 days and the rest can be empty.
+💡 Flags `--memo "your memo here" --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time are 30 days and the rest can be empty.
 
 Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
 

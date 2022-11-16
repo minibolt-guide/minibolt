@@ -270,7 +270,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   ExecStart=/home/lndg/lndg/.venv/bin/uwsgi --ini /home/lndg/lndg/lndg.ini
   User=lndg
   Group=www-data
-  Restart=on-failure
+  Restart=always
   # Wait 4 minutes before starting to give LND time to fully start.  Increase if needed.
   TimeoutStartSec=240
   RestartSec=30
