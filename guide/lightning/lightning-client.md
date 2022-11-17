@@ -176,11 +176,6 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   $ chmod 600 /data/lnd/password.txt
   ```
 
-To improve the security of your wallet, check out these more advanced methods:
-
-* Example by LND: [using a password manager with named pipe](https://github.com/lightningnetwork/lnd/blob/master/docs/wallet.md#more-secure-example-with-password-manager-and-using-a-named-pipe){:target="_blank"}
-* More to come...
-
 ### Configuration
 
 #### Configure LND
@@ -489,16 +484,12 @@ Once you send real bitcoin to your MiniBolt, you have "skin in the game".
 
 * Generate a new Bitcoin address (p2wkh = native SegWit/Bech32) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
 
-  [`newaddress`](https://api.lightning.community/#newaddress){:target="_blank"}
-
   ```sh
   $ lncli newaddress p2wkh
   > "address": "bc1..."
   ```
 
 * Check your LND wallet balance
-
-  [`walletbalance`](https://api.lightning.community/#walletbalance){:target="_blank"}
 
   ```sh
   $ lncli walletbalance
@@ -523,22 +514,18 @@ Another great way to find peers to collaboratively set up channels is [Lightning
 
 To connect to a remote node, you need its URI that looks like `<pubkey>@host`:
 
-* the `<pubkey>` is just a long hexadecimal number, like `03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f`
-* the `host` can be a domain name, an ip address or a Tor onion address, followed by the port number (usually `:9735`)
+* the `<pubkey>` is just a long hexadecimal number, like `02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128`
+* the `host` can be a domain name, a clearnet ip address or a Tor onion address, followed by the port number (usually `:9735`)
 
 Just grab the whole URI above the big QR code and use it as follows (we will use the ACINQ node as an example):
 
 * **Connect** to the remote node, with the full URI.
 
-  [`connect`](https://api.lightning.community/#connectpeer){:target="_blank"}
-
   ```sh
-  $ lncli connect 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735
+  $ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
   ```
 
 * **Open a channel** using the `<pubkey>` only (*i.e.*, the part of the URI before the `@`) and the channel capacity in satoshis.
-
-  [`openchannel`](https://api.lightning.community/#openchannel){:target="_blank"}
 
   One Bitcoin equals 100 million satoshis, so at $10'000/BTC, $10 amount to 0.001 BTC or 100'000 satoshis.
   To avoid mistakes, you can just use an [online converter](https://www.buybitcoinworldwide.com/satoshi/to-usd/){:target="_blank"}.
@@ -546,12 +533,10 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
   The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/){:target="_blank"})
 
   ```sh
-  $ lncli openchannel --sat_per_vbyte 8 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f 100000 0
+  $ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
   ```
 
 * **Check your funds**, both in the on-chain wallet and the channel balances.
-
-  [`walletbalance`](https://api.lightning.community/#walletbalance){:target="_blank"} or [`channelbalance`](https://api.lightning.community/#channelbalance){:target="_blank"}
 
   ```sh
   $ lncli walletbalance
@@ -560,8 +545,6 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 
 * **List active channels**. Once the channel funding transaction has been mined and gained enough confirmations, your channel is fully operational.
   That can take an hour or more.
-
-  [`listchannels`](https://api.lightning.community/#listchannels){:target="_blank"}
 
   ```sh
   $ lncli listchannels
@@ -572,7 +555,7 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 To try, why not send me satoshis! You simply need to input my node pukey [`⚡2FakTor⚡`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128){:target="_blank"}, the amount in satoshis and add the –keysend flag
 
   ```sh
-  $ lncli sendpayment --dest 02acd93e3352fd59066ca3f23e8865de1926301e8be03c6a52f0f7e43533fe9888 --amt <amount in sats whatever you want> --keysend
+  $ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
   ```
 
 ### Watchtower server
@@ -668,35 +651,30 @@ A quick reference with common commands to play around with:
   ```
 
 * Find out some general stats about your node:
-  [`getinfo`](https://api.lightning.community/#getinfo){:target="_blank"}
 
   ```sh
   $ lncli getinfo
   ```
 
 * Check the peers you are currently connected to:
-  [`listpeers`](https://api.lightning.community/#listpeers){:target="_blank"}
 
   ```sh
   $ lncli listpeers
   ```
 
 * Check the status of your pending channels:
-  [`pendingchannels`](https://api.lightning.community/#pendingchannels){:target="_blank"}
 
   ```sh
   $ lncli pendingchannels
   ```
 
 * Check the status of your active channels:
-  [`listchannels`](https://api.lightning.community/#listchannels){:target="_blank"}
 
   ```sh
   $ lncli listchannels
   ```
 
 * Before paying an invoice, you should decode it to check if the amount and other infos are correct:
-  [`decodepayreq`](https://api.lightning.community/#decodepayreq){:target="_blank"}
 
   ```sh
   $ lncli decodepayreq [INVOICE]
@@ -715,28 +693,24 @@ A quick reference with common commands to play around with:
   ```
 
 * Send a payment to a node without invoice using AMP (both sender and receiver nodes have to have AMP enabled):
-  [`sendpayment`](https://api.lightning.community/#sendpayment){:target="_blank"}
 
   ```sh
   $ lncli sendpayment --dest <destination public key> --amt <amount> --amp
   ```
 
 * Send a payment to a node without invoice using Keysend (both sender and receiver nodes have to have Keysend enabled):
-  [`sendpayment`](https://api.lightning.community/#sendpayment){:target="_blank"}
 
   ```sh
   $ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
   ```
 
 * Check the payments that you sent:
-  [`listpayments`](https://api.lightning.community/#listpayments){:target="_blank"}
 
   ```sh
   $ lncli listpayments
   ```
 
 * Create an invoice:
-  [`addinvoice`](https://api.lightning.community/#addinvoice){:target="_blank"}
 
   ```sh
   $ lncli addinvoice [AMOUNT_IN_SATOSHIS]
@@ -753,15 +727,12 @@ A quick reference with common commands to play around with:
 Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
 
 * List all invoices:
-  [`listinvoices`](https://api.lightning.community/#listinvoices){:target="_blank"}
 
   ```sh
   $ lncli listinvoices
   ```
 
 * to close a channel, you need the following two arguments that can be determined with `listchannels` and are listed as "channelpoint": `FUNDING_TXID`:`OUTPUT_INDEX`
-
-  [`closechannel`](https://api.lightning.community/#closechannel){:target="_blank"}
 
   ```sh
   $ lncli listchannels

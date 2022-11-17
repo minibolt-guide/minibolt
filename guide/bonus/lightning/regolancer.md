@@ -43,26 +43,26 @@ Status: Not tested MiniBolt
 
 ## Install GO
 
-* Check the latest stable version of the arm64 binary at https://golang.org/dl/ and download it
+* Check the latest stable version of the amd64 binary at https://golang.org/dl/ and download it
 
   ```sh
   $ cd /tmp
-  $ wget https://go.dev/dl/go1.19.2.linux-arm64.tar.gz
+  $ wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz
   ```
 
 * Check on the download page what is the SHA256 checksum of the file, e.g. for the above:
 b62a8d9654436c67c14a0c91e931d50440541f09eb991a987536cb982903126d. Calculate the SHA256 hash of the downloaded file. It should be the same number as the one on the website
 
   ```sh
-  $ sha256sum go1.19.2.linux-arm64.tar.gz
-  b62a8d9654436c67c14a0c91e931d50440541f09eb991a987536cb982903126d  go1.19.2.linux-arm64.tar.gz
+  $ sha256sum go1.19.3.linux-amd64.tar.gz
+  b62a8d9654436c67c14a0c91e931d50440541f09eb991a987536cb982903126d  go1.19.3.linux-amd64.tar.gz
   ```
 
 * Install Go in the /usr/local directory
 
   ```sh
-  $ sudo tar -xvf go1.19.2.linux-arm64.tar.gz  -C /usr/local
-  $ rm go1.19.2.linux-arm64.tar.gz
+  $ sudo tar -xvf go1.19.3.linux-amd64.tar.gz  -C /usr/local
+  $ rm go1.19.3.linux-amd64.tar.gz
   ```
 
 * Add the binary to PATH to not have to type the full path each time you use it. For a global installation of Go (that users other than “admin” can use), open /etc/profile
@@ -87,7 +87,7 @@ b62a8d9654436c67c14a0c91e931d50440541f09eb991a987536cb982903126d. Calculate the 
 
   ```sh
   $ go version
-  go version go1.19.2 linux/arm64
+  go version go1.19.3 linux/amd64
   ```
 
 ---
@@ -117,7 +117,7 @@ Note: Adjust the "regolancer@v1.6.3" part from the commands below to the actual 
 
   ```sh
   $ go/bin/regolancer -v
-  Regolancer v1.6.3, built with go1.19.2
+  Regolancer v1.6.3, built with go1.19.3
   Source: https://github.com/rkfg/regolancer
   ```
 
@@ -162,7 +162,7 @@ Adjust the rest of the file as you wish with the options [regolancer config samp
   $ go/bin/regolancer -f /home/regolancer/config.json
   ```
 
-The regolancer will run until it finds a hit and will stop after that unless you have utilized the "--allow-rapid-rebalance" parameter, which will retry the same rebalance instantly until a fail. 
+The regolancer will run until it finds a hit and will stop after that unless you have utilized the "--allow-rapid-rebalance" parameter, which will retry the same rebalance instantly until a fail.
 To run it continuously, you will need to run it in a loop or a cron.
 
 ---
@@ -182,7 +182,7 @@ Please replace the v.1.6.x part with the version you would like to install.
 
   ```sh
   $ go/bin/regolancer -v
-  Regolancer v1.6.3, built with go1.19.2
+  Regolancer v1.6.3, built with go1.19.3
   Source: https://github.com/rkfg/regolancer
   ```
 

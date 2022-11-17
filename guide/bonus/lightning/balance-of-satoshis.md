@@ -89,7 +89,7 @@ Status: Not tested MiniBolt
 
   ```sh
   $ gpg --receive-keys E80D2F3F311FD87E
-  > [gpg: key E80D2F3F311FD87E: public key "Alex Bosworth <alex.bosworth@gmail.com>" imported
+  > gpg: key E80D2F3F311FD87E: public key "Alex Bosworth <alex.bosworth@gmail.com>" imported
   > gpg: Total number processed: 1
   > gpg:               imported: 1
   ```

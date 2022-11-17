@@ -44,16 +44,14 @@ Status: Not tested MiniBolt
 
 * With user "admin", install necessary dependencies
 
+```sh
+$ sudo apt install python3-virtualenv python3-dev python3-pip build-essential automake pkg-config libtool libgmp-dev libltdl-dev libssl-dev libatlas3-base libopenjp2-7
 ```
-$ sudo apt install python-virtualenv curl python3-dev python3-pip build-essential automake pkg-config libtool libgmp-dev libltdl-dev libssl-dev libatlas3-base libopenjp2-7
-```
-
-If you get `E: Package 'python-virtualenv' has no installation candidate` error when running command above, replace `python-virtualenv` with `python3-virtualenv`.
 
 ### Create a JoinMarket dedicated bitcoin wallet with bitcoin-cli
 This wallet will be used by JoinMarket to store addresses as watch-only. It will use this wallet when it communicates with bitcoin core via rpc calls.
 
-```
+```sh
 bitcoin-cli -named createwallet wallet_name=jm_wallet descriptors=false
 ```
 
@@ -222,7 +220,7 @@ Write down the words and save them; they will allow to recover wallet later on d
 
 JoinMarket wallet contains five separate sub-wallets (accounts) or pockets called "mixdepths". The idea is that coins between different mixdepths are never mixed together. When you do a CoinJoin transaction, change output goes back to the same mixdepth, but one of the equal amount outputs goes either to an address of a different wallet (if you are taker) or to a different mixdepth in the same JoinMarket wallet (if you are a maker).
 
-* Run `wallet-tool.py` specifying mixdepth 0 and enter your wallet password [F] to initialize the wallet. 
+* Run `wallet-tool.py` specifying mixdepth 0 and enter your wallet password [F] to initialize the wallet.
 
 ```sh
 (jvmenv) $ ./wallet-tool.py -m 0 wallet.jmdat
@@ -280,7 +278,7 @@ For the purposes of running the yield generator, you can simply fund the primary
 
 Since version 0.9.0 JoinMarket has added support for fidelity bonds, which are bitcoins locked into certain address(es) for some time. This is protection against [sybil attacks](https://en.wikipedia.org/wiki/Sybil_attack). Fidelity bonds are not currently required for the makers, but they will increase probability of your yield generator bot to participate in coinjoins. See [JoinMarket fidelity bond documentation](https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/master/docs/fidelity-bonds.md) for more information. Before you fund a fidelity bond, however, you want to be sure you are doing so with anonymous coins and a sweep transaction due to the public nature of the fidelity bond announcement. Perhaps mix with JoinMarket first. :)
 
-#### Running the yield generator in background (after you close ssh connection to the RaspiBolt)
+#### Running the yield generator in background (after you close ssh connection to the MiniBolt)
 
 * Exit yield generator and install tmux from the "admin" user. (screen would be another viable option)
 

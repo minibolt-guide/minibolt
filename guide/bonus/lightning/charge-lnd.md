@@ -194,19 +194,19 @@ For this example, we will use a policy that:
   # This policy is for ignoring specific nodes (e.g. a LOOP channel that we want to control manually)
   # The pubkey of the choosen nodes have to be listed below, separated with a comma
   node.id = <node_pubkey_1>,
-	<node_pubkey_2>
+  <node_pubkey_2>
   strategy = ignore
 
   [4_low_fees_policy]
   node.id = <node_pubkey_3>,
-	<node_pubkey_4>,
-	<node_pubkey_5>
+  <node_pubkey_4>,
+  <node_pubkey_5>
   strategy = static
   fee_ppm = 50
 
   [5_high_fees_policy]
   node.id = <node_pubkey_6>,
-	<node_pubkey_7>
+  <node_pubkey_7>
   strategy = static
   fee_ppm = 200
   ```
@@ -245,7 +245,7 @@ Then exit the charge-lnd user.
 
 * Double-check the fee policy on all your channels (e.g. using [RTL](../../lightning/web-app.md) or [lntop](lntop.md)) to ensure that you are happy with the changes!
 
-🔍: _To see all the possible policy types and options and some examples, check the charge-lnd [Github page](https://github.com/accumulator/charge-lnd#charge-lnd){:target="_blank"}._
+🔍: _To see all the possible policy types and options and some examples, check the charge-lnd [Github page](https://github.com/accumulator/charge-lnd#charge-lnd){:target="_blank"}.
 
 ---
 
@@ -330,12 +330,12 @@ If you need to check the log files:
 
 ## Uninstall
 
-If you want to uninstall `charge-lnd`:
+If you want to uninstall `chargelnd`:
 
-* Log in with the "admin" user and delete the "charge-lnd" user
+* Log in with the "admin" user and delete the "chargelnd" user
 
   ```sh
-  $ sudo userdel -r charge-lnd
+  $ sudo userdel -r chargelnd
   $ exit
   ```
 
