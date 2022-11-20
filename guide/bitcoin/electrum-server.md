@@ -174,7 +174,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 * Switch to the "electrs" user and create the config file with the following content
 
   ```sh
-  $ sudo su - electrs
+  $ sudo su electrs
   $ nano /data/electrs/electrs.conf
   ```
 
@@ -218,6 +218,18 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   [2021-11-09T07:09:46.191Z INFO  electrs::chain] chain updated: tip=00000000922e2aa9e84a474350a3555f49f06061fd49df50a9352f156692a842, height=4000
   [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [4001..6000]
   [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a5, height=6000
+  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [6001..8000]
+  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a6, height=8000
+  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [8001..10000]
+  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a7, height=10000
+  [...]
+  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 65 blocks: [756001..756065]
+  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c510, height=756065
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting config compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting headers compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting txid compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting funding compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting spending compaction
   ...
   ```
 
@@ -273,7 +285,7 @@ Electrs needs to start automatically on system boot.
   $ sudo systemctl start electrs
   ```
 
-* Check the systemd journal to see Electrs' log output
+* Check the systemd journal to see Electrs log output
 
   ```sh
   $ sudo journalctl -f -u electrs

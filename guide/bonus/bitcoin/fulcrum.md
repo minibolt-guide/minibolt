@@ -160,7 +160,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
 * Open a "fulcrum" user session
 
   ```sh
-  $ sudo su - fulcrum
+  $ sudo su fulcrum
   ```
 
 * Change to fulcrum data folder and generate cert and key files for SSL. When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
@@ -207,7 +207,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   #bitcoind_timeout = 600
   #bitcoind_clients = 1
   #worker_threads = 1
-  #deb_mem = 1024.0
+  #db_mem = 1024.0
   
   # 4GB RAM 
   #db_max_open_files = 200
@@ -304,7 +304,7 @@ To get address balances, either an Electrum server or an external service is nec
 * As ùser `admin`, change to `btcrpcexplorer` user, enter to `btc-rpc-explorer` folder and open `.env` file
 
   ```sh
-  $ sudo su - btcrpcexplorer
+  $ sudo su btcrpcexplorer
   $ cd btc-rpc-explorer
   $ nano .env
   ```

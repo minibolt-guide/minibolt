@@ -43,8 +43,8 @@ We'll download, verify and install LND.
   $ cd /tmp
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/lnd-linux-amd64-v0.15.4-beta.tar.gz
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/manifest-v0.15.4-beta.txt
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/manifest-guggero-v0.15.4-beta.sig
   $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/manifest-guggero-v0.15.4-beta.sig.ots
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/manifest-guggero-v0.15.4-beta.sig
   ```
 
 ### Checksum check
@@ -136,7 +136,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 * Open a "lnd" user session
 
   ```sh
-  $ sudo su - lnd
+  $ sudo su lnd
   ```
 
 * Create symbolic links pointing to the LND and bitcoin data directories
@@ -482,10 +482,10 @@ Once you send real bitcoin to your MiniBolt, you have "skin in the game".
 
 ### Funding your Lightning node
 
-* Generate a new Bitcoin address (p2wkh = native SegWit/Bech32) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
+* Generate a new Bitcoin address (p2tr = taproot/Bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
 
   ```sh
-  $ lncli newaddress p2wkh
+  $ lncli newaddress p2tr
   > "address": "bc1..."
   ```
 
@@ -598,7 +598,7 @@ It's good practice to add a few watchtowers, just to be on the safe side.
 * With user "LND", add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} as a first example
 
   ```sh
-  $ sudo su - lnd
+  $ sudo su lnd
   $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
   ```
 

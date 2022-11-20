@@ -45,7 +45,7 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
   $ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
   ```
 
-* Logout `temp` user and repeat [access with SSH section](../system/remote-access#access-with-secure-shell) but this time login with `admin` user
+* Logout `temp` user and repeat [access with SSH section](../system/remote-access#access-with-secure-shell) but this time login with `admin` user with your `password [A]`
 
   ```sh
   $ logout
@@ -59,7 +59,7 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
   ```
 
 To change the system configuration and files that don't belong to user "admin", you have to prefix commands with `sudo`.
-You will be prompted to enter your admin password from time to time for increased security.
+You will be prompted to enter your admin `password [A]` from time to time for increased security.
 
 ---
 

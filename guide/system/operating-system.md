@@ -92,7 +92,7 @@ Use UP, Down and ENTER keys of your keyboard to navigate for the options. Follow
 
 1. Confirm destructive action by selecting the "Continue" option. Pres ENTER
 
-1. The username "admin" is reserved for use by the system, to use in the first place, so we are going to create a temporary user which we will delete later. Complete the profile configuration form with the following. ⚠️ IMPORTANT step!
+1. The username `"admin"` is reserved for use by the system, to use in the first place, so we are going to create a temporary user which we will delete later. Complete the profile configuration form with the following. ⚠️ IMPORTANT step!
 
     * > **name:** temp
     * > **user:** temp

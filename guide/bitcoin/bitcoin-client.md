@@ -100,8 +100,8 @@ This is a precaution to make sure that this is an official release and not a mal
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed prior to some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
 
-  * [https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS)
   * [https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS.ots)
+  * [https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-23.0/SHA256SUMS)
 
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/){:target="_blank"}
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
@@ -269,36 +269,10 @@ We'll also set the proper access permissions.
 
 ---
 
-## Running bitcoind
-
-Still logged in as user "bitcoin", let's start "bitcoind" manually.
-
-* Start "bitcoind".
-  Monitor the log file a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
-
-  ```sh
-  $ bitcoind
-  ```
-
-* Once everything looks ok, stop "bitcoind" with `Ctrl-C`
-
-* Grant the "bitcoin" group read-permission for the debug log file:
-
-  ```sh
-  $ chmod g+r /data/bitcoin/debug.log
-  ```
-
 * Exit the “bitcoin” user session back to user “admin”
 
   ```sh
   $ exit
-  ```
-
-* Link the Bitcoin data directory from the "admin" user home directory as well.
-  This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
-
-  ```sh
-  $ ln -s /data/bitcoin /home/admin/.bitcoin
   ```
 
 ### Autostart on boot
@@ -351,48 +325,33 @@ We use "systemd", a daemon that controls the startup process using configuration
   $ sudo systemctl enable bitcoind.service
   ```
 
-### Verification of bitcoind operations
+## Running bitcoind
 
-After rebooting, "bitcoind" should start and begin to sync and validate the Bitcoin blockchain.
-
-* Wait a bit, reconnect via SSH and login with the user “admin”.
-
-* Check the status of the bitcoin daemon that was started by "systemd".
-  Exit with `Ctrl-C`
+* Start the service
 
   ```sh
-  $ sudo systemctl status bitcoind.service
-  > * bitcoind.service - Bitcoin daemon
-  >      Loaded: loaded (/etc/systemd/system/bitcoind.service; enabled; vendor preset: enabled)
-  >      Active: active (running) since Thu 2021-11-25 22:50:59 GMT; 7s ago
-  >     Process: 2316 ExecStart=/usr/local/bin/bitcoind -daemon -pid=/run/bitcoind/bitcoind.pid -conf=/home/bitcoin/.bitcoin/bitcoin.> conf -datadir=/home/bitcoin/.bitcoin (code=exited, status=0/SUCCESS)
-  >    Main PID: 2317 (bitcoind)
-  >       Tasks: 12 (limit: 4164)
-  >         CPU: 7.613s
-  >      CGroup: /system.slice/bitcoind.service
-  >              `-2317 /usr/local/bin/bitcoind -daemon -pid=/run/bitcoind/bitcoind.pid -conf=/home/bitcoin/.bitcoin/bitcoin.conf > -datadir=/home/bitcoin/.bitcoin
-  >
+  $ sudo systemctl start bitcoind.service
   ```
 
-* Check if the permission cookie can be accessed by the group "bitcoin".
-  The output must contain the `-rw-r-----` part, otherwise no application run by a different user can access Bitcoin Core.
-
-  ```sh
-  $ ls -la /home/bitcoin/.bitcoin/.cookie
-  > -rw-r----- 1 bitcoin bitcoin 75 Dec 17 13:48 /home/bitcoin/.bitcoin/.cookie
-  ```
-
-* See "bitcoind" in action by monitoring its log file.
-  Exit with `Ctrl-C`
+* See "bitcoind" in action by monitoring its log file. Exit with `Ctrl-C`
 
   ```sh
   $ tail -f /home/bitcoin/.bitcoin/debug.log
   ```
 
-* Use the Bitcoin Core client `bitcoin-cli` to get information about the current blockchain
+Monitor the log file a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
+
+* Grant the "bitcoin" group read-permission for the debug log file:
 
   ```sh
-  $ bitcoin-cli getblockchaininfo
+  $ chmod g+r /data/bitcoin/debug.log
+  ```
+
+* Link the Bitcoin data directory from the "admin" user home directory as well.
+  This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
+
+  ```sh
+  $ ln -s /data/bitcoin /home/admin/.bitcoin
   ```
 
 * Please note:
