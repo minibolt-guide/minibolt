@@ -39,8 +39,6 @@ Table of contents
 * Bitcoin Core
 * Little over 100GB of free storage for database (external backup recommended)
 
----
-
 Fulcrum is a replacement for an Electrs, these two services cannot be run at the same time (due to the same standard ports used)
 
 ## Preparations
@@ -178,7 +176,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
 
 ### Configuration
 
-* Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for Raspberry Pi. Choose either one for Raspberry 4GB or 8GB depending on your hardware. Create the config file with the following content. Save and exit
+* Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware. Create the config file with the following content. Save and exit
 
   ```sh
   $ nano /data/fulcrum/fulcrum.conf
@@ -256,38 +254,43 @@ Fulcrum needs to start automatically on system boot.
   WantedBy=multi-user.target
   ```
 
-### Run Fulcrum
-
-* Enable fulcrum service and start
+* Enable the service
 
   ```sh
   $ sudo systemctl enable fulcrum.service
-  $ sudo systemctl start fulcrum.service
   ```
 
-* We can check if everything goes right using these commands
+* Prepare "fulcrum" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
   ```sh
-  $ sudo systemctl status fulcrum
   $ sudo journalctl -f -u fulcrum
   ```
 
-* Expected output:
+## Run Fulcrum
+
+[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+Commands for the **second session** start with the prompt `$2` (which must not be entered).
+
+```sh
+$2 sudo systemctl start fulcrum
+```
+
+Monitor the systemd journal at the first session created to check if everything works fine:
 
   ```sh
   -- Journal begins at Mon 2022-04-04 16:41:41 CEST. --
-  Jul 28 12:20:13 rasp Fulcrum[181811]: [2022-07-28 12:20:13.063] simdjson: version 0.6.0
-  Jul 28 12:20:13 rasp Fulcrum[181811]: [2022-07-28 12:20:13.063] ssl: OpenSSL 1.1.1n  15 Mar 2022
-  Jul 28 12:20:13 rasp Fulcrum[181811]: [2022-07-28 12:20:13.063] zmq: libzmq version: 4.3.3, cppzmq version: 4.7.1
-  Jul 28 12:20:13 rasp Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.8.2 (Release d330248) - Thu Jul 28, 2022 12:20:13.064 CEST - starting up ...
-  Jul 28 12:20:13 rasp Fulcrum[181811]: [2022-07-28 12:20:13.064] Max open files: 524288 (increased from default: 1024)
-  Jul 28 12:20:13 rasp Fulcrum[181811]: [2022-07-28 12:20:13.065] Loading database ...
-  Jul 28 12:20:14 rasp Fulcrum[181811]: [2022-07-28 12:20:14.489] DB memory: 512.00 MiB
-  Jul 28 12:20:14 rasp Fulcrum[181811]: [2022-07-28 12:20:14.491] Coin: BTC
-  Jul 28 12:20:14 rasp Fulcrum[181811]: [2022-07-28 12:20:14.492] Chain: main
-  Jul 28 12:20:14 rasp Fulcrum[181811]: [2022-07-28 12:20:14.494] Verifying headers ...
-  Jul 28 12:20:19 rasp Fulcrum[181811]: [2022-07-28 12:20:19.780] Initializing header merkle cache ...
-  Jul 28 12:20:21 rasp Fulcrum[181811]: [2022-07-28 12:20:21.643] Checking tx counts ...
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] simdjson: version 0.6.0
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] ssl: OpenSSL 1.1.1n  15 Mar 2022
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] zmq: libzmq version: 4.3.3, cppzmq version: 4.7.1
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.8.2 (Release d330248) - Thu Jul 28, 2022 12:20:13.064 CEST - starting up ...
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Max open files: 524288 (increased from default: 1024)
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.065] Loading database ...
+  Jul 28 12:20:14 minibolt Fulcrum[181811]: [2022-07-28 12:20:14.489] DB memory: 512.00 MiB
+  Jul 28 12:20:14 minibolt Fulcrum[181811]: [2022-07-28 12:20:14.491] Coin: BTC
+  Jul 28 12:20:14 minibolt Fulcrum[181811]: [2022-07-28 12:20:14.492] Chain: main
+  Jul 28 12:20:14 minibolt Fulcrum[181811]: [2022-07-28 12:20:14.494] Verifying headers ...
+  Jul 28 12:20:19 minibolt Fulcrum[181811]: [2022-07-28 12:20:19.780] Initializing header merkle cache ...
+  Jul 28 12:20:21 minibolt Fulcrum[181811]: [2022-07-28 12:20:21.643] Checking tx counts ...
   ...
   ```
 
@@ -297,11 +300,17 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
 💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days. Only proceed with the [Desktop Wallet Section](../../bitcoin/desktop-wallet.md) once Fulcrum is ready.
 
+* Ensure that Fulcrum service is working and listening at the default `50002` port
+
+  ```sh
+  $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum 
+  ```
+
 ### Migrate BTC RPC Explorer to Fulcrum API connection
 
 To get address balances, either an Electrum server or an external service is necessary. Your local Fulcrum server can provide address transaction lists, balances, and more.
 
-* As ùser `admin`, change to `btcrpcexplorer` user, enter to `btc-rpc-explorer` folder and open `.env` file
+* As user `admin`, change to `btcrpcexplorer` user, enter to `btc-rpc-explorer` folder and open `.env` file
 
   ```sh
   $ sudo su btcrpcexplorer

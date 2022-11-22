@@ -56,7 +56,7 @@ Zeus will access the node via Tor.
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```ini
+  ```sh
   ############### This section is just for location-hidden services ###
   # Hidden Service LND gRPC proxy API
   HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
@@ -88,8 +88,6 @@ lnconnect generates a URI and displays it as a QR code that Zeus can read.
 
 * Keep the SSH session with the QR code opened, it will be needed later
 
----
-
 ## Installation
 
 ### Install the Zeus app
@@ -98,8 +96,6 @@ Download the Zeus app for your mobile phone.
 Check the [Zeus website](https://zeusln.app/){:target="_blank"} for the direct download links to the Apple App Store or Google Play.  
 
 On Android, if you can't or do not want to use Google Play, you can get Zeus from the [F-Droid store](https://f-droid.org/en/packages/app.zeusln.zeus/){:target="_blank"} or simply [download the APK](https://zeusln.app/){:target="_blank"}, tap it and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, simply follow the on-screen instructions to do so.
-
----
 
 ### Connect Zeus to your node
 
@@ -115,8 +111,6 @@ On Android, if you can't or do not want to use Google Play, you can get Zeus fro
 
 * Click on "SAVE NODE CONFIG". Zeus is now connecting to your node, and it might take a while the first time.
 
----
-
 ### Security
 
 Anyone using Zeus on your phone has control over your node and all its funds. It is strongly recommended to set up a password for the app.
@@ -125,21 +119,15 @@ Anyone using Zeus on your phone has control over your node and all its funds. It
 * Click on "Security" and "Set/Change Password" to enter a password or PIN
 * Save your password or PIN somewhere safe, e.g., in your password manager
 
----
-
 ## Zeus in action
 
 Below is a list of Zeus existing and planned features:
 
 ![Zeus](../../images/zeus-features.png)
 
----
-
 ## Update
 
 To update Zeus, update the app using the same app store you used to install it.
-
----
 
 ## Uninstall
 

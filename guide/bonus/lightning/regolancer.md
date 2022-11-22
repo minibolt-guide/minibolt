@@ -45,8 +45,6 @@ Status: Not tested MiniBolt
 
 * To [install Go](../system/go.md#install-go) follow the instructions provided in the bonus guide.
 
----
-
 ## Install regolancer
 
 * With user “admin”, create a new user “regolancer” and make it a member of the “lnd” group
@@ -88,8 +86,6 @@ Note: Adjust the "regolancer@v1.6.3" part from the commands below to the actual 
   $ chmod 644 /home/regolancer/config.json
   ```
 
----
-
 ## Configuration
 
 * Edit the config file and make sure you have the following changes in the beginning.
@@ -107,8 +103,6 @@ Note: Adjust the "regolancer@v1.6.3" part from the commands below to the actual 
 
 Adjust the rest of the file as you wish with the options [regolancer config sample](https://github.com/rkfg/regolancer/blob/master/config.json.sample){:target="_blank"} provides, save, and exit.
 
----
-
 ## First run
 
 * Run the Rebalancer (while in "regolancer" user session)
@@ -119,8 +113,6 @@ Adjust the rest of the file as you wish with the options [regolancer config samp
 
 The regolancer will run until it finds a hit and will stop after that unless you have utilized the "--allow-rapid-rebalance" parameter, which will retry the same rebalance instantly until a fail.
 To run it continuously, you will need to run it in a loop or a cron.
-
----
 
 ## Upgrade
 
@@ -141,8 +133,6 @@ Please replace the v.1.6.x part with the version you would like to install.
   Source: https://github.com/rkfg/regolancer
   ```
 
----
-
 ## Uninstall
 
 * If you want to uninstall regolancer, delete the “regolancer” user with the “root” user.
@@ -152,3 +142,9 @@ Please replace the v.1.6.x part with the version you would like to install.
   ```
 
 Don't forget to remove any cronjobs or screens you may have set up in other users.
+
+<br /><br />
+
+---
+
+<< Back: [+ Lightning](index.md)

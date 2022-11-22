@@ -38,8 +38,6 @@ You no longer need to leak information by querying a third-party blockchain expl
 [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer){:target="_blank"} provides a lightweight and easy to use web interface to accomplish just that.
 It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin Core and Electrs via RPC.
 
----
-
 ## Preparations
 
 ### Install Node.js
@@ -90,8 +88,6 @@ Now we can add the BTC RPC Explorer configuration.
   ```sh
   $ sudo ufw allow from 192.168.0.0/16 to any port 4000 proto tcp comment 'allow BTC RPC Explorer SSL from local network'
   ```
-
----
 
 ## BTC RPC Explorer
 
@@ -203,32 +199,6 @@ found 12 vulnerabilities (8 moderate, 4 high)
 
 * Save and exit
 
-### First start
-
-Test starting the explorer manually first to make sure it works.
-
-* Make sure we are in the BTC RPC Explorer directory and start the application
-
-  ```sh
-  $ cd ~/btc-rpc-explorer
-  $ npm run start
-  ```
-
-Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://minibolt.local:4000> (or your nodes IP address like <https://192.168.0.20:4000>).
-
-Your browser will display a warning because we use a self-signed SSL certificate.
-We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
-Click on "Advanced" and proceed to the Block Explorer web interface.
-
-* If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain.
-  You need to wait until reindexing is done before using the BTC RPC Explorer.
-
-* Stop the Explorer in the terminal with `Ctrl`-`C` and exit the "btcrpcexplorer" user session.
-
-  ```sh
-  $ exit
-  ```
-
 ### Autostart on boot
 
 Now we'll make sure our blockchain explorer starts as a service on the Raspberry Pi so that it's always running.
@@ -262,15 +232,36 @@ In order to do that, we create a systemd unit that starts the service on boot di
   WantedBy=multi-user.target
   ```
 
-* Enable the service, start it and check the log output
+* Enable the service
 
   ```sh
-  $ sudo systemctl enable btcrpcexplorer.service
-  $ sudo systemctl start btcrpcexplorer.service
+  $ sudo systemctl enable btcrpcexplorer
+
+* Prepare "btcrpcexplorer" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+
+  ```sh
   $ sudo journalctl -f -u btcrpcexplorer
   ```
 
-* You can now access your own BTC RPC Explorer from within your local network by browsing to <https://minibolt.local:4000>{:target="_blank"} (or your equivalent IP address).
+## Run BTC RPC Explorer
+
+[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+Commands for the **second session** start with the prompt `$2` (which must not be entered).
+
+* Start the service.
+
+  ```sh
+  $2 sudo systemctl start btcrpcexplorer
+  ```
+
+Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://minibolt.local:4000> (or your nodes IP address like <https://192.168.0.20:4000>). You should see the home page of BTC RPC Explorer.
+
+Your browser will display a warning because we use a self-signed SSL certificate.
+We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
+Click on "Advanced" and proceed to the Block Explorer web interface.
+
+* If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain.
+  You need to wait until reindexing is done before using the BTC RPC Explorer.
 
 **Congratulations!**
 You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node.
@@ -305,12 +296,13 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 ### Sharing your Explorer
 
-You may want to share your **onion** address with people safe with your BTC RPC Explorer with limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204)), then you need to enable this.
-Remember to provide them with the `password [D]` if you add password protection in the next step.
+You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "DEMO" mode, you will not have to provide password and RPC requests will be allowed (discarding rpcBlacklist commands).
 
   ```sh
   BTCEXP_DEMO=true
   ```
+
+💡 Remember to give them the `password [D]` if you added password protection in the reference step.
 
 ### Remote access over Tor (optional)
 
@@ -341,8 +333,6 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
   ```
 
 * With the [Tor browser](https://www.torproject.org){:target="_blank"}, you can access this onion address from any device.
-
----
 
 ## For the future: BTC RPC Explorer update
 

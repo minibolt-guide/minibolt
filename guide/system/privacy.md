@@ -127,7 +127,7 @@ Save and exit
 * Ensure that the Tor service is working and listening at the default ports `9050` and `9051`.
 
   ```sh
-  $ sudo ss -tulpn | grep tor | grep LISTEN
+  $ sudo ss -tulpn | grep LISTEN | grep tor
   ```
 
 Output expected:
@@ -145,6 +145,14 @@ Output expected:
 
 Not all network traffic is routed over the Tor network.
 But we now have the base to configure sensitive applications to use it.
+
+## For the future: upgrade Tor
+
+The latest release can be found on the [Official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or on the [unofficial GitHub page](https://github.com/torproject/tor/tags). To upgrade simply type this command:
+
+  ```sh
+  $ sudo apt update && sudo apt upgrade
+  ```
 
 ---
 

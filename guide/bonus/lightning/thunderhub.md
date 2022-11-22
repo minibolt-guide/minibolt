@@ -77,8 +77,6 @@ Status: Tested MiniBolt
   $ sudo nginx -t
   $ sudo systemctl reload nginx
   ```
-  
----
 
 ## ThunderHub
 
@@ -114,7 +112,6 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 
   ```sh
   $ ln -s /data/lnd /home/thunderhub/.lnd
-  $ ls -la
   ```
 
 * Copy and open the configuration file
@@ -159,31 +156,6 @@ We are going to install Thunderhub in the home directory since it doesn't need t
       password: 'accountpassword'
   ```
 
----
-
-## First Start
-
-Test starting Thunderhub manually first to make sure it works.
-
-* Let's do a first start to make sure it's running as expected.
-  Make sure we are in the Thunderhub directory and start the web server.
-
-  ```sh
-  $ cd ~/thunderhub
-  $ npm run start:prod
-  ```
-
-* Now point your browser to `https://raspibolt.local:4002` (or whatever you chose as hostname) or the ip address (e.g. `https://192.168.0.20:4002`).
-  You should see the home page of ThunderHub.
-
-* Stop ThunderHub in the terminal with `Ctrl`-`C` and exit the "thunderhub" user session.
-
-  ```sh
-  $ exit
-  ```
-
----
-
 ## Autostart on boot
 
 Now we'll make sure ThunderHub starts as a service on the Raspberry Pi so it's always running.
@@ -220,17 +192,38 @@ In order to do that we create a systemd unit that starts the service on boot dir
   WantedBy=multi-user.target
   ```
 
-* Enable the service, start it and check log logging output.
+* Enable the service
 
   ```sh
-  $ sudo systemctl enable thunderhub.service
-  $ sudo systemctl start thunderhub.service
+  $ sudo systemctl enable thunderhub
+  ```
+
+* Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+
+  ```
   $ sudo journalctl -f -u thunderhub
   ```
 
-* You can now access ThunderHub from within your local network by browsing to <https://raspibolt.local:4002> (or your equivalent ip address).
+## Run Thunderhub
 
----
+[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+Commands for the **second session** start with the prompt `$2` (which must not be entered).
+
+* Start the service.
+
+  ```sh
+  $2 sudo systemctl start thunderhub.service
+  ```
+
+* Now point your browser to `https://raspibolt.local:4002` (or whatever you chose as hostname) or the ip address (e.g. `https://192.168.0.20:4002`).
+  You should see the home page of ThunderHub.
+
+Your browser will display a warning because we use a self-signed SSL certificate.
+We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
+Click on "Advanced" and proceed to the Block Explorer web interface.
+
+**Congratulations!**
+You now have Thunderhub up and running.
 
 ## Remote access over Tor (optional)
 
@@ -261,12 +254,6 @@ You can easily do so by adding a Tor hidden service on the RaspiBolt and accessi
   ```
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device.
-  Please be aware that this access is not password protected and should not be shared widely.
-
-**Congratulations!**
-You now have Thunderhub up and running.
-
----
 
 ## Upgrade
 
@@ -292,8 +279,6 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
   ```sh
   $ sudo systemctl start thunderhub
   ```
-
----
 
 ## Uninstall
 
@@ -355,8 +340,6 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
   ```sh
   $ sudo systemctl reload tor
   ```
-
----
 
 ## Extras
 

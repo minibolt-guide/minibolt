@@ -69,8 +69,6 @@ To run Mempool, we need to run Node.js v16 or above.
   $ sudo ufw status
   ```
 
----
-
 ## Installation
 
 ### Clone the repository
@@ -148,7 +146,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   $ nano mempool-config.json
   ```
 
-* Paste the following lines. In the CORE_RPC section, replace the username and password with your username (e.g., "raspibolt") and password [B]. Change "Password[M]" to the random password generated above.
+* Paste the following lines. In the CORE_RPC section, replace the username and password with your username (e.g., "minibolt") and `password [B]`. Change `Password[M]` to the random password generated above.
 
   ```sh
   {
@@ -248,7 +246,7 @@ The Mempool configuration file contains the Bitcoin Core RPC username and passwo
   $ sudo chmod 600 /home/mempool/mempool/backend/mempool-config.json
   ```
 
-### nginx
+### Nginx
 
 We now need to modify the nginx configuration to create a web server for the website on port 4081.
 
@@ -419,8 +417,6 @@ We now need to modify the nginx configuration to create a web server for the web
   $ sudo systemctl reload nginx
   ```
 
----
-
 ### Autostart on boot
 
 Now we’ll make sure Mempool starts as a service on the PC so it’s always running. In order to do that, we create a systemd unit that starts the service on boot directly after Bitcoin Core.
@@ -433,7 +429,7 @@ Now we’ll make sure Mempool starts as a service on the PC so it’s always run
   
 * Paste the following configuration. Save and exit.  
   
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for Mempool           
   # /etc/systemd/system/mempool.service
 
@@ -468,13 +464,9 @@ Now we’ll make sure Mempool starts as a service on the PC so it’s always run
   $ sudo journalctl -f -u mempool
   ```
 
----
-
 ## Mempool in action
 
 Point your browser to the secure access point provided by the nginx web proxy, for example [https://minibolt.local:4081](https://minibolt.local:4081){:target="_blank"} (or your nodes IP address, e.g. https://192.168.0.20:4081).
-
----
 
 ## Remote access over Tor (optional)
 
@@ -488,7 +480,7 @@ To expose Mempool app via a Tor hidden service (if only Tor address is used, no 
 
 * and add the following entry under section `hidden services`:
 
-  ```ini
+  ```sh
   ############### This section is just for location-hidden services ###
   # Hidden Service Mempool SSL
   HiddenServiceDir /var/lib/tor/hidden_service_mempool
@@ -511,11 +503,9 @@ To expose Mempool app via a Tor hidden service (if only Tor address is used, no 
 
 * Open Tor browser and insert the address:
 
-  ```http
-  https://afjubiu3brwo3tb34otb3......onion
+  ```sh
+  afjubiu3brwo3tb34otb3......onion
   ```
-
----
 
 ## Upgrade
 
@@ -547,8 +537,6 @@ Updating to a new release is straight-forward. Make sure to read the release not
   ```
 
 * Point your browser to [https://raspibolt:4081/about](https://raspibolt:4081/about){:target="_blank"} and check that the displayed version is the newest version that you just installed.
-
----
 
 ## Uninstall
 
@@ -604,7 +592,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
 * Delete the "mempool" user. It might take a long time as the Mempool user directory is big. Do not worry about the `userdel: mempool mail spool (/var/mail/mempool) not found`.
 
   ```sh
-  $ sudo su -
+  $ sudo su
   $ userdel -r mempool
   > userdel: mempool mail spool (/var/mail/mempool) not found
   ```

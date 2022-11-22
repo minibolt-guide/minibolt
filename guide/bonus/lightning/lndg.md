@@ -62,11 +62,8 @@ Table of contents
 * Configure firewall to allow incoming HTTP requests:
 
   ```sh
-  $ sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
-  $ sudo ufw status
+  $ sudo ufw allow from 192.168.0.0/16 to any port 8889 proto tcp comment 'allow LNDg SSL from local network'
   ```
-
----
 
 ## LNDg
 
@@ -87,7 +84,7 @@ For that we will create a separate user and we will be running the code as the n
 * Log in with the lndg user and create a symbolic link to the LND data directory
 
   ```sh
-  $ sudo su - lndg
+  $ sudo su lndg
   $ ln -s /data/lnd /home/lndg/.lnd
   ```
 
@@ -191,7 +188,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   $ nano lndg.ini
   ```
 
-  ```ini
+  ```sh
   # lndg.ini file
   [uwsgi]
   
@@ -228,7 +225,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   $ nano uwsgi_params
   ```
 
-  ```ini
+  ```sh
   uwsgi_param  QUERY_STRING       $query_string;
   uwsgi_param  REQUEST_METHOD     $request_method;
   uwsgi_param  CONTENT_TYPE       $content_type;
@@ -259,7 +256,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   $ sudo nano /etc/systemd/system/uwsgi.service
   ```
   
-  ```ini
+  ```sh
   [Unit]
   Description=LNDg uWSGI app
   After=lnd.service
@@ -290,7 +287,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
 
 * Paste the following configuration lines. Save and exit.
 
-  ```ini
+  ```sh
   upstream django {
     server unix:///home/lndg/lndg/lndg.sock; # for a file socket
   }
@@ -342,7 +339,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
 
 * Paste the following configuration lines between the existing `event` and `stream` blocks . Save and exit.
 
-  ```ini
+  ```sh
   http {
   
           ##
@@ -456,7 +453,7 @@ To have updated information in the GUI, it is necessary to regularly run the scr
   $ sudo nano /etc/systemd/system/jobs-lndg.service
   ```
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for LNDg
   # /etc/systemd/system/jobs-lndg.service
   
@@ -477,7 +474,7 @@ To have updated information in the GUI, it is necessary to regularly run the scr
   $ sudo nano /etc/systemd/system/jobs-lndg.timer
   ```
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for LNDg
   # /etc/systemd/system/jobs-lndg.timer  
   
@@ -530,7 +527,7 @@ LNDg uses a Python script (`~/lndg/rebalancer.py`) to automatically create circu
   $ sudo nano /etc/systemd/system/rebalancer-lndg.service
   ```
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for LNDg
   # /etc/systemd/system/rebalancer-lndg.service
   
@@ -551,7 +548,7 @@ LNDg uses a Python script (`~/lndg/rebalancer.py`) to automatically create circu
   $ sudo nano /etc/systemd/system/rebalancer-lndg.timer
   ```
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for LNDg
   # /etc/systemd/system/rebalancer-lndg.timer  
   
@@ -604,7 +601,7 @@ LNDg uses a Python script (`~/lndg/htlc_stream.py`) to keep a log of failed HTLC
   $ sudo nano /etc/systemd/system/htlc-stream-lndg.service
   ```
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for LNDg
   # /etc/systemd/system/htlc-stream-lndg.service   
     
@@ -662,8 +659,6 @@ Although there is not yet a self-hosted, private, lightning explorer, the Mempoo
   * if you don't want to leak your IP address, delete the content of the box and leave it empty
   * if you want to use Mempool, enter: `https://mempool.space/lightning`. As an additional privacy step, you might want to have a VPN running on your computer.
 
----
-
 ## Remote access over Tor (optional)
 
 Do you want to access LNDg remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing LNDg with the Tor browser from any device.
@@ -692,8 +687,6 @@ Do you want to access LNDg remotely? You can easily do so by adding a Tor hidden
 
 With the Tor browser, you can access this onion address from any device.
 
----
-
 ## For the future: LNDg update
 
 * With user "admin", stop the `uwsgi` systemd service. The other LNDg systemd timers and services will stop automatically.
@@ -721,8 +714,6 @@ With the Tor browser, you can access this onion address from any device.
   $ sudo systemctl start uwsgi.service
   ```
 
----
-
 ## Uninstall
 
 * Stop and disable the `uwsgi` systemd service
@@ -733,7 +724,7 @@ With the Tor browser, you can access this onion address from any device.
   ```
 
 * Delete all the LNDg systemd services and timers
- 
+
   ```sh
   $ cd /etc/systemd/system/
   $ sudo rm uwsgi.service jobs-lndg.service rebalancer-lndg.service htlc-stream-lndg.service  
@@ -746,9 +737,7 @@ With the Tor browser, you can access this onion address from any device.
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 8889/tcp                   ALLOW IN    Anywhere                   # allow LNDg SSL
-  > [...]
-  > [Y] 8889/tcp (v6)              ALLOW IN    Anywhere (v6)              # allow LNDg SSL
+  > [X] 8889/tcp                   ALLOW IN    192.168.0.0/16                   # allow LNDg SSL from local network
   ```
 
 * Delete the two LNDg rules (check that the rule to be deleted is the correct one and type “y” and “Enter” when prompted)
@@ -771,7 +760,7 @@ With the Tor browser, you can access this onion address from any device.
   $ sudo nano /etc/nginx/nginx.conf
   ```
 
-  ```ini
+  ```sh
   #http {
   # [...]
   #}
@@ -795,7 +784,7 @@ With the Tor browser, you can access this onion address from any device.
 * Delete the “lndg” user. Do not worry about the `userdel: mempool mail spool (/var/mail/lndg) not found`.
 
   ```sh
-  $ sudo su -
+  $ sudo su
   $ userdel -r lndg
   > userdel: lndg mail spool (/var/mail/lndg) not found]
   $ exit

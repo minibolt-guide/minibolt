@@ -44,117 +44,117 @@ Status: Not tested MiniBolt
 
 * With user "admin", install necessary dependencies
 
-```sh
-$ sudo apt install python3-virtualenv python3-dev python3-pip build-essential automake pkg-config libtool libgmp-dev libltdl-dev libssl-dev libatlas3-base libopenjp2-7
-```
+  ```sh
+  $ sudo apt install python3-virtualenv python3-dev python3-pip build-essential automake pkg-config libtool libgmp-dev libltdl-dev libssl-dev libatlas3-base libopenjp2-7
+  ```
 
 ### Create a JoinMarket dedicated bitcoin wallet with bitcoin-cli
 This wallet will be used by JoinMarket to store addresses as watch-only. It will use this wallet when it communicates with bitcoin core via rpc calls.
 
-```sh
-bitcoin-cli -named createwallet wallet_name=jm_wallet descriptors=false
-```
+  ```sh
+  bitcoin-cli -named createwallet wallet_name=jm_wallet descriptors=false
+  ```
 
 ### Create a dedicated user and a data directory
 
 * Create the “joinmarket” user, and make it a member of the “bitcoin” and "debian-tor" groups
 
-```sh
-$ sudo adduser --disabled-password --gecos "" joinmarket
-$ sudo usermod -a -G bitcoin,debian-tor joinmarket
-```
+  ```sh
+  $ sudo adduser --disabled-password --gecos "" joinmarket
+  $ sudo usermod -a -G bitcoin,debian-tor joinmarket
+  ```
 
 * Create a JoinMarket data directory
 
-```sh
-$ sudo mkdir /data/joinmarket
-$ sudo chown -R joinmarket:joinmarket /data/joinmarket
-```
+  ```sh
+  $ sudo mkdir /data/joinmarket
+  $ sudo chown -R joinmarket:joinmarket /data/joinmarket
+  ```
 
 * Open a "joinmarket" user session
 
-```sh
-$ sudo su - joinmarket
-```
+  ```sh
+  $ sudo su - joinmarket
+  ```
 
 * Create a symbolic link pointing to the joinmarket data directory
 
-```sh
-$ ln -s /data/joinmarket /home/joinmarket/.joinmarket
-```
+  ```sh
+  $ ln -s /data/joinmarket /home/joinmarket/.joinmarket
+  ```
 
 ## Install JoinMarket
 
 * As user "joinmarket", download the latest release, checksums and signature. First check for the latest release on the [Releases page](https://github.com/JoinMarket-Org/joinmarket-clientserver/releases) and update version numbers as you go if needed.
 
-```sh
-$ cd /tmp
-$ wget -O joinmarket-clientserver-0.9.8.tar.gz https://github.com/JoinMarket-Org/joinmarket-clientserver/archive/v0.9.8.tar.gz
-$ wget https://github.com/JoinMarket-Org/joinmarket-clientserver/releases/download/v0.9.8/joinmarket-clientserver-0.9.8.tar.gz.asc
-```
+  ```sh
+  $ cd /tmp
+  $ wget -O joinmarket-clientserver-0.9.8.tar.gz https://github.com/JoinMarket-Org/joinmarket-clientserver/archive/v0.9.8.tar.gz
+  $ wget https://github.com/JoinMarket-Org/joinmarket-clientserver/releases/download/v0.9.8/joinmarket-clientserver-0.9.8.tar.gz.asc
+  ```
 
 * Get the PGP key of JoinMarket developer Adam Gibson.
 
-```sh
-$ curl https://raw.githubusercontent.com/JoinMarket-Org/joinmarket-clientserver/master/pubkeys/AdamGibson.asc | gpg --import 
-> ...
-> gpg: key 141001A1AF77F20B: public key "Adam Gibson (CODE SIGNING KEY) <ekaggata@gmail.com>" imported
-> ...
-```
+  ```sh
+  $ curl https://raw.githubusercontent.com/JoinMarket-Org/joinmarket-clientserver/master/pubkeys/AdamGibson.asc | gpg --import 
+  > ...
+  > gpg: key 141001A1AF77F20B: public key "Adam Gibson (CODE SIGNING KEY) <ekaggata@gmail.com>" imported
+  > ...
+  ```
 
 * Verify that the application is signed by Adam Gibson.
 
-```sh
-$ gpg --verify joinmarket-clientserver-0.9.8.tar.gz.asc
-> gpg: assuming signed data in 'joinmarket-clientserver-0.9.8.tar.gz'
-> gpg: Signature made Thu Sep 15 15:46:38 2022 EEST
-> gpg:                using RSA key 2B6FC204D9BF332D062B461A141001A1AF77F20B
-> gpg: Good signature from "Adam Gibson (CODE SIGNING KEY) <ekaggata@gmail.com>" [unknown]
-> gpg: WARNING: This key is not certified with a trusted signature!
-> gpg:          There is no indication that the signature belongs to the owner.
-> Primary key fingerprint: 2B6F C204 D9BF 332D 062B  461A 1410 01A1 AF77 F20B
-```
+  ```sh
+  $ gpg --verify joinmarket-clientserver-0.9.8.tar.gz.asc
+  > gpg: assuming signed data in 'joinmarket-clientserver-0.9.8.tar.gz'
+  > gpg: Signature made Thu Sep 15 15:46:38 2022 EEST
+  > gpg:                using RSA key 2B6FC204D9BF332D062B461A141001A1AF77F20B
+  > gpg: Good signature from "Adam Gibson (CODE SIGNING KEY) <ekaggata@gmail.com>" [unknown]
+  > gpg: WARNING: This key is not certified with a trusted signature!
+  > gpg:          There is no indication that the signature belongs to the owner.
+  > Primary key fingerprint: 2B6F C204 D9BF 332D 062B  461A 1410 01A1 AF77 F20B
+  ```
 
 * If the signature checks out, unpack and install JoinMarket. The install script will take about 5 minutes to run.
 
-```sh
-$ tar -xvzf joinmarket-clientserver-0.9.8.tar.gz -C /home/joinmarket/
-$ cd 
-$ ln -s joinmarket-clientserver-0.9.8 joinmarket
-$ cd joinmarket
-$ ./install.sh --without-qt --disable-secp-check --disable-os-deps-check
-```
+  ```sh
+  $ tar -xvzf joinmarket-clientserver-0.9.8.tar.gz -C /home/joinmarket/
+  $ cd 
+  $ ln -s joinmarket-clientserver-0.9.8 joinmarket
+  $ cd joinmarket
+  $ ./install.sh --without-qt --disable-secp-check --disable-os-deps-check
+  ```
 
 * Create the following jmvenv activation script to save yourself some time in the long run.
 
-```sh
-$ cd
-$ nano activate.sh
-```
+  ```sh
+  $ cd
+  $ nano activate.sh
+  ```
 
-```sh
-#!/usr/bin/env bash
-cd /home/joinmarket/joinmarket && \
-source jmvenv/bin/activate && \
-cd scripts
-```
+  ```sh
+  #!/usr/bin/env bash
+  cd /home/joinmarket/joinmarket && \
+  source jmvenv/bin/activate && \
+  cd scripts
+  ```
 
 * Save the file and exit nano, then make the file executable.
 
-```sh
-$ sudo chmod +x activate.sh
-```
+  ```sh
+  $ sudo chmod +x activate.sh
+  ```
 
 ## Configuration
 
 * Activate jmvenv and run wallet-tool.py to create the configuration file.
 
-```sh
-$ . activate.sh
-(jvmenv) $ ./wallet-tool.py 
-> User data location: /home/joinmarket/.joinmarket/
-> Created a new `joinmarket.cfg`. Please review and adopt the settings and restart joinmarket.
-```
+  ```sh
+  $ . activate.sh
+  (jvmenv) $ ./wallet-tool.py 
+  > User data location: /home/joinmarket/.joinmarket/
+  > Created a new `joinmarket.cfg`. Please review and adopt the settings and restart joinmarket.
+  ```
 
 * Open the new configuration file.
 
@@ -188,29 +188,29 @@ $ . activate.sh
 
 JoinMarket uses its own wallet. You can create one with or without a "two-factor mnemonic recovery phrase", which refers to a BIP39 passphrase. This is not required and adds complexity, though it may be desired for various security or backup reasons. A good article on the BIP39 passphrase can be found [here](https://www.blockplate.com/blogs/blockplate/what-is-a-bip39-passphrase).
 
-```sh
-(jvmenv) $ ./wallet-tool.py generate
-> User data location: /home/joinmarket/.joinmarket/
-> Would you like to use a two-factor mnemonic recovery phrase? write 'n' if you don't know what this is (y/n): n
-> Not using mnemonic extension
-```
+  ```sh
+  (jvmenv) $ ./wallet-tool.py generate
+  > User data location: /home/joinmarket/.joinmarket/
+  > Would you like to use a two-factor mnemonic recovery phrase? write 'n' if you don't know what this is (y/n): n
+  > Not using mnemonic extension
+  ```
 
 * Specify a secure passphrase. Wallet file name can be left blank.
 
-```sh
-> Enter new passphrase to encrypt wallet: 
-> Reenter new passphrase to encrypt wallet: 
-> Input wallet file name (default: wallet.jmdat): 
-```
+  ```sh
+  > Enter new passphrase to encrypt wallet: 
+  > Reenter new passphrase to encrypt wallet: 
+  > Input wallet file name (default: wallet.jmdat): 
+  ```
 
 * Specify `y` to suport fidelity bonds if you plan to provide JoinMarket liquidity and want higher yields given for time-locked funds. More explanation available [here](https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/master/docs/fidelity-bonds.md) and [here](https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/master/docs/fidelity-bonds.md) but 'y' is a good default.
 
-```sh
-> Would you like this wallet to support fidelity bonds? write 'n' if you don't know what this is (y/n): y
-> Write down this wallet recovery mnemonic
+  ```sh
+  > Would you like this wallet to support fidelity bonds? write 'n' if you don't know what this is (y/n): y
+  > Write down this wallet recovery mnemonic
 
->       < 12 word recovery mnemonic >
-```
+  >       < 12 word recovery mnemonic >
+  ```
 
 Write down the words and save them; they will allow to recover wallet later on different machine in case of hardware failure or other problem. As with any other mnemonic recovery phrase, keep it secure and secret.
 
@@ -220,39 +220,39 @@ Write down the words and save them; they will allow to recover wallet later on d
 
 JoinMarket wallet contains five separate sub-wallets (accounts) or pockets called "mixdepths". The idea is that coins between different mixdepths are never mixed together. When you do a CoinJoin transaction, change output goes back to the same mixdepth, but one of the equal amount outputs goes either to an address of a different wallet (if you are taker) or to a different mixdepth in the same JoinMarket wallet (if you are a maker).
 
-* Run `wallet-tool.py` specifying mixdepth 0 and enter your wallet password [F] to initialize the wallet.
+* Run `wallet-tool.py` specifying mixdepth 0 and enter your wallet `password [F]` to initialize the wallet.
 
-```sh
-(jvmenv) $ ./wallet-tool.py -m 0 wallet.jmdat
-> User data location: /home/joinmarket/.joinmarket/
-> Enter wallet decryption passphrase: 
-> 2020-11-30 23:18:30,322 [INFO]  Detected new wallet, performing initial import
-> Use `bitcoin-cli rescanblockchain` if you're recovering an existing wallet from backup seed
-> Otherwise just restart this joinmarket application.
-```
+  ```sh
+  (jvmenv) $ ./wallet-tool.py -m 0 wallet.jmdat
+  > User data location: /home/joinmarket/.joinmarket/
+  > Enter wallet decryption passphrase: 
+  > 2020-11-30 23:18:30,322 [INFO]  Detected new wallet, performing initial import
+  > Use `bitcoin-cli rescanblockchain` if you're recovering an existing wallet from backup seed
+  > Otherwise just restart this joinmarket application.
+  ```
 
 * As instructed by joinmarket, unless recovering an existing wallet from backup seed, just run the previous command again.
 
-```sh
-(jvmenv) $ ./wallet-tool.py -m 0 wallet.jmdat
-> User data location: /home/joinmarket/.joinmarket/
-> Enter wallet decryption passphrase: 
-> 2020-11-30 23:19:05,030 [INFO]  Detected new wallet, performing initial import
-> JM wallet
-> mixdepth        0       xpub6CDKnjyTPcNJHuEFWRWtPHa7dHrj63BkEHtK7P12LxwMN4v5V4LN36MpVqPRc5W72Xfwh9rUnmuZVW1QQbnLuAoNA3rkSDULJLL4fdiZkDN
-> external addresses      m/84'/0'/0'/0   xpub6FCe4n1EyN3S7CgyLxz2hegoPnythF7XDiZMEZ1FcqQpoVhyvxhLMT2BVJ7kB5AZAgmBhmauqruguGr6ffoMAzGG2TNh1gas6CWzxpDBHz9
-> m/84'/0'/0'/0/0         bc1q8s5jp8jawmdcj2l3dfl58lpspzphzpxdljj9f5      0.00000000      new
-> m/84'/0'/0'/0/1         bc1qevtwlh9xw8u87qlxfwu9dzw728jatena6rf7za      0.00000000      new
-> m/84'/0'/0'/0/2         bc1q0400y8k5453pfmezuc3gv34dhkslk3qkkyjdhl      0.00000000      new
-> m/84'/0'/0'/0/3         bc1qdfy2gszf2uztm4x5s5ysatd34tvkfe5rn53c5g      0.00000000      new
-> m/84'/0'/0'/0/4         bc1q4wmdjd8g76qr49lc9l9v4scnjtmxhpek9l076p      0.00000000      new
-> m/84'/0'/0'/0/5         bc1qv7ju4jfydnxnz36gecfy675600leyz8klwp2jt      0.00000000      new
-> Balance:        0.00000000
-> internal addresses      m/84'/0'/0'/1
-> Balance:        0.00000000
-> Balance for mixdepth 0: 0.00000000
-> Total balance:  0.00000000
-```
+  ```sh
+  (jvmenv) $ ./wallet-tool.py -m 0 wallet.jmdat
+  > User data location: /home/joinmarket/.joinmarket/
+  > Enter wallet decryption passphrase: 
+  > 2020-11-30 23:19:05,030 [INFO]  Detected new wallet, performing initial import
+  > JM wallet
+  > mixdepth        0       xpub6CDKnjyTPcNJHuEFWRWtPHa7dHrj63BkEHtK7P12LxwMN4v5V4LN36MpVqPRc5W72Xfwh9rUnmuZVW1QQbnLuAoNA3rkSDULJLL4fdiZkDN
+  > external addresses      m/84'/0'/0'/0   xpub6FCe4n1EyN3S7CgyLxz2hegoPnythF7XDiZMEZ1FcqQpoVhyvxhLMT2BVJ7kB5AZAgmBhmauqruguGr6ffoMAzGG2TNh1gas6CWzxpDBHz9
+  > m/84'/0'/0'/0/0         bc1q8s5jp8jawmdcj2l3dfl58lpspzphzpxdljj9f5      0.00000000      new
+  > m/84'/0'/0'/0/1         bc1qevtwlh9xw8u87qlxfwu9dzw728jatena6rf7za      0.00000000      new
+  > m/84'/0'/0'/0/2         bc1q0400y8k5453pfmezuc3gv34dhkslk3qkkyjdhl      0.00000000      new
+  > m/84'/0'/0'/0/3         bc1qdfy2gszf2uztm4x5s5ysatd34tvkfe5rn53c5g      0.00000000      new
+  > m/84'/0'/0'/0/4         bc1q4wmdjd8g76qr49lc9l9v4scnjtmxhpek9l076p      0.00000000      new
+  > m/84'/0'/0'/0/5         bc1qv7ju4jfydnxnz36gecfy675600leyz8klwp2jt      0.00000000      new
+  > Balance:        0.00000000
+  > internal addresses      m/84'/0'/0'/1
+  > Balance:        0.00000000
+  > Balance for mixdepth 0: 0.00000000
+  > Total balance:  0.00000000
+  ```
 
 ### Fund your JoinMarket wallet
 
@@ -272,9 +272,9 @@ For the purposes of running the yield generator, you can simply fund the primary
 
 * Run the yield generator
 
-```sh
-(jmvenv) $ ./yg-privacyenhanced.py wallet.jmdat
-```
+  ```sh
+  (jmvenv) $ ./yg-privacyenhanced.py wallet.jmdat
+  ```
 
 Since version 0.9.0 JoinMarket has added support for fidelity bonds, which are bitcoins locked into certain address(es) for some time. This is protection against [sybil attacks](https://en.wikipedia.org/wiki/Sybil_attack). Fidelity bonds are not currently required for the makers, but they will increase probability of your yield generator bot to participate in coinjoins. See [JoinMarket fidelity bond documentation](https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/master/docs/fidelity-bonds.md) for more information. Before you fund a fidelity bond, however, you want to be sure you are doing so with anonymous coins and a sweep transaction due to the public nature of the fidelity bond announcement. Perhaps mix with JoinMarket first. :)
 
@@ -282,33 +282,33 @@ Since version 0.9.0 JoinMarket has added support for fidelity bonds, which are b
 
 * Exit yield generator and install tmux from the "admin" user. (screen would be another viable option)
 
-```sh
-Ctrl+C
-$ exit
-$ sudo apt install tmux
-```
+  ```sh
+  Ctrl+C
+  $ exit
+  $ sudo apt install tmux
+  ```
 
 * Start tmux from the "joinmarket" user
 
-```sh
-$ sudo su - joinmarket
-$ tmux
-```
+  ```sh
+  $ sudo su joinmarket
+  $ tmux
+  ```
 
 * Start yield generator inside tmux session
 
-```sh
-$ . activate.sh
-(jvmenv) $ ./yg-privacyenhanced.py wallet.jmdat
-```
+  ```sh
+  $ . activate.sh
+  (jvmenv) $ ./yg-privacyenhanced.py wallet.jmdat
+  ```
 
 * Press Ctrl+B and then D to detach from tmux session (it will keep running in a background)
 
 * Later you can attach to that session from "joinmarket" user
 
-```sh
-$ tmux a
-```
+  ```sh
+  $ tmux a
+  ```
 
 * Read more details about using tmux in this guide: https://www.ocf.berkeley.edu/~ckuehl/tmux/
 
@@ -334,10 +334,10 @@ Tumbler is a program that does series of CoinJoins with various amounts and timi
 
 Every time you disconnect from the MiniBolt and connect again, if you are in a fresh session, before running any JoinMarket commands, you need to switch to the joinmarket user and run the activate.sh script created above:
 
-```sh
-$ sudo su - joinmarket
-$ . activate.sh
-```
+  ```sh
+  $ sudo su joinmarket
+  $ . activate.sh
+  ```
 
 ### How to upgrade
 
@@ -353,9 +353,9 @@ All this must be done from "joinmarket" user.
 
 * Remove existing JoinMarket symlink.
 
-```sh
-$ unlink /data/joinmarket
-```
+  ```sh
+  $ unlink /data/joinmarket
+  ```
 
 * Download, verify, extract and install the JoinMarket as described in the [Install JoinMarket](#install-joinmarket) section of this guide.
 
@@ -366,3 +366,7 @@ $ unlink /data/joinmarket
 * [JoinMarket docs](https://github.com/JoinMarket-Org/joinmarket-clientserver/tree/master/docs)
 * [JoinMarket guide for RaspiBlitz](https://github.com/openoms/bitcoin-tutorials/blob/master/joinmarket/README.md)
 * [Bitcoin privacy wiki](https://en.bitcoin.it/Privacy)
+
+---
+
+<< Back: [+ Bitcoin](index.md)

@@ -267,8 +267,6 @@ We'll also set the proper access permissions.
   $ chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
   ```
 
----
-
 * Exit the “bitcoin” user session back to user “admin”
 
   ```sh
@@ -294,6 +292,7 @@ We use "systemd", a daemon that controls the startup process using configuration
   [Unit]
   Description=Bitcoin daemon
   After=network.target
+  PartOf=tor.service
 
   [Service]
   ExecStart=/usr/local/bin/bitcoind -daemon \
@@ -322,37 +321,35 @@ We use "systemd", a daemon that controls the startup process using configuration
 * Enable the service
 
   ```sh
-  $ sudo systemctl enable bitcoind.service
+  $ sudo systemctl enable bitcoind
   ```
 
-## Running bitcoind
-
-* Start the service
-
-  ```sh
-  $ sudo systemctl start bitcoind.service
-  ```
-
-* See "bitcoind" in action by monitoring its log file. Exit with `Ctrl-C`
+* Prepare "bitcoind" monitoring by its log file. You can exit monitoring at any time by with `Ctrl-C`
 
   ```sh
   $ tail -f /home/bitcoin/.bitcoin/debug.log
   ```
 
-Monitor the log file a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
+## Running bitcoind
 
-* Grant the "bitcoin" group read-permission for the debug log file:
+[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
-  ```sh
-  $ chmod g+r /data/bitcoin/debug.log
-  ```
-
-* Link the Bitcoin data directory from the "admin" user home directory as well.
-  This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
+* Start the service
 
   ```sh
-  $ ln -s /data/bitcoin /home/admin/.bitcoin
+  $2 sudo systemctl start bitcoind
   ```
+
+Monitor the `debug.log` file at the first session created for a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
+
+* Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor address.
+
+  ```sh
+  $2 bitcoin-cli getnetworkinfo | grep address.*tor
+  ```
+
+Expected output:
 
 * Please note:
   * When “bitcoind” is still starting, you may get an error message like “verifying blocks”.
@@ -360,7 +357,18 @@ Monitor the log file a few minutes to see if it works fine (it may stop at "dnss
   * Among other infos, the “verificationprogress” is shown.
     Once this value reaches almost 1 (0.999…), the blockchain is up-to-date and fully validated.
 
----
+* Grant the "bitcoin" group read-permission for the debug log file:
+
+  ```sh
+  $2 chmod g+r /data/bitcoin/debug.log
+  ```
+
+* Link the Bitcoin data directory from the "admin" user home directory as well.
+  This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
+
+  ```sh
+  $2 ln -s /data/bitcoin /home/admin/.bitcoin
+  ```
 
 ## Bitcoin Core is syncing
 
@@ -431,8 +439,6 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   ```sh
   $ ots --version
   ```
-
----
 
 ## Extras (optional)
 
@@ -525,13 +531,9 @@ You can enable I2P network as a second private network in Bitcoin Core follow ex
   #coinstatsindex=1
   ```
 
----
-
 ## For the future: upgrade Bitcoin Core
 
-The latest release can be found on the Github page of the Bitcoin Core project:
-<https://github.com/bitcoin/bitcoin/releases>
-Always read the RELEASE NOTES first!
+The latest release can be found on the [Github page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first!
 When upgrading, there might be breaking changes, or changes in the data structure that need special attention.
 
 * There's no need to stop the application.

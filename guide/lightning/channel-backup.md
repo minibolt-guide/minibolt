@@ -50,8 +50,6 @@ You need to set up an automated SCB update mechanism that:
 
 You can read more about SCBs in [this section of 'Mastering the Lighning Network'](https://github.com/lnbook/lnbook/blob/ec806916edd6f4d1b2f9da2fef08684f80acb671/05_node_operations.asciidoc#node-and-channel-backups){:target="_blank"}.
 
----
-
 ## Choose your preferred backup method(s)
 
 This guide covers two automated backup methods:
@@ -66,11 +64,9 @@ This guide covers two automated backup methods:
 
 We recommend to use both methods, but you can choose either one of them, depending on your own requirements and preferences. Whatever method you choose:
 
-1. follow the "Preparations" section first, then
-1. follow the optional local or/and remote backup sections.
+1. Follow the "Preparations" section first, then
+1. Follow the optional local or/and remote backup sections.
 1. Finally, follow the "Test" section that works for whatever method you've chosen.
-
----
 
 ## Preparations
 
@@ -100,7 +96,7 @@ We create a shell script to monitor `channel.backup` and make a copy to our back
 
 * Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit.
 
-  ```ini
+  ```sh
   #!/bin/bash
 
   # Safety bash script options
@@ -190,7 +186,7 @@ We set up the backup script as a systemd service to run in the background and st
 
 * Paste the following lines. Save and exit.
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for automatic SCB backup
   # /etc/systemd/system/scb-backup.service
 
@@ -214,10 +210,7 @@ We set up the backup script as a systemd service to run in the background and st
   ```sh
   $ sudo systemctl enable scb-backup.service
   $ sudo systemctl start scb-backup.service
-  $ sudo systemctl status scb-backup.service
   ```
-
----
 
 ## Option 1: Local backup
 
@@ -266,11 +259,9 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
   $ sudo nano /etc/fstab
   ```
 
-  ```ini
+  ```sh
   UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,nosuid,nodev,noatime,nodiratime,nofail,umask=022,gid=XXXX,uid=YYYY 0 0
   ```
-
-  🔍 *more: [fstab guide](https://www.howtogeek.com/howto/38125/htg-explains-what-is-the-linux-fstab-and-how-does-it-work/){:target="_blank"}*
 
 * Mount the drive and check the file system. Is “/mnt/static-channel-backup-external” listed?
 
@@ -299,8 +290,6 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
   $ sudo systemctl restart scb-backup
   ```
 
----
-
 ## Option 2: Remote backup preparations
 
 Follow this section if you want a remote backup. If you already set up a local backup, and don't want a remote backup, skip to the [next section](#test-1).
@@ -319,7 +308,7 @@ Follow this section if you want a remote backup. If you already set up a local b
 * Using the "lnd" user, create a pair of SSH keys. When prompted, press "Enter" to confirm the default SSH directory and not set up a password.
 
   ```sh
-  $ sudo su - lnd
+  $ sudo su lnd
   $ ssh-keygen -t rsa -b 4096
   > Generating public/private rsa key pair.
   > [...]
@@ -351,7 +340,7 @@ Follow this section if you want a remote backup. If you already set up a local b
   > [...]
   ```
 
-### Test
+### GitHub Test
 
 * Still with user "lnd", enter your local Git repository, create a dummy file and push it to your remote GitHub repository
 
@@ -392,8 +381,6 @@ Follow this section if you want a remote backup. If you already set up a local b
   ```sh
   $ sudo systemctl restart scb-backup
   ```
-
----
 
 ## Test
 

@@ -98,9 +98,25 @@ We can also check that the manifest file was in existence around the time of the
   
 * Check that the date of the timestamp (here 2022-11-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-11-01).
 
+### Configure Bitcoin Core
+
+Before run LND, we need to set up settings in Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
+
+* Edit `bitcoin.conf`, and add the following lines. Save and exit
+
+  ```sh
+  $ sudo nano /data/bitcoin/bitcoin.conf
+  ```
+
+  ```sh
+  # LND RPC connection
+  zmqpubrawblock=tcp://127.0.0.1:28332
+  zmqpubrawtx=tcp://127.0.0.1:28333
+  ```
+
 ## Installation
 
-Having verified the integrity and authenticity of the release binary, we can safely proceed to install it!
+Having verified the integrity and authenticity of the release binary, we can safely proceed to install it
 
   ```sh
   $ tar -xzf lnd-linux-amd64-v0.15.4-beta.tar.gz
@@ -145,14 +161,6 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
   $ ln -s /data/lnd /home/lnd/.lnd
   $ ln -s /data/bitcoin /home/lnd/.bitcoin
   ```
-
-* Display the links and check that they're not shown in red (this would indicate an error)
-
-  ```sh
-  $ ls -la
-  ```
-
-![symlinks](../../images/lnd-symlink-colour.png)
 
 ### Wallet password
 
@@ -252,135 +260,6 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
 🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options, and visit the [Lightning Node Management](https://www.lightningnode.info/){:target="_blank"} site by Openoms to learn more.*
 
-#### Configure Bitcoin Core
-
-Before run LND, we need to set up settings in Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
-
-* Exit to return `"admin"` user, edit `bitcoin.conf`, and add the following lines. Save and exit
-
-  ```sh
-  exit
-  ```
-
-  ```sh
-  $ sudo nano /data/bitcoin/bitcoin.conf
-  ```
-
-  ```sh
-  # LND RPC connection
-  zmqpubrawblock=tcp://127.0.0.1:28332
-  zmqpubrawtx=tcp://127.0.0.1:28333
-  ```
-
----
-
-## Run LND
-
-Return to user "lnd", we first start LND manually to check if everything works fine.
-
-  ```sh
-  $ sudo su lnd
-  ```
-
-  ```sh
-  $ lnd
-  ```
-
-  ```sh
-  Attempting automatic RPC configuration to bitcoind
-  Automatically obtained bitcoind's RPC credentials
-  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.15.4-beta commit=v0.15.4-beta, build=production, logging=default, debuglevel=info
-  2021-11-13 08:16:34.985 [INF] LTND: Active chain: Bitcoin (network=mainnet)
-  ...
-  2021-11-13 08:16:35.028 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
-  ```
-
-The daemon prints the status information directly to the command line.
-This means that we cannot use that session without stopping the server.
-We need to open a second SSH session.
-
-### Wallet setup
-
-Start your SSH program (eg. PuTTY) a second time, connect to the PC and log in as "admin".
-Commands for the **second session** start with the prompt `$2` (which must not be entered).
-
-Once LND is started, the process waits for us to create the integrated Bitcoin wallet.
-
-* Start a "lnd" user session
-
-  ```sh
-  $2 sudo su lnd
-  ```
-
-* Create the LND wallet
-
-  ```sh
-  $2 lncli create
-  ```
-
-* Enter your `password [C]` as wallet password (it must be exactly the same you stored in `password.txt`).
-  To create a a new wallet, select `n` when asked if you have an existing cipher seed.
-  Just press enter if asked about an additional seed passphrase, unless you know what you're doing.
-  A new cipher seed consisting of 24 words is created.
-
-  ```
-  Do you have an existing cipher seed mnemonic or extended master root key you want to use?
-  Enter 'y' to use an existing cipher seed mnemonic, 'x' to use an extended master root key
-  or 'n' to create a new seed (Enter y/x/n): n
-
-  Your cipher seed can optionally be encrypted.
-  Input your passphrase if you wish to encrypt it (or press enter to proceed without a cipher seed passphrase):
-
-  Generating fresh cipher seed...
-
-  !!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
-
-  ---------------BEGIN LND CIPHER SEED---------------
-  1. secret     2. secret    3. secret     4. secret
-  ...
-  ```
-
-These 24 words is all that you need to restore the Bitcoin on-chain wallet.
-The current state of your channels, however, cannot be recreated from this seed.
-For this, the Static Channel Backup stored at `/data/lnd-backup/channel.backup` is updated continuously.
-
-🚨 This information must be kept secret at all times.
-
-* **Write these 24 words down manually on a piece of paper and store it in a safe place.**
-
-You can use a simple piece of paper, write them on the custom themed [RaspiBolt backup card](https://github.com/twofaktor/minibolt/blob/master/resources/raspibolt-backup-card.pdf){:target="_blank"}, or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
-This piece of paper is all an attacker needs to completely empty your on-chain wallet!
-Do not store it on a computer.
-Do not take a picture with your mobile phone.
-**This information should never be stored anywhere in digital form.**
-
-* Exit the user "lnd" user session, and then exit the second SSH session altogether
-
-  ```sh
-  $2 exit
-  $2 exit
-  ```
-
-* Back in your first SSH session with user "lnd", LND is still running.
-  Stop LND with `Ctrl-C`.
-
-* Start LND agin and check if the wallet is unlocked automatically.
-  On success, stop LND again.
-
-  ```sh
-  $ lnd
-  >...
-  > Started LND Lightning Network Daemon.
-  > Attempting automatic RPC configuration to bitcoind
-  > Automatically obtained bitcoinds RPC credentials
-  > ...
-  > LTND: Attempting automatic wallet unlock with password
-  > LNWL: Opened wallet
-  > ...
-
-  # stop LND with `Ctrl-C`
-  ```
-
 ### Autostart on boot
 
 Now, let's set up LND to start automatically on system startup.
@@ -431,29 +310,97 @@ Now, let's set up LND to start automatically on system startup.
 
   ```sh
   $ sudo systemctl enable lnd
-  $ sudo systemctl start lnd
-  $ systemctl status lnd
   ```
 
 * Now, the daemon information is no longer displayed on the command line but written into the system journal.
-  You can check on it using the following command (and exit with `Ctrl-C`).
+  You can check on it using the following command.
 
   ```sh
   $ sudo journalctl -f -u lnd
   ```
+
+## Run LND
+
+[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+Commands for the **second session** start with the prompt `$2` (which must not be entered).
+
+```sh
+$2 sudo systemctl start lnd
+```
+
+Monitor the systemd journal at the first session created to check if everything works fine.
+
+  ```sh
+  [...]
+  Attempting automatic RPC configuration to bitcoind
+  Automatically obtained bitcoind's RPC credentials
+  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.15.4-beta commit=v0.15.4-beta, build=production, logging=default, debuglevel=info
+  2021-11-13 08:16:34.985 [INF] LTND: Active chain: Bitcoin (network=mainnet)
+  ...
+  2021-11-13 08:16:35.028 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
+  ```
+
+The daemon prints the status information directly to the command line.
+This means that we cannot use that session without stopping the server.
+We need to open a second SSH session.
+
+### Wallet setup
+
+Once LND is started, the process waits for us to create the integrated Bitcoin onchain wallet.
+
+* Start a "lnd" user session
+
+  ```sh
+  $2 sudo su lnd
+  ```
+
+* Create the LND wallet
+
+  ```sh
+  $2 lncli create
+  ```
+
+* Enter your `password [C]` as wallet password (it must be exactly the same you stored in `password.txt`).
+  To create a a new wallet, select `n` when asked if you have an existing cipher seed.
+  Just press enter if asked about an additional seed passphrase, unless you know what you're doing.
+  A new cipher seed consisting of 24 words is created.
+
+  ```
+  Do you have an existing cipher seed mnemonic or extended master root key you want to use?
+  Enter 'y' to use an existing cipher seed mnemonic, 'x' to use an extended master root key
+  or 'n' to create a new seed (Enter y/x/n): n
+
+  Your cipher seed can optionally be encrypted.
+  Input your passphrase if you wish to encrypt it (or press enter to proceed without a cipher seed passphrase):
+
+  Generating fresh cipher seed...
+
+  !!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
+
+  ---------------BEGIN LND CIPHER SEED---------------
+  1. secret     2. secret    3. secret     4. secret
+  ...
+  ```
+
+These 24 words is all that you need to restore the Bitcoin on-chain wallet.
+
+* **Write these 24 words down manually on a piece of paper and store it in a safe place.**
+
+You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf){:target="_blank"}, or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
+This piece of paper is all an attacker needs to completely empty your on-chain wallet!
+Do not store it on a computer.
+Do not take a picture with your mobile phone.
+**This information should never be stored anywhere in digital form.**
+The current state of your channels, however, cannot be recreated from this seed.
+For this, the Static Channel Backup stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing.
+
+🚨 This information must be kept secret at all times.
 
 ### Allow user "admin" to work with LND
 
 We interact with LND using the application `lncli`.
 At the moment, only the user "lnd" has the necessary access privileges.
 To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
-
-* Newly added groups become active only in a new user session.
-  Log out from SSH.
-
-  ```sh
-  $ exit
-  ```
 
 * Log in as user "admin" again.
 
@@ -475,18 +422,15 @@ To make the user "admin" the main administrative user, we make sure it can inter
 
 ## LND in action
 
-Now your Lightning node is ready.
-This is also the point of no return.
-Up until now, you can just start over.
-Once you send real bitcoin to your MiniBolt, you have "skin in the game".
+Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real bitcoin to your MiniBolt, you have "skin in the game".
 
 ### Funding your Lightning node
 
-* Generate a new Bitcoin address (p2tr = taproot/Bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
+* Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
 
   ```sh
   $ lncli newaddress p2tr
-  > "address": "bc1..."
+  > "address": "bc1p..."
   ```
 
 * Check your LND wallet balance
@@ -517,7 +461,7 @@ To connect to a remote node, you need its URI that looks like `<pubkey>@host`:
 * the `<pubkey>` is just a long hexadecimal number, like `02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128`
 * the `host` can be a domain name, a clearnet ip address or a Tor onion address, followed by the port number (usually `:9735`)
 
-Just grab the whole URI above the big QR code and use it as follows (we will use the ACINQ node as an example):
+Just grab the whole URI above the big QR code and use it as follows (we will use the `⚡2FakTor⚡` node as an example):
 
 * **Connect** to the remote node, with the full URI.
 
@@ -595,10 +539,9 @@ In this case, all channel funds will be sent to your LND on-chain wallet.
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them.
 It's good practice to add a few watchtowers, just to be on the safe side.
 
-* With user "LND", add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} as a first example
+* With user `"admin"` or `"lnd"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} as a first example
 
   ```sh
-  $ sudo su lnd
   $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
   ```
 
@@ -722,7 +665,7 @@ A quick reference with common commands to play around with:
   $ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
   ```
 
-💡 Flags `--memo "your memo here" --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time are 30 days and the rest can be empty.
+💡 Flags `--memo "your memo here" --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time will be 30 days by default and the rest can be empty.
 
 Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
 
@@ -752,8 +695,6 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
   ````
 
 🔍 _more: full [LND API reference](https://api.lightning.community/){:target="_blank"}
-
----
 
 ## For the future: upgrade LND
 

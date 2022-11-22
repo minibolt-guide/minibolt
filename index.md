@@ -116,8 +116,34 @@ Cost: Paid service
 Cost: Free service
 {: .label .label-green }
 
-<br /><br />
+---
+
+## Quick start guide
+
+Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt guide.
+
+* Preparations
+  * [Preparations](guide/system/preparations.md)
+  * [Operating system](guide/system/operating-system.md)
+  * [Remote access](guide/system/remote-access.md)
+  * [Configuration](guide/system/configuration.md)
+  * [Security](guide/system/security.md)
+  * [Privacy](guide/system/privacy.md)
+
+* Bitcoin
+
+  * [Bitcoin client](guide/bitcoin/bitcoin-client.md)
+  * [Electrum server](guide/bitcoin/electrum-server.md)
+  * [Destop wallet](guide/bitcoin/desktop-wallet.md)
+  * [Blockchain explorer](guide/bitcoin/blockchain-explorer.md)
+
+* Lightning
+
+  * [Lightning client](guide/lightning/lightning-client.md)
+  * [Web app](guide/bonus/lightning/thunderhub.md)
 
 ---
+
+<br /><br />
 
 Get started: [System >>](guide/system/index.md)

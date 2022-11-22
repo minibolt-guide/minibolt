@@ -61,8 +61,6 @@ pip is not installed by default on Raspberry Pi OS Lite (64-bit), check if it is
   > pip 20.3.4 from /usr/lib/python3/dist-packages/pip (python 3.9)
   ```
 
----
-
 ### Install rebalance-lnd
 
 * We create a "rebalance-lnd" user and we make it part of the "bitcoin" group (to be able to interact with LND)
@@ -103,8 +101,6 @@ pip is not installed by default on Raspberry Pi OS Lite (64-bit), check if it is
   $ cd ~/
   ```
 
----
-
 ### rebalance-lnd in action
 
 To use rebalance-lnd, use the "rebalance-lnd" user.
@@ -118,8 +114,6 @@ To use rebalance-lnd, use the "rebalance-lnd" user.
 Note that the fee limit depends on the fee policy applied to the channels used in the rebalance. Make sure that you are OK with the fee rates for your channels before running the rebalancing script, i.e. charge higher fee rates for channels where you want to have more outbound liquidity and charge lower fee rates for channels where you want to have more inbound liquidity.
 
 There are many more options available to fine-tune your rebalancing strategy. Find more information about them in the [README](https://github.com/C-Otto/rebalance-lnd){:target="_blank"} page of C-Otto's repository. Also, check [this video tutorial](https://youtu.be/0r3Th42zfDk?t=779){:target="_blank"} by Jonathan Levi that explains very well how rebalance-lnd works.
-
----
 
 ### Upgrade
 
@@ -137,8 +131,6 @@ There are many more options available to fine-tune your rebalancing strategy. Fi
   $ pip3 install -r requirements.txt
   > [...]
   ```
-
----
 
 ### Uninstall
 

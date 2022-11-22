@@ -31,23 +31,16 @@ Status: Not tested MiniBolt
 
 ## Preparations
 
-### Install Node.js
+### Check Node.js
 
-Starting with user “admin”, we add the Node.js package repository.
-We’ll use version 16 which is the latest stable version.
-If you installed BTC RPC Explorer, then you've already accomplished this step.
-
-* Add the Node.js software repository
-
+* Node.js v16 should have been installed for the BTC RPC Explorer and RTL. We can check our version of Node.js with user "admin":
+  
   ```sh
-  $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+  $ node -v
+  > v16.14.2
   ```
 
-* Install Node.js using the apt package manager
-
-  ```
-  $ sudo apt install nodejs
-  ```
+* If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow [this guide](https://raspibolt.org/guide/bitcoin/blockchain-explorer.html#install-nodejs){:target="_blank"} to install it.
 
 ### Firewall & reverse proxy
 
@@ -80,7 +73,7 @@ Now we can add the RTL configuration.
 * Configure firewall to allow incoming HTTPS requests:
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4001 proto tcp comment 'allow Ride The Lightning SSL'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4001 proto tcp comment 'allow Ride The Lightning SSL from local network'
   $ sudo ufw status
   ```
 
@@ -111,14 +104,20 @@ We do not want to run Ride the Lightning alongside bitcoind and lnd because of s
   ```sh
   $ git clone https://github.com/Ride-The-Lightning/RTL.git
   $ cd RTL
+  ```
 
+  ```sh
   $ git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1
-  > v0.13.1
+  > v0.13.2
+  ```
 
-  $ git checkout v0.13.1
+  ```sh
+  $ git checkout v0.13.2
+  ```
 
-  $ git verify-tag v0.13.1
-  > gpg: Signature made Thu 25 Aug 2022 20:09:30 BST
+  ```sh
+  $ git verify-tag v0.13.2
+  > gpg: Signature made Tue 22 Nov 2022 03:04:55 CET
   > gpg:                using RSA key 3E9BD4436C288039CA827A9200C9E2BC2E45666F
   > gpg: Good signature from "saubyk (added uid) <39208279+saubyk@users.noreply.github.com>" [unknown]
   > gpg:                 aka "Suheb <39208279+saubyk@users.noreply.github.com>" [unknown]
@@ -141,7 +140,7 @@ If anything's wrong, it will time out sooner or later.
 * Also, there might be a lot of confusing output.
 If you something similar to the following at the end, installation was successful:
 
-  ```
+  ```sh
   [...]
   added 362 packages, and audited 363 packages in 12m
   
@@ -162,22 +161,22 @@ Now we take the sample configuration file and add change it to our needs.
   $ nano RTL-Config.json
   ```
 
-* Set password [E] to access the RTL web interface. This should be a dedicated password not used anywhere else.
+* Set `password [E]` to access the RTL web interface. This should be a dedicated password not used anywhere else.
 
-  ```ini
+  ```sh
     "multiPass": "YourPassword[E]"
   ```
 
 * Specify the values where RTL can find the authentication macaroon file and the LND configuration
 
-  ```ini
+  ```sh
     "macaroonPath": "/home/rtl"
     "configPath": "/data/lnd/lnd.conf"
   ```
 
 * Change `localhost` to `127.0.0.1` on the following lines to avoid errors
 
-  ```ini
+  ```sh
     "lnServerUrl": "https://127.0.0.1:8080"
     "swapServerUrl": "https://127.0.0.1:8081"
     "boltzServerUrl": "https://127.0.0.1:9003"
@@ -185,31 +184,9 @@ Now we take the sample configuration file and add change it to our needs.
 
 * Save and exit
 
-### First start
-
-Test starting "Ride the Lightning" manually first to make sure it works.
-
-  ```sh
-  $ cd /home/rtl/RTL
-  $ node rtl
-  > Server is up and running, please open the UI at http://localhost:3000
-  ```
-
-Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://raspibolt.local:4001> (or your nodes ip address, e.g. <https://192.168.0.20:4001>).
-
-Your browser will display a warning, because we use a self-signed SSL certificate.
-There's nothing we can do about that, because we would need a proper domain name (e.g. https://yournode.com) to get an official certificate which browsers recognize.
-Click on "Advanced" and proceed to the RTL web interface.
-
-If everything worked, stop RTL in the terminal with `CTRL`-`C` and exit the "rtl" user session.
-
-  ```sh
-  $ exit
-  ```
-
 ### Autostart on boot
 
-Now we'll make sure Ride The Lightning starts as a service on the Raspberry Pi so it's always running.
+Now we'll make sure Ride The Lightning starts as a service on the PC so it's always running.
 In order to do that, we create a systemd unit that starts the service on boot directly after LND.
 
 * As user "admin", create the service file.
@@ -241,17 +218,39 @@ In order to do that, we create a systemd unit that starts the service on boot di
   WantedBy=multi-user.target
   ```
 
-* Enable the service, start it and check log logging output.
+* Enable the service
 
   ```sh
   $ sudo systemctl enable rtl
-  $ sudo systemctl start rtl
+  ```
+
+* Prepare "rtl" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+
+  ```sh
   $ sudo journalctl -f -u rtl
   ```
 
-## Optional
+## Run RTL
 
-### Remote access over Tor
+[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+Commands for the **second session** start with the prompt `$2` (which must not be entered).
+
+* Start the service.
+
+  ```sh
+  $2 sudo systemctl start rtl
+  ```
+
+Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://minibolt.local:4001> (or your nodes IP address like <https://192.168.0.20:4001>). You should see the home page of BTC RPC Explorer.
+
+Your browser will display a warning because we use a self-signed SSL certificate.
+We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
+Click on "Advanced" and proceed to the Block Explorer web interface.
+
+**Congratulations!**
+You now have Ride the Lightning running to manage your Lightning service on our own node.
+
+### Remote access over Tor (optional)
 
 You can easily add a Tor hidden service on the RaspiBolt and access the Ride the Lightning interface with the Tor browser from any device.
 
@@ -279,9 +278,6 @@ Update Tor configuration changes and get your connection address.
 
 With the Tor browser (link this), you can access this onion address from any device.
 
-**Congratulations!**
-You now have Ride the Lightning running to manage your Lightning service on our own node.
-
 ### Enable 2-Factor-Authentication
 
 If you want to be extra careful, you can enable 2FA for access to your RTL interface.
@@ -303,15 +299,15 @@ Make sure to read the release notes first.
   $ sudo su rtl
   ```
 
-* Fetch the latest GitHub repository information, display the latest release tag, ignoring release cadidates (`v0.13.1` in this example), and update:
+* Fetch the latest GitHub repository information, display the latest release tag, ignoring release cadidates and update:
 
   ```sh
   $ cd /home/rtl/RTL
   $ git fetch
   $ git reset --hard
-  $ git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1
-  $ git checkout v0.13.1
-  $ git verify-tag v0.13.1
+  $ latest=$(git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1)
+  $ git checkout $latest
+  $ git verify-tag $latest
   $ npm install --omit=dev
   $ exit
   ```
@@ -320,7 +316,6 @@ Make sure to read the release notes first.
 
   ```sh
   $ sudo systemctl start rtl
-  $ sudo journalctl -f -u rtl
   ```
 
 <br /><br />

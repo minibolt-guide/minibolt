@@ -112,7 +112,7 @@ Table of contents
 * Ensure that i2pd service is working and listening at the default ports
 
   ```sh
-  $ sudo ss -tulpn | grep i2pd | grep LISTEN
+  $ sudo ss -tulpn | grep LISTEN | grep i2pd 
   ```
 
 Output expected:
@@ -178,6 +178,14 @@ We need to set up settings in Bitcoin Core configuration file to enable I2P conn
   in          0       0      25     2      27
   out         7       0       2     1      10       2
   total       7       0      27     3      37
+  ```
+
+## For the future: upgrade I2P
+
+The latest release can be found on the [PPA page](https://launchpad.net/~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
+
+  ```sh
+  $ sudo apt update && sudo apt upgrade
   ```
 
 ## Uninstall

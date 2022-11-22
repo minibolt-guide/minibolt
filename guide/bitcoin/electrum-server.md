@@ -40,8 +40,6 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 It imports data from Bitcoin Core and provides it to software wallets supporting the Electrum protocol.
 Desktop wallets like [Sparrow](https://sparrowwallet.com/){:target="_blank"}, the [BitBoxApp](https://shiftcrypto.ch/app/){:target="_blank"}, [Electrum](https://electrum.org/){:target="_blank"} or [Specter Desktop](https://specter.solutions/desktop/){:target="_blank"} that support hardware wallets can then be used with your own sovereign Bitcoin node.
 
----
-
 ## Preparations
 
 Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync) after full sync.
@@ -88,8 +86,6 @@ Now we can add the Electrs configuration.
   ```sh
   $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Electrum SSL from local network'
   ```
-
----
 
 ## Electrs
 
@@ -200,45 +196,6 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   timestamp = true
   ```
 
-* Let's start Electrs manually first to check if everything runs as expected.
-  It will immediately start with the initial indexing of the Bitcoin blocks.
-
-  ```sh
-  $ electrs --conf /data/electrs/electrs.conf
-  ```
-
-  ```sh
-  Starting electrs 0.9.10 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
-  [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
-  [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 127.0.0.1:50001
-  [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
-  [2021-11-09T07:09:43.174Z INFO  electrs::index] indexing 2000 blocks: [1..2000]
-  [2021-11-09T07:09:44.665Z INFO  electrs::chain] chain updated: tip=00000000dfd5d65c9d8561b4b8f60a63018fe3933ecb131fb37f905f87da951a, height=2000
-  [2021-11-09T07:09:44.986Z INFO  electrs::index] indexing 2000 blocks: [2001..4000]
-  [2021-11-09T07:09:46.191Z INFO  electrs::chain] chain updated: tip=00000000922e2aa9e84a474350a3555f49f06061fd49df50a9352f156692a842, height=4000
-  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [4001..6000]
-  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a5, height=6000
-  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [6001..8000]
-  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a6, height=8000
-  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [8001..10000]
-  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a7, height=10000
-  [...]
-  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 65 blocks: [756001..756065]
-  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c510, height=756065
-  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting config compaction
-  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting headers compaction
-  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting txid compaction
-  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting funding compaction
-  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting spending compaction
-  ...
-  ```
-
-* Stop Electrs with `Ctrl`-`C` and exit the "electrs" user session
-
-  ```sh
-  $ exit
-  ```
-
 ### Autostart on boot
 
 Electrs needs to start automatically on system boot.
@@ -278,29 +235,69 @@ Electrs needs to start automatically on system boot.
   WantedBy=multi-user.target
   ```
 
-* Enable and start Electrs
+* Enable the service
 
   ```sh
   $ sudo systemctl enable electrs
-  $ sudo systemctl start electrs
   ```
 
-* Check the systemd journal to see Electrs log output
+* Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
   ```sh
   $ sudo journalctl -f -u electrs
   ```
 
-* Ensure that electrs service is working and listening at the default port
+## Run Electrs
+
+[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+Commands for the **second session** start with the prompt `$2` (which must not be entered).
+
+* Start the service. It will immediately start with the initial indexing of the Bitcoin blocks.
 
   ```sh
-  $ sudo ss -tulpn | grep electrs | grep LISTEN
+  $2 sudo systemctl start electrs
+  ```
+
+Monitor the systemd journal at the first session created to check if everything works fine.
+
+  ```sh
+  Starting electrs 0.9.10 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+  [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
+  [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 127.0.0.1:50001
+  [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
+  [2021-11-09T07:09:43.174Z INFO  electrs::index] indexing 2000 blocks: [1..2000]
+  [2021-11-09T07:09:44.665Z INFO  electrs::chain] chain updated: tip=00000000dfd5d65c9d8561b4b8f60a63018fe3933ecb131fb37f905f87da951a, height=2000
+  [2021-11-09T07:09:44.986Z INFO  electrs::index] indexing 2000 blocks: [2001..4000]
+  [2021-11-09T07:09:46.191Z INFO  electrs::chain] chain updated: tip=00000000922e2aa9e84a474350a3555f49f06061fd49df50a9352f156692a842, height=4000
+  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [4001..6000]
+  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a5, height=6000
+  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [6001..8000]
+  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a6, height=8000
+  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [8001..10000]
+  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a7, height=10000
+  [...]
+  [2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 65 blocks: [756001..756065]
+  [2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c510, height=756065
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting config compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting headers compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting txid compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting funding compaction
+  [2021-11-09T07:09:47.581Z INFO  electrs::db] starting spending compaction
+  ...
   ```
 
   Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets.
   With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
 
-* Exit the log output with `Ctrl`-`C`
+* Ensure that electrs service is working and listening at the default `50001` and `50002` ports
+
+  ```sh
+  $2 sudo ss -tulpn | grep LISTEN | grep electrs 
+  ```
+
+💡 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets.
+This can take a few hours.
+Only proceed with the [next section](desktop-wallet.md) once Electrs is ready.
 
 ### Remote access over Tor (optional)
 
@@ -330,18 +327,6 @@ Note that the remote device needs to have Tor installed as well.
   > abcdefg..............xyz.onion
   ```
 
----
-💡 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets.
-This can take a few hours.
-Only proceed with the [next section](desktop-wallet.md) once Electrs is ready.
-
-* To check if Electrs is still indexing, you can follow the log output
-
-  ```sh
-  $ sudo journalctl -f -u electrs
-  ```
-
----
 ## For the future: Electrs upgrade
 
 Updating Electrs is straight-forward.
@@ -373,4 +358,5 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 <br /><br />
 
 ---
+
 Next: [Desktop wallet >>](desktop-wallet.md)
