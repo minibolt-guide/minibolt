@@ -162,6 +162,14 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
   $ sudo apt install i2pd
   ```
 
+* Check i2pd has been correctly installed
+
+  ```sh
+  $ i2pd --version
+  > i2pd version 2.44.0 (0.9.56)
+  [...]
+  ```
+
 ### Configuration
 
 * Configure i2pd to not to relay any public I2P traffic and only permit I2P traffic from Bitcoin Core, uncomment `"notransit=true"`
