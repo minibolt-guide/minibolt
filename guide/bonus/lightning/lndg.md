@@ -754,7 +754,7 @@ With the Tor browser, you can access this onion address from any device.
   $ sudo rm /etc/nginx/sites-enabled/lndg-ssl.conf
   ```
 
-* Delete or comment out the HTTP server block from the `nginx.conf` file (unless you use it for another service, _e.g._ [Mempool](../bitcoin/mempool.md), [Homer](../raspberry-pi/homer.md) etc)
+* Delete or comment out the HTTP server block from the `nginx.conf` file (unless you use it for another service, _e.g._ [Mempool](../bitcoin/mempool.md), [Homer](../system/homer.md) etc)
 
   ```sh
   $ sudo nano /etc/nginx/nginx.conf

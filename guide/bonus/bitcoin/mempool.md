@@ -13,8 +13,6 @@ has_toc: false
 
 {: .no_toc }
 
----
-
 [Mempool](https://github.com/mempool/mempool){:target="_blank"} is a self-hosted Bitcoin blockchain and mempool visualizer/explorer. Look up your onchain transactions and estimate transaction fees without any privacy leaks.
 
 Difficulty: Medium
@@ -80,7 +78,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   ```sh
   $ sudo adduser --disabled-password --gecos "" mempool
   $ sudo adduser mempool bitcoin
-  $ sudo su - mempool
+  $ sudo su mempool
   ```
 
 * Download the source code directly from GitHub
@@ -258,7 +256,7 @@ We now need to modify the nginx configuration to create a web server for the web
 
 * Paste the following configuration line. Save and exit
 
-  ```ini
+  ```sh
           proxy_read_timeout 300;
           proxy_connect_timeout 300;
           proxy_send_timeout 300;
@@ -441,12 +439,8 @@ Now we’ll make sure Mempool starts as a service on the PC so it’s always run
   WorkingDirectory=/home/mempool/mempool/backend
   ExecStart=/usr/bin/node --max-old-space-size=2048 dist/index.js
   User=mempool
-
-  # Restart on failure but no more than default times (DefaultStartLimitBurst=5) every 10 minutes (600 seconds). Otherwise stop
   Restart=on-failure
   RestartSec=600
-
-  # Hardening measures
   PrivateTmp=true
   ProtectSystem=full
   NoNewPrivileges=true
@@ -515,7 +509,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
 
   ```sh
   $ sudo systemctl stop mempool
-  $ sudo su - mempool
+  $ sudo su mempool
   ```
 
 * Fetch the latest GitHub repository information and update:

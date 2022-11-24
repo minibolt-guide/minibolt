@@ -72,7 +72,7 @@ Status: Not tested MiniBolt
 * With the "lnd" user, create (or 'bake') a suitably limited LND macaroon, then exit back to "admin"
 
   ```sh
-  $ sudo su - lnd
+  $ sudo su lnd
   $ lncli bakemacaroon offchain:read offchain:write onchain:read info:read --save_to=~/.lnd/data/chain/bitcoin/mainnet/charge-lnd.macaroon
   > Macaroon saved to /home/lnd/.lnd/data/chain/bitcoin/mainnet/charge-lnd.macaroon
   $ exit
@@ -88,7 +88,7 @@ Status: Not tested MiniBolt
 * With the "charge-lnd" user, clone the charge-lnd repository, enter the directory and install the program and required packages using `pip3`
 
   ```sh
-  $ sudo su - chargelnd
+  $ sudo su chargelnd
   $ git clone https://github.com/accumulator/charge-lnd.git
   $ cd charge-lnd
   $ pip3 install -r requirements.txt .
@@ -139,8 +139,6 @@ Status: Not tested MiniBolt
   $ ls -la
   ```
 
----
-
 ## Configuration file
 
 For this example, we will use a policy that:
@@ -163,7 +161,7 @@ For this example, we will use a policy that:
 
 * Copy-paste the following section, changes the values you'd like to use and add the relevant node pubkeys in the desired policy sections
 
-  ```ini
+  ```sh
   #################################################
   # Charge-lnd - Automatic fee policy adjustement #
   #################################################
@@ -247,8 +245,6 @@ Then exit the charge-lnd user.
 
 🔍: _To see all the possible policy types and options and some examples, check the charge-lnd [Github page](https://github.com/accumulator/charge-lnd#charge-lnd){:target="_blank"}.
 
----
-
 ## Automatic fee updates
 
 ### Cron job
@@ -297,8 +293,6 @@ If you need to check the log files:
   $ cat /tmp/my-charge-lnd.log | grep -A 7 NodeAliasName
   ```
 
----
-
 ## Upgrade
 
 * Let's check what is the latest available version at [https://github.com/accumulator/charge-lnd/releases](https://github.com/accumulator/charge-lnd/releases){:target="_blank"} and what version of `charge-lnd` we are running
@@ -308,7 +302,7 @@ If you need to check the log files:
   $ cd charge-lnd
   $ pip3 show charge-lnd
   > Name: charge-lnd
-  > Version: 0.2.10
+  > Version: 0.2.13
   ```
 
 * Fetch the latest version and install it (*e.g.* v9.9.9)
@@ -325,8 +319,6 @@ If you need to check the log files:
   $ pip3 install -r requirements.txt .
   > [...]
   ```
-
----
 
 ## Uninstall
 

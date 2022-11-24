@@ -78,8 +78,6 @@ Status: Not tested MiniBolt
   $ sudo ufw status
   ```
 
----
-
 ## LNBits
 
 ### Installation
@@ -127,7 +125,7 @@ Status: Not tested MiniBolt
 
 * Change the default path of the LNBits data folder
 
-  ```ini
+  ```sh
   #LNBITS_DATA_FOLDER="./data"
   LNBITS_DATA_FOLDER="/home/lnbits/.lnbits"
   ```
@@ -136,19 +134,19 @@ Status: Not tested MiniBolt
 
 ![LNBits themes](../../../images/lnbits-themes.PNG)
 
-  ```ini
+  ```sh
   LNBITS_THEME_OPTIONS="bitcoin"
   ```
 
 * Select the wallet that you want to use as backend, _e.g._ the LND REST API
 
-  ```ini
+  ```sh
   LNBITS_BACKEND_WALLET_CLASS=LndRestWallet
   ```
 
 * Comment out all wallet parameters blocks execpt the one you selected just above, e.g. `LndRestWallet`
 
-  ```ini
+  ```sh
   # ClicheWallet
   #CLICHE_ENDPOINT=ws://127.0.0.1:12000
   
@@ -208,7 +206,7 @@ Status: Not tested MiniBolt
   $ ./venv/bin/uvicorn lnbits.__main__:app --port 5000
   ```
 
-Now point your browser to the secure access point provided by the nginx web proxy, for example <https://raspibolt.local:4003> (or your node's IP address like <https://192.168.0.20:4003>).
+Now point your browser to the secure access point provided by the nginx web proxy, for example <https://minibolt.local:4003> (or your node's IP address like <https://192.168.0.20:4003>).
 
 Your browser will display a warning because we use a self-signed SSL certificate. Click on "Advanced" and proceed to the LNBits web interface.
 
@@ -260,17 +258,14 @@ Your browser will display a warning because we use a self-signed SSL certificate
   ```sh
   $ sudo systemctl enable lnbits.service
   $ sudo systemctl start lnbits.service
-  $ sudo systemctl status lnbits.service
   $ sudo journalctl -f -u lnbits
   ```
 
-* You can now access LNBits from within your local network by browsing to <https://raspibolt.local:4003>{:target="_blank"} (or your equivalent IP address).
-
----
+* You can now access LNBits from within your local network by browsing to <https://minibolt.local:4003>{:target="_blank"} (or your equivalent IP address).
 
 ### LNBits in action
 
-* Access the LNBits homepage in your browser by browsing to <https://raspibolt.local:4003>{:target="_blank"} (or your equivalent IP address)
+* Access the LNBits homepage in your browser by browsing to <https://minibolt.local:4003>{:target="_blank"} (or your equivalent IP address)
 * Type a wallet name, _e.g._ "My LNBits wallet #1"
 * Click on "ADD NEW WALLET" button. You will land on the wallet homepage:
 
@@ -309,8 +304,6 @@ Below is a list of resources to learn how to use LNBits and the extensions:
   ```
 
 * With the [Tor browser](https://www.torproject.org){:target="_blank"}, you can access this onion address from any device.
-
----
 
 ## For the future: LNBits update
 

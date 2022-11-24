@@ -54,11 +54,9 @@ Table of contents
 * With the “ambossping” user map the LND folder
 
   ```sh
-  $ sudo su - ambossping
+  $ sudo su ambossping
   $ ln -s /data/lnd /home/ambossping/.lnd
   ```
-
----
 
 ## Set the script
 
@@ -93,8 +91,6 @@ Table of contents
   ```sh
   $ chmod +x /home/ambossping/ping.sh
   ```
-  
----
 
 ## Test run
 
@@ -106,14 +102,12 @@ Table of contents
 
 * You should see something like this in terminal.
 
-  ```ini
+  ```sh
   Timestamp: 2022-10-27T15:53:33+0000
   Signature: d71y...uduf
   Sending ping...
   2022-10-27T15:53:33+0000 - Ping sent
   ```
-
----
 
 ## Schedule the ping
 
@@ -125,7 +119,7 @@ Table of contents
 
   Depending on what you have selected in your [amboss monitoring dashboard](https://amboss.space/owner?page=monitoring), you would like to schedule your script to send pings on preselected intervals. The ambossping crontab should be clean at this point, so add the following at the bottom:
 
-  ```ini
+  ```sh
   * * * * * /home/ambossping/ping.sh >> /home/ambossping/ping.log
   ```
 
@@ -133,21 +127,19 @@ Table of contents
 
   🚨 Setting up the cronjob like this will send the pings via clearnet - meaning amboss.space will know where the ping comes from. You can prevent revealing this information by either tunneling all traffic of your node via VPN or setup your cronjob to use Tor. Be aware that running the ping via Tor will cause some false-positives depending on the health of the Tor network status and availability, which will not represent the availability of your node.
 
-  ```ini
+  ```sh
   * * * * * /usr/bin/torsocks /home/ambossping/ping.sh >> /home/ambossping/ping.log
   ```
 
   Currently ambos.space gives the option to report every 1, 3, 5, 15, 30 minutes, and 1 hour. If you want to report on different than 1 min intervals, set the beginning of the line in your cron tab as follows:
 
-  ```ini
+  ```sh
   */3 * * * * - for sending a ping every 3 minutes
   */5 * * * * - for sending a ping every 5 minutes
   */5 * * * * - for sending a ping every 15 minutes
   */30 * * * * - for sending a ping every 30 minutes
   0 * * * * - for sending a ping every hour
   ```
-
----
 
 ## Error logs
 
@@ -173,8 +165,6 @@ Table of contents
   You can find additional information about the Exit Statuses on the [curl documentation](https://everything.curl.dev/usingcurl/returns) site.
 
   Please remember that the error messages of curl are not explicit and are not always 100% correct. From the error messages, you could make some assumptions about the issues you may experience are caused. From the errors mentioned above, only **Error: 35** leads to remote side issues, though.
-
----
 
 ## Uninstall
 

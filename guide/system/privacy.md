@@ -14,12 +14,9 @@ parent: System
 
 ---
 
-We configure Tor to run your node anonymously.
+We configure Tor and I2P to run your node anonymously.
 
-Status: Tested MiniBolt
-{: .label .label-blue }
-
-![Tor logo](../../images/tor-logo.png)
+![Tor logo](../../images/tor-logo.png)![I2P](../../images/i2pd.png)
 
 ---
 
@@ -40,8 +37,6 @@ We need to make sure that you keep your privacy.
 
 We'll also make it easy to connect to your node from outside your home network as an added benefit.
 
----
-
 ## Tor Project
 
 We use Tor, a free software built by the [Tor Project](https://www.torproject.org){:target="_blank"}.
@@ -50,9 +45,7 @@ It allows you to anonymize internet traffic by routing it through a network of n
 It is called "Tor" for "The Onion Router": information is routed through many hops and encrypted multiple times.
 Each node decrypts only the layer of information addressed to it, learning only the previous and the next hop of the whole route. The data package is peeled like an onion until it reaches the final destination.
 
----
-
-## Installation
+### Installation
 
 Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
@@ -98,7 +91,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
   [...]
   ```
 
-## Configuration
+### Configuration
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network.
 We need to enable Tor to accept instructions through its control port, with the proper authentication.
@@ -130,7 +123,7 @@ Save and exit
   $ sudo ss -tulpn | grep LISTEN | grep tor
   ```
 
-Output expected:
+Expected output:
 
   ```sh
   tcp   LISTEN 0      4096             127.0.0.1:9050       0.0.0.0:*    users:(("tor",pid=795,fd=6))
@@ -146,15 +139,108 @@ Output expected:
 Not all network traffic is routed over the Tor network.
 But we now have the base to configure sensitive applications to use it.
 
-## For the future: upgrade Tor
+## I2P Project
 
-The latest release can be found on the [Official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or on the [unofficial GitHub page](https://github.com/torproject/tor/tags). To upgrade simply type this command:
+[I2P](https://geti2p.net/en/){:target="_blank"} is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted, participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
+
+I2P client is a software used for building and using anonymous I2P networks. Such networks are commonly used for anonymous peer-to-peer applications (filesharing, cryptocurrencies) and anonymous client-server applications (websites, instant messengers, chat-servers).
+
+We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client as a Tor network complement.
+
+### Installation
+
+* Ensure that you are logged with user "admin" and add i2p repository
+
+  ```sh
+  $ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
+  ```
+
+* Install i2pd as any other software package
+
+  ```sh
+  $ sudo apt update
+  $ sudo apt install i2pd
+  ```
+
+### Configuration
+
+* Configure i2pd to not to relay any public I2P traffic and only permit I2P traffic from Bitcoin Core, uncomment `"notransit=true"`
+
+  ```sh
+  $ sudo nano /var/lib/i2pd/i2pd.conf
+  ```
+
+  ```sh
+  notransit = true
+  ```
+
+* Restart the service to apply changes
+
+  ```sh
+  $ sudo systemctl restart i2pd
+  ```
+  
+* Enable autoboot on start
+
+  ```sh
+  $ sudo systemctl enable i2pd
+  ```
+
+* Check the service started and the correct autoboot enabled
+
+  ```sh
+  $ sudo systemctl status i2pd
+  ```
+
+Expected output, find *"enabled"* and *"Started"* labels:
+
+  ```sh
+  * i2pd.service - I2P Router written in C++
+      Loaded: loaded (/lib/systemd/system/i2pd.service; enabled; vendor preset: enabled)
+      Active: active (running) since Thu 2022-08-11 15:35:54 UTC; 3 days ago
+        Docs: man:i2pd(1)
+              https://i2pd.readthedocs.io/en/latest/
+    Main PID: 828 (i2pd)
+        Tasks: 14 (limit: 9274)
+      Memory: 56.1M
+          CPU: 33min 28.265s
+      CGroup: /system.slice/i2pd.service
+              -175224 /usr/sbin/i2pd --conf=/etc/i2pd/i2pd.conf --tunconf=/etc/i2pd/tunnels.conf --tunnel...
+  Sep 27 18:54:57 minibolt systemd[1]: Starting I2P Router written in C++...
+  Sep 27 18:54:57 minibolt systemd[1]: Started I2P Router written in C++.
+  [...]
+  ```
+
+* Ensure that i2pd service is working and listening at the default ports
+
+  ```sh
+  $ sudo ss -tulpn | grep LISTEN | grep i2pd 
+  ```
+
+Expected output:
+
+  ```sh
+  tcp   LISTEN 0      4096            0.0.0.0:23570       0.0.0.0:*    users:(("i2pd",pid=827,fd=17))
+  tcp   LISTEN 0      4096           127.0.0.1:4444       0.0.0.0:*    users:(("i2pd",pid=827,fd=29))
+  tcp   LISTEN 0      4096           127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",pid=827,fd=22))
+  tcp   LISTEN 0      4096           127.0.0.1:4447       0.0.0.0:*    users:(("i2pd",pid=827,fd=30))
+  tcp   LISTEN 0      4096           127.0.0.1:7656       0.0.0.0:*    users:(("i2pd",pid=827,fd=38))
+  tcp   LISTEN 0      4096           127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",pid=827,fd=34))
+  ```
+
+* See “i2p” in action by monitoring its log file. Exit with Ctrl-C
+
+  ```sh
+  $ sudo tail -f /var/log/i2pd/i2pd.log
+  ```
+
+## For the future: upgrade Tor and I2P
+
+The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or on the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
 
   ```sh
   $ sudo apt update && sudo apt upgrade
   ```
-
----
 
 ## Extras
 

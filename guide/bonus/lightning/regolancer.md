@@ -119,7 +119,7 @@ To run it continuously, you will need to run it in a loop or a cron.
 * From user “admin”, open a “regolancer” user session and run the install script.
 
   ```sh
-  $ sudo su - regolancer
+  $ sudo su regolancer
   $ go install github.com/rkfg/regolancer@v1.6.x 
   ```
 

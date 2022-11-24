@@ -66,8 +66,6 @@ Status: Not tested MiniBolt
   $ cd
   ```
 
----
-
 ## lnbalance in action
 
 * With the "admin" user, run `lnchannels`
@@ -84,8 +82,6 @@ Status: Not tested MiniBolt
                                                                        Week:     752
                                                                       Month:   20385
   ```
-
----
 
 ## Uninstall
 

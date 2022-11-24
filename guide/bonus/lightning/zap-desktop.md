@@ -48,7 +48,7 @@ We enable access to LND through Remote Procedure Calls (RPC), allowing the Zap D
 
 * Add the following lines to the section `[Application Options]`. The netmask `/16` restricts access to all computers with an IP address of 192.168.*.* (i.e., the local network).
   
-  ```ini
+  ```sh
   # Add local network IP address to LND's TLS certificate
   tlsextraip=192.168.0.0/16
   rpclisten=0.0.0.0:10009
@@ -93,8 +93,6 @@ We will connect Zap to the RaspiBolt using a connection string that includes the
   > lndconnect://192.168.0.20:10009?cert=...
   ```
 
----
-
 ## Zap
 
 Now that we configured the node, we can install Zap on the local computer and connect it to our node.
@@ -117,8 +115,6 @@ Download and install Zap for your operating system following [this guide from Za
 
 You're set! You can now use Zap on your computer to send and receive LN payments, open and close channels, and monitor your node.
 
----
-
 ## Update
 
 Zap download and install updates automatically by default. If you want to disable the auto-update and update Zap manually:
@@ -126,8 +122,6 @@ Zap download and install updates automatically by default. If you want to disabl
 * Go to "File" > "Preferences" > "General"
 * Click on the autoupdate slider
 * Click "Save"
-
----
 
 ## Uninstall
 

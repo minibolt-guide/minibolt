@@ -46,8 +46,6 @@ Lightning Terminal, developped by Lighining Labs, aims at providing additional t
 
 Because Pool is alpha software, Lightning Terminal is also alpha software.  
 
----
-
 ## Preparations
 
 ### Firewall
@@ -58,8 +56,6 @@ Because Pool is alpha software, Lightning Terminal is also alpha software.
   $ sudo ufw allow from 192.168.0.0/16 to any port 8443 proto tcp comment 'allow Lightning Terminal SSL'
   $ sudo ufw status
   ```
-
----
 
 ## Installation
 
@@ -236,8 +232,6 @@ The settings for Pool, Faraday, Loop can all be put in the configuration file
 
 🔍 *Notice that the options for Faraday, Loop and Pool can be set in this configuration file but you must prefix the software with a dot as we made here. Use samples configuration files shown in github repo of each software for more options*
 
----
-
 ## Run Lightning Terminal
 
 ### Manual start
@@ -270,7 +264,7 @@ Now we’ll make sure Lightning Terminal starts as a service on the Raspberry Pi
   $ sudo nano /etc/systemd/system/litd.service
   ```
 
-  ```ini
+  ```sh
   # MiniBolt: systemd unit for litd
   # /etc/systemd/system/litd.service
   
@@ -412,8 +406,6 @@ Lightning Node Connect allows to connect to Lightning Terminal and the node from
 
 Congrats! You've connected your node to the web Terminal and can now manage it from anywhere.
 
----
-
 ## Lightning Terminal in action
 
 ### Loop
@@ -449,8 +441,6 @@ You can use Pool using the CLI (check `litpool --help`), the Lightning Terminal 
 
 * **For more information:** Check out the Faraday [documentation page](https://docs.lightning.engineering/lightning-network-tools/faraday){:target="_blank"}, the [GitHub repository](https://github.com/lightninglabs/faraday){:target="_blank"}, the Lightning Labs [blog post announcement](https://lightning.engineering/posts/2020-04-02-faraday/){:target="_blank"} and their latest feature [blog post](https://lightning.engineering/posts/2020-09-15-faraday-accounting/){:target="_blank"}.
 
----
-
 ## Optional: Set up the Loop service in Ride The Lightning
 
 If you have installed [Ride The Lightning](../../web-app.md), you can use the Loop submarine swap service directly from the RTL GUI:
@@ -464,8 +454,6 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
 * Then click the "Update" button
 * Go back to the navigation menu and click on "Services", then "Loop"
 * You can now perform loop ins and loop outs directly from RTL
-
----
 
 ## Upgrade
 
@@ -491,8 +479,6 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
   ```sh
   $ sudo systemctl start litd
   ```
-
----
 
 ## Uninstall
 
@@ -534,7 +520,7 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
   $ nano .bash_aliases
   ```
   
-  ```ini  
+  ```sh
   #alias litfaraday="frcli --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
   #alias litloop="loop --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
   #alias litpool="pool --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert" 

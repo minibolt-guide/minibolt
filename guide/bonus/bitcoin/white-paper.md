@@ -43,8 +43,6 @@ The transaction contains 947 outputs and the sender spent almost 60 millions sat
 
 This guide explains how to reconstruct the Bitcoin white paper PDF using your own verified blockchain data. No matter how censored the white paper could become (see [this article about white paper copyright claims](https://bitcoinmagazine.com/business/copa-suing-craig-wright-over-bitcoin-white-paper-claims){:target="_blank"}), you will know how to recreate and share the foundational document of Bitcoin.
 
----
-
 ## Extract the whitepaper directly from Bitcoin Core
 
 * With the "admin" user, create a new directory to store the PDF and move to this directory
@@ -68,8 +66,6 @@ This guide explains how to reconstruct the Bitcoin white paper PDF using your ow
   $ ls -la
   > bitcoin.pdf
   ```
-
----
 
 ### How does this work?
 
@@ -107,8 +103,6 @@ Here's how the long command from above actually works:
 This concatenation of simple commands is a shining example of one of the core principles of Linux.
 The character `|` allows to string them together to create powerful yet efficient data processing.
 
----
-
 ### Send the PDF to your computer
 
 To be read, the PDF can now be sent from the remote node to your local computer using the [scp](https://www.man7.org/linux/man-pages/man1/scp.1.html){:target="_blank"} utility.
@@ -145,8 +139,6 @@ See [How to Use Putty pscp to Copy Files](https://tonyteaches.tech/putty-pscp-tu
   ```
 
 * The PDF should now be available for download in your Telegram bot.
-
----
   
 ## Get the whitepaper from BTC RPC Explorer
 

@@ -61,6 +61,10 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../../bitco
   $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Fulcrum SSL from local network'
   ```
 
+  ```sh
+  $ sudo ufw allow from 192.168.0.0/16 to any port 50001 proto tcp comment 'allow Fulcrum TCP from local network'
+  ```
+
 ### Configure Bitcoin Core
 
 We need to set up settings in Bitcoin Core configuration file - add new lines if they are not present
@@ -195,6 +199,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   cert = /data/fulcrum/cert.pem
   key = /data/fulcrum/key.pem
   ssl = 0.0.0.0:50002
+  tcp = 0.0.0.0:50001
   peering = false
   # Set fast-sync accorling with your device, recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   fast-sync = 2048
@@ -300,7 +305,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
 💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days. Only proceed with the [Desktop Wallet Section](../../bitcoin/desktop-wallet.md) once Fulcrum is ready.
 
-* Ensure that Fulcrum service is working and listening at the default `50002` port
+* Ensure that Fulcrum service is working and listening at the default `50002` & `50001` ports
 
   ```sh
   $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum 
@@ -361,20 +366,33 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
   ```sh
   ############### This section is just for location-hidden services ###
   # Hidden Service Fulcrum SSL
-  HiddenServiceDir /var/lib/tor/hidden_service_fulcrum/
+  HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
   HiddenServiceVersion 3
   HiddenServicePort 50002 127.0.0.1:50002
+
+  # Hidden Service Fulcrum TCP
+  HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp/
+  HiddenServiceVersion 3
+  HiddenServicePort 50001 127.0.0.1:50001
   ```
 
 * Reload Tor configuration and get your connection address
 
   ```sh
   $ sudo systemctl reload tor
-  $ sudo cat /var/lib/tor/hidden_service_fulcrum/hostname
+  ```
+
+  ```sh
+  $ sudo cat /var/lib/tor/hidden_service_fulcrum_ssl/hostname
   > abcdefg..............xyz.onion
   ```
 
-* You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 50002
+  ```sh
+  $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp/hostname
+  > abcdefg..............xyz.onion
+  ```
+
+* You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 50002 (ssl) or 50001 (tcp)
 
 ### Install zram-swap (recommended for slow devices)
 
@@ -551,9 +569,14 @@ Ensure you are logged with user "admin"
   ```sh
   ############### This section is just for location-hidden services ###
   # Hidden Service Fulcrum SSL
-  #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum/
+  #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
   #HiddenServiceVersion 3
   #HiddenServicePort 50002 127.0.0.1:50002
+
+  # Hidden Service Fulcrum TCP
+  #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp/
+  #HiddenServiceVersion 3
+  #HiddenServicePort 50001 127.0.0.1:50001
   ```
 
 * Reload torrc config
@@ -569,6 +592,7 @@ Ensure you are logged with user "admin"
   ```sh
   $ sudo ufw status numbered
   > [X] 50002                   ALLOW IN    192.168.0.0/16                   # allow Fulcrum SSL from local network
+  > [Y] 50001                   ALLOW IN    192.168.0.0/16                   # allow Fulcrum TCP from local network
   ```
 
 * Delete the rule with the correct number and confirm with "yes"

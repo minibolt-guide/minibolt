@@ -61,7 +61,7 @@ Status: Not tested MiniBolt
   ```sh
   $ sudo adduser --disabled-password --gecos "" bos
   $ sudo adduser bos lnd
-  $ sudo su - bos
+  $ sudo su bos
   ```
 
 * Create symlink to lnd directory
@@ -126,8 +126,6 @@ Status: Not tested MiniBolt
   $ bos -V
   > v12.4.1
   ```
-
----
 
 ## Balance of Satoshis in action
 
@@ -196,10 +194,10 @@ A good illustration is provided in Chapter 5 of 'Mastering the Lightning Network
 
 * E.g. using the example above:
 
-  *  with node B being the [Bitrefill node](https://amboss.space/node/03d607f3e69fd032524a867b288216bfab263b6eaee4e07783799a6fe69bb84fac){:target="_blank"},
-  *  node C being the [CoinOS node](https://amboss.space/node/02868e12f320073cad0c2959c42559fbcfd1aa326fcb943492ed7f02c9820aa399){:target="_blank"}
-  *  rebalancing 50,000 sats
-  *  with a maximum fee rate that you are ready to pay of 100 ppm max
+  * with node B being the [Bitrefill node](https://amboss.space/node/03d607f3e69fd032524a867b288216bfab263b6eaee4e07783799a6fe69bb84fac){:target="_blank"},
+  * node C being the [CoinOS node](https://amboss.space/node/02868e12f320073cad0c2959c42559fbcfd1aa326fcb943492ed7f02c9820aa399){:target="_blank"}
+  * rebalancing 50,000 sats
+  * with a maximum fee rate that you are ready to pay of 100 ppm max
 
   ```sh
   $ bos rebalance --amount 50000 --max-fee-rate 100 --in 02868e12f320073cad0c2959c42559fbcfd1aa326fcb943492ed7f02c9820aa399 --out 03d607f3e69fd032524a867b288216bfab263b6eaee4e07783799a6fe69bb84fac
@@ -257,13 +255,11 @@ BoS allows to create user-defined tags to classify nodes and then be used in the
 
 There are many additional options that can be used to improve the likelihood of a successful circular rebalancing. There are also many addditonal commands in addition to the rebalancing command. More information on all bos commands can be found in:
 
-  *  [The BoS Github repository](https://github.com/alexbosworth/balanceofsatoshis){:target="_blank"}
+  * [The BoS Github repository](https://github.com/alexbosworth/balanceofsatoshis){:target="_blank"}
 
-  *  [This unofficial documentation repo](https://github.com/niteshbalusu11/BOS-Commands-Document){:target="_blank"} *(note that this page might not be kept up-to-date)*
+  * [This unofficial documentation repo](https://github.com/niteshbalusu11/BOS-Commands-Document){:target="_blank"} *(note that this page might not be kept up-to-date)*
 
 You can also join the Balance of Satoshis Telegram group to get support: [https://t.me/balanceofsatoshis](https://t.me/balanceofsatoshis){:target="_blank"}
-
----
 
 ## Upgrade
 
@@ -333,8 +329,6 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
   > v99.99.9
   ```
 
----
-
 ## Uninstall
 
 If you want to uninstall Balance of Satoshis:
@@ -342,11 +336,9 @@ If you want to uninstall Balance of Satoshis:
 * Log in with the "root" user and delete the "bos" user
 
   ```sh
-  $ sudo su -
+  $ sudo su
   $ userdel -r bos
   ```
-
----
 
 ## Optional: connect your node to a Telegram bot
 
