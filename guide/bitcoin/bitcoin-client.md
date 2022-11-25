@@ -78,7 +78,7 @@ This is a precaution to make sure that this is an official release and not a mal
   You can find many developer keys listed in the builder-keys repository, which you can then load into your GPG key database.
 
   ```sh
-  $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/builder-keys/keys.txt
+  $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/builder-keys/keys.txt -O keys.txt
   $ while read fingerprint keyholder_name; do gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys ${fingerprint}; done < ./keys.txt
   > gpg: key 188CBB2648416AD5: public key ".0xB10C <b10c@b10c.me>" imported
   > gpg: Total number processed: 1
@@ -275,6 +275,12 @@ We'll also set the proper access permissions.
   blocksonly=1
   ```
 
+* Set permissions: only the user 'bitcoin' and members of the 'bitcoin' group can read it
+
+  ```sh
+  $ chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
+  ```
+
 * Exit the “bitcoin” user session back to user “admin”
 
   ```sh
@@ -355,8 +361,6 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $ tail -f /home/bitcoin/.bitcoin/debug.log
   ```
 
-Monitor the log file for a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
-
 Expected output:
 
   ```sh
@@ -384,6 +388,8 @@ Expected output:
   [...]
   ```
 
+Monitor the log file for a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
+
 * Link the Bitcoin data directory from the "admin" user home directory as well.
   This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
 
@@ -391,7 +397,7 @@ Expected output:
   $2 ln -s /data/bitcoin /home/admin/.bitcoin
   ```
 
-* Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor and I2P addresses.
+* Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
 
   ```sh
   $2 bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo | grep address.*i2p
@@ -421,7 +427,7 @@ Example expected output:
 
 ## Bitcoin Core is syncing
 
-This can take between one day and a week, depending mostly on your external drive (SSD good, HDD bad; USB3 good, USB2 very bad).
+This can take between one day and a week, depending mostly on your PC performance.
 It's best to wait until the synchronization is complete before going ahead.
 
 ### Explore bitcoin-cli
@@ -471,7 +477,7 @@ When we installed Bitcoin Core, we verified the timestamp of the checksum file u
 In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third-party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
 Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client){:target="_blank"} to locally verify the timestamp of the binaries checksums file.
 
-* Install dependencies
+* As user "admin", install dependencies
 
   ```sh
   $ sudo apt-get install python3-dev python3-pip python3-wheel
@@ -537,18 +543,6 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   seednode=aovep2pco7v2k4rheofrgytbgk23eg22dczpsjqgqtxcqqvmxk6a.b32.i2p:0
   seednode=bddbsmkas3z6fakorbkfjhv77i4hv6rysyjsvrdjukxolfghc23q.b32.i2p:0
   seednode=bitcoi656nll5hu6u7ddzrmzysdtwtnzcnrjd4rfdqbeey7dmn5a.b32.i2p:0
-  seednode=brifkruhlkgrj65hffybrjrjqcgdgqs2r7siizb5b2232nruik3a.b32.i2p:0
-  seednode=c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p:0
-  seednode=day3hgxyrtwjslt54sikevbhxxs4qzo7d6vi72ipmscqtq3qmijq.b32.i2p:0
-  seednode=di2zq6fr3fegf2jdcd7hdwyql4umr462gonsns2nxz5qg5vz4bka.b32.i2p:0
-  seednode=e55k6wu46rzp4pg5pk5npgbr3zz45bc3ihtzu2xcye5vwnzdy7pq.b32.i2p:0
-  seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
-  seednode=ejlnngarmhqvune74ko7kk55xtgbz5i5ncs4vmnvjpy3l7y63xaa.b32.i2p:0
-  seednode=g47cqoppu26pr4n2cfaioqx7lbdi7mea7yqhlrkdz3wjwxjxdh2a.b32.i2p:0
-  seednode=h3r6bkn46qxftwja53pxiykntegfyfjqtnzbm6iv6r5mungmqgmq.b32.i2p:0
-  seednode=hhfi4yqkg2twqiwezrfksftjjofbyx3ojkmlnfmcwntgnrjjhkya.b32.i2p:0
-  seednode=hpiibrflqkbrcshfhmrtwfyeb7mds7a3obzwrgarejevddzamvsq.b32.i2p:0
-  seednode=i4pyhsfdq4247dunel7paatdaq5gusi2hnybp2yf5wxwdnrgxaqq.b32.i2p:0
   ```
 
 ### Slow device mode
@@ -587,27 +581,28 @@ When upgrading, there might be breaking changes, or changes in the data structur
 
 Download, verify, extract and install the Bitcoin Core binaries as described in the [Bitcoin section](bitcoin-client.md#installation) of this guide. When checking the timestamp, instead of using the website, use the following command:
 
-* Download the timestamp in the same directory as the checksum and signature files, i.e. /tmp
+* Download the timestamp in the same directory as the checksum and signature files
 
   ```sh
-  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS
+  $ cd /tmp
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS.ots
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS
   ```
 
-* Verify the timestamp
+* Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installed correctly OTS client in the [properly section](#opentimestamps-client)
 
   ```sh
   $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
   ```
 
-* Expected output
+Expected output
 
   ```sh
-  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
   > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
   > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-  > Bitcoin block 764525 attests existence as of 2022-11-24 CET
+  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+  > Success! Bitcoin block 764525 attests existence as of 2022-11-24 UTC
   ```
 
 Now, just check that the timestamp date is close to the release date of the version you're installing.

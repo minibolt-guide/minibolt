@@ -89,13 +89,12 @@ We can also check that the manifest file was in existence around the time of the
 
   ```sh
   $ ots --no-cache verify manifest-guggero-v0.15.4-beta.sig.ots -f manifest-guggero-v0.15.4-beta.sig
+  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
   > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
   > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
-  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
-  > Success! Bitcoin block 761269 attests existence as of 2022-11-01 CET
+  > Success! Bitcoin block 761269 attests existence as of 2022-11-01 UTC
   ```
-  
+
 * Check that the date of the timestamp (here 2022-11-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-11-01).
 
 ### Configure Bitcoin Core
