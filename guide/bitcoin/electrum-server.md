@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Fulcrum server
+title: Electrum server
 nav_order: 20
 parent: Bitcoin
 ---

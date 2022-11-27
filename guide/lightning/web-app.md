@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ThunderHub
+title: Web app
 nav_order: 30
 parent: Lightning
 ---
