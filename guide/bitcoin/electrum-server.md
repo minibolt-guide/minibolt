@@ -210,8 +210,11 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   ssl = 0.0.0.0:50002
   tcp = 0.0.0.0:50001
   peering = false
-  # Set fast-sync accorling with your device, recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
+
+  # Set fast-sync accorling with your device, 
+  # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   fast-sync = 2048
+
   # Banner
   banner = /data/fulcrum/fulcrum-banner.txt
   ```
@@ -337,7 +340,7 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
   HiddenServicePort 50001 127.0.0.1:50001
   ```
 
-* Reload Tor configuration and get your connection address
+* Reload Tor configuration and get your connection addresses
 
   ```sh
   $ sudo systemctl reload tor

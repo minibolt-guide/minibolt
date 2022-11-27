@@ -123,6 +123,7 @@ Cost: Free service
 Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt guide.
 
 * Preparations
+
   * [Preparations](guide/system/preparations.md)
   * [Operating system](guide/system/operating-system.md)
   * [Remote access](guide/system/remote-access.md)
@@ -140,7 +141,7 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
 * Lightning
 
   * [Lightning client](guide/lightning/lightning-client.md)
-  * [Web app](guide/bonus/lightning/thunderhub.md)
+  * [Web app](guide/lightning/web-app.md)
 
 ---
 
