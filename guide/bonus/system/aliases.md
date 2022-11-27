@@ -22,7 +22,7 @@ Difficulty: Easy
 Status: Tested MiniBolt
 {: .label .label-blue }
 
-![alias](../../../images/aliases-demo.png)
+![alias](../../../images/aliases-demo.PNG)
 
 ---
 

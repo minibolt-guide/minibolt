@@ -31,12 +31,12 @@ Status: Tested MiniBolt
 
 ## Run your own blockchain explorer
 
-After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with Electrs, the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer.
+After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with Fulcrum, the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer.
 It lets you query transactions, addresses, and blocks of your choice.
 You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
 
 [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer){:target="_blank"} provides a lightweight and easy to use web interface to accomplish just that.
-It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin Core and Electrs via RPC.
+It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin Core and Fulcrum via RPC.
 
 ## Preparations
 
@@ -116,16 +116,16 @@ An attacker would not be able to do much within this user's permission settings.
 Installation can take some time, up to 20 minutes.
 There might be a lot of confusing output, but if you see something similar to the following, the installation was successful:
 
-```
-Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-amd64-83/binding.node
-added 480 packages from 307 contributors and audited 482 packages in 570.14s
-
-43 packages are looking for funding
-  run `npm fund` for details
-
-found 12 vulnerabilities (8 moderate, 4 high)
-  run `npm audit fix` to fix them, or `npm audit` for details
-```
+  ```sh
+  > Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-amd64-83/binding.node
+  > added 480 packages from 307 contributors and audited 482 packages in 570.14s
+  > 
+  > 43 packages are looking for funding
+  >   run `npm fund` for details
+  > 
+  > found 12 vulnerabilities (8 moderate, 4 high)
+  >   run `npm audit fix` to fix them, or `npm audit` for details
+  ```
 
 ### Configuration
 
@@ -146,11 +146,11 @@ found 12 vulnerabilities (8 moderate, 4 high)
   ```
 
 * To get address balances, either an Electrum server or an external service is necessary.
-  Your local Electrs server can provide address transaction lists, balances, and more.
+  Your local Fulcrum server can provide address transaction lists, balances, and more.
 
   ```sh
   BTCEXP_ADDRESS_API=electrum
-  BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
+  BTCEXP_ELECTRUM_SERVERS=tls://127.0.0.1:50002
   ```
 
 * Uncomment this line
@@ -199,6 +199,12 @@ found 12 vulnerabilities (8 moderate, 4 high)
 
 * Save and exit
 
+* Exit "btcrpcexplorer" user session to return to "admin" user session
+
+  ```sh
+  $ exit
+  ```
+
 ### Autostart on boot
 
 Now we'll make sure our blockchain explorer starts as a service on the Raspberry Pi so that it's always running.
@@ -218,7 +224,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
 
   [Unit]
   Description=BTC RPC Explorer
-  After=bitcoind.service electrs.service
+  After=bitcoind.service fulcrum.service
   PartOf=bitcoind.service
 
   [Service]

@@ -58,7 +58,7 @@ has_toc: false
 
 * **[LNBits](lnbits.md)** - a lightning wallet/accounts system
 * **[LNDg](lndg.md)** - a simple web GUI for power users to automate the management of routing nodes
-* **[ThunderHub](thunderhub.md)** - a browser interface to manage all parts of your LN node like forwarding fees, channel opening/closing, usage of lnurl and much more.
+* **[Ride the Lightning](ride-the-lightning.md)** - a full function web browser app for LND, C-Lightning and Eclair
 
 ---
 

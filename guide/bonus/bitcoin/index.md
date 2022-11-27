@@ -16,8 +16,8 @@ has_toc: false
 
 ## Electrum servers
 
-* **[Fulcrum](fulcrum.md)** - a fast & nimble SPV server for Bitcoin Cash, Bitcoin BTC, and Litecoin.
-* **[Electrum Personal Server](electrum-personal-server.md)** - an alternative to Electrs
+* **[Electrs](electrs.md)** - an efficient re-implementation of Electrum Server in Rust
+* **[Electrum Personal Server](electrum-personal-server.md)** - maximally lightweight electrum server for a single user
 
 ---
 

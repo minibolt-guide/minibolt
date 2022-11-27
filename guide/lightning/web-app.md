@@ -1,28 +1,31 @@
 ---
 layout: default
-title: Web app
+title: ThunderHub
 nav_order: 30
 parent: Lightning
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Web app
+# Web app: ThunderHub
 
 {: .no_toc }
 
 ---
 
-We install [Ride The Lightning](https://github.com/Ride-The-Lightning/RTL#readme){:target="_blank"}, a powerful web interface to manage your Lightning node.
+[ThunderHub](https://github.com/apotdevin/thunderhub){:target="_blank"} is an open source LND node manager where you can manage and monitor your node on any device or browser. It allows you to take control of the lightning network with a simple and intuitive UX and the most up-to-date tech stack.
 
-Status: Not tested MiniBolt
-{: .label .label-red }
+Difficulty: Medium
+{: .label .label-yellow }
 
-![Ride The Lightning dashboard](../../images/rtl-homepage.png)
+Status: Tested MiniBolt
+{: .label .label-blue }
+
+![Thunderhub](../../images/thunderhub.png)
 
 ---
 
 ## Table of contents
-{: .no_toc .text-delta }
+{: .text-delta }
 
 1. TOC
 {:toc}
@@ -40,179 +43,154 @@ Status: Not tested MiniBolt
   > v16.14.2
   ```
 
-* If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow [this guide](https://raspibolt.org/guide/bitcoin/blockchain-explorer.html#install-nodejs){:target="_blank"} to install it.
+* If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow [this guide](../../guide/bitcoin/blockchain-explorer.md#install-nodejs){:target="_blank"} to install it.
 
-### Firewall & reverse proxy
+### Firewall & Reverse Proxy
 
-In the [Security section](../raspberry-pi/security.md#prepare-nginx-reverse-proxy), we already set up NGINX as a reverse proxy.
-Now we can add the RTL configuration.
-
-* Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to RTL
+* Configure firewall to allow incoming HTTP requests from your local network to the web server.
 
   ```sh
-  $ sudo nano /etc/nginx/streams-enabled/rtl-reverse-proxy.conf
+  $ sudo ufw allow from 192.168.0.0/16 to any port 4002 proto tcp comment 'allow ThunderHub SSL from local network'
   ```
 
+* Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to Thunderhub
+
   ```sh
-  upstream rtl {
-    server 127.0.0.1:3000;
+  $ sudo nano /etc/nginx/streams-enabled/thunderhub-reverse-proxy.conf
+  ```
+
+  ```nginx
+  upstream thunderhub {
+    server 127.0.0.1:3010;
   }
   server {
-    listen 4001 ssl;
-    proxy_pass rtl;
+    listen 4002 ssl;
+    proxy_pass thunderhub;
   }
   ```
 
 * Test and reload NGINX configuration
-
+  
   ```sh
   $ sudo nginx -t
   $ sudo systemctl reload nginx
   ```
 
-* Configure firewall to allow incoming HTTPS requests:
-
-  ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4001 proto tcp comment 'allow Ride The Lightning SSL from local network'
-  $ sudo ufw status
-  ```
-
-## Ride the Lightning
+## ThunderHub
 
 ### Installation
 
-We do not want to run Ride the Lightning alongside bitcoind and lnd because of security reasons. For that we will create a separate user and we will be running the code as the new user. We are going to install Ride the Lightning in the home directory since it doesn’t take much space and doesn’t use a database.
+We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons.
+For that we will create a separate user and we will be running the code as the new user.
+We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
-* Create a new user, copy the LND credentials and open a new session
-  
-  ```sh
-  $ sudo adduser --disabled-password --gecos "" rtl
-  $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/rtl/admin.macaroon
-  $ sudo chown rtl:rtl /home/rtl/admin.macaroon
-  $ sudo su rtl
-  ```
-
-* Download the PGP keys that are used to sign the software release
-
-  ```
-  $ curl https://keybase.io/suheb/pgp_keys.asc | gpg --import
-  > gpg: key 00C9E2BC2E45666F: public key "saubyk (added uid) <39208279+saubyk@users.noreply.github.com>" imported
-  ```
-
-* Retrieve the source code repository, check for the latest release and verify the code signature
+* Create a new "thunderhub" user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`, so we add him to the "lnd" group. Open a new session.
 
   ```sh
-  $ git clone https://github.com/Ride-The-Lightning/RTL.git
-  $ cd RTL
+  $ sudo adduser --disabled-password --gecos "" thunderhub
+  $ sudo adduser thunderhub lnd
+  $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/admin.macaroon
+  $ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
+  $ sudo su thunderhub
   ```
 
-  ```sh
-  $ git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1
-  > v0.13.2
-  ```
+* Download the source code directly from GitHub and install all dependencies using NPM.
 
   ```sh
-  $ git checkout v0.13.2
-  ```
-
-  ```sh
-  $ git verify-tag v0.13.2
-  > gpg: Signature made Tue 22 Nov 2022 03:04:55 CET
-  > gpg:                using RSA key 3E9BD4436C288039CA827A9200C9E2BC2E45666F
-  > gpg: Good signature from "saubyk (added uid) <39208279+saubyk@users.noreply.github.com>" [unknown]
-  > gpg:                 aka "Suheb <39208279+saubyk@users.noreply.github.com>" [unknown]
-  > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: 3E9B D443 6C28 8039 CA82  7A92 00C9 E2BC 2E45 666F
-  ```
-
-* Now install RTL through the Node Package Manager (NPM).
-  Downloading all dependencies can sometimes be very slow, so be patient and let the process run its course.
-
-  ```sh
-  $ npm install --omit=dev
-  ```
-
-The installation can take some time, and can hang on a single package for a long time.
-If that happens, just be patient and wait a bit longer.
-If anything's wrong, it will time out sooner or later.
-
-* Also, there might be a lot of confusing output.
-If you something similar to the following at the end, installation was successful:
-
-  ```sh
-  [...]
-  added 362 packages, and audited 363 packages in 12m
-  
-  24 packages are looking for funding
-    run `npm fund` for details
-  
-  found 0 vulnerabilities
+  $ git clone https://github.com/apotdevin/thunderhub.git
+  $ cd thunderhub
+  $ npm install
+  $ npm run build
   ```
 
 ### Configuration
 
-Now we take the sample configuration file and add change it to our needs.
-
-* Copy the sample config file, and open it in the text editor.
-
-  ```sh
-  $ cp Sample-RTL-Config.json ./RTL-Config.json
-  $ nano RTL-Config.json
-  ```
-
-* Set `password [E]` to access the RTL web interface. This should be a dedicated password not used anywhere else.
+* Still with user "thunderhub", create a symbolic link pointing to your lnd data directory.
+  Check if the link is working. If nothing is displayed in red you are good to go.
 
   ```sh
-    "multiPass": "YourPassword[E]"
+  $ ln -s /data/lnd /home/thunderhub/.lnd
   ```
 
-* Specify the values where RTL can find the authentication macaroon file and the LND configuration
+* Copy and open the configuration file
 
   ```sh
-    "macaroonPath": "/home/rtl"
-    "configPath": "/data/lnd/lnd.conf"
+  $ cd ~/thunderhub
+  $ cp .env .env.local
+  $ nano .env.local
   ```
 
-* Change `localhost` to `127.0.0.1` on the following lines to avoid errors
+* Edit the following lines, save and exit:
 
   ```sh
-    "lnServerUrl": "https://127.0.0.1:8080"
-    "swapServerUrl": "https://127.0.0.1:8081"
-    "boltzServerUrl": "https://127.0.0.1:9003"
+  # -----------
+  # Server Configs
+  # -----------
+  LOG_LEVEL='debug'
+  TOR_PROXY_SERVER=socks://127.0.0.1:9050
+  NODE_ENV=production
+  PORT=3010
+
+  # -----------
+  # Account Configs
+  # -----------
+  ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
   ```
 
-* Save and exit
+* If not already done, change your directory and edit your `thubConfig.yaml`. Change your `accountpassword`.
 
-### Autostart on boot
+  ```sh
+  $ cd ~/thunderhub
+  $ nano thubConfig.yaml 
+  ```
 
-Now we'll make sure Ride The Lightning starts as a service on the PC so it's always running.
-In order to do that, we create a systemd unit that starts the service on boot directly after LND.
+  ```sh
+  masterPassword: 'PASSWORD' # Default password unless defined in account
+  accounts:
+    - name: 'MiniBolt'
+      serverUrl: '127.0.0.1:10009'
+      macaroonPath: '/home/thunderhub/admin.macaroon'
+      certificatePath: '/home/thunderhub/.lnd/tls.cert'
+      password: 'accountpassword'
+  ```
+
+* Exit "thunderhub" user session to return to "admin" user session
+
+  ```sh
+  $ exit
+  ```
+
+## Autostart on boot
+
+Now we'll make sure ThunderHub starts as a service on the PC so it's always running.
+In order to do that we create a systemd unit that starts the service on boot directly after LND.
 
 * As user "admin", create the service file.
 
   ```sh
-  $ sudo nano /etc/systemd/system/rtl.service
+  $ sudo nano /etc/systemd/system/thunderhub.service
   ```
 
 * Paste the following configuration. Save and exit.
 
-  ```ini
-  # MiniBolt: systemd unit for Ride the Lightning
-  # /etc/systemd/system/rtl.service
+  ```sh
+  # MiniBolt: systemd unit for Thunderhub
+  # /etc/systemd/system/thunderhub.service
 
   [Unit]
-  Description=Ride the Lightning
+  Description=Thunderhub
   After=lnd.service
   PartOf=lnd.service
 
   [Service]
-  WorkingDirectory=/home/rtl/RTL
-  ExecStart=/usr/bin/node rtl
-  User=rtl
-
+  WorkingDirectory=/home/thunderhub/thunderhub
+  ExecStart=/usr/bin/npm run start:prod
+  User=thunderhub
   Restart=always
+  TimeoutSec=120
   RestartSec=30
+  StandardOutput=null
+  StandardError=journal
 
   [Install]
   WantedBy=multi-user.target
@@ -221,16 +199,16 @@ In order to do that, we create a systemd unit that starts the service on boot di
 * Enable the service
 
   ```sh
-  $ sudo systemctl enable rtl
+  $ sudo systemctl enable thunderhub
   ```
 
-* Prepare "rtl" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+* Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
-  ```sh
-  $ sudo journalctl -f -u rtl
+  ```
+  $ sudo journalctl -f -u thunderhub
   ```
 
-## Run RTL
+## Run Thunderhub
 
 [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
@@ -238,88 +216,168 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 * Start the service.
 
   ```sh
-  $2 sudo systemctl start rtl
+  $2 sudo systemctl start thunderhub.service
   ```
 
-Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://minibolt.local:4001> (or your nodes IP address like <https://192.168.0.20:4001>). You should see the home page of BTC RPC Explorer.
+* Now point your browser to `https://raspibolt.local:4002` (or whatever you chose as hostname) or the ip address (e.g. `https://192.168.0.20:4002`).
+  You should see the home page of ThunderHub.
 
 Your browser will display a warning because we use a self-signed SSL certificate.
 We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
 Click on "Advanced" and proceed to the Block Explorer web interface.
 
 **Congratulations!**
-You now have Ride the Lightning running to manage your Lightning service on our own node.
+You now have Thunderhub up and running.
 
-### Remote access over Tor (optional)
+## Remote access over Tor (optional)
 
-You can easily add a Tor hidden service on the RaspiBolt and access the Ride the Lightning interface with the Tor browser from any device.
+Do you want to access ThunderHub remotely?
+You can easily do so by adding a Tor hidden service on the RaspiBolt and accessing ThunderHub with the Tor browser from any device.
 
-* Add the following three lines in the section for "location-hidden services" in the `torrc` file. Save and exit
+* Add the following three lines in the section for "location-hidden services" in the `torrc` file.
+  Save and exit.
 
   ```sh
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```ini
+  ```sh
   ############### This section is just for location-hidden services ###
-  # Hidden Service RTL
-  HiddenServiceDir /var/lib/tor/hidden_service_rtl/
+  # Hidden Service Thunderhub
+  HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
   HiddenServiceVersion 3
-  HiddenServicePort 80 127.0.0.1:3000
+  HiddenServicePort 80 127.0.0.1:3010
   ```
 
-Update Tor configuration changes and get your connection address.
+* Restart Tor and get your connection address.
 
   ```sh
   $ sudo systemctl reload tor
-  $ sudo cat /var/lib/tor/hidden_service_rtl/hostname
-  > abcefg...................zyz.onion
+  $ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
+  > abcdefg..............xyz.onion
   ```
 
-With the Tor browser (link this), you can access this onion address from any device.
+* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device.
 
-### Enable 2-Factor-Authentication
+## Upgrade
 
-If you want to be extra careful, you can enable 2FA for access to your RTL interface.
+Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straight-forward.
 
-* Log in to RTL
-* Click on the RTL logo top right, and choose "Settings"
-* Select the "Authentication" tab and click on the "Enable 2FA" button
-* Follow the instructions, using a 2FA app like Google Authenticator or Authy
-
-## For the future: RTL upgrade
-
-Updating to a [new release](https://github.com/Ride-The-Lightning/RTL/releases){:target="_blank"} is straight-forward.
-Make sure to read the release notes first.
-
-* From user "admin", stop the service and open a "rtl" user session.
+* From user "admin", stop the service and open a "thunderhub" user session.
 
   ```sh
-  $ sudo systemctl stop rtl
-  $ sudo su rtl
+  $ sudo systemctl stop thunderhub
+  $ sudo su thunderhub
   ```
 
-* Fetch the latest GitHub repository information, display the latest release tag, ignoring release cadidates and update:
+* Run the update command provided within the package:
 
   ```sh
-  $ cd /home/rtl/RTL
-  $ git fetch
-  $ git reset --hard
-  $ latest=$(git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1)
-  $ git checkout $latest
-  $ git verify-tag $latest
-  $ npm install --omit=dev
+  $ cd ~/thunderhub
+  $ npm run update
   $ exit
   ```
 
 * Start the service again.
 
   ```sh
-  $ sudo systemctl start rtl
+  $ sudo systemctl start thunderhub
   ```
 
-<br /><br />
+## Uninstall
+
+### Uninstall service
+
+* Stop, disable and delete the Thunderhub systemd service
+
+   ```sh
+  $ sudo systemctl stop thunderhub
+  $ sudo systemctl disable thunderhub
+  $ sudo rm /etc/systemd/system/thunderhub.service
+  ```
+
+### Uninstall FW configuration
+
+* Display the UFW firewall rules and notes the numbers of the rules for Thunderhub (e.g., X and Y below)
+
+  ```sh
+  $ sudo ufw status numbered
+  > [...]
+  > [X] 4002                   ALLOW IN    Anywhere                   # allow Thunderhub SSL
+  ```
+
+* Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
+
+  ```sh
+  $ sudo ufw delete Y
+  $ sudo ufw delete X  
+  ```
+
+### Uninstall Thunderhub
+
+* Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`.
+
+  ```sh
+  $ sudo su
+  $ userdel -r thunderhub
+  > userdel: thunderhub mail spool (/var/mail/thunderhub) not found
+  ```
+
+### Uninstall Tor hidden service
+
+* Comment or remove fulcrum hidden service in torrc. Save and exit
+
+  ```sh
+  $ sudo nano /etc/tor/torrc
+  ```
+
+  ```sh
+  ############### This section is just for location-hidden services ###
+  # Hidden Service Thunderhub
+  #HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
+  #HiddenServiceVersion 3
+  #HiddenServicePort 80 127.0.0.1:3010
+  ```
+
+* Reload torrc config
+
+  ```sh
+  $ sudo systemctl reload tor
+  ```
+
+## Extras
+
+### Access to your Amboss node account
+
+* In the "Home" screen - "Quick Actions" section, click on Amboss icon "Login", wait to the top right corner notification to show you "Logged in" and click again on the Amboss icon "Go to". This will open a secondary tab in your browser to access your Amboss account node.
+
+Advice: If you can't do "Login", maybe the cause is because you don't have a channel opened yet. Planning to open a small size channel to be connected with the Lightning Network and to the Amboss node.
+
+* Making sure we are connected to the Amboss account, now back to Thunderhub for the next steps.
+
+### Enable auto backups and healthcheck notifications to Amboss account
+
+1. Open the “Settings” by pressing the cogwheel in the top right corner of the Thunderhub
+1. Switch to "Yes" -> Amboss: "Auto backups" and "Healthcheck Pings"
+1. Test pushing a backup to Amboss by entering in the "Tools" section, to the left main menu
+1. Press to "Push" button to test the correct working
+1. Go back to Amboss website and access "Account" in the main menu
+1. Access to "Backup" and ensure that the last date of the backup is the same as before done. It is recommended to download the backup file and store it in a safe place for future recovers. The backup file will be updated automatically in Amboss for every channel opening and closing. You could do this too in the "Tools" section in Thunderhub, "Backups" -> "Backup all channels" -> "Download" button.
+1. In Amboss, access "Monitoring" to configure "Healthcheck Settings".
+
+💡 Feel free to link to Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account.
+
+### Recovering channels using Thunderhub method
+
+After possible data corruption of your LND node, ensure that this old node is completely off. Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete and Thunderhub installed, access to the Thunderhub dashboard
+
+1. Access to the "Tools" section, "Backups" -> "Recover Funds from channels" -> "Recover" button
+1. Enter the complete string text of your previously downloaded channels backup file in the step before and push the "Recover" button. All of the channels that you had opened in your old node will be forced closed and they will appear in the "Pending" tab in the "Channels" section until closings are confirmed
+
+⚠️ Use this guide as a last resort if you have lost access to your node or are unable to start LND due to a fatal error. This guide will close all your channels. Your funds will become available on-chain at varying speeds.
 
 ---
+  
+<br /><br />
 
-Next: [Mobile app >>](mobile-app.md)
+<< Back: [+ Lightning](index.md)

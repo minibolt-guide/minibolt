@@ -178,7 +178,7 @@ We create a shell script to monitor `channel.backup` and make a copy to our back
 
 We set up the backup script as a systemd service to run in the background and start automatically on system startup.
 
-* Create a new service file
+* As user `admin`, create a new service file
 
   ```sh
   sudo nano /etc/systemd/system/scb-backup.service
@@ -280,7 +280,7 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
   $ sudo nano --linenumbers /usr/local/bin/scb-backup
   ```
 
-  ```ini
+  ```sh
   $ LOCAL_BACKUP_ENABLED=true
   ```
 
@@ -292,7 +292,7 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
 ## Option 2: Remote backup preparations
 
-Follow this section if you want a remote backup. If you already set up a local backup, and don't want a remote backup, skip to the [next section](#test-1).
+Follow this section if you want a remote backup. If you already set up a local backup, and don't want a remote backup, skip to the [next section](#github-test).
 
 ### Create a GitHub repository
 
@@ -391,7 +391,7 @@ Then we check if a copy gets stored at the intended backup location(s).
 * Follow the system log entries for the SCB backup service in real-time
 
   ```sh
-  $ sudo journalctl -f -u scb-backup.service
+  $ sudo journalctl -f -u scb-backup
   > [...]
   > Feb 05 10:55:09 minibolt scb-backup.sh[25782]: Watches established.
   ```

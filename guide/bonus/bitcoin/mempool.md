@@ -119,7 +119,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
 
 * Enter the following commands in the shell and exit. The instructions to enter in the MariaDB shell start with "MDB$". Change "Password[M]" to the random password generated above.
 
-  ```sql
+  ```sh
   MDB$ create database mempool;
   > Query OK, 1 row affected (0.001 sec)
   MDB$ grant all privileges on mempool.* to 'mempool'@'localhost' identified by 'Password[M]';
@@ -132,7 +132,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
 * With user "mempool", install the backend  
   
   ```sh
-  $ sudo su - mempool
+  $ sudo su mempool
   $ cd mempool/backend
   $ npm install --prod
   $ npm run build
@@ -419,7 +419,7 @@ We now need to modify the nginx configuration to create a web server for the web
 
 Now we’ll make sure Mempool starts as a service on the PC so it’s always running. In order to do that, we create a systemd unit that starts the service on boot directly after Bitcoin Core.
 
-* As user “admin”, create the service file
+* Still with user "admin", change the ownership of the configuration file
 
   ```sh
   $ sudo nano /etc/systemd/system/mempool.service

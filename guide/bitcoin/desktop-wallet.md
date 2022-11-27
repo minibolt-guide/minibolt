@@ -45,11 +45,9 @@ We will connect Sparrow Wallet to our own Electrum server as it is the most priv
 
 ![Sparrow stages](../../images/sparrow-stages.png)
 
-We will set up Sparrow to connect to Electrs within your local network. There is also an optional section at the end that explains how to connect Sparrow to Electrs using Tor for when you're on the move.
+We will set up Sparrow to connect to Fulcrum within your local network. There is also an optional section at the end that explains how to connect Sparrow to Fulcrum using Tor for when you're on the move.
 
 Sparrow also connects to a couple of external services to get the Bitcoin price and communicate with the Whirlpool server during CoinJoin operations. By default, it uses clearnet which leaks your computer IP address to these services and degrade your privacy. However, Sparrow can also connect to them using a Tor proxy. There is an optional section at the end that explains how to set this proxy up.
-
----
 
 ## Installation
 
@@ -61,8 +59,6 @@ On your local computer, download, verify and install Sparrow Wallet.
   * Verify the release
   * Install Sparrow Wallet
 
----
-
 ## Local connection
 
 We now configure Sparrow to connect to your node within your local network.
@@ -73,7 +69,7 @@ We now configure Sparrow to connect to your node within your local network.
 * Read carefully the introductory messages and click on "Next" several times
 * When you reach the "Connecting to a Private Electrum Server" message, click on "Configure Server"
 
-### Connect to Electrs
+### Connect to Fulcrum
 
 * Click on the "Private Electrum" tab
 * On the "URL" line, paste `minibolt.local` or your node IP (e.g., `192.168.X.XXX`) in the first box and `50002` in the second box
@@ -81,7 +77,7 @@ We now configure Sparrow to connect to your node within your local network.
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
   ```
-  > Connected to electrs/0.9.9 on protocol version 1.4
+  > Connected to Fulcrum 1.8.2 on protocol version 1.4
   > [...]
   ```
 
@@ -105,8 +101,6 @@ You're set! Sparrow is now configured to connect to your Electrum server from wi
 
 For maximal privacy, we highly recommend that you set up the Tor proxy when using Sparrow within your local network over clearnet. Check the [optional section](#optional-set-up-a-tor-proxy-for-external-services) at the end of this guide.
 
----
-
 ## Sparrow in action
 
 Congratulations, you have now a Bitcoin desktop wallet, capable of securing your bitcoin, running with your own trustless Bitcoin full node!  
@@ -124,20 +118,18 @@ With Sparrow you can:
 
 For more information, tutorials and support, visit the [Sparrow documentation webpage](https://sparrowwallet.com/docs/){:target="_blank"} and their [Telegram group](https://t.me/sparrowwallet){:target="_blank"}.
 
----
-
 ## (Optional) Remote connection over Tor
 
 If you want to use Sparrow outside your home network, when you're on the go, you can use a connection over Tor.
 
 ### Server Tor address
 
-To connect via Tor to Electrs, the server must have a Tor hidden service connection address. Make sure you have set up a Tor hidden service as explained in the ["Electrum server" guide](electrum-server.md#remote-access-over-tor-optional).
+To connect via Tor to Fulcrum, the server must have a Tor hidden service connection address. Make sure you have set up a Tor hidden service as explained in the ["Electrum server" guide](electrum-server.md#remote-access-over-tor-optional).
 
 If you've already set up the hidden service but lost the connection address, you can obtain it again by running the following command with "admin" on your node:
 
-  ```
-  $ sudo cat /var/lib/tor/hidden_service_electrs/hostname`
+  ```sh
+  $ sudo cat /var/lib/tor/hidden_service_fulcrum_ssl/hostname
   > abcd...1234.onion
   ```
 
@@ -151,15 +143,13 @@ If you've already set up the hidden service but lost the connection address, you
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
   ```
-  > Connected to [...] on protocol version 1.4
+  > Connected to Fulcrum 1.8.2 on protocol version 1.4
   > [...]
   ```
 
 ![Sparrow connect to Electrs via Tor](../../images/sparrow-electrum-tor-no-proxy.png)
 
 You're set! Sparrow is now configured to connect to your node over Tor and you can use it wherever you are.
-
----
 
 ## (Optional) Set up a Tor proxy for external services
 
@@ -182,7 +172,7 @@ By OS:
 * **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
   
   ```sh
-  $ sudo ss -tulpn | grep tor | grep LISTEN
+  $ sudo ss -tulpn | grep LISTEN | grep tor
   ```
 
 Expected output:
@@ -207,7 +197,7 @@ Expected output:
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
   ```
-  > Connected to [...] on protocol version 1.4
+  > Connected to Fulcrum 1.8.2 on protocol version 1.4
   > [...]
   ```
 
@@ -220,8 +210,6 @@ Now, let's go back to the wallet and check that the proxy is working properly.
   * The first icon should be grey, not red; and a mouse hover should display "External Tor proxy enabled"
 
 You're set! Sparrow Wallet is now configured to use the Tor proxy when fetching the Bitcoin price and when communicating with the Whirlpool server during CoinJoins.
-
----
 
 ## For the future: Sparrow update
 

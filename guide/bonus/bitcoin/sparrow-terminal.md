@@ -117,16 +117,16 @@ Table of contents
   ```
 
 * Go to `Preferences > Server > Private Electrum > Continue`
-* Set values according to your Electrum Server implementation and test connection
+* Set values according to your Electrum Server protocol implementation and test connection
 
   ```
-  # For Electrs (default)
+  # For Fulcrum (TCP)
   URL: 127.0.0.1:50001
   Use SSL?: No
   
-  # For Fulcrum 
+  # For Fulcrum (SSL)
   URL: 127.0.0.1:50002
-  Use SSL?: Yes 
+  Use SSL?: Yes
   ```
 
 * You are now connected to your own Electrum Server

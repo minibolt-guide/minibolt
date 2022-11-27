@@ -259,17 +259,17 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
 🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options, and visit the [Lightning Node Management](https://www.lightningnode.info/){:target="_blank"} site by Openoms to learn more.*
 
-### Autostart on boot
-
-Now, let's set up LND to start automatically on system startup.
-
-* Exit the second "lnd" user session back to "admin"
+* Exit "lnd" user session to return to "admin" user session
 
   ```sh
   $ exit
   ```
 
-* Create LND systemd unit with the following content. Save and exit.
+### Autostart on boot
+
+Now, let's set up LND to start automatically on system startup.
+
+* As user `admin`, create LND systemd unit with the following content. Save and exit.
 
   ```sh
   $ sudo nano /etc/systemd/system/lnd.service
