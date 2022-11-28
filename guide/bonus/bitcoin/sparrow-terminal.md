@@ -20,8 +20,8 @@ Sparrow Terminal is a stripped down version of Sparrow that can be run on system
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Not tested MiniBolt
-{: .label .label-red }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![Sparrow_Terminal-logo](../../../images/sparrow-terminal-logo.jpg)
 
@@ -39,7 +39,7 @@ Table of contents
 
 ### Download Sparrow Server
 
-* As user `admin`, download Sparrow Server and signatures into "/tmp" directory, which is cleared on the reboot.
+* With user "admin", download Sparrow Server and signatures into "/tmp" directory, which is cleared on the reboot.
 
   ```sh
   $ cd /tmp
@@ -86,14 +86,13 @@ Table of contents
 * Create a new directory for Sparrow and move data files there
 
   ```sh
-  $ sudo mkdir /opt/sparrow
-  $ sudo mv /tmp/Sparrow/* /opt/sparrow
+  $ sudo mv Sparrow /home/admin/
   ```
 
 * Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH.
 
   ```sh
-  $ sudo ln -s /opt/sparrow/bin/Sparrow /usr/local/bin/Sparrow
+  $ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
   ```
 
 ## Run Sparrow
@@ -145,7 +144,7 @@ Table of contents
 
   ```sh
   $ sudo rm /usr/local/bin/Sparrow
-  $ sudo rm -r /opt/sparrow
+  $ sudo rm -r /home/admin/Sparrow
   ```
   
 <br /><br />
