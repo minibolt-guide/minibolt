@@ -15,7 +15,7 @@ has_toc: false
 
 ---
 
-Sparrow Terminal is a stripped down version of Sparrow that can be run on systems without displays. It's primarily intended as a configuration utility for running Sparrow as a server daemon
+Sparrow Terminal is a stripped down version of Sparrow that can be run on systems without displays. It's primarily intended as a configuration utility for running Sparrow as a server daemon.
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -102,8 +102,10 @@ Table of contents
   ```sh
   $ Sparrow
   ```
-  
+
   ![Sparrow_Terminal](../../../images/sparrow-terminal.png)
+
+⚠ Sparrow terminal not works on MobaXterm with X11-Forwarding enabled.
   
 * In "wallet" tab you can create or restore your wallet
 
