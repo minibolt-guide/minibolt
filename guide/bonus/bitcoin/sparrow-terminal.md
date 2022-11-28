@@ -105,7 +105,7 @@ Table of contents
 
   ![Sparrow_Terminal](../../../images/sparrow-terminal.png)
 
-⚠ Sparrow terminal not works on MobaXterm with X11-Forwarding enabled.
+⚠️ Sparrow terminal doesn't work on MobaXterm with X11-Forwarding enabled in the SSH connection.
   
 * In "wallet" tab you can create or restore your wallet
 
