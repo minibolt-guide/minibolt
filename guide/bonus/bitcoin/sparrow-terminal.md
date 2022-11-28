@@ -39,11 +39,11 @@ Table of contents
 
 ### Download Sparrow Server
 
-* Download Sparrow Server and signatures into "/tmp" directory, which is cleared on the reboot.
+* As user `admin`, download Sparrow Server and signatures into "/tmp" directory, which is cleared on the reboot.
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-server-1.7.1-aarch64.tar.gz
+  $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-server-1.7.1-x86_64.tar.gz
   $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-1.7.1-manifest.txt.asc
   $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-1.7.1-manifest.txt
   ```
@@ -72,13 +72,13 @@ Table of contents
   
   ```sh
   $ sha256sum --check sparrow-1.7.1-manifest.txt --ignore-missing
-  > sparrow-server-1.7.1-aarch64.tar.gz: OK
+  > sparrow-server-1.7.1-x86_64.tar.gz: OK
   ```
 
 * If everything is correct, unpack Sparrow
 
   ```sh
-  $ tar -xvf sparrow-server-1.7.1-aarch64.tar.gz
+  $ tar -xvf sparrow-server-1.7.1-x86_64.tar.gz
   ```
 
 ### Configuration
@@ -86,14 +86,14 @@ Table of contents
 * Create a new directory for Sparrow and move data files there
 
   ```sh
-  $ sudo mkdir -p /opt/sparrow-terminal
-  $ sudo mv /tmp/Sparrow/* /opt/sparrow-terminal
+  $ sudo mkdir /opt/sparrow
+  $ sudo mv /tmp/Sparrow/* /opt/sparrow
   ```
 
-* Add the Sparrow executable to your PATH by creating a symlink to it wihtin `/usr/local/bin`, which is already part of PATH.
+* Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH.
 
   ```sh
-  $ sudo ln -s /opt/sparrow-terminal/bin/Sparrow /usr/local/bin/Sparrow
+  $ sudo ln -s /opt/sparrow/bin/Sparrow /usr/local/bin/Sparrow
   ```
 
 ## Run Sparrow
@@ -145,7 +145,7 @@ Table of contents
 
   ```sh
   $ sudo rm /usr/local/bin/Sparrow
-  $ sudo rm -r /opt/sparrow-terminal
+  $ sudo rm -r /opt/sparrow
   ```
   
 <br /><br />

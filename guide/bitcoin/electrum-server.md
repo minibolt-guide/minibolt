@@ -52,7 +52,7 @@ Desktop wallets like [Sparrow](https://sparrowwallet.com/){:target="_blank"}, th
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](../../bitcoin/bitcoin-client.md#reduce-dbcache-after-full-sync)
+Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/bitcoin-client.md#reduce-dbcache-after-full-sync)
 
 ### Install dependencies
 
