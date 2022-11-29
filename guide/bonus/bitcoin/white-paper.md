@@ -43,20 +43,22 @@ The transaction contains 947 outputs and the sender spent almost 60 millions sat
 
 This guide explains how to reconstruct the Bitcoin white paper PDF using your own verified blockchain data. No matter how censored the white paper could become (see [this article about white paper copyright claims](https://bitcoinmagazine.com/business/copa-suing-craig-wright-over-bitcoin-white-paper-claims){:target="_blank"}), you will know how to recreate and share the foundational document of Bitcoin.
 
-## Extract the whitepaper directly from Bitcoin Core
+## Preparations
 
-* With the "admin" user, create a new directory to store the PDF and move to this directory
-
-  ```sh
-  $ mkdir bitcoin-white-paper
-  $ cd bitcoin-white-paper
-  ```
-  
 * Install `jq`, a JSON processor that will be used to parse the transaction data
 
   ```sh
   $ sudo apt update
   $ sudo apt install jq --install-recommends
+  ```
+
+## Extract the whitepaper directly from Bitcoin Core
+
+* With the "admin" user, create a new directory in the admin user home folder to store the PDF and move it to this directory
+
+  ```sh
+  $ mkdir bitcoin-white-paper
+  $ cd bitcoin-white-paper
   ```
 
 * Use `bitcoin-cli` to download and create the PDF

@@ -143,6 +143,21 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
   * [Lightning client](guide/lightning/lightning-client.md)
   * [Web app](guide/lightning/web-app.md)
 
+* Bonus
+
+  * System
+    * [Aliases](guide/bonus/system/aliases.md)
+    * [Command line](guide/bonus/system/command-line.md)
+    * [Go](guide/bonus/system/go.md)
+    * [Tor bridge](guide/bonus/system/tor-bridge.md)
+
+  * Bitcoin
+    * [Bisq](guide/bonus/bitcoin/bisq.md)
+    * [Electrs](guide/bonus/bitcoin/electrs.md)
+    * [Electrum Wallet Desktop](guide/bonus/bitcoin/electrum-wallet-desktop.md)
+    * [Safu Ninja](guide/bonus/bitcoin/safu-ninja.md)
+    * [Sparrow Terminal](guide/bonus/bitcoin/sparrow-terminal.md)
+
 ---
 
 <br /><br />

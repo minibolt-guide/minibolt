@@ -386,6 +386,8 @@ Expected output:
   > 2022-11-24T18:08:04Z Config file arg: server="1"
   > 2022-11-24T18:08:04Z Config file arg: txindex="1"
   [...]
+  > 2022-11-24T18:09:04Z Synchronizing blockheaders, height: 4000 (~0.56%)
+  [...]
   ```
 
 Monitor the log file for a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).

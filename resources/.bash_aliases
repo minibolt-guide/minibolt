@@ -10,8 +10,6 @@ alias update='sudo apt update'
 alias listupgradable='sudo apt list --upgradable'
 alias upgrade='sudo apt -u -V upgrade'
 alias fullcheckupgrade='sudo apt update && sudo apt list --upgradable && sudo apt -u -V upgrade'
-alias systemonitor='bpytop'
-alias networkmonitor='sudo iftop'
 alias autobootmainstatus='echo The autoboot status of the services is as follows appears in column left: ; \
 systemctl list-unit-files | grep i2pd && systemctl list-unit-files | grep tor.service | grep -v lvm2-monitor.service | grep -v mdmonitor.service | grep -v systemd-network-generator.service && systemctl list-unit-files | grep bitcoind && systemctl list-unit-files | grep fulcrum && systemctl list-unit-files | grep btcrpcexplorer && systemctl list-unit-files | grep lnd && systemctl list-unit-files | grep thunderhub'
 
@@ -37,18 +35,14 @@ alias showbonusversion='echo The installed versions of the bonus services are as
   litd --lnd.version ; \
   lightning-cli --version ; \
   echo Electrs: `electrs --version` ; \
-  bpytop --version ; \
   lntop --version'
 
-alias fail2banreport='sudo fail2ban-client status sshd'
 alias testscb-backup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
 
 # EXTRA LOGS
 alias authlogs='sudo tail -f /var/log/auth.log'
-alias ufwlogs='sudo tail -f /var/log/ufw.log'
 alias sshlogslive='sudo tail -f /var/log/auth.log | grep sshd'
 alias sshlogshistory='sudo tail --lines 500 /var/log/auth.log | grep sshd'
-alias fail2banlogs='sudo tail -f /var/log/fail2ban.log'
 
 # NETWORK
 alias whatsLISTEN='echo The follows services are listening: ; \
@@ -103,7 +97,7 @@ alias statuslnd='sudo systemctl status lnd'
 alias statusthunderhub='sudo systemctl status thunderhub'
 alias statuscbackup='sudo systemctl status scb-backup'
 alias statusallmain='echo The status of the main services is as follows, press the space key to advance: ; \
-  sudo systemctl status tor i2pd bitcoind fulcrum btcrpcexplorer lnd thunderhub scb-backup ssh ufw nginx fail2ban'
+  sudo systemctl status tor i2pd bitcoind fulcrum btcrpcexplorer lnd thunderhub scb-backup ssh ufw nginx'
 
 ######################
 # STOP MAIN SERVICES #

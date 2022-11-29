@@ -83,7 +83,7 @@ Table of contents
 
 ### Configuration
 
-* Create a new directory for Sparrow and move data files there
+* Move data files to home "admin" user
 
   ```sh
   $ sudo mv Sparrow /home/admin/
