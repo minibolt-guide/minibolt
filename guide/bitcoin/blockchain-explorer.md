@@ -55,7 +55,7 @@ It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin 
   $ sudo apt install nodejs
   ```
 
-### Firewall & reverse proxy
+### Reverse proxy & Firewall
 
 In the [Security section](../system/security.md#prepare-nginx-reverse-proxy), we set up NGINX as a reverse proxy.
 Now we can add the BTC RPC Explorer configuration.

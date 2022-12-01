@@ -16,6 +16,9 @@ has_toc: false
 
 We install [Ride The Lightning](https://github.com/Ride-The-Lightning/RTL#readme){:target="_blank"}, a powerful web interface to manage your Lightning node.
 
+Difficulty: Medium
+{: .label .label-yellow }
+
 Status: Not tested MiniBolt
 {: .label .label-red }
 

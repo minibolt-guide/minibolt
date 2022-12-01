@@ -14,9 +14,6 @@ parent: Bitcoin
 
 [Fulcrum](https://github.com/cculianu/Fulcrum){:target="_blank"} is a fast & nimble SPV server for Bitcoin Cash, Bitcoin BTC, and Litecoin created by Calin Culianu. It can be used as an alternative to Electrs because of its performance, as we can see in Craig Raw's [comparison](https://www.sparrowwallet.com/docs/server-performance.html){:target="_blank"} of servers
 
-Difficulty: Medium
-{: .label .label-yellow }
-
 Status: Tested MiniBolt
 {: .label .label-blue }
 
@@ -37,11 +34,11 @@ Table of contents
 * Bitcoin Core
 * Little over 100GB of free storage for database (external backup recommended)
 
-Fulcrum is a replacement for an Electrs, these two services cannot be run at the same time (due to the same standard ports used)
+Fulcrum is a replacement for an [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing "sudo systemctl stop electrs".
 
 ## Bitcoin with hardware wallets
 
-The best way to safekeep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://shiftcrypto.ch/bitbox02){:target="_blank"}, [Coldcard](https://coldcard.com/){:target="_blank"} , [Ledger](https://www.ledger.com){:target="_blank"} or [Trezor](https://trezor.io){:target="_blank"}) in combination with your own Bitcoin node.
+The best way to safekeep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://shiftcrypto.ch/bitbox02){:target="_blank"}, [Coldcard](https://coldcard.com/){:target="_blank"}, [Ledger](https://www.ledger.com){:target="_blank"} or [Trezor](https://trezor.io){:target="_blank"}) in combination with your own Bitcoin node.
 This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
 
 Bitcoin Core on the MiniBolt itself is not meant to hold funds.
@@ -188,6 +185,8 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   ```
 
 ### Configuration
+
+MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. Thats why we use TCP in configurations as well to let user choose what he needs. You may as well need to use TCP for other reasons.
 
 * Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware. Create the config file with the following content. Save and exit
 

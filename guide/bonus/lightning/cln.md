@@ -87,7 +87,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 * Open a "lightningd" user session and create symbolic links to `bitcoin` and `lightningd` data directories.
 
   ```sh
-  $ sudo su - lightningd
+  $ sudo su lightningd
   $ ln -s /data/lightningd /home/lightningd/.lightning
   $ ln -s /data/bitcoin /home/lightningd/.bitcoin
   ```
@@ -106,7 +106,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   $ git clone https://github.com/ElementsProject/lightning.git
   $ cd lightning
   $ git fetch --all --tags
-  $ git reset --hard v0.11.2
+  $ git reset --hard v22.11
   ```
 
 * Don't trust, verify! Check who released the current version and get their signing keys and verify checksums. Verification step should output `Good Signature`.
@@ -114,7 +114,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   ```sh
   $ wget -O "pgp_keys.asc" https://raw.githubusercontent.com/ElementsProject/lightning/master/contrib/keys/rustyrussell.txt
   $ gpg --import ./pgp_keys.asc
-  $ git verify-tag v0.11.2
+  $ git verify-tag v22.11
   ```
 
 * Download user specific python packages.
@@ -197,7 +197,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 
 * Append the following at the end of the file.
 
-  ```ini
+  ```sh
   alias lightning-cli="~/lightning/cli/lightning-cli"
   alias lightningd="~/lightning/lightningd/lightningd"
   alias hsmtool="~/lightning/tools/hsmtool"
@@ -256,7 +256,6 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 * Enable and startup CLN.
 
   ```sh
-  $ sudo systemctl daemon-reload
   $ sudo systemctl enable lightningd.service
   $ sudo systemctl start lightningd.service
   ```
@@ -272,7 +271,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 * If `lightningd.service` started without errors, we can check out and try CLN commands.
 
   ```sh
-  $ sudo su - lightningd 
+  $ sudo su lightningd 
   $ lightning-cli --version
   $ lightning-cli getinfo
   $ lightning-cli listfunds
@@ -288,7 +287,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   $ nano .bashrc
   ```
 
-  ```ini
+  ```sh
   alias lightning-cli="/home/lightningd/lightning/cli/lightning-cli"
   alias lightningd="/home/lightningd/lightning/lightningd/lightningd"
   alias hsmtool="/home/lightningd/lightning/tools/hsmtool"
@@ -323,7 +322,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 
 * Adjust systemd service after encrypting. Edit `ExecStart` command and add parameter `--encrypted-hsm`, like so:
 
-  ```ini
+  ```sh
   ExecStart=/bin/sh -c '/home/lightningd/lightning/lightningd/lightningd \
                          --conf=/data/lightningd/config \
                          --daemon \
@@ -341,7 +340,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   $ nano ~/.lightningdpw
   ```
 
-  ```ini
+  ```sh
   YourFancyPassword
   ```
 
@@ -359,7 +358,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 
 * Edit `ExecStart` line like this:
 
-  ```ini
+  ```sh
   ExecStart=/bin/sh -c ' (cat /home/lightningd/.lightningdpw;echo;cat /home/lightningd/.lightningdpw) | \
                          /home/lightningd/lightning/lightningd/lightningd \
                          --conf=/data/lightningd/config \
@@ -384,7 +383,7 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
 * Setting up c-lightning-Rest as plugin for CLN. First we download and verify the c-lightning-Rest package:
 
   ```sh
-  $ sudo su - lightningd
+  $ sudo su lightningd
   $ wget https://github.com/Ride-The-Lightning/c-lightning-REST/archive/refs/tags/v0.9.0.tar.gz
   $ wget https://github.com/Ride-The-Lightning/c-lightning-REST/releases/download/v0.9.0/v0.9.0.tar.gz.asc
   ```
@@ -430,7 +429,7 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
   
 * Add at the end of the file:
 
-  ```ini
+  ```sh
   # cln-rest-plugin
   plugin=/data/lightningd-plugins-available/c-lightning-REST-0.9.0/plugin.js
   rest-port=3092
@@ -453,7 +452,7 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
 
 * Insert / Modify:
 
-  ```ini
+  ```sh
   {
     "PORT": 3092,
     "DOCPORT": 4091,
@@ -498,13 +497,13 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
 * By the following configuration we tell RTL to connect to our CLN node. Change to user `rtl`:
 
   ```sh
-  $ sudo su - rtl
+  $ sudo su rtl
   $ nano /home/rtl/RTL/RTL-Config.json
   ```
 
 * Edit or add the following content. Adjust `multiPass` to your desired login password, if not already set.
 
-  ```ini
+  ```sh
   {
     "multiPass": "<yourfancypassword>",
     "port": "3000",

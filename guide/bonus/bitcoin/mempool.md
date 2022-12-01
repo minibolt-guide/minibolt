@@ -37,7 +37,7 @@ Status: Not tested MiniBolt
 
 * Minimum RAM: 4 GB
 * Bitcoin Core
-* Electrs
+* Fulcrum
 * Node.js v16+
 * nginx
 
@@ -86,7 +86,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   ```sh
   $ git clone https://github.com/mempool/mempool
   $ cd mempool
-  $ git checkout v2.4.0
+  $ git checkout v2.4.1
   $ exit
   ```
 
@@ -134,7 +134,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   ```sh
   $ sudo su mempool
   $ cd mempool/backend
-  $ npm install --prod
+  $ npm install
   $ npm run build
   ```
   
@@ -222,7 +222,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   
   ```sh
   $ cd frontend
-  $ npm install --prod
+  $ npm install
   $ npm run build
   $ exit
   ```
@@ -367,7 +367,7 @@ We now need to modify the nginx configuration to create a web server for the web
 
 * Paste the following configuration lines. Save and exit
 
-  ```ini
+  ```sh
   user www-data;
   worker_processes auto;
   pid /run/nginx.pid;
@@ -433,7 +433,8 @@ Now we’ll make sure Mempool starts as a service on the PC so it’s always run
 
   [Unit]
   Description=mempool
-  After=bitcoind.service
+  After=bitcoind.service fulcrum.service
+  PartOf=bitcoind.service
 
   [Service]
   WorkingDirectory=/home/mempool/mempool/backend
@@ -521,7 +522,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
   $ git checkout $latestrelease
   ```
   
-* Then follow the installation process described in the guide in the [Backend section](#backend) up to, and including the nginx section .
+* Then follow the installation process described in the guide in the [Backend section](#backend) up to, and including the nginx section.
 
 * Start the service again
 
