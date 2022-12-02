@@ -14,14 +14,11 @@ parent: Bitcoin
 
 [Fulcrum](https://github.com/cculianu/Fulcrum){:target="_blank"} is a fast & nimble SPV server for Bitcoin Cash, Bitcoin BTC, and Litecoin created by Calin Culianu. It can be used as an alternative to Electrs because of its performance, as we can see in Craig Raw's [comparison](https://www.sparrowwallet.com/docs/server-performance.html){:target="_blank"} of servers
 
-Status: Tested MiniBolt
-{: .label .label-blue }
-
 ![Fulcrum](../../images/fulcrum.png)
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC

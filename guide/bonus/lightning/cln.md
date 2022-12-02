@@ -79,8 +79,8 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 
   ```sh
   $ sudo apt-get install -y \
-    autoconf automake build-essential git libtool libgmp-dev libsqlite3-dev \
-    python3 python3-pip net-tools zlib1g-dev libsodium-dev gettext
+    autoconf automake build-essential libtool libgmp-dev libsqlite3-dev \
+    python3-pip net-tools zlib1g-dev libsodium-dev gettext
   $ pip3 install --user --upgrade pip
   ```
 
@@ -117,11 +117,9 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   $ git verify-tag v22.11
   ```
 
-* Download user specific python packages.
+* Download user specific python packages
 
   ```sh
-  $ pip3 install --user mrkd==0.2.0
-  $ pip3 install --user mistune==0.8.4
   $ pip3 install --user mako
   ```
 

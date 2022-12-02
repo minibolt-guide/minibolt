@@ -14,9 +14,6 @@ parent: Bitcoin
 
 We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/){:target="_blank"}, the reference client implementation of the Bitcoin network.
 
-Status: Tested MiniBolt
-{: .label .label-blue }
-
 ![Bitcoin Core logo](../../images/bitcoin-core-logo-trans.png)
 
 ---

@@ -14,9 +14,6 @@ parent: Bitcoin
 
 Run your own private blockchain explorer with [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer){:target="_blank"}. Trust your node, not some external services.
 
-Status: Tested MiniBolt
-{: .label .label-blue }
-
 ![BTC RPC Explorer home screen with dark theme](../../images/btcrpcexplorer-homepage.png)
 
 ---

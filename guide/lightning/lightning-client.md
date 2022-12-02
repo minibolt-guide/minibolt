@@ -14,9 +14,6 @@ parent: Lightning
 
 We set up [LND](https://github.com/lightningnetwork/lnd/blob/master/README.md){:target="_blank"}, the Lightning Network Daemon by [Lightning Labs](https://lightning.engineering/){:target="_blank"}.
 
-Status: Tested MiniBolt
-{: .label .label-blue }
-
 ![Lightning Network Daemon logo](../../images/lightning-network-daemon-logo.png)
 
 ---
@@ -32,70 +29,6 @@ Status: Tested MiniBolt
 ## Preparations
 
 The installation of LND is straight-forward, but the application is quite powerful and capable of things not explained here. Check out their [GitHub repository](https://github.com/lightningnetwork/lnd/){:target="_blank"} for a wealth of information about their open-source project and Lightning in general.
-
-### Download
-
-We'll download, verify and install LND.
-
-* As user "admin", download the application, checksums and signature
-
-  ```sh
-  $ cd /tmp
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/lnd-linux-amd64-v0.15.4-beta.tar.gz
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/manifest-v0.15.4-beta.txt
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/manifest-guggero-v0.15.4-beta.sig.ots
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.4-beta/manifest-guggero-v0.15.4-beta.sig
-  ```
-
-### Checksum check
-
-* Verify the signed checksum against the actual checksum of your download
-
-  ```sh
-  $ sha256sum --check manifest-v0.15.4-beta.txt --ignore-missing
-  > lnd-linux-amd64-v0.15.4-beta.tar.gz: OK
-  ```
-
-### Signature check
-
-Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
-
-* Get the public key from the LND developer, [Oliver Gugger](https://keybase.io/guggero){:target="_blank"}, who signed the manifest file; and add it to your GPG keyring
-
-  ```sh
-  $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/guggero.asc | gpg --import
-  > ...
-  > gpg: key 8E4256593F177720: "Oliver Gugger <gugger@gmail.com>" 1 new signature
-  > ...
-  ```
-
-* Verify the signature of the text file containing the checksums for the application
-
-  ```sh
-  $ gpg --verify manifest-guggero-v0.15.4-beta.sig manifest-v0.15.4-beta.txt
-  > gpg: Signature made Tue Nov  1 13:00:20 2022 UTC
-  > gpg:                using RSA key F4FC70F07310028424EFC20A8E4256593F177720
-  > gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
-  > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: F4FC 70F0 7310 0284 24EF  C20A 8E42 5659 3F17 7720
-  ```
-
-### Timestamp check
-
-We can also check that the manifest file was in existence around the time of the release using its timestamp.
-
-* Let's verify the timestamp of the file matches the release date.
-
-  ```sh
-  $ ots --no-cache verify manifest-guggero-v0.15.4-beta.sig.ots -f manifest-guggero-v0.15.4-beta.sig
-  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-  > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
-  > Success! Bitcoin block 761269 attests existence as of 2022-11-01 UTC
-  ```
-
-* Check that the date of the timestamp (here 2022-11-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-11-01).
 
 ### Configure Bitcoin Core
 
@@ -113,15 +46,81 @@ Before run LND, we need to set up settings in Bitcoin Core configuration file to
   zmqpubrawtx=tcp://127.0.0.1:28333
   ```
 
+### Download
+
+We'll download, verify and install LND.
+
+* As user "admin", download the application, checksums and signature
+
+  ```sh
+  $ cd /tmp
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/lnd-linux-amd64-v0.15.5-beta.tar.gz
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-v0.15.5-beta.txt
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-roasbeef-v0.15.5-beta.sig.ots
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-roasbeef-v0.15.5-beta.sig
+  ```
+
+### Checksum check
+
+* Verify the signed checksum against the actual checksum of your download
+
+  ```sh
+  $ sha256sum --check manifest-v0.15.5-beta.txt --ignore-missing
+  > lnd-linux-amd64-v0.15.5-beta.tar.gz: OK
+  ```
+
+### Signature check
+
+Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
+
+* Get the public key from the LND developer, [Olaoluwa Osuntokun](https://keybase.io/roasbeef){:target="_blank"}, who signed the manifest file; and add it to your GPG keyring
+
+  ```sh
+  $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
+  > ...
+  > gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun <laolu32@gmail.com>"
+  > ...
+  ```
+
+* Verify the signature of the text file containing the checksums for the application
+
+  ```sh
+  $ gpg --verify manifest-roasbeef-v0.15.5-beta.sig manifest-v0.15.5-beta.txt
+  > gpg: Signature made Thu Dec  1 19:20:10 2022 UTC
+  > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
+  > gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
+  > gpg: WARNING: This key is not certified with a trusted signature!
+  > gpg:          There is no indication that the signature belongs to the owner.
+  > Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
+  >      Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
+  ```
+
+### Timestamp check
+
+We can also check that the manifest file was in existence around the time of the release using its timestamp.
+
+* Let's verify the timestamp of the file matches the release date.
+
+  ```sh
+  $ ots --no-cache verify manifest-roasbeef-v0.15.5-beta.sig.ots -f manifest-roasbeef-v0.15.5-beta.sig
+  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+  > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+  > Success! Bitcoin block 765521 attests existence as of 2022-12-01 UTC
+  ```
+
+* Check that the date of the timestamp (here 2022-12-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-02).
+
 ## Installation
 
 Having verified the integrity and authenticity of the release binary, we can safely proceed to install it
 
   ```sh
-  $ tar -xzf lnd-linux-amd64-v0.15.4-beta.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.15.4-beta/*
+  $ tar -xzf lnd-linux-amd64-v0.15.5-beta.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.15.5-beta/*
   $ lnd --version
-  > lnd version 0.15.4-beta commit=v0.15.4-beta
+  > lnd version 0.15.5-beta commit=v0.15.5-beta
   ```
 
 ### Data directory
@@ -165,7 +164,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
 LND includes a Bitcoin wallet that manages your on-chain and Lightning coins.
 It is password protected and must be unlocked when LND starts.
-This creates the dilemma that you either manually unlock LND after each restart of your Raspberry Pi, or you store the password somewhere on the node.
+This creates the dilemma that you either manually unlock LND after each restart of your PC, or you store the password somewhere on the node.
 
 For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically.
 This is not the most secure setup, but you can improve it later if you want, with the bonus guides linked below.
@@ -327,27 +326,26 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 $2 sudo systemctl start lnd
 ```
 
-Monitor the systemd journal at the first session created to check if everything works fine.
+Monitor the systemd journal at the first session created to check if everything works fine. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
+  > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
+  > Dec 02 09:23:37 minibolt lnd[2584156]: Attempting automatic RPC configuration to bitcoind
+  > Dec 02 09:23:37 minibolt lnd[2584156]: Automatically obtained bitcoind's RPC credentials
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Version: 0.15.5-beta commit=v0.15.5-beta, build=production, logging=default, debuglevel=info
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Active chain: Bitcoin (network=mainnet)
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.975 [INF] RPCS: RPC server listening on 127.0.0.1:10009
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] LTND: Opening the main database, this might take a few minutes...
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] LTND: Opening bbolt database, sync_freelist=false, auto_compact=true
   [...]
-  Attempting automatic RPC configuration to bitcoind
-  Automatically obtained bitcoind's RPC credentials
-  2021-11-13 08:16:34.985 [INF] LTND: Version: 0.15.4-beta commit=v0.15.4-beta, build=production, logging=default, debuglevel=info
-  2021-11-13 08:16:34.985 [INF] LTND: Active chain: Bitcoin (network=mainnet)
-  ...
-  2021-11-13 08:16:35.028 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
   ```
-
-The daemon prints the status information directly to the command line.
-This means that we cannot use that session without stopping the server.
-We need to open a second SSH session.
 
 ### Wallet setup
 
 Once LND is started, the process waits for us to create the integrated Bitcoin onchain wallet.
 
-* Start a "lnd" user session
+* Change to "lnd" user
 
   ```sh
   $2 sudo su lnd
@@ -401,22 +399,20 @@ We interact with LND using the application `lncli`.
 At the moment, only the user "lnd" has the necessary access privileges.
 To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
-* Log in as user "admin" again.
-
 * Link the LND data directory in the user "admin" home.
   As a member or the group "lnd", admin has read-only access to certain files.
   We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
 
   ```sh
-  $ ln -s /data/lnd /home/admin/.lnd
-  $ sudo chmod -R g+X /data/lnd/data/
-  $ sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
+  $2 ln -s /data/lnd /home/admin/.lnd
+  $2 sudo chmod -R g+X /data/lnd/data/
+  $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
   ```
 
 * Check if you can use `lncli` by querying LND for information
 
   ```sh
-  $ lncli getinfo
+  $2 lncli getinfo
   ```
 
 ## LND in action
@@ -428,14 +424,14 @@ Now your Lightning node is ready. This is also the point of no return. Up until 
 * Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
 
   ```sh
-  $ lncli newaddress p2tr
+  $2 lncli newaddress p2tr
   > "address": "bc1p..."
   ```
 
 * Check your LND wallet balance
 
   ```sh
-  $ lncli walletbalance
+  $2 lncli walletbalance
   {
       "total_balance": "712345",
       "confirmed_balance": "0",
@@ -465,7 +461,7 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 * **Connect** to the remote node, with the full URI.
 
   ```sh
-  $ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
+  $2 lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
   ```
 
 * **Open a channel** using the `<pubkey>` only (*i.e.*, the part of the URI before the `@`) and the channel capacity in satoshis.
@@ -476,21 +472,21 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
   The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/){:target="_blank"})
 
   ```sh
-  $ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
+  $2 lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
   ```
 
 * **Check your funds**, both in the on-chain wallet and the channel balances.
 
   ```sh
-  $ lncli walletbalance
-  $ lncli channelbalance
+  $2 lncli walletbalance
+  $2 lncli channelbalance
   ```
 
 * **List active channels**. Once the channel funding transaction has been mined and gained enough confirmations, your channel is fully operational.
   That can take an hour or more.
 
   ```sh
-  $ lncli listchannels
+  $2 lncli listchannels
   ```
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
@@ -498,7 +494,7 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 To try, why not send me satoshis! You simply need to input my node pukey [`⚡2FakTor⚡`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128){:target="_blank"}, the amount in satoshis and add the –keysend flag
 
   ```sh
-  $ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
+  $2 lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
   ```
 
 ### Watchtower server
@@ -506,7 +502,7 @@ To try, why not send me satoshis! You simply need to input my node pukey [`⚡2F
 Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. This was previously activated in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
   ```sh
-  $ lncli tower info
+  $2 lncli tower info
   ```
 
 Example output:
@@ -541,19 +537,19 @@ It's good practice to add a few watchtowers, just to be on the safe side.
 * With user `"admin"` or `"lnd"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} as a first example
 
   ```sh
-  $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
+  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
   ```
 
 * Or the clearnet address
 
   ```sh
-  $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
+  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
   ```
 
 * If you want to list your towers and active watchtowers
 
   ```sh
-  $ lncli wtclient towers
+  $2 lncli wtclient towers
   {
       "towers": [
           {
@@ -573,7 +569,7 @@ It's good practice to add a few watchtowers, just to be on the safe side.
 * If you want to deactivate an active tower
 
   ```sh
-  $ lncli wtclient remove <pubkey>
+  $2 lncli wtclient remove <pubkey>
   ```
 
 ### More commands
@@ -583,85 +579,85 @@ A quick reference with common commands to play around with:
 * list all arguments for the CLI (command line interface)
 
   ```sh
-  $ lncli
+  $2 lncli
   ```
 
 * get help for a specific command
 
   ```sh
-  $ lncli help [COMMAND]
+  $2 lncli help [COMMAND]
   ```
 
 * Find out some general stats about your node:
 
   ```sh
-  $ lncli getinfo
+  $2 lncli getinfo
   ```
 
 * Check the peers you are currently connected to:
 
   ```sh
-  $ lncli listpeers
+  $2 lncli listpeers
   ```
 
 * Check the status of your pending channels:
 
   ```sh
-  $ lncli pendingchannels
+  $2 lncli pendingchannels
   ```
 
 * Check the status of your active channels:
 
   ```sh
-  $ lncli listchannels
+  $2 lncli listchannels
   ```
 
 * Before paying an invoice, you should decode it to check if the amount and other infos are correct:
 
   ```sh
-  $ lncli decodepayreq [INVOICE]
+  $2 lncli decodepayreq [INVOICE]
   ```
 
 * Pay an invoice:
 
   ```sh
-  $ lncli payinvoice [INVOICE]
+  $2 lncli payinvoice [INVOICE]
   ```
 
 * Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
   ```sh
-  $ lncli payinvoice --amt <amount> <amp invoice>
+  $2 lncli payinvoice --amt <amount> <amp invoice>
   ```
 
 * Send a payment to a node without invoice using AMP (both sender and receiver nodes have to have AMP enabled):
 
   ```sh
-  $ lncli sendpayment --dest <destination public key> --amt <amount> --amp
+  $2 lncli sendpayment --dest <destination public key> --amt <amount> --amp
   ```
 
 * Send a payment to a node without invoice using Keysend (both sender and receiver nodes have to have Keysend enabled):
 
   ```sh
-  $ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
+  $2 lncli sendpayment --dest <destination public key> --amt <amount> --keysend
   ```
 
 * Check the payments that you sent:
 
   ```sh
-  $ lncli listpayments
+  $2 lncli listpayments
   ```
 
 * Create an invoice:
 
   ```sh
-  $ lncli addinvoice [AMOUNT_IN_SATOSHIS]
+  $2 lncli addinvoice [AMOUNT_IN_SATOSHIS]
   ```
 
 * Create an Re-Usable Static AMP invoice:
   
   ```sh
-  $ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
+  $2 lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
   ```
 
 💡 Flags `--memo "your memo here" --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time will be 30 days by default and the rest can be empty.
@@ -671,26 +667,26 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
 * List all invoices:
 
   ```sh
-  $ lncli listinvoices
+  $2 lncli listinvoices
   ```
 
 * to close a channel, you need the following two arguments that can be determined with `listchannels` and are listed as "channelpoint": `FUNDING_TXID`:`OUTPUT_INDEX`
 
   ```sh
-  $ lncli listchannels
-  $ lncli closechannel --sat_per_vbyte <fee> [FUNDING_TXID] [OUTPUT_INDEX]
+  $2 lncli listchannels
+  $2 lncli closechannel --sat_per_vbyte <fee> [FUNDING_TXID] [OUTPUT_INDEX]
   ```
 
 * to force close a channel (if your peer is offline or not cooperative), use `--force`
 
   ```sh
-  $ lncli closechannel --force [FUNDING_TXID] [OUTPUT_INDEX]
+  $2 lncli closechannel --force [FUNDING_TXID] [OUTPUT_INDEX]
   ```
 
 * to close all channels in cooperative mode
 
   ```sh
-  $ lncli closeallchannels --sat_per_byte <sat/byte>
+  $2 lncli closeallchannels --sat_per_byte <sat/byte>
   ````
 
 🔍 _more: full [LND API reference](https://api.lightning.community/){:target="_blank"}

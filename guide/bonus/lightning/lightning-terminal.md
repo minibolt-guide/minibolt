@@ -65,38 +65,70 @@ Because Pool is alpha software, Lightning Terminal is also alpha software.
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.6.5-alpha/lightning-terminal-linux-arm64-v0.6.5-alpha.tar.gz
-  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.6.5-alpha/manifest-v0.6.5-alpha.txt
-  $ sha256sum --check manifest-v0.6.5-alpha.txt --ignore-missing
-  > lightning-terminal-linux-arm64-v0.6.5-alpha.tar.gz: OK
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/lightning-terminal-linux-amd64-v0.8.4-alpha.tar.gz
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/manifest-v0.8.4-alpha.txt
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/manifest-v0.8.4-alpha.sig.ots
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/manifest-v0.8.4-alpha.sig
+
+### Checksum check
+
+* Verify the signed checksum against the actual checksum of your download
+
+  $ sha256sum --check manifest-v0.8.4-alpha.txt --ignore-missing
+  > lightning-terminal-linux-amd64-v0.8.4-alpha.tar.gz: OK
   ```
 
-* Import the project's lead maintainer (Oliver Gugger) PGP key from Keybase 
+### Signature check
+
+Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
+
+* Get the public key from Elle Mouton, who signed the manifest file; and add it to your GPG keyring
 
   ```sh
-  $ curl https://keybase.io/guggero/pgp_keys.asc | gpg --import
-  > [...]
-  > gpg: key 8E4256593F177720: "Oliver Gugger <gugger@gmail.com>" 1 new signature
-  > [...]
+  $ gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 26984CB69EB8C4A26196F7A4D7D916376026F177
+  > gpg: key D7D916376026F177: public key "Elle Mouton <elle.mouton@gmail.com>" imported
+  > gpg: Total number processed: 1
+  > gpg:               imported: 1
   ```
   
 * Using the key, verify the authenticity of the checksums file
   
   ```sh
-  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.6.5-alpha/manifest-v0.6.5-alpha.sig
-  $ gpg --verify manifest-v0.6.5-alpha.sig manifest-v0.6.5-alpha.txt
-  > [...]
-  > gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
-  > [...]
+  $ gpg --verify manifest-v0.8.4-alpha.sig manifest-v0.8.4-alpha.txt
+  > gpg: Signature made Fri Dec  2 09:20:23 2022 UTC
+  > gpg:                using RSA key 26984CB69EB8C4A26196F7A4D7D916376026F177
+  > gpg: Good signature from "Elle Mouton <elle.mouton@gmail.com>" [unknown]
+  > gpg: WARNING: This key is not certified with a trusted signature!
+  > gpg:          There is no indication that the signature belongs to the owner.
+  > Primary key fingerprint: 2698 4CB6 9EB8 C4A2 6196  F7A4 D7D9 1637 6026 F177
   ```
+
+### Timestamp check
+
+We can also check that the manifest file was in existence around the time of the release using its timestamp.
+
+* Let's verify the timestamp of the file matches the release date.
+
+  ```sh
+  $ ots --no-cache verify manifest-v0.8.4-alpha.sig.ots -f manifest-v0.8.4-alpha.sig
+  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+  > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+  > Success! Bitcoin block 765521 attests existence as of 2022-12-01 UTC
+  ```
+
+* Check that the date of the timestamp (here 2022-12-02) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-02).
+
+## Installation
 
 * Now that the authenticity and integrity of the binary has been proven, unzip the binary and install Lightning Terminal
 
   ```sh
-  $ tar -xzf lightning-terminal-linux-arm64-v0.6.5-alpha.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lightning-terminal-linux-arm64-v0.6.5-alpha/*
+  $ tar -xzf lightning-terminal-linux-amd64-v0.8.4-alpha.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lightning-terminal-linux-amd64-v0.8.4-alpha/*
   $ litd --lnd.version
-  > litd version 0.14.2-beta commit=lightning-terminal-v0.6.5-alpha
+  > litd version 0.15.5-beta commit=lightning-terminal-v0.8.4-alpha
   ```
 
 ### User and data directories
@@ -222,10 +254,10 @@ The settings for Pool, Faraday, Loop can all be put in the configuration file
   # Faraday-Bitcoin #
   ###################
   
-  # The Bitcoin node IP is the IP address of the Raspibolt, i.e. an address like 192.168.0.20
-  faraday.bitcoin.host=192.168.0.171
+  # The Bitcoin node IP is the IP address of the MiniBolt, i.e. an address like 192.168.0.20
+  faraday.bitcoin.host=192.168.0.20
   # bitcoin.user provides to Faraday the bicoind RPC username, as specified in our bitcoin.conf
-  faraday.bitcoin.user=raspibolt
+  faraday.bitcoin.user=minibolt
   # bitcoin.password provides to Faraday the bitcoind RPC password, as specified in our bitcoin.conf
   faraday.bitcoin.password=Password[B]
   ```
@@ -243,7 +275,7 @@ The settings for Pool, Faraday, Loop can all be put in the configuration file
   ```
 
 * Test that Lightning Terminal is working by visiting the web UI
-  * Past the following URL in your browser: [https://raspibolt.local:8443/](https://raspibolt.local::8443/){:target="_blank"} (replace raspibolt.local by your node IP address if required)
+  * Past the following URL in your browser: [https://minibolt.local:8443/](https://minibolt.local::8443/){:target="_blank"} (replace minibolt.local by your node IP address if required)
   * Note that the first time you connect, your browser will display a warning due to the fact the SSL certificate is self-generated. On Firefox, simply click "Advanced" and then "Accept the risks and continue" (or similar wording in other browsers)
   * Enter password [E] when prompted.
   * (Optional) Follow the walkthrough to have a first introduction to Lightning Terminal GUI. Otherwise, click "No thanks" to skip it.
@@ -365,7 +397,7 @@ Rather than always typing the flags, we can create aliases for the "admin" user.
 
 ### Settings
 
-* Log in to your Lightning Terminal by pasting [https://raspibolt.local:8443/](https://raspibolt.local:8443/){:target="_blank"} in your web browser (replace rapsibolt.local by your node IP address if needed).
+* Log in to your Lightning Terminal by pasting [https://minibolt.local:8443/](https://minibolt.local:8443/){:target="_blank"} in your web browser (replace rapsibolt.local by your node IP address if needed).
 
 * In the left menu, click on "Settings"
 
@@ -376,7 +408,7 @@ Rather than always typing the flags, we can create aliases for the "admin" user.
 
 * Go back to "Settings"
 
-* Click on "Bitcoin Transaction URL" and replace the default URL `https://mempool.space/tx/{txid}` by your own explorer: `https://raspibolt.local:4000/tx/{txid}`. Replace `raspibolt.local` by your node IP if necessary. This will preserve your privacy when looking up transactions from the Terminal.
+* Click on "Bitcoin Transaction URL" and replace the default URL `https://mempool.space/tx/{txid}` by your own explorer: `https://minibolt.local:4000/tx/{txid}`. Replace `minibolt.local` by your node IP if necessary. This will preserve your privacy when looking up transactions from the Terminal.
 
 * Optional: Replace the default Lightning Node URL `https://1ml.com/node/{pubkey}` by the Amboss explorer: `https://amboss.space/node/{pubkey}`
 
@@ -394,7 +426,7 @@ Lightning Node Connect allows to connect to Lightning Terminal and the node from
 
 #### How to connect
 
-* Log in to your Lightning Terminal by pasting [https://minibolt.local:8443/](https://raspibolt.local:8443/){:target="_blank"} in your web browser (replace rapsibolt.local by your node IP address if needed).
+* Log in to your Lightning Terminal by pasting [https://minibolt.local:8443/](https://minibolt.local:8443/){:target="_blank"} in your web browser (replace rapsibolt.local by your node IP address if needed).
 * In the left menu, click on "Lightning Node Connect"
 * Click on the "Create a new session" button and choose a name (e.g. test #1)
 * Click the "Submit" button, a pairing phrase will be copied to your clipboard
@@ -461,7 +493,7 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
 
   ```sh
   $ litd --lnd.version
-  > litd version 0.14.1-beta commit=lightning-terminal-v0.6.1-alpha
+  > litd version 0.15.5-beta commit=lightning-terminal-v0.8.4-alpha
   ```
 
 * Read the [release notes](https://github.com/lightninglabs/lightning-terminal/releases){:target="_blank"} in case there is any breaking change to be aware of.
@@ -529,7 +561,7 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
 * Finally, with the "root" user, delete the "lit" user
 
   ```sh
-  $ sudo su -
+  $ sudo su
   $ userdel -r lit
   ```
 

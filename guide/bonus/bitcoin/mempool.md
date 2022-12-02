@@ -340,9 +340,7 @@ We now need to modify the nginx configuration to create a web server for the web
       ssl_session_timeout 4h;
       ssl_protocols TLSv1.3;
       ssl_prefer_server_ciphers on;
-  
       include /etc/nginx/snippets/nginx-mempool.conf;
-  
   }
   ```
 
@@ -402,7 +400,9 @@ We now need to modify the nginx configuration to create a web server for the web
           ssl_session_timeout 4h;
           ssl_protocols TLSv1.3;
           ssl_prefer_server_ciphers on;
+
           include /etc/nginx/streams-enabled/*.conf;
+          
   }
   ```
 
