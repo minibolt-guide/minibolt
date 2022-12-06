@@ -49,8 +49,7 @@ Give it a few minutes to come to life.
 
 * If the `ping` command fails or does not return anything, you need to manually look for your PC.
 
-* You should now be able to reach your PC, either with the hostname `minibolt.local` or an IP address like `192.168.X.XXX`.
-* (if at anypoint you wish to change your hostname just enter host $ hostnamectl set-hostname 'new-hostname'
+* You should now be able to reach your PC, either with the hostname `minibolt.local` or an IP address like `192.168.X.XXX`. If at any point you wish to change your hostname, just enter `$ hostnamectl set-hostname new-hostname` command, being `new-hostname` your choice. Verify the change with `hostname` command. 
 
 ## Access with Secure Shell
 
