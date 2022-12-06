@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
 # MiniBolt
 
 ## A complete guide to building a Bitcoin & Lightning full node on a personal computer
