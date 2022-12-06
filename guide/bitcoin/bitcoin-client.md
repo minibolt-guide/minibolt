@@ -448,11 +448,11 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 ### Reduce 'dbcache' after full sync
 
 Once Bitcoin Core is fully synced, we can reduce the size of the database cache.
-A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow LND and Electrs to run in parallel.
+A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow Lightning client and Electrum server to run in parallel.
 We also now want to enable the node to listen to and relay transactions.
 
 * As user "admin", comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file.
-  Bitcoin Core will then just use the default cache size of 300 MB instead of 2 GB.
+  Bitcoin Core will then just use the default cache size of 300 MB instead of your setting RAM setup.
   Save and exit.
 
   ```sh

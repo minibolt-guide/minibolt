@@ -123,7 +123,7 @@ Cost: Free service
 
 Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt guide.
 
-* Preparations
+* System preparations
 
   * [Preparations](guide/system/preparations.md)
   * [Operating system](guide/system/operating-system.md)
