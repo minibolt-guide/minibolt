@@ -361,7 +361,7 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
 * As the `admin` user, add these lines to the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware.
 
  ```sh
-  $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+  $ sudo nano /data/fulcrum/fulcrum.conf
   ```
 
   ```sh
