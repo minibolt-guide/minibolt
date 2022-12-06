@@ -24,6 +24,12 @@ Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originall
 
 ---
 
+### Community
+
+* Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/){:target="_blank"}
+
+---
+
 Created by [⚡2 FakTor⚡](https://twitter.com/twofaktor) member of [Bitcoin Barcelona Community](https://bitcoinbarcelona.xyz/)
 
 ---

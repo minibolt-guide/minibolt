@@ -104,7 +104,7 @@ alias statusallmain='echo The status of the main services is as follows, press t
 ######################
 
 alias stoptor='sudo systemctl stop tor'
-alias stopi2p='sudo systemctl stop i2pd'
+alias stopi2p='sudo systemctl stop i2pd --no-block'
 alias stopbitcoind='sudo systemctl stop bitcoind'
 alias stopfulcrum='sudo systemctl stop fulcrum'
 alias stopbtcrpcexplorer='sudo systemctl stop btcrpcexplorer'

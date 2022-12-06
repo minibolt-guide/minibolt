@@ -6,7 +6,7 @@ parent: Bitcoin
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Desktop wallet
+# Desktop wallet: Sparrow Wallet
 
 {: .no_toc }
 
@@ -207,6 +207,13 @@ Now, let's go back to the wallet and check that the proxy is working properly.
   * The first icon should be grey, not red; and a mouse hover should display "External Tor proxy enabled"
 
 You're set! Sparrow Wallet is now configured to use the Tor proxy when fetching the Bitcoin price and when communicating with the Whirlpool server during CoinJoins.
+
+⚠️**Troubleshooting note:** For those who already had Sparrow installed on their systems with old server connections, is needed to clear the pre-existing cert of the certs folder. Follow these instructions:
+
+1. Shut down Sparrow if it's running
+2. Go to C:\Users\<yourUsername>\AppData/Roaming\Sparrow\certs (or ~/.Sparrow/certs on Linux afaik)
+3. Delete the certificate that corresponds to your node IP address
+4. Start Sparrow again
 
 ## For the future: Sparrow update
 

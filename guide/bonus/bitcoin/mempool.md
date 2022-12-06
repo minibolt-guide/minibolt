@@ -359,22 +359,13 @@ We now need to modify the nginx configuration to create a web server for the web
 * Replace the main nginx configuration file
 
   ```sh
-  $ sudo mv /etc/nginx/nginx.conf /etc/nginx/raspibolt-nginx.conf.bak
+  $ sudo mv /etc/nginx/nginx.conf /etc/nginx/minibolt-nginx.conf.bak
   $ sudo nano /etc/nginx/nginx.conf
   ```
 
-* Paste the following configuration lines. Save and exit
+* Paste the following content at the end of the file. Save and exit
 
   ```sh
-  user www-data;
-  worker_processes auto;
-  pid /run/nginx.pid;
-  include /etc/nginx/modules-enabled/*.conf;
-
-  events {
-          worker_connections 768;
-  }
-
   http {
           sendfile on;
           tcp_nopush on;
@@ -384,25 +375,13 @@ We now need to modify the nginx configuration to create a web server for the web
           server_tokens off;
           include /etc/nginx/mime.types;
           default_type application/octet-stream;
-          ssl_protocols TLSv1.3;
+          ssl_protocols TLSv1.2 TLSv1.3;
           ssl_prefer_server_ciphers on;
           access_log /var/log/nginx/access.log;
           error_log /var/log/nginx/error.log;
           gzip on;
           include /etc/nginx/conf.d/*.conf;
           include /etc/nginx/sites-enabled/*;
-  }
-
-  stream {
-          ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-          ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-          ssl_session_cache shared:SSL:1m;
-          ssl_session_timeout 4h;
-          ssl_protocols TLSv1.3;
-          ssl_prefer_server_ciphers on;
-
-          include /etc/nginx/streams-enabled/*.conf;
-          
   }
   ```
 

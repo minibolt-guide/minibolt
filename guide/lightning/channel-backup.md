@@ -6,7 +6,7 @@ parent: Lightning
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Channel backup
+# Channel backup for LND
 
 {: .no_toc }
 

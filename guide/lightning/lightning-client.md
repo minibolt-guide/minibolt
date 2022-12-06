@@ -6,7 +6,7 @@ parent: Lightning
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Lightning client
+# Lightning client: LND
 
 {: .no_toc }
 
@@ -199,9 +199,9 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
   [Application Options]
   alias=YOUR_FANCY_ALIAS #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-  maxpendingchannels=5
   color=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
   listen=localhost
+  nat=false
   debuglevel=info
 
   # Password: automatically unlock wallet with the password in this file
@@ -209,14 +209,20 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   wallet-unlock-password-file=/data/lnd/password.txt
   wallet-unlock-allow-create=true
 
+  # Automatically regenerate certificate when near expiration
+  tlsautorefresh=true
+  # Do not include the interface IPs or the system hostname in TLS certificate.
+  tlsdisableautofill=true
+  
   # Channel settings
-  # Fee settings - default LND base fee = 1000 (mSat), default LND fee rate = 1 (ppm) #You can choose whatever you want i.e ZeroFeeRouting (0,0)
+  # Fee settings - default LND base fee = 1000 (mSat), default LND fee rate = 1 (ppm) 
+  # You can choose whatever you want e.g ZeroFeeRouting (0,0)
   #bitcoin.basefee=0
   #bitcoin.feerate=0
 
   # Minimum channel size (in satoshis, default and minimun from source code is 20,000 sats) # You can choose whatever you want
   #minchansize=20000
-
+  maxpendingchannels=5
   accept-keysend=true
   accept-amp=true
   protocol.wumbo-channels=true

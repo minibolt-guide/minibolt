@@ -6,7 +6,7 @@ parent: Bitcoin
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD036 MD040 -->
 
-# Blockchain explorer
+# Blockchain explorer: BTC RPC Explorer
 
 {: .no_toc }
 

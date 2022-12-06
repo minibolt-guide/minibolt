@@ -6,7 +6,7 @@ parent: Bitcoin
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Bitcoin client
+# Bitcoin client: Bitcoin Core
 
 {: .no_toc }
 

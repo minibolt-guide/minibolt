@@ -300,9 +300,9 @@ Fulcrum will now index the whole Bitcoin blockchain so that it can provide all n
 
 DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case of that happening, start sync from scratch by deleting and recreating `fulcrum_db` folder.
 
-💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days. Only proceed with the [Desktop Wallet Section](../../bitcoin/desktop-wallet.md) once Fulcrum is ready.
+💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days. Only proceed with the [Desktop Wallet Section](../bitcoin/desktop-wallet.md) once Fulcrum is ready.
 
-* Ensure that Fulcrum service is working and listening at the default `50002` & `50001` ports
+* When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, it means that Fulcrum is fully indexed, ensure that service is working and listening at the default `50002` & `50001` ports
 
   ```sh
   $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum 

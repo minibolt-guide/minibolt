@@ -5,7 +5,6 @@ nav_order: 50
 parent: System
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
-
 {% include include_metatags.md %}
 
 # Privacy
@@ -138,6 +137,28 @@ Expected output:
 
 Not all network traffic is routed over the Tor network.
 But we now have the base to configure sensitive applications to use it.
+
+⚠️**Troubleshooting note:** if you have problems with the Tor connection, is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, you will be forcing Tor to select an entirely new set of entry guards next time it starts.
+
+* Stop Tor
+
+  ```sh
+  $ sudo systemctl stop tor
+  ```
+
+* Delete the file called "state" in your Tor directory
+
+  ```sh
+  $ sudo rm /var/lib/tor/state
+  ```
+
+* Start Tor again
+
+  ```sh
+  $ sudo systemctl start tor
+  ```
+
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading Wireshark and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using obfs bridges and see if that helps.
 
 ## I2P Project
 

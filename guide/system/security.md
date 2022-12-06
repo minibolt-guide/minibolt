@@ -5,7 +5,6 @@ nav_order: 40
 parent: System
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
-
 {% include include_metatags.md %}
 
 # Security
@@ -81,28 +80,36 @@ Expected output:
 If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the "can't accept connection: too many open files" error.
 This is due to the limit of open files (representing individual TCP connections) set too low.
 
-Create the file `/etc/security/limits.d/90-limits.conf`, copy these lines into it, save and exit.
+* Create the file `/etc/security/limits.d/90-limits.conf`, copy these lines into it, save and exit.
 
-```sh
-$ sudo nano /etc/security/limits.d/90-limits.conf
+  ```sh
+  $ sudo nano /etc/security/limits.d/90-limits.conf
+  ```
 
-*    soft nofile 128000
-*    hard nofile 128000
-root soft nofile 128000
-root hard nofile 128000
-```
+  ```sh
+  *    soft nofile 128000
+  *    hard nofile 128000
+  root soft nofile 128000
+  root hard nofile 128000
+  ```
 
-Edit both of the following two files, add the additional line(s) right before the end comment, save and exit.
+* Edit both of the following two files, add the additional line(s) right before the end comment, save and exit.
 
-```sh
-$ sudo nano /etc/pam.d/common-session
-session required                        pam_limits.so
-```
+  ```sh
+  $ sudo nano /etc/pam.d/common-session
+  ```
 
-```sh
-$ sudo nano /etc/pam.d/common-session-noninteractive
-session required                        pam_limits.so
-```
+  ```sh
+  session required                        pam_limits.so
+  ```
+
+  ```sh
+  $ sudo nano /etc/pam.d/common-session-noninteractive
+  ```
+
+  ```sh
+  session required                        pam_limits.so
+  ```
 
 ## Monitoring SSH authentication logs
 
@@ -122,6 +129,12 @@ session required                        pam_limits.so
 
   ```sh
   $ sudo tail --lines 500 /var/log/auth.log | grep sshd | grep -v 192.168.X.XXX
+  ```
+
+* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to whatever you want
+
+  ```sh
+  $ last -s -7days -t today
   ```
 
 In this way, you can detect a possible brute-force attack and take appropriate mitigation measures.
@@ -159,9 +172,9 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
   $ sudo nano /etc/nginx/nginx.conf
   ```
 
-  ```nginx
+  ```sh
   user www-data;
-  worker_processes 1;
+  worker_processes auto;
   pid /run/nginx.pid;
   include /etc/nginx/modules-enabled/*.conf;
 
@@ -176,9 +189,7 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
     ssl_session_timeout 4h;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
-
     include /etc/nginx/streams-enabled/*.conf;
-
   }
   ```
 

@@ -41,7 +41,7 @@ Lightning Terminal, developped by Lighining Labs, aims at providing additional t
 * Visualize your channel balances in a web GUI
 * Run a single daemon (`litd`) that integrates the Loop (`loopd`), Pool (`poold`) and Faraday (`faraday`) daemons
 * Loop client (`loop`): Perform submarine swaps with the LOOP node using the CLI or web GUI
-* Pool client (`pool`): Buy and sell inbound liquidity using the peer-to-peer auction-based Pool exchange using the CLI or web GUI 
+* Pool client (`pool`): Buy and sell inbound liquidity using the peer-to-peer auction-based Pool exchange using the CLI or web GUI
 * Faraday client (`frcli`): Run the Faraday daemon on your node that provides a CLI-based LN node accounting service
 
 Because Pool is alpha software, Lightning Terminal is also alpha software.  
@@ -65,17 +65,18 @@ Because Pool is alpha software, Lightning Terminal is also alpha software.
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/lightning-terminal-linux-amd64-v0.8.4-alpha.tar.gz
-  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/manifest-v0.8.4-alpha.txt
-  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/manifest-v0.8.4-alpha.sig.ots
-  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.4-alpha/manifest-v0.8.4-alpha.sig
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/lightning-terminal-linux-amd64-v0.8.5-alpha.tar.gz
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/manifest-v0.8.5-alpha.txt
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/manifest-v0.8.5-alpha.sig.ots
+  $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/manifest-v0.8.5-alpha.sig
 
 ### Checksum check
 
 * Verify the signed checksum against the actual checksum of your download
 
-  $ sha256sum --check manifest-v0.8.4-alpha.txt --ignore-missing
-  > lightning-terminal-linux-amd64-v0.8.4-alpha.tar.gz: OK
+  ```sh
+  $ sha256sum --check manifest-v0.8.5-alpha.txt --ignore-missing
+  > lightning-terminal-linux-amd64-v0.8.5-alpha.tar.gz: OK
   ```
 
 ### Signature check
@@ -94,7 +95,7 @@ Now that we've verified the integrity of the downloaded binary, we need to check
 * Using the key, verify the authenticity of the checksums file
   
   ```sh
-  $ gpg --verify manifest-v0.8.4-alpha.sig manifest-v0.8.4-alpha.txt
+  $ gpg --verify manifest-v0.8.5-alpha.sig manifest-v0.8.5-alpha.txt
   > gpg: Signature made Fri Dec  2 09:20:23 2022 UTC
   > gpg:                using RSA key 26984CB69EB8C4A26196F7A4D7D916376026F177
   > gpg: Good signature from "Elle Mouton <elle.mouton@gmail.com>" [unknown]
@@ -110,25 +111,24 @@ We can also check that the manifest file was in existence around the time of the
 * Let's verify the timestamp of the file matches the release date.
 
   ```sh
-  $ ots --no-cache verify manifest-v0.8.4-alpha.sig.ots -f manifest-v0.8.4-alpha.sig
+  $ ots --no-cache verify manifest-v0.8.5-alpha.sig.ots -f manifest-v0.8.5-alpha.sig
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
-  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
   > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-  > Success! Bitcoin block 765521 attests existence as of 2022-12-01 UTC
+  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+  > Success! Bitcoin block 765968 attests existence as of 2022-12-05 UTC
   ```
 
-* Check that the date of the timestamp (here 2022-12-02) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-02).
+* Check that the date of the timestamp (here 2022-12-05) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-05).
 
 ## Installation
 
 * Now that the authenticity and integrity of the binary has been proven, unzip the binary and install Lightning Terminal
 
   ```sh
-  $ tar -xzf lightning-terminal-linux-amd64-v0.8.4-alpha.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lightning-terminal-linux-amd64-v0.8.4-alpha/*
+  $ tar -xzf lightning-terminal-linux-amd64-v0.8.5-alpha.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lightning-terminal-linux-amd64-v0.8.5-alpha/*
   $ litd --lnd.version
-  > litd version 0.15.5-beta commit=lightning-terminal-v0.8.4-alpha
+  > litd version 0.15.5-beta commit=lightning-terminal-v0.8.5-alpha
   ```
 
 ### User and data directories
@@ -171,7 +171,7 @@ We can also check that the manifest file was in existence around the time of the
 * Open a “lit” user session
   
   ```sh
-  $ sudo su - lit
+  $ sudo su lit
   ```
 
 * Create symlinks to the LND, Lightning Terminal, Loop, Pool and Faraday directories
@@ -192,8 +192,8 @@ We can also check that the manifest file was in existence around the time of the
 
 ### Configuration
 
-The Lightning Terminal daemon (`litd`) has its own configuration file. 
-The settings for Pool, Faraday, Loop can all be put in the configuration file 
+The Lightning Terminal daemon (`litd`) has its own configuration file.
+The settings for Pool, Faraday, Loop can all be put in the configuration file
 
 * Still with the "lit" user, create the configuration file and paste the following content (set the `uipassword` with your password [E] and adjust to your alias; and paste password [B] as required in the Faraday section). Save and exit.
 
@@ -493,7 +493,7 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
 
   ```sh
   $ litd --lnd.version
-  > litd version 0.15.5-beta commit=lightning-terminal-v0.8.4-alpha
+  > litd version 0.15.5-beta commit=lightning-terminal-v0.8.5-alpha
   ```
 
 * Read the [release notes](https://github.com/lightninglabs/lightning-terminal/releases){:target="_blank"} in case there is any breaking change to be aware of.

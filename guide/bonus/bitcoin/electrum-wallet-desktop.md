@@ -6,6 +6,7 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 ---
+<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
 ## Bonus guide: Electrum Wallet Desktop
 
@@ -181,6 +182,13 @@ After opening a wallet or creating a new one, Electrum will indicate an active c
 🚨 Try to put check `"Use Tor proxy at port 9050"` or `"Use Tor proxy at port 9150"` in `"Proxy"` settings tab if not connected for you
 
 ![Electrum Wallet tor check](../../../images/electrum-wallet-tor-check.PNG)
+
+⚠️**Troubleshooting note:** For those who already had Electrum installed on their systems with old server connections, is needed to clear the pre-existing cert of the certs folder. Follow these instructions:
+
+1. Shut down Electrum if it's running
+2. Go to C:\Users\<yourUsername>\AppData/Roaming\Electrum\certs (or ~/.electrum/certs on Linux afaik)
+3. Delete the certificate that corresponds to your node IP address
+4. Start Electrum again
 
 <br /><br />
 

@@ -80,6 +80,7 @@ Everything is optional.
 ## Community
 
 * [Github Issues / Knowledge Base](https://github.com/twofaktor/minibolt/issues){:target="_blank"}
+* Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/){:target="_blank"}
 
 And feel free to join the many other contributors if you see something that can be improved!
 

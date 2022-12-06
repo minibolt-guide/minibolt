@@ -307,6 +307,14 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   $ sudo systemctl restart lightningd.service
   ```
 
+⚠️ Regarding upgrading to v22.11: If you encounter an error upgrading to v22.11 saying "upgrading to a non-final version v22.11", edit `config` and temporarily add the following parameter:
+
+  ```ini
+  database-upgrade=true
+  ```
+
+Background: This parameter was introduced to make clear that the user upgrades the database to a non-final version. The database migration cannot be undone. The recommendation therefore is to set this only once if you experience this issue and delete the parameter when the migration was successfull. Note: There's no migration happening to v22.11, so in case of failures, you still can go back to v0.12.1 or earlier versions.
+
 ## Optional Steps
 
 ### Wallet Encryption
