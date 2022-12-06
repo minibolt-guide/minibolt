@@ -1,9 +1,3 @@
----
-layout: default
-title: README
----
-<!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
-
 # MiniBolt
 
 ## A complete guide to building a Bitcoin & Lightning full node on a personal computer
@@ -32,7 +26,7 @@ Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originall
 
 ### Community
 
-* Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/){:target="_blank"}
+* Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/)
 
 ---
 
