@@ -48,8 +48,6 @@ The dashboard contains the following items that you can edit at any time:
 
 This guide assumes that you have followed the main RaspiBolt guide and installed both [BTC RPC Explorer](https://raspibolt.org/guide/bitcoin/blockchain-explorer.html) and [Ride The Lightning](https://raspibolt.org/guide/lightning/web-app.html). If not, you could edit the configuration file to remove their links from the dashboard.
 
----
-
 ## Preparations
 
 ### Firewall
@@ -493,8 +491,6 @@ Now we’ll make sure Homer starts as a service on the Raspberry Pi so it’s al
 
 You're set! You can now use the dashboard to have a quick access to your self-hosted web services and some external websites. If you have installed bonus programs like [Mempool](../bitcoin/mempool.md), [ThunderHub](../lightning/thunderhub.md), [LNBits](../lightning/lnbits.md), [Lightning Terminal](../lightning/lightning-terminal.md), Bitfeed, LNDg etc, you can add them to your dashboard.
 
----
-
 ## Personalize your homepage
 
 You can easily personalize your Homer homepage by editing the YAML configuration file.
@@ -595,8 +591,6 @@ Read about styling options on the [Bulma CSS framework webpage](https://bulma.io
 
 You can edit many more features such as the API-based welcome message, the top banner clearnet links, the footer and many more things. Check the full configuration guidelines in the [Homer repository](https://github.com/bastienwirtz/homer/blob/main/docs/configuration.md){:target="_blank"}.
 
----
-
 ## For the future: Homer upgrade
 
 Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:target="_blank"} is straight-forward. Make sure to read the release notes first.
@@ -636,8 +630,6 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
   $ sudo systemctl start homer
   $ sudo journalctl -f -u homer
   ```
-
----
 
 ## Uninstall
 

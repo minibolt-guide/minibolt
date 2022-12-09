@@ -32,16 +32,12 @@ Status: Not tested MiniBolt
 
 This is a guide for upgrading the external drive. Periodically, as the size of the blockchain grows, you will need to upgrade to a larger drive.
 
----
-
 ### Backup Important Files
 
 You should make a backup of any important files before proceeding with this operation.
 
 At a minimum, it's recommended to make a backup of the LND static channel backups.
 Please check the [Channel Backup](../../lightning/channel-backup.md) section for more details.
-
----
 
 ### Stop existing services
 
@@ -278,8 +274,6 @@ We will now check if your drive works well as-is, or if additional configuration
   > /dev/sdb1       938G   77M  891G   1% /mnt/extnew
   ```
 
----
-
 ### Move swap file to New Drive
 
 Presumably, the new external drive is more performant then the original.  We will temporarily move the swap file to the new mounted location.
@@ -304,8 +298,6 @@ Presumably, the new external drive is more performant then the original.  We wil
   ```
 
 <script id="asciicast-p7I8GeTfxOk15dFWHu8FVV83q" src="https://asciinema.org/a/p7I8GeTfxOk15dFWHu8FVV83q.js" async></script>
-
----
 
 ### Copy Files to New Drive
 
@@ -392,8 +384,6 @@ We'll use rsync to copy the files, preserving permissions and extended attribute
   > tmpfs           391M     0  391M   0% /run/user/1001
   > /dev/sdb1       938G  398G  493G  45% /mnt/extnew
   ```
-
----
 
 ### Swap drive mounts
 
@@ -530,8 +520,6 @@ Now that the new drive contains all the old files, we will remount it in place o
   > tmpfs           391M     0  391M   0% /run/user/1001
   ```
 
----
-
 ### Start services
 
 * Enable and start the services
@@ -557,8 +545,6 @@ Now that the new drive contains all the old files, we will remount it in place o
   >
   > lnd successfully unlocked!
   ```
-
----
 
 ### Complete
 

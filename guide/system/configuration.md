@@ -61,8 +61,6 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
 To change the system configuration and files that don't belong to user "admin", you have to prefix commands with `sudo`.
 You will be prompted to enter your admin `password [A]` from time to time for increased security.
 
----
-
 ## System update
 
 It is important to keep the system up-to-date with security patches and application updates.
@@ -83,8 +81,6 @@ The “Advanced Packaging Tool” (apt) makes this easy.
   ```
 
 💡 Do this regularly every few months to get security-related updates.
-
----
 
 ## Check drive performance
 
@@ -113,8 +109,6 @@ Let's check if your drive works well as-is.
   ```
 
 If the measured speeds are more than 50 MB/s, you're good.
-
----
 
 ## Data directory
 

@@ -69,8 +69,6 @@ If you need to provide connection details, use the following settings:
 * username: `temp`
 * password:  `password [A]`
 
----
-
 ## The command line
 
 We will work on the command line of the PC, which may be new to you.

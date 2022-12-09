@@ -76,8 +76,6 @@ This script can be run by user "admin" without root privileges, but you should s
   $ raspibolt
   ```
 
----
-
 ## Show on login (optional)
 
 You can run the welcome script automatically every time you log in.

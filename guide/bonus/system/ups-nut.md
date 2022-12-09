@@ -144,8 +144,6 @@ View available commands of UPS. Might come in handy to silence the alarm. Replac
   $ upscmd –l UPS-Name
   ```
 
----
-
 ### Testing
 
 Unplug the UPS from the wall and you should get a system alert on your console or terminal window (assuming you are logged in to your Raspibolt) that the system is now running on battery power. If you plug it back in, you should get notified that it’s back “on line power”.
@@ -163,8 +161,6 @@ You may also want to recall you can disable the alarm on many models. Find the v
   ```
 
 Note: If you see an option for `beeper.disable`, that will permanently turn off the audible alert. To re-enable, use `beeper.enable` or whatever applicable variable you see.
-
----
 
 ### Multiple Devices on a single UPS
 

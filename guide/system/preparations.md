@@ -63,7 +63,7 @@ They should be unique and very secure, at least 12 characters in length. Do **no
 [ B ] Bitcoin RPC password
 [ C ] LND wallet password
 [ D ] BTC-RPC-Explorer password (optional)
-[ E ] Ride The Lightning password
+[ E ] ThunderHub password
 ```
 
 ![xkcd: Password Strength](../../images/preparations_xkcd.png)

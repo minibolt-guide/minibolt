@@ -38,8 +38,6 @@ Status: Tested MiniBolt
 
 The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor).
 
----
-
 ## Set up aliases
 
 * With user "admin", access to `home` folder and download the aliases list provided by Raspibolt community at Github. ⚠️ This command will automatically overwrite the previous file you downloaded.
@@ -67,8 +65,6 @@ The following list of aliases was derived from contributions by [RobClark56](htt
   ```sh
   $ source /home/admin/.bashrc
   ```
-
----
 
 ## Aliases in action
 
@@ -101,8 +97,6 @@ The following list of aliases was derived from contributions by [RobClark56](htt
   > htop 3.0.5
   > nginx version: nginx/1.18.0 (Ubuntu)
   ```
-
----
 
 ## Uninstall
 
