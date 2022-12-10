@@ -44,8 +44,6 @@ Status: Not tested MiniBolt
 ## Install Go
 
 * To [install Go](../system/go.md#install-go) follow the instructions provided in the bonus guide.
-
----
   
 ## Install Circuit Breaker
 
@@ -59,7 +57,7 @@ Status: Not tested MiniBolt
 * With user "circuitbreaker", create a symbolic link to the `lnd` directory, in order for `circuitbreaker` to be allowed to interact with `lnd`
 
   ```sh
-  $ sudo su - circuitbreaker
+  $ sudo su circuitbreaker
   $ ln -s /data/lnd /home/circuitbreaker/.lnd
   ```
 
@@ -77,8 +75,6 @@ Status: Not tested MiniBolt
   $ echo 'export PATH=$PATH:/home/circuitbreaker/go/bin' >> /home/circuitbreaker/.bashrc
   $ source /home/circuitbreaker/.bashrc
   ```
-
----
 
 ## Configuration
 
@@ -121,8 +117,6 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
 
 * Once edited, save and exit.
 
----
-
 ## First run
 
 * Still with user "circuitbreaker", test if the program works by displaying the version
@@ -155,8 +149,6 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   ```
 
 * Stop `circuitbreaker` with Ctrl+C
-
----
 
 ## Autostart on boot
 
@@ -221,8 +213,6 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   $ sudo journalctl -f -u circuitbreaker
   ```
 
----
-
 ## Upgrade
 
 Updating to a new release should be straight-forward, but make sure to check out the [release notes](https://github.com/lightningequipment/circuitbreaker/tags){:target="_blank"} first.
@@ -234,12 +224,13 @@ Updating to a new release should be straight-forward, but make sure to check out
   $ sudo su - circuitbreaker
   ```
   
-* Fetch the latest GitHub repository information and check out the new release
+* Fetch the latest GitHub repository information and check out the new release, switch back to master if you have been using another branch
 
   ```sh
   $ cd ~/circuitbreaker
   $ git fetch
   $ git checkout master
+  $ git pull
   $ go install
   $ exit
   ```
@@ -249,8 +240,6 @@ Updating to a new release should be straight-forward, but make sure to check out
   ```sh
   $ sudo systemctl start circuitbreaker
   ```
-
----
 
 ## Uninstall
 

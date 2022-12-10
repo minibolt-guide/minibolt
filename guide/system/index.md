@@ -8,6 +8,7 @@ has_children: true
 {% include include_metatags.md %}
 
 # Personal Computer
+
 {: .no_toc }
 
 This guide builds on the easily available personal computer.

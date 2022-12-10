@@ -15,9 +15,6 @@ parent: System
 
 Let's get all the necessary hardware parts and prepare some passwords.
 
-Status: Tested MiniBolt
-{: .label .label-blue }
-
 ---
 
 ## Table of contents

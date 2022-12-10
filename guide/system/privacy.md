@@ -99,14 +99,17 @@ We need to enable Tor to accept instructions through its control port, with the 
 Save and exit
 
   ```sh
-  $ sudo nano /etc/tor/torrc
+  $ sudo nano /etc/tor/torrc --linenumbers
   ```
 
   ```sh
-  # uncomment:
+  # uncomment line 56:
   ControlPort 9051
+
+  # uncomment line 60
   CookieAuthentication 1
-  # add:
+  
+  # add under the line 60:
   CookieAuthFileGroupReadable 1
   ```
 
@@ -158,7 +161,7 @@ But we now have the base to configure sensitive applications to use it.
   $ sudo systemctl start tor
   ```
 
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading Wireshark and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using obfs bridges and see if that helps.
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using obfs bridges and see if that helps.
 
 ## I2P Project
 
@@ -166,11 +169,11 @@ If your new set of entry guards still produces the stream error, try connecting 
 
 I2P client is a software used for building and using anonymous I2P networks. Such networks are commonly used for anonymous peer-to-peer applications (filesharing, cryptocurrencies) and anonymous client-server applications (websites, instant messengers, chat-servers).
 
-We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client as a Tor network complement.
+We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client, as a Tor network complement.
 
 ### Installation
 
-* Ensure that you are logged with user "admin" and add i2p repository
+* Ensure that you are logged with user "admin" and add i2pd repository
 
   ```sh
   $ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
@@ -193,10 +196,10 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
 ### Configuration
 
-* Configure i2pd to not to relay any public I2P traffic and only permit I2P traffic from Bitcoin Core, uncomment `"notransit=true"`
+* Configure i2pd to not to relay any public I2P traffic and only permit I2P traffic from Bitcoin Core, uncomment `"notransit=true"` in line 93.
 
   ```sh
-  $ sudo nano /var/lib/i2pd/i2pd.conf
+  $ sudo nano /var/lib/i2pd/i2pd.conf --linenumbers
   ```
 
   ```sh
@@ -261,6 +264,13 @@ Expected output:
 
   ```sh
   $ sudo tail -f /var/log/i2pd/i2pd.log
+  ```
+
+Expected output:
+
+  ```sh
+  19:54:36@883/none - i2pd v2.44.0 (0.9.56) starting...
+  19:54:36@314/warn - Transports: 15 ephemeral keys generated at the time
   ```
 
 ## For the future: upgrade Tor and I2P

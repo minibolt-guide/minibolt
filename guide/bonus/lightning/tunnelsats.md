@@ -29,7 +29,7 @@ Status: Not tested MiniBolt
 
 ---
 
-Table of contents
+## Table of contents
 {: .text-delta }
 
 1. TOC

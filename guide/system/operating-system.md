@@ -15,9 +15,6 @@ parent: System
 
 We configure the PC and install the Linux operating system.
 
-Status: Tested MiniBolt
-{: .label .label-blue }
-
 ---
 
 ## Table of contents
@@ -67,27 +64,25 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 
 Use UP, Down and ENTER keys of your keyboard to navigate for the options. Follow the next instructions:
 
-1. In the first screen, select your lenguage (English recommended)
+1. In the first screen, select the language of your choice (English recommended)
 
 1. If there are an installer update available, select "Update to the new installer", press ENTER and wait
 
 1. Select your keyboard layout and variant (Spanish recommended to Spanish native speakers) and press done
 
-1. Keep select "Ubuntu Server" as the base for the installation, down to "Done" and press ENTER
+1. Keep select "Ubuntu Server" as the base for the installation, down to "done" and press ENTER
 
-1. Select interface network connection that you choose to use (Ethernet or Wifi) and take note of your IP obtained automatically through DHCP. Press done
+1. Select interface network connection that you choose to use (Ethernet recommended) and take note of your IP obtained automatically through DHCP. Press done
 
 1. Leave empty next option if you don't want to use an HTTP proxy to access. Press done
 
 1. If you don't want to use an alternative mirror for Ubuntu, leave empty and press done directly
 
-1. Configure a guided storage layout (check "Use an entire disk"), or create a custom one ("Custom storage layout"), in this last case, you will need to mount a filesystem at primary unit storage `("/")` and select a boot disk. Press done
-
-    💡 If you want to use a secondary unit storage to storage data (blockchain, indexes, etc), you have to:
-
-    * > Format the secondary unit storage as Ext4 filesystem type and mount `"/data"` directory on it. Press done
-
-    🚨 In this case, when you are log in with the `"admin"` user, remember to assign the owner of the `/data` directory to the `"admin"` user, in the step [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory), discarding the creating of the `"/data"` folder already created in the before step.
+1. Configure a guided storage layout:
+    * Check **"Use an entire disk"**, if you have only one primary unit storage (1+ TB). In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before pressing done.
+    * Check **"Custom storage layout"**, if you want to use one or multiple storage, e.g. a primary storage for the system and other secondary to storage data (blockchain, indexes, etc)(1+ TB), you will need minimum:
+        * Select a **primary disk**, as boot disk and mount the filesystem `("/")` on it as well.
+        * Select a **secondary unit**, formatting as Ext4 filesystem type, and mount `"/data"` directory on it. 🚨 In this case, remember in this section [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory) just follow the command to assign the owner of the `/data` directory to the `"admin"` user, discarding the creating of the `"/data"` folder already created in this installation process. When you are ready press done.
 
 1. Confirm destructive action by selecting the "Continue" option. Pres ENTER
 
@@ -97,6 +92,8 @@ Use UP, Down and ENTER keys of your keyboard to navigate for the options. Follow
     * > **user:** temp
     * > **server name:** minibolt
     * > **password:** PASSWORD [A]
+
+💡 If at any point you wish to change your hostname, just enter `$ hostnamectl set-hostname new-hostname` command, being `new-hostname` your choice. Verify the change with `$ hostname` command.
 
 1. Press ENTER to check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again. ⚠️ IMPORTANT step!
 
