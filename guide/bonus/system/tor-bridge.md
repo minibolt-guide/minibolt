@@ -135,14 +135,14 @@ $ sudo ufw status
   $ sudo nano /lib/systemd/system/tor@default.service
   ```
 
-* Change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
+* Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
 
   ```sh
   # Hardening
-  NoNewPrivileges=yes
+  NoNewPrivileges=no
   ```
 
-* Same for `"tor@.service"` file, change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
+* Same for `"tor@.service"` file, change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
 
   ```sh
   $ sudo nano /lib/systemd/system/tor@.service
@@ -150,13 +150,25 @@ $ sudo ufw status
 
   ```sh
   # Hardening
-  NoNewPrivileges=yes
+  NoNewPrivileges=no
   ```
 
 * Reload systemd manager configuration to apply changes
 
   ```sh
-  $ systemctl daemon-reload
+  $ sudo systemctl daemon-reload
+  ```
+
+* Enable and start tor
+
+  ```sh
+  $ sudo systemctl enable --now tor.service
+  ```
+
+* Or restart it if it was running already, so configurations take effect
+
+  ```sh
+  $ sudo systemctl restart tor.service
   ```
 
 ### Testing
@@ -271,6 +283,14 @@ One of the most important things to keep your relay secure is to install securit
 
 ## Uninstall
 
+### Unistall obfs4 proxy
+
+* Unistall obfs4proxy software
+
+  ```sh
+  $ sudo apt autoremove obfs4proxy --purge
+  ```
+
 ### Uninstall Tor configuration
 
 * Reverts "torrc" file configuration commenting previously configured lines. Save and exit
@@ -310,7 +330,7 @@ $ sudo ufw delete X
 * Check the correct application of the rules
 
 ```sh
-$ sudo ufw status
+$ sudo ufw status verbose
 ```
 
 🚨 Reverts router NAT configuration following same "[Configure Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
@@ -323,14 +343,14 @@ $ sudo ufw status
   $ sudo nano /lib/systemd/system/tor@default.service
   ```
 
-* Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
+* Change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
 
   ```sh
   # Hardening
-  NoNewPrivileges=no
+  NoNewPrivileges=yes
   ```
 
-* Same for `"tor@.service"` file, change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
+* Same for `"tor@.service"` file, change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
 
   ```sh
   $ sudo nano /lib/systemd/system/tor@.service
@@ -338,13 +358,13 @@ $ sudo ufw status
 
   ```sh
   # Hardening
-  NoNewPrivileges=no
+  NoNewPrivileges=yes
   ```
 
 * Reload systemd manager configuration to apply changes
 
   ```sh
-  $ systemctl daemon-reload
+  $ sudo systemctl daemon-reload
   ```
 
 << Back: [+ System](index.md)

@@ -131,7 +131,7 @@ There might be a lot of confusing output, but if you see something similar to th
 
   ```sh
   $ cp .env-sample .env
-  $ nano .env
+  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
   ```
 
 * Instruct BTC RPC Explorer to connect to local Bitcoin Core

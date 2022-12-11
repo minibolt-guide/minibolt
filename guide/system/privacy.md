@@ -44,7 +44,7 @@ It allows you to anonymize internet traffic by routing it through a network of n
 It is called "Tor" for "The Onion Router": information is routed through many hops and encrypted multiple times.
 Each node decrypts only the layer of information addressed to it, learning only the previous and the next hop of the whole route. The data package is peeled like an onion until it reaches the final destination.
 
-### Installation
+### Tor installation
 
 Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
@@ -90,7 +90,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
   [...]
   ```
 
-### Configuration
+### Tor configuration
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network.
 We need to enable Tor to accept instructions through its control port, with the proper authentication.
@@ -138,6 +138,26 @@ Expected output:
   $ sudo journalctl -f -u tor@default
   ```
 
+Expected output:
+
+```sh
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor 0.4.7.11 running on Linux with Libevent 2.1.12-stable, OpenSSL 3.0.2, Zlib 1.2.11, Liblzma 5.2.5, Libzstd 1.4.8 and Glibc 2.35 as libc.
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor can't help you if you use it wrong! Learn how to be safe at https://support.torproject.org/faq/staying-anonymous/
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Read configuration file "/usr/share/tor/tor-service-defaults-torrc".
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Read configuration file "/etc/tor/torrc".
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Based on detected system memory, MaxMemInQueues is set to 2751 MB. You can override this by setting MaxMemInQueues by hand.
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opening Socks listener on 127.0.0.1:9050
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opened Socks listener connection (ready) on 127.0.0.1:9050
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opening Control listener on 127.0.0.1:9051
+  Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opened Control listener connection (ready) on 127.0.0.1:9051
+  [...]
+  Dec 11 10:47:36 bitcoinbcn Tor[1065]: Bootstrapped 75% (enough_dirinfo): Loaded enough directory info to build circuits
+  Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 89% (ap_handshake): Finishing handshake with a relay to build circuits
+  Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 90% (ap_handshake_done): Handshake finished with a relay to build circuits
+  Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 95% (circuit_create): Establishing a Tor circuit
+  Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 100% (done): Done
+  ```
+
 Not all network traffic is routed over the Tor network.
 But we now have the base to configure sensitive applications to use it.
 
@@ -171,7 +191,7 @@ I2P client is a software used for building and using anonymous I2P networks. Suc
 
 We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client, as a Tor network complement.
 
-### Installation
+### I2P installation
 
 * Ensure that you are logged with user "admin" and add i2pd repository
 
@@ -194,7 +214,7 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
   [...]
   ```
 
-### Configuration
+### I2P configuration
 
 * Configure i2pd to not to relay any public I2P traffic and only permit I2P traffic from Bitcoin Core, uncomment `"notransit=true"` in line 93.
 
@@ -280,6 +300,23 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
   ```sh
   $ sudo apt update && sudo apt upgrade
   ```
+
+Note: in the I2P update process maybe apears you this message:
+
+  ```sh
+    Configuration file '/etc/i2pd/i2pd.conf'
+  ==> Modified (by you or by a script) since installation.
+  ==> Package distributor has shipped an updated version.
+    What would you like to do about it ?  Your options are:
+      Y or I  : install the package maintainer's version
+      N or O  : keep your currently-installed version
+        D     : show the differences between the versions
+        Z     : start a shell to examine the situation
+  The default action is to keep your current version.
+  *** i2pd.conf (Y/I/N/O/D/Z) [default=N] ?
+  ```
+
+Is recommended selecting `Y` option because the developer could have applied modifications in the config file and this could be useful for new features, but you will need to apply `"notransit=true"` on `i2pd.conf` [configuration file](#i2p-configuration) again.
 
 ## Extras
 

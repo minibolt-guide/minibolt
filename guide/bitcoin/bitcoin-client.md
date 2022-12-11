@@ -355,7 +355,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 * Return to the first session and monitor "bitcoind" by its log file. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
-  $ tail -f /home/bitcoin/.bitcoin/debug.log
+  $ tail --lines 500 -f /home/bitcoin/.bitcoin/debug.log
   ```
 
 Expected output:
