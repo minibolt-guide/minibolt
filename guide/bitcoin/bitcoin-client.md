@@ -50,13 +50,13 @@ This is a precaution to make sure that this is an official release and not a mal
 
   ```sh
   # download Bitcoin Core binary
-  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/bitcoin-24.0-x86_64-linux-gnu.tar.gz
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
 
   # download the list of cryptographic checksum
-  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS
 
   # download the signatures attesting to validity of the checksums
-  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS.asc
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.asc
   ```
 
 ### Checksum check
@@ -65,7 +65,7 @@ This is a precaution to make sure that this is an official release and not a mal
 
   ```sh
   $ sha256sum --ignore-missing --check SHA256SUMS
-  > bitcoin-24.0-x86_64-linux-gnu.tar.gz: OK
+  > bitcoin-24.0.1-x86_64-linux-gnu.tar.gz: OK
   ```
 
 ### Signature check
@@ -106,13 +106,13 @@ This is a precaution to make sure that this is an official release and not a mal
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed prior to some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
 
-  * [https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS.ots)
-  * [https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS)
+  * [https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots)
+  * [https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS)
 
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/){:target="_blank"}
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
 * In the next box, drop or upload the SHA256SUMS file
-* If the timestamps is verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v24.0){:target="_blank"} of Bitcoin Core v24.0.
+* If the timestamps is verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v24.0.1){:target="_blank"} of Bitcoin Core v24.0.1.
 
 ![Bitcoin timestamp check](../../images/bitcoin-ots-check.PNG)
 
@@ -121,10 +121,10 @@ This is a precaution to make sure that this is an official release and not a mal
 * If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
   ```sh
-  $ tar -xvf bitcoin-24.0-x86_64-linux-gnu.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-24.0/bin/*
+  $ tar -xvf bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-24.0.1/bin/*
   $ bitcoind --version
-  > Bitcoin Core version v24.0.0
+  > Bitcoin Core version v24.0.1.0
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
   ```
@@ -355,7 +355,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 Expected output:
 
   ```sh
-  > 2022-11-24T18:08:04Z Bitcoin Core version v24.0.0 (release build)
+  > 2022-11-24T18:08:04Z Bitcoin Core version v24.0.1.0 (release build)
   > 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -upnp=0
   > 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -natpmp=0
   > 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -discover=0
@@ -405,7 +405,7 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
 Example expected output:
 
   ```sh
-  Bitcoin Core client v24.0.0 - server 70016/Satoshi:24.0.0/
+  Bitcoin Core client v24.0.1 - server 70016/Satoshi:24.0.1/
             ipv4    ipv6   onion   i2p   total   block
   in          0       0      25     2      27
   out         7       0       2     1      10       2
@@ -578,8 +578,8 @@ Download, verify, extract and install the Bitcoin Core binaries as described in 
 
   ```sh
   $ cd /tmp
-  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS.ots
-  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0/SHA256SUMS
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS
   ```
 
 * Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installed correctly OTS client in the [properly section](#opentimestamps-client)
@@ -595,7 +595,7 @@ Expected output
   > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
   > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-  > Success! Bitcoin block 764525 attests existence as of 2022-11-24 UTC
+  > Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
   ```
 
 Now, just check that the timestamp date is close to the release date of the version you're installing.

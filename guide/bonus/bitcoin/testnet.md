@@ -49,6 +49,8 @@ File location: `/data/bitcoin/bitcoin.conf`
   # [chain]
   # main, test, signet, regtest
   chain=test
+  #testnet=1
+  #startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
 
   # [core]
   sysperms=1
@@ -96,11 +98,9 @@ File location: `/data/bitcoin/bitcoin.conf`
 
 Note that the testnet data is stored in `/data/bitcoin/testnet3`. To check the log file, use `tail -f /data/bitcoin/testnet3/debug.log`.
 
-Because the authentication cookie now located in `/data/bitcoin/testnet3/.cookie`, the command in the `systemd` unit `bitcoind.service` to grant the group `bitcoin` read permissions in `/etc/systemd/system/bitcoind.service` needs to be changed to:
+sudo su - bitcoin
 
-  ```sh
-  -startupnotify="chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie"
-  ```
+bitcoin-cli -testnet
 
 ## Electrs
 

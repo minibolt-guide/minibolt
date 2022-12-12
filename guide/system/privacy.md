@@ -140,7 +140,7 @@ Expected output:
 
 Expected output:
 
-```sh
+  ```sh
   Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor 0.4.7.11 running on Linux with Libevent 2.1.12-stable, OpenSSL 3.0.2, Zlib 1.2.11, Liblzma 5.2.5, Libzstd 1.4.8 and Glibc 2.35 as libc.
   Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor can't help you if you use it wrong! Learn how to be safe at https://support.torproject.org/faq/staying-anonymous/
   Dec 11 10:47:04 bitcoinbcn Tor[1065]: Read configuration file "/usr/share/tor/tor-service-defaults-torrc".
@@ -289,8 +289,23 @@ Expected output:
 Expected output:
 
   ```sh
-  19:54:36@883/none - i2pd v2.44.0 (0.9.56) starting...
-  19:54:36@314/warn - Transports: 15 ephemeral keys generated at the time
+  11:52:56@883/none - i2pd v2.44.0 (0.9.56) starting...
+  11:52:57@444/warn - Transports: 15 ephemeral keys generated at the time
+  11:52:57@883/warn - Addressbook: subscriptions.txt usage is deprecated, use config file instead
+  11:52:58@783/warn - SSU2: Peer test 4 router not found
+  11:52:58@783/warn - SSU2: Peer test 4 router not found
+  11:53:02@783/warn - SSU2: Session with 81.155.117.241:24027 was not established after 5 seconds
+  11:53:02@783/warn - SSU2: Session with 82.48.155.160:20423 was not established after 5 seconds
+  11:53:02@783/warn - SSU2: Session with 81.107.248.153:24716 was not established after 5 seconds
+  11:53:02@783/warn - SSU2: Session with 188.127.17.98:39249 was not established after 5 seconds
+  11:53:02@553/warn - NTCP2: SessionCreated read error: End of file
+  11:53:04@783/warn - SSU2: Session with 80.194.231.253:29452 was not established after 5 seconds
+  11:53:04@844/warn - Profiling: No profile yet for XKlpatw2sSDZagG~CjFBrfVimFDRUhRCrlD0RHvLnC0=
+  11:53:04@844/error - Tunnels: Can't select next hop for Rq3JIRBzENl6anQmeXGF0PPld6V9899TIF0qNqmp7Yc=
+  11:53:04@844/error - Tunnels: Can't create inbound tunnel, no peers available
+  11:53:04@844/warn - Profiling: No profile yet for LBNfbHPSzpnWC5BE5Te0tIaiLNpStUvFDZjxI86bmjc=
+  11:53:04@553/warn - NTCP2: SessionCreated read error: End of file
+  11:53:04@844/warn - Profiling: No profile yet for NuySEfKaNSNxL90S5ZvKjnppzC86XxZ-xmwLJ08Hiv0=
   ```
 
 ## For the future: upgrade Tor and I2P
