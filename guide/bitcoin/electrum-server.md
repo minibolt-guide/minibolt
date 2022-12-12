@@ -308,6 +308,16 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
   $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum 
   ```
 
+## For the future: Fulcrum upgrade
+
+* As “admin” user, stop the Fulcrum service
+
+  ```sh
+  $ sudo systemctl stop fulcrum
+  ```
+
+* Download, verify and install the latest Fulcrum binaries as described in the [installation](#download-and-set-up-fulcrum) section of this guide.
+
 ## Extras (optional)
 
 ### Remote access over Tor
@@ -505,16 +515,6 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 ### Backup the database
 
 If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend to make backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum doing `"sudo systemctl stop fulcrum"`.
-
-## For the future: Fulcrum upgrade
-
-* As “admin” user, stop the Fulcrum service
-
-  ```sh
-  $ sudo systemctl stop fulcrum
-  ```
-
-* Download, verify and install the latest Fulcrum binaries as described in the [Fulcrum section](fulcrum.md#download-and-set-up-fulcrum) of this guide
 
 ## Uninstall
 

@@ -584,7 +584,6 @@ When upgrading, there might be breaking changes, or changes in the data structur
 * Download binay, timestamp, checksum and signature files
 
   ```sh
-  $ cd /tmp
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.asc
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots
@@ -654,7 +653,7 @@ Expected output
   > Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
   ```
 
-Now, just check that the timestamp date is close to the release date of the version you're installing.
+Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing.
 
 * If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
