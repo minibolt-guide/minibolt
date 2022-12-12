@@ -1,25 +1,30 @@
+<h1 align="center">MiniBolt</h1>
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT" title="License: MIT">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg">
+    <img src="https://img.shields.io/github/license/twofaktor/minibolt?color=blue">
   </a>
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/twofaktor/minibolt?label=latest%20release">
 
-<h1 align="center">MiniBolt</h1>
+<h2 align="center">A complete guide to building a Bitcoin & Lightning full node on a personal computer</h2>
 
-## A complete guide to building a Bitcoin & Lightning full node on a personal computer
+---
 
-#### <span style="color:red">⚠️ Attention! This project is a fork under construction, some chapters could not be attached to the reference use case. Pay special attention to the **"Status: Not tested MiniBolt"** tag at the beginning of the guides. Be careful and act at your own risk.</span>
+<h4 align="left" style="color:red">⚠️ Attention! This project is a fork under construction, some chapters could not be attached to the reference use case. Pay special attention to the <b>"Status: Not tested MiniBolt"</b> tag at the beginning of the guides. Be careful and act at your own risk.</span>
 
 <p align="center">
   <a href="https://twofaktor.github.io/minibolt/">
     <img alt="MiniBolt" src="images/minibolt-home-screen.png"/>
   </a>
 </p>
+
 ---
 
-### The MiniBolt Guide is available on GitHub Pages
+<h3 align="center"> The MiniBolt Guide is available on GitHub Pages
 
 https://twofaktor.github.io/minibolt
+
+</h3>
 
 ---
 
