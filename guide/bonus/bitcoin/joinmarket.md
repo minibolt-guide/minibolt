@@ -32,7 +32,7 @@ Status: Not tested MiniBolt
 
 ---
 
-[![tippin.me](https://badgen.net/badge/%E2%9A%A1%EF%B8%8Ftippin.me/@kristapsk/F0918E)](https://tippin.me/@kristapsk)
+[![tippin.me][def]](https://tippin.me/@kristapsk)
 
 ### Introduction
 
@@ -370,3 +370,6 @@ All this must be done from "joinmarket" user.
 ---
 
 << Back: [+ Bitcoin](index.md)
+
+
+[def]: https://badgen.net/badge/%E2%9A%A1%EF%B8%8Ftippin.me/@kristapsk/F0918E

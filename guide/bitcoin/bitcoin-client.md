@@ -46,16 +46,11 @@ This is a precaution to make sure that this is an official release and not a mal
   $ cd /tmp
   ```
 
-* Get the latest download links at [bitcoincore.org/en/download](https://bitcoincore.org/en/download){:target="_blank"} (x86/amd64 Linux), they change with each update.
+* Get the latest binaries and signatures
 
   ```sh
-  # download Bitcoin Core binary
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
-
-  # download the list of cryptographic checksum
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS
-
-  # download the signatures attesting to validity of the checksums
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.asc
   ```
 
@@ -65,6 +60,11 @@ This is a precaution to make sure that this is an official release and not a mal
 
   ```sh
   $ sha256sum --ignore-missing --check SHA256SUMS
+  ```
+
+Expected output:
+
+  ```sh
   > bitcoin-24.0.1-x86_64-linux-gnu.tar.gz: OK
   ```
 
@@ -77,6 +77,11 @@ This is a precaution to make sure that this is an official release and not a mal
   ```sh
   $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/builder-keys/keys.txt -O keys.txt
   $ while read fingerprint keyholder_name; do gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys ${fingerprint}; done < ./keys.txt
+  ```
+
+Expexted output:
+
+  ```sh
   > gpg: key 188CBB2648416AD5: public key ".0xB10C <b10c@b10c.me>" imported
   > gpg: Total number processed: 1
   > gpg:               imported: 1
@@ -113,6 +118,8 @@ This is a precaution to make sure that this is an official release and not a mal
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
 * In the next box, drop or upload the SHA256SUMS file
 * If the timestamps is verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v24.0.1){:target="_blank"} of Bitcoin Core v24.0.1.
+
+The following screenshot is just an example of one of the versions:
 
 ![Bitcoin timestamp check](../../images/bitcoin-ots-check.PNG)
 
@@ -431,7 +438,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 * [**Mastering Bitcoin**](https://bitcoinbook.info){:target="_blank"} by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part how to compile from source code):
   * you definitely need to have a [real copy](https://bitcoinbook.info/){:target="_blank"} of this book!
-  * read it online on [Github](https://github.com/bitcoinbook/bitcoinbook){:target="_blank"}
+  * read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook){:target="_blank"}
 
   ![Mastering Bitcoin](../../images/30_mastering_bitcoin_book.jpg){:target="_blank"}
 
@@ -552,7 +559,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   maxconnections=40
   # Increase the number of threads to service RPC calls (default: 4)
   rpcthreads=128
-  # Increase the depth of the work queue to service RPC calls
+  # Increase the depth of the work queue to service RPC calls (default: 16)
   rpcworkqueue=512
   ```
 
@@ -565,21 +572,70 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 ## For the future: upgrade Bitcoin Core
 
-The latest release can be found on the [Github page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first!
+The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first!
 When upgrading, there might be breaking changes, or changes in the data structure that need special attention.
 
-* There's no need to stop the application.
-
-  Simply install the new version and restart the service.
-
-Download, verify, extract and install the Bitcoin Core binaries as described in the [Bitcoin section](bitcoin-client.md#installation) of this guide. When checking the timestamp, instead of using the website, use the following command:
-
-* Download the timestamp in the same directory as the checksum and signature files
+* Login as "admin" and change to the temporary directory.
 
   ```sh
   $ cd /tmp
+  ```
+
+* Download binay, timestamp, checksum and signature files
+
+  ```sh
+  $ cd /tmp
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
+  $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.asc
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS
+  ```
+
+* Verify new version against its checksums
+
+ ```sh
+  $ sha256sum --ignore-missing --check SHA256SUMS
+  ```
+
+Expected output:
+
+  ```sh
+  > bitcoin-24.0.1-x86_64-linux-gnu.tar.gz: OK
+  ```
+
+* Update gpg keys and verify checksums signatures
+
+  ```sh
+  $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/builder-keys/keys.txt -O keys.txt
+  $ while read fingerprint keyholder_name; do gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys ${fingerprint}; done < ./keys.txt
+  ```
+
+Expexted output:
+
+  ```sh
+  > gpg: key 188CBB2648416AD5: public key ".0xB10C <b10c@b10c.me>" imported
+  > gpg: Total number processed: 1
+  > gpg:               imported: 1
+  > gpg: key 0A41BDC3F4FAFF1C: "Aaron Clauson (sipsorcery) <aaron@sipsorcery.com>" not changed
+  > gpg: Total number processed: 1
+  > gpg:              unchanged: 1
+  > gpg: key 4BB42E31C79111B8: "Akira Takizawa (Ethereum Social Official) <info@ethereumsocial.kr>" not changed
+  > gpg: Total number processed: 1
+  [...]
+  ```
+
+* Verify that the checksums file is cryptographically signed by the release signing keys.
+  The following command prints signature checks for each of the public keys that signed the checksums.
+  
+  ```sh
+  $ gpg --verify SHA256SUMS.asc
+  ```
+
+Check that at least a few signatures show the following text
+
+  ```sh
+  > gpg: **Good signature from** ...
+  > Primary key fingerprint: ...
   ```
 
 * Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installed correctly OTS client in the [properly section](#opentimestamps-client)
@@ -599,6 +655,17 @@ Expected output
   ```
 
 Now, just check that the timestamp date is close to the release date of the version you're installing.
+
+* If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
+
+  ```sh
+  $ tar -xvf bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-24.0.1/bin/*
+  $ bitcoind --version
+  > Bitcoin Core version v24.0.1.0
+  > Copyright (C) 2009-2022 The Bitcoin Core developers
+  > [...]
+  ```
 
 * Restart the Bitcoin Core systemd unit
 
