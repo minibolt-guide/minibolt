@@ -4,8 +4,12 @@
   <a href="https://opensource.org/licenses/MIT" title="License: MIT">
     <img src="https://img.shields.io/github/license/twofaktor/minibolt?color=blue">
   </a>
-  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/twofaktor/minibolt?label=latest%20release">
-  <img alt="Subreddit subscribers" src="https://img.shields.io/reddit/subreddit-subscribers/minibolt?style=social">
+  <a href="https://github.com/twofaktor/minibolt/releases" title="Lastest release">
+    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/twofaktor/minibolt?label=latest%20release">
+    </a>
+  <a href="https://github.com/twofaktor/minibolt/releases" title="MiniBolt Reddit">
+    <img alt="Subreddit subscribers" src="https://img.shields.io/reddit/subreddit-subscribers/minibolt?style=social">
+    </a>
 
 <h2 align="center">A complete guide to building a Bitcoin & Lightning full node on a personal computer</h2>
 
