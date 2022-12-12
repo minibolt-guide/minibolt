@@ -167,7 +167,7 @@ Instead of creating this directory, we create a data directory in the general da
 * Switch to user "bitcoin"
 
   ```sh
-  $ sudo su bitcoin
+  $ sudo su - bitcoin
   ```
 
 * Create the symbolic link `.bitcoin` that points to that directory
@@ -192,12 +192,6 @@ Another option to get access credentials is through the `.cookie` file in the Bi
 This is created automatically and can be read by all users that are members of the "bitcoin" group.
 
 Bitcoin Core provides a simple Python program to generate the configuration line for the config file.
-
-* Return to the home Bitcoin user folder typing `cd` command
-
-  ```sh
-  $ cd
-  ```
 
 * In the Bitcoin folder, download the RPCAuth program
 
@@ -349,13 +343,13 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 * Grant the "bitcoin" group read-permission for the debug log file:
 
   ```sh
-  $2 chmod g+r /data/bitcoin/debug.log
+  $2 sudo chmod g+r /data/bitcoin/debug.log
   ```
 
 * Return to the first session and monitor "bitcoind" by its log file. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
-  $ tail --lines 500 -f /home/bitcoin/.bitcoin/debug.log
+  $ sudo tail --lines 500 -f /home/bitcoin/.bitcoin/debug.log
   ```
 
 Expected output:

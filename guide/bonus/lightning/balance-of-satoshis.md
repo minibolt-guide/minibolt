@@ -61,7 +61,7 @@ Status: Not tested MiniBolt
   ```sh
   $ sudo adduser --disabled-password --gecos "" bos
   $ sudo adduser bos lnd
-  $ sudo su bos
+  $ sudo su - bos
   ```
 
 * Create symlink to lnd directory

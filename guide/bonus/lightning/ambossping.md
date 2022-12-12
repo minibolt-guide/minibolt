@@ -54,7 +54,7 @@ Status: Not tested MiniBolt
 * With the “ambossping” user map the LND folder
 
   ```sh
-  $ sudo su ambossping
+  $ sudo su - ambossping
   $ ln -s /data/lnd /home/ambossping/.lnd
   ```
 

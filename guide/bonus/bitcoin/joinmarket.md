@@ -291,7 +291,7 @@ Since version 0.9.0 JoinMarket has added support for fidelity bonds, which are b
 * Start tmux from the "joinmarket" user
 
   ```sh
-  $ sudo su joinmarket
+  $ sudo su - joinmarket
   $ tmux
   ```
 
@@ -335,7 +335,7 @@ Tumbler is a program that does series of CoinJoins with various amounts and timi
 Every time you disconnect from the MiniBolt and connect again, if you are in a fresh session, before running any JoinMarket commands, you need to switch to the joinmarket user and run the activate.sh script created above:
 
   ```sh
-  $ sudo su joinmarket
+  $ sudo su - joinmarket
   $ . activate.sh
   ```
 

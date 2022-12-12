@@ -308,7 +308,7 @@ Follow this section if you want a remote backup. If you already set up a local b
 * Using the "lnd" user, create a pair of SSH keys. When prompted, press "Enter" to confirm the default SSH directory and not set up a password.
 
   ```sh
-  $ sudo su lnd
+  $ sudo su - lnd
   $ ssh-keygen -t rsa -b 4096
   > Generating public/private rsa key pair.
   > [...]

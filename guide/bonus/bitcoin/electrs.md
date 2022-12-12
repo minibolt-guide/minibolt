@@ -167,7 +167,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 * Switch to the "electrs" user and create the config file with the following content
 
   ```sh
-  $ sudo su electrs
+  $ sudo su - electrs
   $ nano /data/electrs/electrs.conf
   ```
 
@@ -337,7 +337,7 @@ To get address balances, either an Electrum server or an external service is nec
 * As user `admin`, change to `btcrpcexplorer` user, enter to `btc-rpc-explorer` folder and open `.env` file
 
   ```sh
-  $ sudo su btcrpcexplorer
+  $ sudo su - btcrpcexplorer
   $ cd btc-rpc-explorer
   $ nano .env
   ```

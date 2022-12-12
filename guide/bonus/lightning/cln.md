@@ -87,7 +87,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 * Open a "lightningd" user session and create symbolic links to `bitcoin` and `lightningd` data directories.
 
   ```sh
-  $ sudo su lightningd
+  $ sudo su - lightningd
   $ ln -s /data/lightningd /home/lightningd/.lightning
   $ ln -s /data/bitcoin /home/lightningd/.bitcoin
   ```
@@ -269,7 +269,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 * If `lightningd.service` started without errors, we can check out and try CLN commands.
 
   ```sh
-  $ sudo su lightningd 
+  $ sudo su - lightningd 
   $ lightning-cli --version
   $ lightning-cli getinfo
   $ lightning-cli listfunds
@@ -389,7 +389,7 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
 * Setting up c-lightning-Rest as plugin for CLN. First we download and verify the c-lightning-Rest package:
 
   ```sh
-  $ sudo su lightningd
+  $ sudo su - lightningd
   $ wget https://github.com/Ride-The-Lightning/c-lightning-REST/archive/refs/tags/v0.9.0.tar.gz
   $ wget https://github.com/Ride-The-Lightning/c-lightning-REST/releases/download/v0.9.0/v0.9.0.tar.gz.asc
   ```
@@ -503,7 +503,7 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
 * By the following configuration we tell RTL to connect to our CLN node. Change to user `rtl`:
 
   ```sh
-  $ sudo su rtl
+  $ sudo su - rtl
   $ nano /home/rtl/RTL/RTL-Config.json
   ```
 

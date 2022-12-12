@@ -57,7 +57,7 @@ Status: Not tested MiniBolt
 * With user "circuitbreaker", create a symbolic link to the `lnd` directory, in order for `circuitbreaker` to be allowed to interact with `lnd`
 
   ```sh
-  $ sudo su circuitbreaker
+  $ sudo su - circuitbreaker
   $ ln -s /data/lnd /home/circuitbreaker/.lnd
   ```
 

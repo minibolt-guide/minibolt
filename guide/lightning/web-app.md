@@ -85,7 +85,7 @@ We are going to install Thunderhub in the home directory since it doesn't need t
   $ sudo adduser thunderhub lnd
   $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/admin.macaroon
   $ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
-  $ sudo su thunderhub
+  $ sudo su - thunderhub
   ```
 
 * Download the source code directly from GitHub and install all dependencies using NPM.
@@ -261,7 +261,7 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 
   ```sh
   $ sudo systemctl stop thunderhub
-  $ sudo su thunderhub
+  $ sudo su - thunderhub
   ```
 
 * Run the update command provided within the package:

@@ -72,7 +72,7 @@ Status: Not tested MiniBolt
 * With the "lnd" user, create (or 'bake') a suitably limited LND macaroon, then exit back to "admin"
 
   ```sh
-  $ sudo su lnd
+  $  - lnd
   $ lncli bakemacaroon offchain:read offchain:write onchain:read info:read --save_to=~/.lnd/data/chain/bitcoin/mainnet/charge-lnd.macaroon
   > Macaroon saved to /home/lnd/.lnd/data/chain/bitcoin/mainnet/charge-lnd.macaroon
   $ exit

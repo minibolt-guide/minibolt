@@ -99,7 +99,7 @@ An attacker would not be able to do much within this user's permission settings.
   ```sh
   $ sudo adduser --disabled-password --gecos "" btcrpcexplorer
   $ sudo adduser btcrpcexplorer bitcoin
-  $ sudo su btcrpcexplorer
+  $ sudo su - btcrpcexplorer
   ```
 
 * Download the source code directly from GitHub and install all dependencies using the Node Package Manager (NPM).
@@ -276,7 +276,7 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 * With user `admin`, change to the `btcrpcexplorer` user
 
   ```sh
-  $ sudo su btcrpcexplorer
+  $ sudo su - btcrpcexplorer
   ```
 
 * Edit `.env` configuration file
@@ -345,7 +345,7 @@ Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/release
 
   ```sh
   $ sudo systemctl stop btcrpcexplorer
-  $ sudo su btcrpcexplorer
+  $ sudo su - btcrpcexplorer
   ```
 
 * Fetch the latest GitHub repository information, display the release tags (use the latest `v3.3.0` in this example), and update:

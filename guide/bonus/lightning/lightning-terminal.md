@@ -171,7 +171,7 @@ We can also check that the manifest file was in existence around the time of the
 * Open a “lit” user session
   
   ```sh
-  $ sudo su lit
+  $ sudo su - lit
   ```
 
 * Create symlinks to the LND, Lightning Terminal, Loop, Pool and Faraday directories

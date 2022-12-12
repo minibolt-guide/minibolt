@@ -93,7 +93,7 @@ We do not want to run Ride the Lightning alongside bitcoind and lnd because of s
   $ sudo adduser --disabled-password --gecos "" rtl
   $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/rtl/admin.macaroon
   $ sudo chown rtl:rtl /home/rtl/admin.macaroon
-  $ sudo su rtl
+  $ sudo su - rtl
   ```
 
 * Download the PGP keys that are used to sign the software release
@@ -306,7 +306,7 @@ Make sure to read the release notes first.
 
   ```sh
   $ sudo systemctl stop rtl
-  $ sudo su rtl
+  $ sudo su - rtl
   ```
 
 * Fetch the latest GitHub repository information, display the latest release tag, ignoring release cadidates and update:

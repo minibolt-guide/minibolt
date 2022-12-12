@@ -84,7 +84,7 @@ For that we will create a separate user and we will be running the code as the n
 * Log in with the lndg user and create a symbolic link to the LND data directory
 
   ```sh
-  $ sudo su lndg
+  $ sudo su - lndg
   $ ln -s /data/lnd /home/lndg/.lnd
   ```
 

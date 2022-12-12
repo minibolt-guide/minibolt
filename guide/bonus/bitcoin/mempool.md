@@ -78,7 +78,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
   ```sh
   $ sudo adduser --disabled-password --gecos "" mempool
   $ sudo adduser mempool bitcoin
-  $ sudo su mempool
+  $ sudo su - mempool
   ```
 
 * Download the source code directly from GitHub
@@ -132,7 +132,7 @@ For improved security, we create the new user "mempool" that will run the Mempoo
 * With user "mempool", install the backend  
   
   ```sh
-  $ sudo su mempool
+  $ sudo su - mempool
   $ cd mempool/backend
   $ npm install
   $ npm run build
@@ -489,7 +489,7 @@ Updating to a new release is straight-forward. Make sure to read the release not
 
   ```sh
   $ sudo systemctl stop mempool
-  $ sudo su mempool
+  $ sudo su - mempool
   ```
 
 * Fetch the latest GitHub repository information and update:

@@ -165,7 +165,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
 * Open a "fulcrum" user session
 
   ```sh
-  $ sudo su fulcrum
+  $ sudo su - fulcrum
   ```
 
 * Change to fulcrum data folder and generate cert and key files for SSL. When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
