@@ -79,11 +79,11 @@ Additional comments begin with `#` and must not be entered.
 
 In the following example, just enter `ls -la` and press the enter/return key:
 
-```sh
-$ ls -la
-> example system response
-# This is a comment, don't enter this on the command line
-```
+  ```sh
+  $ ls -la
+  > example system response
+  # This is a comment, don't enter this on the command line
+  ```
 
 * **Auto-complete commands**:
   You can use the `Tab` key for auto-completion when you enter commands, i.e., for commands, directories, or filenames.

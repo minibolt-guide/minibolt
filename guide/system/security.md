@@ -196,7 +196,7 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
   $ sudo mkdir /etc/nginx/streams-enabled
   ```
 
-* Test this barebone NGINX configuration
+* Test this barebone Nginx configuration
 
   ```sh
   $ sudo nginx -t

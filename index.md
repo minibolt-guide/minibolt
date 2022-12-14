@@ -4,6 +4,7 @@ title: Home
 nav_order: 1
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
+
 {% include include_metatags.md %}
 
 ##### <span style="color:red">⚠️ Attention! This project is a fork under construction, some chapters could not be attached to the reference use case. Pay special attention to the **"Status: Not tested MiniBolt"** tag at the beginning of the guides. Be careful and act at your own risk.</span>
@@ -79,7 +80,9 @@ Everything is optional.
 
 ## Community
 
-* [Github Issues / Knowledge Base](https://github.com/twofaktor/minibolt/issues){:target="_blank"}
+* [GitHub Pull Requests](https://github.com/twofaktor/minibolt/pulls){:target="_blank"}
+* [GitHub Issues / Knowledge Base](https://github.com/twofaktor/minibolt/issues){:target="_blank"}
+* [GitHub Discussions](https://github.com/twofaktor/minibolt/discussions){:target="_blank"}
 * Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/){:target="_blank"}
 
 And feel free to join the many other contributors if you see something that can be improved!

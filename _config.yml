@@ -2,9 +2,11 @@
 remote_theme: pmarsceill/just-the-docs
 search_enabled: true
 aux_links:
+    "Reddit":
+      - "https://www.reddit.com/r/minibolt/"
     "Contribute! Source on GitHub":
       - "https://github.com/twofaktor/minibolt"
-
+    
 color_scheme: minibolt-dark.scss
 
 # defaults

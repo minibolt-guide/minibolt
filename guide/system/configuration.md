@@ -77,7 +77,7 @@ The “Advanced Packaging Tool” (apt) makes this easy.
   $ sudo apt update && sudo apt full-upgrade
   ```
 
-💡 Do this regularly every few months to get security-related updates.
+💡 Do this regularly every few months for security-related updates. If during the update process a banner appears asking you: "Which services should be restarted?" you can press the "enter" key and take note of which services will be restarted during the update, marked with "*"
 
 ## Check drive performance
 

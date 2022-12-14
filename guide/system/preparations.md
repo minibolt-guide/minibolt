@@ -55,13 +55,13 @@ You might also want to get this optional hardware:
 You will need several passwords, and it's easiest to write them all down in the beginning, instead of bumping into them throughout the guide.
 They should be unique and very secure, at least 12 characters in length. Do **not use uncommon special characters**, spaces, or quotes (‘ or “).
 
-```sh
-[ A ] Master user password
-[ B ] Bitcoin RPC password
-[ C ] LND wallet password
-[ D ] BTC-RPC-Explorer password (optional)
-[ E ] ThunderHub password
-```
+  ```sh
+  [ A ] Master user password
+  [ B ] Bitcoin RPC password
+  [ C ] LND wallet password
+  [ D ] BTC-RPC-Explorer password (optional)
+  [ E ] ThunderHub password
+  ```
 
 ![xkcd: Password Strength](../../images/preparations_xkcd.png)
 

@@ -81,7 +81,8 @@ Now we can add the Electrs configuration.
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Electrum SSL from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Electrs SSL from local network'
+  $ sudo ufw allow from 192.168.0.0/16 to any port 50001 proto tcp comment 'allow Electrs TCP from local network'
   ```
 
 ## Electrs
@@ -317,18 +318,32 @@ Note that the remote device needs to have Tor installed as well.
   ```sh
   ############### This section is just for location-hidden services ###
   # Hidden Service Electrs SSL
-  HiddenServiceDir /var/lib/tor/hidden_service_electrs/
+  HiddenServiceDir /var/lib/tor/hidden_service_electrs_ssl/
   HiddenServiceVersion 3
   HiddenServicePort 50002 127.0.0.1:50002
+  # Hidden Service Electrs TCP
+  HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp/
+  HiddenServiceVersion 3
+  HiddenServicePort 50001 127.0.0.1:50001
   ```
 
-* Reload Tor configuration and get your connection address
+* Reload Tor configuration and get your connection addresses
 
   ```sh
   $ sudo systemctl reload tor
-  $ sudo cat /var/lib/tor/hidden_service_electrs/hostname
+  ```
+
+  ```sh
+  $ sudo cat /var/lib/tor/hidden_service_electrs_ssl/hostname
   > abcdefg..............xyz.onion
   ```
+
+  ```sh
+  $ sudo cat /var/lib/tor/hidden_service_electrs_tcp/hostname
+  > abcdefg..............xyz.onion
+  ```
+
+* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (ssl) or 50001 (tcp)
 
 ### Migrate BTC RPC Explorer to Fulcrum API connection
 

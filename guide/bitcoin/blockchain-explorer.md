@@ -239,6 +239,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
 
   ```sh
   $ sudo systemctl enable btcrpcexplorer
+  ```
 
 * Prepare "btcrpcexplorer" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
