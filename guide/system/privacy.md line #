@@ -223,6 +223,7 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
   ```
 
   ```sh
+  # uncomment line 93:
   notransit = true
   ```
 
