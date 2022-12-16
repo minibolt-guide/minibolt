@@ -6,7 +6,7 @@ parent: Bitcoin
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Electrum Server: Fulcrum server
+# Electrum Server: Fulcrum
 
 {: .no_toc }
 
@@ -197,7 +197,7 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   
   ## Bitcoin Core settings
   bitcoind = 127.0.0.1:8332
-  rpccookie = /home/bitcoin/.bitcoin/.cookie
+  rpccookie = /data/bitcoin/.cookie
   
   ## Fulcrum server general settings
   datadir = /data/fulcrum/fulcrum_db

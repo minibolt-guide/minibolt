@@ -31,13 +31,7 @@ has_toc: false
 
 ### CLI
 
-* **[Sparrow Terminal](sparrow-terminal.md)** - a stripped down version of Sparrow that can be run on systems without displays
-
----
-
-## Blockchain explorers
-
-* **[Mempool](mempool.md)** - a self-hosted Bitcoin blockchain and mempool visualizer/explorer to preserve your privacy when looking up your transactions or checking the mempool for fee estimation
+* **[Sparrow Server](sparrow-server.md)** - a stripped down version of Sparrow that can be run on systems without displays
 
 ---
 

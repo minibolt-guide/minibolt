@@ -45,10 +45,4 @@ has_toc: false
 
 ---
 
-## Hardware
-
-* **[Upgrade external drive](upgrade-external-drive.md)** - periodically, as the size of the blockchain grows, you will need to upgrade to a larger drive
-
----
-
 << Back: [Bonus Section](../index.md)

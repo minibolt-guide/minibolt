@@ -41,6 +41,7 @@ Status: Not tested MiniBolt
   ```sh
   $ cd /tmp/
   $ wget https://github.com/edouardparis/lntop/releases/download/v0.1.0/lntop_Linux_x86_64.tar.gz
+  ```
 
 * Install the application
 

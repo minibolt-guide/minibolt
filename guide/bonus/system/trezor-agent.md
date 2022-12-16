@@ -14,6 +14,8 @@ has_toc: false
 
 ---
 
+This project allows you to use various hardware security devices to operate GPG and SSH. Instead of keeping your key on your computer and decrypting it with a passphrase when you want to use it, the key is generated and stored on the device and never reaches your computer. 
+
 Difficulty: Easy
 {: .label .label-green }
 

@@ -181,7 +181,7 @@ But we now have the base to configure sensitive applications to use it.
   $ sudo systemctl start tor
   ```
 
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using obfs bridges and see if that helps.
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md) and see if that helps.
 
 ## I2P Project
 
@@ -317,7 +317,7 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
   $ sudo apt update && sudo apt upgrade
   ```
 
-Note: in the I2P update process maybe apears you this message:
+💡 Note: in the I2P update process maybe appears you this message
 
   ```sh
     Configuration file '/etc/i2pd/i2pd.conf'

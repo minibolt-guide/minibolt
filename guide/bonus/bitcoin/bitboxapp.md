@@ -23,7 +23,7 @@ Difficulty: Easy
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-![BitBoxApp](/images/electrum_BitBoxApp.png)
+![BitBoxApp](../../../images/electrum_BitBoxApp.png)
 
 ---
 

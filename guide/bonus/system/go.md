@@ -31,7 +31,7 @@ Status: Tested MiniBolt
 
 ## Install Go
 
-* Check the latest stable version of the arm64 binary at https://golang.org/dl/ and download it.
+* Enter to the "tmp" folder and download the binary
 
   ```sh
   $ cd /tmp

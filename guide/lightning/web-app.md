@@ -100,7 +100,6 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 ### Configuration
 
 * Still with user "thunderhub", create a symbolic link pointing to your lnd data directory.
-  Check if the link is working. If nothing is displayed in red you are good to go.
 
   ```sh
   $ ln -s /data/lnd /home/thunderhub/.lnd
@@ -297,14 +296,13 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 4002                   ALLOW IN    Anywhere                   # allow Thunderhub SSL
+  > [X] 4002                   ALLOW IN    192.168.0.0/16                 # allow ThunderHub SSL from local network
   ```
 
 * Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
 
   ```sh
-  $ sudo ufw delete Y
-  $ sudo ufw delete X  
+  $ sudo ufw delete X
   ```
 
 ### Uninstall Thunderhub

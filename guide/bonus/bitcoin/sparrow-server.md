@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sparrow Terminal
+title: Sparrow Server
 parent: + Bitcoin
 grand_parent: Bonus Section
 nav_exclude: true
@@ -9,13 +9,13 @@ has_toc: false
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: Sparrow Terminal
+## Bonus guide: Sparrow Server
 
 {: .no_toc }
 
 ---
 
-Sparrow Terminal is a stripped down version of Sparrow that can be run on systems without displays. It's primarily intended as a configuration utility for running Sparrow as a server daemon.
+Sparrow Server is a stripped down version of Sparrow that can be run on systems without displays. It's primarily intended as a configuration utility for running Sparrow as a server daemon.
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -23,7 +23,7 @@ Difficulty: Medium
 Status: Tested MiniBolt
 {: .label .label-blue }
 
-![Sparrow_Terminal-logo](../../../images/sparrow-terminal-logo.jpg)
+![Sparrow_Server-logo](../../../images/sparrow-Server-logo.jpg)
 
 ---
 
@@ -103,9 +103,9 @@ Status: Tested MiniBolt
   $ Sparrow
   ```
 
-  ![Sparrow_Terminal](../../../images/sparrow-terminal.png)
+  ![Sparrow_Server](../../../images/sparrow-Server.png)
 
-⚠️ Sparrow terminal doesn't work on MobaXterm with X11-Forwarding enabled in the SSH connection.
+⚠️ Sparrow Server doesn't work on MobaXterm with X11-Forwarding enabled in the SSH connection.
   
 * In "wallet" tab you can create or restore your wallet
 
@@ -132,11 +132,11 @@ Status: Tested MiniBolt
 
 * You are now connected to your own Electrum Server
 
-  ![Sparrow_Test](../../../images/sparrow-test.png)
+  ![Sparrow_Test](../../../images/sparrow-server-terminal.png)
 
-## For the Future: Sparrow Terminal update
+## For the Future: Sparrow Server update
 
-* Download and install Sparrow Terminal by following the [installation section](#installation), you will overwrite several files.
+* Download and install Sparrow Server by following the [installation section](#installation), you will overwrite several files.
 
 ## Uninstall
 

@@ -86,7 +86,7 @@ has_toc: false
 
 ## Even more Extras
 
-### [RaspiBolt Extras by Rob Clark](https://github.com/robclark56/RaspiBolt-Extras/blob/master/README.md){:target="_blank"}
+### [RaspiBolt/MiniBolt Extras by Rob Clark](https://github.com/robclark56/RaspiBolt-Extras/blob/master/README.md){:target="_blank"}
 
 * **[Lights-Out](https://github.com/robclark56/RaspiBolt-Extras/#the-lights-out-raspibolt){:target="_blank"}** - automatic unlocking of wallet and dynamic ip
 * **[RaspiBoltDuo](https://github.com/robclark56/RaspiBolt-Extras/#raspiboltduo){:target="_blank"}** - testnet & mainnet running simultaneously
