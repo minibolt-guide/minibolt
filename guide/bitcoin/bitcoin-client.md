@@ -454,7 +454,7 @@ We also now want to enable the node to listen to and relay transactions.
 
 * As user "admin", comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file.
   Bitcoin Core will then just use the default cache size of 300 MB instead of your setting RAM setup.
-  Save and exit.
+  Save and exit. If blocksonly=1 is left uncommented it will prevent electrum and fulcrum from receuveing rpc fee data and neither will work.
 
   ```sh
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
