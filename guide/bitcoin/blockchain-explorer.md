@@ -57,19 +57,21 @@ It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin 
 In the [Security section](../system/security.md#prepare-nginx-reverse-proxy), we set up NGINX as a reverse proxy.
 Now we can add the BTC RPC Explorer configuration.
 
-* Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer
+* Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer.
+  The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
   ```sh
-  $ sudo nano /etc/nginx/streams-enabled/btcrpcexplorer-reverse-proxy.conf
+  $ sudo nano /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf
   ```
 
   ```nginx
-  upstream btcrpcexplorer {
-    server 127.0.0.1:3002;
-  }
   server {
     listen 4000 ssl;
-    proxy_pass btcrpcexplorer;
+    error_page 497 =301 https://$host:$server_port$request_uri;
+
+    location / {
+      proxy_pass http://127.0.0.1:3002;
+    }
   }
   ```
 

@@ -55,16 +55,17 @@ Now we can add the RTL configuration.
 * Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to RTL
 
   ```sh
-  $ sudo nano /etc/nginx/streams-enabled/rtl-reverse-proxy.conf
+  $ sudo nano /etc/nginx/sites-enabled/rtl-reverse-proxy.conf
   ```
 
   ```sh
-  upstream rtl {
-    server 127.0.0.1:3000;
-  }
   server {
     listen 4001 ssl;
-    proxy_pass rtl;
+    error_page 497 =301 https://$host:$server_port$request_uri;
+
+    location / {
+      proxy_pass http://127.0.0.1:3000;
+    }
   }
   ```
 
