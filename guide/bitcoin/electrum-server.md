@@ -175,7 +175,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
   ```
 
-* Download custom Fulcrum banner based on MiniBolt
+* Download custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display&f=Slant&t=fulcrum)
 
   ```sh
   $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/fulcrum-banner.txt
@@ -310,13 +310,58 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
 ## For the future: Fulcrum upgrade
 
-* As “admin” user, stop the Fulcrum service
+* As “admin” user, download the application, checksums and signature
 
   ```sh
-  $ sudo systemctl stop fulcrum
+  $ cd /tmp
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz.asc
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz.sha256sum
   ```
 
-* Download, verify and install the latest Fulcrum binaries as described in the [installation](#download-and-set-up-fulcrum) section of this guide.
+* Get the public key from the Fulcrum developer
+
+  ```sh
+  $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+  ```
+
+* Verify the signature of the text file containing the checksums for the application
+
+  ```sh
+  $ gpg --verify Fulcrum-1.8.2-x86_64-linux.tar.gz.asc
+  > gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
+  > gpg: WARNING: This key is not certified with a trusted signature!
+  > gpg: There is no indication that the signature belongs to the owner.
+  > Primary key fingerprint: D465 135F 97D0 047E 18E9  9DC3 2181 0A54 2031 C02C
+  ```
+
+* Verify the signed checksum against the actual checksum of your download
+
+  ```sh
+  $ sha256sum --check Fulcrum-1.8.2-x86_64-linux.tar.gz.sha256sum
+  > Fulcrum-1.8.2-x86_64-linux.tar.gz: OK
+  ```
+
+* Install Fulcrum and check the correct installation requesting the version
+
+  ```sh
+  $ tar -xvf Fulcrum-1.8.2-x86_64-linux.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.8.2-x86_64-linux/Fulcrum Fulcrum-1.8.2-x86_64-linux/FulcrumAdmin
+  ```
+
+* Restart the service to apply the changes
+
+  ```sh
+  $ sudo systemctl restart fulcrum
+  ```
+
+* Check the new version
+
+  ```sh
+  $ Fulcrum --version
+  > Fulcrum 1.8.2 (Release d330248)
+  compiled: gcc 8.4.0
+  ```
 
 ## Extras (optional)
 
@@ -417,7 +462,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo nano /etc/sysctl.conf
   ```
 
-* Here are the lines you’ll want to add at the end of your /etc/sysctl.conf file to make better use of zram. Save and exit
+* Here are the lines you’ll want to add **at the end** of your `/etc/sysctl.conf` file to make better use of zram. Save and exit
 
   ```sh
   vm.vfs_cache_pressure=500
@@ -520,9 +565,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 ### Uninstall Fulcrum
 
-Ensure you are logged with user "admin"
-
-* Stop, disable and delete the service
+* Ensure you are logged with user "admin", stop, disable and delete the service
 
   ```sh
   $ sudo systemctl stop fulcrum
@@ -544,7 +587,7 @@ Ensure you are logged with user "admin"
 
 ### Uninstall Tor hidden service
 
-* Comment or remove fulcrum hidden service in torrc. Save and exit
+* Ensure you are logged with user "admin", comment or remove fulcrum hidden service in torrc. Save and exit
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -571,7 +614,7 @@ Ensure you are logged with user "admin"
 
 ### Uninstall FW configuration
 
-* Display the UFW firewall rules and notes the numbers of the rules for Fulcrum (e.g., X and Y below)
+* Ensure you are logged with user "admin", display the UFW firewall rules and notes the numbers of the rules for Fulcrum (e.g., X and Y below)
 
   ```sh
   $ sudo ufw status numbered
@@ -587,7 +630,7 @@ Ensure you are logged with user "admin"
 
 ### Uninstall the Zram (optional)
 
-* Navigate to zram-swap folder and uninstall
+* Ensure you are logged with user "admin", navigate to zram-swap folder and uninstall
 
   ```sh
   $ cd /home/admin/zram-swap

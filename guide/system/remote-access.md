@@ -33,19 +33,20 @@ Give it a few minutes to come to life.
 * On your regular computer, open the Terminal (also known as "command line").
   Here are a few links with additional details how to do that for [Windows](https://www.computerhope.com/issues/chusedos.htm){:target="_blank"}, [MacOS](https://macpaw.com/how-to/use-terminal-on-mac){:target="_blank"} and [Linux](https://www.howtogeek.com/140679/beginner-geek-how-to-start-using-the-linux-terminal/){:target="_blank"}.
 
-* Try to ping the Personal Computer using the hostname you configured above (e.g., `minibolt`).
-  Press `Ctrl`-`C` to interrupt.
+* Try to ping using the IP assigned to your MiniBolt in the before step.
 
   ```sh
-  $ ping minibolt.local
-  > PING minibolt.local (192.168.X.XXX) 56(84) bytes of data.
-  > 64 bytes from 192.168.X.XXX (192.168.X.XXX): icmp_seq=1 ttl=64 time=88.1 ms
-  > 64 bytes from 192.168.X.XXX (192.168.X.XXX): icmp_seq=2 ttl=64 time=61.5 ms
+  $ ping 192.168.x.xxx
+  PING 192.168.x.xxx (192.168.x.xxx) 56(84) bytes of data.
+  64 bytes from 192.168.x.xxx: icmp_seq=1 ttl=64 time=2.44 ms
+  64 bytes from 192.168.x.xxx: icmp_seq=2 ttl=64 time=1.75 ms
+  64 bytes from 192.168.x.xxx: icmp_seq=3 ttl=64 time=1.61 ms
+  64 bytes from 192.168.x.xxx: icmp_seq=4 ttl=64 time=1.58 ms
   ```
 
 * If the `ping` command fails or does not return anything, you need to manually look for your PC.
 
-* You should now be able to reach your PC, either with the hostname `minibolt.local` or an IP address like `192.168.X.XXX`
+* You should now be able to reach your PC, with the IP address like `192.168.x.xxx`
 
 ## Access with Secure Shell
 
@@ -54,14 +55,17 @@ For that, we need an SSH client.
 
 Install and start the SSH client for your operating system:
 
-* Windows: PuTTY ([Website](https://www.putty.org){:target="_blank"})
+* Windows: 2 options:
+
+  * Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending of your OS architecture and start it, or download
+  * MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install permanently or not.
+
 * MacOS and Linux: from the Terminal, use the native command:
-  * `ssh temp@minibolt.local` or
-  * `ssh temp@192.168.X.XXX`
+  * `ssh temp@192.168.x.xxx`
 
 If you need to provide connection details, use the following settings:
 
-* host name: `minibolt.local` or the ip address like `192.168.X.XXX`
+* host name: the ip address like `192.168.x.xxx`
 * port: `22`
 * username: `temp`
 * password:  `password [A]`

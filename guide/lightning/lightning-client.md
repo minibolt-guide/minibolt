@@ -246,8 +246,10 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
   # Database
   [bolt]
-  db.bolt.auto-compact=true # False to disable auto-compact DB and fast boot and comment the next line
-  #db.bolt.auto-compact-min-age=168h # Set this value to "0" do DB compact at every LND reboot (default: 168h)
+  # Set the next value to false to disable auto-compact DB and fast boot and comment the next line
+  db.bolt.auto-compact=true 
+  # Uncomment and set the next value to "0" to do DB compact at every LND reboot (default: 168h)
+  #db.bolt.auto-compact-min-age=168h
 
   [Bitcoind]
   bitcoind.estimatemode=ECONOMICAL

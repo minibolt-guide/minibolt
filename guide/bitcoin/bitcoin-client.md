@@ -660,16 +660,21 @@ Now, just check that the timestamp date is close to the [release](https://github
   ```sh
   $ tar -xvf bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-24.0.1/bin/*
+  ```
+
+* Restart the Bitcoin Core systemd unit to apply the changes
+
+  ```sh
+  $ sudo systemctl restart bitcoind
+  ```
+
+* Check the new version
+
+  ```sh
   $ bitcoind --version
   > Bitcoin Core version v24.0.1.0
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
-  ```
-
-* Restart the Bitcoin Core systemd unit
-
-  ```sh
-  $ sudo systemctl restart bitcoind
   ```
 
 <br /><br />

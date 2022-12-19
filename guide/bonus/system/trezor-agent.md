@@ -127,6 +127,8 @@ or as root
 If the SSH succeeded go to your authorized keys file and delete/comment out all other public keys
 That's it, Now you can only SSH to your raspibolt using your trezor.
 
+<br /><br />
+
 ---
 
 << Back: [+ System](index.md)

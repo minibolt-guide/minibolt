@@ -261,6 +261,8 @@ Check connectivity with NUT master
 You should now see the configuration of the UPS.
 Proceed to test the system with the disconnect/reconnect power or do the full outage testing. Be sure to keep terminal windows open to master and slave to watch as it happens. If configured properly, the client will shutdown first, followed by the server, when the UPS battery is approaching empty. The server will shutdown 5 seconds later (configurable on server’s `/etc/nut/upsmon.conf` with the `FINALDELAY` field if you want to run other scripts on the server prior to shutdown.
 
+<br /><br />
+
 ---
 
 << Back: [+ System](index.md)
