@@ -98,21 +98,27 @@ We have our Bitcoin Core configuration file set up and now we can move to next p
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz.asc
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz.sha256sum
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
   ```
 
 * Get the public key from the Fulcrum developer
 
   ```sh
   $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+  >     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  >                                 Dload  Upload   Total   Spent    Left  Speed
+  > 100  2328  100  2328    0     0  16043      0 --:--:-- --:--:-- --:--:-- 15945
+  > gpg: key 21810A542031C02C: "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" not changed
+  > gpg: Total number processed: 1
+  > gpg:              unchanged: 1
   ```
 
 * Verify the signature of the text file containing the checksums for the application
 
   ```sh
-  $ gpg --verify Fulcrum-1.8.2-x86_64-linux.tar.gz.asc
+  $ gpg --verify Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
   > gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg: There is no indication that the signature belongs to the owner.
@@ -122,19 +128,23 @@ We have our Bitcoin Core configuration file set up and now we can move to next p
 * Verify the signed checksum against the actual checksum of your download
 
   ```sh
-  $ sha256sum --check Fulcrum-1.8.2-x86_64-linux.tar.gz.sha256sum
-  > Fulcrum-1.8.2-x86_64-linux.tar.gz: OK
+  $ sha256sum --check Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
+  > Fulcrum-1.9.0-x86_64-linux.tar.gz: OK
   ```
 
-* Install Fulcrum and check the correct installation requesting the version
+* Extract and install Fulcrum
 
   ```sh
-  $ tar -xvf Fulcrum-1.8.2-x86_64-linux.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.8.2-x86_64-linux/Fulcrum Fulcrum-1.8.2-x86_64-linux/FulcrumAdmin 
+  $ tar -xvf Fulcrum-1.9.0-x86_64-linux.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.9.0-x86_64-linux/Fulcrum Fulcrum-1.9.0-x86_64-linux/FulcrumAdmin
+  ```
+
+* Check the correct installation requesting the version
+
   $ Fulcrum --version
-  > Fulcrum 1.8.2 (Release d330248)
-  compiled: gcc 8.4.0
-  ...
+  > Fulcrum 1.9.0 (Release a5a53cf)
+  > compiled: gcc 8.4.0
+  [...]
   ```
 
 ### Data directory
@@ -284,7 +294,7 @@ Monitor the systemd journal at the first session created to check if everything 
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] simdjson: version 0.6.0
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] ssl: OpenSSL 1.1.1n  15 Mar 2022
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] zmq: libzmq version: 4.3.3, cppzmq version: 4.7.1
-  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.8.2 (Release d330248) - Thu Jul 28, 2022 12:20:13.064 CEST - starting up ...
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.0 (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Max open files: 524288 (increased from default: 1024)
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.065] Loading database ...
   Jul 28 12:20:14 minibolt Fulcrum[181811]: [2022-07-28 12:20:14.489] DB memory: 512.00 MiB
@@ -314,21 +324,27 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz.asc
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.8.2/Fulcrum-1.8.2-x86_64-linux.tar.gz.sha256sum
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
   ```
 
 * Get the public key from the Fulcrum developer
 
   ```sh
   $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+  >     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  >                                 Dload  Upload   Total   Spent    Left  Speed
+  > 100  2328  100  2328    0     0  16043      0 --:--:-- --:--:-- --:--:-- 15945
+  > gpg: key 21810A542031C02C: "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" not changed
+  > gpg: Total number processed: 1
+  > gpg:              unchanged: 1
   ```
 
 * Verify the signature of the text file containing the checksums for the application
 
   ```sh
-  $ gpg --verify Fulcrum-1.8.2-x86_64-linux.tar.gz.asc
+  $ gpg --verify Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
   > gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg: There is no indication that the signature belongs to the owner.
@@ -338,29 +354,29 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 * Verify the signed checksum against the actual checksum of your download
 
   ```sh
-  $ sha256sum --check Fulcrum-1.8.2-x86_64-linux.tar.gz.sha256sum
-  > Fulcrum-1.8.2-x86_64-linux.tar.gz: OK
+  $ sha256sum --check Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
+  > Fulcrum-1.9.0-x86_64-linux.tar.gz: OK
   ```
 
 * Install Fulcrum and check the correct installation requesting the version
 
   ```sh
-  $ tar -xvf Fulcrum-1.8.2-x86_64-linux.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.8.2-x86_64-linux/Fulcrum Fulcrum-1.8.2-x86_64-linux/FulcrumAdmin
+  $ tar -xvf Fulcrum-1.9.0-x86_64-linux.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.9.0-x86_64-linux/Fulcrum Fulcrum-1.9.0-x86_64-linux/FulcrumAdmin
+  ```
+
+  * Check the new version
+
+  ```sh
+  $ Fulcrum --version
+  > Fulcrum 1.9.0 (Release a5a53cf)
+  > compiled: gcc 8.4.0
   ```
 
 * Restart the service to apply the changes
 
   ```sh
   $ sudo systemctl restart fulcrum
-  ```
-
-* Check the new version
-
-  ```sh
-  $ Fulcrum --version
-  > Fulcrum 1.8.2 (Release d330248)
-  compiled: gcc 8.4.0
   ```
 
 ## Extras (optional)
