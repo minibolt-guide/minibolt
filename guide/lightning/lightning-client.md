@@ -198,8 +198,10 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   # /data/lnd/lnd.conf
 
   [Application Options]
-  alias=YOUR_FANCY_ALIAS #This accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-  color=#ff9900 #You can choose whatever you want on https://www.color-hex.com/
+  # Alias accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
+  alias=YOUR_FANCY_ALIAS 
+  # You can choose the color you want at https://www.color-hex.com/
+  color=#ff9900
   listen=localhost
   nat=false
   debuglevel=info
@@ -407,7 +409,13 @@ We interact with LND using the application `lncli`.
 At the moment, only the user "lnd" has the necessary access privileges.
 To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
-* Link the LND data directory in the user "admin" home.
+* Type "exit" to return to the LND user
+
+  ```sh
+  $2 exit
+  ```
+
+* As user "admin", link the LND data directory in the user "admin" home.
   As a member or the group "lnd", admin has read-only access to certain files.
   We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
 
@@ -425,7 +433,84 @@ To make the user "admin" the main administrative user, we make sure it can inter
 
 ## LND in action
 
-Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real bitcoin to your MiniBolt, you have "skin in the game".
+💊 Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real bitcoin to your MiniBolt, you have "skin in the game"
+
+### Watchtower client
+
+Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
+If your MiniBolt goes down for a longer period of time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
+
+Watchtowers are other Lightning nodes that can monitor your channels for you.
+If they detect such bad behavior, they can react on your behalf, and send a punishing transaction to close this channel.
+In this case, all channel funds will be sent to your LND on-chain wallet.
+
+A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them.
+It's good practice to add a few watchtowers, just to be on the safe side.
+
+* With user `"admin"` or `"lnd"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} as a first example
+
+  ```sh
+  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
+  ```
+
+* Or the clearnet address
+
+  ```sh
+  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
+  ```
+
+* If you want to list your towers and active watchtowers
+
+  ```sh
+  $2 lncli wtclient towers
+  {
+      "towers": [
+          {
+              "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
+              "addresses": [
+                  "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
+              ],
+              "active_session_candidate": true,
+              "num_sessions": 0,
+              "sessions": [
+              ]
+          },
+      ]
+  }
+  ```
+
+* If you want to deactivate an active tower
+
+  ```sh
+  $2 lncli wtclient remove <pubkey>
+  ```
+
+### Watchtower server
+
+Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. This was previously activated in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
+
+  ```sh
+  $2 lncli tower info
+  ```
+
+Example output:
+
+  ```sh
+  {
+    "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
+    "listeners": [
+        "[::]:9911"
+    ],
+    "uris": [
+        "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
+    ]
+  }
+
+  ```
+
+⚠️ This service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
+
+💡 Almost all of the following steps could be runned with the [mobile](/guide/lightning/web-app.md)/[web](/guide/lightning/web-app.md) app guides
 
 ### Funding your Lightning node
 
@@ -436,7 +521,7 @@ Now your Lightning node is ready. This is also the point of no return. Up until 
   > "address": "bc1p..."
   ```
 
-* Check your LND wallet balance
+* Check your LND wallet balance. (The output is only an example)
 
   ```sh
   $2 lncli walletbalance
@@ -503,81 +588,6 @@ To try, why not send me satoshis! You simply need to input my node pukey [`⚡2F
 
   ```sh
   $2 lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
-  ```
-
-### Watchtower server
-
-Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. This was previously activated in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
-
-  ```sh
-  $2 lncli tower info
-  ```
-
-Example output:
-
-  ```sh
-  {
-    "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
-    "listeners": [
-        "[::]:9911"
-    ],
-    "uris": [
-        "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
-    ]
-  }
-
-  ```
-
-⚠️ This service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
-
-### Watchtower client
-
-Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
-If your MiniBolt goes down for a longer period of time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
-
-Watchtowers are other Lightning nodes that can monitor your channels for you.
-If they detect such bad behavior, they can react on your behalf, and send a punishing transaction to close this channel.
-In this case, all channel funds will be sent to your LND on-chain wallet.
-
-A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them.
-It's good practice to add a few watchtowers, just to be on the safe side.
-
-* With user `"admin"` or `"lnd"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} as a first example
-
-  ```sh
-  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
-  ```
-
-* Or the clearnet address
-
-  ```sh
-  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
-  ```
-
-* If you want to list your towers and active watchtowers
-
-  ```sh
-  $2 lncli wtclient towers
-  {
-      "towers": [
-          {
-              "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
-              "addresses": [
-                  "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
-              ],
-              "active_session_candidate": true,
-              "num_sessions": 0,
-              "sessions": [
-              ]
-          },
-      ]
-  }
-  ```
-
-* If you want to deactivate an active tower
-
-  ```sh
-  $2 lncli wtclient remove <pubkey>
   ```
 
 ### More commands
