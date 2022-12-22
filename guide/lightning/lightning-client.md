@@ -510,7 +510,7 @@ Example output:
 
 ⚠️ This service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
 
-💡 Almost all of the following steps could be runned with the [mobile](/guide/lightning/web-app.md)/[web](/guide/lightning/web-app.md) app guides
+💡 Almost all of the following steps could be runned with the [mobile](../lightning/web-app.md)/[web](../lightning/web-app.md) app guides
 
 ### Funding your Lightning node
 
