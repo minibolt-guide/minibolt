@@ -409,7 +409,7 @@ We interact with LND using the application `lncli`.
 At the moment, only the user "lnd" has the necessary access privileges.
 To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
-* Type "exit" to return to the LND user
+* Type "exit" to return to the admin user
 
   ```sh
   $2 exit
