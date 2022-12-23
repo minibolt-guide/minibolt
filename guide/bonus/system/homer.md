@@ -133,101 +133,24 @@ However, if you want to re-install Homer for whatever reason, you will have to r
 * Create a nginx configuration file for the Homer website with a HTTPS server listening on port 4091
 
   ```sh
-  $ sudo nano /etc/nginx/sites-available/homer-ssl.conf
+  $ sudo nano /etc/nginx/sites-enabled/homer-ssl.conf
   ```
 
   ```ini
   ## homer-ssl.conf
-  
-  
   server {
       listen 4091 ssl;
       listen [::]:4091 ssl;
+      error_page 497 =301 https://$host:$server_port$request_uri;
+
       server_name _;
-  
-      ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-      ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-      ssl_session_timeout 4h;
-      ssl_protocols TLSv1.3;
-      ssl_prefer_server_ciphers on;
 
       access_log /var/log/nginx/access_homer.log;
       error_log /var/log/nginx/error_homer.log;
- 
+
       root /var/www/homer;
       index index.html;
-  
-  
   }
-  ```
-
-* Create a symlink in the sites-enabled directory
-
-  ```sh
-  $ sudo ln -sf /etc/nginx/sites-available/homer-ssl.conf /etc/nginx/sites-enabled/
-  ```
-
-* Open the existing nginx configuration file
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-
-* Paste the following web server configuration lines between the "events" and "streams" contexts. Note: Skip this step if you have already installed a program that requires a nginx http server (e.g., [Mempool](../bitcoin/mempool.md)).
-
-  ```sh
-  http {
-
-          ##
-          # Basic Settings
-          ##
-
-          sendfile on;
-          tcp_nopush on;
-          types_hash_max_size 2048;
-          server_tokens off;
-
-          # server_names_hash_bucket_size 64;
-          # server_name_in_redirect off;
-
-          include /etc/nginx/mime.types;
-          default_type application/octet-stream;
-
-          ##
-          # SSL Settings
-          ##
-
-          ssl_protocols TLSv1.3;
-          ssl_prefer_server_ciphers on;
-
-          ##
-          # Logging Settings
-          ##
-
-          access_log /var/log/nginx/access.log;
-          error_log /var/log/nginx/error.log;
-
-          ##
-          # Gzip Settings
-          ##
- 
-          gzip on;
- 
-          # gzip_vary on;
-          # gzip_proxied any;
-          # gzip_comp_level 6;
-          # gzip_buffers 16 8k;
-          # gzip_http_version 1.1;
-          # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-
-          ##
-          # Virtual Host Configs
-          ##
-
-          include /etc/nginx/conf.d/*.conf;
-          include /etc/nginx/sites-enabled/*;
-  }
-
   ```
 
 A sample configuration file is available at `/home/homer/homer/dist/assets/config.yml.dist`. We will create a configuration file derived from this default configuration but tailored to the RaspiBolt.
@@ -660,27 +583,7 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
 
   ```sh
   $ sudo rm -r /var/www/homer
-  $ sudo rm /etc/nginx/sites-available/homer-ssl.conf
   $ sudo rm /etc/nginx/sites-enabled/homer-ssl.conf
-  ```
-
-* Delete (or comment out) the web server context from the main nginx configuration file. Note: Skip this step if you run another program that depends on the nginx web server (e.g., [Mempool](../bitcoin/mempool.md)).
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-  
-  ```ini
-  #http {
-  
-        ##
-        # Basic Settings
-        ##
-
-        #sendfile on;
-        # [...]
-  
-  #}
   ```
 
 * Test and reload nginx configuration

@@ -282,7 +282,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
 * Create a nginx configuration file for the LNDg website with a server listening on port 8889
 
   ```sh
-  $ sudo nano /etc/nginx/sites-available/lndg-ssl.conf
+  $ sudo nano /etc/nginx/sites-enabled/lndg-ssl.conf
   ```
 
 * Paste the following configuration lines. Save and exit.
@@ -296,12 +296,8 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
     # the port your site will be served on
     listen 8889 ssl;
     listen [::]:8889 ssl;
-    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-    ssl_session_timeout 4h;
-    ssl_protocols TLSv1.3;
-    ssl_prefer_server_ciphers on;
-  
+    error_page 497 =301 https://$host:$server_port$request_uri;
+
     # the domain name it will serve for
     server_name _;
     charset     utf-8;
@@ -322,74 +318,6 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
         uwsgi_pass  django;
         include     /home/lndg/lndg/uwsgi_params; # the uwsgi_params file
     }
-  }
-  ```
-
-* Create a symlink in the `sites-enabled` directory
-
-  ```sh
-  $ sudo ln -sf /etc/nginx/sites-available/lndg-ssl.conf /etc/nginx/sites-enabled/
-  ```
-
-* Open the nginx configuration file
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-
-* Paste the following configuration lines between the existing `event` and `stream` blocks . Save and exit.
-
-  ```sh
-  http {
-  
-          ##
-          # Basic Settings
-          ##
-  
-          sendfile on;
-          tcp_nopush on;
-          types_hash_max_size 2048;
-          # server_tokens off;
-  
-          # server_names_hash_bucket_size 64;
-          # server_name_in_redirect off;
-  
-          include /etc/nginx/mime.types;
-          default_type application/octet-stream;
-  
-          ##
-          # SSL Settings
-          ##
-  
-          ssl_protocols TLSv1.3;
-          ssl_prefer_server_ciphers on;
-  
-          ##
-          # Logging Settings
-          ##
-  
-          access_log /var/log/nginx/access.log;
-          error_log /var/log/nginx/error.log;
-  
-          ##
-          # Gzip Settings
-          ##
-  
-          gzip on;
-  
-          # gzip_vary on;
-          # gzip_proxied any;
-          # gzip_comp_level 6;
-          # gzip_buffers 16 8k;
-          # gzip_http_version 1.1;
-          # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-  
-          ##
-          # Virtual Host Configs
-          ##
-  
-          include /etc/nginx/conf.d/*.conf;
-          include /etc/nginx/sites-enabled/*;
   }
   ```
 
@@ -750,20 +678,7 @@ With the Tor browser, you can access this onion address from any device.
 * Delete the LNDg nginx configuration file and symlink
 
   ```sh
-  $ sudo rm /etc/nginx/sites-available/lndg-ssl.conf
   $ sudo rm /etc/nginx/sites-enabled/lndg-ssl.conf
-  ```
-
-* Delete or comment out the HTTP server block from the `nginx.conf` file (unless you use it for another service, _e.g._ [Mempool](../bitcoin/mempool.md), [Homer](../system/homer.md) etc)
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-
-  ```sh
-  #http {
-  # [...]
-  #}
   ```
 
 * Test the nginx configuration & restart nginx
