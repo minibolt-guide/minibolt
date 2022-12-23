@@ -139,7 +139,7 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
 
   * [Bitcoin client](guide/bitcoin/bitcoin-client.md)
   * [Electrum server](guide/bitcoin/electrum-server.md)
-  * [Destop wallet](guide/bitcoin/desktop-wallet.md)
+  * [Desktop wallet](guide/bitcoin/desktop-wallet.md)
   * [Blockchain explorer](guide/bitcoin/blockchain-explorer.md)
 
 * Lightning
