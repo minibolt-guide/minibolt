@@ -446,4 +446,4 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 
 ---
 
-Next: [Desktop wallet >>](desktop-wallet.md)
+<< Back: [+ Bitcoin](index.md)
