@@ -347,13 +347,13 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start bitcoind
   ```
 
-* Grant the "bitcoin" group read-permission for the debug log file:
+* Grant the "bitcoin" group read-permission for the debug log file
 
   ```sh
   $2 sudo chmod g+r /data/bitcoin/debug.log
   ```
 
-* Return to the first session and monitor "bitcoind" by its log file. You can exit monitoring at any time with `Ctrl-C`
+* Return to the first terminal session to monitoring "bitcoind" by its log file now avaliable. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
   $ sudo tail --lines 500 -f /home/bitcoin/.bitcoin/debug.log
@@ -396,6 +396,14 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
   ```sh
   $2 ln -s /data/bitcoin /home/admin/.bitcoin
   ```
+
+* This symbolic link becomes active only in a new user session. Log out from SSH.
+
+  ```sh
+  $ exit
+  ```
+
+* Log in as user “admin” again `"ssh admin@minibolt.local"`
 
 * Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
 
