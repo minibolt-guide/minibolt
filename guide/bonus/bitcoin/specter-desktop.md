@@ -39,7 +39,7 @@ Status: Not tested MiniBolt
 
 ## Preparation on the PC
 
-- Make the following changes to the bitcoin configuration file
+* Make the following changes to the bitcoin configuration file
 
   Open the `bitcoin.conf` file
 
@@ -47,7 +47,7 @@ Status: Not tested MiniBolt
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
   ```
 
-  Edit the following values, or add to the end of the file if not set
+*  Edit the following values, or add to the end of the file if not set
 
   ```sh
   server=1
@@ -57,19 +57,19 @@ Status: Not tested MiniBolt
 
   Save and exit the `bitcoin.conf` file
 
-  Restart the bitcoin daemon
+* Restart the bitcoin daemon
 
   ```sh
   $ sudo systemctl restart bitcoind
   ```
 
-- Allow the UFW firewall to listen on 25441 from the LAN, restart and check it
+* Allow the UFW firewall to listen on 25441 from the LAN, restart and check it
 
   ```sh
   $ sudo ufw allow from 192.168.0.0/16 to any port 25441 comment 'allow Specter Desktop from local network'
   ```
 
-- Install the following required system dependencies
+* Install the following required system dependencies
 
   ```sh
   $ sudo apt update
@@ -85,7 +85,7 @@ Status: Not tested MiniBolt
 
 These instructions will clone the repo to fetch the latest version and then "pip install" the project directly to a python virtual environment.
 
-- Create a new user, add it to the bitcoin group and open a new session
+* Create a new user, add it to the bitcoin group and open a new session
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" specter
@@ -93,27 +93,27 @@ These instructions will clone the repo to fetch the latest version and then "pip
   $ sudo su - specter
   ```
 
-- Install `virtualenv`
+* Install `virtualenv`
 
   ```sh
   $ python3 -m pip install virtualenv
   ```
 
-- Add locally installed virtualenv location to `PATH`
+* Add locally installed virtualenv location to `PATH`
 
   ```sh
   $ echo 'export PATH="$PATH:$HOME/.local/bin"' >> /home/specter/.bashrc
   $ source /home/specter/.bashrc
   ```
 
-- Download the source code directly from GitHub
+* Download the source code directly from GitHub
 
   ```sh
   $ git clone https://github.com/cryptoadvance/specter-desktop
   $ cd specter-desktop
   ```
 
-- Install to Python virtual environment
+* Install to Python virtual environment
 
   ```sh
   $ VERSION=v1.12.0
@@ -136,26 +136,26 @@ These instructions will clone the repo to fetch the latest version and then "pip
 
 ### Configuration
 
-- Create symbolic link to bitcoin data directory
+* Create symbolic link to bitcoin data directory
 
   ```sh
   $ ln -s /data/bitcoin /home/specter/.bitcoin
   ```
 
-- Create the specter config file (or clear the default specter config file if it exists)
+* Create the specter config file (or clear the default specter config file if it exists)
 
   ```sh
   $ mkdir -p /home/specter/.specter
   $ echo > /home/specter/.specter/config.json
   ```
 
-- Open the specter config file for editing
+* Open the specter config file for editing
 
   ```sh
   $ nano /home/specter/.specter/config.json
   ```
 
-- Copy the following config to the file
+* Copy the following config to the file
 
   ```sh
   {
@@ -175,17 +175,17 @@ These instructions will clone the repo to fetch the latest version and then "pip
   }
   ```
 
-- Save and exit `config.json`
+* Save and exit `config.json`
 
-- Exit the `specter` user session
+* Exit the `specter` user session
 
   ```sh
   $ exit
   ```
 
-### Add `udev` rules to Pi
+### Add `udev` rules to the PC
 
-- Setup user permissions
+* Setup user permissions
 
   ```sh
   # Permission users to use new rules via 'plugdev' group
@@ -194,17 +194,17 @@ These instructions will clone the repo to fetch the latest version and then "pip
   $ sudo usermod -aG plugdev specter
   ```
 
-- Add the following udev rules based on the devices you require support for. The rules are based on [rules from the `bitcoin-core` repo](https://github.com/bitcoin-core/HWI/blob/master/hwilib/udev/README.md){:target="_blank"}.
+* Add the following udev rules based on the devices you require support for. The rules are based on [rules from the `bitcoin-core` repo](https://github.com/bitcoin-core/HWI/blob/master/hwilib/udev/README.md){:target="_blank"}.
 
-- #### Ledger
+#### Ledger
 
-Open the Ledger rules file
+* Open the Ledger rules file
 
   ```sh
   $ sudo nano /etc/udev/rules.d/20-hw1.rules
   ```
 
-Copy the following to the file
+* Copy the following to the file
 
   ```sh
   # HW.1 / Nano
@@ -221,17 +221,17 @@ Copy the following to the file
   SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="0004|4000|4001|4002|4003|4004|4005|4006|4007|4008|4009|400a|400b|400c|400d|400e|400f|4010|4011|4012|4013|4014|4015|4016|4017|4018|4019|401a|401b|401c|401d|401e|401f", TAG+="uaccess", TAG+="udev-acl", OWNER="specter"
   ```
 
-Save and exit
+* Save and exit
 
-- #### ColdCard
+#### ColdCard
 
-Open the Coinkite rules file
+* Open the Coinkite rules file
 
   ```sh
   $ sudo nano /etc/udev/rules.d/51-coinkite.rules
   ```
 
-Copy the following to the file
+* Copy the following to the file
 
   ```sh
   # Linux udev support file.
@@ -249,17 +249,17 @@ Copy the following to the file
   KERNEL=="hidraw*", ATTRS{idVendor}=="d13e", ATTRS{idProduct}=="cc10", GROUP="plugdev", MODE="0666"
   ```
 
-Save and exit
+* Save and exit
 
-- #### Trezor
+#### Trezor
 
-Open the Trezor rules file
+* Open the Trezor rules file
 
   ```sh
   $ sudo nano /etc/udev/rules.d/51-trezor.rules
   ```
 
-Copy the following to the file
+* Copy the following to the file
 
   ```sh
   # Trezor: The Original Hardware Wallet
@@ -279,17 +279,17 @@ Copy the following to the file
   KERNEL=="hidraw*", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="53c1", MODE="0660", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
   ```
 
-Save and exit
+* Save and exit
 
-- #### KeepKey
+#### KeepKey
 
-Open the KeepKey rules file
+* Open the KeepKey rules file
 
   ```sh
   $ sudo nano /etc/udev/rules.d/51-usb-keepkey.rules
   ```
 
-Copy the following to the file
+* Copy the following to the file
 
   ```sh
   # KeepKey: Your Private Bitcoin Vault
@@ -303,9 +303,9 @@ Copy the following to the file
   KERNEL=="hidraw*", ATTRS{idVendor}=="2b24", ATTRS{idProduct}=="0002",  MODE="0666", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
   ```
 
-Save and exit
+* Save and exit
 
-- Activate udev rules
+* Activate udev rules
 
   ```sh
   # Set ownership of new rules
@@ -318,7 +318,7 @@ Save and exit
 
 ### Store data to disk (optional)
 
-- Move Specter data to disk
+* Move Specter data to disk
 
   ```sh
   # Move data folder to disk
@@ -336,26 +336,26 @@ Save and exit
 
 Test Specter Desktop manually first to make sure it works.
 
-- Switch to `specter` user
+* Switch to `specter` user
 
   ```sh
   $ sudo su - specter
   ```
 
-- Let’s do a first start to make sure it’s running as expected
+* Let’s do a first start to make sure it’s running as expected
 
   ```sh
   $ PATH=/home/specter/.env/bin:$PATH
   $ /home/specter/.env/bin/python3 -m cryptoadvance.specter server --host 0.0.0.0
   ```
 
-- Now point your browser to http://minibolt.local:25441 (or whatever you chose as hostname) or the ip address (e.g. http://192.168.0.20:25441). You should see the home page of Specter Desktop.
+* Now point your browser to http://minibolt.local:25441 (or whatever you chose as hostname) or the ip address (e.g. http://192.168.0.20:25441). You should see the home page of Specter Desktop.
 
-- Next we will test that Specter Desktop can detect your hardware wallet. Go to **Settings _(top right)_** -> **USB Devices _(tab)_** -> **Test connection _(bottom)_**. A blue popup should appear to the top of the page with the message `"Device detected successfully! USB connections configured correctly!"`
+* Next we will test that Specter Desktop can detect your hardware wallet. Go to **Settings _(top right)_** -> **USB Devices _(tab)_** -> **Test connection _(bottom)_**. A blue popup should appear to the top of the page with the message `"Device detected successfully! USB connections configured correctly!"`
 
   ![Hardware device check](../../../images/76_specter_desktop1.gif)
 
-- Stop Specter Desktop in the terminal with Ctrl-C and exit the "specter" user session.
+* Stop Specter Desktop in the terminal with Ctrl-C and exit the "specter" user session.
 
   ```sh
   $ exit
@@ -364,13 +364,13 @@ Test Specter Desktop manually first to make sure it works.
 ### Autostart on boot
 Now we’ll make sure Specter Desktop starts as a service on the PC so it’s always running. In order to do that we create a systemd unit that starts the service on boot directly after Bitcoin Core.
 
-- As user “admin”, create the service file.
+* As user “admin”, create the service file.
 
   ```sh
   $ sudo nano /etc/systemd/system/specter.service
   ```
 
-- Paste the following configuration. Save and exit.
+* Paste the following configuration. Save and exit.
 
   ```sh
   [Unit]
@@ -393,15 +393,13 @@ Now we’ll make sure Specter Desktop starts as a service on the PC so it’s al
 
   ```
 
-- Enable the service, start it and check log logging output.
+* Enable the service, start it and check log logging output.
 
   ```sh
   $ sudo systemctl enable specter.service
   $ sudo systemctl start specter.service
   $ sudo journalctl -f -u specter
   ```
-
----
 
 ## Connect Hardware Wallet to Laptop Instead
 
@@ -415,13 +413,13 @@ With this, Specter is also downloaded and installed on the laptop/computer and t
 
 **Advantages**
 
-- The Bitcoin RPC ports remains locked down and local only to the PC
+* The Bitcoin RPC ports remains locked down and local only to the PC
 
 **Disadvantages**
 
-- Two running instances of Specter must be setup, which can sometimes be complicated configuration-wise
+* Two running instances of Specter must be setup, which can sometimes be complicated configuration-wise
 
-- This option only works on the local network unless a port is opened, in which case the service is now available on the open web and must be secured with Sepcter's internal authentication
+* This option only works on the local network unless a port is opened, in which case the service is now available on the open web and must be secured with Sepcter's internal authentication
 
 ### Option 2: Connect directly to Bitcoin RPC
 
@@ -431,13 +429,13 @@ With this option, Specter is installed ***only*** on the user's laptop/computer 
 
 **Advantages**
 
-- Specter only needs to be setup and maintained in one place
+* Specter only needs to be setup and maintained in one place
 
 **Disadvantages**
 
-- The Bitcoin RPC port must be made available outside of the PC's internal `localhost` network. It must first be made available to the local LAN network, and then optionally to the wider web via port forwarding if the user wishes to use Specter outside the local LAN network.
+* The Bitcoin RPC port must be made available outside of the PC's internal `localhost` network. It must first be made available to the local LAN network, and then optionally to the wider web via port forwarding if the user wishes to use Specter outside the local LAN network.
 
-    This comes with its own security considerations that the user should be wary of.
+  This comes with its own security considerations that the user should be wary of.
 
 ### Option 3: HWI Bridge mode over Tor
 
@@ -449,15 +447,13 @@ This 3rd option is more involved though since the user must also install/configu
 
 **Advantages**
 
-- The Bitcoin RPC ports remains locked down and local only to the PC
+* The Bitcoin RPC ports remains locked down and local only to the PC
 
-- No ports need to be forwarded of configured on the PC's firewall to be accessible from outside the PC's local LAN network
+* No ports need to be forwarded of configured on the PC's firewall to be accessible from outside the PC's local LAN network
 
 **Disadvantages**
 
-- Two running instances of Specter must be setup, which can sometimes be complicated configuration-wise. Tor hidden services and additional proxy settings must also be configured which can be a bit trickier than the other setups
-
----
+* Two running instances of Specter must be setup, which can sometimes be complicated configuration-wise. Tor hidden services and additional proxy settings must also be configured which can be a bit trickier than the other setups
 
 ## Enable QR Code scanning from the browser
 
@@ -465,20 +461,18 @@ For certain hardware wallets that are air-gapped and communicate via QR code onl
 
 **\> Instructions for setting this up can be found at [self-signed-certificates.md](https://github.com/cryptoadvance/specter-desktop/blob/v1.12.0/docs/self-signed-certificates.md){:target="_blank"}.**
 
----
-
 # Upgrade
 
 Updating to a [new release](https://github.com/cryptoadvance/specter-desktop/releases){:target="_blank"} should be straight-forward, but make sure to check out [the changes](https://github.com/cryptoadvance/specter-desktop/releases/latest){:target="_blank"} first.
 
-- From user “admin”, stop the service and open a "specter" user session
+* From user “admin”, stop the service and open a "specter" user session
 
   ```sh
   $ sudo systemctl stop specter
   $ sudo su - specter
   ```
 
-- Fetch the latest GitHub repository information and check out the new release
+* Fetch the latest GitHub repository information and check out the new release
 
   ```sh
   $ VERSION=v1.12.0
@@ -496,12 +490,10 @@ Updating to a [new release](https://github.com/cryptoadvance/specter-desktop/rel
   $ exit
   ```
 
-- Start the service again.
+* Start the service again.
 
   ```sh
   $ sudo systemctl start specter
   ```
-
----
 
 << Back: [+ Bitcoin](index.md)

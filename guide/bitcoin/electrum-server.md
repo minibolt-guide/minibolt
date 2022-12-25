@@ -31,7 +31,7 @@ parent: Bitcoin
 * Bitcoin Core
 * Little over 100GB of free storage for database (external backup recommended)
 
-Fulcrum is a replacement for an [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing "sudo systemctl stop electrs".
+Fulcrum is a replacement for an [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `"sudo systemctl stop electrs"`.
 
 ## Bitcoin with hardware wallets
 
@@ -141,6 +141,7 @@ We have our Bitcoin Core configuration file set up and now we can move to next p
 
 * Check the correct installation requesting the version
 
+  ```sh
   $ Fulcrum --version
   > Fulcrum 1.9.0 (Release a5a53cf)
   > compiled: gcc 8.4.0

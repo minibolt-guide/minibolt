@@ -39,7 +39,7 @@ Status: Tested MiniBolt
 
 Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync) after full sync.
 
-Electrs is a replacement for Fulcrum, these two services cannot be run at the same time (due to the same standard ports used).
+Electrs is a replacement for an [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum doing `"sudo systemctl stop fulcrum"`.
 
 ### Install dependencies
 
@@ -183,8 +183,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   daemon_rpc_addr = "127.0.0.1:8332"
   daemon_p2p_addr = "127.0.0.1:8333"
 
-  # Electrs settings. If you chose to connect locally without Nginx reverse proxy, 
-  # configure: `electrum_rpc_addr = "0.0.0.0:50001"` and configure FW accordingly (not recommended)
+  # Electrs settings
   electrum_rpc_addr = "127.0.0.1:50001"
   db_dir = "/data/electrs/db"
   server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
@@ -309,7 +308,7 @@ To use your Electrum server when you're on the go, you can easily create a Tor h
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family.
 Note that the remote device needs to have Tor installed as well.
 
-* Add the following three lines in the section for "location-hidden services" in the `torrc` file
+* Ensure are you logged with user `admin`, add the following three lines in the section for "location-hidden services" in the `torrc` file
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -321,6 +320,7 @@ Note that the remote device needs to have Tor installed as well.
   HiddenServiceDir /var/lib/tor/hidden_service_electrs_ssl/
   HiddenServiceVersion 3
   HiddenServicePort 50002 127.0.0.1:50002
+
   # Hidden Service Electrs TCP
   HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp/
   HiddenServiceVersion 3
@@ -345,35 +345,20 @@ Note that the remote device needs to have Tor installed as well.
 
 * You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (ssl) or 50001 (tcp)
 
-### Migrate BTC RPC Explorer to Fulcrum API connection
+### Migrate BTC RPC Explorer to Electrs API connection
 
-To get address balances, either an Electrum server or an external service is necessary. Your local Fulcrum server can provide address transaction lists, balances, and more.
+To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
 
-* As user `admin`, change to `btcrpcexplorer` user, enter to `btc-rpc-explorer` folder and open `.env` file
-
-  ```sh
-  $ sudo su - btcrpcexplorer
-  $ cd btc-rpc-explorer
-  $ nano .env
-  ```
-
-* Add or modify the following line. Save and exit
+* As user `admin`, open `btcrpcexplorer` service
 
   ```sh
-  BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
-  ```
-
-* Return to `admin` user by exiting and open `btcrpcexplorer` service
-
-  ```sh
-  $ exit
   $ sudo nano /etc/systemd/system/btcrpcexplorer.service
   ```
 
-* Replace `"After=electrs.service"` to `"After=fulcrum.service"` parameter. Save and exit
+* Replace `"After=fulcrum.service"` to `"After=electrs.service"` parameter. Save and exit
 
   ```sh
-  After=fulcrum.service
+  After=electrs.service
   ```
 
 * Restart BTC RPC Explorer service to apply the changes
@@ -396,18 +381,65 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
   $ electrs --version
   ```
 
-* Stop Electrs
+* Download the source code for the latest Electrs release.
+  You can check the [release page](https://github.com/romanz/electrs/releases){:target="_blank"} to see if a newer release is available.
+  Other releases might not have been properly tested with the rest of the MiniBolt configuration, though.
 
   ```sh
-  $ sudo systemctl stop electrs
+  $ cd /tmp
+  $ git clone --branch v0.9.10 https://github.com/romanz/electrs.git
+  $ cd electrs
   ```
 
-* Download, verify it, compile it to an executable binary and install it as described in the [Build from source code section](electrum-server.md#build-from-source-code) of this guide.
+* To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz){:target="_blank"}.
 
-* Start Electrs again
+  ```sh
+  $ curl https://romanzey.de/pgp.txt | gpg --import
+  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  >                                    Dload  Upload   Total   Spent    Left  Speed
+  > 100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
+  > gpg: key 87CAE5FA46917CBB: public key "Roman Zeyde <me@romanzey.de>" imported
+  > gpg: Total number processed: 1
+  > gpg:               imported: 1
+  ```
+
+  ```sh
+  $ git verify-tag v0.9.10
+  > gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
+  > gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
+  > gpg:                issuer "me@romanzey.de"
+  > gpg: Good signature from "Roman Zeyde <me@romanzey.de>" [unknown]
+  > gpg:                 aka "Roman Zeyde <roman.zeyde@gmail.com>" [unknown]
+  > gpg: WARNING: This key is not certified with a trusted signature!
+  > gpg:          There is no indication that the signature belongs to the owner.
+  > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
+  ```
+
+* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
+
+  ```sh
+  $ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
+  ```
+
+* Check the correct installation
+
+  ```sh
+  $ electrs --version
+  > v0.9.10
+  ```
+
+* Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
+
+  ```sh
+  $ cd
+  $ rm -r /tmp/electrs
+  ```
+
+* Restart Electrs
   
   ```sh
-  $ sudo systemctl start electrs
+  $ sudo systemctl restart electrs
   ```
 
 <br /><br />

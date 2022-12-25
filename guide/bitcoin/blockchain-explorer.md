@@ -143,11 +143,11 @@ There might be a lot of confusing output, but if you see something similar to th
   ```
 
 * To get address balances, either an Electrum server or an external service is necessary.
-  Your local Fulcrum server can provide address transaction lists, balances, and more.
+  Your local Electrum server can provide address transaction lists, balances, and more.
 
   ```sh
   BTCEXP_ADDRESS_API=electrum
-  BTCEXP_ELECTRUM_SERVERS=tls://127.0.0.1:50002
+  BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
   ```
 
 * Uncomment this line
@@ -173,12 +173,6 @@ There might be a lot of confusing output, but if you see something similar to th
     BTCEXP_PRIVACY_MODE=true
     BTCEXP_NO_RATES=true
     ```
-
-* If you don't use Nginx reverse proxy configuration to receive and send the request to the browser, you will need to open BTC RPC Explorer to connect from the local network, uncomment and replace this line and configure FW accordingly (not recommended)
-
-  ```sh
-  BTCEXP_HOST=0.0.0.0
-  ```
 
 * You can add password protection to the web interface.
   Simply add password [D] for the following option, for which the browser will then prompt you.
