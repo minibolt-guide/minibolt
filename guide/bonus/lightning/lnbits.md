@@ -75,7 +75,6 @@ Status: Not tested MiniBolt
 
   ```sh
   $ sudo ufw allow from 192.168.0.0/16 to any port 4003 proto tcp comment 'allow LNBits SSL from local network'
-  $ sudo ufw status
   ```
 
 ## LNBits
@@ -107,7 +106,7 @@ Status: Not tested MiniBolt
 * Download the source code directly from GitHub, create a virtual environment, and install all dependencies with pip.
 
   ```sh
-  $ git clone --branch 0.9.4 https://github.com/lnbits/lnbits
+  $ git clone --branch 0.9.5.3 https://github.com/lnbits/lnbits
   $ cd lnbits
   $ python3 -m venv venv
   $ ./venv/bin/pip install setuptools wheel --upgrade
@@ -144,7 +143,7 @@ Status: Not tested MiniBolt
   LNBITS_BACKEND_WALLET_CLASS=LndRestWallet
   ```
 
-* Comment out all wallet parameters blocks execpt the one you selected just above, e.g. `LndRestWallet`
+* Comment out all wallet parameters blocks execept the one you selected just above, e.g. `LndRestWallet`
 
   ```sh
   # ClicheWallet
@@ -316,15 +315,15 @@ Updating to a [new release](https://github.com/lnbits/lnbits-legend/releases){:t
   $ sudo su - lnbits
   ```
 
-* Fetch the latest GitHub repository information, display the release tags (use the latest `0.8.0` in this example), and update:
+* Fetch the latest GitHub repository information, display the release tags, and update:
 
   ```sh
   $ cd /home/lnbits/lnbits
   $ git fetch
   $ git reset --hard HEAD
   $ git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1
-  > 0.9.4
-  $ git checkout 0.9.4
+  > 0.9.5.3
+  $ git checkout 0.9.5.3
   $ ./venv/bin/pip install -r requirements.txt
   $ ./venv/bin/python build.py
   $ exit
