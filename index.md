@@ -78,6 +78,12 @@ Everything is optional.
 
 ---
 
+## How build
+
+- YouTube list building MiniBolt in live with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms){:target="_blank"}
+
+---
+
 ## Community
 
 * [GitHub Pull Requests](https://github.com/twofaktor/minibolt/pulls){:target="_blank"}
