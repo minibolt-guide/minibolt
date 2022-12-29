@@ -41,6 +41,12 @@ Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originall
 
 ---
 
+### How build
+
+- YouTube list building MiniBolt in live with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms)
+
+---
+
 ### Community
 
 * Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/)
@@ -52,6 +58,8 @@ Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originall
 * Nostr channels (Anigma)
   * [Spanish](https://anigma.io/?channel=3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015)
   * [English](https://anigma.io/?channel=aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249)
+
+---
 
 Created by [⚡2 FakTor⚡](https://twitter.com/twofaktor) member of [Bitcoin Barcelona Community](https://bitcoinbarcelona.xyz/)
 
