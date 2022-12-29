@@ -298,7 +298,7 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
   $ sudo apt update && sudo apt upgrade
   ```
 
-💡 Note: in the I2P update process maybe appears you this message
+💡 Note: in the I2P update process maybe appears you this message. Is recommended selecting `Y` option because the developer could have applied modifications in the config file and this could be useful for new features.
 
   ```sh
     Configuration file '/etc/i2pd/i2pd.conf'
@@ -312,8 +312,6 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
   The default action is to keep your current version.
   *** i2pd.conf (Y/I/N/O/D/Z) [default=N] ?
   ```
-
-Is recommended selecting `Y` option because the developer could have applied modifications in the config file and this could be useful for new features, but you will need to apply `"notransit=true"` on `i2pd.conf` [configuration file](#i2p-configuration) again.
 
 ## Extras
 
