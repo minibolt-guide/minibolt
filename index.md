@@ -91,13 +91,16 @@ Everything is optional.
 * [GitHub discussions](https://github.com/twofaktor/minibolt/discussions){:target="_blank"}
 * Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/){:target="_blank"}
 * Telegram Groups: 
- * [Spanish](https://t.me/minibolt_es){:target="_blank"}
- * [English](https://t.me/minibolt){:target="_blank"}
-* Nostr channels (Anigma):
- * [Spanish](https://anigma.io/?channel=3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015){:target="_blank"}
- * [English](https://anigma.io/?channel=aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249){:target="_blank"}
 
-And feel free to join the many other contributors if you see something that can be improved!
+  * [Spanish](https://t.me/minibolt_es){:target="_blank"}
+  * [English](https://t.me/minibolt){:target="_blank"}
+
+* Nostr channels (Anigma):
+
+  * [Spanish](https://anigma.io/?channel=3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015){:target="_blank"}
+  * [English](https://anigma.io/?channel=aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249){:target="_blank"}
+
+Feel free to join the many other contributors if you see something that can be improved!
 
 ---
 
@@ -162,12 +165,14 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
 * Bonus
 
   * System
+ 
     * [Aliases](guide/bonus/system/aliases.md)
     * [Command line](guide/bonus/system/command-line.md)
     * [Go](guide/bonus/system/go.md)
     * [Tor bridge](guide/bonus/system/tor-bridge.md)
 
   * Bitcoin
+ 
     * [Bisq](guide/bonus/bitcoin/bisq.md)
     * [Electrs](guide/bonus/bitcoin/electrs.md)
     * [Electrum Wallet Desktop](guide/bonus/bitcoin/electrum-wallet-desktop.md)
