@@ -214,25 +214,6 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
   [...]
   ```
 
-### I2P configuration
-
-* Configure i2pd to not to relay any public I2P traffic and only permit I2P traffic from Bitcoin Core, uncomment `"notransit=true"` in line 93.
-
-  ```sh
-  $ sudo nano /var/lib/i2pd/i2pd.conf --linenumbers
-  ```
-
-  ```sh
-  # uncomment line 93:
-  notransit = true
-  ```
-
-* Restart the service to apply changes
-
-  ```sh
-  $ sudo systemctl restart i2pd
-  ```
-  
 * Enable autoboot on start
 
   ```sh
