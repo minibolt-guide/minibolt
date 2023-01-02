@@ -75,7 +75,6 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   ```
 
   ```sh
-
   # Replace <TODO1> with a Tor port of your choice >1024.
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
   ORPort <TODO1> IPv4Only

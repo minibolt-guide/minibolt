@@ -44,16 +44,17 @@ parent: Lightning
 * Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to Thunderhub
 
   ```sh
-  $ sudo nano /etc/nginx/streams-enabled/thunderhub-reverse-proxy.conf
+  $ sudo nano /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
   ```
 
   ```sh
-  upstream thunderhub {
-    server 127.0.0.1:3010;
-  }
   server {
     listen 4002 ssl;
-    proxy_pass thunderhub;
+    error_page 497 =301 https://$host:$server_port$request_uri;
+
+    location / {
+      proxy_pass http://127.0.0.1:3010;
+    }
   }
   ```
 
