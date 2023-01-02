@@ -179,10 +179,20 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
     worker_connections 768;
   }
 
+  http {
+    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+    ssl_session_cache shared:HTTP-TLS:1m;
+    ssl_session_timeout 4h;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    include /etc/nginx/sites-enabled/*.conf;
+  }
+
   stream {
     ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
     ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-    ssl_session_cache shared:SSL:1m;
+    ssl_session_cache shared:STREAM-TLS:1m;
     ssl_session_timeout 4h;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
@@ -194,6 +204,12 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
 
   ```sh
   $ sudo mkdir /etc/nginx/streams-enabled
+  ```
+
+* Disable NGINX's default site
+
+  ```sh
+  $ sudo rm /etc/nginx/sites-enabled/default
   ```
 
 * Test this barebone Nginx configuration
