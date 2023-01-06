@@ -133,14 +133,16 @@ There might be a lot of confusing output, but if you see something similar to th
 
   ```sh
   $ cp .env-sample .env
-  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
   ```
 
-* Instruct BTC RPC Explorer to connect to local Bitcoin Core
+* Instruct BTC RPC Explorer to connect to local Bitcoin Core.
 
   ```sh
+  # uncomment line 33 & 34
   BTCEXP_BITCOIND_HOST=127.0.0.1
   BTCEXP_BITCOIND_PORT=8332
+  # replace line 37
   BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
   ```
 
@@ -148,11 +150,13 @@ There might be a lot of confusing output, but if you see something similar to th
   Your local Electrum server can provide address transaction lists, balances, and more.
 
   ```sh
+  # replace line 48
   BTCEXP_ADDRESS_API=electrum
+  # replace line 57
   BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
   ```
 
-* Uncomment this line
+* Uncomment line 95
 
   ```sh
   BTCEXP_SLOW_DEVICE_MODE=false
@@ -162,31 +166,37 @@ There might be a lot of confusing output, but if you see something similar to th
 
 * You can decide whether you want to optimize for more information or for more privacy.
 
-  * More information mode, including Bitcoin exchange rates:
+  * More information mode, including Bitcoin exchange rates
 
     ```sh
+    # replace line 101
     BTCEXP_PRIVACY_MODE=false
+    # replace line 106
     BTCEXP_NO_RATES=false
     ```
 
-  * More privacy mode, no external queries:
+  * More privacy mode, no external queries
 
     ```sh
+    # uncomment line 101
     BTCEXP_PRIVACY_MODE=true
+    # uncomment line 106
     BTCEXP_NO_RATES=true
     ```
 
 * You can add password protection to the web interface.
-  Simply add password [D] for the following option, for which the browser will then prompt you.
+  Simply add your password [D] for the following option, for which the browser will then prompt you.
   You can enter any user name; only the password is checked.
 
   ```sh
-  BTCEXP_BASIC_AUTH_PASSWORD=YourPassword[D]
+  # replace `mypassword` to 'YourPassword [D] in line 111
+  BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
   ```
 
-* Decide whether you prefer a `light` or `dark` theme by default
+* Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark (default dark)
 
   ```sh
+  # uncomment and replace line 178 with your selection 
   BTCEXP_UI_THEME=dark
   ```
 
@@ -268,7 +278,7 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 ## Extras
 
-### Slow device mode
+### Slow device mode (resource-intensive features are disabled)
 
 * With user `admin`, change to the `btcrpcexplorer` user
 
@@ -279,16 +289,17 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 * Edit `.env` configuration file
 
   ```sh
-  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
   ```
 
 * Extend the timeout period due to the limited resources of your possible PC
 
   ```sh
+  # uncomment and change the value of line 38
   BTCEXP_BITCOIND_RPC_TIMEOUT=10000
   ```
 
-* Comment this line if it is uncommented
+* Comment this line if it is uncommented in line 95 (default value is true)
 
   ```sh
   #BTCEXP_SLOW_DEVICE_MODE=false
@@ -298,7 +309,20 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "DEMO" mode, you will not have to provide password and RPC requests will be allowed (discarding rpcBlacklist commands).
 
+* With user `admin`, change to the `btcrpcexplorer` user
+
   ```sh
+  $ sudo su - btcrpcexplorer
+  ```
+
+* Edit `.env` configuration file
+
+  ```sh
+  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
+  ```
+
+  ```sh
+  # uncomment line 89
   BTCEXP_DEMO=true
   ```
 
