@@ -38,7 +38,7 @@ Status: Not tested MiniBolt
 
 ### Check Node.js
 
-* Node.js v16 should have been installed for the BTC RPC Explorer and RTL. We can check our version of Node.js with user "admin":
+* Node.js v16 should have been installed for the BTC RPC Explorer. We can check our version of Node.js with user "admin"
   
   ```sh
   $ node -v
@@ -113,15 +113,15 @@ We do not want to run Ride the Lightning alongside bitcoind and lnd because of s
 
   ```sh
   $ git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1
-  > v0.13.3
+  > v0.13.4
   ```
 
   ```sh
-  $ git checkout v0.13.3
+  $ git checkout v0.13.4
   ```
 
   ```sh
-  $ git verify-tag v0.13.3
+  $ git verify-tag v0.13.4
   > gpg: Signature made Tue 22 Nov 2022 03:04:55 CET
   > gpg:                using RSA key 3E9BD4436C288039CA827A9200C9E2BC2E45666F
   > gpg: Good signature from "saubyk (added uid) <39208279+saubyk@users.noreply.github.com>" [unknown]

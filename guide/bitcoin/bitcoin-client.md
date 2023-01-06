@@ -70,26 +70,41 @@ Expected output:
 
 ### Signature check
 
-* Bitcoin releases are signed by a number of individuals, each using their own key.
-  In order to verify the validity of these signatures, you must first import the corresponding public keys.
-  You can find many developer keys listed in the builder-keys repository, which you can then load into your GPG key database.
+* Bitcoin releases are signed by a number of individuals, each using its own key.
+In order to verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
   ```sh
-  $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/builder-keys/keys.txt -O keys.txt
-  $ while read fingerprint keyholder_name; do gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys ${fingerprint}; done < ./keys.txt
+  $ curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/achow101.gpg | gpg --import &&
+  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/fanquake.gpg | gpg --import &&
+  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/guggero.gpg | gpg --import &&
+  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/hebasto.gpg | gpg --import &&
+  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/theStack.gpg | gpg --import &&
+  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/vertiond.gpg | gpg --import &&
+  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/willyko.gpg | gpg --import
   ```
 
 Expexted output:
 
   ```sh
-  > gpg: key 188CBB2648416AD5: public key ".0xB10C <b10c@b10c.me>" imported
+  > gpg: directory '/home/admin/.gnupg' created
+  > gpg: keybox '/home/admin/.gnupg/pubring.kbx' created
+  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  >                                 Dload  Upload   Total   Spent    Left  Speed
+  > 100 30520  100 30520    0     0   200k      0 --:--:-- --:--:-- --:--:--  198k
+  > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+  > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
+  > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
   > gpg: Total number processed: 1
   > gpg:               imported: 1
-  > gpg: key 0A41BDC3F4FAFF1C: "Aaron Clauson (sipsorcery) <aaron@sipsorcery.com>" not changed
+  > gpg: no ultimately trusted keys found
+  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  >                                 Dload  Upload   Total   Spent    Left  Speed
+  > 100 17983  100 17983    0     0   125k      0 --:--:-- --:--:-- --:--:--  125k
+  > gpg: key 944D35F9AC3DB76A: 19 signatures not checked due to missing keys
+  > gpg: key 944D35F9AC3DB76A: public key "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" imported
   > gpg: Total number processed: 1
-  > gpg:              unchanged: 1
-  > gpg: key 4BB42E31C79111B8: "Akira Takizawa (Ethereum Social Official) <info@ethereumsocial.kr>" not changed
-  > gpg: Total number processed: 1
+  > gpg:               imported: 1
+  > gpg: no ultimately trusted keys found
   [...]
   ```
 
