@@ -34,6 +34,7 @@ has_toc: false
 ---
 ## Security
 
+* **[SSH Keys](ssh-keys.md)** - a safer way to SSH authentification in your system
 * **[Hardware-based (Trezor) SSH authentification](trezor-agent.md)** - a safer way to SSH to your device using your hardware wallet
 
 ---
