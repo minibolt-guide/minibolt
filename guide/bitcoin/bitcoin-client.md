@@ -73,6 +73,13 @@ Expected output:
 * Bitcoin releases are signed by a number of individuals, each using its own key.
 In order to verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
+
+* **Recommended command**, it automatically downloads and imports all signatures from the bitcoin core repository. make sure you have curl and jq installed on your system.
+  ```sh
+  $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
+  ```
+* Another option, you just need curl installed on your system to be able to run it, however this option requires copy/paste of each link and these may change over time.
+
   ```sh
   $ curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/achow101.gpg | gpg --import &&
   curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/fanquake.gpg | gpg --import &&
