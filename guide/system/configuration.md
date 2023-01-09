@@ -83,7 +83,7 @@ If during the update process a banner appears asking you: "Which services should
 * Make sure that all necessary software packages are installed:
 
   ```sh
-  $ sudo apt install avahi-daemon
+  $ sudo apt install avahi-daemon jq
   ```
 
 ## Check drive performance

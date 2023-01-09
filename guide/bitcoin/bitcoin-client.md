@@ -263,7 +263,7 @@ We'll also set the proper access permissions.
   blockfilterindex=1
   # Support filtering of blocks and transactions with bloom filters
   peerbloomfilters=1
-  # Serve compact block filters to peers per BIP 157.
+  # Serve compact block filters to peers per BIP 157
   peerblockfilters=1
   # Maintain coinstats index used by the gettxoutsetinfo RPC 
   coinstatsindex=1
@@ -275,8 +275,7 @@ We'll also set the proper access permissions.
   listenonion=1
   proxy=127.0.0.1:9050
 
-  # Enable I2P
-  i2pacceptincoming=1
+  # I2P SAM proxy to reach I2P peers and accept I2P connections
   i2psam=127.0.0.1:7656
 
   ## Connections
