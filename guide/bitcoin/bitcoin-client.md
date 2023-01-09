@@ -73,7 +73,7 @@ Expected output:
 * Bitcoin releases are signed by a number of individuals, each using its own key.
 In order to verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* Create .gnupg folder
+* Create ".gnupg" folder
 
   ```sh
   $ gpg --list-keys
@@ -85,7 +85,7 @@ In order to verify the validity of these signatures, you must first import the c
   $ cd /home/admin/.gnupg/ && .mkdir sigs && cd sigs
   ```
 
-* The next command download and imports automatically all signatures from the Bitcoin Core Guix repository.
+* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository.
 
   ```sh
   $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
@@ -642,7 +642,7 @@ Expected output:
   $ cd /home/admin/.gnupg/sigs
   ```
 
-* The next command download and imports automatically all signatures from the Bitcoin Core Guix repository and update our database it if necessary
+* The next command download and imports automatically all signatures from the Bitcoin Core Guix repository and update our database if necessary
 
   ```sh
   $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
