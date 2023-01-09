@@ -73,20 +73,27 @@ Expected output:
 * Bitcoin releases are signed by a number of individuals, each using its own key.
 In order to verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
+* Create ".gnupg" folder
+
   ```sh
-  $ curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/achow101.gpg | gpg --import &&
-  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/fanquake.gpg | gpg --import &&
-  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/guggero.gpg | gpg --import &&
-  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/hebasto.gpg | gpg --import &&
-  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/theStack.gpg | gpg --import &&
-  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/vertiond.gpg | gpg --import &&
-  curl https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/builder-keys/willyko.gpg | gpg --import
+  $ gpg --list-keys
+  ```
+
+* Enter to the .gnupg folder, create a persistent folder for the signatures and enter on it
+
+  ```sh
+  $ cd /home/admin/.gnupg/ && .mkdir sigs && cd sigs
+  ```
+
+* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository.
+
+  ```sh
+  $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
   ```
 
 Expexted output:
 
   ```sh
-  > gpg: directory '/home/admin/.gnupg' created
   > gpg: keybox '/home/admin/.gnupg/pubring.kbx' created
   >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   >                                 Dload  Upload   Total   Spent    Left  Speed
@@ -106,6 +113,12 @@ Expexted output:
   > gpg:               imported: 1
   > gpg: no ultimately trusted keys found
   [...]
+  ```
+
+* Return to the `tmp` folder
+
+  ```sh
+  $ cd /tmp
   ```
 
 * Verify that the checksums file is cryptographically signed by the release signing keys.
@@ -622,25 +635,22 @@ Expected output:
   > bitcoin-24.0.1-x86_64-linux-gnu.tar.gz: OK
   ```
 
-* Update gpg keys and verify checksums signatures
+* Enter to the `sigs` folder
 
   ```sh
-  $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/builder-keys/keys.txt -O keys.txt
-  $ while read fingerprint keyholder_name; do gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys ${fingerprint}; done < ./keys.txt
+  $ cd /home/admin/.gnupg/sigs
   ```
 
-Expexted output:
+* The next command download and imports automatically all signatures from the Bitcoin Core Guix repository and update our database if necessary
 
   ```sh
-  > gpg: key 188CBB2648416AD5: public key ".0xB10C <b10c@b10c.me>" imported
-  > gpg: Total number processed: 1
-  > gpg:               imported: 1
-  > gpg: key 0A41BDC3F4FAFF1C: "Aaron Clauson (sipsorcery) <aaron@sipsorcery.com>" not changed
-  > gpg: Total number processed: 1
-  > gpg:              unchanged: 1
-  > gpg: key 4BB42E31C79111B8: "Akira Takizawa (Ethereum Social Official) <info@ethereumsocial.kr>" not changed
-  > gpg: Total number processed: 1
-  [...]
+  $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
+  ```
+
+* Return to the `tmp` folder
+
+  ```sh
+  $ cd /tmp
   ```
 
 * Verify that the checksums file is cryptographically signed by the release signing keys.
@@ -650,10 +660,10 @@ Expexted output:
   $ gpg --verify SHA256SUMS.asc
   ```
 
-Check that at least a few signatures show the following text
+* Check that at least a few signatures show the following text
 
   ```sh
-  > gpg: **Good signature from** ...
+  > gpg: Good signature from ...
   > Primary key fingerprint: ...
   ```
 
