@@ -30,10 +30,11 @@ We connect to your personal computer by using the Secure Shell.
 Your Personal Computer is starting and gets a new address from your home network.
 Give it a few minutes to come to life.
 
-* On your regular computer, open the Terminal (also known as "command line").
-  Here are a few links with additional details how to do that for [Windows](https://www.computerhope.com/issues/chusedos.htm){:target="_blank"}, [MacOS](https://macpaw.com/how-to/use-terminal-on-mac){:target="_blank"} and [Linux](https://www.howtogeek.com/140679/beginner-geek-how-to-start-using-the-linux-terminal/){:target="_blank"}.
+* On your regular computer, open the Terminal (also known as "command line")
+  * On Linux/macOS with a graphical interface, search on the application list, "Terminal" or press the keyboard shortcut `Ctrl` + Alt + T`
+  * On Windows, search on the application list `cmd``
 
-* Try to ping using the IP assigned to your MiniBolt in the before step.
+* Try to ping using the IP assigned to your MiniBolt in the before step
 
   ```sh
   $ ping 192.168.x.xxx
@@ -55,20 +56,32 @@ For that, we need an SSH client.
 
 Install and start the SSH client for your operating system:
 
-* Windows: 2 options:
+* Windows, 2 options:
 
-  * Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending of your OS architecture and start it, or download
-  * MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install permanently or not.
+  * Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture and start it. Src: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
-* MacOS and Linux: from the Terminal, use the native command:
-  * `ssh temp@192.168.x.xxx`
+    * On the session left to tag, type in "Hostname (or IP address)" box, `temp@192.168.x.xx` port `22` to the left box. Click on `Open`, type your password [A]
 
-If you need to provide connection details, use the following settings:
+  * MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install it permanently or not. Src: https://mobaxterm.mobatek.net/
 
-* host name: the ip address like `192.168.x.xxx`
-* port: `22`
-* username: `temp`
-* password:  `password [A]`
+    * Start MobaXterm, 2 options:
+
+      * If you want to save the session for later: on the top menu, click on "Session" -> "New session" -> Select "SSH"
+        * Enter MiniBolt IP address (192.168.x.xx), check "specify username" and enter to the right "temp", keep port "22" selected to the right, click on "OK", button
+
+    * Otherwise, select on the dashboard "Start local terminal" button and type directly on terminal `ssh temp@192.168.x.xxx`
+
+* MacOS and Linux:
+
+  * From the native terminal, type: `ssh temp@192.168.x.xxx`
+  * Use Putty, simply from the native terminal type `sudo apt install putty` and start it typing `putty`, follow the same Putty instructions as before for Windows.
+
+📝 Note, connection details:
+
+  * host name: your MiniBolt IP address like: `192.168.x.xxx`
+  * port: `22`
+  * username: `temp`
+  * password: `password [A]`
 
 ## The command line
 
@@ -107,7 +120,7 @@ In the following example, just enter `ls -la` and press the enter/return key:
 
 * **Using the Nano text editor**:
   We use the Nano editor to create new text files or edit existing ones.
-  It's not complicated, but to save and exit is not intuitive.
+  It's not complicated, but saving and exiting are not intuitive.
 
   * Save: hit `Ctrl-O` (for Output), confirm the filename, and hit the `Enter` key
   * Exit: hit `Ctrl-X`

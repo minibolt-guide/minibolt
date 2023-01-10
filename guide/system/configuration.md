@@ -42,11 +42,13 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
   $ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
   ```
 
-* Logout `temp` user and repeat [access with SSH section](../system/remote-access#access-with-secure-shell) but this time login with `admin` user with your `password [A]`
+* Logout `temp` user
 
   ```sh
   $ logout
   ```
+
+* Repeat [access with the SSH section](../system/remote-access#access-with-secure-shell) but this time login with `admin` and your `password [A]`
 
 * Delete the `temp` user. Do not worry about the `userdel: temp mail spool (/var/mail/temp) not found` message
 
@@ -55,8 +57,12 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
   > userdel: temp mail spool (/var/mail/temp) not found
   ```
 
-To change the system configuration and files that don't belong to user "admin", you have to prefix commands with `sudo`.
+To change the system configuration and files that don't belong to the user "admin", you have to prefix commands with `sudo`.
 You will be prompted to enter your admin `password [A]` from time to time for increased security.
+
+## Login with SSH keys (optional)
+
+Now, you can start to access it without a password by following the [SSH keys bonus guide](../bonus/system/ssh-keys.md).
 
 ## System update
 
@@ -78,7 +84,7 @@ The “Advanced Packaging Tool” (apt) makes this easy.
   ```
 
 💡 Do this regularly every few months for security-related updates.
-If during the update process a banner appears asking you: "Which services should be restarted?" you can press the "enter" key and take note of which services will be restarted during the update, marked with "*"
+If during the update process, a banner appears asking you: "Which services should be restarted?" you can press the "enter" key and take note of which services will be restarted during the update, marked with "*"
 
 * Make sure that all necessary software packages are installed:
 
@@ -88,7 +94,7 @@ If during the update process a banner appears asking you: "Which services should
 
 ## Check drive performance
 
-A performant unit storage is essential for your node.
+Performant unit storage is essential for your node.
 
 Let's check if your drive works well as-is.
 
@@ -105,7 +111,7 @@ Let's check if your drive works well as-is.
   > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
   ```
 
-💡 If you use a secondary unit storage for `"/data"` folder, normally it should be detected as `/dev/sdb`, check it with `lsblk -pli` command and measure the speed of your secondary drive with
+💡 If you use a secondary unit storage for the `/data` folder, normally it should be detected as `/dev/sdb`, check it with `lsblk -pli` command and measure the speed of your secondary drive with
 
   ```sh
   $ sudo hdparm -t --direct /dev/sdb
@@ -120,9 +126,9 @@ We'll store all application data in the dedicated directory `/data`.
 This allows for better security because it's not inside any user's home directory.
 Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
 
-💡 Remember that `"sudo mkdir /data"` command is not necessary if you previously mounted `"/data"` folder in a secondary unit storage in the [Ubuntu Server process installation](../system/operating-system#ubuntu-server-installation)
+💡 Remember that `sudo mkdir /data` command is not necessary if you previously mounted `/data` folder in secondary unit storage in the [Ubuntu Server process installation](../system/operating-system#ubuntu-server-installation)
 
-💡 If you did not add an extra drive during the instalation step but now wish to add an external hardrive as the location of the "/data" folder, it requires mounting a drive upon login and mapping the drive to the "/data" folder. This [guide](https://www.fosslinux.com/64306/how-to-mount-drive-in-ubuntu.htm) will help with drive mapping and automounting. Skip the data creation step if you follow the linked guide with "/data" folder creation.
+💡 If you did not add an extra drive during the installation step but now wish to add an external hard drive as the location of the "/data" folder, it requires mounting a drive upon login and mapping the drive to the "/data" folder. This [guide](https://www.fosslinux.com/64306/how-to-mount-drive-in-ubuntu.htm) will help with drive mapping and automounting. Skip the data creation step if you follow the linked guide with "/data" folder creation.
 
 * Create the data directory
 

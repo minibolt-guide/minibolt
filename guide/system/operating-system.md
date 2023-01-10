@@ -36,7 +36,7 @@ As a result, it should work smoothly with a personal computer while still being 
 
 ## Get Ubuntu Server
 
-In order to write the operating system to the external drive, we will use the [Balena Etcher](https://www.balena.io/etcher/){:target="_blank"} application, download the correct binarie accordly to your OS.
+In order to write the operating system to the external drive, we will use the [Balena Etcher](https://www.balena.io/etcher/){:target="_blank"} application, download the correct binary accordingly to your OS.
 
 * Download Ubuntu Server LTS doing click [here](https://softlibre.unizar.es/ubuntu/releases/22.04.1/ubuntu-22.04.1-live-server-amd64.iso)
 * Start the Balena Etcher
@@ -55,36 +55,36 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 
 * Safely eject the pen drive from your regular computer
 * Connect it to your selected PC to the MiniBolt node
-* Attach a screen, a keyboard and the Ethernet wire (not case for Wifi connection) to the PC and start it
+* Attach a screen, a keyboard and the Ethernet wire (not the case for Wifi connection) to the PC and start it
 * Press the key fastly to enter to BIOS setup or directly to the boot menu to select the pen drive as the boot device (normally F9, Esc, F12, or Supr keys)
 
    💡 In this step, you might want to take advantage of activating the **"Restore on AC/Power Loss"** utility in the BIOS setup. Normally found in Advanced > **ACPI Configuration**, switching to "Power ON" or Advanced > Power-On Options > **After Power Loss** switching to "On". With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
 
 ## Ubuntu Server installation
 
-Use UP, Down and ENTER keys of your keyboard to navigate for the options. Follow the next instructions:
+Use UP, Down and ENTER keys of your keyboard to navigate to the options. Follow the next instructions:
 
 1. In the first screen, select the language of your choice (English recommended)
 
-1. If there are an installer update available, select "Update to the new installer", press ENTER and wait
+1. If there is an installer update available, select "Update to the new installer", press ENTER and wait
 
 1. Select your keyboard layout and variant (Spanish recommended to Spanish native speakers) and press done
 
-1. Keep select "Ubuntu Server" as the base for the installation, down to "done" and press ENTER
+1. Keep selecting "Ubuntu Server" as the base for the installation, down to "done" and press ENTER
 
-1. Select interface network connection that you choose to use (Ethernet recommended) and take note of your IP obtained automatically through DHCP. Press done
+1. Select the interface network connection that you choose to use (Ethernet recommended) and take note of your IP obtained automatically through DHCP. Press done
 
-1. Leave empty next option if you don't want to use an HTTP proxy to access. Press done
+1. Leave the empty next option if you don't want to use an HTTP proxy to access. Press done
 
-1. If you don't want to use an alternative mirror for Ubuntu, leave empty and press done directly
+1. If you don't want to use an alternative mirror for Ubuntu, leave it empty and press done directly
 
 1. Configure a guided storage layout:
     * Check **"Use an entire disk"**, if you have only one primary unit storage (1+ TB). In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before pressing done.
-    * Check **"Custom storage layout"**, if you want to use one or multiple storage, e.g. a primary storage for the system and other secondary to storage data (blockchain, indexes, etc)(1+ TB), you will need minimum:
-        * Select a **primary disk**, as boot disk and mount the filesystem `("/")` on it as well.
-        * Select a **secondary unit**, formatting as Ext4 filesystem type, and mount `"/data"` directory on it. 🚨 In this case, remember in this section [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory) just follow the command to assign the owner of the `/data` directory to the `"admin"` user, discarding the creating of the `"/data"` folder already created in this installation process. When you are ready press done.
+    * Check **"Custom storage layout"**, if you want to use one or multiple storages, e.g. primary storage for the system and other secondary to storage data (blockchain, indexes, etc)(1+ TB), you will need a minimum:
+        * Select a **primary disk, as the boot disk and mount the filesystem `("/")` on it as well.
+        * Select a **secondary unit**, formatting as Ext4 filesystem type, and mount `"/data"` directory on it. 🚨 In this case, remember in this section [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory) just follow the command to assign the owner of the `/data` directory to the `"admin"` user, discarding the creation of the `"/data"` folder already created in this installation process. When you are ready press done.
 
-1. Confirm destructive action by selecting the "Continue" option. Pres ENTER
+1. Confirm destructive action by selecting the "Continue" option. Press ENTER
 
 1. The username `"admin"` is reserved for use by the system, to use in the first place, so we are going to create a temporary user which we will delete later. Complete the profile configuration form with the following. ⚠️ IMPORTANT step!
 
@@ -99,7 +99,7 @@ Use UP, Down and ENTER keys of your keyboard to navigate for the options. Follow
 
 1. If you want to preinstall some additional software (not recommended), select them, if not, press "done" directly to jump to the installation next step
 
-1. Wait until installation finishes and press "Reboot now" when the option appears you
+1. Wait until the installation finishes and press "Reboot now" when the option appears you
 
 1. When the prompt shows you "Please remove the installation medium, then press ENTER", extract the pen drive of the PC and press ENTER
 
