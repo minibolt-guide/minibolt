@@ -284,10 +284,6 @@ Expected output:
   11:53:04@783/warn - SSU2: Session with 80.194.231.253:29452 was not established after 5 seconds
   11:53:04@844/warn - Profiling: No profile yet for XKlpatw2sSDZagG~CjFBrfVimFDRUhRCrlD0RHvLnC0=
   11:53:04@844/error - Tunnels: Can't select next hop for Rq3JIRBzENl6anQmeXGF0PPld6V9899TIF0qNqmp7Yc=
-  11:53:04@844/error - Tunnels: Can't create inbound tunnel, no peers available
-  11:53:04@844/warn - Profiling: No profile yet for LBNfbHPSzpnWC5BE5Te0tIaiLNpStUvFDZjxI86bmjc=
-  11:53:04@553/warn - NTCP2: SessionCreated read error: End of file
-  11:53:04@844/warn - Profiling: No profile yet for NuySEfKaNSNxL90S5ZvKjnppzC86XxZ-xmwLJ08Hiv0=
   ```
 
 ## For the future: upgrade Tor and I2P

@@ -269,6 +269,10 @@ We'll also set the proper access permissions.
   ## Bitcoin daemon
   server=1
   txindex=1
+  # Aditional logs
+  debug=tor
+  debug=i2p
+  
   # Assign read permission to the Bitcoin group users 
   startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
 
@@ -281,11 +285,10 @@ We'll also set the proper access permissions.
   # Maintain coinstats index used by the gettxoutsetinfo RPC 
   coinstatsindex=1
 
-  ## Network
+  # Network
   listen=1
 
-  # Enable and proxify Tor
-  listenonion=1
+  # Connect through Tor SOCKS5 proxy
   proxy=127.0.0.1:9050
 
   # I2P SAM proxy to reach I2P peers and accept I2P connections

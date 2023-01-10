@@ -91,7 +91,7 @@ For that we will create a separate user and we will be running the code as the n
 * Clone the latest release of the project GitHub repository and enter it
 
   ```sh
-  $ git clone --branch v1.3.1 https://github.com/cryptosharks131/lndg.git
+  $ git clone --branch v1.5.0 https://github.com/cryptosharks131/lndg.git
   $ cd lndg
 
 * Setup a Python virtual environment
@@ -648,8 +648,8 @@ To preserve privacy it is better that you use your own self-hosted blockhain exp
 * Click on the "Advanced settings" link
 * Scroll down to the "Update Local Settings" section
 * Find the "GUI-NetLinks" option and paste the following value:
-  *  if you use the [BTC RPC Explorer](../../bitcoin/btcrpcexplorer.md): `https://minibolt.local:4000` 
-  *  if you prefer [Mempool](../bitcoin/mempool.md): `https://minibolt.local:4081`
+  * if you use the [BTC RPC Explorer](../../bitcoin/btcrpcexplorer.md): `https://minibolt.local:4000`
+  * if you prefer [Mempool](../bitcoin/mempool.md): `https://minibolt.local:4081`
 
 ### Lightning explorer
 
@@ -696,15 +696,16 @@ With the Tor browser, you can access this onion address from any device.
   $ sudo su - lndg
   ```
 
-* Fetch the latest GitHub repository information, display the release tags (use the latest 1.3.0 in this example), and update:
+* Fetch the latest GitHub repository information, display the release tags (use the latest 1.5.0 in this example), and update:
 
   ```sh
   $ cd /home/lndg/lndg
   $ git fetch
   $ git reset --hard HEAD
   $ git tag
-  $ git checkout v1.3.1
-  $ ./.venv/bin/pip install -r requirements.txt
+  $ git checkout v1.5.0
+  $ .venv/bin/pip install -r requirements.txt
+  $ .venv/bin/python manage.py migrate
   $ exit
   ```
   
