@@ -44,7 +44,7 @@ We will connect Sparrow Wallet to our own Electrum server as it is the most priv
 
 We will set up Sparrow to connect to Fulcrum within your local network. There is also an optional section at the end that explains how to connect Sparrow to Fulcrum using Tor for when you're on the move.
 
-Sparrow also connects to a couple of external services to get the Bitcoin price and communicate with the Whirlpool server during CoinJoin operations. By default, it uses clearnet which leaks your computer IP address to these services and degrade your privacy. However, Sparrow can also connect to them using a Tor proxy. There is an optional section at the end that explains how to set this proxy up.
+Sparrow also connects to a couple of external services to get the Bitcoin price and communicate with the Whirlpool server during CoinJoin operations. By default, it uses clearnet which leaks your computer IP address to these services and degrades your privacy. However, Sparrow can also connect to them using a Tor proxy. There is an optional section at the end that explains how to set this proxy up.
 
 ## Installation
 
@@ -101,17 +101,17 @@ For maximal privacy, we highly recommend that you set up the Tor proxy when usin
 ## Sparrow in action
 
 Congratulations, you have now a Bitcoin desktop wallet, capable of securing your bitcoin, running with your own trustless Bitcoin full node!  
-Sparrow is a powerful wallet that allows you to use the most advanced features for securing your bitcoins and preserve your privacy.
+Sparrow is a powerful wallet that allows you to use the most advanced features for securing your bitcoins and preserving your privacy.
 
 With Sparrow you can:
 
 * Connect any hardware wallet
 * Send and receive bitcoins
-* Have full control throughout the transaction creation and signing process: coin control, PSBT, labelling, byte level transaction viewer...
+* Have full control throughout the transaction creation and signing process: coin control, PSBT, labeling, byte level transaction viewer...
 * Create batched transactions to save on miner fees
 * Create multisig wallets for improved security
 * Coinjoin your coins for improved privacy
-* Analyse your tansactions with the built-in blockchain explorer
+* Analyze your transactions with the built-in blockchain explorer
 
 For more information, tutorials and support, visit the [Sparrow documentation webpage](https://sparrowwallet.com/docs/){:target="_blank"} and their [Telegram group](https://t.me/sparrowwallet){:target="_blank"}.
 
@@ -150,7 +150,7 @@ You're set! Sparrow is now configured to connect to your node over Tor and you c
 
 ## (Optional) Set up a Tor proxy for external services
 
-If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin etc - even transaction broadcasting is then done via external service (like blockstream.info) over Tor for additional privacy. Where-ever possible, the onion URLs of these services are used.
+If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin etc - even transaction broadcasting is then done via an external service (like blockstream.info) over Tor for additional privacy. Where-ever possible, the onion URLs of these services are used.
 
 Sparrow can be configured to use an internal (bundled) or external Tor proxy. To use the internal proxy, an onion Electrum server URL must be specified, and the 'Use Proxy' toggle must be off. Therefore, the following section only applies if you connect to your Electrum server using the local IP address within your local network (e.g., `minibolt.local` or `192.168.X.XXX`). If you're using a Tor onion address to connect to your node, then Sparrow is already using the internal proxy and there is nothing else to be done!
 

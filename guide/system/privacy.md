@@ -48,7 +48,7 @@ Each node decrypts only the layer of information addressed to it, learning only 
 
 Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
-* Install apt-transport-https
+* Install "apt-transport-https"
 
   ```sh
   $ sudo apt install apt-transport-https
@@ -75,7 +75,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
   $ exit
   ```
 
-* Install tor and tor debian keyring
+* Install tor and tor Debian keyring
 
    ```sh
    $ sudo apt update
@@ -113,7 +113,7 @@ Save and exit
   CookieAuthFileGroupReadable 1
   ```
 
-* Reload Tor configuration to activate the modifications
+* Reload the Tor configuration to activate the modifications
 
   ```sh
   $ sudo systemctl reload tor
@@ -352,14 +352,27 @@ Save and exit
 You also need to have Tor installed on your regular computer where you start the SSH connection.
 Usage of SSH over Tor differs by client and operating system.
 
-A few examples:
+* **Windows**:
 
-* **Windows**: configure PuTTY as described in this guide [Torifying PuTTY](https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/Putty){:target="_blank"} by the Tor Project.
+* To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/desktop-wallet.md#preparations-on-your-computer) on your computer](../bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
+
+  * PuTTy:
+  
+    * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
+    * Go to the "Connection" tab -> Proxy, select "Socks5" as proxy type, on Proxy hostname, type "localhost", port "9050".
+    * Press the button OPEN, when a "PuTTy security alert" appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your password [A].
+
+  * MobaXterm:
+  
+    * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
+    * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
+    * Press the button OK, when a "Connexion to..." appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your password [A].
 
   * **Note:** If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
 
-* **Linux**: use `torify` or `torsocks`.
-  Both work similarly; just use whatever you have available:
+* **Linux**:
+
+* Use `torify` or `torsocks`, both work similarly; just use whatever you have available:
 
   ```sh
   $ torify ssh admin@abcdefg..............xyz.onion
@@ -369,9 +382,11 @@ A few examples:
   $ torsocks ssh admin@abcdefg..............xyz.onion
   ```
 
+  * **Note:** When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER
+
 * **macOS**: Using `torify` or `torsocks` may not work due to Apple's *System Integrity Protection (SIP)* which will deny access to `/usr/bin/ssh`.
 
-  To work around this, first make sure Tor is installed and running on your Mac:
+  To work around this, first, make sure Tor is installed and running on your Mac:
 
   ```sh
   $ brew install tor && brew services start tor
