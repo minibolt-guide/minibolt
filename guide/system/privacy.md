@@ -347,19 +347,19 @@ Usage of SSH over Tor differs by client and operating system.
 
 * **Windows**:
 
-* To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/desktop-wallet.md#preparations-on-your-computer) on your computer](../bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
+To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
-  * PuTTy:
+* PuTTy:
   
-    * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
+  * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
     * Go to the "Connection" tab -> Proxy, select "Socks5" as proxy type, on Proxy hostname, type "localhost", port "9050".
-    * Press the button OPEN, when a "PuTTy security alert" appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
+    * Press the button OPEN, when a "PuTTy security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
 
-  * MobaXterm:
+* MobaXterm:
   
-    * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
-    * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
-    * Press the button OK, when a "Connexion to..." appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
+  * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
+  * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
+  * Press the button OK, when a "Connexion to..." banner appears press the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
 
 📝 If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
 

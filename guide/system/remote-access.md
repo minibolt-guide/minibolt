@@ -58,18 +58,20 @@ Install and start the SSH client for your operating system:
 
 * Windows, 2 options:
 
-  * Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture and start it. [Soucer](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+  * Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture and start it. [Source](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 
-    * On the session left to tag, type in the "Hostname (or IP address)" box, `temp@192.168.x.xx` port `22` to the left box. Click on `Open`, type your `password [A]`
+    * On the session left to tag, type in the "Hostname (or IP address)" box, `temp@192.168.x.xx` port `22` to the left box.
+    * Press the button OPEN, when a "PuTTy security alert" banner appears, press the "Accept" button, and finally type your `password [A]`.
 
   * MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install it permanently or not. [Source](https://mobaxterm.mobatek.net/)
 
     * Start MobaXterm, 2 options:
 
-      * If you want to save the session for later: on the top menu, click on "Session" -> "New session" -> Select "SSH"
-        * Enter MiniBolt IP address (192.168.x.xx), check "specify username" and enter to the right "temp", keep port "22" selected to the right, click on the "OK", button
+      * If you want to save the session for later: on the top menu, click on "Session" -> "New session" -> Select "SSH".
+        * Enter MiniBolt IP address (192.168.x.xx), check "specify username" and enter to the right "temp", keep port "22" selected to the right.
+        * Press the button OK, when a "Connexion to..." banner appears, press the "Accept" button, and finally type your `password [A]`.
 
-      * Otherwise, select on the dashboard the "Start local terminal" button and type directly on terminal `ssh temp@192.168.x.xxx`
+      * Otherwise, select on the dashboard the "Start local terminal" button and type directly on terminal `ssh temp@192.168.x.xxx`.
 
 * MacOS and Linux:
 
