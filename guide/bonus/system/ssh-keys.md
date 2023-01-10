@@ -17,6 +17,8 @@ has_toc: false
 One of the best options to secure the sensitive SSH login is to disable passwords altogether and require an SSH key certificate.
 Only someone with physical possession of the private certificate key can log in.
 
+![SSH keys](../../../images/SSH-keys.png)
+
 ---
 
 ## Table of contents
