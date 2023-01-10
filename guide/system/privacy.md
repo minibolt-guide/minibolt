@@ -281,9 +281,6 @@ Expected output:
   11:53:02@783/warn - SSU2: Session with 81.107.248.153:24716 was not established after 5 seconds
   11:53:02@783/warn - SSU2: Session with 188.127.17.98:39249 was not established after 5 seconds
   11:53:02@553/warn - NTCP2: SessionCreated read error: End of file
-  11:53:04@783/warn - SSU2: Session with 80.194.231.253:29452 was not established after 5 seconds
-  11:53:04@844/warn - Profiling: No profile yet for XKlpatw2sSDZagG~CjFBrfVimFDRUhRCrlD0RHvLnC0=
-  11:53:04@844/error - Tunnels: Can't select next hop for Rq3JIRBzENl6anQmeXGF0PPld6V9899TIF0qNqmp7Yc=
   ```
 
 ## For the future: upgrade Tor and I2P
@@ -294,7 +291,7 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
   $ sudo apt update && sudo apt upgrade
   ```
 
-💡 Note: in the I2P update process maybe appears you this message. Is recommended selecting `Y` option because the developer could have applied modifications in the config file and this could be useful for new features.
+💡 Note: in the I2P update process maybe appears you this message. Is recommended to select the `Y` option because the developer could have applied modifications in the config file and this could be useful for new features.
 
   ```sh
     Configuration file '/etc/i2pd/i2pd.conf'
@@ -333,7 +330,7 @@ Save and exit
   HiddenServicePort 22 127.0.0.1:22
   ```
 
-* Reload Tor configuration and look up your Tor connection address
+* Reload the Tor configuration and look up your Tor connection address
 
   ```sh
   $ sudo systemctl reload tor
@@ -356,15 +353,15 @@ Usage of SSH over Tor differs by client and operating system.
   
     * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
     * Go to the "Connection" tab -> Proxy, select "Socks5" as proxy type, on Proxy hostname, type "localhost", port "9050".
-    * Press the button OPEN, when a "PuTTy security alert" appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your password [A].
+    * Press the button OPEN, when a "PuTTy security alert" appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
 
   * MobaXterm:
   
     * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
     * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
-    * Press the button OK, when a "Connexion to..." appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your password [A].
+    * Press the button OK, when a "Connexion to..." appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
 
-  * **Note:** If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
+📝 If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
 
 * **Linux**:
 
@@ -378,7 +375,7 @@ Usage of SSH over Tor differs by client and operating system.
   $ torsocks ssh admin@abcdefg..............xyz.onion
   ```
 
-  * **Note:** When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER
+📝 When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER.
 
 * **macOS**: Using `torify` or `torsocks` may not work due to Apple's *System Integrity Protection (SIP)* which will deny access to `/usr/bin/ssh`.
 
