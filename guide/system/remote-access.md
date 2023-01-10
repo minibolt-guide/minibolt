@@ -58,12 +58,12 @@ Install and start the SSH client for your operating system:
 
 * Windows, 2 options:
 
-  * Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture and start it. [Source](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+  * Download Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture. [Source](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 
-    * On the session left to tag, type in the "Hostname (or IP address)" box, `temp@192.168.x.xx` port `22` to the left box.
+    * Start Putty, to the left tree, select "session", in the "Hostname (or IP address)" box, type `temp@192.168.x.xx`, port `22` to the left box.
     * Press the button OPEN, when a "PuTTy security alert" banner appears, press the "Accept" button, and finally type your `password [A]`.
 
-  * MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install it permanently or not. [Source](https://mobaxterm.mobatek.net/)
+  * Download MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install it permanently or not. [Source](https://mobaxterm.mobatek.net/)
 
     * Start MobaXterm, 2 options:
 

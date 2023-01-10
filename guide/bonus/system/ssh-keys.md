@@ -58,15 +58,15 @@ Only someone with physical possession of the private certificate key can log in.
   ```
 
   When you're prompted to "Enter a file in which to save the key", press Enter to use the default file location.
-  Optionally, for maximum security, enter a key passphrase to protect your key, and use `password [`A]`.
+  Optionally, for maximum security, enter a key passphrase to protect your key, and use `password [A]`.
 
 * The public key now needs to be copied to the PC.
 
   Use the command `ssh-copy-id`, which stores your public key on the remote machine (and creates files and directories, if needed).
-  You will be prompted for your SSH login password once.
+  You will be prompted for your SSH login password once. If fails you can try `admin@192.168.x.xxx` instead
 
   ```sh
-  $ ssh-copy-id admin@minibolt.local or admin@192.168.x.xxx
+  $ ssh-copy-id admin@minibolt.local
   ```
 
 💡 If you are on macOS and encounter an error, you might need to install `ssh-copy-id` first by running the following command on your Mac's command line:
@@ -143,9 +143,9 @@ e.g:
 
 ### From GitHub keyserver
 
-* On your regular computer, access to "GPG and SSH keys" section of your [GitHub account](https://github.com/settings/keys), if you don't have an account [create one](https://github.com/signup)](https://github.com/signup)
+* On your regular computer, access to "GPG and SSH keys" section of your [GitHub account](https://github.com/settings/keys), if you don't have an account [create one](https://github.com/signup)
 
-* Click on the "new SSH key" button, type a title e.g SSH_keys_MiniBolt, select Key type "Authentication key", and paste on "Key" section the SSH pub key generated in the [preparations [section](#preparations) depending on regular computer OS
+* Click on the "new SSH key" button, type a title e.g SSH_keys_MiniBolt, select Key type "Authentication key", and paste on the "Key" section the SSH pub key generated in the [preparations [section](#preparations) depending on the regular computer OS
 
 * Login with the "admin" user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step.
 
@@ -165,13 +165,13 @@ e.g:
   $ cd .ssh
   ```
 
-* Import your SSH GitHub keys replacing `<username>` with your GitHub username that appears in your profile section
+* Import your SSH GitHub keys replacing `<username>` with the GitHub username (that appears in your profile section)
 
   ```sh
   $ curl https://github.com/<username>.keys >> authorized_keys
   ```
 
-* Ensure that your SSH keys have been imported correctly in "authorized_keys" file and Ctrl-X to exit
+* Ensure that your SSH keys have been imported correctly in "authorized_keys" file, and press `Ctrl-X` to exit
 
   ```sh
   $ nano authorized_keys
@@ -199,9 +199,9 @@ e.g:
 
 * On your regular computer, download Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture and start it.
 
-* To automatically connect and log in to your server you need to add the Private Key to the Putty client. Then go to the left Category menu, select SSH –> Auth -> Credendtias, on "Private key file for authentication" hit the "Browse" button, search and add your Private Key file.
+* To automatically connect and log in to your server you need to add the Private Key to the Putty client. Then go to the left Category menu, select SSH –> Auth -> Credentials, on "Private key file for authentication" hit the "Browse" button, search and add your Private Key file.
 
-* On session left tag, type in "Hostname (or IP address)" box, `admin@minibolt.local` or `admin@192.168.x.xx` port `22` to the left box. Click on `Open`. If you selected a key passphrase in [preparations](#preparations) section, enter it. That’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords.
+* To the left tree, select "session", in the "Hostname (or IP address)" box, type `admin@minibolt.local` or `admin@192.168.x.xx`, left port `22` to the right box. Click on `Open`. If you selected a key passphrase in [preparations](#preparations) section, enter it. That’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords.
 
 ## MobaXterm Windows
 
@@ -213,7 +213,7 @@ e.g:
 
 * To automatically connect and login to your server you need to add the Private Key to the MobaXterm client, select the "Advanced SSH settings" tab, check "Use private key" and click on the icon to the right form shaped like a document and select your Private Key file
 
-* Click on the "OK" button and that’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords.
+* Click on the "OK" button and that’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the "Open" button without the need to enter passwords.
 
 ### Disable password login
 
@@ -230,10 +230,10 @@ e.g:
   ```sh
   # change line 33
   PermitRootLogin no
-  # change line 57
-  PasswordAuthentication no
   # line 85
   UsePAM no
+  # change line 123
+  PasswordAuthentication no
   ```
 
 * Test this barebone SSH configuration. Not output is OK, e.g "/etc/ssh/sshd_config line XX: unsupported option "XXX" is a wrong information
