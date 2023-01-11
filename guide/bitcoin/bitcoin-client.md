@@ -70,7 +70,7 @@ Expected output:
 
 ### Signature check
 
-* Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * Create ".gnupg" folder
 
@@ -90,10 +90,11 @@ Expected output:
   $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
   ```
 
-Expexted output:
+💡 If appears to you `Command 'jq' not found` you will need to install `jq` with `$ sudo apt install jq`. When it finishes, repeat the step before.
+
+Expected output:
 
   ```sh
-  > gpg: keybox '/home/admin/.gnupg/pubring.kbx' created
   >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   >                                 Dload  Upload   Total   Spent    Left  Speed
   > 100 30520  100 30520    0     0   200k      0 --:--:-- --:--:-- --:--:--  198k
