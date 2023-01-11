@@ -70,8 +70,7 @@ Expected output:
 
 ### Signature check
 
-* Bitcoin releases are signed by a number of individuals, each using its own key.
-In order to verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+* Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * Create ".gnupg" folder
 
@@ -79,13 +78,13 @@ In order to verify the validity of these signatures, you must first import the c
   $ gpg --list-keys
   ```
 
-* Enter to the .gnupg folder, create a persistent folder for the signatures and enter on it
+* Enter on the ".gnupg" folder, create a persistent folder for the signatures called "sigs" and enter on it
 
   ```sh
-  $ cd /home/admin/.gnupg/ && .mkdir sigs && cd sigs
+  $ cd /home/admin/.gnupg/ && mkdir sigs && cd sigs
   ```
 
-* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository.
+* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
   ```sh
   $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
@@ -115,7 +114,7 @@ Expexted output:
   [...]
   ```
 
-* Return to the `tmp` folder
+* Return to the `tmp` folder and follow the signature check process
 
   ```sh
   $ cd /tmp
@@ -137,7 +136,7 @@ Expexted output:
 
 ### Timestamp check
 
-* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed prior to some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
+* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
 
   * [https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots)
   * [https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS)
@@ -145,7 +144,7 @@ Expexted output:
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/){:target="_blank"}
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
 * In the next box, drop or upload the SHA256SUMS file
-* If the timestamps is verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v24.0.1){:target="_blank"} of Bitcoin Core v24.0.1.
+* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v24.0.1){:target="_blank"} of Bitcoin Core v24.0.1.
 
 The following screenshot is just an example of one of the versions:
 
@@ -153,7 +152,7 @@ The following screenshot is just an example of one of the versions:
 
 ### Binaries installation
 
-* If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
+* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
   ```sh
   $ tar -xvf bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
@@ -220,7 +219,7 @@ Instead of creating this directory, we create a data directory in the general da
 ### Generate access credentials
 
 For other programs to query Bitcoin Core they need the proper access credentials.
-To avoid storing username and password in a configuration file in plaintext, the password is hashed.
+To avoid storing the username and password in a configuration file in plaintext, the password is hashed.
 This allows Bitcoin Core to accept a password, hash it and compare it to the stored hash, while it is not possible to retrieve the original password.
 
 Another option to get access credentials is through the `.cookie` file in the Bitcoin data directory.
@@ -334,7 +333,7 @@ We use "systemd", a daemon that controls the startup process using configuration
   [Unit]
   Description=Bitcoin daemon
   After=network.target
-  PartOf=tor.service i2p.service
+  PartOf=tor.service i2pd.service
 
   [Service]
   ExecStart=/usr/local/bin/bitcoind -daemon \
@@ -377,13 +376,13 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start bitcoind
   ```
 
-* Grant the "bitcoin" group read-permission for the debug log file
+* Grant the "bitcoin" group read permission for the debug log file
 
   ```sh
   $2 sudo chmod g+r /data/bitcoin/debug.log
   ```
 
-* Return to the first terminal session to monitoring "bitcoind" by its log file now avaliable. You can exit monitoring at any time with `Ctrl-C`
+* Return to the first terminal session to monitor "bitcoind" by its log file now available. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
   $ sudo tail --lines 500 -f /home/bitcoin/.bitcoin/debug.log
@@ -443,11 +442,7 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
 
 * Check the correct enablement of the I2P and Tor networks, maybe you don't have I2P peer connections yet, don't worry, the inclusion of the I2P network in Bitcoin Core is recent and it might take a while to find peers available, be patient
 
-  ```sh
-  $2 bitcoin-cli -netinfo
-  ```
-
-Example expected output:
+Example of expected output:
 
   ```sh
   Bitcoin Core client v24.0.1 - server 70016/Satoshi:24.0.1/
@@ -460,7 +455,7 @@ Example expected output:
 * Please note:
   * When “bitcoind” is still starting, you may get an error message like “verifying blocks”.
     That’s normal, just give it a few minutes.
-  * Among other infos, the “verificationprogress” is shown.
+  * Among other info, the “verificationprogress” is shown.
     Once this value reaches almost 1 (0.999…), the blockchain is up-to-date and fully validated.
 
 ## Bitcoin Core is syncing
@@ -484,7 +479,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 * Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list){:target="_blank"}
 
-### Reduce 'dbcache' after full sync
+### Reduce 'dbcache' after a full sync
 
 Once Bitcoin Core is fully synced, we can reduce the size of the database cache.
 A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow Lightning client and Electrum server to run in parallel.
@@ -535,7 +530,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 ### Privacy mode
 
-* As user `admin` add this lines to the end of `bitcoin.conf` file, remember add seed nodes
+* As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes
 
   ```sh
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -583,7 +578,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 ### Slow device mode
 
-* As user `admin` add this lines to the end of the exist `bitcoin.conf` file
+* As user `admin` add these lines to the end of the existing `bitcoin.`conf` file
 
  ```sh
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -599,7 +594,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   rpcworkqueue=512
   ```
 
-* Comment this line to the exist `bitcoin.conf` file
+* Comment this line to the existing `bitcoin.`conf` file
 
   ```sh
   # Maintain coinstats index used by the gettxoutsetinfo RPC
@@ -617,7 +612,7 @@ When upgrading, there might be breaking changes, or changes in the data structur
   $ cd /tmp
   ```
 
-* Download binay, timestamp, checksum and signature files
+* Download binary, timestamp, checksum and signature files
 
   ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
@@ -626,7 +621,7 @@ When upgrading, there might be breaking changes, or changes in the data structur
   $ wget https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS
   ```
 
-* Verify new version against its checksums
+* Verify the new version against its checksums
 
  ```sh
   $ sha256sum --ignore-missing --check SHA256SUMS
@@ -638,7 +633,7 @@ Expected output:
   > bitcoin-24.0.1-x86_64-linux-gnu.tar.gz: OK
   ```
 
-* Enter to the `sigs` folder
+* Enter the `sigs` folder
 
   ```sh
   $ cd /home/admin/.gnupg/sigs
@@ -670,7 +665,7 @@ Expected output:
   > Primary key fingerprint: ...
   ```
 
-* Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installed correctly OTS client in the [properly section](#opentimestamps-client)
+* Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing correctly OTS client in the [proper section](#opentimestamps-client)
 
   ```sh
   $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -688,7 +683,7 @@ Expected output
 
 Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing.
 
-* If you're satisfied with the checkum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
+* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
   ```sh
   $ tar -xvf bitcoin-24.0.1-x86_64-linux-gnu.tar.gz

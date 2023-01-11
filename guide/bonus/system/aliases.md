@@ -40,11 +40,11 @@ The following list of aliases was derived from contributions by [RobClark56](htt
 
 ## Set up aliases
 
-* With user "admin", access to `home` folder and download the aliases list provided by Raspibolt community at Github. ⚠️ This command will automatically overwrite the previous file you downloaded.
+* With user "admin", access to `home` folder and download the aliases list provided for a MiniBolt environment. ⚠️ This command will automatically overwrite the previous file you downloaded.
 
   ```sh
   $ cd /home/admin
-  $ wget https://raw.githubusercontent.com/raspibolt/raspibolt/master/resources/.bash_aliases -O .bash_aliases
+  $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/.bash_aliases -O .bash_aliases
   ```
 
 * If you have a custom aliases list in a personal private or public GitHub repository
