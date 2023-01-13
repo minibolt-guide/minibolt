@@ -35,7 +35,6 @@ You can also use the following alternatives instead of Sparrow Wallet, according
 * [BitBoxApp](../bonus/bitcoin/bitboxapp.md): wallet for users of BitBox hardware wallets
 * [Electrum Wallet Desktop](../bonus/bitcoin/electrum-wallet-desktop.md): a well-established poweruser wallet
 * [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true){:target="_blank"}: wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin Core)
-* [Specter Desktop](../bonus/bitcoin/specter-desktop.md): a multisig-focused wallet (this wallet connects directly to Bitcoin Core)
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5){:target="_blank"}: wallet for users of Trezor hardware wallets
 
 We will connect Sparrow Wallet to our own Electrum server as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html){:target="_blank"} by Craig Raw, the author of the wallet.
@@ -134,7 +133,7 @@ If you've already set up the hidden service but lost the connection address, you
 
 * Open Sparrow
 * Navigate to the server configuration page by hitting `Ctrl`+`P`, or  `Cmd`+`,` on OSX, then click on "Server"
-* Click on the "Private Electrum" tab. If you've already have an existing clearnet connection, click on "Edit Existing Connection".
+* Click on the "Private Electrum" tab. If you've already had an existing clearnet connection, click on "Edit Existing Connection".
 * On the "URL" line, paste your Tor hidden service connection address (e.g. "abcd...1234.onion") in the first box and `50002` in the second box
 * Enable SSL by clicking on the slider
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:

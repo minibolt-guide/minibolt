@@ -14,9 +14,6 @@ parent: Lightning
 
 We set up a local or remote "Static Channel Backup" for Lightning. A monitoring script keeps it up-to-date to enable the recovery of your Lightning funds in case of hardware failure.
 
-Status: Not tested MiniBolt
-{: .label .label-red }
-
 ![GitHub remote backup](../../images/remote-scb-backup.png)
 
 ---
@@ -46,7 +43,7 @@ This SCB-based recovery method has several consequences worth bearing in mind:
 You need to set up an automated SCB update mechanism that:
 
 1. Creates or updates your SCB file each time you open a channel (or close one, although this is less important)
-1. Stores the SCB file to a different backup location to ensure that it is available in case of a failing SSD.
+1. Stores the SCB file in a different backup location to ensure that it is available in case of a failing SSD.
 
 You can read more about SCBs in [this section of 'Mastering the Lighning Network'](https://github.com/lnbook/lnbook/blob/ec806916edd6f4d1b2f9da2fef08684f80acb671/05_node_operations.asciidoc#node-and-channel-backups){:target="_blank"}.
 
@@ -62,7 +59,7 @@ This guide covers two automated backup methods:
 | LOCAL       | YES               | NO                      | Drive failure only                     |NO                   |
 | REMOTE      | NO                | YES                     | Drive failure & widespread node damage |YES                  |
 
-We recommend to use both methods, but you can choose either one of them, depending on your own requirements and preferences. Whatever method you choose:
+We recommend using both methods, but you can choose either one of them, depending on your own requirements and preferences. Whatever method you choose:
 
 1. Follow the "Preparations" section first, then
 1. Follow the optional local or/and remote backup sections.
@@ -78,7 +75,7 @@ Installing `inotify-tools` allows us to use `inotify`, an application that monit
 
 We will use it to monitor the `channel.backup` file and detect updates by LND each time a channel is opened or closed.
 
-* Install `inotify-tools`
+* With user "admin", install `inotify-tools`
 
   ```sh
   $ sudo apt install inotify-tools
@@ -91,7 +88,7 @@ We create a shell script to monitor `channel.backup` and make a copy to our back
 * Create a new shell script file
 
   ```sh
-  $ sudo nano /usr/local/bin/scb-backup
+  $ sudo nano /usr/local/bin/scb-backup --linenumbers
   ```
 
 * Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit.
@@ -178,10 +175,10 @@ We create a shell script to monitor `channel.backup` and make a copy to our back
 
 We set up the backup script as a systemd service to run in the background and start automatically on system startup.
 
-* As user `admin`, create a new service file
+* Still, as user `admin`, create a new service file
 
   ```sh
-  sudo nano /etc/systemd/system/scb-backup.service
+  $ sudo nano /etc/systemd/system/scb-backup.service
   ```
 
 * Paste the following lines. Save and exit.
@@ -205,7 +202,7 @@ We set up the backup script as a systemd service to run in the background and st
   WantedBy=multi-user.target
   ```
 
-* Enable and start the service, check its status (it should be 'active')
+* Enable and start the service, and check its status (it should be 'active')
 
   ```sh
   $ sudo systemctl enable scb-backup.service
@@ -277,7 +274,7 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 * Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit.
 
   ```sh
-  $ sudo nano --linenumbers /usr/local/bin/scb-backup
+  $ sudo nano /usr/local/bin/scb-backup --linenumbers
   ```
 
   ```sh
@@ -296,7 +293,7 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 ### Create a GitHub repository
 
-* Go to [GitHub](https://github.com/){:target="_blank"}, sign up for a new user account, or log in with an existing one. If you don't want for GitHub to know your identity and IP address in relation to your Lightning node, it is recommended to create new account even if you have existing one, and use [Tor Browser](https://www.torproject.org/download/){:target="_blank"} for this and following steps.
+* Go to [GitHub](https://github.com/){:target="_blank"}, sign up for a new user account, or log in with an existing one. If you don't want for GitHub to know your identity and IP address in relation to your Lightning node, it is recommended to create a new account even if you have an existing one, and use [Tor Browser](https://www.torproject.org/download/){:target="_blank"} for this and following steps.
 
 * Create a new repository: [https://github.com/new](https://github.com/new){:target="_blank"}
   * Type the following repository name: `remote-lnd-backup`
@@ -323,21 +320,27 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 * Go back to the GitHub repository webpage
   * Click on "Settings", then "Deploy keys", then "Add deploy key"
-  * Type a title (e.g., "SCB")
+  * Type a title (e.g. "SCB")
   * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 5678efgh... lnd@minibolt`)
   * Tick the box "Allow write access" to enable this key to push changes to the repository
   * Click "Add key"
 
-* Set up global Git configuration values (the name and email are required but can be dummy values). Then, move to the LND data folder and clone your newly created empty repository. Replace `YourUserName` with your own GitHub username. When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter".
+* Set up global Git configuration values (the name and email are required but can be dummy values). Then, move to the LND data folder and clone your newly created empty repository. Replace `<YourGitHubUsername>` with your own GitHub username. When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter".
 
   ```sh
   $ git config --global user.name "MiniBolt"
   $ git config --global user.email "minibolt@dummyemail.com"
   $ git config --global core.sshCommand "torsocks ssh"
   $ cd ~/.lnd
-  $ git clone git@github.com:YourUserName/remote-lnd-backup.git
+  $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
   > Cloning into 'remote-lnd-backup'...
-  > [...]
+  > The authenticity of host 'github.com (140.82.121.3)' can't be established.
+  > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+  > This key is not known by any other names
+  > Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+  > Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+  > warning: You appear to have cloned an empty repository.
+  [...]
   ```
 
 ### GitHub Test
@@ -349,10 +352,20 @@ Follow this section if you want a remote backup. If you already set up a local b
   $ touch test
   $ git add .
   $ git commit -m "testing"
+  > [main (root-commit) 826563d] testing
+  > 1 file changed, 0 insertions(+), 0 deletions(-)
+  > create mode 100644 test
   $ git push --set-upstream origin main
+  > Enumerating objects: 3, done.
+  > Counting objects: 100% (3/3), done.
+  > Writing objects: 100% (3/3), 206 bytes | 206.00 KiB/s, done.
+  > Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+  > To github.com:<YourGithubUsername>/remote-lnd-backup.git
+  > * [new branch]      main -> main
+  > Branch 'main' set up to track remote branch 'main' from 'origin'.
   ```
 
-* Check that a copy of the test file is now in your remote GitHub repository (in the `[ <> Code ]` tab).
+* Check that a copy of the "test" file is now in your remote GitHub repository (in the `[ <> Code ]` tab).
 
 * Go back to the SSH session, delete the test file, commit this change and exit the "lnd" user
 
@@ -369,7 +382,7 @@ Follow this section if you want a remote backup. If you already set up a local b
 * Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` at line 15 to `true`. Save and exit.
 
   ```sh
-  $ sudo nano --linenumbers /usr/local/bin/scb-backup
+  $ sudo nano /usr/local/bin/scb-backup --linenumbers
   ```
 
   ```ini
@@ -406,15 +419,34 @@ Then we check if a copy gets stored at the intended backup location(s).
 
 * Switch back to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled):
 
+Example output:
+
   ```sh
   > [...]
-  > Feb 05 11:05:11 minibolt scb-backup.sh[25885]: Local backup is enabled
-  > Feb 05 11:05:11 minibolt scb-backup.sh[25885]: Copying backup file to local storage device...
-  > Feb 05 11:05:11 minibolt scb-backup.sh[25885]: Success! The file is now locally backed up!
+  > Feb 05 11:05:11 minibolt scb-backup[25885]: Local backup is enabled
+  > Feb 05 11:05:11 minibolt scb-backup[25885]: Copying backup file to local storage device...
+  > Feb 05 11:05:11 minibolt scb-backup[25885]: Success! The file is now locally backed up!
   > [...]
-  > Feb 05 11:05:13 minibolt scb-backup.sh[25885]: Success! The file is now remotely backed up!
-  > Feb 05 11:05:13 minibolt scb-backup.sh[25885]: Waiting for an update of the SCB file...
+  > Feb 05 11:05:13 minibolt scb-backup[25885]: Success! The file is now remotely backed up!
+  > Feb 05 11:05:13 minibolt scb-backup[25885]: Waiting for an update of the SCB file...
   > [...]
+  > Jan 12 18:47:40 minibolt scb-backup[1068518]: /data/lnd/data/chain/bitcoin/mainnet/channel.backup OPEN
+  > Jan 12 18:47:40 minibolt scb-backup[1068517]: channel.backup has been changed!
+  > Jan 12 18:47:40 minibolt scb-backup[1068517]: Remote backup is enabled
+  > Jan 12 18:47:40 minibolt scb-backup[1068517]: Entering Git repository...
+  > Jan 12 18:47:40 minibolt scb-backup[1068517]: Making a timestamped copy of channel.backup...
+  > Jan 12 18:47:40 minibolt scb-backup[1068517]: /data/lnd/remote-lnd-backup/channel-20230112-184740.backup
+  > Jan 12 18:47:40 minibolt scb-backup[1068517]: Committing changes and adding a message
+  > Jan 12 18:47:40 minibolt scb-backup[1068572]: [main eee67ad] Static Channel Backup 20230112-184740
+  > Jan 12 18:47:40 minibolt scb-backup[1068572]:  1 file changed, 0 insertions(+), 0 deletions(-)
+  > Jan 12 18:47:40 minibolt scb-backup[1068572]:  create mode 100644 channel-20230112-184740.backup
+  > Jan 12 18:47:40 minibolt scb-backup[1068517]: Pushing changes to remote repository...
+  > Jan 12 18:47:47 minibolt scb-backup[1068574]: To github.com:<YourGitHubUsername>/remote-lnd-backup.git
+  > Jan 12 18:47:47 minibolt scb-backup[1068574]:    4b43165..eee67ad  main -> main
+  > Jan 12 18:47:47 minibolt scb-backup[1068574]: Branch 'main' set up to track remote branch 'main' from 'origin'.
+  > Jan 12 18:47:47 minibolt scb-backup[1068517]: Success! The file is now remotely backed up!
+  > Jan 12 18:47:47 minibolt scb-backup[1068594]: Setting up watches.
+  > Jan 12 18:47:47 minibolt scb-backup[1068594]: Watches established.
   ```
 
 * If you enabled the local backup, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above

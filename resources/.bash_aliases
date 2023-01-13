@@ -11,8 +11,10 @@ alias listupgradable='sudo apt list --upgradable'
 alias upgrade='sudo apt -u -V upgrade'
 alias fullcheckupgrade='sudo apt update && sudo apt list --upgradable && sudo apt -u -V upgrade'
 alias autobootmainstatus='echo The autoboot status of the services is as follows appears in column left: ; \
-systemctl list-unit-files | grep i2pd && systemctl list-unit-files | grep tor.service | grep -v lvm2-monitor.service | grep -v mdmonitor.service | grep -v systemd-network-generator.service && systemctl list-unit-files | grep bitcoind && systemctl list-unit-files | grep fulcrum && systemctl list-unit-files | grep btcrpcexplorer && systemctl list-unit-files | grep lnd && systemctl list-unit-files | grep thunderhub'
+systemctl list-unit-files | grep i2pd && systemctl list-unit-files | grep tor.service | grep -v lvm2-monitor.service | grep -v mdmonitor.service | grep -v systemd-network-generator.service && systemctl list-unit-files | grep bitcoind && systemctl list-unit-files | grep fulcrum && systemctl list-unit-files | grep btcrpcexplorer && systemctl list-unit-files | grep lnd && systemctl list-unit-files | grep thunderhub && systemctl list-unit-files | grep scb-backup'
+alias systemonitor='htop'
 
+# EXTRAS
 alias showmainversion='echo The installed versions of the main services are as follows: ; \
   tor --version | grep version | grep -v compiled ; \
   echo `i2pd --version | grep version` ; \
@@ -27,7 +29,6 @@ alias showmainversion='echo The installed versions of the main services are as f
   ots --version ; \
   nginx -v'
 
-# EXTRAS
 alias showbonusversion='echo The installed versions of the bonus services are as follows: ; \
   circuitbreaker --version ; \
   echo RTL: `sudo head -n 3 /home/rtl/RTL/package.json | grep version` ; \
@@ -49,9 +50,6 @@ alias whatsLISTEN='echo The follows services are listening: ; \
   sudo ss -tulpn | grep LISTEN'
 alias publicip='echo Your public real IP is: ; \
     curl icanhazip.com'
-alias torcheck='echo Checking Tor in your host... ; \
-  curl --socks5 localhost:9050 --socks5-hostname localhost:9050 -s https://check.torproject.org/ | cat | grep -m 1 Congratulations | xargs ; \
-  echo Attention: This advice is really to check if you have correctly installed Tor in your host. If not appear anything it means that you need to install Tor with command: sudo apt install tor'
 
 ################
 # MAIN SECTION #
@@ -83,6 +81,7 @@ alias startbtcrpcexplorer='sudo systemctl start btcrpcexplorer'
 alias startlnd='sudo systemctl start lnd'
 alias starthunderhub='sudo systemctl start thunderhub'
 alias startscbackup='sudo systemctl start scb-backup'
+alias startallmain='sudo systemctl start tor i2pd bitcoind fulcrum btcrpcexplorer lnd thunderhub scb-backup'
 
 #######################
 # SERVICE MAIN STATUS #
@@ -145,7 +144,7 @@ alias scbackuplogs='sudo journalctl -f -u scb-backup'
 ##################
 
 alias unlock='lncli unlock'
-alias newaddress='lncli newaddress p2wkh'
+alias newaddress='lncli newaddress p2tr'
 alias txns='lncli listchaintxns'
 alias listpayments='lncli listpayments'
 alias listinvoices='lncli listinvoices'

@@ -90,8 +90,6 @@ Bitcoin releases are signed by several individuals, each using its own key. To v
   $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
   ```
 
-💡 If appears to you `Command 'jq' not found` you will need to install `jq` with `$ sudo apt install jq`. When it finishes, repeat the step before.
-
 Expected output:
 
   ```sh
@@ -114,6 +112,8 @@ Expected output:
   > gpg: no ultimately trusted keys found
   [...]
   ```
+
+💡 If appears to you `Command 'jq' not found` you will need to install `jq` with `$ sudo apt install jq`. When it finishes, repeat the step before.
 
 * Return to the `tmp` folder and follow the signature check process
 
