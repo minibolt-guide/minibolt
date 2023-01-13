@@ -23,7 +23,7 @@ Difficulty: Medium
 Status: Tested MiniBolt
 {: .label .label-blue }
 
-![Sparrow_Server-logo](../../../images/sparrow-Server-logo.jpg)
+![Sparrow Server logo](../../../images/sparrow-server-logo.png)
 
 ---
 
@@ -83,7 +83,7 @@ Status: Tested MiniBolt
 
 ### Configuration
 
-* Move data files to home "admin" user
+* Move data files to the home "admin" user
 
   ```sh
   $ sudo mv Sparrow /home/admin/
@@ -97,17 +97,17 @@ Status: Tested MiniBolt
 
 ## Run Sparrow
 
-* You can run Sparrow with following command
+* You can run Sparrow with the following command
 
   ```sh
   $ Sparrow
   ```
 
-  ![Sparrow_Server](../../../images/sparrow-Server.png)
+![Sparrow Server](../../../images/sparrow-server.png)
 
 ⚠️ Sparrow Server doesn't work on MobaXterm with X11-Forwarding enabled in the SSH connection.
   
-* In "wallet" tab you can create or restore your wallet
+* In the "wallet" tab you can create or restore your wallet
 
 ### Connect Sparrow to your backend (optional)
 
@@ -132,7 +132,7 @@ Status: Tested MiniBolt
 
 * You are now connected to your own Electrum Server
 
-  ![Sparrow_Test](../../../images/sparrow-server-terminal.png)
+![Sparrow Test](../../../images/sparrow-server-terminal.png)
 
 ## For the Future: Sparrow Server update
 
