@@ -272,9 +272,12 @@ We'll also set the proper access permissions.
   # Aditional logs
   debug=tor
   debug=i2p
-  
+
   # Assign read permission to the Bitcoin group users 
   startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
+
+  # Disable debug.log
+  nodebuglogfile=1
 
   # Enable all compact filters
   blockfilterindex=1
@@ -341,7 +344,7 @@ We use "systemd", a daemon that controls the startup process using configuration
                                     -pid=/run/bitcoind/bitcoind.pid \
                                     -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
                                     -datadir=/home/bitcoin/.bitcoin
-  Type=forking
+  Type=exec
   PIDFile=/run/bitcoind/bitcoind.pid
   Restart=on-failure
   TimeoutSec=300
