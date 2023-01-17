@@ -132,7 +132,7 @@ alias disableallmain='sudo systemctl disable bitcoind fulcrum btcrpcexplorer lnd
 
 alias torlogs='sudo journalctl -f -u tor@default'
 alias i2plogs='sudo tail -f /var/log/i2pd/i2pd.log'
-alias bitcoindlogs='sudo tail -f /home/bitcoin/.bitcoin/debug.log'
+alias bitcoindlogs='sudo journalctl -f -u bitcoind.service'
 alias fulcrumlogs='sudo journalctl -f -u fulcrum'
 alias btcrpcexplorerlogs='sudo journalctl -f -u btcrpcexplorer'
 alias lndlogs='sudo journalctl -f -u lnd'

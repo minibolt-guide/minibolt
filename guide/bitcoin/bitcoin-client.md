@@ -380,16 +380,10 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start bitcoind
   ```
 
-* Grant the "bitcoin" group read permission for the debug log file
+* Return to the first terminal session to monitor "bitcoind". You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
-  $2 sudo chmod g+r /data/bitcoin/debug.log
-  ```
-
-* Return to the first terminal session to monitor "bitcoind" by its log file now available. You can exit monitoring at any time with `Ctrl-C`
-
-  ```sh
-  $ sudo tail --lines 500 -f /home/bitcoin/.bitcoin/debug.log
+  $ sudo journalctl -f -u bitcoind.service
   ```
 
 Expected output:
