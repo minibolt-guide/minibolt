@@ -168,11 +168,11 @@ Status: Tested MiniBolt
 
 * Choose the pool you desire. If not sure, you can calculate which pool to use based on fees you will pay using [whirlpoolfees](https://www.whirlpoolfees.com/). It is recommended to use the most economical solution.
 
-* Enter SCODE if available, and you will get a discount on the pool fee. You can monitor SCODEs by following the Samourai Wallets RRSS. SCODEs are shared occasionally at random by the Samourai Wallet developer team to give Whirpool participants discounted mixing fees.
+* Enter SCODE if available, and you will get a discount on the pool fee. You can monitor SCODEs by following the Samourai Wallets RRSS. SCODEs are shared occasionally at random by the Samourai Wallet developer team to give Whirpool participants discounted mixing fees
 
 * Mix selected funds
 
-* Once confirmed, go to `Accounts > Postmix > UTXOs > Mix To`.
+* Once confirmed, go to `Accounts > Postmix > UTXOs > Mix To`
 
 * You can mix to cold storage if desired. Select value for minimum mixes before sending to cold storage
 
