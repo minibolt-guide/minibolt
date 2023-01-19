@@ -139,7 +139,7 @@ Status: Tested MiniBolt
 * Start a new tmux session called "Sparrow"
 
   ```sh
-  $ tmux new -s sparrow_server
+  $ tmux new -s sparrowserver
   ```
 
 * Launch Sparrow Terminal
@@ -166,7 +166,7 @@ Status: Tested MiniBolt
 
 * Go to "UTXOs" and select the UTXOs you want to mix. Set Premix priority or fee rate
 
-* Choose the pool you desire. If not sure, you can calculate which pool to use based on fees you will pay using [whirlpoolfees](https://www.whirlpoolfees.com/). It is recommended to use the most economical solution.
+* Choose the pool you desire. If not sure, you can calculate which pool to use based on fees you will pay using [whirlpoolfees](https://www.whirlpoolfees.com/). It is recommended to use the most economical solution
 
 * Enter SCODE if available, and you will get a discount on the pool fee. You can monitor SCODEs by following the Samourai Wallets RRSS. SCODEs are shared occasionally at random by the Samourai Wallet developer team to give Whirpool participants discounted mixing fees
 
@@ -182,8 +182,8 @@ Status: Tested MiniBolt
 
 * Detach tmux session to run ST in the background
 
-1. Press `Ctrl + b` once
-1. Press `d` once
+  1. Press `Ctrl + b` once
+  1. Press `d` once
 
 Closing or logging out from your node without detaching would cause mixing to stop. ST now runs as a separate process regardless of your disconnecting from the node
 
@@ -202,7 +202,7 @@ Closing or logging out from your node without detaching would cause mixing to st
 * Or use this if you have other sessions opened
 
   ```sh
-  $ tmux a -t sparrow_server
+  $ tmux a -t sparrowserver
   ```
 
 ## For the Future: Sparrow Server update
