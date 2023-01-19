@@ -81,8 +81,6 @@ Status: Tested MiniBolt
   $ tar -xvf sparrow-server-1.7.1-x86_64.tar.gz
   ```
 
-### Configuration
-
 * Move data files to the home "admin" user
 
   ```sh
