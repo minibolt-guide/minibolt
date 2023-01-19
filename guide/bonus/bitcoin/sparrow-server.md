@@ -81,6 +81,8 @@ Status: Tested MiniBolt
   $ tar -xvf sparrow-server-1.7.1-x86_64.tar.gz
   ```
 
+### Configuration
+
 * Move data files to the home "admin" user
 
   ```sh
@@ -131,79 +133,6 @@ Status: Tested MiniBolt
 * You are now connected to your own Electrum Server
 
 ![Sparrow Test](../../../images/sparrow-server-terminal.png)
-
-## Mix Bitcoin with Sparrow Terminal
-
-### Launch Sparrow using tmux
-
-* Start a new tmux session called "Sparrow"
-
-  ```sh
-  $ tmux new -s sparrow_server
-  ```
-
-* Launch Sparrow Terminal
-
-  ```sh
-  $ Sparrow
-  ```
-
-* Connect Sparrow Terminal to your own Electrum Server implementation according to the steps above if not already done
-
-### Create/import wallet
-
-* Go to `Wallets > Create Wallet`
-
-* Paste the seed words of the hot wallet you will mix bitcoin with. If you use for example Samourai Wallet - do not forget to paste the SW passphrase as well
-
-* Create a strong password for the Sparrow Terminal wallet to prevent loss of funds in case of someone gets access to your node/wallet
-
-* Open your Wallet
-
-### Start mixing
-
-* Send Bitcoin to your hot wallet if not already done
-
-* Go to "UTXOs" and select the UTXOs you want to mix. Set Premix priority or fee rate
-
-* Choose the pool you desire. If not sure, you can calculate which pool to use based on fees you will pay using [whirlpoolfees](https://www.whirlpoolfees.com/). It is recommended to use the most economical solution.
-
-* Enter SCODE if available, and you will get a discount on the pool fee. You can monitor SCODEs by following the Samourai Wallets RRSS. SCODEs are shared occasionally at random by the Samourai Wallet developer team to give Whirpool participants discounted mixing fees.
-
-* Mix selected funds
-
-* Once confirmed, go to `Accounts > Postmix > UTXOs > Mix To`.
-
-* You can mix to cold storage if desired. Select value for minimum mixes before sending to cold storage
-
-* If you use Whirlpool with Dojo as well - set the Postmix index range to "odd". This way you improve your chances of getting into a mix by running two separate mixing clients at the same time, using different index ranges to prevent mix failures
-
-### Detaching a session
-
-* Detach tmux session to run ST in the background
-
-1. Press `Ctrl + b` once
-1. Press `d` once
-
-Closing or logging out from your node without detaching would cause mixing to stop. ST now runs as a separate process regardless of your disconnecting from the node
-
-* You can view tmux sessions using the following command
-
-  ```sh
-  $ tmux ls
-  ```
-
-* You can get back in sessions using
-
-  ```sh
-  $ tmux a
-  ```
-  
-* Or use this if you have other sessions opened
-
-  ```sh
-  $ tmux a -t sparrow_server
-  ```
 
 ## For the Future: Sparrow Server update
 
