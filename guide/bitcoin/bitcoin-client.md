@@ -340,8 +340,7 @@ We use "systemd", a daemon that controls the startup process using configuration
   PartOf=tor.service i2pd.service
 
   [Service]
-  ExecStart=/usr/local/bin/bitcoind -daemon \
-                                    -pid=/run/bitcoind/bitcoind.pid \
+  ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind.pid \
                                     -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
                                     -datadir=/home/bitcoin/.bitcoin
   Type=exec
