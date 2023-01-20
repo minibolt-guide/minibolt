@@ -367,6 +367,11 @@ We use "systemd", a daemon that controls the startup process using configuration
   ```sh
   $ sudo systemctl enable bitcoind
   ```
+* Prepare “bitcoind” monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with Ctrl-C
+
+  ```sh
+  $ sudo journalctl -f -u bitcoind.service
+  ```
 
 ## Running bitcoind
 
@@ -377,12 +382,6 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 
   ```sh
   $2 sudo systemctl start bitcoind
-  ```
-
-* Return to the first terminal session to monitor "bitcoind". You can exit monitoring at any time with `Ctrl-C`
-
-  ```sh
-  $ sudo journalctl -f -u bitcoind.service
   ```
 
 Expected output:
