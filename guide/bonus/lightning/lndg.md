@@ -46,7 +46,7 @@ Status: Not tested MiniBolt
 
 ### Python virtual environment
 
-[Virtualenv](https://virtualenv.pypa.io/en/latest/){:target="_blank"} is a tool to create isolated Python environments. 
+[Virtualenv](https://virtualenv.pypa.io/en/latest/){:target="_blank"} is a tool to create isolated Python environments.
 
 * With user "admin", check if `virtualenv` is already installed on yout node. If not, use `apt` to install it.
 
@@ -73,14 +73,14 @@ We do not want to run LNDg alongside `bitcoind` and `lnd` because of security re
 For that we will create a separate user and we will be running the code as the new user.
 
 * Create a new user and make it a member of the "lnd" group to give it read access to the LND macaroons and data
-  
+
   ```sh
   $ sudo adduser --disabled-password --gecos "" lndg
   $ sudo adduser lndg lnd
   $ sudo adduser lndg www-data
   $ sudo adduser www-data lndg
   ```
-  
+
 * Log in with the lndg user and create a symbolic link to the LND data directory
 
   ```sh
@@ -100,7 +100,7 @@ For that we will create a separate user and we will be running the code as the n
   $ virtualenv -p python .venv
   ```
 
-* Install required dependencies and initialize some settings for your Django site. 
+* Install required dependencies and initialize some settings for your Django site.
 A first time password will be output, save it somewhere safe (_e.g._, your password manager).
 
   ```sh
@@ -132,7 +132,7 @@ A first time password will be output, save it somewhere safe (_e.g._, your passw
 * Now point your browser to the LNDg Python server, for example http://minibolt.local:8889
 (or your node's IP address, e.g. http://192.168.0.20:8889).
 
-* The initial login user is "lndg-admin" and the password is the one generated just above. 
+* The initial login user is "lndg-admin" and the password is the one generated just above.
 If you didn't save the password, you can get it again with: `nano /home/lndg/lndg/data/lndg-admin.txt`
 
 * Shut down the server with `Ctrl+c`
@@ -164,7 +164,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   > -rw-r--r--  1 lndg    lndg    19468288 Nov 11 11:23 db.sqlite3
   ```
 
-* Delete the old database from the LNDg runtime directory and instead create a symbolic link 
+* Delete the old database from the LNDg runtime directory and instead create a symbolic link
 
   ```sh
   $ sudo rm /home/lndg/lndg/data/db.sqlite3
@@ -255,7 +255,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   ```sh
   $ sudo nano /etc/systemd/system/uwsgi.service
   ```
-  
+
   ```sh
   [Unit]
   Description=LNDg uWSGI app
@@ -282,7 +282,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
 * Create a nginx configuration file for the LNDg website with a server listening on port 8889
 
   ```sh
-  $ sudo nano /etc/nginx/sites-available/lndg-ssl.conf
+  $ sudo nano /etc/nginx/sites-enabled/lndg-ssl.conf
   ```
 
 * Paste the following configuration lines. Save and exit.
@@ -296,12 +296,8 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
     # the port your site will be served on
     listen 8889 ssl;
     listen [::]:8889 ssl;
-    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-    ssl_session_timeout 4h;
-    ssl_protocols TLSv1.3;
-    ssl_prefer_server_ciphers on;
-  
+    error_page 497 =301 https://$host:$server_port$request_uri;
+
     # the domain name it will serve for
     server_name _;
     charset     utf-8;
@@ -322,74 +318,6 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
         uwsgi_pass  django;
         include     /home/lndg/lndg/uwsgi_params; # the uwsgi_params file
     }
-  }
-  ```
-
-* Create a symlink in the `sites-enabled` directory
-
-  ```sh
-  $ sudo ln -sf /etc/nginx/sites-available/lndg-ssl.conf /etc/nginx/sites-enabled/
-  ```
-
-* Open the nginx configuration file
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-
-* Paste the following configuration lines between the existing `event` and `stream` blocks . Save and exit.
-
-  ```sh
-  http {
-  
-          ##
-          # Basic Settings
-          ##
-  
-          sendfile on;
-          tcp_nopush on;
-          types_hash_max_size 2048;
-          # server_tokens off;
-  
-          # server_names_hash_bucket_size 64;
-          # server_name_in_redirect off;
-  
-          include /etc/nginx/mime.types;
-          default_type application/octet-stream;
-  
-          ##
-          # SSL Settings
-          ##
-  
-          ssl_protocols TLSv1.3;
-          ssl_prefer_server_ciphers on;
-  
-          ##
-          # Logging Settings
-          ##
-  
-          access_log /var/log/nginx/access.log;
-          error_log /var/log/nginx/error.log;
-  
-          ##
-          # Gzip Settings
-          ##
-  
-          gzip on;
-  
-          # gzip_vary on;
-          # gzip_proxied any;
-          # gzip_comp_level 6;
-          # gzip_buffers 16 8k;
-          # gzip_http_version 1.1;
-          # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-  
-          ##
-          # Virtual Host Configs
-          ##
-  
-          include /etc/nginx/conf.d/*.conf;
-          include /etc/nginx/sites-enabled/*;
   }
   ```
 
@@ -444,7 +372,7 @@ You can now access LNDg from within your local network by browsing to https://mi
 
 ### Backend refreshes
 
-LNDg uses a Python script (`~/lndg/jobs.py`), to gather data about your node that is then displayed in the GUI dashboard. 
+LNDg uses a Python script (`~/lndg/jobs.py`), to gather data about your node that is then displayed in the GUI dashboard.
 To have updated information in the GUI, it is necessary to regularly run the script to collect new data.
 
 * Create a systemd service file to run the LNDg `jobs.py` Python script. Save (Ctrl+o) and exit (Ctrl+x).
@@ -708,7 +636,7 @@ With the Tor browser, you can access this onion address from any device.
   $ .venv/bin/python manage.py migrate
   $ exit
   ```
-  
+
 * Start the `uwsgi` systemd service again. The other LNDg timers and services will start automatically.
 
   ```sh
@@ -734,7 +662,7 @@ With the Tor browser, you can access this onion address from any device.
   ```
 
 * Display the UFW firewall rules and notes the numbers of the rules for Mempool (e.g., X and Y below)
-  
+
   ```sh
   $ sudo ufw status numbered
   > [...]
@@ -742,7 +670,7 @@ With the Tor browser, you can access this onion address from any device.
   ```
 
 * Delete the two LNDg rules (check that the rule to be deleted is the correct one and type “y” and “Enter” when prompted)
-  
+
   ```sh
   $ sudo ufw delete Y
   $ sudo ufw delete X
@@ -751,20 +679,7 @@ With the Tor browser, you can access this onion address from any device.
 * Delete the LNDg nginx configuration file and symlink
 
   ```sh
-  $ sudo rm /etc/nginx/sites-available/lndg-ssl.conf
   $ sudo rm /etc/nginx/sites-enabled/lndg-ssl.conf
-  ```
-
-* Delete or comment out the HTTP server block from the `nginx.conf` file (unless you use it for another service, _e.g._ [Mempool](../bitcoin/mempool.md), [Homer](../system/homer.md) etc)
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-
-  ```sh
-  #http {
-  # [...]
-  #}
   ```
 
 * Test the nginx configuration & restart nginx

@@ -133,101 +133,24 @@ However, if you want to re-install Homer for whatever reason, you will have to r
 * Create a nginx configuration file for the Homer website with a HTTPS server listening on port 4091
 
   ```sh
-  $ sudo nano /etc/nginx/sites-available/homer-ssl.conf
+  $ sudo nano /etc/nginx/sites-enabled/homer-ssl.conf
   ```
 
   ```ini
   ## homer-ssl.conf
-  
-  
   server {
       listen 4091 ssl;
       listen [::]:4091 ssl;
+      error_page 497 =301 https://$host:$server_port$request_uri;
+
       server_name _;
-  
-      ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-      ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-      ssl_session_timeout 4h;
-      ssl_protocols TLSv1.3;
-      ssl_prefer_server_ciphers on;
 
       access_log /var/log/nginx/access_homer.log;
       error_log /var/log/nginx/error_homer.log;
- 
+
       root /var/www/homer;
       index index.html;
-  
-  
   }
-  ```
-
-* Create a symlink in the sites-enabled directory
-
-  ```sh
-  $ sudo ln -sf /etc/nginx/sites-available/homer-ssl.conf /etc/nginx/sites-enabled/
-  ```
-
-* Open the existing nginx configuration file
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-
-* Paste the following web server configuration lines between the "events" and "streams" contexts. Note: Skip this step if you have already installed a program that requires a nginx http server (e.g., [Mempool](../bitcoin/mempool.md)).
-
-  ```sh
-  http {
-
-          ##
-          # Basic Settings
-          ##
-
-          sendfile on;
-          tcp_nopush on;
-          types_hash_max_size 2048;
-          server_tokens off;
-
-          # server_names_hash_bucket_size 64;
-          # server_name_in_redirect off;
-
-          include /etc/nginx/mime.types;
-          default_type application/octet-stream;
-
-          ##
-          # SSL Settings
-          ##
-
-          ssl_protocols TLSv1.3;
-          ssl_prefer_server_ciphers on;
-
-          ##
-          # Logging Settings
-          ##
-
-          access_log /var/log/nginx/access.log;
-          error_log /var/log/nginx/error.log;
-
-          ##
-          # Gzip Settings
-          ##
- 
-          gzip on;
- 
-          # gzip_vary on;
-          # gzip_proxied any;
-          # gzip_comp_level 6;
-          # gzip_buffers 16 8k;
-          # gzip_http_version 1.1;
-          # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-
-          ##
-          # Virtual Host Configs
-          ##
-
-          include /etc/nginx/conf.d/*.conf;
-          include /etc/nginx/sites-enabled/*;
-  }
-
   ```
 
 A sample configuration file is available at `/home/homer/homer/dist/assets/config.yml.dist`. We will create a configuration file derived from this default configuration but tailored to the RaspiBolt.
@@ -399,7 +322,7 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
   ```sh
   $ sudo ln -s /data/homer/config.yml /var/www/homer/assets/config.yml
   ```
-  
+
 * Change the ownership of the Homer web folder to the “www-data” user
 
   ```sh
@@ -424,7 +347,7 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
   $ cd homer
   $ npm run serve
   ```
-  
+
 * Wait a couple of minutes for the server to start, until the following message is displayed
 
   ```sh
@@ -434,7 +357,7 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
   >   - Network: http://192.168.0.171:8081
   ```
 
-* Now point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).  
+* Now point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).
 
 Your browser will display a warning, because we use a self-signed SSL certificate. There’s nothing we can do about that, because we would need a proper domain name (e.g. https://yournode.com) to get an official certificate which browsers recognize. Click on “Advanced” and proceed to the Homer dashboard interface.
 
@@ -487,7 +410,7 @@ Now we’ll make sure Homer starts as a service on the Raspberry Pi so it’s al
 
   ```
 
-* Wait a few minutes for the server to start and for the logs to show that the app is running. Then, point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).  
+* Wait a few minutes for the server to start and for the logs to show that the app is running. Then, point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).
 
 You're set! You can now use the dashboard to have a quick access to your self-hosted web services and some external websites. If you have installed bonus programs like [Mempool](../bitcoin/mempool.md), [ThunderHub](../lightning/thunderhub.md), [LNBits](../lightning/lnbits.md), [Lightning Terminal](../lightning/lightning-terminal.md), Bitfeed, LNDg etc, you can add them to your dashboard.
 
@@ -509,7 +432,7 @@ This guide set three groups: "Bitcoin", "Lightning" and "Resources". You can add
 
 * If you want to add a new group (e.g., a "Sysadmin" group), go to the "Services" section at the end of the file
 * Add the following lines under the `Services:` entry:
-  
+
   ```ini
     - name: "Sysadmin"
       icon: "fab fa-wave-pulse"
@@ -530,10 +453,10 @@ Since you created a new group, you might want to display it in new column.
 
 ### Adding a web service button
 
-If you want to add a new web service button to one of your existing group, add some item configuration lines under the `items:` entry. 
+If you want to add a new web service button to one of your existing group, add some item configuration lines under the `items:` entry.
 
 * For example if you want to add the Mempool web service under the "Bitcoin" group, add the following lines (the `[...]` and the lines above represent the existing configuration lines in the file, do NOT copy/paste)
-  
+
   ```ini
     - name: "Bitcoin"
       icon: "fab fa-bitcoin"
@@ -614,7 +537,7 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
   $ npm run build
   $ exit
   ```
-  
+
 * With the "admin" user, copy over the updated distributable output and re-create the symlink to the configuration file
 
   ```sh
@@ -660,27 +583,7 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
 
   ```sh
   $ sudo rm -r /var/www/homer
-  $ sudo rm /etc/nginx/sites-available/homer-ssl.conf
   $ sudo rm /etc/nginx/sites-enabled/homer-ssl.conf
-  ```
-
-* Delete (or comment out) the web server context from the main nginx configuration file. Note: Skip this step if you run another program that depends on the nginx web server (e.g., [Mempool](../bitcoin/mempool.md)).
-
-  ```sh
-  $ sudo nano /etc/nginx/nginx.conf
-  ```
-  
-  ```ini
-  #http {
-  
-        ##
-        # Basic Settings
-        ##
-
-        #sendfile on;
-        # [...]
-  
-  #}
   ```
 
 * Test and reload nginx configuration

@@ -51,16 +51,17 @@ Status: Not tested MiniBolt
 * Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to LNBits.
 
   ```sh
-  $ sudo nano /etc/nginx/streams-enabled/lnbits-reverse-proxy.conf
+  $ sudo nano /etc/nginx/sites-enabled/lnbits-reverse-proxy.conf
   ```
 
   ```nginx
-  upstream lnbits {
-    server 127.0.0.1:5000;
-  }
   server {
     listen 4003 ssl;
-    proxy_pass lnbits;
+    error_page 497 =301 https://$host:$server_port$request_uri;
+
+    location / {
+      proxy_pass http://127.0.0.1:5000;
+    }
   }
   ```
 
@@ -128,7 +129,7 @@ Status: Not tested MiniBolt
   #LNBITS_DATA_FOLDER="./data"
   LNBITS_DATA_FOLDER="/home/lnbits/.lnbits"
   ```
-  
+
 * Choose the colour theme for the webpage, _e.g._ "bitcoin". You can choose among the following options: `autumn`, `bitcoin`, `classic`, `flamingo`, `freedom`, `mint`, `monochrome` and  `salvador`.
 
 ![LNBits themes](../../../images/lnbits-themes.PNG)
@@ -175,7 +176,7 @@ Status: Not tested MiniBolt
   ```
 
 * Edit the LND REST wallet parameters with the following lines
-  
+
   ```ini
   LND_REST_ENDPOINT=https://127.0.0.1:8080
   LND_REST_CERT="/home/lnbits/.lnd/tls.cert"
