@@ -35,7 +35,7 @@ has_toc: false
 ## Security
 
 * **[SSH Keys](ssh-keys.md)** - a safe way to SSH authentification in your system
-* **[WireGuard VPN](wireguard-VPN.md)** - Set up a WireGuard Virtual Private Network to securely log into your node remotely
+* **[WireGuard VPN](wireguard-VPN.md)** - set up a WireGuard Virtual Private Network to securely log into your node remotely
 * **[Hardware-based (Trezor) SSH authentification](trezor-agent.md)** - a safer way to SSH to your device using your hardware wallet
 
 ---
