@@ -44,7 +44,7 @@ Difficulty: Hard {: .label .label-red }
 
 Status: Tested v3 {: .label .label-green }
 
-![https://www.wireguard.com](https://www.wireguard.com/img/wireguard.svg)
+![https://www.wireguard.com](../../../images/wireguard.png)
 
 ## Why using WireGuard and trade-off
 
@@ -62,7 +62,7 @@ There are several trade-off using a VPN against using Tor:
 * WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which allows to tell that you are using WireGuard VPN.
 * You need to open one port on your router if you don't use IPv6, which is more than 0 when you rely only on Tor (notice that all services are not Tor-compatible like lndhub, Joule, Juggernaut....)
 
-![A VPN simulates that you are connected from your home network](https://upload.wikimedia.org/wikipedia/commons/e/e8/VPN_overview-en.svg)
+![A VPN simulates that you are connected from your home network](../../../images/wireguard-VPN.png)
 
 The primary function of the VPN is to protect your home network (and so your MiniBolt).
 However an untrusted actor inside your home network (like the router furnished by your internet provider) may attempt to access critical services on your node. So you must still use good passwords even if the service is not exposed to internet anymore.
