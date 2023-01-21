@@ -38,7 +38,7 @@ alias showbonusversion='echo The installed versions of the bonus services are as
   echo Electrs: `electrs --version` ; \
   lntop --version'
 
-alias testscb-backup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
+alias testscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
 
 # EXTRA LOGS
 alias authlogs='sudo tail -f /var/log/auth.log'
@@ -110,7 +110,7 @@ alias stopbtcrpcexplorer='sudo systemctl stop btcrpcexplorer'
 alias stoplnd='sudo systemctl stop lnd'
 alias stopthunderhub='sudo systemctl stop thunderhub'
 alias stopscbackup='sudo systemctl stop scb-backup'
-alias stopallmain='sudo systemctl stop btcrpcexplorer fulcrum scb-backup thunderhub lnd bitcoind'
+alias stopallmain='sudo systemctl stop btcrpcexplorer fulcrum scb-backup thunderhub bitcoind'
 
 #########################
 # DISABLE MAIN SERVICES #
@@ -132,7 +132,7 @@ alias disableallmain='sudo systemctl disable bitcoind fulcrum btcrpcexplorer lnd
 
 alias torlogs='sudo journalctl -f -u tor@default'
 alias i2plogs='sudo tail -f /var/log/i2pd/i2pd.log'
-alias bitcoindlogs='sudo tail -f /home/bitcoin/.bitcoin/debug.log'
+alias bitcoindlogs='sudo journalctl -f -u bitcoind.service'
 alias fulcrumlogs='sudo journalctl -f -u fulcrum'
 alias btcrpcexplorerlogs='sudo journalctl -f -u btcrpcexplorer'
 alias lndlogs='sudo journalctl -f -u lnd'

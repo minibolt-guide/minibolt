@@ -269,12 +269,20 @@ We'll also set the proper access permissions.
   ## Bitcoin daemon
   server=1
   txindex=1
+
   # Aditional logs
   debug=tor
   debug=i2p
-  
+
   # Assign read permission to the Bitcoin group users 
   startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
+
+  # Disable debug.log
+  nodebuglogfile=1
+
+  # Avoid assuming that a block and its ancestors are valid, 
+  # and potentially skipping their script verification. We will set it to 0, to verify all
+  assumevalid=0
 
   # Enable all compact filters
   blockfilterindex=1
@@ -302,6 +310,8 @@ We'll also set the proper access permissions.
   dbcache=2048
   blocksonly=1
   ```
+
+🔍 *This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92){:target="_blank"} with all possible options
 
 * Set permissions: only the user 'bitcoin' and members of the 'bitcoin' group can read it
 
@@ -337,11 +347,10 @@ We use "systemd", a daemon that controls the startup process using configuration
   PartOf=tor.service i2pd.service
 
   [Service]
-  ExecStart=/usr/local/bin/bitcoind -daemon \
-                                    -pid=/run/bitcoind/bitcoind.pid \
+  ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind.pid \
                                     -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
                                     -datadir=/home/bitcoin/.bitcoin
-  Type=forking
+  Type=exec
   PIDFile=/run/bitcoind/bitcoind.pid
   Restart=on-failure
   TimeoutSec=300
@@ -366,6 +375,12 @@ We use "systemd", a daemon that controls the startup process using configuration
   $ sudo systemctl enable bitcoind
   ```
 
+* Prepare “bitcoind” monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with Ctrl-C
+
+  ```sh
+  $ sudo journalctl -f -u bitcoind.service
+  ```
+
 ## Running bitcoind
 
 [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
@@ -375,18 +390,6 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 
   ```sh
   $2 sudo systemctl start bitcoind
-  ```
-
-* Grant the "bitcoin" group read permission for the debug log file
-
-  ```sh
-  $2 sudo chmod g+r /data/bitcoin/debug.log
-  ```
-
-* Return to the first terminal session to monitor "bitcoind" by its log file now available. You can exit monitoring at any time with `Ctrl-C`
-
-  ```sh
-  $ sudo tail --lines 500 -f /home/bitcoin/.bitcoin/debug.log
   ```
 
 Expected output:
@@ -592,15 +595,17 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   # Increase the number of threads to service RPC calls (default: 4)
   rpcthreads=128
   # Increase the depth of the work queue to service RPC calls (default: 16)
-  rpcworkqueue=512
+  rpcworkqueue=256
   ```
 
-* Comment this line to the existing `bitcoin.`conf` file
+* Comment these lines to the existing `bitcoin.conf` file
 
   ```sh
-  # Maintain coinstats index used by the gettxoutsetinfo RPC
   #coinstatsindex=1
+  #assumevalid=0
   ```
+
+* Comment this l
 
 ## For the future: upgrade Bitcoin Core
 
