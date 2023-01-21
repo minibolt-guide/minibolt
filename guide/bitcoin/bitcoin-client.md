@@ -592,6 +592,8 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   ## Slow devices optimizations
   # Limit the number of max peers connections
   maxconnections=40
+  # Tries to keep outbound traffic under the given target per 24h
+  maxuploadtarget=5000
   # Increase the number of threads to service RPC calls (default: 4)
   rpcthreads=128
   # Increase the depth of the work queue to service RPC calls (default: 16)
@@ -605,12 +607,10 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   #assumevalid=0
   ```
 
-* Comment this l
-
 ## For the future: upgrade Bitcoin Core
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first!
-When upgrading, there might be breaking changes, or changes in the data structure that need special attention.
+When upgrading, there might be breaking changes or changes in the data structure that need special attention.
 
 * Login as "admin" and change to the temporary directory.
 
