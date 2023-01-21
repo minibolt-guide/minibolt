@@ -36,42 +36,101 @@ Status: Not tested MiniBolt
 
 The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis).
 
-[WireGuard](https://www.wireguard.com) is a VPN you can install to access your MiniBolt from outside without openning more than one port of your router.
-It makes easier to run many more services on the Pi without exposing them to the public Internet and it also gives you a good security overall as you can connect to your node but also surf on the web from public networks safely.
-It has support on all computer OS, and an Android app. But you will need to be able to forward a port on the router of the local network to the MiniBolt.
-
-Difficulty: Hard {: .label .label-red }
-
-Status: Tested v3 {: .label .label-green }
+[WireGuard](https://www.wireguard.com) is a VPN you can set up to access your MiniBolt from the outside.
+It makes it easier to run many more services on your node without exposing them to the public Internet.
+It has support on all major computer OSes, and apps for Android and iOS.
+The only requirement is to forward a UDP port from your home router to the MiniBolt node.
 
 ![https://www.wireguard.com](../../../images/wireguard.png)
 
 ## Why using WireGuard and trade-off
 
-A VPN is an encrypted tunnel between two computers over the internet. In our case, the MiniBolt will play the role of the server and you will be able to access your home network from outside with configurated client devices.
+A VPN is an encrypted tunnel between two computers over the internet. In our case, the MiniBolt will play the role of the server and you will be able to access your home network from outside with configured client devices.
 Depending on the configuration of the client, you can redirect all your internet traffic through the VPN which will hide the true destination from the internet provider your client is currently using (the classical case is public network).
 However, your home internet provider (where your MiniBolt is connected) will be able to tell what you are doing, but it will see it coming from your home.
 
 There are several trade-off using a VPN against using Tor:
 
 * The connection with the VPN is a lot faster than using Tor (bitcoin and lnd will still use Tor if already the case)
-* WireGuard has an incredible low ressource usage. It will automatically go to sleep when not use and instantaneously reconnect if needed whereas Tor has a ignificant initialization time.
-* The attack surface on your home network and MiniBolt is reduced as less ports are open on your router if you must use services without Tor.
-* However a VPN is not anonymous, a spy can see that you send encrypted traffic to your home router but he cannot know what you are doing
-* Someone inside your home network will see encrypted traffic going to your MiniBolt and decrypted traffic going to the router back in your MiniBolt
+* WireGuard has an incredible low resource usage. It will automatically go to sleep when not use and instantaneously reconnect if needed whereas Tor has a significant initialization time.
+* The attack surface on your home network and MiniBolt is reduced as fewer ports are open on your router.
+* However, a VPN is not anonymous, a spy can see that you send encrypted traffic to your home router, but he cannot know what you are doing.
 * WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which allows to tell that you are using WireGuard VPN.
-* You need to open one port on your router if you don't use IPv6, which is more than 0 when you rely only on Tor (notice that all services are not Tor-compatible like lndhub, Joule, Juggernaut....)
+* You need to open one port on your router if you don't use IPv6, which is more than 0 when you rely only on Tor (notice that this is the case for all services that are not Tor-compatible like lndhub, Joule, Juggernaut....)
 
 ![A VPN simulates that you are connected from your home network](../../../images/wireguard-VPN.png)
 
-The primary function of the VPN is to protect your home network (and so your MiniBolt).
-However an untrusted actor inside your home network (like the router furnished by your internet provider) may attempt to access critical services on your node. So you must still use good passwords even if the service is not exposed to internet anymore.
+Copy-pasting command line instructions should work (except when you have to complete with private and public keys). However, you need to know the public URL/IP of your home router where the MiniBolt is connected and to forward a port (51820 if you just copy-paste command lines). The procedure can be different for each router, so you are on your own to do it. If your router does support NAT Loopback, it must be active if you want to be able to connect your VPN client from the local network of the MiniBolt with IPv4 (which is useless in theory but disconnecting the VPN several time at home may be inconvenient if you enable VPN at boot on one client device).
 
-Finally WireGuard is still experimental (but soon officially in linux kernel).
+## Prerequisites
 
-This tutorial is almost complete. Copy-pasting command line instructions should work (except when you have to complete with private and public keys). However you need to know the public URL/IP of your home router where the MiniBolt is connected and to forward a port (51820 if you just copy-paste command lines). The procedure can be different for each router so you are on your own to do it. If your router does support NAT Loopback, it must be active if you want to have be able to connect your VPN client from the local network of the MiniBolt with IPv4 (which is useless in theory but disconnecting the VPN several time at home may be inconvenient if you enable VPN at boot on one client device).
+Before starting with the installation proper, you need to:
 
-## Installation
+1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat).
+   If that's the case you have no way of accessing your home network from the outside, and you'll need to phone them asking to put you out of CG-NAT (this means giving your router a dedicated public IP).
+   Most ISP simply do this on request or either charge a small fee to allocate a public IP just for you.
+2. Figure out the public IP of your home network. If you have a static public IP it'll simplify the setup, but it's not mandatory.
+   There are plenty of websites that show you your public IP. One such site is [https://ip.1mahq.com/](https://ip.1mahq.com/)
+3. Forward the `51820/UDP` port of your router to the local IP of your MiniBolt.
+   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1)) and find the relevant settings page.
+
+## Client configuration
+
+Start by visiting [WireGuard's installation page](https://www.wireguard.com/install/) and download and install the relevant version of WireGuard for your OS.
+Here, we'll assume your client is a Linux desktop because it the most similar to setting up the server.
+On Ubuntu, for instance, you do this by simply installing the `wireguard` package:
+
+  ```sh
+  sudo apt install wireguard
+  ```
+
+After that, use the `wg` command to generate a WireGuard key pair:
+
+  ```sh
+  $ wg genkey | tee private_key
+  GGH/UCK3K9qzd48u8m872azvsdeyaSjs9cVs0pl4fko=
+  $ cat private_key | wg pubkey | tee public_key
+  pNfWyNJ9WnbMqlLzHxwhvGnZ0/alT18MGy6K0iOxHCI=
+  ```
+
+These commands will show both the private and public keys on screen for your convenience, but will also write them in files `private_key` and `public_key`.
+Note that each time you run `wg genkey` you get a brand new private key.
+However, given the same private key `wg pubkey` will always derive the same public key.
+
+For the next part, you need to become root to be able to create and write the `/etc/wireguard/wg0.conf` file.
+When you install the `wireguard` package the directory is created automatically, but it is empty.
+
+  ```sh
+  $ sudo su
+  $ cd /etc/wireguard
+  $ nano wg0.conf
+  ```
+
+Write the following contents to the `wg0.conf` file:
+
+  ```
+  [Interface]
+  Address = 10.0.0.2/24
+  PrivateKey = Client_Private_Key
+
+  [Peer]
+  PublicKey = Server_Public_Key
+  Endpoint = Your_Public_IP:51820
+  AllowedIPs = 10.0.0.1/32
+  ```
+
+A few things to note here.
+
+In the `PrivateKey` section you have to fill in the client's private key that we generated in the previous step.
+
+The `PublicKey` of the Peer refers to the public key of MiniBolt. We don't know it because we haven't set it up yet.
+
+In `Endpoint` you need to fill in your router's public IP that you should have found out in the Prerequisites step.
+Later on we'll set up a DNS record that will always point to your home's public IP even if your ISP changes it, but for now the raw IP will suffice.
+
+Now that the configuration is written you can delete the `private_key` and `public_key` files from disk, but take note of the client's public key before moving on to configure MiniBolt.
+
+## Server configuration (MiniBolt)
 
 Connect to your MiniBolt as admin.
 We update the packages and install WireGuard
@@ -81,42 +140,134 @@ We update the packages and install WireGuard
   $ sudo apt install wireguard
   ```
 
-You will need to install WireGuard on clients from which you want to access to your local home network.
+Now we generate another key pair like we did on the client:
 
-## Configuration of the server on MiniBolt
+  ```sh
+  $ wg genkey | tee private_key
+  mJFGKxeQqxafyDdLDEDHRml6rDJUs7JZte3uqfJBQ0Q=
+  $ cat private_key | wg pubkey | tee public_key
+  GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
+  ```
 
-We generate a key pair for the server
+Again, become root so that you can create and write the `/etc/wireguard/wg0.conf` file.
 
   ```sh
   $ sudo su
   $ cd /etc/wireguard
-  $ umask 077
-  $ wg genkey | tee server_private_key | wg pubkey > server_public_key
-  ```
-
-Take note of the value of the private and public keys ready to be used
-
-  ```sh
-  $ cat server_private_key
-  $ cat server_public_key
-  ```
-
-For each client you wish to connect, you need to create another key pair using this set of command:
-
-  ```sh
-  $ wg genkey | tee client_private_key | wg pubkey > client_public_key
-  $ cat client_private_key
-  $ cat client_public_key
-  ```
-
-Take note of each private and public key. If you want to add more than one peer already, don't forget to change the file name to keep the first key pair when generating the second.
-You will be able to add client later too.
-
-We create and configure a new WireGuard interface.
-
-  ```sh
   $ nano wg0.conf
   ```
+
+This time write the following:
+
+  ```
+  [Interface]
+  Address = 10.0.0.1/24
+  ListenPort = 51820
+  PrivateKey = Server_Private_Key
+  
+  [Peer]
+  PublicKey = Client_Public_Key
+  AllowedIPs = 10.0.0.2/32
+  ```
+
+Fill in the server's private key in the `PrivateKey` section and the client's public key in `PublicKey`.
+
+At this point we have defined a Virtual Private network in the `10.0.0.1/24` network range where MiniBolt is at
+`10.0.0.1` and your client at `10.0.0.2`.
+You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
+Here we chose `10.0.0.1/24` because it stands out and is not likely to collide with any other network from your machines.
+
+Now exit root to go back to the admin user and register the newly created WireGuard service with systemd.
+This will turn it on permanently, and also start it automatically when MiniBolt reboots.
+We won't do this on the client because we want it to be able to connect to the VPN selectively.
+
+  ```sh
+  $ exit
+  $ sudo systemctl enable wg-quick@wg0.service
+  $ sudo systemctl start wg-quick@wg0.service
+  ```
+
+Delete the `private_key` and `public_key` file, but take note of the server's public key and go back to the client machine.
+
+## Client configuration (part 2)
+
+Now that the WireGuard server is running and we know it's public key we can complete our client setup and test it.
+
+Become root to edit the `/etc/wireguard/wg0.conf` file and fill in the peer's `PublicKey`.
+
+Now, to finally test the VPN connection run this command and try to log in to MiniBolt with SSH using the VPN IP.
+  ```sh
+  $ wg-quick up wg0
+  [#] ip link add wg0 type wireguard
+  [#] wg setconf wg0 /dev/fd/63
+  [#] ip -4 address add 10.0.0.2/24 dev wg0
+  [#] ip link set mtu 1420 up dev wg0
+
+  $ ssh admin@10.0.0.1
+  ```
+
+To check the VPN status use `sudo wg show`.
+To turn it off use `wg down` instead of `up`:
+
+  ```sh
+  $ sudo wg show
+  interface: wg0
+    public key: pNfWyNJ9WnbMqlLzHxwhvGnZ0/alT18MGy6K0iOxHCI=
+    private key: (hidden)
+    listening port: 54124
+
+  peer: GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
+    endpoint: Your_Public_IP:51820
+    allowed ips: 10.0.0.1/32
+    latest handshake: 10 minutes, 46 seconds ago
+    transfer: 49.56 KiB received, 52.36 KiB sent
+
+  $ wg-quick down wg0
+  [#] ip link delete dev wg0
+  ```
+
+## Configure additional clients
+
+For each additional client you need to install the WireGuard software, generate a new key pair for it and write it's configuration file.
+This time you'll already know the server's public key from the start.
+
+Mind that each new client has to be allocated a new IP inside the VPN's network range. For instance, a second client could have the IP `10.0.0.3`,
+as `10.0.0.1` and `10.0.0.2` are already taken by the server and the first client, respectively.
+
+For instance, in Windows the WireGuard program already generates the key pair and writes a stub for the configuration just by clicking "Create new Tunnel".
+
+![WireGuard Windows Client](../../../images/wireguard-windows.png)
+
+## Configure additional clients (MiniBolt)
+
+Each time you want to add a new client you just need to append a new `[Peer]` section in MiniBolt's `/etc/wireguard/wg0.conf` configuration file:
+
+  ```
+  [Peer]
+  PublicKey = A_New_Client_Public_Key
+  AllowedIPs = 10.0.0.3/32
+  ```
+
+After that you need to restart the WireGuard server for the changes to take effect. Mind that if you logged it to MiniBolt through WireGuard from
+an already configured client this command will kick you out of MiniBolt temporarily:
+
+  ```sh
+  sudo systemctl restart wg-quick@wg0.service
+  ```
+
+## Set up Dynamic DNS
+
+TODO
+
+## Tip for configuring a mobile client
+
+TODO
+
+
+
+
+
+# Proposal: Remove everything below
 
 Paste and complete the following:
 
