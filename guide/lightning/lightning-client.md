@@ -266,7 +266,7 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   tor.v3=true
   ```
 
-🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options, and visit the [Lightning Node Management](https://www.lightningnode.info/){:target="_blank"} site by Openoms to learn more.*
+🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options
 
 * Exit "lnd" user session to return to "admin" user session
 
