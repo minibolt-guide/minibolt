@@ -228,19 +228,18 @@ e.g:
 * Log in to the MiniBolt as "admin" using SSH with your SSH key.
   You shouldn't be prompted for the admin's password anymore.
 
-* Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following options and setting their value to `no`.
-💡 The `PasswordAuthentication` parameter is at the bottom of the document
+* Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following options and setting their value to `no`
 
   ```sh
   $ sudo nano /etc/ssh/sshd_config --linenumbers
   ```
 
   ```sh
-  # change line 33
+  # uncomment and change line 33
   PermitRootLogin no
-  # line 85
+  # change line 85
   UsePAM no
-  # change line 123
+  # change line 123 (at the end of the file)
   PasswordAuthentication no
   ```
 
@@ -250,16 +249,19 @@ e.g:
   $ sudo sshd -t
   ```
 
-* Restart the SSH daemon, then exit your session
+* Restart the SSH daemon
 
   ```sh
   $ sudo systemctl restart sshd
   ```
 
+* Type `exit` or `logout` to finish the session
+
 * Log in again with user "admin"
 
 You can no longer log in with a password.
-User "admin" is the only user that has the necessary SSH keys, no other user can log in remotely. You can follow the guide where you left it by clicking [here](../../system/configuration.md#system-update).
+User "admin" is the only user that has the necessary SSH keys, no other user can log in remotely.
+You can follow the guide where you left it by clicking [here](../../system/configuration.md#system-update)
 
 🚨 **Backup your SSH keys!**
 
