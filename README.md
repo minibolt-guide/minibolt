@@ -25,7 +25,7 @@
 
 <h3 align="center"> The MiniBolt Guide is available on GitHub Pages
 
-https://twofaktor.github.io/minibolt
+https://minibolt.info/
 
 </h3>
 
