@@ -18,8 +18,8 @@ has_toc: false
 Difficulty: Intermediate
 {: .label .label-yellow }
 
-Status: Not tested MiniBolt
-{: .label .label-red }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ---
 
@@ -84,7 +84,7 @@ On Ubuntu, for instance, you do this by simply installing the `wireguard` packag
   sudo apt install wireguard
   ```
 
-After that, use the `wg` command to generate a WireGuard key pair:
+* After that, use the `wg` command to generate a WireGuard key pair:
 
   ```sh
   $ wg genkey | tee private_key
@@ -106,7 +106,7 @@ When you install the `wireguard` package the directory is created automatically,
   $ nano wg0.conf
   ```
 
-Write the following contents to the `wg0.conf` file:
+* Write the following contents to the `wg0.conf` file:
 
   ```
   [Interface]
@@ -132,15 +132,22 @@ Now that the configuration is written you can delete the `private_key` and `publ
 
 ## Server configuration (MiniBolt)
 
-Connect to your MiniBolt as admin.
-We update the packages and install WireGuard
+### Configure Firewall
+
+* As user admin, configure the firewall to allow incoming requests
+
+  ```sh
+  $ sudo ufw allow 51820/udp comment 'allow WireGuard VPN from anywhere'
+  ```
+
+* Update the packages and install WireGuard
 
   ```sh
   $ sudo apt-get update
   $ sudo apt install wireguard
   ```
 
-Now we generate another key pair like we did on the client:
+* Now we generate another key pair as we did on the client:
 
   ```sh
   $ wg genkey | tee private_key
@@ -149,7 +156,7 @@ Now we generate another key pair like we did on the client:
   GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
   ```
 
-Again, become root so that you can create and write the `/etc/wireguard/wg0.conf` file.
+* Again, become root so that you can create and write the `/etc/wireguard/wg0.conf` file.
 
   ```sh
   $ sudo su
@@ -164,7 +171,7 @@ This time write the following:
   Address = 10.0.0.1/24
   ListenPort = 51820
   PrivateKey = Server_Private_Key
-  
+
   [Peer]
   PublicKey = Client_Public_Key
   AllowedIPs = 10.0.0.2/32
@@ -187,30 +194,44 @@ We won't do this on the client because we want it to be able to connect to the V
   $ sudo systemctl start wg-quick@wg0.service
   ```
 
-Delete the `private_key` and `public_key` file, but take note of the server's public key and go back to the client machine.
+Delete the `private_key` and `public_key` files, but take note of the server's public key and go back to the client machine.
 
 ## Client configuration (part 2)
 
-Now that the WireGuard server is running and we know it's public key we can complete our client setup and test it.
+Now that the WireGuard server is running and we know its public key we can complete our client setup and test it.
 
 Become root to edit the `/etc/wireguard/wg0.conf` file and fill in the peer's `PublicKey`.
 
 Now, to finally test the VPN connection run this command and try to log in to MiniBolt with SSH using the VPN IP.
+
   ```sh
   $ wg-quick up wg0
+  ```
+
+Expected output:
+
+  ```
   [#] ip link add wg0 type wireguard
   [#] wg setconf wg0 /dev/fd/63
   [#] ip -4 address add 10.0.0.2/24 dev wg0
   [#] ip link set mtu 1420 up dev wg0
+  ```
 
+  ```sh
   $ ssh admin@10.0.0.1
   ```
 
-To check the VPN status use `sudo wg show`.
-To turn it off use `wg down` instead of `up`:
+To turn it off use `wg down` instead of `up`
+
+* To check the VPN status use `sudo wg show`
 
   ```sh
   $ sudo wg show
+  ```
+
+Expected output:
+
+  ```
   interface: wg0
     public key: pNfWyNJ9WnbMqlLzHxwhvGnZ0/alT18MGy6K0iOxHCI=
     private key: (hidden)
@@ -221,8 +242,15 @@ To turn it off use `wg down` instead of `up`:
     allowed ips: 10.0.0.1/32
     latest handshake: 10 minutes, 46 seconds ago
     transfer: 49.56 KiB received, 52.36 KiB sent
+  ```
 
+  ```sh
   $ wg-quick down wg0
+  ```
+
+Expected output:
+
+  ```sh
   [#] ip link delete dev wg0
   ```
 
@@ -252,7 +280,7 @@ After that you need to restart the WireGuard server for the changes to take effe
 an already configured client this command will kick you out of MiniBolt temporarily:
 
   ```sh
-  sudo systemctl restart wg-quick@wg0.service
+  $ sudo systemctl restart wg-quick@wg0.service
   ```
 
 ## Set up Dynamic DNS
@@ -265,6 +293,27 @@ TODO
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------
 
 
 # Proposal: Remove everything below
@@ -291,7 +340,7 @@ We need to understand what is happenning here, so let us explain what each line 
 **It MUST be different from the range of IPs used by the router for the home network.** (Do not set it to 192.168.1.1/24 if these IPs are used by your router already to find the MiniBolt for example).
 * `PrivateKey` is the private key used by the server. You must set it with the result of `# cat server_private_key` you noted before
 * `ListenPort = 51820` is the port on which the VPN server is listening. **This is the port you must let open on your router** (and it should be the only one once WireGuard works)
-* The next two lines allow clients connected to the VPN server to access your home network (and other services of your Raspberry). 
+* The next two lines allow clients connected to the VPN server to access your home network (and other services of your Raspberry).
  If your MiniBolt is connected by the **WIFI you must change `eth0` with `wlan0`**
 * `[Peer]` is the section where you specified the peer that are allowed to use the VPN. You must add one section for each peer and it should start with this header.
 * `PublicKey` is the public key of the current peer. You must set it with the result of `# cat client_public_key` you noted before
@@ -318,7 +367,7 @@ We start automatically WireGuard at boot:
 We must also enable connection to the VPN port of the MiniBolt by `ufw`, change `51820` by what was set as `ListenPort` in the server configuration file:
 
   ```sh
-  $ sudo ufw allow 51820/udp comment 'allow WireGuard VPN'
+  $ sudo ufw allow 51820/udp comment 'allow WireGuard VPN from anywhere'
   ```
 
 You may reboot your MiniBolt to apply change correctly (don't forget to stop lnd and bitcoin properly). If it bother you too much, you can also start WireGuard and check it has started properly:
