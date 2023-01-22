@@ -68,7 +68,7 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
 
 ### Configuration
 
-* Edit your Tor config file adding the next lines **at the end of file**. We are to use 2 ports: TODO1 and TODO2, replace it with ports of your preference > 1024.
+* Edit your Tor config file adding the next lines **at the end of the file**. We are to use 2 ports: TODO1 and TODO2, replace them with ports of your preference > 1024.
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -78,30 +78,26 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   # Replace <TODO1> with a Tor port of your choice >1024.
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
   ORPort <TODO1> IPv4Only
-  ExtORPort auto
-  
+
   # Replace <TODO2> with an obfs4 port of your choice.
   # This port must be externally reachable and must be different from the one specified for ORPort (<TODO1>).
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
   ServerTransportListenAddr obfs4 0.0.0.0:<TODO2>
-  ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-  
-  # Replace "<address@email.com>" with your email address so we can contact you 
-  # if there are problems with your bridge. This line
-  # can be used to contact you if your relay or bridge is misconfigured or
-  # something else goes wrong. Note that we archive and publish all
-  # descriptors containing these lines and that Google indexes them, so
-  # spammers might also collect them. You may want to obscure the fact that
-  # it's an email address and/or generate a new address for this purpose.
-  # e.g ContactInfo Random Person <nobody AT example dot com> 
-  # You might also include your PGP or GPG fingerprint if you have one
-  # This is optional but encouraged.
-  ContactInfo <address@email.com>
 
-  # Pick a nickname that you like for your bridge. Nicknames must be between 1 and 19 characters inclusive, 
+  # Replace "<PickANickname>" with a nickname that you like for your bridge.
+  # Nicknames must be between 1 and 19 characters inclusive,
   # and must contain only the characters [a-zA-Z0-9]. This is optional.
   Nickname <PickANickname>
 
+  # Replace "<address@email.com>" with a email address that you like for your bridge.
+  # Note that we archive and publish all
+  # descriptors containing these lines and that Google indexes them, so
+  # spammers might also collect them. You may want to obscure the fact that
+  # it's an email address and/or generate a new address for this purpose.
+  ContactInfo <address@email.com>
+
+  ExtORPort auto
+  ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
   BridgeRelay 1
   ```
 
@@ -127,7 +123,7 @@ $ sudo ufw status
 
 🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter in the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network, and put your `"<TODO2>"` port.
 
-### Systemd hardering
+### Systemd hardening
 
 * To work around systemd hardening, you will also need to set Tor services, editing the next files
 
@@ -214,7 +210,7 @@ $ sudo ufw status
 
 💡 You'll need to replace <IP ADDRESS>, <PORT>, and <FINGERPRINT> with the actual values, which you can find in the tor log. Make sure that you use <PORT> as the obfs4 port `"<TODO2>"` that you chose and <FINGERPRINT> not <HASHED FINGERPRINT>.
 
-🔍 More info to connect Tor browser to your own Tor bridge in this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
+🔍 More info to connect Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
 
 ## Extras
 
@@ -228,7 +224,7 @@ One of the most important things to keep your relay secure is to install securit
   $ sudo apt install unattended-upgrades apt-listchanges
   ```
 
-* Edit the next file and enter the nex lines at the end of file. save and exit
+* Edit the next file and enter the next lines at the end of the file. save and exit
 
   ```sh
   $ sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
@@ -260,10 +256,10 @@ One of the most important things to keep your relay secure is to install securit
   ```sh
   $ unattended-upgrade --debug --dry-run
   ```
-  
+
 ### Install nyx
 
-[Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this you can get detailed real-time information about your relay such as bandwidth usage, connections, logs, and much more.
+[Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relay such as bandwidth usage, connections, logs, and much more.
 
 * With user `"admin"`, install the package
 
@@ -333,7 +329,7 @@ $ sudo ufw delete X
 $ sudo ufw status verbose
 ```
 
-🚨 Reverts router NAT configuration following same "[Configure Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
+🚨 Reverts router NAT configuration following the same "[Configure](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat) Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
 
 ### Uninstall systemd hardening
 

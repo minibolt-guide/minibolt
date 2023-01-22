@@ -17,7 +17,7 @@ alias systemonitor='htop'
 # EXTRAS
 alias showmainversion='echo The installed versions of the main services are as follows: ; \
   tor --version | grep version | grep -v compiled ; \
-  echo `i2pd --version | grep version` ; \
+  echo `i2pd --version | grep version | grep -v Boost` ; \
   echo `bitcoind --version | grep version` ; \
   Fulcrum --version | grep Fulcrum ; \
   echo BTC RPC Explorer: `sudo head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version` ; \

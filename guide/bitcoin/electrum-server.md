@@ -118,6 +118,11 @@ We have our Bitcoin Core configuration file set up and now we can move to the ne
 
   ```sh
   $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+  ```
+
+Expected outout:
+
+  ```sh
   >     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   >                                 Dload  Upload   Total   Spent    Left  Speed
   > 100  2328  100  2328    0     0  16043      0 --:--:-- --:--:-- --:--:-- 15945
@@ -130,6 +135,11 @@ We have our Bitcoin Core configuration file set up and now we can move to the ne
 
   ```sh
   $ gpg --verify Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
+  ```
+
+Expected output:
+
+  ```sh
   > gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg: There is no indication that the signature belongs to the owner.
@@ -140,6 +150,11 @@ We have our Bitcoin Core configuration file set up and now we can move to the ne
 
   ```sh
   $ sha256sum --check Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
+  ```
+
+Expected output:
+
+  ```sh
   > Fulcrum-$VERSION-x86_64-linux.tar.gz: OK
   ```
 
@@ -154,6 +169,11 @@ We have our Bitcoin Core configuration file set up and now we can move to the ne
 
   ```sh
   $ Fulcrum --version
+  ```
+
+Expected output:
+
+  ```sh
   > Fulcrum $VERSION (Release a5a53cf)
   [...]
   ```
@@ -355,6 +375,11 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
   ```sh
   $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+  ```
+
+Expected output:
+
+  ```sh
   >     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   >                                 Dload  Upload   Total   Spent    Left  Speed
   > 100  2328  100  2328    0     0  16043      0 --:--:-- --:--:-- --:--:-- 15945
@@ -367,6 +392,11 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
   ```sh
   $ gpg --verify Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
+  ```
+
+Expected output:
+
+  ```sh
   > gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg: There is no indication that the signature belongs to the owner.
@@ -377,6 +407,11 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
   ```sh
   $ sha256sum --check Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
+  ```
+
+Expected output:
+
+  ```sh
   > Fulcrum-$VERSION-x86_64-linux.tar.gz: OK
   ```
 
@@ -391,6 +426,11 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
   ```sh
   $ Fulcrum --version
+  ```
+
+Expected output:
+
+  ```sh
   > Fulcrum $VERSION (Release a5a53cf)
   [...]
   ```
@@ -408,7 +448,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 To use your Fulcrum server when you're on the go, you can easily create a Tor hidden service.
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-* Ensure that you are logged with user "admin" and add the following three lines in the section for "location-hidden services" in the torrc file. Save and exit
+* Ensure that you are logged in with user "admin" and add the following three lines in the section for "location-hidden services" in the torrc file. Save and exit
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -527,7 +567,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo cat /proc/swaps
   ```
 
-* Expected output:
+Expected output:
 
   ```sh
   Filename                               Type                 Size           Used    Priority
@@ -541,7 +581,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo systemctl status zram-swap
   ```
 
-* Expected output, find *enabled* label:
+Expected output, find *enabled* label:
 
   ```sh
   zram-swap.service - zram swap service
@@ -587,7 +627,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo cat /proc/swaps
   ```
 
-* Expected output:
+Expected output:
 
   ```sh
   Filename                                Type                Size           Used    Priority
@@ -597,13 +637,13 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 
 ### Backup the database
 
-If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend to make backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum doing `"sudo systemctl stop fulcrum"`.
+If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
 ## Uninstall
 
 ### Uninstall Fulcrum
 
-* Ensure you are logged with user "admin", stop, disable and delete the service
+* Ensure you are logged in with user "admin", stop, disable and delete the service
 
   ```sh
   $ sudo systemctl stop fulcrum
@@ -625,7 +665,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 ### Uninstall Tor hidden service
 
-* Ensure you are logged with user "admin", comment or remove fulcrum hidden service in torrc. Save and exit
+* Ensure you are logged in with user "admin", comment or remove fulcrum hidden service in torrc. Save and exit
 
   ```sh
   $ sudo nano /etc/tor/torrc
