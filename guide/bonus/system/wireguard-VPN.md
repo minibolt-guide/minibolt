@@ -37,7 +37,7 @@ Status: Tested MiniBolt
 The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis).
 
 [WireGuard](https://www.wireguard.com) is a VPN you can set up to access your MiniBolt from the outside.
-It makes it easier to run many more services on your node without exposing them to the public Internet.
+It makes it easier to run services on your node without exposing their ports to the public Internet.
 It has support on all major computer OSes, and apps for Android and iOS.
 The only requirement is to forward a UDP port from your home router to the MiniBolt node.
 
@@ -45,22 +45,26 @@ The only requirement is to forward a UDP port from your home router to the MiniB
 
 ## Why using WireGuard and trade-off
 
-A VPN is an encrypted tunnel between two computers over the internet. In our case, the MiniBolt will play the role of the server and you will be able to access your home network from outside with configured client devices.
+A VPN is an encrypted tunnel between two computers over the internet.
+In our case MiniBolt will play the role of the server, and you will be able to access your home network from outside with configured client devices.
 Depending on the configuration of the client, you can redirect all your internet traffic through the VPN which will hide the true destination from the internet provider your client is currently using (the classical case is public network).
 However, your home internet provider (where your MiniBolt is connected) will be able to tell what you are doing, but it will see it coming from your home.
 
-There are several trade-off using a VPN against using Tor:
+There are several trade-off using a VPN versus using Tor:
 
-* The connection with the VPN is a lot faster than using Tor (bitcoin and lnd will still use Tor if already the case)
+* The connection with the VPN is a lot faster than using Tor (bitcoin and lnd will still use Tor if it was already the case)
 * WireGuard has an incredible low resource usage. It will automatically go to sleep when not use and instantaneously reconnect if needed whereas Tor has a significant initialization time.
 * The attack surface on your home network and MiniBolt is reduced as fewer ports are open on your router.
 * However, a VPN is not anonymous, a spy can see that you send encrypted traffic to your home router, but he cannot know what you are doing.
 * WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which allows to tell that you are using WireGuard VPN.
-* You need to open one port on your router if you don't use IPv6, which is more than 0 when you rely only on Tor (notice that this is the case for all services that are not Tor-compatible like lndhub, Joule, Juggernaut....)
+* You need to open one port on your router if you don't use IPv6, which is more than none when you rely only on Tor (notice that this is the case for all services that are not Tor-compatible like lndhub, Joule, Juggernaut....)
 
 ![A VPN simulates that you are connected from your home network](../../../images/wireguard-VPN.png)
 
-Copy-pasting command line instructions should work (except when you have to complete with private and public keys). However, you need to know the public URL/IP of your home router where the MiniBolt is connected and to forward a port (51820 if you just copy-paste command lines). The procedure can be different for each router, so you are on your own to do it. If your router does support NAT Loopback, it must be active if you want to be able to connect your VPN client from the local network of the MiniBolt with IPv4 (which is useless in theory but disconnecting the VPN several time at home may be inconvenient if you enable VPN at boot on one client device).
+Copy-pasting command line instructions should work (except when you have to complete with private and public keys).
+However, you need to know the public URL/IP of your home router where the MiniBolt is connected and to forward a port (51820 if you just copy-paste command lines).
+The procedure can be different for each router, so you are on your own to do it.
+If your router does support NAT Loopback, it must be active if you want to be able to connect your VPN client from the local network of the MiniBolt with IPv4 (which is useless in theory but disconnecting the VPN several time at home may be inconvenient if you enable VPN at boot on one client device).
 
 ## Prerequisites
 
@@ -70,7 +74,7 @@ Before starting with the installation proper, you need to:
    If that's the case you have no way of accessing your home network from the outside, and you'll need to phone them asking to put you out of CG-NAT (this means giving your router a dedicated public IP).
    Most ISP simply do this on request or either charge a small fee to allocate a public IP just for you.
 2. Figure out the public IP of your home network. If you have a static public IP it'll simplify the setup, but it's not mandatory.
-   There are plenty of websites that show you your public IP. One such site is [https://ip.1mahq.com/](https://ip.1mahq.com/)
+   There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
 3. Forward the `51820/UDP` port of your router to the local IP of your MiniBolt.
    This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1)) and find the relevant settings page.
 
@@ -257,7 +261,7 @@ Expected output:
 ## Configure additional clients
 
 For each additional client you need to install the WireGuard software, generate a new key pair for it and write it's configuration file.
-This time you'll already know the server's public key from the start.
+This time you'll already know the server's public key and endpoint from the start.
 
 Mind that each new client has to be allocated a new IP inside the VPN's network range. For instance, a second client could have the IP `10.0.0.3`,
 as `10.0.0.1` and `10.0.0.2` are already taken by the server and the first client, respectively.
@@ -285,14 +289,110 @@ an already configured client this command will kick you out of MiniBolt temporar
 
 ## Set up Dynamic DNS
 
-TODO
+As of now, the clients have the public IP of MiniBolt hardcoded in their configuration.
+However, unless it is a static IP (unlikely if it is a residential IP) your ISP can change it at any minute, thus breaking the setup we made.
+
+In order to fix this we can maintain a DNS record that always point to your latest IP, and the WireGuard clients can use that instead of the IP.
+We'll use [deSEC.io](https://desec.io/) because it allows registering subdomains free of charge.
+
+### Registration
+
+Head over to [https://desec.io/](https://desec.io/) and hit CREATE ACCOUNT.
+You'll see the folloing form:
+
+![Registration Page](../../../images/desec_io1.png)
+
+Here you must select the second option (Register a new domain under dedyn.io) and your desired subdomain name.
+For the purposes of this demo I've generated a random string, but you can use anything memorable to you as long
+as no one has already taken that name.
+
+After clicking SIGN UP, deSEC will email you to confirm the address. It will contain a verification link that
+will send you to this page:
+
+![Email Confirmed](../../../images/desec_io2.png)
+
+Take note of the "token secret", you'll need it later.
+But for now, click ASSIGN ACCOUNT PASSWORD down below to lock down your account.
+This will prompt deSEC to send you another email with another link that will let you set your account password.
+
+After all that is done, click LOG IN and use your email and password.
+Once inside, click on your domain, and then on the big plus (+) symbol to add a new DNS record like so:
+
+![deSEC Main Menu](../../../images/desec_io3.png)
+![Add a new DNS Record](../../../images/desec_io4.png)
+
+The record type must be `A`.
+
+Subname can be whatever you want, but make it descriptive.
+
+For the IP I recommend making it up (e.g. `1.2.3.4`) because in the next step we'll want to test if our IP updating mechanism works.
+
+The TTL field is very important. It is the number of seconds that the DNS clients will cache the result of a DNS query before making another one again.
+In this case we want to set it as low as possible.
+In the case of deSEC this is 60 seconds.
+
+### Dynamic IP script
+
+Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC.
+We'll need the "secret token" from the deSEC registration step.
+
+Log into MiniBolt and paste the following script into `/opt/dynamic-ip-refresh.sh`
+
+  ```sh
+  $ sudo nano /opt/dynamic-ip-refresh.sh
+  ```
+  ```
+  #!/usr/bin/env bash
+
+  set -euo pipefail
+
+  DEDYN_DOMAIN=wg.r4kkz4feflfx.dedyn.io
+  DEDYN_TOKEN=YOUR_SECRET_TOKEN
+
+  CURRENT_IP=$(curl -s https://api.ipify.org/)
+
+  curl -i -s \
+    -H "Authorization: Token ${DEDYN_TOKEN}" \
+    -X GET "https://update.dedyn.io/?hostname=${DEDYN_DOMAIN}&ip=${CURRENT_IP}"
+  ```
+
+After writing the script make it executable and restrict access to it (because it contains sensitive data), and create a crontab entry for root to run it every two minutes:
+
+  ```sh
+  $ sudo chmod 700 /opt/dynamic-ip-refresh.sh
+  ```
+  ```sh
+  $ sudo crontab -e
+  ```
+  ```
+  */2 * * * *     /opt/dynamic-ip-refresh.sh
+  ```
+
+After a few minutes, you should see in the deSEC web interface that the IP of the `wg` DNS record has changed automatically:
+
+![Successful DNS Record update](../../../images/desec_io5.png)
+
+You now have a free domain (wg.r4kkz4feflfx.dedyn.io) that always points to your home IP address.
+
+The only step left is replacing the IP of your WireGuard clients configuration with it.
+So the Endpoint section would change from `188.86.27.80:51820` to `wg.r4kkz4feflfx.dedyn.io:51820`.
 
 ## Tip for configuring a mobile client
 
-TODO
+Entering public and private key material into a mobile phone is particularly cumbersome.
+A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel in QR code format.
 
+To do that you need the `qrencode` package on MiniBolt:
 
+  ```sh
+  $ sudo apt install qrencode
+  ```
 
+Now, assuming you have written a WireGuard configuration file at `config.txt` you can convert it to a QR code like so:
+
+  ```sh
+  $ qrencode -t ansiutf8 < config.txt
+  ```
 
 
 
