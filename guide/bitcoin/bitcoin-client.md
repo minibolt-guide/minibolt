@@ -450,7 +450,7 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
   $2 bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo | grep address.*i2p
   ```
 
-* Check the correct enablement of the I2P and Tor networks, maybe you don't have I2P peer connections yet, don't worry, the inclusion of the I2P network in Bitcoin Core is recent and it might take a while to find peers available, be patient
+* Check the correct enablement of the I2P and Tor networks
 
 Example of expected output:
 
@@ -515,7 +515,7 @@ We also now want to enable the node to listen to and relay transactions.
 ## OpenTimestamps client
 
 When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website.
-In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third-party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
+In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
 Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client){:target="_blank"} to locally verify the timestamp of the binaries checksums file.
 
 * As user "admin", install dependencies

@@ -46,15 +46,15 @@ Status: Tested MiniBolt
 
 ### Install dependencies
 
-obfs4 makes Tor traffic look random, and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configured all.
+obfs4 makes Tor traffic look random, and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configure all.
 
-* Ensure you are logged with user `"admin"` and install obfs4proxy
+* Ensure you are logged in as `"admin"` user and install `"obfs4proxy"` package
 
   ```sh
   $ sudo apt install obfs4proxy
   ```
 
-## Installation
+## Tor installation
 
 * Ensure you have Tor daemon installed in your system
 
@@ -64,7 +64,7 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   [...]
   ```
 
-💡 If not obtain results, follow the [Privacy section](../../system/privacy.md#installation) to install it.
+💡 If not obtain results, follow the [Tor installation on the privacy section](../../system/privacy.md#installation) to install it.
 
 ### Configuration
 
@@ -78,26 +78,30 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   # Replace <TODO1> with a Tor port of your choice >1024.
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
   ORPort <TODO1> IPv4Only
+  ExtORPort auto
 
   # Replace <TODO2> with an obfs4 port of your choice.
   # This port must be externally reachable and must be different from the one specified for ORPort (<TODO1>).
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
   ServerTransportListenAddr obfs4 0.0.0.0:<TODO2>
+  ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
 
-  # Replace "<PickANickname>" with a nickname that you like for your bridge.
-  # Nicknames must be between 1 and 19 characters inclusive,
-  # and must contain only the characters [a-zA-Z0-9]. This is optional.
-  Nickname <PickANickname>
-
-  # Replace "<address@email.com>" with a email address that you like for your bridge.
-  # Note that we archive and publish all
+  # Replace "<address@email.com>" with your email address so we can contact you
+  # if there are problems with your bridge. This line
+  # can be used to contact you if your relay or bridge is misconfigured or
+  # something else goes wrong. Note that we archive and publish all
   # descriptors containing these lines and that Google indexes them, so
   # spammers might also collect them. You may want to obscure the fact that
   # it's an email address and/or generate a new address for this purpose.
+  # e.g ContactInfo Random Person <nobody AT example dot com>
+  # You might also include your PGP or GPG fingerprint if you have one
+  # This is optional but encouraged.
   ContactInfo <address@email.com>
 
-  ExtORPort auto
-  ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+  # Pick a nickname that you like for your bridge. Nicknames must be between 1 and 19 characters inclusive,
+  # and must contain only the characters [a-zA-Z0-9]. This is optional.
+  Nickname <PickANickname>
+
   BridgeRelay 1
   ```
 
@@ -121,11 +125,11 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge'
 $ sudo ufw status
 ```
 
-🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter in the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network, and put your `"<TODO2>"` port.
+🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network and put your `"<TODO2>"` port.
 
 ### Systemd hardening
 
-* To work around systemd hardening, you will also need to set Tor services, editing the next files
+* To work around systemd hardening, you will also need to set Tor services, edit the next files
 
   ```sh
   $ sudo nano /lib/systemd/system/tor@default.service
@@ -169,7 +173,7 @@ $ sudo ufw status
 
 ### Testing
 
-* Check the systemd journal to see Tor logs since the last updates output logs. Press Ctrl-C to exit.
+* Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit.
 
   ```sh
   $ sudo journalctl -f -u tor@default --since '1 hour ago'
@@ -210,7 +214,7 @@ $ sudo ufw status
 
 💡 You'll need to replace <IP ADDRESS>, <PORT>, and <FINGERPRINT> with the actual values, which you can find in the tor log. Make sure that you use <PORT> as the obfs4 port `"<TODO2>"` that you chose and <FINGERPRINT> not <HASHED FINGERPRINT>.
 
-🔍 More info to connect Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
+🔍 More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
 
 ## Extras
 
@@ -275,7 +279,7 @@ One of the most important things to keep your relay secure is to install securit
 
 ![Nyx Tor bridge](../../../images/nyx-tor-bridge.png)
 
-* Press `q` key two times to exit
+* Press the `q` key two times to exit
 
 ## Uninstall
 
@@ -329,7 +333,7 @@ $ sudo ufw delete X
 $ sudo ufw status verbose
 ```
 
-🚨 Reverts router NAT configuration following the same "[Configure](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat) Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
+🚨 Reverts router NAT configuration following the same "[Configure Firewall and NAT](./tor-bridge.md#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
 
 ### Uninstall systemd hardening
 

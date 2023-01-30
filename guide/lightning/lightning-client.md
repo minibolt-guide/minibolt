@@ -297,6 +297,7 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   [tor]
   tor.active=true
   tor.v3=true
+  tor.streamisolation=true
   ```
 
 🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options
@@ -401,7 +402,7 @@ Once LND is started, the process waits for us to create the integrated Bitcoin o
   ```
 
 * Enter your `password [C]` as wallet password (it must be exactly the same you stored in `password.txt`).
-  To create a a new wallet, select `n` when asked if you have an existing cipher seed.
+  To create a new wallet, select `n` when asked if you have an existing cipher seed.
   Just press enter if asked about an additional seed passphrase, unless you know what you're doing.
   A new cipher seed consisting of 24 words is created.
 

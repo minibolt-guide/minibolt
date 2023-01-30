@@ -212,12 +212,21 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
   $ sudo rm /etc/nginx/sites-enabled/default
   ```
 
-* Test this barebone Nginx configuration
+* Test and reload Nginx configuration
 
   ```sh
   $ sudo nginx -t
+  ```
+
+Expected output:
+
+  ```sh
   > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
   > nginx: configuration file /etc/nginx/nginx.conf test is successful
+  ```
+
+  ```sh
+  $ sudo systemctl reload nginx
   ```
 
 <br /><br />
