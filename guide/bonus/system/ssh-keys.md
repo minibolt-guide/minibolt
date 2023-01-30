@@ -119,7 +119,7 @@ e.g:
 
 ### From your regular Linux PC
 
-* Login with "admin" user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step.
+* Login with "admin" user on MiniBolt and create a new folder at home called `".ssh"`. If already exists, skip the next step.
 
  ```sh
  $ mkdir .ssh
@@ -131,7 +131,7 @@ e.g:
   $ chmod 700 .ssh
   ```
 
-* Create a file called "id_rsa.pub" on it and paste the content information of the "id_rsa.pub" file generated in the [Linux or macOS step before](#generate-ssh-keys-on-linux-or-macos)
+* Create a file called "authorized_keys" on it and paste the content information of the "id_rsa.pub" file generated in the [Linux or macOS step before](#generate-ssh-keys-on-linux-or-macos)
 
   ```sh
   $ nano .ssh/authorized_keys
@@ -146,7 +146,7 @@ e.g:
 * Limit permissions for reading and writing only to the user admin
 
   ```sh
-  $ chmod 600 authorized_keys
+  $ chmod 600 .ssh/authorized_keys
   ```
 
 ### From GitHub keyserver
