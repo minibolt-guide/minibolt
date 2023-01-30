@@ -146,7 +146,7 @@ e.g:
 * Limit permissions for reading and writing only to the user admin
 
   ```sh
-  $ chmod 600 authorized_keys
+  $ chmod 600 .ssh/authorized_keys
   ```
 
 ### From GitHub keyserver
