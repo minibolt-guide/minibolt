@@ -288,7 +288,7 @@ We'll also set the proper access permissions.
   blocksonly=1
   ```
 
-🔍 *This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92){:target="_blank"} with all possible options
+🔍 This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92){:target="_blank"} with all possible options
 
 * Set permissions: only the user 'bitcoin' and members of the 'bitcoin' group can read it
 
