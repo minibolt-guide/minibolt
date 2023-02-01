@@ -78,22 +78,10 @@ Expected output:
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* Create ".gnupg" folder
-
-  ```sh
-  $ gpg --list-keys
-  ```
-
-* Enter on the ".gnupg" folder, create a persistent folder for the signatures called "sigs" and enter on it
-
-  ```sh
-  $ cd /home/admin/.gnupg/ && mkdir sigs && cd sigs
-  ```
-
 * The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
   ```sh
-  $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
+  $ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
   ```
 
 Expected output:
@@ -108,23 +96,7 @@ Expected output:
   > gpg: Total number processed: 1
   > gpg:               imported: 1
   > gpg: no ultimately trusted keys found
-  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-  >                                 Dload  Upload   Total   Spent    Left  Speed
-  > 100 17983  100 17983    0     0   125k      0 --:--:-- --:--:-- --:--:--  125k
-  > gpg: key 944D35F9AC3DB76A: 19 signatures not checked due to missing keys
-  > gpg: key 944D35F9AC3DB76A: public key "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" imported
-  > gpg: Total number processed: 1
-  > gpg:               imported: 1
-  > gpg: no ultimately trusted keys found
   [...]
-  ```
-
-💡 If appears to you `Command 'jq' not found` you will need to install `jq` with `$ sudo apt install jq`. When it finishes, repeat the step before.
-
-* Return to the `tmp` folder and follow the signature check process
-
-  ```sh
-  $ cd /tmp
   ```
 
 * Verify that the checksums file is cryptographically signed by the release signing keys.
@@ -217,12 +189,6 @@ Instead of creating this directory, we create a data directory in the general da
   $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
   ```
 
-* Display the link and check that it is not shown in red (this would indicate an error)
-
-  ```sh
-  $ ls -la
-  ```
-
 ### Generate access credentials
 
 For other programs to query Bitcoin Core they need the proper access credentials.
@@ -249,6 +215,11 @@ Bitcoin Core provides a simple Python program to generate the configuration line
 
   ```sh
   $  python3 rpcauth.py minibolt YourPasswordB
+  ``
+  
+Expected **example** output:
+
+  ```sh
   > String to be appended to bitcoin.conf:
   > rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa
   ```
@@ -651,22 +622,25 @@ Expected output:
   > bitcoin-$VERSION-x86_64-linux-gnu.tar.gz: OK
   ```
 
-* Enter the `sigs` folder
+* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
   ```sh
-  $ cd /home/admin/.gnupg/sigs
+  $ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
   ```
 
-* The next command download and imports automatically all signatures from the Bitcoin Core Guix repository and update our database if necessary
+Expected output:
 
   ```sh
-  $ curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .download_url' | xargs -L1 wget -N && curl 'https://api.github.com/repositories/355107265/contents/builder-keys' | jq '.[] .name' | xargs -L1 gpg --import
-  ```
-
-* Return to the `tmp` folder
-
-  ```sh
-  $ cd /tmp
+  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  >                                 Dload  Upload   Total   Spent    Left  Speed
+  > 100 30520  100 30520    0     0   200k      0 --:--:-- --:--:-- --:--:--  198k
+  > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+  > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
+  > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
+  > gpg: Total number processed: 1
+  > gpg:               imported: 1
+  > gpg: no ultimately trusted keys found
+  [...]
   ```
 
 * Verify that the checksums file is cryptographically signed by the release signing keys.
@@ -683,7 +657,7 @@ Expected output:
   > Primary key fingerprint: ...
   ```
 
-* Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing correctly OTS client in the [proper section](#opentimestamps-client)
+* Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing correctly OTS client in the [proper section](bitcoin-client.md#opentimestamps-client)
 
   ```sh
   $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
