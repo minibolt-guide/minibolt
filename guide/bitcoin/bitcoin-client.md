@@ -87,9 +87,6 @@ Bitcoin releases are signed by several individuals, each using its own key. To v
 Expected output:
 
   ```sh
-  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-  >                                 Dload  Upload   Total   Spent    Left  Speed
-  > 100 30520  100 30520    0     0   200k      0 --:--:-- --:--:-- --:--:--  198k
   > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
   > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
   > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
@@ -631,9 +628,6 @@ Expected output:
 Expected output:
 
   ```sh
-  >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-  >                                 Dload  Upload   Total   Spent    Left  Speed
-  > 100 30520  100 30520    0     0   200k      0 --:--:-- --:--:-- --:--:--  198k
   > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
   > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
   > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
