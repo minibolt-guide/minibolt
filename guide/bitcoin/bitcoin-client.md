@@ -212,8 +212,8 @@ Bitcoin Core provides a simple Python program to generate the configuration line
 
   ```sh
   $  python3 rpcauth.py minibolt YourPasswordB
-  ``
-  
+  ```
+
 Expected **example** output:
 
   ```sh
