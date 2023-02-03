@@ -81,6 +81,7 @@ Before running LND, we need to set up settings in the Bitcoin Core configuration
 
   ```sh
   $ sha256sum --check manifest-$VERSION-beta.txt --ignore-missing
+  ```
 
 Expected output
 
@@ -132,7 +133,8 @@ We can also check that the manifest file was in existence around the time of the
 
   ```sh
   $ ots --no-cache verify manifest-roasbeef-$VERSION-beta.sig.ots -f manifest-roasbeef-$VERSION-beta.sig
-
+  ```
+`
 The following output is just an example of one of the versions
 
   ```sh
