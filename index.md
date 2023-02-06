@@ -80,7 +80,7 @@ Everything is optional.
 
 ## How build
 
-- YouTube list building MiniBolt in live with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms){:target="_blank"}
+- YouTube list building MiniBolt in life with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms){:target="_blank"}
 
 ---
 
@@ -125,7 +125,7 @@ Status: Tested MiniBolt
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-* Paid service: indicates if the service used in the guide is a free o a paid service.
+* Paid service: indicates if the service used in the guide is free o a paid service.
 
 Cost: Paid service
 {: .label .label-yellow }
@@ -158,19 +158,20 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
 * Lightning
 
   * [Lightning client](guide/lightning/lightning-client.md)
+  * [Channel backup](guide/lightning/channel-backup.md)
   * [Web app](guide/lightning/web-app.md)
 
 * Bonus
 
   * System
- 
+
     * [Aliases](guide/bonus/system/aliases.md)
     * [Command line](guide/bonus/system/command-line.md)
     * [Go](guide/bonus/system/go.md)
     * [Tor bridge](guide/bonus/system/tor-bridge.md)
 
   * Bitcoin
- 
+
     * [Bisq](guide/bonus/bitcoin/bisq.md)
     * [Electrs](guide/bonus/bitcoin/electrs.md)
     * [Electrum Wallet Desktop](guide/bonus/bitcoin/electrum-wallet-desktop.md)

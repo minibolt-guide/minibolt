@@ -112,11 +112,11 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
 * Configure the firewall to allow incoming requests replacing `<TODO1>` and `<TODO2>` previously configured in the section before
 
 ```sh
-$ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge'
+$ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge from anywhere'
 ```
 
 ```sh
-$ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge'
+$ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
 * Check the correct application of the rules
