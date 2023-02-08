@@ -190,8 +190,8 @@ Expected output:
 * This patch change the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network, add it as feature signaling and apply the spam filter. Enter the complete next command in the terminal and press enter
 
   ```
-  wget -O ordisrespector.patch https://semisol.dev/static/ordisrespector.patch &&
-    echo "57ca87924dc81cdddd32dad7b2bf147acd7082674df4294afe912aae89428c04  ordisrespector.patch" | sha256sum -c &&
+  wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/ordisrespector.patch &&
+    echo "2dd3c4093382b3e82e24fe34c4de5fba224ae02664b45afda7ce1a6bfb9971ce  ordisrespector.patch" | sha256sum -c &&
     git apply ordisrespector.patch
   ```
 
