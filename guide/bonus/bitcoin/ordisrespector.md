@@ -185,11 +185,6 @@ Expected output:
     --disable-tests \
     --with-daemon=yes \
     --with-gui=no \
-    --with-libmultiprocess=no \
-    --with-libs=no \
-    --with-miniupnpc=no \
-    --with-mpgen=no \
-    --with-natpmp=no \
     --with-qrencode=no \
     --with-utils=yes
   ```
@@ -220,7 +215,7 @@ Expected output:
   $ sudo make install
   ```
 
-* Restart the Bitcoin Core to start Bitcoin Core with the Ordisrespector patch change
+* Restart your existing Bitcoin Core or start the new one with the Ordisrespector patch change
 
   ```sh
   $ sudo systemctl restart bitcoind
