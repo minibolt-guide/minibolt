@@ -243,13 +243,13 @@ Edit and add the next line at the end of the file
   $ sudo nano /data/bitcoin/bitcoin.conf  
   ```
 
-If you have enable Tor network:
+If you have enable Tor network
 
   ```
   addnode=ots6ud7ovx6furs4sxlm7aze5q44qtoeapwcukelcxc3i2r5tkxgdlqd.onion:8333
   ```
 
-If you have enable I2P netowrk, add this line as well
+If you have enable I2P network, add this line as well
 
   ```
   addnode=i2gu72r3tcmd5tuup53bauczdbvmylsoasvjxd56qobj7xhthxla.b32.i2p:0
