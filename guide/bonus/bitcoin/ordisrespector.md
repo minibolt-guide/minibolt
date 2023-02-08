@@ -9,17 +9,30 @@ has_toc: false
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-# Bonus guide: Ordisrespector
+# Bonus guide: Ordisrespector spam filter
 
 {: .no_toc }
 
 ---
 
-[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264){:target="_blank"} blablabla....
+[Ordinals](https://ordinals.com/) is a project created to number sats. It also has a feature called inscriptions, which is the problematic part and what is mainly being touched on in this guide. An inscription is basically data stored on chain associated with a sat.
+And why are they an attack on Bitcoin?
 
-https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831
+First of all, we probably should look at what Bitcoin is:
 
-[CONTEXT]
+    A Peer-to-Peer Electronic Cash System [(Bitcoin Whitepaper)](https://bitcoin.org/bitcoin.pdf)
+
+There is no mention of data storage on the chain and only financial transactions.
+Ordinals abuse the Bitcoin timechain which was meant to process financial transactions to store data, and this has some issues, such as:
+
+- Pushing out financial transactions, such as ones that need immediate confirmation such as force closes with pending HTLCs or a sweep-all TX.
+- Driving up fee rates for the sole reason of inscribing a JPEG.
+- It makes it way more expensive to maintain their node in the long term.
+- It makes them liable for any illegal content in their jurisdiction that they store on their disk and broadcast freely.
+
+while paying 4x less for the same bytes.
+
+[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264){:target="_blank"} is a ***spam patch filter*** that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and ***rejecting them***. The original patch was created by Luke Dashjr, you can see it here: https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831 [(Archive)](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831)
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -41,7 +54,7 @@ Status: Tested MiniBolt
 
 ## Preparations
 
-* Set the next environment variables
+* Login as "admin" user (for a MiniBolt environment) or your assigned user with `sudo` permissions, and set the next environment variable
 
   ```sh
   $ VERSION=24.0.1
@@ -59,7 +72,7 @@ Status: Tested MiniBolt
 
 ## Installation
 
-* Login as "admin" and change to a temporary directory which is cleared on reboot
+* Change to the temporary directory which is cleared on reboot
 
   ```sh
   $ cd /tmp
@@ -139,13 +152,19 @@ Expected output:
 
 ### Build it from the source code
 
+* Enter the Bitcoin Core source code folder
+
   ```sh
   $ cd bitcoin-$VERSION
   ```
 
+* Execute the next command
+
   ```sh
   $ ./autogen.sh
   ```
+
+* The next command will pre-configure the installation, enter the complete next command in the terminal and press enter
 
   ```sh
   $ ./configure \
@@ -165,13 +184,9 @@ Expected output:
       --with-utils=yes
   ```
 
-### Apply Ordisrespector patch filter
+### Apply the patch "Ordisrespector"
 
-https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831
-
-[(Archive)](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831)
-
-* Apply Ordisrespector spam filter
+* Apply ***"Ordisrespector"*** spam filter by entering the complete next command in the terminal and pressing enter
 
   ```
   git apply << EOF
@@ -195,7 +210,7 @@ https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831
   EOF
   ```
 
-* Patch User Agent
+* Patch the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network. Enter the complete next command in the terminal and press enter
 
   ```
   git apply << EOF
@@ -214,22 +229,28 @@ https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831
 
 ### Build
 
+* Enter the command to build the custom binaries
+
   ```sh
   $ make -j$(nproc)
   ```
 
 ### Install
 
+* Enter the next command to install the binaries on the system
+
   ```sh
   $ sudo make install
   ```
 
-* Restart the Bitcoin Core to apply the Ordisrespector change
+* Restart the Bitcoin Core to start Bitcoin Core with the Ordisrespector patch change
 
   ```sh
   $ sudo systemctl restart bitcoind
   ```
 
+* Check changes are been correctly applied and the "User Agent" shows "Ordisrespector" word
+  
   ```sh
   $ bitcoin-cli -netinfo
   ```
