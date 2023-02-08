@@ -62,6 +62,8 @@ Status: Tested MiniBolt
 
 ## Preparations
 
+> 💡 You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `$` sign. The system response is marked with the > character.
+
 * Login as "admin" user (for a MiniBolt environment) or your assigned user with `sudo` permissions, and set the next environment variable
 
   ```sh
@@ -174,7 +176,7 @@ Expected output:
   $ ./autogen.sh
   ```
 
-* The next command will pre-configure the installation, enter the complete next command in the terminal and press enter
+* The next command will pre-configure the installation, we will discard some features and include others. enter the complete next command in the terminal and press enter
 
   ```sh
   ./configure \
@@ -201,21 +203,23 @@ Expected output:
 
 ### Build
 
-* Enter the command to build the custom binaries
+* Enter the command to compile the custom binaries
 
   ```sh
   $ make -j$(nproc)
   ```
 
+💡 This process could remain for several minutes depending on your device's performance. Be patient until the prompt shows again
+
 ### Install
 
-* Enter the next command to install the binaries on the system
+* Enter the next command to install the new binaries on the OS
 
   ```sh
   $ sudo make install
   ```
 
-* Restart your existing Bitcoin Core or start the new one with the Ordisrespector patch change
+* Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
 
   ```sh
   $ sudo systemctl restart bitcoind
@@ -231,6 +235,7 @@ Expected output:
 
   ```
   > Bitcoin Core client v24.0.1 - server 70016/Satoshi:24.1.0/Ordisrespector/
+  [...]
   ```
 
 <br /><br />
