@@ -42,7 +42,7 @@ Difficulty: Medium
 Status: Tested MiniBolt
 {: .label .label-blue }
 
-![Ordisrespector](../../../images/ordisrespector-flag.PNG)
+![Ordisrespector](../../../images/ordisrespector-flag.png)
 
 ---
 
@@ -65,7 +65,7 @@ Status: Tested MiniBolt
   ```sh
   $ sudo apt update && sudo apt full-upgrade
   ```
-  
+
 * Set the next environment variable
 
   ```sh
@@ -190,14 +190,14 @@ Expected output:
 
 ### Apply the patch "Ordisrespector"
 
-This patch change the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network, add it as feature signaling and apply the spam filter. 
+This patch change the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network, add it as feature signaling and apply the spam filter.
 
 * Download the Ordisrespector patch
 
   ```sh
   $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/ordisrespector.patch
   ```
-  
+
 * Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
 
   ```sh
@@ -234,19 +234,10 @@ This patch change the user agent with the tag "Ordisrespector" to identify our c
   $ sudo systemctl restart bitcoind
   ```
 
-* Check changes are been correctly applied and the "User Agent" shows "Ordisrespector" word
-  
-  ```sh
-  $ bitcoin-cli -netinfo
-  ```
+* Wait a minutes and check in your own BTC RPC Explorer or Mempool, that the current Ordinals transactions that are waiting on the Bitcoin mempool do not exist on it
 
-Expected output:
+![Ordisrespector](../../../images/ordisrespector-mempool-tx.png)
 
-  ```
-  > Bitcoin Core client v24.0.1 - server 70016/Satoshi:24.1.0/Ordisrespector/
-  [...]
-  ```
-  
 ## Extra
 
 ### Add Ordisrespector node peers (optional)
@@ -255,16 +246,16 @@ Expected output:
 Edit and add the next line at the end of the file
 
   ```sh
-  $ sudo nano /data/bitcoin/bitcoin.conf  
+  $ sudo nano /data/bitcoin/bitcoin.conf
   ```
 
-If you have enable Tor network
+If you have enabled Tor network
 
   ```
   addnode=ots6ud7ovx6furs4sxlm7aze5q44qtoeapwcukelcxc3i2r5tkxgdlqd.onion:8333
   ```
 
-If you have enable I2P network, add this line as well
+If you have enabled I2P network, add this line as well
 
   ```
   addnode=i2gu72r3tcmd5tuup53bauczdbvmylsoasvjxd56qobj7xhthxla.b32.i2p:0

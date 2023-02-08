@@ -1,16 +1,3 @@
-diff --git a/src/clientversion.cpp b/src/clientversion.cpp
-index e7d63e34c..9dbf0c91e 100644
---- a/src/clientversion.cpp
-+++ b/src/clientversion.cpp
-@@ -73,7 +73,7 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const
-             ss << "; " << *it;
-         ss << ")";
-     }
--    ss << "/";
-+    ss << "/Ordisrespector/";
-     return ss.str();
- }
-
 diff --git a/src/script/interpreter.cpp b/src/script/interpreter.cpp
 index 03b157a84..e7d9e96d0 100644
 --- a/src/script/interpreter.cpp
