@@ -170,7 +170,7 @@ Expected output:
   $ ./autogen.sh
   ```
 
-* The next command will pre-configure the installation, we will discard some features and include others. enter the complete next command in the terminal and press enter
+* The next command will pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
   ```sh
   ./configure \
@@ -193,6 +193,12 @@ Expected output:
   wget -O ordisrespector.patch https://semisol.dev/static/ordisrespector.patch &&
     echo "57ca87924dc81cdddd32dad7b2bf147acd7082674df4294afe912aae89428c04  ordisrespector.patch" | sha256sum -c &&
     git apply ordisrespector.patch
+  ```
+
+* Inspect `ordisrespector.patch` file to make sure it does not do bad things and modify it with your personal aliases if you want. Exit with Ctrl-X
+
+  ```sh
+  $ nano 
   ```
 
 ### Build
