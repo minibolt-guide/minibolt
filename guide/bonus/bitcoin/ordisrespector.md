@@ -196,45 +196,12 @@ Expected output:
 
 ### Apply the patch "Ordisrespector"
 
-* Apply ***"Ordisrespector"*** spam filter by entering the complete next command in the terminal and pressing enter
+* This patch change the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network, add it as feature signaling and apply the spam filter. Enter the complete next command in the terminal and press enter
 
   ```
-  git apply << EOF
-  --- a/src/script/interpreter.cpp
-  +++ b/src/script/interpreter.cpp
-  @@ -504,6 +504,14 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript&
-                      return set_error(serror, SCRIPT_ERR_MINIMALDATA);
-                  }
-                  stack.push_back(vchPushValue);
-  +                if ((flags & SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_NOPS) && opcode == OP_FALSE) {
-  +                    auto pc_tmp = pc;
-  +                    opcodetype next_opcode;
-  +                    valtype dummy_data;
-  +                    if (script.GetOp(pc_tmp, next_opcode, dummy_data) && next_opcode == OP_IF) {
-  +                        return set_error(serror, SCRIPT_ERR_DISCOURAGE_UPGRADABLE_NOPS);
-  +                    }
-  +                }
-              } else if (fExec || (OP_IF <= opcode && opcode <= OP_ENDIF))
-              switch (opcode)
-              {
-  EOF
-  ```
-
-* Patch the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network. Enter the complete next command in the terminal and press enter
-
-  ```
-  git apply << EOF
-  --- a/src/clientversion.cpp
-  +++ b/src/clientversion.cpp
-  @@ -73,7 +73,7 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const
-              ss << "; " << *it;
-          ss << ")";
-      }
-  -    ss << "/";
-  +    ss << "/Ordisrespector/";
-      return ss.str();
-  }
-  EOF
+  wget -O ordisrespector.patch https://semisol.dev/static/ordisrespector.patch &&
+    echo "57ca87924dc81cdddd32dad7b2bf147acd7082674df4294afe912aae89428c04  ordisrespector.patch" | sha256sum -c &&
+    git apply ordisrespector.patch
   ```
 
 ### Build
