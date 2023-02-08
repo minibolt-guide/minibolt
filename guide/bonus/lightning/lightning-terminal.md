@@ -44,7 +44,7 @@ Lightning Terminal, developped by Lighining Labs, aims at providing additional t
 * Pool client (`pool`): Buy and sell inbound liquidity using the peer-to-peer auction-based Pool exchange using the CLI or web GUI
 * Faraday client (`frcli`): Run the Faraday daemon on your node that provides a CLI-based LN node accounting service
 
-Because Pool is alpha software, Lightning Terminal is also alpha software.  
+Because Pool is alpha software, Lightning Terminal is also alpha software.
 
 ## Preparations
 
@@ -53,7 +53,7 @@ Because Pool is alpha software, Lightning Terminal is also alpha software.
 * Configure the UFW firewall to allow incoming HTTPS requests:
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 8443 proto tcp comment 'allow Lightning Terminal SSL'
+  $ sudo ufw allow 8443/tcp comment 'allow Lightning Terminal SSL from anywhere'
   $ sudo ufw status
   ```
 
@@ -91,9 +91,9 @@ Now that we've verified the integrity of the downloaded binary, we need to check
   > gpg: Total number processed: 1
   > gpg:               imported: 1
   ```
-  
+
 * Using the key, verify the authenticity of the checksums file
-  
+
   ```sh
   $ gpg --verify manifest-v0.8.5-alpha.sig manifest-v0.8.5-alpha.txt
   > gpg: Signature made Fri Dec  2 09:20:23 2022 UTC
@@ -169,7 +169,7 @@ We can also check that the manifest file was in existence around the time of the
   ```
 
 * Open a “lit” user session
-  
+
   ```sh
   $ sudo su - lit
   ```
@@ -201,18 +201,18 @@ The settings for Pool, Faraday, Loop can all be put in the configuration file
   $ cd ~/.lit
   $ nano lit.conf
   ```
-  
-  ```ini  
+
+  ```ini
   # MiniBolt: Lightning Terminal configuration
   # /home/lit/.lit/lit.conf
-  
+
   #######################
   # Application Options #
   #######################
-  
+
   # The host:port to listen for incoming HTTP/2 connections on for the web UI only. (default:127.0.0.1:8443)
   httpslisten=0.0.0.0:8443
-  
+
   # Your password for the UI must be at least 8 characters long
   uipassword=Password[E]
 
@@ -223,37 +223,37 @@ The settings for Pool, Faraday, Loop can all be put in the configuration file
   remote.lnd.rpcserver=127.0.0.1:10009
   remote.lnd.macaroonpath=~/.lnd/data/chain/bitcoin/mainnet/admin.macaroon
   remote.lnd.tlscertpath=~/.lnd/tls.cert
-  
+
   #################
   #     Loop      #
   #################
-  
+
   loop.loopoutmaxparts=5
-  
+
   #################
   #     Pool      #
   #################
-  
+
   # This option avoids the creation of channels with nodes with whom you already have a channel (set to 0 if you don't mind)
   pool.newnodesonly=1
   # Path to Pool's own macaroon
   pool.macaroonpath=~/.pool/mainnet/pool.macaroon
-    
+
   ##################
   #     Faraday    #
   ##################
-  
+
   # If connect_bitcoin is set to 1, Faraday can connect to a bitcoin node (with --txindex set) to provide node accounting services
   faraday.connect_bitcoin=1
   # The minimum amount of time that a channel must be monitored for before recommending termination
   faraday.min_monitored=72h
   # Path to Faraday's own macaroon
   faraday.macaroonpath=~/.faraday/mainnet/faraday.macaroon
-    
+
   ###################
   # Faraday-Bitcoin #
   ###################
-  
+
   # The Bitcoin node IP is the IP address of the MiniBolt, i.e. an address like 192.168.0.20
   faraday.bitcoin.host=192.168.0.20
   # bitcoin.user provides to Faraday the bicoind RPC username, as specified in our bitcoin.conf
@@ -291,7 +291,7 @@ The settings for Pool, Faraday, Loop can all be put in the configuration file
 Now we’ll make sure Lightning Terminal starts as a service on the Raspberry Pi so it’s always running. In order to do that, we create a systemd service file that starts Lightning Terminal on boot directly after LND.
 
 * Create the Lightning Terminal systemd service with the following content. Save and exit.
-  
+
   ```sh
   $ sudo nano /etc/systemd/system/litd.service
   ```
@@ -299,18 +299,18 @@ Now we’ll make sure Lightning Terminal starts as a service on the Raspberry Pi
   ```sh
   # MiniBolt: systemd unit for litd
   # /etc/systemd/system/litd.service
-  
+
   [Unit]
   Description=Lightning Terminal Daemon
   After=lnd.service
   PartOf=lnd.service
-  
+
   [Service]
-  
+
   # Service execution
   ###################
   ExecStart=/usr/local/bin/litd
-  
+
   # Process management
   ####################
   Type=simple
@@ -318,36 +318,36 @@ Now we’ll make sure Lightning Terminal starts as a service on the Raspberry Pi
   RestartSec=30
   TimeoutSec=240
   LimitNOFILE=128000
-  
+
   # Directory creation and permissions
   ####################################
   User=lit
-  
+
   # Hardening measures
   ####################
   # Provide a private /tmp and /var/tmp.
   PrivateTmp=true
-  
+
   # Mount /usr, /boot/ and /etc read-only for the process.
   ProtectSystem=full
-  
+
   # Disallow the process and all of its children to gain
   # new privileges through execve().
   NoNewPrivileges=true
-  
+
   # Use a new /dev namespace only populated with API pseudo devices
   # such as /dev/null, /dev/zero and /dev/random.
   PrivateDevices=true
-  
+
   # Deny the creation of writable and executable memory mappings.
   MemoryDenyWriteExecute=true
-  
+
   [Install]
   WantedBy=multi-user.target
   ```
-  
+
 * Enable and start the service and check its status and logging output
-  
+
   ```sh
   $ sudo systemctl enable litd
   $ sudo systemctl start litd
@@ -357,16 +357,16 @@ Now we’ll make sure Lightning Terminal starts as a service on the Raspberry Pi
   >   Active: active (running) since Mon 2021-12-27 19:16:10 GMT; 22h ago
   > [...]
   ```
-  
+
 * Check the live logging activity. Press Ctrl+C to exit.
-  
+
   ```sh
   $ sudo journalctl -f -u litd
   ```
 
 ### Aliases
 
-For now, software packaged in Lightning Terminal are all listening to the same port 8443. This is not the default behavior set in the code of these sofware so you must always indicate the RPC port as well as the TLS certificate of Lightning Terminal when using them, using flags (e.g., `pool --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert accounts list`, do not try it now as Lightning Terminal is not running yet!).  
+For now, software packaged in Lightning Terminal are all listening to the same port 8443. This is not the default behavior set in the code of these sofware so you must always indicate the RPC port as well as the TLS certificate of Lightning Terminal when using them, using flags (e.g., `pool --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert accounts list`, do not try it now as Lightning Terminal is not running yet!).
 
 Rather than always typing the flags, we can create aliases for the "admin" user.
 
@@ -381,10 +381,10 @@ Rather than always typing the flags, we can create aliases for the "admin" user.
   ######################
   # Lightning Terminal #
   ######################
-  
+
   alias litfaraday="frcli --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
   alias litloop="loop --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
-  alias litpool="pool --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert" 
+  alias litpool="pool --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
   ```
 
 * Activate the aliases
@@ -524,14 +524,14 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
   $ cd /etc/systemd/system
   $ sudo rm litd.service
   ```
-  
+
 * Remove the Lightning Terminal binaries
 
   ```sh
   $ cd /usr/local/bin
   $ sudo rm frcli litcli litd loop pool
   ```
-  
+
 * Remove the "admin" user symlinks
 
   ```sh
@@ -551,11 +551,11 @@ If you have installed [Ride The Lightning](../../web-app.md), you can use the Lo
   ```sh
   $ nano .bash_aliases
   ```
-  
+
   ```sh
   #alias litfaraday="frcli --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
   #alias litloop="loop --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
-  #alias litpool="pool --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert" 
+  #alias litpool="pool --rpcserver=localhost:8443 --tlscertpath=~/.lit/tls.cert"
   ```
 
 * Finally, with the "root" user, delete the "lit" user

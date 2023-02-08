@@ -46,7 +46,7 @@ Status: Not tested MiniBolt
 
 ### Python virtual environment
 
-[Virtualenv](https://virtualenv.pypa.io/en/latest/){:target="_blank"} is a tool to create isolated Python environments. 
+[Virtualenv](https://virtualenv.pypa.io/en/latest/){:target="_blank"} is a tool to create isolated Python environments.
 
 * With user "admin", check if `virtualenv` is already installed on yout node. If not, use `apt` to install it.
 
@@ -62,7 +62,7 @@ Status: Not tested MiniBolt
 * Configure firewall to allow incoming HTTP requests:
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 8889 proto tcp comment 'allow LNDg SSL from local network'
+  $ sudo ufw allow 8889/tcp comment 'allow LNDg SSL from anywhere'
   ```
 
 ## LNDg
@@ -73,14 +73,14 @@ We do not want to run LNDg alongside `bitcoind` and `lnd` because of security re
 For that we will create a separate user and we will be running the code as the new user.
 
 * Create a new user and make it a member of the "lnd" group to give it read access to the LND macaroons and data
-  
+
   ```sh
   $ sudo adduser --disabled-password --gecos "" lndg
   $ sudo adduser lndg lnd
   $ sudo adduser lndg www-data
   $ sudo adduser www-data lndg
   ```
-  
+
 * Log in with the lndg user and create a symbolic link to the LND data directory
 
   ```sh
@@ -100,7 +100,7 @@ For that we will create a separate user and we will be running the code as the n
   $ virtualenv -p python .venv
   ```
 
-* Install required dependencies and initialize some settings for your Django site. 
+* Install required dependencies and initialize some settings for your Django site.
 A first time password will be output, save it somewhere safe (_e.g._, your password manager).
 
   ```sh
@@ -132,7 +132,7 @@ A first time password will be output, save it somewhere safe (_e.g._, your passw
 * Now point your browser to the LNDg Python server, for example http://minibolt.local:8889
 (or your node's IP address, e.g. http://192.168.0.20:8889).
 
-* The initial login user is "lndg-admin" and the password is the one generated just above. 
+* The initial login user is "lndg-admin" and the password is the one generated just above.
 If you didn't save the password, you can get it again with: `nano /home/lndg/lndg/data/lndg-admin.txt`
 
 * Shut down the server with `Ctrl+c`
@@ -164,7 +164,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   > -rw-r--r--  1 lndg    lndg    19468288 Nov 11 11:23 db.sqlite3
   ```
 
-* Delete the old database from the LNDg runtime directory and instead create a symbolic link 
+* Delete the old database from the LNDg runtime directory and instead create a symbolic link
 
   ```sh
   $ sudo rm /home/lndg/lndg/data/db.sqlite3
@@ -191,7 +191,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   ```sh
   # lndg.ini file
   [uwsgi]
-  
+
   ###########################
   # Django-related settings #
   ###########################
@@ -230,14 +230,14 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   uwsgi_param  REQUEST_METHOD     $request_method;
   uwsgi_param  CONTENT_TYPE       $content_type;
   uwsgi_param  CONTENT_LENGTH     $content_length;
-  
+
   uwsgi_param  REQUEST_URI        "$request_uri";
   uwsgi_param  PATH_INFO          "$document_uri";
   uwsgi_param  DOCUMENT_ROOT      "$document_root";
   uwsgi_param  SERVER_PROTOCOL    "$server_protocol";
   uwsgi_param  REQUEST_SCHEME     "$scheme";
   uwsgi_param  HTTPS              "$https if_not_empty";
-  
+
   uwsgi_param  REMOTE_ADDR        "$remote_addr";
   uwsgi_param  REMOTE_PORT        "$remote_port";
   uwsgi_param  SERVER_PORT        "$server_port";
@@ -255,14 +255,14 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   ```sh
   $ sudo nano /etc/systemd/system/uwsgi.service
   ```
-  
+
   ```sh
   [Unit]
   Description=LNDg uWSGI app
   After=lnd.service
   PartOf=lnd.service
   Wants=jobs-lndg.timer rebalancer-lndg.timer htlc-stream-lndg.service
-  
+
   [Service]
   ExecStart=/home/lndg/lndg/.venv/bin/uwsgi --ini /home/lndg/lndg/lndg.ini
   User=lndg
@@ -274,7 +274,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   KillSignal=SIGQUIT
   Type=notify
   NotifyAccess=all
-  
+
   [Install]
   WantedBy=sockets.target
   ```
@@ -291,7 +291,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   upstream django {
     server unix:///home/lndg/lndg/lndg.sock; # for a file socket
   }
-  
+
   server {
     # the port your site will be served on
     listen 8889 ssl;
@@ -301,22 +301,22 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
     ssl_session_timeout 4h;
     ssl_protocols TLSv1.3;
     ssl_prefer_server_ciphers on;
-  
+
     # the domain name it will serve for
     server_name _;
     charset     utf-8;
-  
+
     # max upload size
     client_max_body_size 75M;
-  
+
     # max wait for django time
     proxy_read_timeout 180;
-  
+
     # Django media
     location /static {
         alias /home/lndg/lndg/gui/static; # your Django project's static files - amend as required
     }
-  
+
     # Finally, send all non-media requests to the Django server.
     location / {
         uwsgi_pass  django;
@@ -341,53 +341,53 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
 
   ```sh
   http {
-  
+
           ##
           # Basic Settings
           ##
-  
+
           sendfile on;
           tcp_nopush on;
           types_hash_max_size 2048;
           # server_tokens off;
-  
+
           # server_names_hash_bucket_size 64;
           # server_name_in_redirect off;
-  
+
           include /etc/nginx/mime.types;
           default_type application/octet-stream;
-  
+
           ##
           # SSL Settings
           ##
-  
+
           ssl_protocols TLSv1.3;
           ssl_prefer_server_ciphers on;
-  
+
           ##
           # Logging Settings
           ##
-  
+
           access_log /var/log/nginx/access.log;
           error_log /var/log/nginx/error.log;
-  
+
           ##
           # Gzip Settings
           ##
-  
+
           gzip on;
-  
+
           # gzip_vary on;
           # gzip_proxied any;
           # gzip_comp_level 6;
           # gzip_buffers 16 8k;
           # gzip_http_version 1.1;
           # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-  
+
           ##
           # Virtual Host Configs
           ##
-  
+
           include /etc/nginx/conf.d/*.conf;
           include /etc/nginx/sites-enabled/*;
   }
@@ -401,7 +401,7 @@ LNDg stores the LN node routing statistics and settings in a SQL database. We'll
   $ sudo touch /var/log/uwsgi/lndg.log
   $ sudo chgrp -R www-data /var/log/uwsgi
   $ sudo chmod 660 /var/log/uwsgi/lndg.log
-  
+
   # Sock file
   $ sudo touch /home/lndg/lndg/lndg.sock
   $ sudo chown lndg:www-data /home/lndg/lndg/lndg.sock
@@ -444,7 +444,7 @@ You can now access LNDg from within your local network by browsing to https://mi
 
 ### Backend refreshes
 
-LNDg uses a Python script (`~/lndg/jobs.py`), to gather data about your node that is then displayed in the GUI dashboard. 
+LNDg uses a Python script (`~/lndg/jobs.py`), to gather data about your node that is then displayed in the GUI dashboard.
 To have updated information in the GUI, it is necessary to regularly run the script to collect new data.
 
 * Create a systemd service file to run the LNDg `jobs.py` Python script. Save (Ctrl+o) and exit (Ctrl+x).
@@ -456,14 +456,14 @@ To have updated information in the GUI, it is necessary to regularly run the scr
   ```sh
   # MiniBolt: systemd unit for LNDg
   # /etc/systemd/system/jobs-lndg.service
-  
+
   [Unit]
   Description=LNDg backend refreshes Python script
-  
+
   [Service]
   ExecStart=/home/lndg/lndg/.venv/bin/python /home/lndg/lndg/jobs.py
   User=lndg
-  
+
   StandardError=append:/var/log/lnd_jobs_error.log
   RuntimeMaxSec=3600
   ```
@@ -476,8 +476,8 @@ To have updated information in the GUI, it is necessary to regularly run the scr
 
   ```sh
   # MiniBolt: systemd unit for LNDg
-  # /etc/systemd/system/jobs-lndg.timer  
-  
+  # /etc/systemd/system/jobs-lndg.timer
+
   [Unit]
   Description=Timer to activate jobs-lndg.service every 20 seconds
   After=uwsgi.service
@@ -487,7 +487,7 @@ To have updated information in the GUI, it is necessary to regularly run the scr
   OnBootSec=300
   OnUnitActiveSec=20
   AccuracySec=1
-  
+
   [Install]
   WantedBy=timers.target
   ```
@@ -530,14 +530,14 @@ LNDg uses a Python script (`~/lndg/rebalancer.py`) to automatically create circu
   ```sh
   # MiniBolt: systemd unit for LNDg
   # /etc/systemd/system/rebalancer-lndg.service
-  
+
   [Unit]
   Description=LNDg rebalancer Python script
-  
+
   [Service]
   ExecStart=/home/lndg/lndg/.venv/bin/python /home/lndg/lndg/rebalancer.py
   User=lndg
-  
+
   StandardError=append:/var/log/lnd_jobs_error.log
   RuntimeMaxSec=3600
   ```
@@ -550,8 +550,8 @@ LNDg uses a Python script (`~/lndg/rebalancer.py`) to automatically create circu
 
   ```sh
   # MiniBolt: systemd unit for LNDg
-  # /etc/systemd/system/rebalancer-lndg.timer  
-  
+  # /etc/systemd/system/rebalancer-lndg.timer
+
   [Unit]
   Description=Timer to activate rebalancer-lndg.service every 20 seconds
   After=uwsgi.service
@@ -561,7 +561,7 @@ LNDg uses a Python script (`~/lndg/rebalancer.py`) to automatically create circu
   OnBootSec=300
   OnUnitActiveSec=20
   AccuracySec=1
-  
+
   [Install]
   WantedBy=timers.target
   ```
@@ -578,13 +578,13 @@ LNDg uses a Python script (`~/lndg/rebalancer.py`) to automatically create circu
   > [...]
   ```
 
-* Check that the rebalancer Python script is runnning regularly.  
+* Check that the rebalancer Python script is runnning regularly.
   Note: It might take a few minutes for the rebalancing script to complete its tasks.
 
   ```sh
   $ sudo journalctl -f -u rebalancer-lndg.service
   > [...]
-  > Nov 11 14:52:30 minibolt systemd[1]: rebalancer-lndg.service: Consumed 1.674s CPU time. 
+  > Nov 11 14:52:30 minibolt systemd[1]: rebalancer-lndg.service: Consumed 1.674s CPU time.
   > Nov 11 14:52:48 minibolt systemd[1]: Started LNDg rebalancer Python script.
   > Nov 11 14:58:50 minibolt systemd[1]: rebalancer-lndg.service: Succeeded.
   > Nov 11 14:58:50 minibolt systemd[1]: rebalancer-lndg.service: Consumed 15.770s CPU time.
@@ -603,21 +603,21 @@ LNDg uses a Python script (`~/lndg/htlc_stream.py`) to keep a log of failed HTLC
 
   ```sh
   # MiniBolt: systemd unit for LNDg
-  # /etc/systemd/system/htlc-stream-lndg.service   
-    
+  # /etc/systemd/system/htlc-stream-lndg.service
+
   [Unit]
   Description=LNDg HTLC stream Python script
   After=uwsgi.service
   PartOf=uwsgi.service
-  
+
   [Service]
   ExecStart=/home/lndg/lndg/.venv/bin/python /home/lndg/lndg/htlc_stream.py
   User=lndg
-  
+
   StandardError=append:/var/log/lnd_htlc_stream_error.log
   Restart=on-failure
   RestartSec=60s
-  
+
   [Install]
   WantedBy=multi-user.target
   ```
@@ -708,7 +708,7 @@ With the Tor browser, you can access this onion address from any device.
   $ .venv/bin/python manage.py migrate
   $ exit
   ```
-  
+
 * Start the `uwsgi` systemd service again. The other LNDg timers and services will start automatically.
 
   ```sh
@@ -728,21 +728,21 @@ With the Tor browser, you can access this onion address from any device.
 
   ```sh
   $ cd /etc/systemd/system/
-  $ sudo rm uwsgi.service jobs-lndg.service rebalancer-lndg.service htlc-stream-lndg.service  
+  $ sudo rm uwsgi.service jobs-lndg.service rebalancer-lndg.service htlc-stream-lndg.service
   $ sudo rm jobs-lndg.timer rebalancer-lndg.timer
   $ cd
   ```
 
 * Display the UFW firewall rules and notes the numbers of the rules for Mempool (e.g., X and Y below)
-  
+
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 8889/tcp                   ALLOW IN    192.168.0.0/16                   # allow LNDg SSL from local network
+  > [X] 8889/tcp                   ALLOW IN    Anywhere                   # allow LNDg SSL from anywhere
   ```
 
 * Delete the two LNDg rules (check that the rule to be deleted is the correct one and type “y” and “Enter” when prompted)
-  
+
   ```sh
   $ sudo ufw delete Y
   $ sudo ufw delete X

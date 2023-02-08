@@ -66,6 +66,11 @@ We'll download, verify and install LND.
 
   ```sh
   $ sha256sum --check manifest-v0.15.5-beta.txt --ignore-missing
+  ```
+
+Expected output:
+
+  ```sh
   > lnd-linux-amd64-v0.15.5-beta.tar.gz: OK
   ```
 
@@ -77,6 +82,11 @@ Now that we've verified the integrity of the downloaded binary, we need to check
 
   ```sh
   $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
+  ```
+
+Expected output:
+
+  ```sh
   > ...
   > gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun <laolu32@gmail.com>"
   > ...
@@ -86,6 +96,11 @@ Now that we've verified the integrity of the downloaded binary, we need to check
 
   ```sh
   $ gpg --verify manifest-roasbeef-v0.15.5-beta.sig manifest-v0.15.5-beta.txt
+  ```
+
+Expected output:
+
+  ```
   > gpg: Signature made Thu Dec  1 19:20:10 2022 UTC
   > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
   > gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
@@ -103,6 +118,11 @@ We can also check that the manifest file was in existence around the time of the
 
   ```sh
   $ ots --no-cache verify manifest-roasbeef-v0.15.5-beta.sig.ots -f manifest-roasbeef-v0.15.5-beta.sig
+  ```
+
+Expected output:
+
+  ```
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
   > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
   > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
@@ -118,8 +138,19 @@ Having verified the integrity and authenticity of the release binary, we can saf
 
   ```sh
   $ tar -xzf lnd-linux-amd64-v0.15.5-beta.tar.gz
+  ```
+
+  ```sh
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.15.5-beta/*
+  ```
+
+  ```sh
   $ lnd --version
+  ```
+
+Expected output:
+
+  ```
   > lnd version 0.15.5-beta commit=v0.15.5-beta
   ```
 
@@ -131,6 +162,9 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" lnd
+  ```
+
+  ```sh
   $ sudo usermod -a -G bitcoin,debian-tor lnd
   ```
 
@@ -144,6 +178,9 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
   ```sh
   $ sudo mkdir /data/lnd
+  ```
+
+  ```sh
   $ sudo chown -R lnd:lnd /data/lnd
   ```
 
@@ -157,6 +194,9 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
   ```sh
   $ ln -s /data/lnd /home/lnd/.lnd
+  ```
+
+  ```sh
   $ ln -s /data/bitcoin /home/lnd/.bitcoin
   ```
 
@@ -199,7 +239,7 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
   [Application Options]
   # Alias accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-  alias=YOUR_FANCY_ALIAS 
+  alias=YOUR_FANCY_ALIAS
   # You can choose the color you want at https://www.color-hex.com/
   color=#ff9900
   listen=localhost
@@ -215,9 +255,9 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   tlsautorefresh=true
   # Do not include the interface IPs or the system hostname in TLS certificate.
   tlsdisableautofill=true
-  
+
   # Channel settings
-  # Fee settings - default LND base fee = 1000 (mSat), default LND fee rate = 1 (ppm) 
+  # Fee settings - default LND base fee = 1000 (mSat), default LND fee rate = 1 (ppm)
   # You can choose whatever you want e.g ZeroFeeRouting (0,0)
   #bitcoin.basefee=0
   #bitcoin.feerate=0
@@ -249,7 +289,7 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   # Database
   [bolt]
   # Set the next value to false to disable auto-compact DB and fast boot and comment the next line
-  db.bolt.auto-compact=true 
+  db.bolt.auto-compact=true
   # Uncomment and set the next value to "0" to do DB compact at every LND reboot (default: 168h)
   #db.bolt.auto-compact-min-age=168h
 
@@ -338,6 +378,8 @@ $2 sudo systemctl start lnd
 
 Monitor the systemd journal at the first session created to check if everything works fine. You can exit monitoring at any time with `Ctrl-C`
 
+Expected output:
+
   ```sh
   > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
   > Dec 02 09:23:37 minibolt lnd[2584156]: Attempting automatic RPC configuration to bitcoind
@@ -421,7 +463,13 @@ To make the user "admin" the main administrative user, we make sure it can inter
 
   ```sh
   $2 ln -s /data/lnd /home/admin/.lnd
+  ```
+
+  ```sh
   $2 sudo chmod -R g+X /data/lnd/data/
+  ```
+
+  ```sh
   $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
   ```
 
@@ -463,6 +511,11 @@ It's good practice to add a few watchtowers, just to be on the safe side.
 
   ```sh
   $2 lncli wtclient towers
+  ```
+
+Expected output:
+
+  ```
   {
       "towers": [
           {
@@ -518,6 +571,11 @@ Example output:
 
   ```sh
   $2 lncli newaddress p2tr
+  ```
+
+Expected output:
+
+  ```
   > "address": "bc1p..."
   ```
 
@@ -525,6 +583,11 @@ Example output:
 
   ```sh
   $2 lncli walletbalance
+  ```
+
+Expected output:
+
+  ```
   {
       "total_balance": "712345",
       "confirmed_balance": "0",
@@ -572,6 +635,9 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 
   ```sh
   $2 lncli walletbalance
+  ```
+
+  ```sh
   $2 lncli channelbalance
   ```
 
@@ -583,7 +649,7 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
   ```
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
-  
+
 To try, why not send me satoshis! You simply need to input my node pukey [`⚡2FakTor⚡`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128){:target="_blank"}, the amount in satoshis and add the –keysend flag
 
   ```sh
@@ -673,7 +739,7 @@ A quick reference with common commands to play around with:
   ```
 
 * Create an Re-Usable Static AMP invoice:
-  
+
   ```sh
   $2 lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
   ```

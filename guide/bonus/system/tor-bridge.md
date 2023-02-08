@@ -60,6 +60,11 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
 
   ```sh
   $ tor --version
+  ```
+
+Expected output:
+
+  ```sh
   > Tor version 0.4.7.10.
   [...]
   ```
@@ -79,26 +84,26 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
   ORPort <TODO1> IPv4Only
   ExtORPort auto
-  
+
   # Replace <TODO2> with an obfs4 port of your choice.
   # This port must be externally reachable and must be different from the one specified for ORPort (<TODO1>).
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
   ServerTransportListenAddr obfs4 0.0.0.0:<TODO2>
   ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-  
-  # Replace "<address@email.com>" with your email address so we can contact you 
+
+  # Replace "<address@email.com>" with your email address so we can contact you
   # if there are problems with your bridge. This line
   # can be used to contact you if your relay or bridge is misconfigured or
   # something else goes wrong. Note that we archive and publish all
   # descriptors containing these lines and that Google indexes them, so
   # spammers might also collect them. You may want to obscure the fact that
   # it's an email address and/or generate a new address for this purpose.
-  # e.g ContactInfo Random Person <nobody AT example dot com> 
+  # e.g ContactInfo Random Person <nobody AT example dot com>
   # You might also include your PGP or GPG fingerprint if you have one
   # This is optional but encouraged.
   ContactInfo <address@email.com>
 
-  # Pick a nickname that you like for your bridge. Nicknames must be between 1 and 19 characters inclusive, 
+  # Pick a nickname that you like for your bridge. Nicknames must be between 1 and 19 characters inclusive,
   # and must contain only the characters [a-zA-Z0-9]. This is optional.
   Nickname <PickANickname>
 
@@ -112,11 +117,11 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
 * Configure the firewall to allow incoming requests replacing `<TODO1>` and `<TODO2>` previously configured in the section before
 
 ```sh
-$ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge'
+$ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge from anywhere'
 ```
 
 ```sh
-$ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge'
+$ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
 * Check the correct application of the rules
@@ -125,7 +130,7 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge'
 $ sudo ufw status
 ```
 
-🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter in the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network, and put your `"<TODO2>"` port.
+🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network; and put your `"<TODO2>"` port.
 
 ### Systemd hardering
 
@@ -260,7 +265,7 @@ One of the most important things to keep your relay secure is to install securit
   ```sh
   $ unattended-upgrade --debug --dry-run
   ```
-  
+
 ### Install nyx
 
 [Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this you can get detailed real-time information about your relay such as bandwidth usage, connections, logs, and much more.
@@ -315,10 +320,10 @@ One of the most important things to keep your relay secure is to install securit
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [W] <TODO1>                   ALLOW IN    Anywhere                   # allow OR port Tor bridge
-  > [X] <TODO1> (v6)              ALLOW IN    Anywhere (v6)              # allow OR port Tor bridge
-  > [Y] <TODO2>                   ALLOW IN    Anywhere                   # allow obsf4 port Tor bridge
-  > [Z] <TODO2> (v6)              ALLOW IN    Anywhere (v6)              # allow obsf4 port Tor bridge
+  > [W] <TODO1>                   ALLOW IN    Anywhere                   # allow OR port Tor bridge from anywhere
+  > [X] <TODO1> (v6)              ALLOW IN    Anywhere (v6)              # allow OR port Tor bridge from anywhere
+  > [Y] <TODO2>                   ALLOW IN    Anywhere                   # allow obsf4 port Tor bridge from anywhere
+  > [Z] <TODO2> (v6)              ALLOW IN    Anywhere (v6)              # allow obsf4 port Tor bridge from anywhere
   ```
 
 * Delete the rule with the correct number and confirm with "yes"

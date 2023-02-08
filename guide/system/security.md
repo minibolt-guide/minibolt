@@ -42,7 +42,7 @@ We'll open the port for Electrs and web applications later if needed.
   ```sh
   $ sudo ufw default deny incoming
   $ sudo ufw default allow outgoing
-  $ sudo ufw allow from 192.168.0.0/16 to any port 22 proto tcp comment 'allow SSH from local network'
+  $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
   $ sudo ufw logging off
   $ sudo ufw enable
   ```
@@ -65,7 +65,7 @@ Expected output:
   >
   > To                            Action      From
   > --                            ------      ----
-  > 22                            ALLOW       192.168.0.0/16       # allow SSH from local network
+  > 22                            ALLOW       Anywhere       # allow SSH from anywhere
   ```
 
 🔍 *more: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands){:target="_blank"}*
@@ -122,7 +122,7 @@ This is due to the limit of open files (representing individual TCP connections)
   $ sudo tail --lines 500 /var/log/auth.log | grep sshd
   ```
 
-* Discarding your own connections from your regular computer in local network
+* Discarding your own connections from your regular computer in the local network
 
   ```sh
   $ sudo tail --lines 500 /var/log/auth.log | grep sshd | grep -v 192.168.X.XXX

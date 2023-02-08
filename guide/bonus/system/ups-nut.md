@@ -103,7 +103,7 @@ Configure the monitor that will alert watch, alert, and shutdown the device if n
   password = secretpassword
   actions = SET
   instcmds = ALL
-  [upsmon] 
+  [upsmon]
   password = secretpassword1
   upsmon master
   ```
@@ -139,7 +139,7 @@ Restart daemons
   ```
 
 View available commands of UPS. Might come in handy to silence the alarm. Replace `UPS-Name` with the name you used in `ups.conf`.
-  
+
   ```sh
   $ upscmd –l UPS-Name
   ```
@@ -202,7 +202,7 @@ Whichever system has the UPS data port plugged into it is the server/master and 
 * Modify the firewall to allow for 3493 to come into your system.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 3493/tcp comment 'allow UPS NUT Client from local network’
+  $ sudo ufw allow 3493/tcp comment 'allow UPS NUT Client from anywhere’
   $ sudo ufw status
   ```
 
@@ -224,7 +224,7 @@ Modify `nut.conf` to be the netclient.
   ```sh
   client$ sudo nano /etc/nut/nut.conf
   ```
-  
+
   ```ini
   MODE=netclient
   ```
@@ -247,7 +247,7 @@ Now permissions cleanup. No passwords in `upsd.users`, so no change of permissio
   ```
 
 Restart daemon
-  
+
   ```sh
   client$ sudo service nut-client restart
   ```

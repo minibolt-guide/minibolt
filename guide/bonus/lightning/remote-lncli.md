@@ -41,10 +41,10 @@ In these instructions, it is assumed the lncli computer is on the same LAN as th
 - Allow port 10009 in the firewall
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 proto tcp comment 'allow LND RPC server from local network'
+  $ sudo ufw allow 10009/tcp comment 'allow LND RPC server from anywhere'
   ```
 
-- Add one new line in the [Application Options] section of lnd.conf to allow rpc from more than just the default localhost
+- Add one new line in the [Application Options] section of "lnd.conf" to allow RPC from more than just the default localhost
   `admin ~  ฿  sudo nano /home/bitcoin/.lnd/lnd.conf`
 
   ```ini

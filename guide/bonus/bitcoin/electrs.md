@@ -37,9 +37,9 @@ Status: Tested MiniBolt
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync) after full sync.
+Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync) after a full sync.
 
-Electrs is a replacement for an [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum doing `"sudo systemctl stop fulcrum"`.
+Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
 ### Install dependencies
 
@@ -81,8 +81,11 @@ Now we can add the Electrs configuration.
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Electrs SSL from local network'
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50001 proto tcp comment 'allow Electrs TCP from local network'
+  $ sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
+  ```
+
+  ```sh
+  $ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
   ```
 
 ## Electrs
@@ -100,7 +103,13 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ cd /tmp
+  ```
+
+  ```sh
   $ git clone --branch v0.9.11 https://github.com/romanz/electrs.git
+  ```
+
+  ```sh
   $ cd electrs
   ```
 
@@ -108,6 +117,11 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ curl https://romanzey.de/pgp.txt | gpg --import
+  ```
+
+Expected output:
+
+  ```
   >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   >                                    Dload  Upload   Total   Spent    Left  Speed
   > 100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
@@ -118,6 +132,11 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ git verify-tag v0.9.11
+  ```
+
+Expected output:
+
+  ```
   > gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
   > gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
   > gpg:                issuer "me@romanzey.de"
@@ -132,6 +151,9 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
+  ```
+
+  ```sh
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
   ```
 
@@ -139,6 +161,11 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ electrs --version
+  ```
+
+Expected output:
+
+  ```
   > v0.9.11
   ```
 
@@ -146,6 +173,9 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ cd
+  ```
+
+  ```sh
   $ rm -r /tmp/electrs
   ```
 
@@ -155,6 +185,9 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" electrs
+  ```
+
+  ```sh
   $ sudo adduser electrs bitcoin
   ```
 
@@ -162,6 +195,9 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ sudo mkdir /data/electrs
+  ```
+
+  ```sh
   $ sudo chown -R electrs:electrs /data/electrs
   ```
 
@@ -169,10 +205,13 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
   ```sh
   $ sudo su - electrs
-  $ nano /data/electrs/electrs.conf
   ```
 
   ```sh
+  $ nano /data/electrs/electrs.conf
+  ```
+
+  ```
   # MiniBolt: electrs configuration
   # /data/electrs/electrs.conf
 
@@ -201,7 +240,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 
 ### Autostart on boot
 
-Electrs needs to start automatically on system boot.
+Electrs need to start automatically on system boot.
 
 * As user "admin", create the Electrs systemd unit and copy/paste the following configuration. Save and exit
 
@@ -209,7 +248,7 @@ Electrs needs to start automatically on system boot.
   $ sudo nano /etc/systemd/system/electrs.service
   ```
 
-  ```sh
+  ```
   # MiniBolt: systemd unit for electrs
   # /etc/systemd/system/electrs.service
 
@@ -261,7 +300,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start electrs
   ```
 
-Monitor the systemd journal at the first session created to check if everything works fine.
+Monitor the systemd journal at the first session created to check if everything works fine:
 
   ```sh
   Starting electrs 0.9.11 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
@@ -286,16 +325,16 @@ Monitor the systemd journal at the first session created to check if everything 
   [2021-11-09T07:09:47.581Z INFO  electrs::db] starting txid compaction
   [2021-11-09T07:09:47.581Z INFO  electrs::db] starting funding compaction
   [2021-11-09T07:09:47.581Z INFO  electrs::db] starting spending compaction
-  ...
+  [...]
   ```
 
-  Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets.
-  With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
+Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets.
+With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
 
 * Ensure that electrs service is working and listening at the default `50001` and `50002` ports
 
   ```sh
-  $2 sudo ss -tulpn | grep LISTEN | grep electrs 
+  $2 sudo ss -tulpn | grep LISTEN | grep electrs
   ```
 
 💡 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets.
@@ -335,11 +374,21 @@ Note that the remote device needs to have Tor installed as well.
 
   ```sh
   $ sudo cat /var/lib/tor/hidden_service_electrs_ssl/hostname
+  ```
+
+Expected output:
+
+  ```
   > abcdefg..............xyz.onion
   ```
 
   ```sh
   $ sudo cat /var/lib/tor/hidden_service_electrs_tcp/hostname
+  ```
+
+Expected output:
+
+  ```
   > abcdefg..............xyz.onion
   ```
 
@@ -387,7 +436,13 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 
   ```sh
   $ cd /tmp
+  ```
+
+  ```sh
   $ git clone --branch v0.9.11 https://github.com/romanz/electrs.git
+  ```
+
+  ```sh
   $ cd electrs
   ```
 
@@ -395,6 +450,11 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 
   ```sh
   $ curl https://romanzey.de/pgp.txt | gpg --import
+  ```
+
+Expected output:
+
+  ```
   >   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   >                                    Dload  Upload   Total   Spent    Left  Speed
   > 100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
@@ -405,6 +465,11 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 
   ```sh
   $ git verify-tag v0.9.11
+  ```
+
+Expected output:
+
+  ````
   > gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
   > gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
   > gpg:                issuer "me@romanzey.de"
@@ -419,6 +484,9 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 
   ```sh
   $ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
+  ```
+
+  ```sh
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
   ```
 
@@ -426,6 +494,11 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 
   ```sh
   $ electrs --version
+  ```
+
+Expected output:
+
+  ```
   > v0.9.11
   ```
 
@@ -433,11 +506,14 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
 
   ```sh
   $ cd
+  ```
+
+  ```sh
   $ rm -r /tmp/electrs
   ```
 
 * Restart Electrs
-  
+
   ```sh
   $ sudo systemctl restart electrs
   ```

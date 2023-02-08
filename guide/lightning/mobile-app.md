@@ -35,11 +35,12 @@ Status: Not tested MiniBolt
 ### Install the Zeus app
 
 Download the Zeus app for your mobile phone.
-Check the [Zeus website](https://zeusln.app/){:target="_blank"} for the direct download links to the Apple App Store or Google Play.  
+Check the [Zeus website](https://zeusln.app/){:target="_blank"} for direct download links to the Apple App Store or Google Play.
 
 On Android, if you can't or do not want to use Google Play, you can get Zeus from the [F-Droid store](https://f-droid.org/en/packages/app.zeusln.zeus/){:target="_blank"} or simply [download the APK](https://zeusln.app/){:target="_blank"}, tap it and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, simply follow the on-screen instructions to do so.
 
 ## LND
+
 ## Preparations
 
 ### Install lndconnect

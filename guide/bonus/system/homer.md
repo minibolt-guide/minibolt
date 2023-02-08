@@ -44,7 +44,7 @@ The dashboard contains the following items that you can edit at any time:
 
 * a welcome message displaying the next block miner fee from the Mempool blockchain explorer public API. It refreshes every 10 seconds.
 
-* links to your self-hosted web services, organized by categories (e.g., "Bitcoin", "Lightning", "Resources"). We will create a link for the BTC RPC Explorer web app (under "Bitcoin", one for the Ride The Lightning web app (under "Lightning") and one to dowload the white paper directly from your blockchain via a BTC RPC Explorer function (under "Resources").
+* links to your self-hosted web services, organized by categories (e.g., "Bitcoin", "Lightning", "Resources"). We will create a link for the BTC RPC Explorer web app (under "Bitcoin", one for the Ride The Lightning web app (under "Lightning") and one to dowwload the white paper directly from your blockchain via a BTC RPC Explorer function (under "Resources").
 
 This guide assumes that you have followed the main RaspiBolt guide and installed both [BTC RPC Explorer](https://raspibolt.org/guide/bitcoin/blockchain-explorer.html) and [Ride The Lightning](https://raspibolt.org/guide/lightning/web-app.html). If not, you could edit the configuration file to remove their links from the dashboard.
 
@@ -55,7 +55,7 @@ This guide assumes that you have followed the main RaspiBolt guide and installed
 * Configure the UFW firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4091 proto tcp comment 'allow Homer SSL from local network'
+  $ sudo ufw allow 4091/tcp comment 'allow Homer SSL from anywhere'
   ```
 
 ## Homer
@@ -130,7 +130,7 @@ However, if you want to re-install Homer for whatever reason, you will have to r
 
 ### nginx
 
-* Create a nginx configuration file for the Homer website with a HTTPS server listening on port 4091
+* Create a Nginx configuration file for the Homer website with a HTTPS server listening on port 4091
 
   ```sh
   $ sudo nano /etc/nginx/sites-available/homer-ssl.conf
@@ -138,13 +138,13 @@ However, if you want to re-install Homer for whatever reason, you will have to r
 
   ```ini
   ## homer-ssl.conf
-  
-  
+
+
   server {
       listen 4091 ssl;
       listen [::]:4091 ssl;
       server_name _;
-  
+
       ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
       ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
       ssl_session_timeout 4h;
@@ -153,11 +153,11 @@ However, if you want to re-install Homer for whatever reason, you will have to r
 
       access_log /var/log/nginx/access_homer.log;
       error_log /var/log/nginx/error_homer.log;
- 
+
       root /var/www/homer;
       index index.html;
-  
-  
+
+
   }
   ```
 
@@ -210,9 +210,9 @@ However, if you want to re-install Homer for whatever reason, you will have to r
           ##
           # Gzip Settings
           ##
- 
+
           gzip on;
- 
+
           # gzip_vary on;
           # gzip_proxied any;
           # gzip_comp_level 6;
@@ -227,7 +227,6 @@ However, if you want to re-install Homer for whatever reason, you will have to r
           include /etc/nginx/conf.d/*.conf;
           include /etc/nginx/sites-enabled/*;
   }
-
   ```
 
 A sample configuration file is available at `/home/homer/homer/dist/assets/config.yml.dist`. We will create a configuration file derived from this default configuration but tailored to the RaspiBolt.
@@ -252,7 +251,7 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
   title: "MiniBolt Web Services"
   subtitle: "Homer dashboard"
   logo: "assets/tools/raspibolt3.png"
-  
+
   header: true
   footer: '<p><em>The Times 03/Jan/2009 Chancellor on brink of second bailout for banks.</em> (Bitcoin genesis block)</p>'
   columns: 3
@@ -302,10 +301,10 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
     title: "Recommended miner fee for next block (sats/vB):"
     icon: "fas fa-gem"
     content: "Oops... something's not working, I can't fetch that information!"
-  
+
   ################################
   # Optional navbar              #
-  ################################  
+  ################################
   links:
     - name: "Guide"
       icon: "fas fa-book"
@@ -399,7 +398,7 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
   ```sh
   $ sudo ln -s /data/homer/config.yml /var/www/homer/assets/config.yml
   ```
-  
+
 * Change the ownership of the Homer web folder to the “www-data” user
 
   ```sh
@@ -424,17 +423,17 @@ A sample configuration file is available at `/home/homer/homer/dist/assets/confi
   $ cd homer
   $ npm run serve
   ```
-  
+
 * Wait a couple of minutes for the server to start, until the following message is displayed
 
   ```sh
   > [...]
   >   App running at:
-  >   - Local:   http://localhost:8081 
+  >   - Local:   http://localhost:8081
   >   - Network: http://192.168.0.171:8081
   ```
 
-* Now point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).  
+* Now point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).
 
 Your browser will display a warning, because we use a self-signed SSL certificate. There’s nothing we can do about that, because we would need a proper domain name (e.g. https://yournode.com) to get an official certificate which browsers recognize. Click on “Advanced” and proceed to the Homer dashboard interface.
 
@@ -457,19 +456,19 @@ Now we’ll make sure Homer starts as a service on the Raspberry Pi so it’s al
   ```ini
   # MiniBolt: systemd unit for Homer
   # /etc/systemd/system/homer.service
-  
+
   [Unit]
   Description=Homer
   After=network.target
-  
+
   [Service]
   WorkingDirectory=/home/homer/homer
   ExecStart=/usr/bin/npm run serve
   User=homer
-  
+
   Restart=always
   RestartSec=30
-  
+
   [Install]
   WantedBy=multi-user.target
   ```
@@ -487,7 +486,7 @@ Now we’ll make sure Homer starts as a service on the Raspberry Pi so it’s al
 
   ```
 
-* Wait a few minutes for the server to start and for the logs to show that the app is running. Then, point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).  
+* Wait a few minutes for the server to start and for the logs to show that the app is running. Then, point your browser to the secure access point provided by the nginx server, for example https://raspibolt.local:4091 (or your node's IP address, e.g. https://192.168.0.20:4091).
 
 You're set! You can now use the dashboard to have a quick access to your self-hosted web services and some external websites. If you have installed bonus programs like [Mempool](../bitcoin/mempool.md), [ThunderHub](../lightning/thunderhub.md), [LNBits](../lightning/lnbits.md), [Lightning Terminal](../lightning/lightning-terminal.md), Bitfeed, LNDg etc, you can add them to your dashboard.
 
@@ -509,7 +508,7 @@ This guide set three groups: "Bitcoin", "Lightning" and "Resources". You can add
 
 * If you want to add a new group (e.g., a "Sysadmin" group), go to the "Services" section at the end of the file
 * Add the following lines under the `Services:` entry:
-  
+
   ```ini
     - name: "Sysadmin"
       icon: "fab fa-wave-pulse"
@@ -530,10 +529,10 @@ Since you created a new group, you might want to display it in new column.
 
 ### Adding a web service button
 
-If you want to add a new web service button to one of your existing group, add some item configuration lines under the `items:` entry. 
+If you want to add a new web service button to one of your existing group, add some item configuration lines under the `items:` entry.
 
 * For example if you want to add the Mempool web service under the "Bitcoin" group, add the following lines (the `[...]` and the lines above represent the existing configuration lines in the file, do NOT copy/paste)
-  
+
   ```ini
     - name: "Bitcoin"
       icon: "fab fa-bitcoin"
@@ -614,7 +613,7 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
   $ npm run build
   $ exit
   ```
-  
+
 * With the "admin" user, copy over the updated distributable output and re-create the symlink to the configuration file
 
   ```sh
@@ -646,14 +645,14 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 4091/tcp                   ALLOW IN    192.168.0.0/16                   # allow Homer SSL from local network
+  > [X] 4091/tcp                   ALLOW IN    Anywhere                   # allow Homer SSL from anywhere
   ```
 
 * Delete the two Homer rules (check that the rule to be deleted is the correct one and type “y” and “Enter” when prompted)
 
   ```sh
   $ sudo ufw delete Y
-  $ sudo ufw delete X 
+  $ sudo ufw delete X
   ```
 
 * Delete the nginx website directory, the web server configuration file and its symlink
@@ -669,17 +668,17 @@ Updating to a [new release](https://github.com/bastienwirtz/homer/releases){:tar
   ```sh
   $ sudo nano /etc/nginx/nginx.conf
   ```
-  
+
   ```ini
   #http {
-  
+
         ##
         # Basic Settings
         ##
 
         #sendfile on;
         # [...]
-  
+
   #}
   ```
 

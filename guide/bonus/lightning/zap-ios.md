@@ -81,10 +81,10 @@ First we make sure that LND is listening for connections from other computers on
   $ lncli unlock
   ```
 
-* Allow the ufw firewall to listen on 10009 from the local network:
+* Allow the ufw firewall to listen on 10009
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 proto tcp comment 'allow LND RPC server from local network'
+  $ sudo ufw allow 10009/tcp comment 'allow LND RPC server from anywhere'
   ```
 
 #### Install LND Connect
@@ -135,7 +135,7 @@ The nifty helper tool LND Connect helps to pair the RaspiBolt with the iPhone, e
 
 ### Connect Zap iOS to RaspiBolt over Tor
 
-* Edit LND config file to enable REST interface on port 8080
+* Edit the LND config file to enable REST interface on port 8080
 
   ```sh
   $ sudo nano /home/bitcoin/.lnd/lnd.conf

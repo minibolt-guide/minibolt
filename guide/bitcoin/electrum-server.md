@@ -61,11 +61,11 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow Fulcrum SSL from local network'
+  $ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
   ```
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50001 proto tcp comment 'allow Fulcrum TCP from local network'
+  $ sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
   ```
 
 ### Configure Bitcoin Core
@@ -203,13 +203,13 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   ```
 
   ```sh
-  # MiniBolt: fulcrum configuration 
+  # MiniBolt: fulcrum configuration
   # /data/fulcrum/fulcrum.conf
-  
+
   ## Bitcoin Core settings
   bitcoind = 127.0.0.1:8332
   rpccookie = /data/bitcoin/.cookie
-  
+
   ## Fulcrum server general settings
   datadir = /data/fulcrum/fulcrum_db
   cert = /data/fulcrum/cert.pem
@@ -218,7 +218,7 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   tcp = 0.0.0.0:50001
   peering = false
 
-  # Set fast-sync accorling with your device, 
+  # Set fast-sync accorling with your device,
   # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   fast-sync = 2048
 
@@ -245,15 +245,15 @@ Fulcrum needs to start automatically on system boot.
   ```sh
   # MiniBolt: systemd unit for Fulcrum
   # /etc/systemd/system/fulcrum.service
-  
+
   [Unit]
   Description=Fulcrum
   After=bitcoind.service
   PartOf=bitcoind.service
-  
+
   StartLimitBurst=2
   StartLimitIntervalSec=20
-  
+
   [Service]
   ExecStart=/usr/local/bin/Fulcrum /data/fulcrum/fulcrum.conf
   KillSignal=SIGINT
@@ -262,7 +262,7 @@ Fulcrum needs to start automatically on system boot.
   TimeoutStopSec=300
   RestartSec=30
   Restart=on-failure
-  
+
   [Install]
   WantedBy=multi-user.target
   ```
@@ -316,7 +316,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 * When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, it means that Fulcrum is fully indexed, ensure that service is working and listening at the default `50002` & `50001` ports
 
   ```sh
-  $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum 
+  $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum
   ```
 
 ## For the future: Fulcrum upgrade
@@ -442,10 +442,10 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
   bitcoind_clients = 1
   worker_threads = 1
   db_mem = 1024.0
-  
-  # 4GB RAM 
+
+  # 4GB RAM
   #db_max_open_files = 200
-  
+
   # 8GB RAM
   #db_max_open_files = 400
   ```
@@ -458,18 +458,18 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 
   ```sh
   $ cd /home/admin/
-  $ git clone https://github.com/foundObjects/zram-swap.git 
+  $ git clone https://github.com/foundObjects/zram-swap.git
   $ cd zram-swap && sudo ./install.sh
   ```
 
 * Set following size value in zram configuration file. Save and exit
-  
+
   ```sh
   $ sudo nano /etc/default/zram-swap
   ```
 
   ```sh
-  #_zram_fraction="1/2" #Comment this line 
+  #_zram_fraction="1/2" #Comment this line
   _zram_fixedsize="10G" #Uncomment and edit
   ```
 
@@ -529,7 +529,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   Process: 287452 ExecStart=/usr/local/sbin/zram-swap.sh start (code=exited, status=0/SUCCESS)
   Main PID: 287452 (code=exited, status=0/SUCCESS)
   CPU: 191ms
-  
+
   Aug 08 00:51:51 node systemd[1]: Starting zram swap service...
   Aug 08 00:51:51 node zram-swap.sh[287471]: Setting up swapspace version 1, size = 4.6 GiB (4972199936 bytes)
   ...
@@ -538,13 +538,13 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 💡 After the initial sync of Fulcrum, if you want to still use zram, you can return to the default zram config following the next instructions
 
 * As user "admin", access to zram config again and return to default config. Save and exit
-  
+
   ```sh
   $ sudo nano /etc/default/zram-swap
   ```
 
   ```sh
-  _zram_fraction="1/2"   #Uncomment this line 
+  _zram_fraction="1/2"   #Uncomment this line
   #_zram_fixedsize="10G" #Comment this line
   ```
 
@@ -635,8 +635,8 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
   ```sh
   $ sudo ufw status numbered
-  > [X] 50002                   ALLOW IN    192.168.0.0/16                   # allow Fulcrum SSL from local network
-  > [Y] 50001                   ALLOW IN    192.168.0.0/16                   # allow Fulcrum TCP from local network
+  > [X] 50002                   ALLOW IN    Anywhere                  # allow Fulcrum SSL from anywhere
+  > [Y] 50001                   ALLOW IN    Anywhere                  # allow Fulcrum TCP from anywhere
   ```
 
 * Delete the rule with the correct number and confirm with "yes"
@@ -651,7 +651,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
   ```sh
   $ cd /home/admin/zram-swap
-  $ sudo ./install.sh --uninstall 
+  $ sudo ./install.sh --uninstall
   $ sudo rm /etc/default/zram-swap
   $ sudo rm -rf /home/admin/zram-swap
   ```

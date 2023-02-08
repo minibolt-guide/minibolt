@@ -31,7 +31,7 @@ parent: Lightning
 ### Check Node.js
 
 * Node.js v16 should have been installed for the BTC RPC Explorer and RTL. We can check our version of Node.js with user "admin":
-  
+
   ```sh
   $ node -v
   > v16.14.2
@@ -59,16 +59,16 @@ parent: Lightning
   ```
 
 * Test and reload NGINX configuration
-  
+
   ```sh
   $ sudo nginx -t
   $ sudo systemctl reload nginx
   ```
 
-* Configure firewall to allow incoming HTTP requests from your local network to the web server.
+* Configure the firewall to allow incoming HTTP requests from anywhere to the web server.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4002 proto tcp comment 'allow ThunderHub SSL from local network'
+  $ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
   ```
 
 ## ThunderHub
@@ -83,9 +83,21 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" thunderhub
+  ```
+
+  ```sh
   $ sudo adduser thunderhub lnd
+  ```
+
+  ```sh
   $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/admin.macaroon
+  ```
+
+  ```sh
   $ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
+  ```
+
+  ```sh
   $ sudo su - thunderhub
   ```
 
@@ -93,8 +105,17 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 
   ```sh
   $ git clone https://github.com/apotdevin/thunderhub.git
+  ```
+
+  ```sh
   $ cd thunderhub
+  ```
+
+  ```sh
   $ npm install
+  ```
+
+  ```sh
   $ npm run build
   ```
 
@@ -110,7 +131,13 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 
   ```sh
   $ cd ~/thunderhub
+  ```
+
+  ```sh
   $ cp .env .env.local
+  ```
+
+  ```sh
   $ nano .env.local
   ```
 
@@ -135,7 +162,7 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 
   ```sh
   $ cd ~/thunderhub
-  $ nano thubConfig.yaml 
+  $ nano thubConfig.yaml
   ```
 
   ```sh
@@ -247,7 +274,15 @@ You can easily do so by adding a Tor hidden service on the RaspiBolt and accessi
 
   ```sh
   $ sudo systemctl reload tor
+  ```
+
+  ```sh
   $ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
+  ```
+
+Expected output:
+
+  ```
   > abcdefg..............xyz.onion
   ```
 
@@ -261,6 +296,9 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 
   ```sh
   $ sudo systemctl stop thunderhub
+  ```
+
+  ```sh
   $ sudo su - thunderhub
   ```
 
@@ -268,7 +306,13 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 
   ```sh
   $ cd ~/thunderhub
+  ```
+
+  ```sh
   $ npm run update
+  ```
+
+  ```sh
   $ exit
   ```
 
@@ -286,7 +330,13 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 
    ```sh
   $ sudo systemctl stop thunderhub
+  ```
+
+  ```sh
   $ sudo systemctl disable thunderhub
+  ```
+
+  ```sh
   $ sudo rm /etc/systemd/system/thunderhub.service
   ```
 
@@ -297,7 +347,7 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 4002                   ALLOW IN    192.168.0.0/16                 # allow ThunderHub SSL from local network
+  > [X] 4002                   ALLOW IN    Anywhere                 # allow ThunderHub SSL from anywhere
   ```
 
 * Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
@@ -312,7 +362,15 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 
   ```sh
   $ sudo su
+  ```
+
+  ```sh
   $ userdel -r thunderhub
+  ```
+
+Expected output:
+
+  ```
   > userdel: thunderhub mail spool (/var/mail/thunderhub) not found
   ```
 
@@ -342,9 +400,9 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 
 ### Access to your Amboss node account
 
-* In the "Home" screen - "Quick Actions" section, click on Amboss icon "Login", wait to the top right corner notification to show you "Logged in" and click again on the Amboss icon "Go to". This will open a secondary tab in your browser to access your Amboss account node.
+* In the "Home" screen - "Quick Actions" section, click on Amboss icon "Login", wait for the top right corner notification to show you "Logged in" and click again on the Amboss icon "Go to". This will open a secondary tab in your browser to access your Amboss account node.
 
-Advice: If you can't do "Login", maybe the cause is because you don't have a channel opened yet. Planning to open a small size channel to be connected with the Lightning Network and to the Amboss node.
+Advice: If you can't do "Login", maybe the cause is that you don't have a channel opened yet. Planning to open a small size channel to be connected with the Lightning Network and to the Amboss node.
 
 * Making sure we are connected to the Amboss account, now back to Thunderhub for the next steps.
 
@@ -352,7 +410,7 @@ Advice: If you can't do "Login", maybe the cause is because you don't have a cha
 
 1. Open the “Settings” by pressing the cogwheel in the top right corner of the Thunderhub
 1. Switch to "Yes" -> Amboss: "Auto backups" and "Healthcheck Pings"
-1. Test pushing a backup to Amboss by entering in the "Tools" section, to the left main menu
+1. Test pushing a backup to Amboss by entering the "Tools" section, to the left main menu
 1. Press to "Push" button to test the correct working
 1. Go back to Amboss website and access "Account" in the main menu
 1. Access to "Backup" and ensure that the last date of the backup is the same as before done. It is recommended to download the backup file and store it in a safe place for future recovers. The backup file will be updated automatically in Amboss for every channel opening and closing. You could do this too in the "Tools" section in Thunderhub, "Backups" -> "Backup all channels" -> "Download" button.
@@ -360,7 +418,7 @@ Advice: If you can't do "Login", maybe the cause is because you don't have a cha
 
 💡 Feel free to link to Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account.
 
-### Recovering channels using Thunderhub method
+### Recovering channels using ThunderHub method
 
 After possible data corruption of your LND node, ensure that this old node is completely off. Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete and Thunderhub installed, access to the Thunderhub dashboard
 
@@ -370,7 +428,7 @@ After possible data corruption of your LND node, ensure that this old node is co
 ⚠️ Use this guide as a last resort if you have lost access to your node or are unable to start LND due to a fatal error. This guide will close all your channels. Your funds will become available on-chain at varying speeds.
 
 ---
-  
+
 <br /><br />
 
 << Back: [+ Lightning](index.md)
