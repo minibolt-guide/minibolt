@@ -42,7 +42,7 @@ Difficulty: Medium
 Status: Tested MiniBolt
 {: .label .label-blue }
 
-![Ordisrespector](../../../images/ordisrespector-flag.png)
+![Ordisrespector](../../../images/ordisrespector-thread.png)
 
 ---
 
