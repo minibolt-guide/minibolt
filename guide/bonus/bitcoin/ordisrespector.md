@@ -34,7 +34,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 
 [Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264){:target="_blank"} is a ***spam patch filter*** that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and ***rejecting them***. The original patch was created by Luke Dashjr, you can see it here: https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831 [(Archive)](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831)
 
-🔎 More info and original text on: https://ordisrespector.com by Semisol
+🔎 More info and original text on: https://ordisrespector.com by [Semisol](https://twitter.com/semisol_public)
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -68,11 +68,13 @@ Status: Tested MiniBolt
   $ VERSION=24.0.1
   ```
 
-* Install the next dependencies
+* Update and upgrade your OS
 
   ```sh
-  $ sudo apt update
+  $ sudo apt update && sudo apt full-upgrade
   ```
+
+* Install the next dependencies packages
 
   ```sh
   $ sudo apt-get install autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config --no-install-recommends
