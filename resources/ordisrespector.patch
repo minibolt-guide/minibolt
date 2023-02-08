@@ -68,3 +68,4 @@ index 03b157a84..e7d9e96d0 100644
              } else if (fExec || (OP_IF <= opcode && opcode <= OP_ENDIF))
              switch (opcode)
              {
+             
