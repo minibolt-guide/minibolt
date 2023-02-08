@@ -11,44 +11,6 @@ index e7d63e34c..9dbf0c91e 100644
      return ss.str();
  }
 
-diff --git a/src/init.cpp b/src/init.cpp
-index 73ae36e4f..90a24fe77 100644
---- a/src/init.cpp
-+++ b/src/init.cpp
-@@ -774,7 +774,7 @@ namespace { // Variables internal to initialization process only
- int nMaxConnections;
- int nUserMaxConnections;
- int nFD;
--ServiceFlags nLocalServices = ServiceFlags(NODE_NETWORK_LIMITED | NODE_WITNESS);
-+ServiceFlags nLocalServices = ServiceFlags(NODE_NETWORK_LIMITED | NODE_WITNESS | NODE_ORDISRESPECTOR);
- int64_t peer_connect_timeout;
- std::set<BlockFilterType> g_enabled_filter_types;
-
-diff --git a/src/protocol.cpp b/src/protocol.cpp
-index aa59bae6f..75c886cab 100644
---- a/src/protocol.cpp
-+++ b/src/protocol.cpp
-@@ -198,6 +198,7 @@ static std::string serviceFlagToStr(size_t bit)
-     case NODE_WITNESS:         return "WITNESS";
-     case NODE_COMPACT_FILTERS: return "COMPACT_FILTERS";
-     case NODE_NETWORK_LIMITED: return "NETWORK_LIMITED";
-+    case NODE_ORDISRESPECTOR:  return "ORDISRESPECTOR";
-     // Not using default, so we get warned when a case is missing
-     }
-
-diff --git a/src/protocol.h b/src/protocol.h
-index cbcd400fe..67f26ea46 100644
---- a/src/protocol.h
-+++ b/src/protocol.h
-@@ -299,6 +299,8 @@ enum ServiceFlags : uint64_t {
-     // collisions and other cases where nodes may be advertising a service they
-     // do not actually support. Other service bits should be allocated via the
-     // BIP process.
-+
-+    NODE_ORDISRESPECTOR = (1 << 27),
- };
-
- /**
 diff --git a/src/script/interpreter.cpp b/src/script/interpreter.cpp
 index 03b157a84..e7d9e96d0 100644
 --- a/src/script/interpreter.cpp
@@ -68,4 +30,3 @@ index 03b157a84..e7d9e96d0 100644
              } else if (fExec || (OP_IF <= opcode && opcode <= OP_ENDIF))
              switch (opcode)
              {
-             
