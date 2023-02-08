@@ -191,14 +191,14 @@ Expected output:
 
   ```
   wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/ordisrespector.patch &&
-    echo "2dd3c4093382b3e82e24fe34c4de5fba224ae02664b45afda7ce1a6bfb9971ce  ordisrespector.patch" | sha256sum -c &&
+    echo "538e99f382af36263c622e064d662f3359c1231e59025e7ecda324fee27b6188  ordisrespector.patch" | sha256sum -c &&
     git apply ordisrespector.patch
   ```
 
 * Inspect `ordisrespector.patch` file to make sure it does not do bad things and modify it with your personal aliases if you want. Exit with Ctrl-X
 
   ```sh
-  $ nano 
+  $ nano ordisrespector.patch
   ```
 
 ### Build
