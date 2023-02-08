@@ -20,7 +20,7 @@ And why are they an attack on Bitcoin?
 
 First of all, we probably should look at what Bitcoin is:
 
-    A Peer-to-Peer Electronic Cash System [(Bitcoin Whitepaper)](https://bitcoin.org/bitcoin.pdf)
+> A Peer-to-Peer Electronic Cash System [(Bitcoin Whitepaper)](https://bitcoin.org/bitcoin.pdf)
 
 There is no mention of data storage on the chain and only financial transactions.
 Ordinals abuse the Bitcoin timechain which was meant to process financial transactions to store data, and this has some issues, such as:
@@ -167,21 +167,21 @@ Expected output:
 * The next command will pre-configure the installation, enter the complete next command in the terminal and press enter
 
   ```sh
-  $ ./configure \
-      --disable-bench \
-      --disable-gui-tests \
-      --disable-maintainer-mode \
-      --disable-man \
-      --disable-tests \
-      --with-daemon=yes \
-      --with-gui=no \
-      --with-libmultiprocess=no \
-      --with-libs=no \
-      --with-miniupnpc=no \
-      --with-mpgen=no \
-      --with-natpmp=no \
-      --with-qrencode=no \
-      --with-utils=yes
+  ./configure \
+    --disable-bench \
+    --disable-gui-tests \
+    --disable-maintainer-mode \
+    --disable-man \
+    --disable-tests \
+    --with-daemon=yes \
+    --with-gui=no \
+    --with-libmultiprocess=no \
+    --with-libs=no \
+    --with-miniupnpc=no \
+    --with-mpgen=no \
+    --with-natpmp=no \
+    --with-qrencode=no \
+    --with-utils=yes
   ```
 
 ### Apply the patch "Ordisrespector"
