@@ -32,7 +32,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 
 ...while paying 4x less for the same bytes.
 
-[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264){:target="_blank"} is a ***spam patch filter*** that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and ***rejecting them***. The original patch was created by Luke Dashjr, you can see it here: https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831 [(Archive)](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831)
+[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264){:target="_blank"} is a ***spam patch filter*** that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and ***rejecting them***. The original patch was created by Luke Dashjr, you can see it here: [https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831](https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831)([Archive](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831))
 
 🔎 More info and original text on: https://ordisrespector.com by [Semisol](https://twitter.com/semisol_public)
 
@@ -51,12 +51,6 @@ Status: Tested MiniBolt
 
 1. TOC
 {:toc}
-
----
-
-## Requirements
-
-* Bitcoin Core
 
 ---
 
