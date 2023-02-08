@@ -237,6 +237,29 @@ Expected output:
   > Bitcoin Core client v24.0.1 - server 70016/Satoshi:24.1.0/Ordisrespector/
   [...]
   ```
+  
+## Extra
+
+### Add Ordisrespector node peers (optional)
+
+* Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/Nodo-Bitcoin-Barcelona-b275aaed964149a3ae2c9b1d16d6b78f) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way it is easier to invade the network with Ordisrespector node runners.
+Edit and add the next line at the end of the file
+
+  ```sh
+  $ sudo nano /data/bitcoin/bitcoin.conf  
+  ```
+
+If you have enable Tor network:
+
+  ```
+  addnode=ots6ud7ovx6furs4sxlm7aze5q44qtoeapwcukelcxc3i2r5tkxgdlqd.onion:8333
+  ```
+
+If you have enable I2P netowrk, add this line as well
+
+  ```
+  addnode=i2gu72r3tcmd5tuup53bauczdbvmylsoasvjxd56qobj7xhthxla.b32.i2p:0
+  ```
 
 <br /><br />
 
