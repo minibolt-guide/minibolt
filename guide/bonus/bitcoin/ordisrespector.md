@@ -58,16 +58,18 @@ Status: Tested MiniBolt
 
 > 💡 You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `$` sign. The system response is marked with the > character.
 
-* Login as "admin" user (for a MiniBolt environment) or your assigned user with `sudo` permissions, and set the next environment variable
-
-  ```sh
-  $ VERSION=24.0.1
-  ```
+* Login as "admin" user (for a MiniBolt environment), or your assigned user with `sudo` permissions
 
 * Update and upgrade your OS
 
   ```sh
   $ sudo apt update && sudo apt full-upgrade
+  ```
+  
+* Set the next environment variable
+
+  ```sh
+  $ VERSION=24.0.1
   ```
 
 * Install the next dependencies packages
@@ -148,6 +150,7 @@ Expected output:
   ```sh
   > gpg: Good signature from ...
   > Primary key fingerprint: ...
+  [...]
   ```
 
 * If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core source code, install them and check the version.
@@ -187,18 +190,24 @@ Expected output:
 
 ### Apply the patch "Ordisrespector"
 
-* This patch change the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network, add it as feature signaling and apply the spam filter. Enter the complete next command in the terminal and press enter
+This patch change the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network, add it as feature signaling and apply the spam filter. 
 
-  ```
-  wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/ordisrespector.patch &&
-    echo "538e99f382af36263c622e064d662f3359c1231e59025e7ecda324fee27b6188  ordisrespector.patch" | sha256sum -c &&
-    git apply ordisrespector.patch
-  ```
+* Download the Ordisrespector patch
 
-* Inspect `ordisrespector.patch` file to make sure it does not do bad things and modify it with your personal aliases if you want. Exit with Ctrl-X
+  ```sh
+  $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/ordisrespector.patch
+  ```
+  
+* Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
 
   ```sh
   $ nano ordisrespector.patch
+  ```
+
+* Apply the patch
+
+  ```sh
+  $ git apply ordisrespector.patch
   ```
 
 ### Build
@@ -209,7 +218,7 @@ Expected output:
   $ make -j$(nproc)
   ```
 
-💡 This process could remain for several minutes depending on your device's performance. Be patient until the prompt shows again
+💡 This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again.
 
 ### Install
 
