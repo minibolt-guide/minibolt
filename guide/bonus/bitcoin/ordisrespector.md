@@ -75,7 +75,7 @@ Status: Tested MiniBolt
 * Install the next dependencies packages
 
   ```sh
-  $ sudo apt-get install autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config --no-install-recommends
+  $ sudo apt-get install autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config libzmq3-dev --no-install-recommends
   ```
 
 ## Installation
