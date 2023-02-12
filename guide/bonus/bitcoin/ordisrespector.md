@@ -16,25 +16,6 @@ has_toc: false
 ---
 
 [Ordinals](https://ordinals.com/) is a project created to number sats. It also has a feature called inscriptions, which is the problematic part and what is mainly being touched on in this guide. An inscription is basically data stored on chain associated with a sat.
-And why are they an attack on Bitcoin?
-
-First of all, we probably should look at what Bitcoin is:
-
-> A Peer-to-Peer Electronic Cash System [(Bitcoin Whitepaper)](https://bitcoin.org/bitcoin.pdf)
-
-There is no mention of data storage on the chain and only financial transactions.
-Ordinals abuse the Bitcoin timechain which was meant to process financial transactions to store data, and this has some issues, such as:
-
-- Pushing out financial transactions, such as ones that need immediate confirmation such as force closes with pending HTLCs or a sweep-all TX.
-- Driving up fee rates for the sole reason of inscribing a JPEG.
-- It makes it way more expensive to maintain their node in the long term.
-- It makes them liable for any illegal content in their jurisdiction that they store on their disk and broadcast freely.
-
-...while paying 4x less for the same bytes.
-
-[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264){:target="_blank"} is a ***spam patch filter*** that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and ***rejecting them***. The original patch was created by Luke Dashjr, you can see it here: [https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831](https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831) ([Archive](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831))
-
-🔎 More info and original text on: [https://ordisrespector.com](https://ordisrespector.com) by [Semisol](https://twitter.com/semisol_public)
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -53,6 +34,28 @@ Status: Tested MiniBolt
 {:toc}
 
 ---
+
+## Context
+
+Why are they an attack on Bitcoin?
+
+First of all, we probably should look at what Bitcoin is:
+
+> A Peer-to-Peer Electronic Cash System [(Bitcoin Whitepaper)](https://bitcoin.org/bitcoin.pdf)
+
+There is no mention of data storage on the chain and only financial transactions.
+Ordinals abuse the Bitcoin timechain which was meant to process financial transactions to store data, and this has some issues, such as:
+
+- Pushing out financial transactions, such as ones that need immediate confirmation such as force closes with pending HTLCs or a sweep-all TX.
+- Driving up fee rates for the sole reason of inscribing a JPEG.
+- It makes it way more expensive to maintain their node in the long term.
+- It makes them liable for any illegal content in their jurisdiction that they store on their disk and broadcast freely.
+
+...while paying 4x less for the same bytes.
+
+[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264){:target="_blank"} is a ***spam patch filter*** that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and ***rejecting them***. The original patch was created by Luke Dashjr, you can see it here: [https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831](https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831) ([Archive](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831))
+
+🔎 More info and original text on: [https://ordisrespector.com](https://ordisrespector.com) by [Semisol](https://twitter.com/semisol_public)
 
 ## Preparations
 
@@ -137,7 +140,8 @@ Expected output:
   ```
 
 * Verify that the checksums file is cryptographically signed by the release signing keys.
-  The following command prints signature checks for each of the public keys that signed the checksums.
+
+The following command prints signature checks for each of the public keys that signed the checksums.
 
   ```sh
   $ gpg --verify SHA256SUMS.asc
@@ -190,8 +194,6 @@ Expected output:
 
 ### Apply the patch "Ordisrespector"
 
-This patch change the user agent with the tag "Ordisrespector" to identify our custom version to the rest of the network, add it as feature signaling and apply the spam filter.
-
 * Download the Ordisrespector patch
 
   ```sh
@@ -212,7 +214,7 @@ This patch change the user agent with the tag "Ordisrespector" to identify our c
 
 ### Build
 
-* Enter the command to compile the custom binaries
+* Enter the command to compile
 
   ```sh
   $ make -j$(nproc)
@@ -234,11 +236,51 @@ This patch change the user agent with the tag "Ordisrespector" to identify our c
   $ sudo systemctl restart bitcoind
   ```
 
-* Wait a minutes and check in your own BTC RPC Explorer or Mempool, that the current Ordinals transactions that are waiting on the Bitcoin mempool do not exist on it
+### How to detect Ordinals transactions and check the Ordisrespector filter on your mempool
 
-![Ordisrespector](../../../images/ordisrespector-mempool-tx.png)
+> 💡 Wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: ***"Imported mempool transactions from disk: ..."***. It is possible that a rather high indicator of "failed" imported transactions has appeared, which is a good sign, it's the filter is taking effect and rejecting Ordinals transactions 😃
 
-## Extra
+* Go to the public mempool.space [clearnet](https://mempool.space) or [Tor](http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion) link web page
+
+* Click on the first mempool candidate blocks in the green/yellow color blocks
+
+![ordisrespector-mempool-blocks](../../../images/ordisrespector-mempool-blocks.png)
+
+* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly *0.00010000 BTC* output amount and click on the cube of the transaction to do a second verification
+
+![ordisrespector-mempool-cube-tx](../../../images/ordisrespector-mempool-cube-tx.png)
+
+* Look for "Taproot", "Segwit", "RBF" and "CPFP" tags (this last doesn't appear always)
+
+![ordisrespector-mempool-space-tx](../../../images/ordisrespector-mempool-space-tx.png)
+
+* Click on the "copy to the clipboard" icon to copy the transaction id `(<txid>)` and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool) (https://minibolt.local:4000) for a BTC RPC Explorer on a MiniBolt environment
+
+* Search the `"<txid>"` on the browser of your own Bitcoin Explorer
+
+***Mempool space*** expected output:
+
+![ordisrespector-btcrpcexplorer-notfound](../../../images/ordisrespector-mempool-notfound.PNG)
+
+***BTC RPC Explorer*** expected output:
+
+![ordisrespector-mempool-notfound](../../../images/ordisrespector-btcrpcexplorer-notfound.png)
+
+Or if you prefer, check directly through Bitcoin Core CLI command, doing
+
+  ```sh
+  $ bitcoin-cli getmempoolentry <txid>
+  ```
+
+Expected output:
+
+  ```
+  error code: -5
+  error message:
+  Transaction not in mempool
+  ```
+
+## Extras
 
 ### Add Ordisrespector node peers (optional)
 
@@ -249,17 +291,19 @@ Edit and add the next line at the end of the file
   $ sudo nano /data/bitcoin/bitcoin.conf
   ```
 
-If you have enabled Tor network
+If you have enabled the Tor network
 
   ```
   addnode=ots6ud7ovx6furs4sxlm7aze5q44qtoeapwcukelcxc3i2r5tkxgdlqd.onion:8333
   ```
 
-If you have enabled I2P network, add this line as well
+If you have enabled the I2P network, add this line as well
 
   ```
   addnode=i2gu72r3tcmd5tuup53bauczdbvmylsoasvjxd56qobj7xhthxla.b32.i2p:0
   ```
+
+###
 
 <br /><br />
 
