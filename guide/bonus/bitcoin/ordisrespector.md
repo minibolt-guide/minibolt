@@ -236,9 +236,15 @@ Expected output:
   $ sudo systemctl restart bitcoind
   ```
 
-### How to detect Ordinals transactions and check the Ordisrespector filter on your mempool
+* Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
-> 💡 Wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: ***"Imported mempool transactions from disk: ..."***. It is possible that a rather high indicator of "failed" imported transactions has appeared, which is a good sign, it's the filter is taking effect and rejecting Ordinals transactions 😃
+  ```sh
+  $ sudo journalctl -f -u bitcoind
+  ```
+
+### How to detect Ordinals transactions
+
+> 💡 After start Bitcoin Core, wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: ***"Imported mempool transactions from disk: ..."***. It is possible that a rather high indicator of "failed" imported transactions has appeared, which is a good sign, it's the filter is taking effect and rejecting Ordinals transactions 😃
 
 * Go to the public mempool.space [clearnet](https://mempool.space) or [Tor](http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion) link web page
 
@@ -246,7 +252,7 @@ Expected output:
 
 ![ordisrespector-mempool-blocks](../../../images/ordisrespector-mempool-blocks.png)
 
-* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly *0.00010000 BTC* output amount and click on the cube of the transaction to do a second verification
+* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly **0.00010000 BTC** output amount and click on the cube of the transaction to do a second verification
 
 ![ordisrespector-mempool-cube-tx](../../../images/ordisrespector-mempool-cube-tx.png)
 
@@ -254,7 +260,9 @@ Expected output:
 
 ![ordisrespector-mempool-space-tx](../../../images/ordisrespector-mempool-space-tx.png)
 
-* Click on the "copy to the clipboard" icon to copy the transaction id `(<txid>)` and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool) (https://minibolt.local:4000) for a BTC RPC Explorer on a MiniBolt environment
+#### **Check the Ordisrespector filter working on your mempool**
+
+* Click on the "copy to the clipboard" icon to copy the transaction id `(<txid>)`, and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool), in  a BTC RPC Explorer running on a MiniBolt environment, go to [https://minibolt.local:4000](https://minibolt.local:4000)
 
 * Search the `"<txid>"` on the browser of your own Bitcoin Explorer
 
@@ -266,7 +274,7 @@ Expected output:
 
 ![ordisrespector-mempool-notfound](../../../images/ordisrespector-btcrpcexplorer-notfound.png)
 
-Or if you prefer, check directly through Bitcoin Core CLI command, doing
+Or if you prefer, check directly through the Bitcoin Core CLI command, doing
 
   ```sh
   $ bitcoin-cli getmempoolentry <txid>
@@ -279,6 +287,8 @@ Expected output:
   error message:
   Transaction not in mempool
   ```
+
+💡 The before information indicates that the filter is working properly
 
 ## Extras
 
