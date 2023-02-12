@@ -260,7 +260,7 @@ Expected output:
 
 ![ordisrespector-mempool-space-tx](../../../images/ordisrespector-mempool-space-tx.png)
 
-#### **Check the Ordisrespector filter working on your mempool**
+#### Check the Ordisrespector filter working on your mempool
 
 * Click on the "copy to the clipboard" icon to copy the transaction id `(<txid>)`, and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool), in  a BTC RPC Explorer running on a MiniBolt environment, go to [https://minibolt.local:4000](https://minibolt.local:4000)
 
