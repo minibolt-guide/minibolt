@@ -95,8 +95,8 @@ Everything is optional.
   * [English](https://t.me/minibolt){:target="_blank"}
 
 * Nostr channels (Anigma):
-  * [Spanish](https://anigma.io/?channel=3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015){:target="_blank"}
-  * [English](https://anigma.io/?channel=aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249){:target="_blank"}
+  * Spanish id: 3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015
+  * English id: aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249
 
 Feel free to join the many other contributors if you see something that can be improved!
 
@@ -106,7 +106,7 @@ Feel free to join the many other contributors if you see something that can be i
 
 All guides are rated with labels to help you assess the difficulty of each guide, and if it is tested against the most recent version of the main guide.
 
-* Difficulty: indicates how difficult the bonus guide is in term of installation procedure or usage.
+* Difficulty: indicates how difficult the bonus guide is in terms of installation procedure or usage.
 
 Difficulty: Easy
 {: .label .label-green }
@@ -125,7 +125,7 @@ Status: Tested MiniBolt
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-* Paid service: indicates if the service used in the guide is a free o a paid service.
+* Paid service: indicates if the service used in the guide is free or paid.
 
 Cost: Paid service
 {: .label .label-yellow }
@@ -163,14 +163,14 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
 * Bonus
 
   * System
- 
+
     * [Aliases](guide/bonus/system/aliases.md)
     * [Command line](guide/bonus/system/command-line.md)
     * [Go](guide/bonus/system/go.md)
     * [Tor bridge](guide/bonus/system/tor-bridge.md)
 
   * Bitcoin
- 
+
     * [Bisq](guide/bonus/bitcoin/bisq.md)
     * [Electrs](guide/bonus/bitcoin/electrs.md)
     * [Electrum Wallet Desktop](guide/bonus/bitcoin/electrum-wallet-desktop.md)

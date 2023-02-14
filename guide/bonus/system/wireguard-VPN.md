@@ -95,7 +95,7 @@ Before starting with the installation proper, you need to:
 * Update the packages and install WireGuard
 
   ```sh
-  $ sudo apt update
+  $ sudo apt update && sudo apt full-upgrade
   ```
 
   ```sh
@@ -159,7 +159,11 @@ We won't do this on the client because we want it to be able to connect to the V
   $ sudo systemctl start wg-quick@wg0.service
   ```
 
-Delete the `private_key` and `public_key` files, but take note of the server's public key and go back to the client machine.
+Delete the `private_key` and `public_key` files, but take note of the server's keys in your preferred password manager.
+
+  ```sh
+  $ sudo rm /home/admin/private_key && rm /home/admin/public_key
+  ```
 
 ## Set up Dynamic DNS
 
@@ -305,8 +309,6 @@ Public key ***example expected output***, we'll it call `"Your_Client_Public_Key
   ```
 
 These commands will show both the private and public keys on screen for your convenience, but will also write them in files `"private_key"` and `"public_key"`.
-Note that each time you run `"wg genkey"` you get a brand new private key.
-However, given the same private key *`"wg pubkey"`* will always derive the same public key.
 
 For the next part, you need to become root to be able to create and write the `"/etc/wireguard/wg0.conf"` file.
 When you install the `"wireguard"` package the directory is created automatically, but it is empty.
@@ -340,6 +342,10 @@ When you install the `"wireguard"` package the directory is created automaticall
 Later on we'll set up a DNS record that will always point to your home's public IP even if your ISP changes it, but for now the raw IP will suffice.
 
 Now that the configuration is written you can delete the `private_key` and `public_key` files from the disk, but take note of the client's public key before moving on to configure MiniBolt.
+
+  ```sh
+  $ sudo rm /home/admin/private_key && rm /home/admin/public_key
+  ```
 
 ## Client configuration (part 2)
 

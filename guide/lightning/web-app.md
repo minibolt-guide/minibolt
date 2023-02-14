@@ -158,21 +158,24 @@ We are going to install Thunderhub in the home directory since it doesn't need t
   ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
   ```
 
-* If not already done, change your directory and edit your `thubConfig.yaml`. Change your `accountpassword`.
+* If not already done, change your directory and edit your `thubConfig.yaml`. Change the `[E] ThunderHub password` to your one.
 
   ```sh
   $ cd ~/thunderhub
-  $ nano thubConfig.yaml
   ```
 
   ```sh
+  $ nano thubConfig.yaml
+  ```
+
+  ```
   masterPassword: 'PASSWORD' # Default password unless defined in account
   accounts:
     - name: 'MiniBolt'
       serverUrl: '127.0.0.1:10009'
       macaroonPath: '/home/thunderhub/admin.macaroon'
       certificatePath: '/home/thunderhub/.lnd/tls.cert'
-      password: 'accountpassword'
+      password: '[E] ThunderHub password'
   ```
 
 * Exit "thunderhub" user session to return to "admin" user session
@@ -240,12 +243,12 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start thunderhub.service
   ```
 
-* Now point your browser to `https://raspibolt.local:4002` (or whatever you chose as hostname) or the ip address (e.g. `https://192.168.0.20:4002`).
+* Now point your browser to `https://minibolt.local:4002` (or whatever you chose as the hostname) or the IP address (e.g. `https://192.168.x.xxx:4002`).
   You should see the home page of ThunderHub.
 
 Your browser will display a warning because we use a self-signed SSL certificate.
 We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
-Click on "Advanced" and proceed to the Block Explorer web interface.
+Click on "Advanced" and proceed to the ThunderHub web interface.
 
 **Congratulations!**
 You now have Thunderhub up and running.
@@ -376,7 +379,7 @@ Expected output:
 
 ### Uninstall Tor hidden service
 
-* Comment or remove fulcrum hidden service in torrc. Save and exit
+* Comment or remove the fulcrum hidden service lines in torrc. Save and exit
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -413,7 +416,7 @@ Advice: If you can't do "Login", maybe the cause is that you don't have a channe
 1. Test pushing a backup to Amboss by entering the "Tools" section, to the left main menu
 1. Press to "Push" button to test the correct working
 1. Go back to Amboss website and access "Account" in the main menu
-1. Access to "Backup" and ensure that the last date of the backup is the same as before done. It is recommended to download the backup file and store it in a safe place for future recovers. The backup file will be updated automatically in Amboss for every channel opening and closing. You could do this too in the "Tools" section in Thunderhub, "Backups" -> "Backup all channels" -> "Download" button.
+1. Access to "Backup" and ensure that the last date of the backup is the same as before. It is recommended to download the backup file and store it in a safe place for future recovers. The backup file will be updated automatically in Amboss for every channel opening and closing. You could do this too in the "Tools" section in Thunderhub, "Backups" -> "Backup all channels" -> "Download" button.
 1. In Amboss, access "Monitoring" to configure "Healthcheck Settings".
 
 💡 Feel free to link to Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account.
