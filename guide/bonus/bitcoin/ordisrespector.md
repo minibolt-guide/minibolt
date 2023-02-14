@@ -294,8 +294,9 @@ Expected output:
 
 ### Add Ordisrespector node peers (optional)
 
-* Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/Nodo-Bitcoin-Barcelona-b275aaed964149a3ae2c9b1d16d6b78f) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way it is easier to invade the network with Ordisrespector node runners.
-Edit and add the next line at the end of the file
+Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/Nodo-Bitcoin-Barcelona-b275aaed964149a3ae2c9b1d16d6b78f) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way it is easier to invade the network with Ordisrespector node runners.
+
+* Edit and add on `"bitcoin.conf"` file the next line/s at the end of the file
 
   ```sh
   $ sudo nano /data/bitcoin/bitcoin.conf
@@ -312,8 +313,6 @@ If you have enabled the I2P network, add this line as well
   ```
   addnode=i2gu72r3tcmd5tuup53bauczdbvmylsoasvjxd56qobj7xhthxla.b32.i2p:0
   ```
-
-###
 
 <br /><br />
 
