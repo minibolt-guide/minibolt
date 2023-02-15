@@ -108,7 +108,7 @@ Before starting with the installation proper, you need to:
   $ wg genkey | tee private_key
   ```
 
-Private key ***example expected output***, we'll it call `"Your_Server_Private_Key"` from now on.
+Private key ***example expected output***, we'll it call `"<Your_Server_Private_Key>"` from now on.
 
   ```
   mJFGKxeQqxafyDdLDEDHRml6rDJUs7JZte3uqfJBQ0Q=
@@ -120,7 +120,7 @@ Private key ***example expected output***, we'll it call `"Your_Server_Private_K
   $ sudo cat private_key | wg pubkey | tee public_key
   ```
 
-Public key ***example expected output***, we'll it call `"Your_Server_Public_Key"` from now on:
+Public key ***example expected output***, we'll it call `"<Your_Server_Public_Key>"` from now on:
 
   ```
   GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
@@ -134,14 +134,14 @@ Take note and securely back up this public key
   $ sudo nano /etc/wireguard/wg0.conf
   ```
 
-Write the following and replace `"Your_Server_Private_Key"` with the last obtained output:
+Write the following and replace `"<Your_Server_Private_Key>"` with the last obtained output:
 
   ```
   ## Server configuration
   [Interface]
   Address = 10.0.0.1/24
   ListenPort = 51820
-  PrivateKey = Your_Server_Private_Key
+  PrivateKey = <Your_Server_Private_Key>
   ```
 
 This will turn it on permanently, and also start it automatically when MiniBolt reboots.
@@ -181,7 +181,7 @@ You'll see the following form:
 ![Registration Page](../../../images/desec_io1.png)
 
 Here you must select the second option (Register a new domain under dedyn.io) and your desired subdomain name.
-For the purposes of this demo I've generated a random string `"r4kkz4feflfx"`, but ***you can use anything memorable*** to you as long as no one has already taken that name.
+For the purposes of this demo I've generated a random string `"yoursubdomain"`, but ***you can use anything memorable*** to you as long as no one has already taken that name.
 
 After clicking SIGN UP, deSEC will email you to confirm the address. It will contain a verification link that
 will send you to this page:
@@ -211,7 +211,9 @@ In the case of deSEC this is 60 seconds.
 
 ## Configuring your dynDNS Client
 
-#### Custom Configuration
+#### Use your router’s DDNS preconfigured provider (recommended)
+
+Some routers have support for deSEC out of the box, and you just need to select the right option (“deSEC”, “desec.io”, “dedyn”, or similar). For example, if you run a router with the OpenWRT operation system, watch out for the “desec.io” provider.
 
 If your router does not have deSEC preconfigured, the configuration procedure will depend on the specific type of router which is why we can’t provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration:
 
@@ -222,9 +224,7 @@ If your router does not have deSEC preconfigured, the configuration procedure wi
 
 Advanced API users: The dynDNS token technically is a regular API token with permissions restricted to DNS management (but not account management).
 
-## Use MiniBolt
-
-### Dynamic IP script
+### Dynamic IP script (on MiniBolt)
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC.
 We'll need the "secret token" from the deSEC registration step.
@@ -419,11 +419,10 @@ Expected output:
 
 ## Configure additional clients
 
-For each additional client, you need to install the WireGuard software, generate a new key pair for it and write it's configuration file.
+For each additional client, you need to install the WireGuard software, and reuse the key pair before created for it and write it's configuration file.
 This time you'll already know the server's public key and endpoint from the start.
 
-Mind that each new client has to be allocated a new IP inside the VPN's network range. For instance, a second client could have the IP `10.0.0.3`,
-as `10.0.0.1` and `10.0.0.2` are already taken by the server and the first client, respectively.
+Mind that each new client has to be allocated a new IP inside the VPN's network range. For instance, a second client could have the IP `10.0.0.3`, as `10.0.0.1` and `10.0.0.2` are already taken by the server and the first client, respectively.
 
 For instance, in Windows the WireGuard program already generates the key pair and writes a stub for the configuration just by clicking "Create new Tunnel".
 
@@ -466,12 +465,6 @@ Now, assuming you have written a WireGuard configuration file at `config.txt` yo
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range where MiniBolt is at `10.0.0.1` and your client at `10.0.0.2`.
 You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
 Here we chose `10.0.0.1/24` because it stands out and is not likely to collide with any other network from your machines.
-
-### Use your router (recommended)
-
-#### Use your router’s deSEC provider
-
-Some routers have support for deSEC out of the box, and you just need to select the right option (“deSEC”, “desec.io”, “dedyn”, or similar). For example, if you run a router with the OpenWRT operation system, watch out for the “desec.io” provider.
 
 ---
 
