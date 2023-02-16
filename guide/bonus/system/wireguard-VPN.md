@@ -92,7 +92,7 @@ Before starting with the installation proper, you need to:
 * Forward the `51820/UDP` port of your router to the local IP of your MiniBolt.
    This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.
 
-* Update the packages and install WireGuard
+* Update the packages, upgrade and install WireGuard
 
   ```sh
   $ sudo apt update && sudo apt full-upgrade
@@ -126,7 +126,7 @@ Public key ***example expected output***, we'll it call `"<Your_Server_Public_Ke
   GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
   ```
 
-Take note and securely back up this public key
+Take note and securely back up this public key in your preferred password manager (Bitwarden, Lastpass, Keypass...).
 
 * Edit `wg0.conf` file
 
@@ -134,7 +134,7 @@ Take note and securely back up this public key
   $ sudo nano /etc/wireguard/wg0.conf
   ```
 
-Write the following and replace `"<Your_Server_Private_Key>"` with the last obtained output:
+Write the following contain and replace only `"<Your_Server_Private_Key>"` with the last obtained output:
 
   ```
   ## Server configuration
@@ -143,9 +143,6 @@ Write the following and replace `"<Your_Server_Private_Key>"` with the last obta
   ListenPort = 51820
   PrivateKey = <Your_Server_Private_Key>
   ```
-
-This will turn it on permanently, and also start it automatically when MiniBolt reboots.
-We won't do this on the client because we want it to be able to connect to the VPN selectively.
 
 * Enable autoboot
 
@@ -159,7 +156,10 @@ We won't do this on the client because we want it to be able to connect to the V
   $ sudo systemctl start wg-quick@wg0.service
   ```
 
-Delete the `private_key` and `public_key` files, but take note of the server's keys in your preferred password manager.
+This will turn it on permanently, and also start it automatically when MiniBolt reboots.
+We won't do this on the client because we want it to be able to connect to the VPN selectively.
+
+Delete the `private_key` and `public_key` files, but ensure before you take note of the server's keys in your preferred password manager.
 
   ```sh
   $ sudo rm /home/admin/private_key && rm /home/admin/public_key
@@ -181,10 +181,9 @@ You'll see the following form:
 ![Registration Page](../../../images/desec_io1.png)
 
 Here you must select the second option (Register a new domain under dedyn.io) and your desired subdomain name.
-For the purposes of this demo I've generated a random string `"yoursubdomain"`, but ***you can use anything memorable*** to you as long as no one has already taken that name.
+For the purposes of this demo I've type a random subdomain `"yoursubdomain"`, but ***you can use anything memorable*** to you as long as no one has already taken that name.
 
-After clicking SIGN UP, deSEC will email you to confirm the address. It will contain a verification link that
-will send you to this page:
+After clicking SIGN UP, deSEC will email you to confirm the address. It will contain a verification link that will send you to this page:
 
 ![Email Confirmed](../../../images/desec_io2.png)
 
