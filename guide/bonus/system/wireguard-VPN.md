@@ -46,24 +46,21 @@ Status: Tested MiniBolt
 
 A VPN is an encrypted tunnel between two computers over the internet.
 In our case, MiniBolt will play the role of the server, and you will be able to access your home network from outside with configured client devices.
-Depending on the configuration of the client, you can redirect all your internet traffic through the VPN which will hide the true destination from the internet provider your client is currently using (the classical case is public network).
-However, your home internet provider (where your MiniBolt is connected) will be able to tell what you are doing, but it will see it coming from your home.
+Several trade-offs are using a VPN versus using Tor.
 
-There are several trade-off using a VPN versus using Tor:
+Advantages:
 
-* The connection with the VPN is a lot faster than using Tor (bitcoin and lnd will still use Tor if it was already the case)
-* WireGuard has an incredibly low resource usage. It will automatically go to sleep when not use and instantaneously reconnect if needed whereas Tor has a significant initialization time.
+* The connection with the VPN is a lot faster than using Tor (Bitcoin Core and LND will still use Tor)
+* WireGuard has an incredibly low resource usage.
 * The attack surface on your home network and MiniBolt is reduced as fewer ports are open on your router.
+
+Disadvantages:
+
 * However, a VPN is not anonymous, a spy can see that you send encrypted traffic to your home router, but he cannot know what you are doing.
-* WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which allows to tell that you are using WireGuard VPN.
-* You need to open one port on your router if you don't use IPv6, which is more than none when you rely only on Tor (notice that this is the case for all services that are not Tor-compatible like lndhub, Joule, Juggernaut....)
+* WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which allows telling that you are using WireGuard VPN.
+* You need to open one port on your router.
 
 ![A VPN simulates that you are connected from your home network](../../../images/wireguard-VPN.png)
-
-Copy-pasting command line instructions should work (except when you have to complete with private and public keys).
-However, you need to know the public URL/IP of your home router where the MiniBolt is connected and to forward a port (51820 if you just copy-paste command lines).
-The procedure can be different for each router, so you are on your own to do it.
-If your router does support NAT Loopback, it must be active if you want to be able to connect your VPN client from the local network of the MiniBolt with IPv4 (which is useless in theory but disconnecting the VPN several time at home may be inconvenient if you enable VPN at boot on one client device).
 
 ## Prerequisites
 
@@ -74,23 +71,112 @@ Before starting with the installation proper, you need to:
    Most ISP simply do this on request or either charge a small fee to allocate a public IP just for you.
 2. Figure out the public IP of your home network. If you have a static public IP it'll simplify the setup, but it's not mandatory.
    There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
-3. Forward the `51820/UDP` port of your router to the local IP of your MiniBolt.
-   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.
+3. Forward the `51820` port and "UDP" protocol of your router to the local IP of your MiniBolt.
+   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.
 
-## Installation
+## Set up Dynamic DNS
 
-## Server configuration (MiniBolt)
+However, unless it is a static IP (unlikely if it is a residential IP) your ISP can change it at any minute, thus breaking the setup we made.
+In order to fix this we can maintain a DNS record that always points to your latest IP, and the WireGuard clients can use that instead of the IP.
 
-### Configure Firewall and router NAT
+### Desec registration
 
-* As user admin, configure the firewall to allow incoming requests
+Go to  [https://desec.io](https://desec.io), type your preferred email, select dynDNS account and hit the "CREATE ACCOUNT" button.
+
+![Front page](../../../images/desec_io0.png)
+
+You'll see the following form:
+
+![Registration Page](../../../images/desec_io1.png)
+
+Ensure are selected the second option (Register a new domain under dedyn.io)
+
+For the purposes of this demo, I've typed a random subdomain `"yoursubdomain"`, but ***you can use anything memorable*** to you as long as no one has already taken that name.
+
+Type CAPTCHA and check the box "Yes, I agree to the..." option.
+
+After clicking SIGN UP, deSEC will email you to confirm the address. It will contain a verification link that will send you to this page:
+
+![Email Confirmed](../../../images/desec_io2.png)
+
+Take note of the "Token secret", you'll need it later as "YOUR_SECRET_TOKEN", but for now, click on "ASSIGN ACCOUNT PASSWORD" button down below to lock down your account.
+
+Type again your email, complete the captcha and click on the "RESET PASSWORD" button.
+
+![Reset password](../../../images/desec_io7.PNG)
+
+This will prompt deSEC to send you another email with another link that will let you set your account password.
+
+After all that is done, click LOG IN and use your email and password.
+
+![Reset and log in](../../../images/desec_io8.png)
+
+### Dynamic IP script (on MiniBolt)
+
+Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC.
+We'll need the "secret token" from the deSEC registration step.
+
+* As `"admin"` user, log in to MiniBolt and paste the following script into `/opt/dynamic-ip-refresh.sh`
+
+  ```sh
+  $ sudo nano /opt/dynamic-ip-refresh.sh
+  ```
+
+Replace yoursubdomain.dedyn.io and YOUR_SECRET_TOKEN before created. Save and exit
+
+  ```
+  #!/usr/bin/env bash
+
+  set -euo pipefail
+
+  DEDYN_DOMAIN=yoursubdomain.dedyn.io
+  DEDYN_TOKEN=YOUR_SECRET_TOKEN
+
+  CURRENT_IP=$(curl -s https://api.ipify.org/)
+
+  curl -i -s \
+    -H "Authorization: Token ${DEDYN_TOKEN}" \
+    -X GET "https://update.dedyn.io/?hostname=${DEDYN_DOMAIN}&ip=${CURRENT_IP}"
+  ```
+
+After writing the script make it executable and restrict access to it (because it contains sensitive data), and create a crontab entry for root to run it every two minutes:
+
+  ```sh
+  $ sudo chmod 700 /opt/dynamic-ip-refresh.sh
+  ```
+
+  ```sh
+  $ sudo crontab -e
+  ```
+
+Type 1 to choose "nano" editor and add the next line at the end of the file. Save and exit
+
+  ```
+  */2 * * * *     /opt/dynamic-ip-refresh.sh
+  ```
+
+Return to deSEC web interface and click on your domain:
+
+![deSEC Main Menu](../../../images/desec_io3.png)
+
+After 2 minutes, you should see a new automatic registry "type A" with your IP address of the DNS record has changed automatically:
+
+![Successful DNS Record update](../../../images/desec_io10.png)
+
+You now have a free domain (yoursubdomain.dedyn.io) that always points to your home public IP address.
+
+The only step left is replacing the IP of your WireGuard clients configuration with it.
+So the Endpoint section would change from `youpublicIP:51820` to `yoursubdomain.dedyn.io:51820`.
+
+### Configure Firewall
+
+* Log in as user `"admin"` on MiniBolt node, and configure the firewall to allow incoming requests
 
   ```sh
   $ sudo ufw allow 51820/udp comment 'allow WireGuard VPN from anywhere'
   ```
 
-* Forward the `51820/UDP` port of your router to the local IP of your MiniBolt.
-   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.
+### Install WireGuard
 
 * Update the packages, upgrade and install WireGuard
 
@@ -165,112 +251,9 @@ Delete the `private_key` and `public_key` files, but ensure before you take note
   $ sudo rm /home/admin/private_key && rm /home/admin/public_key
   ```
 
-## Set up Dynamic DNS
+## Installation
 
-As of now, the clients have the public IP of MiniBolt hardcoded in their configuration.
-However, unless it is a static IP (unlikely if it is a residential IP) your ISP can change it at any minute, thus breaking the setup we made.
-
-In order to fix this we can maintain a DNS record that always point to your latest IP, and the WireGuard clients can use that instead of the IP.
-We'll use [deSEC.io](https://desec.io/) because it allows registering subdomains free of charge.
-
-### Registration
-
-Head over to [https://desec.io/](https://desec.io/) and hit the "CREATE ACCOUNT" button, at the top right.
-You'll see the following form:
-
-![Registration Page](../../../images/desec_io1.png)
-
-Here you must select the second option (Register a new domain under dedyn.io) and your desired subdomain name.
-For the purposes of this demo I've type a random subdomain `"yoursubdomain"`, but ***you can use anything memorable*** to you as long as no one has already taken that name.
-
-After clicking SIGN UP, deSEC will email you to confirm the address. It will contain a verification link that will send you to this page:
-
-![Email Confirmed](../../../images/desec_io2.png)
-
-Take note of the "token secret", you'll need it later.
-But for now, click on "ASSIGN ACCOUNT PASSWORD" button down below to lock down your account.
-This will prompt deSEC to send you another email with another link that will let you set your account password.
-
-After all that is done, click LOG IN and use your email and password.
-Once inside, click on your domain, and then on the big plus "(+)" symbol to add a new DNS record like so:
-
-![deSEC Main Menu](../../../images/desec_io3.png)
-
-![Add a new DNS Record](../../../images/desec_io4.png)
-
-The record type must be `A`.
-
-"Subname" can be whatever you want, but make it descriptive (e.g wg).
-
-For the IP, I recommend making it up (e.g. `1.2.3.4) because, in the next step, we'll want to test if our IP updating mechanism works.
-
-The TTL field is very important. It is the number of seconds that the DNS clients will cache the result of a DNS query before making another one again.
-In this case, we want to set it as low as possible.
-In the case of deSEC this is 60 seconds.
-
-## Configuring your dynDNS Client
-
-#### Use your router’s DDNS preconfigured provider (recommended)
-
-Some routers have support for deSEC out of the box, and you just need to select the right option (“deSEC”, “desec.io”, “dedyn”, or similar). For example, if you run a router with the OpenWRT operation system, watch out for the “desec.io” provider.
-
-If your router does not have deSEC preconfigured, the configuration procedure will depend on the specific type of router which is why we can’t provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration:
-
-  * Update Server update.dedyn.io, or Update URL https://update.dedyn.io/
-  * Username (the full name of the domain you want to update, e.g. yourname.dedyn.io)
-  * Hostname (same as your username)
-  * Token secret (long random string for authentication, displayed after sign-up)
-
-Advanced API users: The dynDNS token technically is a regular API token with permissions restricted to DNS management (but not account management).
-
-### Dynamic IP script (on MiniBolt)
-
-Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC.
-We'll need the "secret token" from the deSEC registration step.
-
-* As `"admin"` user, log into MiniBolt and paste the following script into `/opt/dynamic-ip-refresh.sh`
-
-  ```sh
-  $ sudo nano /opt/dynamic-ip-refresh.sh
-  ```
-
-  ```
-  #!/usr/bin/env bash
-
-  set -euo pipefail
-
-  DEDYN_DOMAIN=r4kkz4feflfx.dedyn.io
-  DEDYN_TOKEN=YOUR_SECRET_TOKEN
-
-  CURRENT_IP=$(curl -s https://api.ipify.org/)
-
-  curl -i -s \
-    -H "Authorization: Token ${DEDYN_TOKEN}" \
-    -X GET "https://update.dedyn.io/?hostname=${DEDYN_DOMAIN}&ip=${CURRENT_IP}"
-  ```
-
-After writing the script make it executable and restrict access to it (because it contains sensitive data), and create a crontab entry for root to run it every two minutes:
-
-  ```sh
-  $ sudo chmod 700 /opt/dynamic-ip-refresh.sh
-  ```
-
-  ```sh
-  $ sudo crontab -e
-  ```
-
-  ```
-  */2 * * * *     /opt/dynamic-ip-refresh.sh
-  ```
-
-After a few minutes, you should see in the deSEC web interface that the IP of the DNS record has changed automatically:
-
-![Successful DNS Record update](../../../images/desec_io5.png)
-
-You now have a free domain (r4kkz4feflfx.dedyn.io) that always points to your home IP address.
-
-The only step left is replacing the IP of your WireGuard clients configuration with it.
-So the Endpoint section would change from `188.86.27.80:51820` to `r4kkz4feflfx.dedyn.io:51820`.
+## Server configuration (MiniBolt)
 
 ## Client configuration Linux (part 1)
 
@@ -316,19 +299,19 @@ When you install the `"wireguard"` package the directory is created automaticall
   $ sudo nano /etc/wireguard/wg0.conf
   ```
 
-* Write the following contents to the `wg0.conf` file:
+Write the following contents to the `wg0.conf` file:
 
   ```
   ## Client configuration
   [Interface]
   Address = 10.0.0.2/24
-  PrivateKey = Your_Client_Private_Key
+  PrivateKey = <Your_Client_Private_Key>
 
   ## Server configuration (MiniBolt)
   [Peer]
-  PublicKey = Your_Server_Public_Key
+  PublicKey = <Your_Server_Public_Key>
   AllowedIPs = 10.0.0.1/32
-  Endpoint = r4kkz4feflfx.dedyn.io:51820
+  Endpoint = yoursubdomain.dedyn.io:51820
   ```
 
 📝 A few things to note here:
@@ -414,34 +397,6 @@ Expected output:
   [#] ip link delete dev wg0
   ```
 
-## Extras
-
-## Configure additional clients
-
-For each additional client, you need to install the WireGuard software, and reuse the key pair before created for it and write it's configuration file.
-This time you'll already know the server's public key and endpoint from the start.
-
-Mind that each new client has to be allocated a new IP inside the VPN's network range. For instance, a second client could have the IP `10.0.0.3`, as `10.0.0.1` and `10.0.0.2` are already taken by the server and the first client, respectively.
-
-For instance, in Windows the WireGuard program already generates the key pair and writes a stub for the configuration just by clicking "Create new Tunnel".
-
-![WireGuard Windows Client](../../../images/wireguard-windows.png)
-
-Each time you want to add a new client you just need to append a new `[Peer]` section in MiniBolt's `/etc/wireguard/wg0.conf` configuration file:
-
-  ```
-  [Peer]
-  PublicKey = A_New_Client_Public_Key
-  AllowedIPs = 10.0.0.3/32
-  ```
-
-After that, you need to restart the WireGuard server for the changes to take effect. Mind that if you logged in to MiniBolt through WireGuard from
-an already configured client this command will kick you out of MiniBolt temporarily:
-
-  ```sh
-  $ sudo systemctl restart wg-quick@wg0.service
-  ```
-
 ## Tip for configuring a mobile client
 
 Entering public and private key material into a mobile phone is particularly cumbersome.
@@ -459,11 +414,29 @@ Now, assuming you have written a WireGuard configuration file at `config.txt` yo
   $ qrencode -t ansiutf8 < config.txt
   ```
 
+## Extras
+
+## Configure additional clients
+
+For each additional client, you need to install the WireGuard software, and reuse the key pair before created for it and write it's configuration file.
+This time you'll already know the server's public key and endpoint from the start.
+
 ## Configure additional servers
 
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range where MiniBolt is at `10.0.0.1` and your client at `10.0.0.2`.
 You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
 Here we chose `10.0.0.1/24` because it stands out and is not likely to collide with any other network from your machines.
+
+### Use your router’s DDNS preconfigured provider
+
+Some routers have support for Dynamic DNS providers like NO-IP or deSEC, out of the box, and you just need to select the right option (“deSEC”, “desec.io”, “dedyn”, NoIP or similar). For example, if you run a router with the OpenWRT operation system, watch out for the “desec.io” provider.
+
+If your router does not have deSEC preconfigured, the configuration procedure will depend on the specific type of router which is why we can’t provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration:
+
+  * Provider: select on the drop-down, the provider ID, e.g. www.no-ip.com
+  * Domain name: the full name of the domain you want to update, e.g. yoursubdomain.dedyn.io
+  * Username: selected username or email of the previously created account
+  * Password/Token secret (long random string for authentication, displayed after sign-up)
 
 ---
 
