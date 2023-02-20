@@ -47,13 +47,13 @@ We enable access to LND through Remote Procedure Calls (RPC), allowing the Zap D
   ```
 
 * Add the following lines to the section `[Application Options]`. The netmask `/16` restricts access to all computers with an IP address of 192.168.*.* (i.e., the local network).
-  
+
   ```sh
   # Add local network IP address to LND's TLS certificate
   tlsextraip=192.168.0.0/16
   rpclisten=0.0.0.0:10009
   ```
-  
+
 * Backup and delete the existing `tls.cert` and `tls.key` files and restart LND to recreate them
 
   ```sh
@@ -64,10 +64,10 @@ We enable access to LND through Remote Procedure Calls (RPC), allowing the Zap D
 
 ### Firewall
 
-* Configure the UFW firewall to allow incoming requests from the local network only  
-  
+* Configure the UFW firewall to allow incoming requests
+
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 10009 proto tcp comment 'allow LND RPC server from local network'
+  $ sudo ufw allow 10009/tcp comment 'allow LND RPC server from anywhere'
   $ sudo ufw status
   ```
 
@@ -86,8 +86,8 @@ We will connect Zap to the RaspiBolt using a connection string that includes the
   $ cd
   ```
 
-* Generate the connection string (the `-i` option include the local IP; the `-j` option generates a string rather than the default QR code)
-  
+* Generate the connection string (the `-i` option includes the local IP; the `-j` option generates a string rather than the default QR code)
+
   ```sh
   $ lndconnect -i -j
   > lndconnect://192.168.0.20:10009?cert=...
@@ -132,7 +132,7 @@ If you stop using Zap, it is safer to restrict access to LND gRPC. But make sure
   ```sh
   $ sudo nano ~/.lnd/lnd.conf
   ```
-  
+
   ```ini
   #tlsextraip=192.168.0.0/16
   #rpclisten=0.0.0.0:10009
@@ -147,7 +147,7 @@ If you stop using Zap, it is safer to restrict access to LND gRPC. But make sure
   ```
 
 * Display the firewall status and note the number of LND RPC server (e.g. below, X)
-  
+
   ```sh
   $ sudo ufw status numbered
   > [...]

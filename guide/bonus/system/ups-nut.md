@@ -31,7 +31,7 @@ Status: Not tested MiniBolt
 
 ### Install NUT on a Single Device
 
-This is to use Network UPS Tools (NUT; https://networkupstools.org/ ) in order to safely shutdown your node in the event of a power outage. This is confirmed to work on Raspberry Pi using Rasperry Pi Lite OS, but should work for those using other systems as well. Special attention may be needed to ensure the shutdown command is appropriate for your OS.
+This is to use Network UPS Tools (NUT; https://networkupstools.org/ ) in order to safely shutdown your node in the event of a power outage. This is confirmed to work on a personal computer using Ubuntu server 64 bits, but should work for those using other systems as well. Special attention may be needed to ensure the shutdown command is appropriate for your OS.
 
 NUT is nice in that it allows for a single device to communicate to other devices to safely shut them down (client-server relationship). For this scenario, ensure your UPS data port is plugged into the Raspberry Pi.
 
@@ -79,7 +79,7 @@ NOTE: Depending on the driver/hardware of your system, you may need to comment o
   $ sudo upsdrvctl start
   ```
 
-* Check status to verify service is active.
+* Check the status to verify service is active.
 
   ```sh
   $ sudo service nut-server restart
@@ -103,7 +103,7 @@ Configure the monitor that will alert watch, alert, and shutdown the device if n
   password = secretpassword
   actions = SET
   instcmds = ALL
-  [upsmon] 
+  [upsmon]
   password = secretpassword1
   upsmon master
   ```
@@ -122,7 +122,7 @@ Other items of interest in `upsmon.conf`
 
 * NOTIFYFLAG section. I like to uncomment ONLINE and ONBATT so that we see state changes in the UPS
 
-* Review SHUTDOWNCMD and ensure it works based on your OS. I believe it determine best command during install
+* Review SHUTDOWNCMD and ensure it works based on your OS. I believe it determines the best command during the install
 
 NUT creates user/group nut in install, so we’re going to limit access to nut and root to view UPS user permissions and configuration.
 
@@ -139,7 +139,7 @@ Restart daemons
   ```
 
 View available commands of UPS. Might come in handy to silence the alarm. Replace `UPS-Name` with the name you used in `ups.conf`.
-  
+
   ```sh
   $ upscmd –l UPS-Name
   ```
@@ -202,8 +202,7 @@ Whichever system has the UPS data port plugged into it is the server/master and 
 * Modify the firewall to allow for 3493 to come into your system.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 3493/tcp comment 'allow UPS NUT Client from local network’
-  $ sudo ufw status
+  $ sudo ufw allow 3493/tcp comment 'allow UPS NUT Client from anywhere’
   ```
 
 * Reload the server daemons to have it read the new configuration.
@@ -224,7 +223,7 @@ Modify `nut.conf` to be the netclient.
   ```sh
   client$ sudo nano /etc/nut/nut.conf
   ```
-  
+
   ```ini
   MODE=netclient
   ```
@@ -247,7 +246,7 @@ Now permissions cleanup. No passwords in `upsd.users`, so no change of permissio
   ```
 
 Restart daemon
-  
+
   ```sh
   client$ sudo service nut-client restart
   ```

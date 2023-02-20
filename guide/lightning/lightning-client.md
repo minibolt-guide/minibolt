@@ -32,9 +32,9 @@ The installation of LND is straight-forward, but the application is quite powerf
 
 ### Configure Bitcoin Core
 
-Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
+Before run LND, we need to set up settings in Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
 
-* Login as "admin" edit `bitcoin.conf`, and add the following lines. Save and exit
+* Edit `bitcoin.conf`, and add the following lines. Save and exit
 
   ```sh
   $ sudo nano /data/bitcoin/bitcoin.conf
@@ -46,33 +46,18 @@ Before running LND, we need to set up settings in the Bitcoin Core configuration
   zmqpubrawtx=tcp://127.0.0.1:28333
   ```
 
-* Restart Bitcoin Core to apply the changes
-
-  ```sh
-  $ sudo systemctl restart bitcoind
-  ```
-
 ### Download
 
-* Login as "admin" and change to a temporary directory which is cleared on reboot.
+We'll download, verify and install LND.
+
+* As user "admin", download the application, checksums and signature
 
   ```sh
   $ cd /tmp
-  ```
-
-* Set a temporary version environment variable to the installation
-
-  ```sh
-  $ VERSION=v0.15.5
-  ```
-
-* Download
-
-  ```sh
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/lnd-linux-amd64-$VERSION-beta.tar.gz
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/manifest-$VERSION-beta.txt
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/manifest-roasbeef-$VERSION-beta.sig.ots
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/manifest-roasbeef-$VERSION-beta.sig
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/lnd-linux-amd64-v0.15.5-beta.tar.gz
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-v0.15.5-beta.txt
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-roasbeef-v0.15.5-beta.sig.ots
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-roasbeef-v0.15.5-beta.sig
   ```
 
 ### Checksum check
@@ -80,13 +65,13 @@ Before running LND, we need to set up settings in the Bitcoin Core configuration
 * Verify the signed checksum against the actual checksum of your download
 
   ```sh
-  $ sha256sum --check manifest-$VERSION-beta.txt --ignore-missing
+  $ sha256sum --check manifest-v0.15.5-beta.txt --ignore-missing
   ```
 
-Expected output
+Expected output:
 
   ```sh
-  > lnd-linux-amd64-$VERSION-beta.tar.gz: OK
+  > lnd-linux-amd64-v0.15.5-beta.tar.gz: OK
   ```
 
 ### Signature check
@@ -99,7 +84,7 @@ Now that we've verified the integrity of the downloaded binary, we need to check
   $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
   ```
 
-Expected output
+Expected output:
 
   ```sh
   > ...
@@ -110,12 +95,12 @@ Expected output
 * Verify the signature of the text file containing the checksums for the application
 
   ```sh
-  $ gpg --verify manifest-roasbeef-$VERSION-beta.sig manifest-$VERSION-beta.txt
+  $ gpg --verify manifest-roasbeef-v0.15.5-beta.sig manifest-v0.15.5-beta.txt
   ```
 
-Expected output
+Expected output:
 
-  ```sh
+  ```
   > gpg: Signature made Thu Dec  1 19:20:10 2022 UTC
   > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
   > gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
@@ -132,12 +117,12 @@ We can also check that the manifest file was in existence around the time of the
 * Let's verify the timestamp of the file matches the release date.
 
   ```sh
-  $ ots --no-cache verify manifest-roasbeef-$VERSION-beta.sig.ots -f manifest-roasbeef-$VERSION-beta.sig
+  $ ots --no-cache verify manifest-roasbeef-v0.15.5-beta.sig.ots -f manifest-roasbeef-v0.15.5-beta.sig
   ```
-`
-The following output is just an example of one of the versions
 
-  ```sh
+Expected output:
+
+  ```
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
   > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
   > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
@@ -145,17 +130,28 @@ The following output is just an example of one of the versions
   > Success! Bitcoin block 765521 attests existence as of 2022-12-01 UTC
   ```
 
-Check that the date of the timestamp (here 2022-12-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-02).
+* Check that the date of the timestamp (here 2022-12-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-02).
 
 ## Installation
 
 Having verified the integrity and authenticity of the release binary, we can safely proceed to install it
 
   ```sh
-  $ tar -xzf lnd-linux-amd64-$VERSION-beta.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-$VERSION-beta/*
+  $ tar -xzf lnd-linux-amd64-v0.15.5-beta.tar.gz
+  ```
+
+  ```sh
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.15.5-beta/*
+  ```
+
+  ```sh
   $ lnd --version
-  > lnd version $VERSION-beta commit=$VERSION-beta
+  ```
+
+Expected output:
+
+  ```
+  > lnd version 0.15.5-beta commit=v0.15.5-beta
   ```
 
 ### Data directory
@@ -166,6 +162,9 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" lnd
+  ```
+
+  ```sh
   $ sudo usermod -a -G bitcoin,debian-tor lnd
   ```
 
@@ -179,6 +178,9 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
   ```sh
   $ sudo mkdir /data/lnd
+  ```
+
+  ```sh
   $ sudo chown -R lnd:lnd /data/lnd
   ```
 
@@ -192,6 +194,9 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
   ```sh
   $ ln -s /data/lnd /home/lnd/.lnd
+  ```
+
+  ```sh
   $ ln -s /data/bitcoin /home/lnd/.bitcoin
   ```
 
@@ -211,7 +216,7 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   $ nano /data/lnd/password.txt
   ```
 
-* Tighten access privileges and make the file readable only for user "lnd"
+* Tighten access privileges and make the file readable only for user "lnd":
 
   ```sh
   $ chmod 600 /data/lnd/password.txt
@@ -221,7 +226,7 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
 #### Configure LND
 
-* Create the LND configuration file and paste the following content ***(adjust to your alias, your color, your minimum channel size and fees)***.
+* Create the LND configuration file and paste the following content (adjust to your alias, your color, your minimum channel size and fees).
   Save and exit.
 
   ```sh
@@ -299,7 +304,6 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   [tor]
   tor.active=true
   tor.v3=true
-  tor.streamisolation=true
   ```
 
 🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options
@@ -374,6 +378,8 @@ $2 sudo systemctl start lnd
 
 Monitor the systemd journal at the first session created to check if everything works fine. You can exit monitoring at any time with `Ctrl-C`
 
+Expected output:
+
   ```sh
   > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
   > Dec 02 09:23:37 minibolt lnd[2584156]: Attempting automatic RPC configuration to bitcoind
@@ -404,7 +410,7 @@ Once LND is started, the process waits for us to create the integrated Bitcoin o
   ```
 
 * Enter your `password [C]` as wallet password (it must be exactly the same you stored in `password.txt`).
-  To create a new wallet, select `n` when asked if you have an existing cipher seed.
+  To create a a new wallet, select `n` when asked if you have an existing cipher seed.
   Just press enter if asked about an additional seed passphrase, unless you know what you're doing.
   A new cipher seed consisting of 24 words is created.
 
@@ -452,12 +458,18 @@ To make the user "admin" the main administrative user, we make sure it can inter
   ```
 
 * As user "admin", link the LND data directory in the user "admin" home.
-  As a member of the group "lnd", admin has read-only access to certain files.
+  As a member or the group "lnd", admin has read-only access to certain files.
   We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
 
   ```sh
   $2 ln -s /data/lnd /home/admin/.lnd
+  ```
+
+  ```sh
   $2 sudo chmod -R g+X /data/lnd/data/
+  ```
+
+  ```sh
   $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
   ```
 
@@ -474,7 +486,7 @@ To make the user "admin" the main administrative user, we make sure it can inter
 ### Watchtower client
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
-If your MiniBolt goes down for a longer period, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
+If your MiniBolt goes down for a longer period of time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
 Watchtowers are other Lightning nodes that can monitor your channels for you.
 If they detect such bad behavior, they can react on your behalf, and send a punishing transaction to close this channel.
@@ -499,6 +511,11 @@ It's good practice to add a few watchtowers, just to be on the safe side.
 
   ```sh
   $2 lncli wtclient towers
+  ```
+
+Expected output:
+
+  ```
   {
       "towers": [
           {
@@ -554,6 +571,11 @@ Example output:
 
   ```sh
   $2 lncli newaddress p2tr
+  ```
+
+Expected output:
+
+  ```
   > "address": "bc1p..."
   ```
 
@@ -561,6 +583,11 @@ Example output:
 
   ```sh
   $2 lncli walletbalance
+  ```
+
+Expected output:
+
+  ```
   {
       "total_balance": "712345",
       "confirmed_balance": "0",
@@ -577,7 +604,7 @@ If you have only one UTXO, you need to wait for the change to return to your wal
 
 Although LND features an optional "autopilot", we manually open some channels.
 
-We recommend going on [Amboss.space](https://www.amboss.space/){:target="_blank"} or [1ML.com](https://1ml.com){:target="_blank"} and look for a mix of big and small nodes with decent Node Ranks.
+We recommend going on [Amboss.Space](https://www.amboss.space/){:target="_blank"} or [1ML.com](https://1ml.com){:target="_blank"} and look for a mix of big and small nodes with decent Node Ranks.
 Another great way to find peers to collaboratively set up channels is [LightningNetwork+](https://lightningnetwork.plus/){:target="_blank"}.
 
 To connect to a remote node, you need its URI that looks like `<pubkey>@host`:
@@ -608,6 +635,9 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 
   ```sh
   $2 lncli walletbalance
+  ```
+
+  ```sh
   $2 lncli channelbalance
   ```
 
@@ -716,7 +746,7 @@ A quick reference with common commands to play around with:
 
 💡 Flags `--memo "your memo here" --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time will be 30 days by default and the rest can be empty.
 
-Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools.
+Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
 
 * List all invoices:
 
@@ -750,91 +780,21 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
 Upgrading LND can lead to a number of issues.
 **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
 
-* Login as "admin" and change to a temporary directory which is cleared on reboot
+* Check your lnd version
 
   ```sh
-  $ cd /tmp
-  ```
-
-* Set a temporary version environment variable to the installation
-
-  ```sh
-  $ VERSION=v0.15.5
-  ```
-
-  ```sh
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/lnd-linux-amd64-$VERSION-beta.tar.gz
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/manifest-$VERSION-beta.txt
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/manifest-roasbeef-$VERSION-beta.sig.ots
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/$VERSION-beta/manifest-roasbeef-$VERSION-beta.sig
-  ```
-
-* Verify the signed checksum against the actual checksum of your download
-
-  ```sh
-  $ sha256sum --check manifest-$VERSION-beta.txt --ignore-missing
-
-Expected output:
-
-  ```sh
-  > lnd-linux-amd64-$VERSION-beta.tar.gz: OK
-  ```
-
-* Get the public key from the LND developer, [Olaoluwa Osuntokun](https://keybase.io/roasbeef){:target="_blank"}, who signed the manifest file; and add it to your GPG keyring
-
-  ```sh
-  $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
-  > ...
-  > gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun <laolu32@gmail.com>"
-  > ...
-  ```
-
-* Verify the signature of the text file containing the checksums for the application
-
-  ```sh
-  $ gpg --verify manifest-roasbeef-$VERSION-beta.sig manifest-$VERSION-beta.txt
-  ```
-
-Expected output:
-
-  ```sh
-  > gpg: Signature made Thu Dec  1 19:20:10 2022 UTC
-  > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
-  > gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
-  > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
-  >      Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
-  ```
-
-* Let's verify the timestamp of the file matches the release date
-
-  ```sh
-  $ ots --no-cache verify manifest-roasbeef-$VERSION-beta.sig.ots -f manifest-roasbeef-$VERSION-beta.sig
-  ```
-
-The following output is just an example of one of the versions
-
-  ```sh
-  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
-  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
-  > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-  > Success! Bitcoin block 765521 attests existence as of 2022-12-01 UTC
-  ```
-
-Check that the date of the timestamp (here 2022-12-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-02).
-
-* Having verified the integrity and authenticity of the release binary, we can safely proceed to install it
-
-  ```sh
-  $ tar -xzf lnd-linux-amd64-$VERSION-beta.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-$VERSION-beta/*
   $ lnd --version
-  > lnd version $VERSION-beta commit=$VERSION-beta
   ```
 
-* Restart the services to apply the version change
+* As "admin" user, stop the LND service
+
+  ```sh
+  $ sudo systemctl stop lnd
+  ```
+
+* Download, verify and install the latest LND binaries as described in the [LND section](lightning-client.md#installation) of this guide.
+
+* Restart the services with the new configuration
 
   ```sh
   $ sudo systemctl restart lnd

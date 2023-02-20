@@ -65,10 +65,10 @@ The guide will show you how to:
 
 ### Configure Firewall
 
-* Configure the firewall to allow incoming requests to Bitcoin Core from the local network.
+* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 8333 proto tcp comment 'allow Bitcoin Core from local network' 
+  $ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
   ```
 
 ### Obtain your Bitcoin Core `onion` address
@@ -82,7 +82,7 @@ Still with user admin, run the following command and make a copy of the .onion a
 
 ## Connect Bisq to your own node
 
-For Linux and MacOS, we will start Bisq the first time using the command line to force it to connect to your Bitcoin node only.
+For Linux and MacOS, we will start Bisq for the first time using the command line to force it to connect to your Bitcoin node only.
 
 On your personal computer where you installed Bisq, depending on your OS
 
@@ -90,14 +90,14 @@ On your personal computer where you installed Bisq, depending on your OS
 
 * Open a command line terminal, we will start Bisq with two flags that will force it to connect to our own node only. Bisq should connect to your node on startup.
 
-From local network connection, replace `192.168.X.X:8333` with your own node IP address.
-  
+From the local network connection, replace `192.168.X.X:8333` with your own node IP address.
+
   ```sh
   $ /opt/bisq/bin/Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
   ```
 
-From remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above.
-  
+From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above.
+
   ```sh
   $ /opt/bisq/bin/Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
   ```
@@ -110,14 +110,14 @@ From remote connection, replace `123...abc.onion:8333` with your own Bitcoin Cor
 
 * Open a command line terminal, we will start Bisq with two flags that will force it to connect to our own node only.
 
-* From local network connection, replace `192.168.X.X:8333` with your own node IP address.
-  
+* From the local network connection, replace `192.168.X.X:8333` with your own node IP address.
+
   ```sh
   $ Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
   ```
 
-* From remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above.
-  
+* From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above.
+
   ```sh
   $ Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
   ```
@@ -154,15 +154,15 @@ From remote connection, replace `123...abc.onion:8333` with your own Bitcoin Cor
 
 ## Bisq configuration
 
-This section will highlight key configuration options focusing on privacy and security only.  
+This section will highlight key configuration options focusing on privacy and security only.
 
 For the national currency account and trading configuration options, please refer to the Bisq [website](https://bisq.network/getting-started/){:target="_blank"} and [wiki](https://bisq.wiki/Main_Page){:target="_blank"}
 
 ### Bitcoin Explorer
 
-* Click to "Settings" > "Preferences"
+* Click on "Settings" > "Preferences"
 
-* Click on the three dots of the "Bitcoin Explorer" section
+* Click on the three dots in the "Bitcoin Explorer" section
 
 * Use the following information:
   * Name: Choose a name (e.g., `MiniBolt`)
@@ -189,7 +189,7 @@ For the national currency account and trading configuration options, please refe
 
 * Still in the "Account" tab, now click on "Backup"
 
-* Click on "Select backup location" and select a folder where your Bisq data will be backed-up
+* Click on "Select a backup location" and select a folder where your Bisq data will be backed-up
 
 * Click on "Backup now (backup is not encrypted)"
 
@@ -201,7 +201,7 @@ For the national currency account and trading configuration options, please refe
 
 * In the pop-up window that just appeared, read the information and then click on "Set password, I already made a backup". Once done, close the confirmation window.
 
-Congrats! You're now ready to start buying and selling Bitcoin on Bisq in a secure and private way.
+Congrats! You're now ready to start buying and selling Bitcoin on Bisq securely and privately.
 
 ---
 
@@ -217,7 +217,7 @@ Bisq will let you know when a new update is available. Simply follow the instruc
 
 ### Uninstall FW configuration
 
-* Delete firewall rule with the comment 'allow BTC Core from local network' identifying the number of the rule
+* Delete the firewall rules with the comment 'allow BTC Core from anywhere' identifying the number of the rule
 
   ```sh
   $ sudo ufw status numbered
@@ -227,10 +227,10 @@ Bisq will let you know when a new update is available. Simply follow the instruc
   Status: active
      To                         Action      From
      --                         ------      ----
-  [X] 8333                      ALLOW IN    192.168.0.0/16            # allow BTC Core from local network
+  [X] 8333                      ALLOW IN    Anywhere            # allow BTC Core from anywhere
   ```
 
-* Delete the rule with the correct number and confir with "yes"
+* Delete the rule with the correct number and confirm with "yes"
 
   ```sh
   $ sudo ufw delete X

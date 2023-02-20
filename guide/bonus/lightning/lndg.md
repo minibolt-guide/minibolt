@@ -62,7 +62,7 @@ Status: Not tested MiniBolt
 * Configure firewall to allow incoming HTTP requests:
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 8889 proto tcp comment 'allow LNDg SSL from local network'
+  $ sudo ufw allow 8889/tcp comment 'allow LNDg SSL from anywhere'
   ```
 
 ## LNDg
@@ -93,7 +93,6 @@ For that we will create a separate user and we will be running the code as the n
   ```sh
   $ git clone --branch v1.5.0 https://github.com/cryptosharks131/lndg.git
   $ cd lndg
-  ```
 
 * Setup a Python virtual environment
 
@@ -739,7 +738,7 @@ With the Tor browser, you can access this onion address from any device.
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [X] 8889/tcp                   ALLOW IN    192.168.0.0/16                   # allow LNDg SSL from local network
+  > [X] 8889/tcp                   ALLOW IN    Anywhere                   # allow LNDg SSL from anywhere
   ```
 
 * Delete the two LNDg rules (check that the rule to be deleted is the correct one and type “y” and “Enter” when prompted)

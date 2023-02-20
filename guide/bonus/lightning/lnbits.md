@@ -74,7 +74,7 @@ Status: Not tested MiniBolt
 * Configure the firewall to allow incoming HTTPS requests.
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4003 proto tcp comment 'allow LNBits SSL from local network'
+  $ sudo ufw allow 4003/tcp comment 'allow LNBits SSL from anywhere'
   ```
 
 ## LNBits
@@ -128,7 +128,7 @@ Status: Not tested MiniBolt
   #LNBITS_DATA_FOLDER="./data"
   LNBITS_DATA_FOLDER="/home/lnbits/.lnbits"
   ```
-  
+
 * Choose the colour theme for the webpage, _e.g._ "bitcoin". You can choose among the following options: `autumn`, `bitcoin`, `classic`, `flamingo`, `freedom`, `mint`, `monochrome` and  `salvador`.
 
 ![LNBits themes](../../../images/lnbits-themes.PNG)
@@ -148,34 +148,34 @@ Status: Not tested MiniBolt
   ```sh
   # ClicheWallet
   #CLICHE_ENDPOINT=ws://127.0.0.1:12000
-  
+
   # SparkWallet
   #SPARK_URL=http://localhost:9737/rpc
   #SPARK_TOKEN=myaccesstoken
-  
+
   # CoreLightningWallet
   #CORELIGHTNING_RPC="/home/bob/.lightning/bitcoin/lightning-rpc"
-  
+
   # LnbitsWallet
   #LNBITS_ENDPOINT=https://legend.lnbits.com
   #LNBITS_KEY=LNBITS_ADMIN_KEY
-  
+
   # LndRestWallet
   LND_REST_ENDPOINT=https://127.0.0.1:8080/
   LND_REST_CERT="/home/bob/.config/Zap/lnd/bitcoin/mainnet/wallet-1/data/chain/bitcoin/mainnet/tls.cert"
   LND_REST_MACAROON="/home/bob/.config/Zap/lnd/bitcoin/mainnet/wallet-1/data/chain/bitcoin/mainnet/admin.macaroon or HEXSTRING"
   # To use an AES-encrypted macaroon, set
   # LND_REST_MACAROON_ENCRYPTED="eNcRyPtEdMaCaRoOn"
-  
+
   [...]
-  
+
   # EclairWallet
   #ECLAIR_URL=http://127.0.0.1:8283
   #ECLAIR_PASS=eclairpw
   ```
 
 * Edit the LND REST wallet parameters with the following lines
-  
+
   ```ini
   LND_REST_ENDPOINT=https://127.0.0.1:8080
   LND_REST_CERT="/home/lnbits/.lnd/tls.cert"
@@ -228,7 +228,7 @@ Your browser will display a warning because we use a self-signed SSL certificate
   ```sh
   # MiniBolt: systemd unit for LNBits
   # /etc/systemd/system/lnbits.service
-  
+
   [Unit]
   Description=LNBits
   After=lnd.service

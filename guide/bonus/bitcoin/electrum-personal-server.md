@@ -53,21 +53,30 @@ Status: Not tested MiniBolt
 * Configure firewall to allow incoming requests (please check if you need to adjust the subnet mask as [described in original setup](../../raspberry-pi/security.md#enabling-the-uncomplicated-firewall))
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 50002 proto tcp comment 'allow EPS from local network'
+  $ sudo ufw allow 50002/tcp comment 'allow EPS from anywhere'
   ```
 
 Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresses to monitor the blockchain for you.
 
 * Make sure that in "bitcoin.conf", `disablewallet=1` is not set (it can be either missing, or set to `0`). Save and exit.
-  `$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf`
+
+  ```sh
+  $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf`
+  ```
 
 * If you changed `bitcoin.conf`, restart bitcoind
-  `$ sudo systemctl restart bitcoind`
+
+  ```sh
+  $ sudo systemctl restart bitcoind
+  ```
 
 ### Install Electrum Personal Server
 
 * Open a "bitcoin" user session and change into the home directory
-  `$ sudo su - bitcoin`
+
+  ```sh
+  $ sudo su - bitcoin
+  ```
 
 * Download, verify and extract the latest release (check the [Releases page](https://github.com/chris-belcher/electrum-personal-server/releases){:target="_blank"} on Github for the correct links)
 
@@ -117,7 +126,7 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
 * Save and exit
 
 * Install Electrum Personal Server
-  
+
   ```sh
   $ cd electrum-personal-server-eps-v0.2.4/
   # Install the wheel package first, which is required
@@ -126,7 +135,7 @@ Electrum Personal Server uses the Bitcoin Core wallet with "watch-only" addresse
   ```
 
 ![Install Electrum Personal Server with Python Pip](../../../images/60_eps_pip_install.png)
-  
+
 ### Setup default wallet with `bitcoind` and set it to autoload on daemon start
 
 eps needs a "dummy" wallet configured in bitcoind to correctly scan for transactions.
@@ -233,11 +242,20 @@ If everything works as expected, we will now automate the start of Electrum Pers
   ```
 
 * Enable and start the eps.service unit
-  `$ sudo systemctl enable eps.service`
-  `$ sudo systemctl start eps.service`
+
+  ```sh
+  $ sudo systemctl enable eps.service
+  ```
+
+  ```sh
+  $ sudo systemctl start eps.service
+  ```
 
 * Check the startup process for Electrum Personal Server
-  `$ tail -f  /tmp/electrumpersonalserver.log`
+
+  ```sh
+  $ tail -f  /tmp/electrumpersonalserver.log
+  ```
 
 ---
 

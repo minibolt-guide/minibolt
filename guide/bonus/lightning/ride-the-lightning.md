@@ -39,7 +39,7 @@ Status: Not tested MiniBolt
 ### Check Node.js
 
 * Node.js v16 should have been installed for the BTC RPC Explorer. We can check our version of Node.js with user "admin"
-  
+
   ```sh
   $ node -v
   > v16.14.2
@@ -79,17 +79,17 @@ Now we can add the RTL configuration.
 * Configure firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4001 proto tcp comment 'allow Ride The Lightning SSL from local network'
+  $ sudo ufw allow 4001/tcp comment 'allow Ride The Lightning SSL from anywhere'
   ```
 
 ## Ride the Lightning
 
 ### Installation
 
-We do not want to run Ride the Lightning alongside bitcoind and lnd because of security reasons. For that we will create a separate user and we will be running the code as the new user. We are going to install Ride the Lightning in the home directory since it doesn’t take much space and doesn’t use a database.
+We do not want to run Ride the Lightning alongside bitcoind and lnd because of security reasons. For that we will create a separate user and we will be running the code as the new user. We are going to install Ride the Lightning in the home directory since it doesn’t take up much space and doesn’t use a database.
 
 * Create a new user, copy the LND credentials and open a new session
-  
+
   ```sh
   $ sudo adduser --disabled-password --gecos "" rtl
   $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/rtl/admin.macaroon
@@ -148,10 +148,10 @@ If you something similar to the following at the end, installation was successfu
   ```sh
   > [...]
   > added 362 packages, and audited 363 packages in 12m
-  > 
+  >
   > 24 packages are looking for funding
   >   run `npm fund` for details
-  > 
+  >
   > found 0 vulnerabilities
   ```
 
@@ -333,4 +333,4 @@ Make sure to read the release notes first.
 
 ---
 
-Next: [Mobile app >>](mobile-app.md)
+<< Back: [+ Lightning](index.md)

@@ -68,7 +68,6 @@ Now we can add the BTC RPC Explorer configuration.
   server {
     listen 4000 ssl;
     error_page 497 =301 https://$host:$server_port$request_uri;
-
     location / {
       proxy_pass http://127.0.0.1:3002;
     }
@@ -85,7 +84,7 @@ Now we can add the BTC RPC Explorer configuration.
 * Configure the firewall to allow incoming HTTPS requests
 
   ```sh
-  $ sudo ufw allow from 192.168.0.0/16 to any port 4000 proto tcp comment 'allow BTC RPC Explorer SSL from local network'
+  $ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
   ```
 
 ## BTC RPC Explorer
@@ -118,10 +117,10 @@ There might be a lot of confusing output, but if you see something similar to th
   ```sh
   > Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-amd64-83/binding.node
   > added 480 packages from 307 contributors and audited 482 packages in 570.14s
-  > 
+  >
   > 43 packages are looking for funding
   >   run `npm fund` for details
-  > 
+  >
   > found 12 vulnerabilities (8 moderate, 4 high)
   >   run `npm audit fix` to fix them, or `npm audit` for details
   ```
@@ -164,7 +163,7 @@ There might be a lot of confusing output, but if you see something similar to th
 
 #### Optional
 
-* You can decide whether you want to optimize for more information or for more privacy.
+* You can decide whether you want to optimize for more information or more privacy.
 
   * More information mode, including Bitcoin exchange rates
 
@@ -196,7 +195,7 @@ There might be a lot of confusing output, but if you see something similar to th
 * Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark (default dark)
 
   ```sh
-  # uncomment and replace line 178 with your selection 
+  # uncomment and replace line 178 with your selection
   BTCEXP_UI_THEME=dark
   ```
 
@@ -224,19 +223,16 @@ In order to do that, we create a systemd unit that starts the service on boot di
   ```sh
   # MiniBolt: systemd unit for BTC RPC Explorer
   # /etc/systemd/system/btcrpcexplorer.service
-
   [Unit]
   Description=BTC RPC Explorer
   After=bitcoind.service fulcrum.service
   PartOf=bitcoind.service
-
   [Service]
   WorkingDirectory=/home/btcrpcexplorer/btc-rpc-explorer
   ExecStart=/usr/bin/npm start
   User=btcrpcexplorer
   Restart=always
   RestartSec=30
-
   [Install]
   WantedBy=multi-user.target
   ```

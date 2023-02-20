@@ -56,7 +56,6 @@ If you have Tor installed on your computer, you can access your MiniBolt remotel
 * Enable it and confirm the proxy address (usually the default `127.0.0.1:9050`)
 * When adding your RaspiBolt full node as described above, use your Tor address (e.g. `gwdllz5g7vky2q4gr45zGuvopjzf33czreca3a3exosftx72ekppkuqd.onion:50002`)
 
-
 <br /><br />
 
 ---

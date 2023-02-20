@@ -14,7 +14,7 @@ has_toc: false
 
 ---
 
-The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/){:target="_blank"} are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transports](https://tb-manual.torproject.org/circumvention/){:target="_blank"} called obfs4, a special kind of bridge, address this by adding an additional layer of obfuscation.
+The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/){:target="_blank"} are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transports](https://tb-manual.torproject.org/circumvention/){:target="_blank"} called obfs4, a special kind of bridge, to address this by adding a layer of obfuscation.
 
 ⚠️ _USE WITH CAUTION - For this guide to work properly, you will need to open ports too are reachable from outside_
 
@@ -48,23 +48,28 @@ Status: Tested MiniBolt
 
 obfs4 makes Tor traffic look random, and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configure all.
 
-* Ensure you are logged in as `"admin"` user and install `"obfs4proxy"` package
+* Ensure you are logged in with user `"admin"` and install obfs4proxy
 
   ```sh
   $ sudo apt install obfs4proxy
   ```
 
-## Tor installation
+## Installation
 
 * Ensure you have Tor daemon installed in your system
 
   ```sh
   $ tor --version
+  ```
+
+Expected output:
+
+  ```sh
   > Tor version 0.4.7.10.
   [...]
   ```
 
-💡 If not obtain results, follow the [Tor installation on the privacy section](../../system/privacy.md#installation) to install it.
+💡 If not obtain results, follow the [Privacy section](../../system/privacy.md#installation) to install it.
 
 ### Configuration
 
@@ -125,7 +130,7 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 $ sudo ufw status
 ```
 
-🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network and put your `"<TODO2>"` port.
+🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network; and put your `"<TODO2>"` port.
 
 ### Systemd hardening
 
@@ -214,7 +219,7 @@ $ sudo ufw status
 
 💡 You'll need to replace <IP ADDRESS>, <PORT>, and <FINGERPRINT> with the actual values, which you can find in the tor log. Make sure that you use <PORT> as the obfs4 port `"<TODO2>"` that you chose and <FINGERPRINT> not <HASHED FINGERPRINT>.
 
-🔍 More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
+🔍 More info to connect Tor browser to your own Tor bridge in this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
 
 ## Extras
 
@@ -261,9 +266,9 @@ One of the most important things to keep your relay secure is to install securit
   $ unattended-upgrade --debug --dry-run
   ```
 
-### Install nyx
+### Install NYX
 
-[Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relay such as bandwidth usage, connections, logs, and much more.
+[Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relays such as bandwidth usage, connections, logs, and much more.
 
 * With user `"admin"`, install the package
 
@@ -279,7 +284,7 @@ One of the most important things to keep your relay secure is to install securit
 
 ![Nyx Tor bridge](../../../images/nyx-tor-bridge.png)
 
-* Press the `q` key two times to exit
+* Press `"q"` key two times to exit
 
 ## Uninstall
 
@@ -315,10 +320,10 @@ One of the most important things to keep your relay secure is to install securit
   ```sh
   $ sudo ufw status numbered
   > [...]
-  > [W] <TODO1>                   ALLOW IN    Anywhere                   # allow OR port Tor bridge
-  > [X] <TODO1> (v6)              ALLOW IN    Anywhere (v6)              # allow OR port Tor bridge
-  > [Y] <TODO2>                   ALLOW IN    Anywhere                   # allow obsf4 port Tor bridge
-  > [Z] <TODO2> (v6)              ALLOW IN    Anywhere (v6)              # allow obsf4 port Tor bridge
+  > [W] <TODO1>                   ALLOW IN    Anywhere                   # allow OR port Tor bridge from anywhere
+  > [X] <TODO1> (v6)              ALLOW IN    Anywhere (v6)              # allow OR port Tor bridge from anywhere
+  > [Y] <TODO2>                   ALLOW IN    Anywhere                   # allow obsf4 port Tor bridge from anywhere
+  > [Z] <TODO2> (v6)              ALLOW IN    Anywhere (v6)              # allow obsf4 port Tor bridge from anywhere
   ```
 
 * Delete the rule with the correct number and confirm with "yes"
@@ -333,7 +338,7 @@ $ sudo ufw delete X
 $ sudo ufw status verbose
 ```
 
-🚨 Reverts router NAT configuration following the same "[Configure Firewall and NAT](./tor-bridge.md#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
+🚨 Reverts router NAT configuration following the same "[Configure Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
 
 ### Uninstall systemd hardening
 

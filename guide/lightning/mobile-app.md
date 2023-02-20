@@ -35,11 +35,12 @@ Status: Not tested MiniBolt
 ### Install the Zeus app
 
 Download the Zeus app for your mobile phone.
-Check the [Zeus website](https://zeusln.app/){:target="_blank"} for the direct download links to the Apple App Store or Google Play.
+Check the [Zeus website](https://zeusln.app/){:target="_blank"} for direct download links to the Apple App Store or Google Play.
 
 On Android, if you can't or do not want to use Google Play, you can get Zeus from the [F-Droid store](https://f-droid.org/en/packages/app.zeusln.zeus/){:target="_blank"} or simply [download the APK](https://zeusln.app/){:target="_blank"}, tap it and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, simply follow the on-screen instructions to do so.
 
 ## LND
+
 ## Preparations
 
 ### Install lndconnect
@@ -74,7 +75,7 @@ Zeus will access the node via Tor.
   HiddenServicePort 8080 127.0.0.1:8080
   ```
 
-* Reload the Tor configuration and get your connection address.
+* Reload Tor configuration and get your connection address.
 
    ```sh
    $ sudo systemctl reload tor
@@ -175,7 +176,7 @@ The Zeus mobile app will access the node via Tor.
   HiddenServicePort 8080 127.0.0.1:3092
   ```
 
-* Reload Tor configuration and get your connection address.
+* Reload the Tor configuration and get your connection address.
 
    ```sh
    $ sudo systemctl reload tor
@@ -203,7 +204,7 @@ To uninstall, you need to uninstall the app on your phone and deactivate the LND
 
 * Uninstall the app on your phone
 
-* To deactivate the LND REST API Tor hidden service, comment out the hidden service lines in  `torrc` and reload Tor
+* To deactivate the LND REST API Tor hidden service, comment out the hidden service lines in `torrc` and reload Tor
 
   ```sh
   $ sudo nano /etc/tor/torrc
