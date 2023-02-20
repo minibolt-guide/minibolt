@@ -30,7 +30,7 @@ There are many reasons why you should run your own Bitcoin node:
 * **Keep Bitcoin decentralized.** Use your node to help enforce your Bitcoin consensus rules.
 * **Take back your sovereignty.** Let your node validate your own Bitcoin transactions. No need to ask someone else to tell you what's happening in the Bitcoin network.
 * **Improve your privacy.** Connect your wallets to your node so that you no longer need to reveal their whole financial history to external servers.
-* **Be part of Lightning.** Run your own Lightning node for everyday payments and help building a robust, decentralized Bitcoin Lightning network.
+* **Be part of Lightning.** Run your own Lightning node for everyday payments and help build a robust, decentralized Bitcoin Lightning network.
 
 ![Bitcoin Network](images/bitcoin-network-small.png)
 
@@ -80,7 +80,7 @@ Everything is optional.
 
 ## How build
 
-- YouTube list building MiniBolt in life with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms){:target="_blank"}
+- YouTube list building MiniBolt in live with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms){:target="_blank"}
 
 ---
 
@@ -95,8 +95,8 @@ Everything is optional.
   * [English](https://t.me/minibolt){:target="_blank"}
 
 * Nostr channels (Anigma):
-  * [Spanish](https://anigma.io/?channel=3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015){:target="_blank"}
-  * [English](https://anigma.io/?channel=aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249){:target="_blank"}
+  * Spanish id: 3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015
+  * English id: aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249
 
 Feel free to join the many other contributors if you see something that can be improved!
 
@@ -106,7 +106,7 @@ Feel free to join the many other contributors if you see something that can be i
 
 All guides are rated with labels to help you assess the difficulty of each guide, and if it is tested against the most recent version of the main guide.
 
-* Difficulty: indicates how difficult the bonus guide is in term of installation procedure or usage.
+* Difficulty: indicates how difficult the bonus guide is in terms of installation procedure or usage.
 
 Difficulty: Easy
 {: .label .label-green }
@@ -125,7 +125,7 @@ Status: Tested MiniBolt
 Status: Not tested MiniBolt
 {: .label .label-red }
 
-* Paid service: indicates if the service used in the guide is free o a paid service.
+* Paid service: indicates if the service used in the guide is free or paid.
 
 Cost: Paid service
 {: .label .label-yellow }
@@ -158,7 +158,6 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
 * Lightning
 
   * [Lightning client](guide/lightning/lightning-client.md)
-  * [Channel backup](guide/lightning/channel-backup.md)
   * [Web app](guide/lightning/web-app.md)
 
 * Bonus
