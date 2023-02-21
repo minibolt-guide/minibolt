@@ -191,7 +191,7 @@ You now have a free domain **(yoursubdomain.dedyn.io)** that always points to yo
 
 Remember to have forwarded the `"51820"` port and the `"UDP"` protocol of your router to the local IP of your MiniBolt, previously indicated in the [prerequisites](#prerequisites) section.
 
-### Install WireGuard VPN
+### Install WireGuard VPN on server
 
 * Update the packages and upgrade to keep up to date the OS
 
@@ -275,6 +275,8 @@ We won't do this on the client because we want it to be able to connect to the V
 
 Start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS.
 Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server.
+
+### Install Wireguard VPN on client
 
 * On Linux regular computer, for instance, you do this by simply installing the `"Wireguard VPN"` package:
 
@@ -482,7 +484,7 @@ To do that you need install the `qrencode` package on your regular computer with
 
 Now, you can convert the "wg0.conf" file to a QR code like so. 
 
-* Up to root user to create a temporaly root session
+* Change to root user to create a temporaly root session
 
   ```sh
   $ sudo su
@@ -522,7 +524,17 @@ For each additional client, you must install the WireGuard software and you coul
 
 ### Configure Wireguard VPN client on Windows
 
+* Download and install Wireguard [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
+
+* Hit on the little arrow down on the bottom left and select "Add empty tunnel"
+
 ![Wireguard Windows](../../../images/wireguard-windows.png)
+
+* Paste the entire [Configure Wireguard VPN Client](#configure-wireguard-vpn-client) content of the "wg0.conf" file in the big text box and push on "Save"
+
+* Click on "Activate" to enable the VPN connection
+
+* Test it creating a new SSH connection to MiniBolt for example, with VPN IP address.
 
 ## Configure additional servers
 
@@ -537,10 +549,10 @@ Some routers have support for Dynamic DNS providers like NO-IP or deSEC, out of 
 
 If your router does not have your DDNS provider preconfigured, the configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration:
 
-   * Provider: select on the drop-down the name of the provider, e.g. www.no-ip.com
-   * Domain name: subdomain you want to update, e.g. <yoursubdomain.dedyn.io> previously created account on [desec registration](#desec-registration) section.
-   * Username: selected username or email of the previously created account on [desec registration](#desec-registration) section.
-   * Password/Token secret: password selected for your DDNS provider account or Token secret (depending on the provider) previously created account on [desec registration](#desec-registration) section.
+  * Provider: select on the drop-down the name of the provider, e.g. www.no-ip.com
+  * Domain name: subdomain you want to update, e.g. <yoursubdomain.dedyn.io> previously created account on [desec registration](#desec-registration) section.
+  * Username: selected username or email (depending on the provider) of the previously created account on [desec registration](#desec-registration) section.
+  * Password/Token secret: password selected for your DDNS provider account or Token secret (depending on the provider) previously created account on [desec registration](#desec-registration) section.
 
 ---
 
