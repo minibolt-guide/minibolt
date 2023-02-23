@@ -71,9 +71,11 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 
 * Set the next environment variable
 
-  ```sh
-  $ VERSION=24.0.1
-  ```
+><span style="user-select: none;">$</span> VERSION=24.0.1
+
+<code><span style="user-select: none;">$</span> VERSION=24.0.1</code>
+
+<span style="user-select: none;">$</span> VERSION=24.0.1
 
 * Install the next dependencies packages
 
@@ -89,7 +91,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
   $ cd /tmp
   ```
 
-* Get the latest binaries and signatures
+* Get the latest source code, the list of cryptographic checksums and the signatures attesting to validity of the checksums
 
   ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION.tar.gz
@@ -224,7 +226,7 @@ Expected output:
 
 ### Install
 
-* Enter the next command to install the new binaries on the OS
+* Enter the next command to install the new binaries precompiled for yourself on the OS
 
   ```sh
   $ sudo make install
