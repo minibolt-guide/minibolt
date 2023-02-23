@@ -59,7 +59,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 
 ## Preparations
 
-> 💡 You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `$` sign. The system response is marked with the > character.
+> 💡 You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `"$"` sign. The system response is marked with the `">"` character.
 
 * Login as "admin" user (for a MiniBolt environment), or your assigned user with `sudo` permissions
 
@@ -71,11 +71,9 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 
 * Set the next environment variable
 
-><span style="user-select: none;">$</span> VERSION=24.0.1
-
-<code><span style="user-select: none;">$</span> VERSION=24.0.1</code>
-
-<span style="user-select: none;">$</span> VERSION=24.0.1
+  ```sh
+  $ VERSION=24.0.1
+  ```
 
 * Install the next dependencies packages
 
