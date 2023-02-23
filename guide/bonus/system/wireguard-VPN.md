@@ -19,7 +19,7 @@ The following guide was derived from contributions by [Pantamis](https://github.
 
 [WireGuard](https://www.wireguard.com) is a VPN you can set up to access your MiniBolt from the outside.
 It makes it easier to run services on your node without exposing its ports to the public Internet.
-It has support on all major computer OSes, and apps for Android and iOS.
+It has support on all major computer OS; and apps for Android and iOS.
 The only requirement is to forward a UDP port from your home router to the MiniBolt node.
 
 ![https://www.wireguard.com](../../../images/wireguard.png)
@@ -72,13 +72,7 @@ Before starting with the installation proper, you need to:
 2. Figure out the public IP of your home network. If you have a static public IP it'll simplify the setup, but it's not mandatory.
    There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
 3. Forward the `51820` port and "UDP" protocol of your router to the local IP of your MiniBolt.
-   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration:
-
-   * 
-   *
-   *
-   *
-   *
+   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However in extra ....
 
 ## Set up Dynamic DNS
 
@@ -93,13 +87,13 @@ Go to [https://desec.io](https://desec.io) official webpage
 2. Select **"dynDNS account"** box
 3. Hit the **"CREATE ACCOUNT"** button
 
-![Front page](../../../images/desec_io0.png)
+![Frontpage](../../../images/desec_io0.png)
 
 You'll see the following form:
 
 ![Registration Page](../../../images/desec_io1.png)
 
-Ensure to keep selected the **second option (Register a new domain under dedyn.io (dynDNS))**
+Ensure to keep selecting the **second option (Register a new domain under dedyn.io (dynDNS))**
 
 For this demo, I've typed a random subdomain **"yoursubdomain"**, but ***you can use anything memorable*** to you as long as no one has already taken that name.
 
@@ -109,7 +103,7 @@ After clicking **SIGN UP**, deSEC will email you to confirm the address. It will
 
 ![Email Confirmed](../../../images/desec_io2.png)
 
-Take note of the **"Token secret"**, you'll need it later as **"<YOUR_SECRET_TOKEN>"**, but for now, click on **"ASSIGN ACCOUNT PASSWORD"** button down below to lock down your account.
+Take note of the **"Token secret"**, you'll need it later as **"<YOUR_SECRET_TOKEN>"**, but for now, click on the **"ASSIGN ACCOUNT PASSWORD"** button down below to lock down your account.
 
 Type again your email, complete the **CAPTCHA** and click on the **"RESET PASSWORD"** button.
 
@@ -117,7 +111,7 @@ Type again your email, complete the **CAPTCHA** and click on the **"RESET PASSWO
 
 This will prompt deSEC to send you another email with another link that will let you **set your account password**.
 
-After all that is done, click **LOG IN** and use your **email** and the **password** setted before.
+After all that is done, click **LOG IN** and use your **email** and the **password** set before.
 
 ![Reset and log in](../../../images/desec_io8.png)
 
@@ -153,25 +147,25 @@ We'll need the **"<YOUR_SECRET_TOKEN>"** and <yoursubdomain.dedyn.io> from the d
     -X GET "https://update.dedyn.io/?hostname=${DEDYN_DOMAIN}&ip=${CURRENT_IP}"
   ```
 
-* After create the script, make it executable and restrict access to it (because it contains sensitive data)
+* After creating the script, make it executable and restrict access to it (because it contains sensitive data)
 
   ```sh
   $ sudo chmod 700 /opt/dynamic-ip-refresh.sh
   ```
 
-* Create a crontab entry for root to run it every 2 minutes. Type `1` and press enter to choose "nano" editor
+* Create a crontab entry for root to run it every 2 minutes. Type `1` and press enter to choose the "nano" editor
 
   ```sh
   $ sudo crontab -e
   ```
 
-*  Add the next line at the end of the file. Save and exit
+* Add the next line at the end of the file. Save and exit
 
   ```
   */2 * * * *     /opt/dynamic-ip-refresh.sh
   ```
 
-* Return to [deSEC web page](https://desec.io/domains), ensure you are on **"DOMAIN MANAGEMENT"** tab and click on your domain:
+* Return to [deSEC web page](https://desec.io/domains), ensure you are on the **"DOMAIN MANAGEMENT"** tab and click on your domain:
 
 ![deSEC Main Menu](../../../images/desec_io3.png)
 
@@ -193,13 +187,13 @@ Remember to have forwarded the `"51820"` port and the `"UDP"` protocol of your r
 
 ### Install WireGuard VPN on server
 
-* Update the packages and upgrade to keep up to date the OS
+* Update the packages and upgrade to keep up to date with the OS
 
   ```sh
   $ sudo apt update && sudo apt full-upgrade
   ```
 
-* Install WireGuard VPN package
+* Install the WireGuard VPN package
 
   ```sh
   $ sudo apt install wireguard
@@ -249,7 +243,7 @@ Write the following content and replace only **"<Your_Server_Private_Key>"** wit
   PrivateKey = <Your_Server_Private_Key>
   Address = 10.0.0.1/24
   ListenPort = 51820
-  
+
   ## Client configuration
   [Peer]
   PublicKey = <Your_Client_Public_Key>
@@ -325,7 +319,7 @@ Write the following contents to the `wg0.conf` file
   [Interface]
   PrivateKey = <Your_Client_Private_Key>
   Address = 10.0.0.2/32
-  
+
   ## Server configuration (MiniBolt)
   [Peer]
   PublicKey = <Your_Server_Public_Key>
@@ -351,15 +345,15 @@ Write the following contents to the `wg0.conf` file
 
 Now return to the MiniBolt node to allow access to the newly created Wireguard client.
 
-* Ensure are you logged in as `"admin"` user, edit the `"wg0.conf"` file:
+* Ensure are you logged in as `"admin"` user, and edit the `"wg0.conf"` file:
 
   ```sh
   $ sudo nano /etc/wireguard/wg0.conf
   ```
 
-Now we are going to complete the previous parameter **"<Your_Client_Public_Key>"** that we left pending to complete before with the created in the **["Generate client key pair"](#generate-client-key-pair)** section. 
+Now we are going to complete the previous parameter **"<Your_Client_Public_Key>"** that we left pending to complete before with the created in the **["Generate client key pair"](#generate-client-key-pair)** section.
 
-Replace the existing **"<Your_Client_Public_Key>"** parameter on "#Client configuration section" with your own one.
+Replace the existing **"<Your_Client_Public_Key>"** parameter created on [c]() with your own one.
 
   ```
   ## Client configuration
@@ -380,7 +374,7 @@ Replace the existing **"<Your_Client_Public_Key>"** parameter on "#Client config
   $ sudo wg show
   ```
 
-**Example** expected output:
+**Example** of expected output:
 
   ```
   interface: wg0
@@ -408,7 +402,7 @@ Expected output:
   udp   UNCONN 0      0                   [::]:51820         [::]:*
   ```
 
-Now the server is ready to allow connection from the Wireguard VPN client. 
+Now the server is ready to allow connection from the Wireguard VPN client.
 
 ## Client start Linux
 
@@ -442,7 +436,7 @@ Try to navigate to web services as BTC RPC Explorer, open your favorite browser,
   $ sudo wg show
   ```
 
-**Example** expected output:
+**Example** of expected output:
 
   ```
   interface: wg0
@@ -457,7 +451,7 @@ Try to navigate to web services as BTC RPC Explorer, open your favorite browser,
   transfer: 655.58 KiB received, 39.35 KiB sent
   ```
 
-To turn Wireguard VPN client off, use 
+To turn the Wireguard VPN client off, use
 
   ```sh
   $ wg-quick down wg0
@@ -476,21 +470,21 @@ Expected output:
 Entering all information about the Wireguard VPN Client into a mobile phone is particularly cumbersome.
 A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel through a QR code format.
 
-To do that you need install the `qrencode` package on your regular computer with Linux and Wireguard VPN client intalled as we are explained previously on [Client Configuration Linux](#client-configuration-linux) section:
+To do that you need to install the `qrencode` package on your regular computer with Linux and Wireguard VPN client installed as we explained previously on [Client Configuration Linux](#client-configuration-linux) section:
 
   ```sh
   $ sudo apt install qrencode
   ```
 
-Now, you can convert the "wg0.conf" file to a QR code like so. 
+Now, you can convert the "wg0.conf" file to a QR code like so.
 
-* Change to root user to create a temporaly root session
+* Change to root user to create a temporary root session
 
   ```sh
   $ sudo su
   ```
 
-* Generate the QR code related with the same Wireguard VPN client "wg0.conf" configurated on the [Configure Wireguard VPN Client](#configure-wireguard-vpn-client) section.
+* Generate the QR code related to the same Wireguard VPN client "wg0.conf" configurated on the [Configure Wireguard VPN Client](#configure-wireguard-vpn-client) section.
 
   ```sh
   $ qrencode -t ansiutf8 < /etc/wireguard/wg0.conf
@@ -502,7 +496,7 @@ Now, you can convert the "wg0.conf" file to a QR code like so.
   $ exit
   ```
 
-* Install Wireguard VPN client for mobile version and start it.
+* Install the Wireguard VPN client for the mobile version and start it
 
 Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) // Link to [Android](https://play.google.com/store/apps/details?id=com.wireguard.android) / [F-Droid](https://f-droid.org/en/packages/com.wireguard.android/)
 
@@ -514,9 +508,9 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) // Link to [
 
 4. Type a name for the tunnel, e.g. "MiniBoltWG" and hit on "Create tunnel"
 
-5. Press on switch at right to activate the Wireguard tunnel. Press OK to accept the connection request. 
+5. Press on the switch at the right to activate the Wireguard tunnel. Press OK to accept the connection request.
 
-You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of "wg0.conf" configured on the [Configure Wireguard VPN Client](#configure-wireguard-vpn-client) section. Select **"CREATE FROM SCRATCH"** instead of **"SCAN FROM QR CODE"** on second step, fill out the form, and hit on the diskette icon on the top right to save and follow the same steps from 4.
+You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of "wg0.conf" configured on the [Configure Wireguard VPN Client](#configure-wireguard-vpn-client) section. Select **"CREATE FROM SCRATCH"** instead of **"SCAN FROM QR CODE"** on the second step, fill out the form, and hit on the diskette icon on the top right to save and follow the same steps from 4.
 
 ## Configure additional clients
 
@@ -524,7 +518,7 @@ For each additional client, you must install the WireGuard software and you coul
 
 ### Configure Wireguard VPN client on Windows
 
-* Download and install Wireguard [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
+* Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
 
 * Hit on the little arrow down on the bottom left and select "Add empty tunnel"
 
@@ -534,14 +528,14 @@ For each additional client, you must install the WireGuard software and you coul
 
 * Click on "Activate" to enable the VPN connection
 
-* Test it creating a new SSH connection to MiniBolt for example, with VPN IP address.
+* Test it creating a new SSH connection to MiniBolt for example, with the VPN IP address.
 
 ## Configure additional servers
 
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`.
 You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
 
-To another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server and `10.0.1.2` the client in this case.
+Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server and `10.0.1.2` the client in this case.
 
 ## Use your router’s DDNS preconfigured provider
 
@@ -550,9 +544,14 @@ Some routers have support for Dynamic DNS providers like NO-IP or deSEC, out of 
 If your router does not have your DDNS provider preconfigured, the configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration:
 
   * Provider: select on the drop-down the name of the provider, e.g. www.no-ip.com
-  * Domain name: subdomain you want to update, e.g. <yoursubdomain.dedyn.io> previously created account on [desec registration](#desec-registration) section.
+  * Domain name: subdomain you want to update, e.g. <yoursubdomain.dedyn.io> previously created an account on [desec registration](#desec-registration) section.
   * Username: selected username or email (depending on the provider) of the previously created account on [desec registration](#desec-registration) section.
   * Password/Token secret: password selected for your DDNS provider account or Token secret (depending on the provider) previously created account on [desec registration](#desec-registration) section.
+
+## Port forwarding
+
+
+<br /><br />
 
 ---
 
