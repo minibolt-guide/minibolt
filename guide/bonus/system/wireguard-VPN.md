@@ -72,19 +72,38 @@ Before starting with the installation proper, you need to:
 2. Figure out the public IP of your home network. If you have a static public IP it'll simplify the setup, but it's not mandatory.
    There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
 3. Forward the `51820` port and "UDP" protocol of your router to the local IP of your MiniBolt.
-   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However in extra ....
+   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra Port forwarding section, you can show a few instructions to do this
+
+In the next steps, we will create different keys, IDs, passwords, and others, remember to take note of all of those:
+
+Server keys:
+
+> * <Your_Server_Private_Key>
+> * <Your_Server_Public_Key>
+
+Client keys:
+
+> * <Your_Client_Public_Key>
+> * <Your_Client_Public_Key>
+
+Desec data:
+
+> * Desec email: **email**
+> * Desec password: **password**
+> * TOKEN: <YOUR_SECRET_TOKEN>
+> * Domain: <yoursubdomain.dedyn.io>
 
 ## Set up Dynamic DNS
 
 However, unless it is a static IP (unlikely if it is a residential IP) your ISP can change it at any minute, thus breaking the setup we made.
-To fix this we can maintain a DNS record that always points to your latest IP, and the WireGuard clients can use that instead of the IP.
+To fix this, we can maintain a DNS record that always points to your latest IP, and the WireGuard clients can use that instead of the IP.
 
 ### Desec registration
 
 Go to [https://desec.io](https://desec.io) official webpage
 
 1. Type your preferred **email**
-2. Select **"dynDNS account"** box
+2. Select the **"dynDNS account"** box
 3. Hit the **"CREATE ACCOUNT"** button
 
 ![Frontpage](../../../images/desec_io0.png)
@@ -99,7 +118,7 @@ For this demo, I've typed a random subdomain **"yoursubdomain"**, but ***you can
 
 Complete the **CAPTCHA** and check the box **"Yes, I agree to the..."** option.
 
-After clicking **SIGN UP**, deSEC will email you to confirm the address. It will contain a **verification link** that will send you to this page:
+4. After clicking **SIGN UP**, deSEC will email you to confirm the address. It will contain a **verification link** that will send you to this page:
 
 ![Email Confirmed](../../../images/desec_io2.png)
 
@@ -330,9 +349,7 @@ Write the following contents to the `wg0.conf` file
 📝 A few things to note here:
 
 > Replace "PrivateKey" parameter designed as **(<Your_Client_Private_Key>)** by created previous step.
-
 > Replace "PublicKey" parameter designed as **(<Your_Server_Public_Key>)** by the public key of MiniBolt created on the [generate key pair](#generate-server-key-pair) section.
-
 > Replace "Endpoint" parameter designed as **(<yoursubdomain.dedyn.io>)** by created in [Desec registration](#desec-registration) section.
 
 * Now you can delete the `private_key` and `public_key` files from the disk, but make sure you have noted this previously
@@ -353,7 +370,7 @@ Now return to the MiniBolt node to allow access to the newly created Wireguard c
 
 Now we are going to complete the previous parameter **"<Your_Client_Public_Key>"** that we left pending to complete before with the created in the **["Generate client key pair"](#generate-client-key-pair)** section.
 
-Replace the existing **"<Your_Client_Public_Key>"** parameter created on [c]() with your own one.
+Replace the existing **"<Your_Client_Public_Key>"** parameter created on [Generate client key pair](#generate-client-key-pair) section, with your own one.
 
   ```
   ## Client configuration
@@ -470,13 +487,13 @@ Expected output:
 Entering all information about the Wireguard VPN Client into a mobile phone is particularly cumbersome.
 A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel through a QR code format.
 
-To do that you need to install the `qrencode` package on your regular computer with Linux and Wireguard VPN client installed as we explained previously on [Client Configuration Linux](#client-configuration-linux) section:
+To do that you need to install the `"qrencode"` package on your regular computer with Linux and Wireguard VPN client installed as we explained previously in the [Client Configuration Linux](#client-configuration-linux) section:
 
   ```sh
   $ sudo apt install qrencode
   ```
 
-Now, you can convert the "wg0.conf" file to a QR code like so.
+Now, you can convert the `"wg0.conf"` file to a QR code like so.
 
 * Change to root user to create a temporary root session
 
@@ -502,7 +519,7 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) // Link to [
 
 1. Hit on **(+)** button
 
-2. Select **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Press "ALLOW"
+2. Select the **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Press "ALLOW"
 
 3. Scan the QR code generated previously
 
@@ -539,9 +556,11 @@ Another additional server would define it for example as `10.0.1.1/24` where `10
 
 ## Use your router’s DDNS preconfigured provider
 
-Some routers have support for Dynamic DNS providers like NO-IP or deSEC, out of the box, and you just need to select the right option (“deSEC”, “desec.io”, “dedyn”, NoIP or similar). It would be a great idea if your MiniBolt server won't be running 24/7, but It's probably your router yes.
+Some routers have support for Dynamic DNS providers like NO-IP or deSEC, out of the box, and you just need to select the right option (“deSEC”, “desec.io”, “dedyn”, NoIP, dynDNS or similar). It would be a great idea if your MiniBolt server won't be running 24/7, but It's probably your router yes.
 
-If your router does not have your DDNS provider preconfigured, the configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration:
+If your router does not have your DDNS provider preconfigured, the configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration.
+
+Search for some section called dynDNS, DDNS, DynamicDNS or similar, and fill the form with this instructions:
 
   * Provider: select on the drop-down the name of the provider, e.g. www.no-ip.com
   * Domain name: subdomain you want to update, e.g. <yoursubdomain.dedyn.io> previously created an account on [desec registration](#desec-registration) section.
@@ -549,6 +568,7 @@ If your router does not have your DDNS provider preconfigured, the configuration
   * Password/Token secret: password selected for your DDNS provider account or Token secret (depending on the provider) previously created account on [desec registration](#desec-registration) section.
 
 ## Port forwarding
+
 
 
 <br /><br />
