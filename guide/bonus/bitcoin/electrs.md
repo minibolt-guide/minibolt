@@ -106,7 +106,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   ```
 
   ```sh
-  $ git clone --branch v0.9.11 https://github.com/romanz/electrs.git
+  $ git clone --branch v0.9.12 https://github.com/romanz/electrs.git
   ```
 
   ```sh
@@ -131,7 +131,7 @@ Expected output:
   ```
 
   ```sh
-  $ git verify-tag v0.9.11
+  $ git verify-tag v0.9.12
   ```
 
 Expected output:
@@ -166,7 +166,7 @@ Expected output:
 Expected output:
 
   ```
-  > v0.9.11
+  > v0.9.12
   ```
 
 * Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
@@ -232,7 +232,7 @@ Expected output:
   timestamp = true
   ```
 
-* Exit "electrs" user session to return to "admin" user session
+* Exit "electrs" user session to return to the "admin" user session
 
   ```sh
   $ exit
@@ -303,7 +303,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 Monitor the systemd journal at the first session created to check if everything works fine:
 
   ```sh
-  Starting electrs 0.9.11 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+  Starting electrs 0.9.12 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
   [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
   [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 127.0.0.1:50001
   [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
@@ -331,7 +331,7 @@ Monitor the systemd journal at the first session created to check if everything 
 Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets.
 With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
 
-* Ensure that electrs service is working and listening at the default `50001` and `50002` ports
+* Ensure electrs service is working and listening at the default `50001` and `50002` ports
 
   ```sh
   $2 sudo ss -tulpn | grep LISTEN | grep electrs
@@ -347,7 +347,7 @@ To use your Electrum server when you're on the go, you can easily create a Tor h
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family.
 Note that the remote device needs to have Tor installed as well.
 
-* Ensure are you logged with user `admin`, add the following three lines in the section for "location-hidden services" in the `torrc` file
+* Ensure are you logged in with user `admin`, add the following three lines in the section for "location-hidden services" in the `torrc` file
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -355,15 +355,11 @@ Note that the remote device needs to have Tor installed as well.
 
   ```sh
   ############### This section is just for location-hidden services ###
-  # Hidden Service Electrs SSL
-  HiddenServiceDir /var/lib/tor/hidden_service_electrs_ssl/
-  HiddenServiceVersion 3
-  HiddenServicePort 50002 127.0.0.1:50002
-
-  # Hidden Service Electrs TCP
-  HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp/
+  # Hidden Service Electrs TCP & SSL
+  HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
   HiddenServiceVersion 3
   HiddenServicePort 50001 127.0.0.1:50001
+  HiddenServicePort 50002 127.0.0.1:50002
   ```
 
 * Reload the Tor configuration, get your connection addresses and take note of these, later you will need them.
@@ -373,7 +369,7 @@ Note that the remote device needs to have Tor installed as well.
   ```
 
   ```sh
-  $ sudo cat /var/lib/tor/hidden_service_electrs_ssl/hostname
+  $ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
   ```
 
 Expected output:
@@ -382,35 +378,25 @@ Expected output:
   > abcdefg..............xyz.onion
   ```
 
-  ```sh
-  $ sudo cat /var/lib/tor/hidden_service_electrs_tcp/hostname
-  ```
-
-Expected output:
-
-  ```
-  > abcdefg..............xyz.onion
-  ```
-
-* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (ssl) or 50001 (tcp)
+* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (SSL) or 50001 (TCP)
 
 ### Migrate BTC RPC Explorer to Electrs API connection
 
 To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
 
-* As user `admin`, open `btcrpcexplorer` service
+* As user `admin`, open the `btcrpcexplorer` service
 
   ```sh
   $ sudo nano /etc/systemd/system/btcrpcexplorer.service
   ```
 
-* Replace `"After=fulcrum.service"` to `"After=electrs.service"` parameter. Save and exit
+* Replace the `"After=fulcrum.service"` with the `"After=electrs.service"` parameter. Save and exit
 
   ```sh
   After=electrs.service
   ```
 
-* Restart BTC RPC Explorer service to apply the changes
+* Restart the BTC RPC Explorer service to apply the changes
 
   ```sh
   $ sudo systemctl restart btcrpcexplorer
@@ -424,7 +410,7 @@ You can display the current version with the command below and check the Electrs
 🚨 **Check the release notes!**
 Make sure to check the [release notes](https://github.com/romanz/electrs/blob/master/RELEASE-NOTES.md){:target="_blank"} first to understand if there have been any breaking changes or special upgrade procedures.
 
-* Check current Electrs version
+* Check the current Electrs version
 
   ```sh
   $ electrs --version
@@ -439,7 +425,7 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
   ```
 
   ```sh
-  $ git clone --branch v0.9.11 https://github.com/romanz/electrs.git
+  $ git clone --branch v0.9.12 https://github.com/romanz/electrs.git
   ```
 
   ```sh
@@ -464,7 +450,7 @@ Expected output:
   ```
 
   ```sh
-  $ git verify-tag v0.9.11
+  $ git verify-tag v0.9.12
   ```
 
 Expected output:
@@ -499,7 +485,7 @@ Expected output:
 Expected output:
 
   ```
-  > v0.9.11
+  > v0.9.12
   ```
 
 * Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`

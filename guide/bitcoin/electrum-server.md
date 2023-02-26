@@ -29,7 +29,7 @@ parent: Bitcoin
 ## Requirements
 
 * Bitcoin Core
-* Little over 100GB of free storage for database (external backup recommended)
+* Little over 100GB of free storage for the database (external backup recommended)
 
 Fulcrum is a replacement for an [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `"sudo systemctl stop electrs"`.
 
@@ -50,7 +50,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/
 
 ### Install dependencies
 
-* With user "admin", make sure that all necessary software packages are installed
+* With user `"admin"`, make sure that all necessary software packages are installed
 
   ```sh
   $ sudo apt install libssl-dev
@@ -61,18 +61,18 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/
 * Configure the firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
+  $ sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
   ```
 
   ```sh
-  $ sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
+  $ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
   ```
 
 ### Configure Bitcoin Core
 
-We need to set up settings in Bitcoin Core configuration file - add new lines if they are not present
+We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
 
-* In `bitcoin.conf`, add the following line in "# Connections" section. Save and exit
+* In `bitcoin.conf`, add the following line in the `"# Connections"` section. Save and exit
 
   ```sh
   $ sudo nano /data/bitcoin/bitcoin.conf
@@ -92,7 +92,7 @@ We need to set up settings in Bitcoin Core configuration file - add new lines if
 
 ### Download and set up Fulcrum
 
-We have our Bitcoin Core configuration file set up and now we can move to next part - installation of Fulcrum
+We have our Bitcoin Core configuration file set up and can now move on to the next part of the Fulcrum installation.
 
 * Download the application, checksums and signature
 
@@ -179,14 +179,14 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   $ sudo su - fulcrum
   ```
 
-* Change to fulcrum data folder and generate cert and key files for SSL. When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
+* Change to the fulcrum data folder and generate cert and key files for SSL. When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
 
   ```sh
   $ cd /data/fulcrum
   $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
   ```
 
-* Download custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display&f=Slant&t=fulcrum)
+* Download the custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display&f=Slant&t=fulcrum)
 
   ```sh
   $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/fulcrum-banner.txt
@@ -194,7 +194,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
 
 ### Configuration
 
-MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. Thats why we use TCP in configurations as well to let user choose what he needs. You may as well need to use TCP for other reasons.
+MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
 * Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware. Create the config file with the following content. Save and exit
 
@@ -205,9 +205,11 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   ```sh
   # MiniBolt: fulcrum configuration
   # /data/fulcrum/fulcrum.conf
+
   ## Bitcoin Core settings
   bitcoind = 127.0.0.1:8332
   rpccookie = /data/bitcoin/.cookie
+
   ## Fulcrum server general settings
   datadir = /data/fulcrum/fulcrum_db
   cert = /data/fulcrum/cert.pem
@@ -215,14 +217,16 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   ssl = 0.0.0.0:50002
   tcp = 0.0.0.0:50001
   peering = false
+
   # Set fast-sync accorling with your device,
   # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
   fast-sync = 2048
+
   # Banner
   banner = /data/fulcrum/fulcrum-banner.txt
   ```
 
-* Exit "fulcrum" user session to return to "admin" user session
+* Exit the "fulcrum" user session to return to the "admin" user session
 
   ```sh
   $ exit
@@ -241,12 +245,14 @@ Fulcrum needs to start automatically on system boot.
   ```sh
   # MiniBolt: systemd unit for Fulcrum
   # /etc/systemd/system/fulcrum.service
+
   [Unit]
   Description=Fulcrum
   After=bitcoind.service
   PartOf=bitcoind.service
   StartLimitBurst=2
   StartLimitIntervalSec=20
+
   [Service]
   ExecStart=/usr/local/bin/Fulcrum /data/fulcrum/fulcrum.conf
   KillSignal=SIGINT
@@ -255,6 +261,7 @@ Fulcrum needs to start automatically on system boot.
   TimeoutStopSec=300
   RestartSec=30
   Restart=on-failure
+
   [Install]
   WantedBy=multi-user.target
   ```
@@ -265,7 +272,7 @@ Fulcrum needs to start automatically on system boot.
   $ sudo systemctl enable fulcrum.service
   ```
 
-* Prepare "fulcrum" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+* Prepare "fulcrum" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
   $ sudo journalctl -f -u fulcrum
@@ -301,11 +308,11 @@ Monitor the systemd journal at the first session created to check if everything 
 
 Fulcrum will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
 
-DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case of that happening, start sync from scratch by deleting and recreating `fulcrum_db` folder.
+DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
 
 💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days. Only proceed with the [Desktop Wallet Section](../bitcoin/desktop-wallet.md) once Fulcrum is ready.
 
-* When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, it means that Fulcrum is fully indexed, ensure that service is working and listening at the default `50002` & `50001` ports
+* When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, it means that Fulcrum is fully indexed, ensure the service is working and listening at the default `50002` & `50001` ports
 
   ```sh
   $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum
@@ -379,7 +386,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 To use your Fulcrum server when you're on the go, you can easily create a Tor hidden service.
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-* Ensure that you are logged with user "admin" and add the following three lines in the section for "location-hidden services" in the torrc file. Save and exit
+* Ensure that you are logged in with user "admin" and add the following three lines in the section for "location-hidden services" in the torrc file. Save and exit
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -389,33 +396,25 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
 
   ```sh
   ############### This section is just for location-hidden services ###
-  # Hidden Service Fulcrum SSL
-  HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
-  HiddenServiceVersion 3
-  HiddenServicePort 50002 127.0.0.1:50002
-  # Hidden Service Fulcrum TCP
-  HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp/
+  # Hidden Service Fulcrum TCP & SSL
+  HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp_ssl/
   HiddenServiceVersion 3
   HiddenServicePort 50001 127.0.0.1:50001
+  HiddenServicePort 50002 127.0.0.1:50002
   ```
 
-* Reload Tor configuration and get your connection addresses
+* Reload the Tor configuration and get your connection addresses
 
   ```sh
   $ sudo systemctl reload tor
   ```
 
   ```sh
-  $ sudo cat /var/lib/tor/hidden_service_fulcrum_ssl/hostname
+  $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
   > abcdefg..............xyz.onion
   ```
 
-  ```sh
-  $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp/hostname
-  > abcdefg..............xyz.onion
-  ```
-
-* You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 50002 (ssl) or 50001 (tcp)
+* You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 50001 (TCP) or 50002 (SSL)
 
 ### Slow device mode
 
@@ -433,6 +432,7 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
   bitcoind_clients = 1
   worker_threads = 1
   db_mem = 1024.0
+
   # 4GB RAM
   #db_max_open_files = 200
   # 8GB RAM
@@ -451,7 +451,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ cd zram-swap && sudo ./install.sh
   ```
 
-* Set following size value in zram configuration file. Save and exit
+* Set the following size value in zram configuration file. Save and exit
 
   ```sh
   $ sudo nano /etc/default/zram-swap
@@ -564,13 +564,13 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 
 ### Backup the database
 
-If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend to make backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum doing `"sudo systemctl stop fulcrum"`.
+If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo` systemctl stop fulcrum"`.
 
 ## Uninstall
 
 ### Uninstall Fulcrum
 
-* Ensure you are logged with user "admin", stop, disable and delete the service
+* Ensure you are logged in with user "admin", stop, disable and delete the service
 
   ```sh
   $ sudo systemctl stop fulcrum
@@ -592,7 +592,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 ### Uninstall Tor hidden service
 
-* Ensure you are logged with user "admin", comment or remove fulcrum hidden service in torrc. Save and exit
+* Ensure you are logged in with user "admin", comment or remove fulcrum hidden service in the torrc. Save and exit
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -600,17 +600,14 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
   ```sh
   ############### This section is just for location-hidden services ###
-  # Hidden Service Fulcrum SSL
+  # Hidden Service Fulcrum TCP & SSL
   #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
   #HiddenServiceVersion 3
-  #HiddenServicePort 50002 127.0.0.1:50002
-  # Hidden Service Fulcrum TCP
-  #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp/
-  #HiddenServiceVersion 3
   #HiddenServicePort 50001 127.0.0.1:50001
-  ```
+  #HiddenServicePort 50002 127.0.0.1:50002
+    ```
 
-* Reload torrc config
+* Reload the torrc config
 
   ```sh
   $ sudo systemctl reload tor
@@ -618,12 +615,12 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 ### Uninstall FW configuration
 
-* Ensure you are logged with user "admin", display the UFW firewall rules and notes the numbers of the rules for Fulcrum (e.g., X and Y below)
+* Ensure you are logged in with user "admin", display the UFW firewall rules and note the numbers of the rules for Fulcrum (e.g., X and Y below)
 
   ```sh
   $ sudo ufw status numbered
-  > [X] 50002                   ALLOW IN    Anywhere                  # allow Fulcrum SSL from anywhere
   > [Y] 50001                   ALLOW IN    Anywhere                  # allow Fulcrum TCP from anywhere
+  > [X] 50002                   ALLOW IN    Anywhere                  # allow Fulcrum SSL from anywhere
   ```
 
 * Delete the rule with the correct number and confirm with "yes"
