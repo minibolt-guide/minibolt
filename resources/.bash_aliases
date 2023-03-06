@@ -38,7 +38,7 @@ alias showbonusversion='echo The installed versions of the bonus services are as
   echo Electrs: `electrs --version` ; \
   lntop --version'
 
-alias testscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
+alias manualscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
 
 # EXTRA LOGS
 alias authlogs='sudo tail -f /var/log/auth.log'
@@ -183,7 +183,8 @@ alias enablertl='sudo systemctl enable rtl'
 alias enablelitd='sudo systemctl enable litd'
 alias enablecln='sudo systemctl enable cln'
 alias enablelectrs='sudo systemctl enable electrs'
-alias enableallbonus='sudo systemctl enable homer mempool circuitbreaker lnbits rtl litd cln electrs'
+alias enablewireguard='sudo systemctl enable wg-quick@wg0'
+alias enableallbonus='sudo systemctl enable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0'
 
 ########################
 # START BONUS SERVICES #
@@ -197,6 +198,7 @@ alias startrtl='sudo systemctl start rtl'
 alias startlitd='sudo systemctl start litd'
 alias startcln='sudo systemctl start cln'
 alias startelectrs='sudo systemctl start electrs'
+alias startwireguard='sudo systemctl start wg-quick@wg0'
 
 #########################
 # STATUS BONUS SERVICES #
@@ -210,8 +212,9 @@ alias statusrtl='sudo systemctl status rtl'
 alias statuslitd='sudo systemctl status litd'
 alias statuscln='sudo systemctl status cln'
 alias statuselectrs='sudo systemctl status electrs'
+alias statuswireguard='sudo systemctl status wg-quick@wg0'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
-  sudo systemctl status homer mempool circuitbreaker lnbits rtl litd cln electrs'
+  sudo systemctl status homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0'
 
 #######################
 # STOP BONUS SERVICES #
@@ -225,7 +228,8 @@ alias stoprtl='sudo systemctl stop rtl'
 alias stoplitd='sudo systemctl stop litd'
 alias stopcln='sudo systemctl stop cln'
 alias stopelectrs='sudo systemctl stop electrs'
-alias stopallbonus='sudo systemctl stop homer mempool circuitbreaker lnbits rtl litd cln electrs'
+alias stopwireguard='sudo systemctl stop wg-quick@wg0'
+alias stopallbonus='sudo systemctl stop homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0'
 
 ##########################
 # DISABLE BONUS SERVICES #
@@ -239,7 +243,8 @@ alias disablertl='sudo systemctl disable rtl'
 alias disablelitd='sudo systemctl disable litd'
 alias disablecln='sudo systemctl disable cln'
 alias disablelectrs='sudo systemctl disable electrs'
-alias disableallbonus='sudo systemctl disable homer mempool circuitbreaker lnbits rtl litd cln electrs'
+alias disablewireguard='sudo systemctl disable wg-quick@wg0'
+alias disableallbonus='sudo systemctl disable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0'
 
 #######################
 # BONUS SERVICES LOGS #
@@ -253,3 +258,4 @@ alias rtlogs='sudo journalctl -f -u rtl'
 alias litdlogs='sudo journalctl -f -u litd'
 alias clnlogs='sudo journalctl -f -u cln'
 alias electrslogs='sudo journalctl -f -u electrs'
+alias wireguardlogs='sudo journalctl -f -u wg-quick@wg0'
