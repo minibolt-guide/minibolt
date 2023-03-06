@@ -302,7 +302,7 @@ We won't do this on the client because we want it to be able to connect to the V
 ## Install WireGuard VPN on Client
 
 Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS.
-Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see for [Windows](#configure-wireguard-vpn-client-on-windows) or [Mobile](#configure-wireguard-vpn-client-on-mobile) configurations on the extra section.
+Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see [Windows](#install--configure-wireguard-vpn-client-on-windows) or [Mobile](#install--configure-wireguard-vpn-client-on-a-mobile-phone) configurations in the extra section.
 
 * On your Linux regular computer, for instance, you do this by simply installing the **`"Wireguard VPN"`** package:
 
@@ -440,7 +440,7 @@ Expected output:
   udp   UNCONN 0      0                   [::]:51820         [::]:*
   ```
 
-* Check the systemd journal to see Wireguard VPN real time updates output logs
+* Check the systemd journal to see Wireguard VPN real-time updates output logs
 
   ```sh
   $ sudo journalctl -f -u wg-quick@wg0.service
@@ -583,7 +583,7 @@ You could use any other [private IP range](https://en.wikipedia.org/wiki/Private
 
 * Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server and `10.0.1.2` for the clients in this case.
 
-* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port on the endpoint configuration: <(Endpoint = <yoursubdomain.dedyn.io>:**51821**)>
+* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port on the endpoint configuration: `<(Endpoint = <yoursubdomain.dedyn.io>:**51821**)>`
 
 ### Use your router’s DDNS preconfigured provider
 
