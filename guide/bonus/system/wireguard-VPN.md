@@ -81,11 +81,13 @@ Before starting with the installation proper, you need to:
 **Server keys:**
 
   > `* <Your_Server_Private_Key>`
+
   > `* <Your_Server_Public_Key>`
 
 **Client keys:**
 
   > `* <Your_Client_Private_Key>`
+
   > `* <Your_Client_Public_Key>`
 
 **Desec provider data:**
