@@ -572,7 +572,7 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) | Link to [A
 
 ### Configure additional clients
 
-For each additional client, you must install the WireGuard software in each one of them and you could reuse the client's key pair previously created on the [generate client key pair](#generate-client-key-pair) section and all [client configuration](#client-configuration-part-1) section.
+For each additional client, you must install the WireGuard software in each of them and you could reuse the client's key pair previously created on the [generate client key pair](#generate-client-key-pair) section and all [client configuration](#client-configuration-part-1) sections.
 
 ### Configure additional servers
 
