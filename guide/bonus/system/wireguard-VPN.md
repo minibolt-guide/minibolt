@@ -78,8 +78,6 @@ Before starting with the installation proper, you need to:
 
 **Server keys:**
 
-**Server keys:**
-
   > `* <Your_Server_Private_Key>`
 
   > `* <Your_Server_Public_Key>`
