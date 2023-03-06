@@ -74,24 +74,26 @@ Before starting with the installation proper, you need to:
 3. Forward the "`51820`" port and "`UDP`" protocol of your router to the local IP of your MiniBolt.
    This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](#port-forwarding), you can show a few instructions to do this for the most common cases.
 
-📝 In the next steps, we will create different keys, IDs, passwords, and others, remember to take note of all of those in your preferred password manager (Bitwarden, Keypass) or in an offline document paper:
+📝 In the next steps, we will create different keys, IDs, passwords, and others, remember to take note of all of those in your preferred password manager (Bitwarden, Keypass) or an offline document paper:
 
 **Server keys:**
 
-> * <Your_Server_Private_Key>
-> * <Your_Server_Public_Key>
+**Server keys:**
+
+  > `* <Your_Server_Private_Key>`
+  > `* <Your_Server_Public_Key>`
 
 **Client keys:**
 
-> * <Your_Client_Private_Key>
-> * <Your_Client_Public_Key>
+  > `* <Your_Client_Private_Key>`
+  > `* <Your_Client_Public_Key>`
 
 **Desec provider data:**
 
-> * Desec email: **email**
-> * Desec password: **password**
-> * TOKEN: <YOUR_SECRET_TOKEN>
-> * Domain: <yoursubdomain.dedyn.io>
+  > * Desec email: **email**
+  > * Desec password: **password**
+  > * TOKEN: `<YOUR_SECRET_TOKEN>`
+  > * Domain: `<yoursubdomain.dedyn.io>`
 
 ## Set up Dynamic DNS
 
@@ -101,7 +103,7 @@ To fix this, we can maintain a DNS record that always points to your latest IP, 
 
 Now we are going to execute a universal way of configuring our IP by updating it to the dynamic DNS provider using the MiniBolt node via a script, but this job can be done by your router, especially if we are not sure that we are going to have MiniBolt running 24/7. Go to the [Use your router’s DDNS preconfigured provider](#use-your-routers-ddns-preconfigured-provider) extra section.
 
-💡 If you have a contracted static IP on your ISP, you can log in to the MiniBolt directly, and go to the [configure firewall](#configure-firewall) section and continue with the guide from there.
+💡 If you have a contracted static IP on your ISP, you can log in to the MiniBolt directly, go to the [configure firewall](#configure-firewall) section and continue with the guide from there.
 
 ### Desec registration
 

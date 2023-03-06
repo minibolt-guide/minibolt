@@ -94,7 +94,7 @@ Everything is optional.
   * [Spanish](https://t.me/minibolt_es){:target="_blank"}
   * [English](https://t.me/minibolt){:target="_blank"}
 
-* Nostr channels (Anigma):
+* Nostr channels:
   * Spanish id: 3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015
   * English id: aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249
 
