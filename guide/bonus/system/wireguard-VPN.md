@@ -365,11 +365,11 @@ Write the following contents to the `wg0.conf` file
 
 📝 A few things to note here:
 
-> Replace `"PrivateKey"` parameter designed as `**(<Your_Client_Private_Key>)**` by created previous step.
+> Replace `"PrivateKey"` parameter designed as **`"Your_Client_Private_Key"`** by created previous step.
 
-> Replace `"PublicKey"` parameter designed as `**(<Your_Server_Public_Key>)**` by the public key of MiniBolt created on the [generate key pair](#generate-server-key-pair) section.
+> Replace `"PublicKey"` parameter designed as **`"Your_Server_Public_Key"`** by the public key of MiniBolt created on the [generate key pair](#generate-server-key-pair) section.
 
-> Replace `"Endpoint"` parameter designed as `**(<yoursubdomain.dedyn.io>)**` by created in [Desec registration](#desec-registration) section.
+> Replace `"Endpoint"` parameter designed as **`"yoursubdomain.dedyn.io"**`** by created in [Desec registration](#desec-registration) section.
 
 * Now you can delete the `private_key` and `public_key` files from the disk, but make sure you have noted this previously
 
@@ -583,7 +583,7 @@ You could use any other [private IP range](https://en.wikipedia.org/wiki/Private
 
 * Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server and `10.0.1.2` for the clients in this case.
 
-* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port on the endpoint configuration: `<(Endpoint = <yoursubdomain.dedyn.io>:**51821**)>`
+* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port on the endpoint configuration: **`Endpoint = <yoursubdomain.dedyn.io>:51821`**
 
 ### **Use your router’s DDNS preconfigured provider**
 
