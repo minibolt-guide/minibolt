@@ -71,22 +71,22 @@ Before starting with the installation proper, you need to:
    Most ISP simply do this on request or charge a small fee to allocate a public IP just for you.
 2. Figure out the public IP of your home network. If you have a **static public IP** it'll simplify the setup, but it's not mandatory.
    There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/){:target="_blank"}
-3. Forward the "`51820`" port and "`UDP`" protocol of your router to the local IP of your MiniBolt.
+3. Forward the `"51820"` port and `"UDP"` protocol of your router to the local IP of your MiniBolt.
    This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1){:target="_blank"} or [http://192.168.0.1](http://192.168.0.1){:target="_blank"}) and finding the relevant settings page. See [portforward.com](https://portforward.com){:target="_blank"} for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](#port-forwarding), you can show a few instructions to do this for the most common cases.
 
 📝 In the next steps, we will create different keys, IDs, passwords, and others, remember to take note of all of those in your preferred password manager (Bitwarden, Keypass) or an offline document paper:
 
 **Server keys:**
 
-  > `* <Your_Server_Private_Key>`
+  > `<Your_Server_Private_Key>`
 
-  > `* <Your_Server_Public_Key>`
+  > `<Your_Server_Public_Key>`
 
 **Client keys:**
 
-  > `* <Your_Client_Private_Key>`
+  > `<Your_Client_Private_Key>`
 
-  > `* <Your_Client_Public_Key>`
+  > `<Your_Client_Public_Key>`
 
 **Desec provider data:**
 
@@ -121,7 +121,7 @@ Now we are going to execute a universal way of configuring our IP by updating it
 
 ![Registration Page](../../../images/desec_io1.png)
 
-* Ensure to keep selecting the **"second option [(Register a new domain under dedyn.io (dynDNS)]"**
+* Ensure to keep selecting the second option **Register a new domain under dedyn.io (dynDNS)**
 
 * For this demo, I've typed **"yoursubdomain"**, but ***you can use anything memorable*** to you as long as no one has already taken that name. We'll it call **"<yoursubdomain.dedyn.io>"** from now on.
 
@@ -131,7 +131,7 @@ After this, deSEC will email you to confirm the address. It will contain a **ver
 
 ![Email Confirmed](../../../images/desec_io2.png)
 
-* Take note of the **"Token secret"**, you'll need it later as **"<YOUR_SECRET_TOKEN>"**
+* Take note of the **"Token secret"**, you'll need it later as **`"<YOUR_SECRET_TOKEN>"`**
 
 **5.** Click on the **"ASSIGN ACCOUNT PASSWORD"** button down below to lock down your account.
 
@@ -152,7 +152,7 @@ This will prompt deSEC to send you another email with another link that will let
 ### **Dynamic IP script**
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC.
-We'll need the **"<YOUR_SECRET_TOKEN>"** and **"<yoursubdomain.dedyn.io>"** from the deSEC registration step.
+We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yoursubdomain.dedyn.io>"`** from the deSEC registration step.
 
 * As `"admin"` user, [log in](../../system/remote-access.md) to MiniBolt and create the following script
 
@@ -160,7 +160,7 @@ We'll need the **"<YOUR_SECRET_TOKEN>"** and **"<yoursubdomain.dedyn.io>"** from
   $ sudo nano /opt/dynamic-ip-refresh.sh
   ```
 
-* Replace **"<yoursubdomain.dedyn.io>"** and **"<YOUR_SECRET_TOKEN>"** for the before created. Save and exit
+* Replace **`"<yoursubdomain.dedyn.io>"`** and **`"<YOUR_SECRET_TOKEN>"`** for the before created. Save and exit
 
   ```
   #!/usr/bin/env bash
@@ -391,7 +391,7 @@ Now return to the MiniBolt node to allow access to the newly created Wireguard V
 
 Now we are going to complete the previous parameter **`"<Your_Client_Public_Key>"`** that we left pending to complete before with the created in the **["generate client key pair"](#generate-client-key-pair)** section.
 
-Replace the existing **"<Your_Client_Public_Key>"** parameter with your one.
+Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one.
 
   ```
   ## Client configuration
