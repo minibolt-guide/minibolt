@@ -149,7 +149,7 @@ This will prompt deSEC to send you another email with another link that will let
 
 ## Server configuration (part 1)
 
-### Dynamic IP script
+### **Dynamic IP script**
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC.
 We'll need the **"<YOUR_SECRET_TOKEN>"** and **"<yoursubdomain.dedyn.io>"** from the deSEC registration step.
@@ -205,7 +205,7 @@ We'll need the **"<YOUR_SECRET_TOKEN>"** and **"<yoursubdomain.dedyn.io>"** from
 
 🥳 You now have a free domain that always points to your existing public IP address. Now you can log out of Desec webpage by clicking on the `"LOG OUT"` button on the top right, we won't need it more.
 
-### Configure Firewall
+### **Configure Firewall**
 
 * Return to the MiniBolt SSH session to continue configuring it. Allow incoming Wireguard requests from outside the Firewall
 
@@ -215,7 +215,7 @@ We'll need the **"<YOUR_SECRET_TOKEN>"** and **"<yoursubdomain.dedyn.io>"** from
 
 ⚠️ Remember to have forwarded the **`"51820"`** port and the **`"UDP"`** protocol of your router to the local IP of your MiniBolt, previously indicated in the [prerequisites](#prerequisites) section and following the [Port Forwarding](#port-forwarding) extra section.
 
-### Install WireGuard VPN on server
+### **Install WireGuard VPN on server**
 
 * Update the packages and upgrade to keep up to date with the OS
 
@@ -229,7 +229,7 @@ We'll need the **"<YOUR_SECRET_TOKEN>"** and **"<yoursubdomain.dedyn.io>"** from
   $ sudo apt install wireguard
   ```
 
-### Generate server key pair
+### **Generate server key pair**
 
 * Now we are going to generate our server key pair. The following command is to generate a private key
 
@@ -310,7 +310,7 @@ Here, we'll assume your client is a Linux desktop OS; because it is the most sim
   $ sudo apt install wireguard
   ```
 
-### Generate client key pair
+### **Generate client key pair**
 
 * Now we are going to generate our client key pair. The following command is to generate a private key
 
@@ -340,7 +340,7 @@ Public key ***example*** expected output, we'll it call **`"<Your_Client_Public_
 
 📝 Take note and **securely backup** this private key in your preferred password manager (Bitwarden, Lastpass, Keypass...)
 
-### Client configuration (part 1)
+### **Client configuration (part 1)**
 
 * Edit `wg0.conf` file
 
@@ -365,11 +365,11 @@ Write the following contents to the `wg0.conf` file
 
 📝 A few things to note here:
 
-> Replace `"PrivateKey"` parameter designed as **(<Your_Client_Private_Key>)** by created previous step.
+> Replace `"PrivateKey"` parameter designed as `**(<Your_Client_Private_Key>)**` by created previous step.
 
-> Replace `"PublicKey"` parameter designed as **(<Your_Server_Public_Key>)** by the public key of MiniBolt created on the [generate key pair](#generate-server-key-pair) section.
+> Replace `"PublicKey"` parameter designed as `**(<Your_Server_Public_Key>)**` by the public key of MiniBolt created on the [generate key pair](#generate-server-key-pair) section.
 
-> Replace `"Endpoint"` parameter designed as **(<yoursubdomain.dedyn.io>)** by created in [Desec registration](#desec-registration) section.
+> Replace `"Endpoint"` parameter designed as `**(<yoursubdomain.dedyn.io>)**` by created in [Desec registration](#desec-registration) section.
 
 * Now you can delete the `private_key` and `public_key` files from the disk, but make sure you have noted this previously
 
@@ -509,7 +509,7 @@ Expected output:
 
 ## Extras
 
-### Install & configure the WireGuard VPN Client on a mobile phone
+### **Install & configure the WireGuard VPN Client on a mobile phone**
 
 Entering all information about the Wireguard VPN Client into a mobile phone is particularly cumbersome.
 A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel through a QR code format.
@@ -558,7 +558,7 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209){:target="_bl
 
 💡 You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of `"wg0.conf"` configured on the [client configuration](#client-configuration-part-1) section. Select **"CREATE FROM SCRATCH"** instead of **"SCAN FROM QR CODE"** on the second step, fill out the form, and hit on the diskette icon on the top right to save and follow the same steps from **4.**
 
-### Install & configure WireGuard VPN Client on Windows
+### **Install & configure WireGuard VPN Client on Windows**
 
 * Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe){:target="_blank"}
 
@@ -572,11 +572,11 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209){:target="_bl
 
 * Test it creating a [new SSH connection](../../system/remote-access.md) to MiniBolt for example, this time with the VPN IP address.
 
-### Configure additional clients
+### **Configure additional clients**
 
 For each additional client, you must install the WireGuard software in each of them and you could reuse the client's key pair previously created on the [generate client key pair](#generate-client-key-pair) section and all [client configuration](#client-configuration-part-1) sections.
 
-### Configure additional servers
+### **Configure additional servers**
 
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`.
 You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses){:target="_blank"}.
@@ -585,7 +585,7 @@ You could use any other [private IP range](https://en.wikipedia.org/wiki/Private
 
 * If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port on the endpoint configuration: `<(Endpoint = <yoursubdomain.dedyn.io>:**51821**)>`
 
-### Use your router’s DDNS preconfigured provider
+### **Use your router’s DDNS preconfigured provider**
 
 Some routers have support for Dynamic DNS providers like NO-IP or deSEC, out of the box, and you just need to select the right option (deSEC, desec.io, dedyn, NoIP, dynDNS or similar). It would be a great idea if your MiniBolt server won't be running 24/7, but it's probably your router yes.
 
@@ -600,7 +600,7 @@ If your router does not have your DDNS provider preconfigured, the configuration
 
 ✔️ Save and apply changes.
 
-### Port forwarding
+### **Port forwarding**
 
 Port forwarding, allows you to direct incoming traffic from the WAN side (identified by Protocol and External port) to the Internal server with the private IP address on the LAN side.
 
