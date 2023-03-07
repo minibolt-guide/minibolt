@@ -174,7 +174,7 @@ Instead of creating this directory, we create a data directory in the general da
   $ sudo chown bitcoin:bitcoin /data/bitcoin
   ```
 
-* Switch to user "bitcoin"
+* Switch to the user "bitcoin"
 
   ```sh
   $ sudo su - bitcoin
@@ -204,7 +204,7 @@ Bitcoin Core provides a simple Python program to generate the configuration line
   $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpcauth.py
   ```
 
-* Run the script with the Python3 interpreter, providing username (`minibolt`) and your `password [B]` as arguments.
+* Run the script with the Python3 interpreter, providing username (`minibolt`) and your `"password [B]"` as arguments.
 
   🚨 All commands entered are stored in the bash history.
   But we don't want the password to be stored where anyone can find it.
@@ -302,7 +302,7 @@ We'll also set the proper access permissions.
 ### Autostart on boot
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in.
-We use "systemd", a daemon that controls the startup process using configuration files.
+We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
 * Create the configuration file in the Nano text editor and copy the following paragraph.
   Save and exit.
@@ -355,6 +355,8 @@ We use "systemd", a daemon that controls the startup process using configuration
   $ sudo journalctl -f -u bitcoind
   ```
 
+💡 Keep **this terminal open,** you'll need to come back here on the next step to monitor logs.
+
 ## Running bitcoind
 
 [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
@@ -366,9 +368,9 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start bitcoind
   ```
 
-Expected output:
+Expected output on the first terminal with `$ sudo journalctl -f -u bitcoind`:
 
-  ```sh
+  ```
   > 2022-11-24T18:08:04Z Bitcoin Core version v24.0.1.0 (release build)
   > 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -upnp=0
   > 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -natpmp=0
@@ -486,7 +488,7 @@ When we installed Bitcoin Core, we verified the timestamp of the checksum file u
 In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data.
 Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client){:target="_blank"} to locally verify the timestamp of the binaries checksums file.
 
-* As user "admin", install dependencies
+* As user `"admin"`, install dependencies
 
   ```sh
   $ sudo apt-get install python3-dev python3-pip python3-wheel
@@ -514,7 +516,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
   ```
 
-  ```sh
+  ```
   # Privacy mode
   onlynet=onion
   onlynet=i2p

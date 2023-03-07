@@ -15,9 +15,9 @@ has_toc: false
 
 ---
 
-The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis).
+The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis){:target="_blank"}.
 
-[WireGuard](https://www.wireguard.com) is a VPN you can set up to access your MiniBolt from the outside.
+[WireGuard](https://www.wireguard.com){:target="_blank"} is a VPN you can set up to access your MiniBolt from the outside.
 It makes it easier to run services on your node without exposing its ports to the public Internet.
 It has support on all major computer OS; and apps for Android and iOS.
 The only requirement is to forward a UDP port from your home router to the MiniBolt node.
@@ -66,13 +66,13 @@ Several trade-offs are using a VPN versus using Tor.
 
 Before starting with the installation proper, you need to:
 
-1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat).
+1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat){:target="_blank"}.
    If that's the case **you have no way of doing port forwarding**, and you'll need to contact them asking to **put you out of CG-NAT** (this means giving your router a dedicated public IP).
    Most ISP simply do this on request or charge a small fee to allocate a public IP just for you.
 2. Figure out the public IP of your home network. If you have a **static public IP** it'll simplify the setup, but it's not mandatory.
-   There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
+   There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/){:target="_blank"}
 3. Forward the "`51820`" port and "`UDP`" protocol of your router to the local IP of your MiniBolt.
-   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](#port-forwarding), you can show a few instructions to do this for the most common cases.
+   This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1){:target="_blank"} or [http://192.168.0.1](http://192.168.0.1){:target="_blank"}) and finding the relevant settings page. See [portforward.com](https://portforward.com){:target="_blank"} for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](#port-forwarding), you can show a few instructions to do this for the most common cases.
 
 📝 In the next steps, we will create different keys, IDs, passwords, and others, remember to take note of all of those in your preferred password manager (Bitwarden, Keypass) or an offline document paper:
 
@@ -107,7 +107,7 @@ Now we are going to execute a universal way of configuring our IP by updating it
 
 ### Desec registration
 
-* Go to [https://desec.io](https://desec.io) official webpage and fill the first form with this:
+* Go to [https://desec.io](https://desec.io){:target="_blank"} official webpage and fill out the first form with this:
 
   **1.** Type your preferred **email**
 
@@ -195,7 +195,7 @@ We'll need the **"<YOUR_SECRET_TOKEN>"** and **"<yoursubdomain.dedyn.io>"** from
   */2 * * * *     /opt/dynamic-ip-refresh.sh
   ```
 
-💡 Keep the MiniBolt SSH session on the terminal opened to go back later, return to [deSEC web page](https://desec.io/domains), ensure you are on the **"DOMAIN MANAGEMENT"** tab and **click on your domain**.
+💡 Keep the MiniBolt SSH session on the terminal opened to go back later, return to [deSEC web page](https://desec.io/domains){:target="_blank"}, ensure you are on the **"DOMAIN MANAGEMENT"** tab and **click on your domain**.
 
 ![deSEC Main Menu](../../../images/desec_io3.png)
 
@@ -301,8 +301,8 @@ We won't do this on the client because we want it to be able to connect to the V
 
 ## Install WireGuard VPN on Client
 
-Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS.
-Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see [Windows](#install--configure-wireguard-vpn-client-on-windows) or [Mobile](#install--configure-wireguard-vpn-client-on-a-mobile-phone) configurations in the extra section.
+Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install){:target="_blank"} and download and install the relevant version of WireGuard for your OS.
+Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see [Windows](#install--configure-wireguard-vpn-client-on-windows) or [Mobile](#install--configure-the-wireguard-vpn-client-on-a-mobile-phone) configurations in the extra section.
 
 * On your Linux regular computer, for instance, you do this by simply installing the **`"Wireguard VPN"`** package:
 
@@ -472,7 +472,7 @@ Expected output:
   $ ssh admin@10.0.0.1
   ```
 
-💡 Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [https://10.0.0.1:4000](https://10.0.1.1:4000)
+💡 Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [https://10.0.0.1:4000](https://10.0.1.1:4000){:target="_blank"}
 
 * Check the VPN client status using
 
@@ -509,7 +509,7 @@ Expected output:
 
 ## Extras
 
-### Install & configure WireGuard VPN Client on a mobile phone
+### Install & configure the WireGuard VPN Client on a mobile phone
 
 Entering all information about the Wireguard VPN Client into a mobile phone is particularly cumbersome.
 A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel through a QR code format.
@@ -544,7 +544,7 @@ To do that you need to install the `"qrencode"` package on your regular computer
 
 * Install the Wireguard VPN client for the mobile version and start it
 
-Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) | Link to [Android](https://play.google.com/store/apps/details?id=com.wireguard.android) / [F-Droid](https://f-droid.org/en/packages/com.wireguard.android/)
+Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209){:target="_blank"} | Link to [Android](https://play.google.com/store/apps/details?id=com.wireguard.android){:target="_blank"} / [F-Droid](https://f-droid.org/en/packages/com.wireguard.android/){:target="_blank"}
 
 **1.** Hit on **(+)** button
 
@@ -560,7 +560,7 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) | Link to [A
 
 ### Install & configure WireGuard VPN Client on Windows
 
-* Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
+* Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe){:target="_blank"}
 
 * Hit on the little arrow down on the bottom left and select **"Add empty tunnel"**.
 
@@ -579,7 +579,7 @@ For each additional client, you must install the WireGuard software in each of t
 ### Configure additional servers
 
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`.
-You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
+You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses){:target="_blank"}.
 
 * Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server and `10.0.1.2` for the clients in this case.
 
@@ -602,7 +602,7 @@ If your router does not have your DDNS provider preconfigured, the configuration
 
 ### Port forwarding
 
-Port forwarding, allows you to direct incoming traffic from WAN side (identified by Protocol and External port) to the Internal server with private IP address on the LAN side.
+Port forwarding, allows you to direct incoming traffic from the WAN side (identified by Protocol and External port) to the Internal server with the private IP address on the LAN side.
 
 🔍 Search for some section called NAT/PAT, Virtual Servers, Port forwarding, or similar and set these parameters:
 
