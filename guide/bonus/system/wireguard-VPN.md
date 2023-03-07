@@ -78,15 +78,15 @@ Before starting with the installation proper, you need to:
 
 **Server keys:**
 
-  > `<Your_Server_Private_Key>`
+  > **`<Your_Server_Private_Key>`**
 
-  > `<Your_Server_Public_Key>`
+  > **`<Your_Server_Public_Key>`**
 
 **Client keys:**
 
-  > `<Your_Client_Private_Key>`
+  > **`<Your_Client_Private_Key>`**
 
-  > `<Your_Client_Public_Key>`
+  > **`<Your_Client_Public_Key>`**
 
 **Desec provider data:**
 
@@ -105,7 +105,7 @@ Now we are going to execute a universal way of configuring our IP by updating it
 
 💡 If you have a contracted static IP on your ISP, you can log in to the MiniBolt directly, go to the [configure firewall](#configure-firewall) section and continue with the guide from there.
 
-### Desec registration
+### **Desec registration**
 
 * Go to [https://desec.io](https://desec.io){:target="_blank"} official webpage and fill out the first form with this:
 
@@ -123,7 +123,7 @@ Now we are going to execute a universal way of configuring our IP by updating it
 
 * Ensure to keep selecting the second option **Register a new domain under dedyn.io (dynDNS)**
 
-* For this demo, I've typed **"yoursubdomain"**, but ***you can use anything memorable*** to you as long as no one has already taken that name. We'll it call **"<yoursubdomain.dedyn.io>"** from now on.
+* For this demo, I've typed **"yoursubdomain"**, but ***you can use anything memorable*** to you as long as no one has already taken that name. We'll it call **`"<yoursubdomain.dedyn.io>"`** from now on.
 
 * Complete the **"CAPTCHA"** and check the box **"Yes, I agree to the..."** option and click on the **"SIGN UP"** button.
 
