@@ -31,7 +31,7 @@ Make payments with lightning or on-chain and manage your channels while you're o
 
 ### **Configure Firewall**
 
-* As user `"admin"`, configure the firewall to allow incoming requests
+* Login as `“admin”` user, and configure the Firewall to allow LND REST incoming requests
 
   ```sh
   $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'

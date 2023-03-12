@@ -14,7 +14,7 @@ parent: Bitcoin
 
 Run your own private blockchain explorer with [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer){:target="_blank"}. Trust your node, not some external services.
 
-![BTC RPC Explorer home screen with dark theme](../../images/btcrpcexplorer-homepage.png)
+![BTC RPC Explorer home screen](../../images/btcrpcexplorer-homepage.png)
 
 ---
 
@@ -344,7 +344,7 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
   HiddenServicePort 80 127.0.0.1:3002
   ```
 
-* Reload Tor configuration and get your connection address.
+* Reload the Tor configuration and get your connection address.
 
   ```sh
   $ sudo systemctl reload tor
