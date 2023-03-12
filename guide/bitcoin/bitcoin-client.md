@@ -38,9 +38,9 @@ We're talking more than 700'000 blocks with a size of over 430 GB, so this is no
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum.
 This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-### Preparations
+### **Preparations**
 
-* Login as "admin" and change to a temporary directory which is cleared on reboot.
+* Login as "admin" and change to a temporary directory which is cleared on reboot
 
   ```sh
   $ cd /tmp
@@ -60,7 +60,7 @@ This is a precaution to make sure that this is an official release and not a mal
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
   ```
 
-### Checksum check
+### **Checksum check**
 
 * Check that the reference checksum in file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
 
@@ -74,7 +74,7 @@ Expected output:
   > bitcoin-$VERSION-x86_64-linux-gnu.tar.gz: OK
   ```
 
-### Signature check
+### **Signature check**
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
@@ -110,7 +110,7 @@ Expected output:
   > Primary key fingerprint: ...
   ```
 
-### Timestamp check
+### **Timestamp check**
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
 
@@ -126,7 +126,7 @@ The following screenshot is just an example of one of the versions:
 
 ![Bitcoin timestamp check](../../images/bitcoin-ots-check.PNG)
 
-### Binaries installation
+### **Binaries installation**
 
 * If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
 
@@ -139,7 +139,7 @@ The following screenshot is just an example of one of the versions:
   > [...]
   ```
 
-### Create the bitcoin user
+### **Create the bitcoin user**
 
 The Bitcoin Core application will run in the background as a daemon and use the separate user “bitcoin” for security reasons.
 This user does not have admin rights and cannot change the system configuration.
@@ -162,7 +162,7 @@ This user does not have admin rights and cannot change the system configuration.
   $ sudo adduser bitcoin debian-tor
   ```
 
-### Create data folder
+### **Create data folder**
 
 Bitcoin Core uses by default the folder `.bitcoin` in the user's home.
 Instead of creating this directory, we create a data directory in the general data location `/data` and link to it.
@@ -186,7 +186,7 @@ Instead of creating this directory, we create a data directory in the general da
   $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
   ```
 
-### Generate access credentials
+### **Generate access credentials**
 
 For other programs to query Bitcoin Core they need the proper access credentials.
 To avoid storing the username and password in a configuration file in plaintext, the password is hashed.
@@ -223,12 +223,12 @@ Expected **example** output:
 
 * Copy the `rpcauth` line, we'll need to paste it into the Bitcoin config file.
 
-### Configuration
+### **Configuration**
 
 Now, the configuration file for `bitcoind` needs to be created.
 We'll also set the proper access permissions.
 
-* Still as user "bitcoin", open it with Nano and paste the configuration below.
+* Still as user `"bitcoin"`, open it with Nano and paste the configuration below.
   Replace the whole line starting with "rpcauth=" with the connection string you just generated.
   Save and exit.
 
@@ -299,12 +299,12 @@ We'll also set the proper access permissions.
   $ exit
   ```
 
-### Autostart on boot
+### **Autostart on boot**
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in.
 We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-* Create the configuration file in the Nano text editor and copy the following paragraph.
+* Create the configuration file in the nano text editor and copy the following paragraph.
   Save and exit.
 
   ```
@@ -443,7 +443,7 @@ Example of expected output:
 This can take between one day and a week, depending mostly on your PC performance.
 It's best to wait until the synchronization is complete before going ahead.
 
-### Explore bitcoin-cli
+### **Explore bitcoin-cli**
 
 If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Core and play around with `bitcoin-cli` until the blockchain is up-to-date.
 
@@ -459,13 +459,13 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 * Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list){:target="_blank"}
 
-### Reduce 'dbcache' after a full sync
+### **Activate mempool & reduce 'dbcache' after a full sync**
 
 Once Bitcoin Core is fully synced, we can reduce the size of the database cache.
 A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel.
 We also now want to enable the node to listen to and relay transactions.
 
-* As user "admin", comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit.
+* As user `"admin"`, comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit.
 
   ```sh
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -508,7 +508,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 ## Extras (optional)
 
-### Privacy mode
+### **Privacy mode**
 
 * As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes
 
@@ -556,7 +556,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   seednode=bitcoi656nll5hu6u7ddzrmzysdtwtnzcnrjd4rfdqbeey7dmn5a.b32.i2p:0
   ```
 
-### Slow device mode
+### **Slow device mode**
 
 * As user `admin` add these lines to the end of the existing `bitcoin.`conf` file
 
