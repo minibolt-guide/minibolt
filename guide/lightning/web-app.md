@@ -19,7 +19,7 @@ parent: Lightning
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -415,7 +415,7 @@ Advice: If you can't do "Login", maybe the cause is that you don't have a channe
 1. Switch to "Yes" -> Amboss: "Auto backups" and "Healthcheck Pings"
 1. Test pushing a backup to Amboss by entering the "Tools" section, to the left main menu
 1. Press to "Push" button to test the correct working
-1. Go back to Amboss website and access "Account" in the main menu
+1. Go back to the Amboss website and access "Account" in the main menu
 1. Access to "Backup" and ensure that the last date of the backup is the same as before. It is recommended to download the backup file and store it in a safe place for future recovers. The backup file will be updated automatically in Amboss for every channel opening and closing. You could do this too in the "Tools" section in Thunderhub, "Backups" -> "Backup all channels" -> "Download" button.
 1. In Amboss, access "Monitoring" to configure "Healthcheck Settings".
 
@@ -434,4 +434,4 @@ After possible data corruption of your LND node, ensure that this old node is co
 
 <br /><br />
 
-<< Back: [+ Lightning](index.md)
+Next: [Mobile App >>](mobile-app.md)

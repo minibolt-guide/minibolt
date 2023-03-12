@@ -46,9 +46,9 @@ Desktop wallets like [Sparrow](https://sparrowwallet.com/){:target="_blank"}, th
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/bitcoin-client.md#reduce-dbcache-after-full-sync)
+Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync)
 
-### Install dependencies
+### **Install dependencies**
 
 * With user `"admin"`, make sure that all necessary software packages are installed
 
@@ -56,7 +56,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/
   $ sudo apt install libssl-dev
   ```
 
-### Configure Firewall
+### **Configure Firewall**
 
 * Configure the firewall to allow incoming requests
 
@@ -68,7 +68,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../bitcoin/
   $ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
   ```
 
-### Configure Bitcoin Core
+### **Configure Bitcoin Core**
 
 We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
 
@@ -90,23 +90,45 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 
 ## Installation
 
-### Download and set up Fulcrum
+### **Download and set up Fulcrum**
 
 We have our Bitcoin Core configuration file set up and can now move on to the next part of the Fulcrum installation.
+
+* Login as "admin" and change to a temporary directory which is cleared on reboot
+
+  ```sh
+  $ cd /tmp
+  ```
+
+* Set a temporary version environment variable to the installation
+
+  ```sh
+  $ VERSION=1.9.0
+  ```
 
 * Download the application, checksums and signature
 
   ```sh
-  $ cd /tmp
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz
+  ```
+
+  ```sh
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
+  ```
+
+  ```sh
+  $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
   ```
 
 * Get the public key from the Fulcrum developer
 
   ```sh
   $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+  ```
+
+Expected output:
+
+  ```
   >     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   >                                 Dload  Upload   Total   Spent    Left  Speed
   > 100  2328  100  2328    0     0  16043      0 --:--:-- --:--:-- --:--:-- 15945
@@ -118,7 +140,12 @@ We have our Bitcoin Core configuration file set up and can now move on to the ne
 * Verify the signature of the text file containing the checksums for the application
 
   ```sh
-  $ gpg --verify Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
+  $ gpg --verify Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
+  ```
+
+Expected output:
+
+  ```
   > gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg: There is no indication that the signature belongs to the owner.
@@ -128,48 +155,70 @@ We have our Bitcoin Core configuration file set up and can now move on to the ne
 * Verify the signed checksum against the actual checksum of your download
 
   ```sh
-  $ sha256sum --check Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
-  > Fulcrum-1.9.0-x86_64-linux.tar.gz: OK
+  $ sha256sum --check Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
+  ```
+
+Expected output:
+
+  ```
+  > Fulcrum-$VERSION-x86_64-linux.tar.gz: OK
   ```
 
 * Extract and install Fulcrum
 
   ```sh
-  $ tar -xvf Fulcrum-1.9.0-x86_64-linux.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.9.0-x86_64-linux/Fulcrum Fulcrum-1.9.0-x86_64-linux/FulcrumAdmin
+  $ tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
+  ```
+
+  ```sh
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-$VERSION-x86_64-linux/Fulcrum Fulcrum-$VERSION-x86_64-linux/FulcrumAdmin
   ```
 
 * Check the correct installation requesting the version
 
   ```sh
   $ Fulcrum --version
-  > Fulcrum 1.9.0 (Release a5a53cf)
+  ```
+
+Expected output:
+
+  ```
+  > Fulcrum $VERSION (Release a5a53cf)
   > compiled: gcc 8.4.0
   [...]
   ```
 
-### Data directory
+### **Data directory**
 
 Now that Fulcrum is installed, we need to configure it to run automatically on startup.
 
-* Create the "fulcrum" service user, and add it to "bitcoin" group
+* Create the "fulcrum" user, and add it to the "bitcoin" group
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" fulcrum
+  ```
+
+  ```sh
   $ sudo adduser fulcrum bitcoin
   ```
 
-* Create the fulcrum data directory
+* Create the fulcrum data directory and assign the owner to the "fulcrum" user
 
   ```sh
   $ sudo mkdir -p /data/fulcrum/fulcrum_db
+  ```
+
+  ```sh
   $ sudo chown -R fulcrum:fulcrum /data/fulcrum/
   ```
 
-* Create a symlink to /home/fulcrum/.fulcrum
+* Create a symlink to /home/fulcrum/.fulcrum and assign as the owner to the "fulcrum" user
 
   ```sh
   $ sudo ln -s /data/fulcrum /home/fulcrum/.fulcrum
+  ```
+
+  ```sh
   $ sudo chown -R fulcrum:fulcrum /home/fulcrum/.fulcrum
   ```
 
@@ -179,12 +228,16 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   $ sudo su - fulcrum
   ```
 
-* Change to the fulcrum data folder and generate cert and key files for SSL. When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
+* Change to the fulcrum data folder and generate cert and key files for SSL
 
   ```sh
   $ cd /data/fulcrum
+  ```
+
   $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
   ```
+
+💡 When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
 
 * Download the custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display&f=Slant&t=fulcrum)
 
@@ -192,7 +245,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/fulcrum-banner.txt
   ```
 
-### Configuration
+### **Configuration**
 
 MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
@@ -202,7 +255,7 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   $ nano /data/fulcrum/fulcrum.conf
   ```
 
-  ```sh
+  ```
   # MiniBolt: fulcrum configuration
   # /data/fulcrum/fulcrum.conf
 
@@ -232,7 +285,7 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   $ exit
   ```
 
-### Autostart on boot
+### **Autostart on boot**
 
 Fulcrum needs to start automatically on system boot.
 
@@ -242,7 +295,7 @@ Fulcrum needs to start automatically on system boot.
   $ sudo nano /etc/systemd/system/fulcrum.service
   ```
 
-  ```sh
+  ```
   # MiniBolt: systemd unit for Fulcrum
   # /etc/systemd/system/fulcrum.service
 
@@ -320,58 +373,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
 ## For the future: Fulcrum upgrade
 
-* As “admin” user, download the application, checksums and signature
-
-  ```sh
-  $ cd /tmp
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
-  $ wget https://github.com/cculianu/Fulcrum/releases/download/v1.9.0/Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
-  ```
-
-* Get the public key from the Fulcrum developer
-
-  ```sh
-  $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
-  >     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-  >                                 Dload  Upload   Total   Spent    Left  Speed
-  > 100  2328  100  2328    0     0  16043      0 --:--:-- --:--:-- --:--:-- 15945
-  > gpg: key 21810A542031C02C: "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" not changed
-  > gpg: Total number processed: 1
-  > gpg:              unchanged: 1
-  ```
-
-* Verify the signature of the text file containing the checksums for the application
-
-  ```sh
-  $ gpg --verify Fulcrum-1.9.0-x86_64-linux.tar.gz.asc
-  > gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
-  > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg: There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: D465 135F 97D0 047E 18E9  9DC3 2181 0A54 2031 C02C
-  ```
-
-* Verify the signed checksum against the actual checksum of your download
-
-  ```sh
-  $ sha256sum --check Fulcrum-1.9.0-x86_64-linux.tar.gz.sha256sum
-  > Fulcrum-1.9.0-x86_64-linux.tar.gz: OK
-  ```
-
-* Install Fulcrum and check the correct installation requesting the version
-
-  ```sh
-  $ tar -xvf Fulcrum-1.9.0-x86_64-linux.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-1.9.0-x86_64-linux/Fulcrum Fulcrum-1.9.0-x86_64-linux/FulcrumAdmin
-  ```
-
-  * Check the new version
-
-  ```sh
-  $ Fulcrum --version
-  > Fulcrum 1.9.0 (Release a5a53cf)
-  > compiled: gcc 8.4.0
-  ```
+Follow the complete [Installation](#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
 * Restart the service to apply the changes
 
@@ -379,9 +381,19 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
   $ sudo systemctl restart fulcrum
   ```
 
+* Check logs and pay attention to the next log if that attends to the new version installed
+
+  ```sh
+  $ sudo journalctl -f -u fulcrum
+  ```
+
+  ```
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VERSION (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
+  ```
+
 ## Extras (optional)
 
-### Remote access over Tor
+### **Remote access over Tor**
 
 To use your Fulcrum server when you're on the go, you can easily create a Tor hidden service.
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
@@ -394,7 +406,7 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
 
 * Edit torrc
 
-  ```sh
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service Fulcrum TCP & SSL
   HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp_ssl/
@@ -411,14 +423,19 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
 
   ```sh
   $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
+  ```
+
+*Example* expected output:
+
+  ```
   > abcdefg..............xyz.onion
   ```
 
 * You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 50001 (TCP) or 50002 (SSL)
 
-### Slow device mode
+### **Slow device mode**
 
-#### Fulcrum configuration
+#### **Fulcrum configuration**
 
 * As the `admin` user, add these lines to the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware.
 
@@ -426,7 +443,7 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
   $ sudo nano /data/fulcrum/fulcrum.conf
   ```
 
-  ```sh
+  ```
   ## Slow device first-time start optimizations
   bitcoind_timeout = 600
   bitcoind_clients = 1
@@ -439,7 +456,7 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
   #db_max_open_files = 400
   ```
 
-#### Install zram-swap
+#### **Install zram-swap**
 
 zram-swap is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
 
@@ -447,7 +464,13 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 
   ```sh
   $ cd /home/admin/
+  ````
+
+  ```sh
   $ git clone https://github.com/foundObjects/zram-swap.git
+  ```
+
+  ```
   $ cd zram-swap && sudo ./install.sh
   ```
 
@@ -457,7 +480,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo nano /etc/default/zram-swap
   ```
 
-  ```sh
+  ```
   #_zram_fraction="1/2" #Comment this line
   _zram_fixedsize="10G" #Uncomment and edit
   ```
@@ -470,7 +493,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 
 * Here are the lines you’ll want to add **at the end** of your `/etc/sysctl.conf` file to make better use of zram. Save and exit
 
-  ```sh
+  ```
   vm.vfs_cache_pressure=500
   vm.swappiness=100
   vm.dirty_background_ratio=1
@@ -495,9 +518,9 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo cat /proc/swaps
   ```
 
-* Expected output:
+Expected output:
 
-  ```sh
+  ```
   Filename                               Type                 Size           Used    Priority
   /var/swap                              file                 102396         0       -2
   /dev/zram0                             partition            102396         0        5
@@ -509,9 +532,9 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo systemctl status zram-swap
   ```
 
-* Expected output, find *enabled* label:
+Expected output, find *enabled* label:
 
-  ```sh
+  ```
   zram-swap.service - zram swap service
   Loaded: loaded (/etc/systemd/system/zram-swap.service; enabled; vendor preset: enabled)
   Active: active (exited) since Mon 2022-08-08 00:51:51 CEST; 10s ago
@@ -531,7 +554,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo nano /etc/default/zram-swap
   ```
 
-  ```sh
+  ```
   _zram_fraction="1/2"   #Uncomment this line
   #_zram_fixedsize="10G" #Comment this line
   ```
@@ -554,27 +577,33 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo cat /proc/swaps
   ```
 
-* Expected output:
+Expected output:
 
-  ```sh
+  ```
   Filename                                Type                Size           Used    Priority
   /var/swap                              file                 102396         0       -2
   /dev/zram0                             partition            20479          0        5
   ```
 
-### Backup the database
+### **Backup the database**
 
 If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo` systemctl stop fulcrum"`.
 
 ## Uninstall
 
-### Uninstall Fulcrum
+### **Uninstall Fulcrum**
 
 * Ensure you are logged in with user "admin", stop, disable and delete the service
 
   ```sh
   $ sudo systemctl stop fulcrum
+  ```
+
+  ```sh
   $ sudo systemctl disable fulcrum
+  ```
+
+  ```sh
   $ sudo rm /etc/systemd/system/fulcrum.service
   ```
 
@@ -590,7 +619,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
   $ sudo rm -rf /data/fulcrum/
   ```
 
-### Uninstall Tor hidden service
+### **Uninstall Tor hidden service**
 
 * Ensure you are logged in with user "admin", comment or remove fulcrum hidden service in the torrc. Save and exit
 
@@ -598,7 +627,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service Fulcrum TCP & SSL
   #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
@@ -613,12 +642,17 @@ If the database gets corrupted and you don't have a backup, you will have to res
   $ sudo systemctl reload tor
   ```
 
-### Uninstall FW configuration
+### **Uninstall FW configuration**
 
 * Ensure you are logged in with user "admin", display the UFW firewall rules and note the numbers of the rules for Fulcrum (e.g., X and Y below)
 
   ```sh
   $ sudo ufw status numbered
+  ```
+
+Expected output:
+
+  ```
   > [Y] 50001                   ALLOW IN    Anywhere                  # allow Fulcrum TCP from anywhere
   > [X] 50002                   ALLOW IN    Anywhere                  # allow Fulcrum SSL from anywhere
   ```
@@ -629,14 +663,23 @@ If the database gets corrupted and you don't have a backup, you will have to res
   $ sudo ufw delete X
   ```
 
-### Uninstall the Zram (optional)
+### **Uninstall the Zram (optional)**
 
-* Ensure you are logged with user "admin", navigate to zram-swap folder and uninstall
+* Ensure you are logged in with user `"admin"`, navigate to zram-swap folder and uninstall
 
   ```sh
   $ cd /home/admin/zram-swap
+  ```
+
+  ```sh
   $ sudo ./install.sh --uninstall
+  ```
+
+  ```sh
   $ sudo rm /etc/default/zram-swap
+  ```
+
+  ```sh
   $ sudo rm -rf /home/admin/zram-swap
   ```
 
@@ -648,7 +691,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 * Expected output:
 
-  ```sh
+  ```
   Filename                                Type                Size           Used    Priority
   /var/swap                              file                 102396         0       -2
   ```
