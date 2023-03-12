@@ -41,7 +41,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-cli
 
 Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
-### Install dependencies
+### **Install dependencies**
 
 * Install build tools needed to compile Electrs from the source code
 
@@ -49,7 +49,7 @@ Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), thes
   $ sudo apt install cargo clang cmake build-essential librocksdb-dev
   ```
 
-### Firewall & reverse proxy
+### **Firewall & reverse proxy**
 
 In the [Security section](../system/security.md), we already set up NGINX as a reverse proxy.
 Now we can add the Electrs configuration.
@@ -93,7 +93,7 @@ Now we can add the Electrs configuration.
 An easy and performant way to run an Electrum server is to use [Electrs](https://github.com/romanz/electrs){:target="_blank"}, the Electrum Server in Rust.
 There are no binaries available, so we will compile the application ourselves.
 
-### Build from source code
+### **Build from source code**
 
 We get the latest release of the Electrs source code, verify it, compile it to an executable binary and install it.
 
@@ -105,8 +105,14 @@ We get the latest release of the Electrs source code, verify it, compile it to a
   $ cd /tmp
   ```
 
+* Set a temporary version environment variable to the installation
+
   ```sh
-  $ git clone --branch v0.9.12 https://github.com/romanz/electrs.git
+  $ VERSION=0.9.12
+  ```
+
+  ```sh
+  $ git clone --branch v$VERSION https://github.com/romanz/electrs.git
   ```
 
   ```sh
@@ -131,7 +137,7 @@ Expected output:
   ```
 
   ```sh
-  $ git verify-tag v0.9.12
+  $ git verify-tag v$VERSION
   ```
 
 Expected output:
@@ -166,7 +172,7 @@ Expected output:
 Expected output:
 
   ```
-  > v0.9.12
+  > $VERSION
   ```
 
 * Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
@@ -179,7 +185,7 @@ Expected output:
   $ rm -r /tmp/electrs
   ```
 
-### Configuration
+### **Configuration**
 
 * Create the "electrs" service user, and make it a member of the "bitcoin" group
 
@@ -238,7 +244,7 @@ Expected output:
   $ exit
   ```
 
-### Autostart on boot
+### **Autostart on boot**
 
 Electrs need to start automatically on system boot.
 
@@ -302,8 +308,8 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 
 Monitor the systemd journal at the first session created to check if everything works fine:
 
-  ```sh
-  Starting electrs 0.9.12 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+  ```
+  Starting electrs $VERSION on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
   [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
   [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 127.0.0.1:50001
   [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
@@ -341,7 +347,7 @@ With this, the wallets you use no longer need to connect to any third-party serv
 This can take a few hours.
 Only proceed with the [next section](desktop-wallet.md) once Electrs is ready.
 
-### Remote access over Tor (optional)
+### **Remote access over Tor (optional)**
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service.
 This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family.
@@ -380,7 +386,7 @@ Expected output:
 
 * You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (SSL) or 50001 (TCP)
 
-### Migrate BTC RPC Explorer to Electrs API connection
+### **Migrate BTC RPC Explorer to Electrs API connection**
 
 To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
 
@@ -416,6 +422,12 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
   $ electrs --version
   ```
 
+Expected output:
+
+  ```
+  > $VERSION
+  ```
+
 * Download the source code for the latest Electrs release.
   You can check the [release page](https://github.com/romanz/electrs/releases){:target="_blank"} to see if a newer release is available.
   Other releases might not have been properly tested with the rest of the MiniBolt configuration, though.
@@ -424,8 +436,14 @@ Make sure to check the [release notes](https://github.com/romanz/electrs/blob/ma
   $ cd /tmp
   ```
 
+* Replace the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
+
   ```sh
-  $ git clone --branch v0.9.12 https://github.com/romanz/electrs.git
+  $ VERSION=0.9.12
+  ```
+
+  ```sh
+  $ git clone --branch v$VERSION https://github.com/romanz/electrs.git
   ```
 
   ```sh
@@ -450,7 +468,7 @@ Expected output:
   ```
 
   ```sh
-  $ git verify-tag v0.9.12
+  $ git verify-tag v$VERSION
   ```
 
 Expected output:
@@ -485,7 +503,7 @@ Expected output:
 Expected output:
 
   ```
-  > v0.9.12
+  > v$VERSION
   ```
 
 * Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
