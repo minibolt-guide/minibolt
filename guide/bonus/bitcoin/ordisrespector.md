@@ -61,7 +61,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 
 > 💡 You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `"$"` sign. The system response is marked with the `">"` character.
 
-* Login as "admin" user (for a MiniBolt environment), or your assigned user with `sudo` permissions
+* Login as `"admin"` user (for a MiniBolt environment), or your assigned user with `sudo` permissions
 
 * Update and upgrade your OS
 
@@ -103,7 +103,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
   ```
 
-### Checksum check
+### **Checksum check**
 
 * Check that the reference checksum in file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
 
@@ -117,7 +117,7 @@ Expected output:
   > bitcoin-$VERSION.tar.gz: OK
   ```
 
-### Signature check
+### **Signature check**
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
@@ -129,7 +129,7 @@ Bitcoin releases are signed by several individuals, each using its own key. To v
 
 Expected output:
 
-  ```sh
+  ```
   > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
   > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
   > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
@@ -163,7 +163,7 @@ Expected output:
   $ tar -xvf bitcoin-$VERSION.tar.gz
   ```
 
-### Build it from the source code
+### **Build it from the source code**
 
 * Enter the Bitcoin Core source code folder
 
@@ -192,7 +192,7 @@ Expected output:
     --with-utils=yes
   ```
 
-### Apply the patch "Ordisrespector"
+### **Apply the patch "Ordisrespector"**
 
 * Download the Ordisrespector patch
 
@@ -212,7 +212,7 @@ Expected output:
   $ git apply ordisrespector.patch
   ```
 
-### Build
+### **Build**
 
 * Enter the command to compile
 
@@ -222,7 +222,7 @@ Expected output:
 
 💡 This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again.
 
-### Install
+### **Install**
 
 * Enter the next command to install the new binaries precompiled for yourself on the OS
 
@@ -242,7 +242,7 @@ Expected output:
   $ sudo journalctl -f -u bitcoind
   ```
 
-### How to detect Ordinals transactions
+### **How to detect Ordinals transactions**
 
 > 💡 After start Bitcoin Core, wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: ***"Imported mempool transactions from disk: ..."***. It is possible that a rather high indicator of "failed" imported transactions has appeared, which is a good sign, it's the filter is taking effect and rejecting Ordinals transactions 😃
 
@@ -252,7 +252,7 @@ Expected output:
 
 ![ordisrespector-mempool-blocks](../../../images/ordisrespector-mempool-blocks.png)
 
-* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly **0.00010000 BTC** output amount and click on the cube of the transaction to do a second verification
+* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly **0.00010000 BTC** or **0.00005000 BTC** ***[NEW]*** output amount and click on the cube of the transaction to do a second verification
 
 ![ordisrespector-mempool-cube-tx](../../../images/ordisrespector-mempool-cube-tx.png)
 
@@ -260,7 +260,7 @@ Expected output:
 
 ![ordisrespector-mempool-space-tx](../../../images/ordisrespector-mempool-space-tx.png)
 
-#### Check the Ordisrespector filter working on your mempool
+#### **Check the Ordisrespector filter working on your mempool**
 
 * Click on the "copy to the clipboard" icon to copy the transaction id `(<txid>)`, and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool), in  a BTC RPC Explorer running on a MiniBolt environment, go to [https://minibolt.local:4000](https://minibolt.local:4000)
 
@@ -292,7 +292,7 @@ Expected output:
 
 ## Extras
 
-### Add Ordisrespector node peers (optional)
+### **Add Ordisrespector node peers (optional)**
 
 Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/Nodo-Bitcoin-Barcelona-b275aaed964149a3ae2c9b1d16d6b78f) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way it is easier to invade the network with Ordisrespector node runners.
 
