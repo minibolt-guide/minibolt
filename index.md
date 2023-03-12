@@ -159,6 +159,7 @@ Recommended roadmap for Bitcoin + Lightning essential kit, tested on MiniBolt gu
 
   * [Lightning client](guide/lightning/lightning-client.md)
   * [Web app](guide/lightning/web-app.md)
+  * [Mobile app](guide/lightning/mobile-app.md)
 
 * Bonus
 

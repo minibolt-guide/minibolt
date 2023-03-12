@@ -62,7 +62,7 @@ Make payments with lightning or on-chain and manage your channels while you're o
 * Ensure lndconnect is correctly installed
 
   ```sh
-  $ lndconnect --h
+  $ lndconnect -h
   ```
 
 Expected output:
