@@ -226,23 +226,23 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
 #### Configure LND
 
-* Create the LND configuration file and paste the following content (adjust to your alias, your color, your minimum channel size and fees).
-  Save and exit.
+* Create the LND configuration file and paste the following content (adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` and fees). Save and exit.
 
   ```sh
   $ nano /data/lnd/lnd.conf
   ```
 
-  ```sh
+  ```
   # MiniBolt: lnd configuration
   # /data/lnd/lnd.conf
 
   [Application Options]
   # Alias accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-  alias=YOUR_FANCY_ALIAS
+  alias=<YOUR_FANCY_ALIAS>
   # You can choose the color you want at https://www.color-hex.com/
   color=#ff9900
   listen=localhost
+  restlisten=0.0.0.0:8080
   nat=false
   debuglevel=info
 
@@ -308,7 +308,7 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
 
 🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options
 
-* Exit "lnd" user session to return to "admin" user session
+* Exit "lnd" user session to return to the "admin" user session
 
   ```sh
   $ exit
@@ -360,7 +360,7 @@ Now, let's set up LND to start automatically on system startup.
   $ sudo systemctl enable lnd
   ```
 
-* Now, the daemon information is no longer displayed on the command line but written into the system journal.
+* Now, the daemon information is no longer displayed on the command line but is written into the system journal.
   You can check on it using the following command.
 
   ```sh
