@@ -14,7 +14,7 @@ has_toc: false
 
 ---
 
-If you want to use a different disk to store data (blockchain and others databases) independently of the disk of the system, you can follow these instructions.
+If you want to use a different disk to store data (blockchain and other databases) independently of the disk of the system, you can follow these instructions.
 
 Difficulty: Easy
 {: .label .label-green }
@@ -32,7 +32,7 @@ Status: Tested MiniBolt
 
 ---
 
-### Steps required
+### **Steps required**
 
 To use a different disk to store data (blockchain and others databases) independently of the disk of the system, there are a few additional steps compared to the default MiniBolt guide.
 Below is a summary of the main differences, with detailed guidance in the following sections.
@@ -47,11 +47,11 @@ Below is a summary of the main differences, with detailed guidance in the follow
     * format the disk
     * mount the disk to `/data`
 
-### System configuration
+### **System configuration**
 
 Follow the [System configuration](../../system/configuration.md) section until you reach [Data directory](../../system/configuration.md#data-directory), continuing with the instructions below.
 
-#### Format secondary disk
+#### **Format secondary disk**
 
 We will now format the secondary disk.
 As a server installation, the Linux native file system Ext4 is the best choice for the secondary hard disk.
@@ -78,7 +78,7 @@ As a server installation, the Linux native file system Ext4 is the best choice f
   $ sudo mkfs.ext4 /dev/[NAME]
   ```
 
-#### Mount secondary disk
+#### **Mount secondary disk**
 
 The secondary disk is then attached to the file system and becomes available as a regular folder (this is called “mounting”).
 
@@ -121,41 +121,6 @@ The secondary disk is then attached to the file system and becomes available as 
   > Filesystem      Size  Used Avail Use% Mounted on
   > /dev/sda1       938G   77M  891G   1% /data
   ```
-
-#### Custom swap size file
-
-The swap file acts as slower memory and is essential for system stability.
-MicroSD cards are not very performant and degrade over time under constant read/write activity.
-Therefore, we move the swap file to the secondary disk and increase its size as well.
-
-* Install dphys-swapfile
-
-  ```sh
-  $ sudo apt install dphys-swapfile
-  ```
-
-* Edit the configuration file, add the `CONF_SWAPFILE` line, and comment the entry `CONF_SWAPSIZE` out by placing a `#` in front of it.
-  Save and exit.
-
-  ```sh
-  $ sudo nano /etc/dphys-swapfile
-  ```
-
-  ```sh
-  CONF_SWAPFILE=/data/swapfile
-
-  # comment or delete the CONF_SWAPSIZE line. It will then be created dynamically
-  #CONF_SWAPSIZE=100
-  ```
-
-* Recreate and activate new swapfile
-
-  ```sh
-  $ sudo dphys-swapfile install
-  $ sudo systemctl restart dphys-swapfile.service
-  ```
-
----
 
 ### Continue with the guide
 

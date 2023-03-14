@@ -47,4 +47,10 @@ has_toc: false
 
 ---
 
+## Hardware
+
+* **[Store data in a secondary disk](store-data-secondary-disk.md)** - use a different disk to store data (blockchain and other databases) independently of the disk of the system
+
+---
+
 << Back: [Bonus Section](../index.md)
