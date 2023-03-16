@@ -62,9 +62,9 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 
 ## Ubuntu Server installation
 
-Use UP, Down and ENTER keys of your keyboard to navigate to the options. Follow the next instructions:
+Use the UP, Down and ENTER keys of your keyboard to navigate to the options. Follow the next instructions:
 
-1. In the first screen, select the language of your choice (English recommended)
+1. On the first screen, select the language of your choice (English recommended)
 
 1. If there is an installer update available, select "Update to the new installer", press ENTER and wait
 
@@ -80,11 +80,11 @@ Use UP, Down and ENTER keys of your keyboard to navigate to the options. Follow 
 
 1. Configure a guided storage layout:
     * Check **"Use an entire disk"**, if you have only one primary unit storage (1+ TB). In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before pressing done.
-    * Check **"Custom storage layout"**, if you want to use one or multiple storages, e.g. primary storage for the system and other secondary to storage data (blockchain, indexes, etc)(1+ TB), you will need a minimum:
-        * Select a **primary disk, as the boot disk and mount the filesystem `("/")` on it as well.
-        * Select a **secondary unit**, formatting as Ext4 filesystem type, and mount `"/data"` directory on it. 🚨 In this case, remember in this section [data directory](https://twofaktor.github.io/minibolt/guide/system/configuration.html#data-directory) just follow the command to assign the owner of the `/data` directory to the `"admin"` user, discarding the creation of the `"/data"` folder already created in this installation process. When you are ready press done.
+    * Check **"Custom storage layout"**, if you want to use one **secondary** or multiple disks, e.g. primary storage for the system and other secondary storage for data (blockchain, indexes, etc)(1+ TB). Navigate to the [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide to get instructions about this
 
-1. Confirm destructive action by selecting the "Continue" option. Press ENTER
+1. Confirm destructive action by selecting the "Continue" option. Press enter
+
+1. Keep selecting **"Skip for now"** when the **"Upgrade to Ubuntu Pro"** section appears you press ENTER on the "done" button
 
 1. The username `"admin"` is reserved for use by the system, to use in the first place, so we are going to create a temporary user which we will delete later. Complete the profile configuration form with the following. ⚠️ IMPORTANT step!
 
@@ -93,9 +93,9 @@ Use UP, Down and ENTER keys of your keyboard to navigate to the options. Follow 
     * > **server name:** minibolt
     * > **password:** PASSWORD [A]
 
-💡 If at any point you wish to change your hostname, just enter `$ hostnamectl set-hostname new-hostname` command, being `new-hostname` your choice. Verify the change with `$ hostname` command.
+💡 If at any point you wish to change your hostname, just enter the `$ hostnamectl set-hostname <new-hostname>` command, being `<new-hostname>` your choice. Verify the change with the `$ hostname` command.
 
-1. Press ENTER to check "Install OpenSSH server" by pressing the ENTER key and down to select "Done" box and press ENTER again. ⚠️ IMPORTANT step!
+1. Press ENTER to check "Install OpenSSH server" by pressing the ENTER key and down to select the *"Done"** box and press enter again. ⚠️ IMPORTANT step!
 
 1. If you want to preinstall some additional software (not recommended), select them, if not, press "done" directly to jump to the installation next step
 

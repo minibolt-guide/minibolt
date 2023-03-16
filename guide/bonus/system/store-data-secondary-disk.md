@@ -32,9 +32,30 @@ Status: Tested MiniBolt
 
 ---
 
-### Case 1 (build it during system installation - recommended)
+### **Case 1 (build it during system installation - recommended)**
 
-### Case 2 (build it after system installation)
+When you arrive to **"Guided storage configuration"** step on system installation, follow next steps
+
+* Select **"Custom storage layout"** and press **"Done"**
+
+Under **AVAILABLE DEVICES** you will see both drives you installed on the PC, identify each one by drive model name and storage
+It is recommended to choose the smallest size drive for the system and the bigger size driver for the data storage **`(/data)`**
+
+* Select section where appeard the **MODEL** of the primary disk between `"[]"` and press enter -> Select **"Use As Boot Device"** and press enter again
+
+This will select this storage as the boot disk and create automatically a new partition for the **"BIOS grub spacer"** on it.
+
+* Select **"free space"** section of the same device, select **"Add GPT Partition"**. Ensure format is selected as `"ext4"`, select **"/"** in the dropdown as mount point, select **"Create"** and press enter
+
+* Now select the **"free space"** of the **secondary disk** on "AVAILABLE DEVICES" -> **Add GPT partition**. Ensure format is selected as `"ext4"`, select **"Other"** in the dropdown, type `/data` to assign to the a new **("/data")** folder, select **"Create"** and press enter
+
+* Select **"Done"** and press enter. Confirm destructive action warning banner hitting **"Continue"**
+
+🚨 **This will delete all existing data on the secondary disk, including existing partitions!**
+
+![Storage secondary disk GIF](../../../resources/storage-secondary-disk.gif)
+
+### **Case 2 (build it after system installation)**
 
 #### **Steps required**
 
@@ -80,28 +101,28 @@ Follow the [System configuration](../../system/configuration.md) section until y
 
 Here we will see if the new disk has been detected by the system and what unit name has been assigned to it. Normally `sda` is name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: "Samsung SSD 870".
 
-#### Delete existing partition & create a new one
+#### **Delete existing partition & create a new one**
 
 * Type this command to use the `"fdisk"` utility and manage the secondary disk
 
   ```sh
   $ sudo fdisk /dev/sdb
   ```
-* Now we are select the option wished pressing the option letter and enter. 
-  
-  * Press "n" to create a new partition and then enter. Press enter until prompt show "(Command (m for help))" again.
 
-If you had existing partition/s, the prompt shows you "All space for primary partitions is in use", you will need typing `"d"` and press enter until the prompt shows you "Partition X has been deleted" if not, press enter until the prompt shows you "Created a new partition X of type 'Linux filesystem'" and....
+* Now we are select the option wished pressing the option letter and enter.
 
-If you had existing partition/s, the prompt will shows you "Partition #1 contains a ext4 signature", type `"Y"` and press enter and the prompt shows "The signature will be removed by a write command" if not, press enter until the prompt shows you "Created a new partition X of type 'Linux filesystem'" and....
+  * Press **`"n"`** to create a new partition and then enter.
+  Press enter until prompt show **"(Command (m for help))"** again.
 
-  Do you want to remove the signature? [Y]es/[N]o:
+If you had existing partition/s, the prompt shows you **"All space for primary partitions is in use"**, you will need typing **`"d"`** and press enter until the prompt shows you **"Partition X has been deleted"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and....
 
-  * Don't forget, press "w" to write on disk and exit
+If you had existing partition/s, the prompt will shows you **"Partition #1 contains a ext4 signature"** **"Do you want to remove the signature? [Y]es/[N]o"**, type **`"Y"`** and press enter and the prompt shows **"The signature will be removed by a write command"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and....
+
+* Finally, don't forget, type **`"w"`** to write on disk and exit
 
 This will create a new partition called probably `"sdb1"`
 
-* Finally format new partition to `"Ext4"` to obtain the UUID
+* Finally format the new partition to `"Ext4"` and obtain the **UUID**
 
   ```sh
   $ sudo mkfs.ext4 /dev/[NAME_P]
@@ -117,10 +138,7 @@ This will create a new partition called probably `"sdb1"`
 
 Take note of your UUID e.g dafc3c67-c6e5-4eaa-8840-adaf604c85db
 
-  ```sh
-  ```
-
-* Make a note of the partition name of your secondary disk (normally "sdb1")
+* Make a note of the partition name of your secondary disk (normally **"sdb1"**)
 
 #### **Mount secondary disk**
 
@@ -137,19 +155,17 @@ The secondary disk is then attached to the file system and becomes available as 
   > └─sdb1                 3aab0952-3ed4-4652-b203-d994c4fdff20 ext4   931.5G
   ```
 
-* Edit the `"fstab"` file and add the following as a new line at the end, replacing `123456` with your own `UUID`.
+* Edit the `"fstab"` file and add the following as a new line **at the end**, replacing `123456...` with your own `UUID`.
 
   ```sh
   $ sudo nano /etc/fstab
   ```
 
-  ```sh
-  UUID=123456 /data ext4 defaults 0 2
+  ```
+  UUID=123456... /data ext4 defaults 0 2
   ```
 
-  🔍 *more: [complete fstab guide](https://linuxconfig.org/how-fstab-works-introduction-to-the-etc-fstab-file-on-linux){:target="_blank"}*
-
-* Create the data directory as a mount point.
+* Create the data directory as a mount point
   We also make the directory immutable to prevent data from being written on the system primary disk if the secondary disk is not mounted.
 
   ```sh
@@ -170,19 +186,9 @@ The secondary disk is then attached to the file system and becomes available as 
 
 ### Continue with the guide
 
-That's it: your Raspberry Pi now boots from the microSD card while the data directory `/data/` is located on the secondary disk.
+That's it: your PC now boots from the primary disk while the data directory **`(/data)`** is located on the secondary disk.
 
-You can now continue with the RaspiBolt guide.
-
-
-* We will format the entire disk to delete existing partitions or a different file system to native Linux. As a server installation, the Linux native file system Ext4 is the best choice for the secondary hard disk (use `[NAME]` from above, e.g. `sdb`)
-
-  🚨 **This will delete all existing data on the secondary disk, including existing partitions!**
-
-  ```sh
-  $ sudo mkfs.ext4 /dev/[NAME]
-  ```
-
+You can now continue with the MiniBolt guide.
 
 ---
 
