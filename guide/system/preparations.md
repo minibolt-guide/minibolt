@@ -42,7 +42,7 @@ You need the following hardware:
 * Temporary monitor screen or television
 * Temporary keyboard USB/PS2
 
-The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 430 GB and growing.
+The complete Bitcoin blockchain must be stored locally to run a Lightning node, currently about 465 GB and growing.
 
 You might also want to get this optional hardware:
 
