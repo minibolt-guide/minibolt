@@ -29,7 +29,7 @@ We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/){:target="_blank"
 ## This may take some time
 
 Bitcoin Core will download the full Bitcoin blockchain, and validate all transactions since 2009.
-We're talking more than 700'000 blocks with a size of over 430 GB, so this is not an easy task.
+We're talking more than 700'000 blocks with a size of over 465 GB, so this is not an easy task.
 
 ---
 
