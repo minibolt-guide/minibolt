@@ -108,13 +108,11 @@ Let's check if your drive works well as-is.
 
   ```sh
   $ sudo hdparm -t --direct /dev/sda
-  > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
   ```
 
-💡 If you use a secondary unit storage for the `/data` folder, normally it should be detected as `/dev/sdb`, check it with `lsblk -pli` command and measure the speed of your secondary drive with
+**Example** of expected output:
 
-  ```sh
-  $ sudo hdparm -t --direct /dev/sdb
+  ```
   > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
   ```
 
@@ -126,14 +124,17 @@ We'll store all application data in the dedicated directory `/data`.
 This allows for better security because it's not inside any user's home directory.
 Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
 
-💡 Remember that `sudo mkdir /data` command is not necessary if you previously mounted `/data` folder in secondary unit storage in the [Ubuntu Server process installation](../system/operating-system#ubuntu-server-installation)
-
-💡 If you did not add an extra drive during the installation step but now wish to add an external hard drive as the location of the "/data" folder, it requires mounting a drive upon login and mapping the drive to the "/data" folder. This [guide](https://www.fosslinux.com/64306/how-to-mount-drive-in-ubuntu.htm) will help with drive mapping and automounting. Skip the data creation step if you follow the linked guide with "/data" folder creation.
-
-* Create the data directory
+* Create the data folder
 
   ```sh
   $ sudo mkdir /data
+  ```
+
+💡 Remember this command is not necessary if you previously followed the [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md#case-1-build-it-during-system-installation---recommended) bonus guide searching to store the data in a secondary disk; because the **(/data)** folder was previously created.
+
+* Assing to the `admin` user as the owner of the **(/data)** folder
+
+  ```sh
   $ sudo chown admin:admin /data
   ```
 

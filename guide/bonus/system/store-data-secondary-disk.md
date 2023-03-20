@@ -39,7 +39,7 @@ When you arrive to **"Guided storage configuration"** step on system installatio
 * Select **"Custom storage layout"** and press **"Done"**
 
 Under **AVAILABLE DEVICES** you will see both drives you installed on the PC, identify each one by drive model name and storage
-It is recommended to choose the smallest size drive for the system and the bigger size driver for the data storage **`(/data)`**
+It is recommended to choose the smallest size drive for the system and the bigger size driver for the data storage **`(/data)`**.
 
 * Select section where appeard the **MODEL** of the primary disk between `"[]"` and press enter -> Select **"Use As Boot Device"** and press enter again
 
@@ -54,6 +54,8 @@ This will select this storage as the boot disk and create automatically a new pa
 🚨 **This will delete all existing data on the secondary disk, including existing partitions!**
 
 ![Storage secondary disk GIF](../../../resources/storage-secondary-disk.gif)
+
+--> Now you can continue with the step **11** of the [Ubuntu Server installation](../../system/operating-system.md#ubuntu-server-installation),  remember enter
 
 ### **Case 2 (build it after system installation)**
 
@@ -114,13 +116,13 @@ Here we will see if the new disk has been detected by the system and what unit n
   * Press **`"n"`** to create a new partition and then enter.
   Press enter until prompt show **"(Command (m for help))"** again.
 
-If you had existing partition/s, the prompt shows you **"All space for primary partitions is in use"**, you will need typing **`"d"`** and press enter until the prompt shows you **"Partition X has been deleted"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and....
+If you had existing partition/s, the prompt will shows you **"All space for primary partitions is in use"**, you will need typing **`"d"`** and press enter until the prompt shows you **"Partition X has been deleted"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
 
-If you had existing partition/s, the prompt will shows you **"Partition #1 contains a ext4 signature"** **"Do you want to remove the signature? [Y]es/[N]o"**, type **`"Y"`** and press enter and the prompt shows **"The signature will be removed by a write command"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and....
+If you had existing partition/s, the prompt will shows you **"Partition #1 contains a ext4 signature"** **"Do you want to remove the signature? [Y]es/[N]o"**, type **`"Y"`** and press enter until the prompt shows you **"The signature will be removed by a write command"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
 
-* Finally, don't forget, type **`"w"`** to write on disk and exit
+* Finally, don't forget, type **`"w"`** to automatically write on disk and exit
 
-This will create a new partition called probably `"sdb1"`
+This will create a new partition called probably **`"sdb1"`**
 
 * Finally format the new partition to `"Ext4"` and obtain the **UUID**
 
@@ -136,7 +138,7 @@ This will create a new partition called probably `"sdb1"`
           32768, 98304, 163840, 229376, 294912, 819200, 884736
   ```
 
-Take note of your UUID e.g dafc3c67-c6e5-4eaa-8840-adaf604c85db
+Take note of your **UUID** e.g dafc3c67-c6e5-4eaa-8840-adaf604c85db
 
 * Make a note of the partition name of your secondary disk (normally **"sdb1"**)
 
@@ -146,10 +148,13 @@ The secondary disk is then attached to the file system and becomes available as 
 
 * List the block devices once more and copy the new partition's `UUID` into a text editor on your main machine.
 
+  ```sh
+  $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+  ```
+
 *Example* expected output:
 
   ```
-  $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
   > NAME        MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL  MODEL
   > sdb                                                                931.5G        Samsung SSD 870
   > └─sdb1                 3aab0952-3ed4-4652-b203-d994c4fdff20 ext4   931.5G
@@ -166,29 +171,51 @@ The secondary disk is then attached to the file system and becomes available as 
   ```
 
 * Create the data directory as a mount point
-  We also make the directory immutable to prevent data from being written on the system primary disk if the secondary disk is not mounted.
 
   ```sh
   $ sudo mkdir /data
+  ```
+
+* Assign as owner to the `admin` user
+
+  ```sh
   $ sudo chown admin:admin /data
-  $ sudo chattr +i /data
   ```
 
 * Mount all disks and check the file system.
-  Is “/data” listed?
 
   ```sh
   $ sudo mount -a
-  $ df -h /data
-  > Filesystem      Size  Used Avail Use% Mounted on
-  > /dev/sda1       938G   77M  891G   1% /data
   ```
+
+* Is “/data” listed?
+
+  ```sh
+  $ df -h /data
+  ```
+
+**Example** expected output:
+
+  ```
+  > Filesystem      Size  Used Avail Use% Mounted on
+  > /dev/sdb1       938G   77M  891G   1% /data
+  ```
+
+* Check measure the speed of your secondary drive with
+
+  ```sh
+  $ sudo hdparm -t --direct /dev/sdb
+  ```
+
+If the measured speeds are more than 50 MB/s, you're good.
 
 ### Continue with the guide
 
 That's it: your PC now boots from the primary disk while the data directory **`(/data)`** is located on the secondary disk.
 
-You can now continue with the MiniBolt guide.
+You can now continue with the MiniBolt guide in the [configuration section](../../system/configuration.md#add-the-admin-user-and-log-in-with-it).
+
+💡 Remember [Data directory](../../system/configuration.md#data-directory) section is not necessary if you previously followed this bonus guide because we made (/data)
 
 ---
 
