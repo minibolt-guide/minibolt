@@ -27,13 +27,12 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
 
 ---
-
 ## Introduction
 
 Lightning Terminal, developped by Lighining Labs, aims at providing additional tools for LND node operators to manage their node and channel balances. Below is a summary of Lighting Terminal's features:

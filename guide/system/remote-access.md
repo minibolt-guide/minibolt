@@ -80,10 +80,10 @@ Install and start the SSH client for your operating system:
 
 📝 Note, connection details:
 
-  * hostname: your MiniBolt IP address like: `192.168.x.xxx`
-  * port: `22`
-  * username: `temp`
-  * password: `password [A]`
+    > hostname: your MiniBolt IP address like: 192.168.x.xxx
+    > port: 22
+    > username: temp
+    > password: password [A]
 
 ## The command line
 
@@ -100,6 +100,9 @@ In the following example, just enter `ls -la` and press the enter/return key:
 
   ```sh
   $ ls -la
+  ```
+
+  ```
   > example system response
   # This is a comment, don't enter this on the command line
   ```

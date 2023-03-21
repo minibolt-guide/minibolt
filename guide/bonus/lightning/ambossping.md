@@ -28,7 +28,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -151,8 +151,8 @@ Status: Not tested MiniBolt
   $ cat ping.log | grep  Error
   ```
 
-  This will show you a list with all collected errors along with the respective time stamp. 
-  
+  This will show you a list with all collected errors along with the respective time stamp.
+
   Here we use the curl exit statuses registered after the execution. The most common that can be observed are:
 
   ```sh

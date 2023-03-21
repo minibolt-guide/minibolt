@@ -27,7 +27,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -117,7 +117,7 @@ Status: Not tested MiniBolt
   >                       (default [lnddir]/data/chain/bitcoin/mainnet/charge-lnd.macaroon) path to lnd auth macaroon
   > --grpc GRPC           (default localhost:10009) lnd gRPC endpoint
   > --electrum-server ELECTRUM_SERVER
-  >                       (optional, no default) electrum server host:port[:s]. 
+  >                       (optional, no default) electrum server host:port[:s].
   >                       Needed for onchain_fee. Append ':s' for SSL connection
   > --dry-run             Do not perform actions (for testing), print what we would do to stdout
   > --check               Do not perform actions, only check config file for valid syntax

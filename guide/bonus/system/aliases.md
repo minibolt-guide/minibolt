@@ -27,7 +27,7 @@ Status: Tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -109,7 +109,7 @@ The following list of aliases was derived from contributions by [RobClark56](htt
 * Execute a source command to register changes to the .bashrc file:
 
   ```sh
-  $ source /home/admin/.bashrc 
+  $ source /home/admin/.bashrc
   ```
 
 <br /><br />

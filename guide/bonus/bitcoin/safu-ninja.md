@@ -28,7 +28,7 @@ Status: Tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -100,7 +100,7 @@ Note: Punching into the washers can be quite difficult at time. Because of this,
 
 * (Optional) Punch the name of the wallet on a washer (e.g. "WALLET XY"). It might come handy in a few years to remember what wallet was associated with this backup and also because some wallets might use uncommon derivation paths. Check this [list of derivation paths](https://walletsrecovery.org/){:target="_blank"} supported by each wallet is maintained by @NVK and @J9Roem.
 
-* (Optional) Punch the date of creation of your wallet, known as the "birth date". This could help you quicken the search for your UTXOs when reconstructing the wallet in a few years. The wallet software used for recovery will not need to scan the entire blockhain but will start at the birth date. This does not apply to LND onchain wallets which use the azeed cipher scheme that includes birth date in the mnemonic words. 
+* (Optional) Punch the date of creation of your wallet, known as the "birth date". This could help you quicken the search for your UTXOs when reconstructing the wallet in a few years. The wallet software used for recovery will not need to scan the entire blockhain but will start at the birth date. This does not apply to LND onchain wallets which use the azeed cipher scheme that includes birth date in the mnemonic words.
 
 * Stack all the washers on the bolt
 
@@ -114,7 +114,7 @@ You're set! You now have a DIY steel metal backup that will be resistant to fire
 
 Below are a few pointers in case you need to use your backup to recover funds from one of your wallet.
 
-Best practice is to NEVER enter your 24 recovery words on an online software or website unless it's just a very small amount that you don't mind putting at risk. 
+Best practice is to NEVER enter your 24 recovery words on an online software or website unless it's just a very small amount that you don't mind putting at risk.
 
 Instead, it is best to enter your mnemonic words into a dedicated and secure hardware wallet. Most hardware wallets have information on how to do just this on their website, make sure you have a look at these instructions BEFORE you have an emergency situation!
 

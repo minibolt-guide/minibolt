@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tor Bridge
-parent: + Raspberry Pi
+parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
@@ -29,7 +29,7 @@ Status: Tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}

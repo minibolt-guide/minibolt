@@ -28,7 +28,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -37,9 +37,9 @@ Status: Not tested MiniBolt
 
 ## Introduction
 
-The Bitcoin white paper PDF was encoded in the blockhain in April 2013, in transaction `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713` of block `230,009`.
+The Bitcoin white paper PDF was encoded in the blockchain in April 2013, in transaction `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713` of block `230,009`.
 
-The transaction contains 947 outputs and the sender spent almost 60 millions sats as miner fee! Some explanations on how the paper is encoded in the transaction is given in a [Bitcoin StackExchange post](https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970){:target="_blank"} from 2015.
+The transaction contains 947 outputs and the sender spent almost 60 million sats as miner fee! Some explanations on how the paper is encoded in the transaction is given in a [Bitcoin StackExchange post](https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970){:target="_blank"} from 2015.
 
 This guide explains how to reconstruct the Bitcoin white paper PDF using your own verified blockchain data. No matter how censored the white paper could become (see [this article about white paper copyright claims](https://bitcoinmagazine.com/business/copa-suing-craig-wright-over-bitcoin-white-paper-claims){:target="_blank"}), you will know how to recreate and share the foundational document of Bitcoin.
 
@@ -141,14 +141,14 @@ See [How to Use Putty pscp to Copy Files](https://tonyteaches.tech/putty-pscp-tu
   ```
 
 * The PDF should now be available for download in your Telegram bot.
-  
+
 ## Get the whitepaper from BTC RPC Explorer
 
 The BTC-RPC-Explorer has also a functionality to extract the data from the node and display the PDF in the web browser.
 
 ![Explorer white paper page](../../../images/white-paper-transac.png)
 
-* Open your Explorer at [https://minibolt.local:4000/](https://miniboltt.local:4000/){:target="_blank"} (replace minibolt.local with your node IP address if needed). 
+* Open your Explorer at [https://minibolt.local:4000/](https://miniboltt.local:4000/){:target="_blank"} (replace minibolt.local with your node IP address if needed).
 * Look-up the transaction ID in the explorer: `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713`
 * Click on the link "bitcoin whitepaper" in the top box, this will generate the PDF from the node blockchain and displays it as a pdf file in the browser.
 * Alternatively, use the following URL: [https://minibolt.local:4000/bitcoin-whitepaper](https://minibolt.local:4000/bitcoin-whitepaper){:target="_blank"}

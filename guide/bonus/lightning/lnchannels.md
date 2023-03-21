@@ -27,13 +27,12 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
 
 ---
-
 ## Install the script
 
 * As user “admin”, download the script
@@ -42,18 +41,18 @@ Status: Not tested MiniBolt
   $ cd /tmp
   $ wget https://raw.githubusercontent.com/raspibolt/raspibolt/master/resources/lnchannels
   ```
-  
+
 * You can investigate the content of the script to ensure that there is no malicious code in it. Once done press q to quit.
-  
+
   ```sh
   $ less lnchannels
   > #!/bin/bash
   > # RaspiBolt channel overview display, by robclark56
   > [...]
   ```
-  
+
 * Make the script executable (check by displaying the file name, it should have become green)
-  
+
   ```sh
   $ chmod +x lnchannels
   $ ls -la

@@ -25,7 +25,7 @@ Status: Tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -55,7 +55,7 @@ You can prettify your command prompt for each user by enabling color output and 
   # pimp prompt (comment/replace the PS1 line)
   PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u \[\033[01;34m\]\w\[\e[33;40m\] ₿\[\e[m\] "
   ```
-  
+
 * Insert the following at the end of the file
 
   ```sh

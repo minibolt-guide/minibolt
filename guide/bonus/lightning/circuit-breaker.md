@@ -27,7 +27,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -44,7 +44,7 @@ Status: Not tested MiniBolt
 ## Install Go
 
 * To [install Go](../system/go.md#install-go) follow the instructions provided in the bonus guide.
-  
+
 ## Install Circuit Breaker
 
 * Create a new user "circuitbreaker" and make it part of the "lnd" group
@@ -82,7 +82,7 @@ A sample configuration file is located at `~/circuitbreaker/circuitbreaker-examp
 By default, Circuit Breaker reads its configuration file located at `~/.circuitbreaker/circuitbreaker.yaml`.
 
 * Still with  the "circuitbreaker" user, move and rename the sample configuration file to the location expected by Circuit Breaker, then open it
-  
+
   ```sh
   $ cd ~/
   $ mkdir ~/.circuitbreaker
@@ -108,7 +108,7 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
        #peers:
        #- 03901a1fcfbf621245d859fe4b8bfd93c9e8191a93612db3db0efd11af64e226a2
        #- 03670eff2ccfd3a469536d8e3d38825313d266fa3c2d22b1f841beca30414586d0
- 
+
    # A last peer is allowed to have more pending htlcs and no rate limit.
      #- maxPendingHtlcs: 25
        #peers:
@@ -128,7 +128,7 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   ```
 
 * Display the help menu
-  
+
   ```sh
   $ circuitbreaker --help
   > NAME:
@@ -137,7 +137,7 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   ```
 
 * Finally, launch `circuitbreaker`
-  
+
   ```sh
   $ circuitbreaker
   $ 2021-12-08T18:33:28.557Z	INFO	Read config file	{"file": "/home/circuitbreaker/.circuitbreaker/circuitbreaker.yaml"}
@@ -158,12 +158,12 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   $ exit
   ```
 
-* Create a circuitbreaker systemd service unit with the following content, save and exit 
+* Create a circuitbreaker systemd service unit with the following content, save and exit
 
   ```sh
   $ sudo nano /etc/systemd/system/circuitbreaker.service
   ```
-  
+
   ```ini
   # MiniBolt: systemd unit for circuitbreaker
   # /etc/systemd/system/circuitbreaker.service
@@ -173,7 +173,7 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   After=lnd.service
 
   [Service]
-  
+
   # Service execution
   ###################
 
@@ -181,20 +181,20 @@ By default, Circuit Breaker reads its configuration file located at `~/.circuitb
   ExecStart=/home/circuitbreaker/go/bin/circuitbreaker
   User=circuitbreaker
   Group=circuitbreaker
-  
+
   # Process management
   ####################
-  
+
   Type=simple
   KillMode=process
   TimeoutSec=60
   Restart=always
   RestartSec=60
-  
+
   [Install]
   WantedBy=multi-user.target
   ```
-  
+
 * Enable and start the service and check that the status is `active`
 
   ```sh
@@ -223,7 +223,7 @@ Updating to a new release should be straight-forward, but make sure to check out
   $ sudo systemctl stop circuitbreaker
   $ sudo su - circuitbreaker
   ```
-  
+
 * Fetch the latest GitHub repository information and check out the new release, switch back to master if you have been using another branch
 
   ```sh
@@ -234,7 +234,7 @@ Updating to a new release should be straight-forward, but make sure to check out
   $ go install
   $ exit
   ```
-  
+
 * Start the service again
 
   ```sh

@@ -27,7 +27,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -114,7 +114,7 @@ To use all the functionalities of lntop, use the following keys:
   $ lntop --version
   > lntop version v...
   ```
-  
+
 * Check the lntop repository for [new releases](https://github.com/edouardparis/lntop/releases){:target="_blank"}.
 
 * Follow the [installation guidelines](#install-lntop) while making sure to replace the file names to match the latest version if necessary.

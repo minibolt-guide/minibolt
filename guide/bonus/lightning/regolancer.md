@@ -27,7 +27,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -72,7 +72,7 @@ Status: Not tested MiniBolt
   Source: https://github.com/rkfg/regolancer
   ```
 
-* Create a working copy of the sample config file. You can use either .json or .toml configs, up to your preference.  
+* Create a working copy of the sample config file. You can use either .json or .toml configs, up to your preference.
 
   ```sh
   $ cp /home/regolancer/go/pkg/mod/github.com/rkfg/regolancer@v1.9.0/config.json.sample /home/regolancer/config.json

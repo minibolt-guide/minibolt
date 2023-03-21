@@ -30,7 +30,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -69,24 +69,24 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   $ sudo apt update
   $ sudo apt install -y cgroup-tools wireguard nftables
   ```
-  
+
 * After installing required components we create a `tunnelsatsv2.conf` file and add some additional configuration and a nftables ruleset for the traffic splitting setup. Copy the content from the obtained `tunnelsatsv2.conf` file into the newly created `tunnelsatsv2.conf` file in the home directory on your node.
 
   ```sh
   $ nano tunnelsatsv2.conf
   ```
-  
+
 * Paste the content into the file. The following shows a **sample** configuration, please use your personal wireguard file!
 
   ```ini
   [Interface]
   PrivateKey = xxxxxxxxxxxxxxxxxxxxxxxx=
   Address = 10.9.0.2/32
-   
+
   #VPNPort = 21212
   #ValidUntil (UTC time) = 2022-10-25T11:22:34.396Z
   #myPubKey = xxxxxxxxxxxxxxxxxxxxxxxx=
-   
+
   [Peer]
   PublicKey = xxxxxxxxxxxxxxxxxxxxxxxx=
   PresharedKey = xxxxxxxxxxxxxxxxxxxxxxxx=
@@ -94,34 +94,34 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   AllowedIPs = 0.0.0.0/0, ::/0
   PersistentKeepalive = 25
   ```
-  
+
 * Append additional ruleset at the end of the file:
 
   ```ini
   [Interface]
   FwMark = 0x3333
   Table = off
-  
+
   PostUp = ip rule add from all fwmark 0xdeadbeef table 51820;ip rule add from all table main suppress_prefixlength 0
   PostUp = ip route add default dev %i table 51820;
   PostUp = ip route add  10.9.0.0/24 dev %i  proto kernel scope link; ping -c1 10.9.0.1
   PostUp = sysctl -w net.ipv4.conf.all.rp_filter=0
   PostUp = sysctl -w net.ipv6.conf.all.disable_ipv6=1
   PostUp = sysctl -w net.ipv6.conf.default.disable_ipv6=1
-  
+
   PostUp = nft add table ip %i
   PostUp = nft add chain ip %i prerouting '{type filter hook prerouting priority mangle -1; policy accept;}'; nft add rule ip %i prerouting meta mark set ct mark
   PostUp = nft add chain ip %i mangle '{type route hook output priority mangle -1; policy accept;}'; nft add rule ip %i mangle tcp sport != { 8080, 10009 } meta mark != 0x3333 meta cgroup 1118498 meta mark set 0xdeadbeef
   PostUp = nft add chain ip %i nat'{type nat hook postrouting priority srcnat -1; policy accept;}'; nft insert rule ip %i nat fib daddr type != local oif != %i ct mark 0xdeadbeef drop;nft add rule ip %i nat oif != "lo" ct mark 0xdeadbeef masquerade
   PostUp = nft add chain ip %i postroutingmangle'{type filter hook postrouting priority mangle -1; policy accept;}'; nft add rule ip %i postroutingmangle meta mark 0xdeadbeef ct mark set meta mark
   PostUp = nft add chain ip %i input'{type filter hook input priority filter -1; policy accept;}'; nft add rule ip %i input iifname %i  ct state established,related counter accept; nft add rule ip %i input iifname %i tcp dport != 9735 counter drop; nft add rule ip %i input iifname %i udp dport != 9735 counter drop
-  
+
   PostDown = nft delete table ip %i
   PostDown = ip rule del from all table  main suppress_prefixlength 0; ip rule del from all fwmark 0xdeadbeef table 51820
   PostDown = ip route flush table 51820
   PostDown = sysctl -w net.ipv4.conf.all.rp_filter=1
   ```
-  
+
 * Save and exit with Ctrl+O followed by Ctrl+X.
 
 * Copy the file to the wireguard directory:
@@ -137,7 +137,7 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   ```sh
   $ sudo nano /etc/wireguard/tunnelsats-create-cgroup.sh
   ```
-  
+
 * Insert:
 
   ```bash
@@ -160,13 +160,13 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
     echo "> Mark for net_cls subsystem already present"
   fi
   ```
-  
+
 * Save and exit. Run the script once initially:
 
   ```sh
   $ bash /etc/wireguard/tunnelsats-create-cgroup.sh
   ```
-  
+
 * Create a systemd service to run it automatically:
 
   ```sh
@@ -187,7 +187,7 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   [Install]
   WantedBy=multi-user.target
   ```
-  
+
 * Save and exit. Reload daemon, enable and start the service:
 
   ```sh
@@ -195,7 +195,7 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   $ sudo systemctl enable tunnelsats-create-cgroup.service
   $ sudo systemctl start tunnelsats-create-cgroup.service
   ```
-  
+
 * Now we create a dependency for LND:
 
   ```sh
@@ -214,13 +214,13 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   Requires=wg-quick@tunnelsatsv2.service
   After=wg-quick@tunnelsatsv2.service
   ```
-  
+
 * Save and exit. Reload the daemon.
 
   ```sh
   $ sudo systemctl daemon-reload
   ```
-  
+
 * So now we created a cgroup that we can use to catch and mark the lightning P2P traffic. The following ensures that the lightning process is caught whenever changes happen: automatically on every restart of lightning and/or the system.
 
 * Create the shell script: `tunnelsats-splitting-processes.sh`
@@ -228,7 +228,7 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   ```sh
   $ sudo nano /etc/wireguard/tunnelsats-splitting-processes.sh
   ```
-  
+
 * Insert:
 
   ```ini
@@ -250,13 +250,13 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   $ sudo chmod +x /etc/wireguard/tunnelsats-splitting-processes.sh
   $ sudo bash /etc/wireguard/tunnelsats-splitting-processes.sh
   ```
-  
+
 * Create a systemd service to automate the script:
 
   ```sh
   $ sudo nano /etc/systemd/system/tunnelsats-splitting-processes.service
   ```
-  
+
 * Insert:
 
   ```ini
@@ -268,13 +268,13 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   [Install]
   WantedBy=multi-user.target
   ```
-  
+
 * Save and exit. Create a timer for the service:
 
   ```sh
   $ sudo nano /etc/systemd/system/tunnelsats-splitting-processes.timer
   ```
-  
+
 * Insert:
 
   ```ini
@@ -287,14 +287,14 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   [Install]
   WantedBy=timers.target
   ```
-  
+
 * Save and exit. Reload the daemon, enable and start the services and the timer:
 
   ```sh
   $ sudo systemctl daemon-reload
   $ sudo systemctl enable tunnelsats-splitting-processes.service
   $ sudo systemctl start tunnelsats-splitting-processes.service
-  
+
   $ sudo systemctl enable tunnelsats-splitting-processes.timer
   $ sudo systemctl start tunnelsats-splitting-processes.timer
   ```
@@ -304,7 +304,7 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   ```sh
   $ sudo cp /etc/systemd/system/lnd.service /etc/systemd/system/lnd.service.bak
   ```
-  
+
 * Edit `ExecStart` in `lnd.service` and add `/usr/bin/cgexec -g net_cls:splitted_processes` to the command:
 
   ```ini
@@ -316,27 +316,27 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   ```sh
   $ sudo systemctl daemon-reload
   ```
-  
+
 * Alright. We set the lightning process to start within the cgroup to enable traffic splitting. The following part enables and starts the wireguard service:
 
   ```sh
   $ sudo systemctl enable wg-quick@tunnelsatsv2.service
   $ sudo systemctl start wg-quick@tunnelsatsv2.service
   ```
-  
+
 * If the wireguard connection has successfully been established, we now check if it's working as intended. Therefore we verify the VPN-IP and our own clearnet IP. First, we call the real clearnet IP:
 
   ```sh
   $ curl --silent https://api.ipify.org
   ```
-  
+
 * This should return the real clearnet IP.
 * And now we return the VPN IP:
 
   ```sh
   $ cgexec -g net_cls:splitted_processes curl --silent https://api.ipify.org
   ```
-  
+
 * If you get the chosen VPN's IP (verify by resolving the given VPN domain with a ping e.g.: `ping us1.tunnelsats.com`), everything is set up correctly and we can proceed with the configuration of our lightning implementation.
 
 ⚠️ Notice: Up to this point nothing has changed on your MiniBolt setup. Lightning is still running in background, no changes have been made. You can revert these steps without stopping the lightning implementation.
@@ -344,7 +344,7 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
 ## Configuration
 
  **Important notice: Tunnel⚡️Sats currently supports only one running lightning implementation at a time. The running lightning implementation MUST use lightning P2P port 9735!**
-  
+
 * After successful installation, we continue to configure the current lightning implementation. But before any changes happen, we create a backup:
 
   ```sh
@@ -358,37 +358,37 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
     ``` sh
     $ sudo grep "Endpoint" /etc/wireguard/tunnelsatsv2.conf | awk '{ print $3 }' | cut -d ":" -f1
     ```
-  
+
   * Retrieve the personal VPN port as `vpnExternalPort`:
 
     ```sh
     $ sudo grep "#VPNPort" /etc/wireguard/tunnelsatsv2.conf | awk '{ print $3 }'
     ```
-  
+
 * This is what we need to edit the lightning implementation plus some additional hybrid parameters described in the following part:
 
   Configuration for LND (`/data/lnd/lnd.conf`):
-  
+
   ⚠️ Replace existing entry `listen=localhost` with `listen=0.0.0.0:9735`!
-  
+
   ```ini
   [Application Options]
   externalhosts={vpnExternalDNS}:{vpnExternalPort}
   listen=0.0.0.0:9735
-                                               
-  [Tor]                                            
+
+  [Tor]
   tor.streamisolation=false
   tor.skip-proxy-for-clearnet-targets=true
   ```
-  
+
   Configuration for CLN (`/data/lightningd/config`):
-  
+
   ```ini
   # Tor
   addr=statictor:127.0.0.1:9051/torport=9735
   proxy=127.0.0.1:9050
   always-use-proxy=false
-  
+
   # VPN
   bind-addr=0.0.0.0:9735
   announce-addr=${vpnExternalDNS}:${vpnExternalPort}
@@ -422,7 +422,7 @@ This MiniBolt bonus guide explicitly covers parts #2 and #3.
   ```sh
   $ sudo wg show
   ```
-  
+
 * The output:
 
   ```ini
@@ -447,7 +447,7 @@ Easy way:
   $ wget -O uninstallv2.sh https://github.com/blckbx/tunnelsats/raw/main/scripts/uninstallv2.sh
   $ sudo bash uninstallv2.sh
   ```
-  
+
 Manual way:
 
 * Restore your configuration from with the backup file (`lnd.backup`) you created on setting up hybrid mode.
@@ -461,31 +461,31 @@ Manual way:
   ```sh
   $ sudo systemctl stop lnd.service
   ```
-  
+
 * Remove systemd dependencies and services:
 
   ```sh
   $ sudo rm /etc/systemd/system/lnd.service.d/tunnelsats-cgroup.conf
-  
+
   $ sudo systemctl stop tunnelsats-splitting-processes.timer
   $ sudo systemctl disable tunnelsats-splitting-processes.timer
   $ sudo rm /etc/systemd/system/tunnelsats-splitting-processes.timer
-  
+
   $ sudo systemctl stop tunnelsats-splitting-processes.service
   $ sudo systemctl disable tunnelsats-splitting-processes.service
   $ sudo rm /etc/systemd/system/tunnelsats-splitting-processes.service
-  
+
   $ sudo systemctl stop tunnelsats-create-cgroup.service
   $ sudo systemctl disable tunnelsats-create-cgroup.service
   $ sudo rm /etc/systemd/system/tunnelsats-create-cgroup.service
   ```
-  
+
 * Restore `lnd.service`:
 
   ```sh
   $ sudo nano /etc/systemd/system/lnd.service
   ```
-  
+
   Replace
 
   ```ini
@@ -497,7 +497,7 @@ Manual way:
   ```ini
   ExecStart=/usr/local/bin/lnd
   ```
-  
+
 * Reload daemon:
 
   ```sh
@@ -516,13 +516,13 @@ Manual way:
   $ sudo systemctl stop wg-quick@tunnelsatsv2.service
   $ sudo systemctl disable wg-quick@tunnelsatsv2.service
   ```
-  
+
 * Uninstall packages:
 
   ```sh
   $ sudo apt-get remove -yqq cgroup-tools nftables wireguard-tools
   ```
-  
+
 * ⚠️ Before firing up the lightning implementation, we make sure that we don't leak the real IP, so any hybrid setting should either be set to false or not present (LND) or true (CLN). So we look for:
 
   LND:
@@ -530,19 +530,19 @@ Manual way:
   ```ini
   tor.skip-proxy-for-clearnet-targets=false
   ```
-  
+
   CLN:
 
   ```ini
   always-use-proxy=true
   ```
-  
+
   Then restart:
 
   ```sh
   $ sudo systemctl start lnd.service
   ```
-  
+
 ## Troubleshooting
 
 Please review the [FAQ](https://github.com/blckbx/tunnelsats/blob/main/FAQ.md){:target="_blank"} for further help. If you need help setting up hybrid mode / clearnet over VPN, join the Tunnel⚡️Sats [Telegram group](https://t.me/+NJylaUom-rxjYjU6){:target="_blank"}.

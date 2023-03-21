@@ -4,12 +4,11 @@ title: Wireguard VPN
 parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
-has_children: false
 has_toc: false
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD033 MD040 -->
 
-## Bonus guide: WireGuard: a simple yet fast VPN
+# Bonus guide: WireGuard: a simple yet fast VPN
 
 {: .no_toc }
 

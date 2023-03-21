@@ -14,7 +14,7 @@ has_toc: false
 
 ---
 
-[Balance of Satoshis](https://github.com/alexbosworth/balanceofsatoshis){:target="_blank"} (BoS), created and maintained by LND developper Alex Bosworth, is a tool to work with LND. The most used feature of BoS is the rebalancing command that allows to manage your channels liquidity (which is the main focus of this guide), but BoS contains now many other lightning tools outside liquidity management (such as the creation of a node monitoring Telegram bot which is explained below).
+[Balance of Satoshis](https://github.com/alexbosworth/balanceofsatoshis){:target="_blank"} (BoS), created and maintained by LND developer Alex Bosworth, is a tool to work with LND. The most used feature of BoS is the rebalancing command that allows you to manage your channels liquidity (which is the main focus of this guide), but BoS contains now many other lightning tools outside liquidity management (such as the creation of a node monitoring Telegram bot which is explained below).
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -27,7 +27,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -371,7 +371,7 @@ To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or
    {
       "host": "127.0.0.1",
       "port": 9050
-   } 
+   }
   ```
 
 ### Use bos to connect your node to the bot
@@ -439,7 +439,7 @@ Now we’ll make sure our Telegram Bot command starts as a systemd service on th
   [Install]
   WantedBy=multi-user.target
   ```
-  
+
 * Note: A new option was added to change the display of amounts (satoshis) from `0.00011111` to `11,111` or `11.111` (depending on your locale): `--use-small-units`. To enable this, add it to the command `bos telegram`:
 
   ```ini

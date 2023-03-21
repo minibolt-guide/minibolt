@@ -28,13 +28,12 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
 
 ---
-
 ## Requirements
 
 * LND (or LND as part of Lightning Terminal/litd)

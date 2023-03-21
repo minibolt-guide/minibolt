@@ -42,7 +42,7 @@ Status: Not tested MiniBolt
 
 ### Install dependencies
 
-* With user "admin", install necessary dependencies
+* With user "admin", install the necessary dependencies
 
   ```sh
   $ sudo apt install python3-virtualenv python3-dev python3-pip build-essential automake pkg-config libtool libgmp-dev libltdl-dev libssl-dev libatlas3-base libopenjp2-7
@@ -96,7 +96,7 @@ This wallet will be used by JoinMarket to store addresses as watch-only. It will
 * Get the PGP key of JoinMarket developer Adam Gibson.
 
   ```sh
-  $ curl https://raw.githubusercontent.com/JoinMarket-Org/joinmarket-clientserver/master/pubkeys/AdamGibson.asc | gpg --import 
+  $ curl https://raw.githubusercontent.com/JoinMarket-Org/joinmarket-clientserver/master/pubkeys/AdamGibson.asc | gpg --import
   > ...
   > gpg: key 141001A1AF77F20B: public key "Adam Gibson (CODE SIGNING KEY) <ekaggata@gmail.com>" imported
   > ...
@@ -119,7 +119,7 @@ This wallet will be used by JoinMarket to store addresses as watch-only. It will
 
   ```sh
   $ tar -xvzf joinmarket-clientserver-0.9.8.tar.gz -C /home/joinmarket/
-  $ cd 
+  $ cd
   $ ln -s joinmarket-clientserver-0.9.8 joinmarket
   $ cd joinmarket
   $ ./install.sh --without-qt --disable-secp-check --disable-os-deps-check
@@ -151,7 +151,7 @@ This wallet will be used by JoinMarket to store addresses as watch-only. It will
 
   ```sh
   $ . activate.sh
-  (jvmenv) $ ./wallet-tool.py 
+  (jvmenv) $ ./wallet-tool.py
   > User data location: /home/joinmarket/.joinmarket/
   > Created a new `joinmarket.cfg`. Please review and adopt the settings and restart joinmarket.
   ```
@@ -171,17 +171,17 @@ This wallet will be used by JoinMarket to store addresses as watch-only. It will
   ```
 
 * Set the bitcoin core watch-only wallet to the one created earlier.
-  
+
   ```sh
   43 rpc_wallet_file = jm_wallet
   ```
 
 * Change the onion_serving_port to avoid conflict with LND.
-  
+
   ```sh
   68 onion_serving_port = 8090
   ```
-  
+
 * Save and exit.
 
 ### Generate JoinMarket wallet
@@ -198,9 +198,9 @@ JoinMarket uses its own wallet. You can create one with or without a "two-factor
 * Specify a secure passphrase. Wallet file name can be left blank.
 
   ```sh
-  > Enter new passphrase to encrypt wallet: 
-  > Reenter new passphrase to encrypt wallet: 
-  > Input wallet file name (default: wallet.jmdat): 
+  > Enter new passphrase to encrypt wallet:
+  > Reenter new passphrase to encrypt wallet:
+  > Input wallet file name (default: wallet.jmdat):
   ```
 
 * Specify `y` to suport fidelity bonds if you plan to provide JoinMarket liquidity and want higher yields given for time-locked funds. More explanation available [here](https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/master/docs/fidelity-bonds.md) and [here](https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/master/docs/fidelity-bonds.md) but 'y' is a good default.
@@ -225,7 +225,7 @@ JoinMarket wallet contains five separate sub-wallets (accounts) or pockets calle
   ```sh
   (jvmenv) $ ./wallet-tool.py -m 0 wallet.jmdat
   > User data location: /home/joinmarket/.joinmarket/
-  > Enter wallet decryption passphrase: 
+  > Enter wallet decryption passphrase:
   > 2020-11-30 23:18:30,322 [INFO]  Detected new wallet, performing initial import
   > Use `bitcoin-cli rescanblockchain` if you're recovering an existing wallet from backup seed
   > Otherwise just restart this joinmarket application.
@@ -236,7 +236,7 @@ JoinMarket wallet contains five separate sub-wallets (accounts) or pockets calle
   ```sh
   (jvmenv) $ ./wallet-tool.py -m 0 wallet.jmdat
   > User data location: /home/joinmarket/.joinmarket/
-  > Enter wallet decryption passphrase: 
+  > Enter wallet decryption passphrase:
   > 2020-11-30 23:19:05,030 [INFO]  Detected new wallet, performing initial import
   > JM wallet
   > mixdepth        0       xpub6CDKnjyTPcNJHuEFWRWtPHa7dHrj63BkEHtK7P12LxwMN4v5V4LN36MpVqPRc5W72Xfwh9rUnmuZVW1QQbnLuAoNA3rkSDULJLL4fdiZkDN

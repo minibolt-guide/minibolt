@@ -28,13 +28,12 @@ Status: Tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
 
 ---
-
 ## Installation
 
 ### Download Sparrow Server
@@ -47,15 +46,15 @@ Status: Tested MiniBolt
   $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-1.7.1-manifest.txt.asc
   $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-1.7.1-manifest.txt
   ```
-  
+
 * Import keys that signed the release
 
   ```sh
   $ curl https://keybase.io/craigraw/pgp_keys.asc | gpg --import
   ```
-  
+
 * Verify the release
-  
+
   ```sh
   $ gpg --verify sparrow-1.7.1-manifest.txt.asc
   ```
@@ -69,7 +68,7 @@ Status: Tested MiniBolt
   > gpg:          There is no indication that the signature belongs to the owner.
   > Primary key fingerprint: D4D0 D320 2FC0 6849 A257  B38D E946 1833 4C67 4B40
   ```
-  
+
   ```sh
   $ sha256sum --check sparrow-1.7.1-manifest.txt --ignore-missing
   > sparrow-server-1.7.1-x86_64.tar.gz: OK
@@ -104,7 +103,7 @@ Status: Tested MiniBolt
 ![Sparrow Server](../../../images/sparrow-server.png)
 
 ⚠️ Sparrow Server doesn't work on MobaXterm with X11-Forwarding enabled in the SSH connection.
-  
+
 * In the "wallet" tab you can create or restore your wallet
 
 ### Connect Sparrow to your backend (optional)
@@ -122,7 +121,7 @@ Status: Tested MiniBolt
   # For Fulcrum (TCP)
   URL: 127.0.0.1:50001
   Use SSL?: No
-  
+
   # For Fulcrum (SSL)
   URL: 127.0.0.1:50002
   Use SSL?: Yes
@@ -219,7 +218,7 @@ Closing or logging out from your node without detaching would cause mixing to st
   $ sudo rm /usr/local/bin/Sparrow
   $ sudo rm -r /home/admin/Sparrow
   ```
-  
+
 <br /><br />
 
 ---

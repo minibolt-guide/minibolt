@@ -29,7 +29,7 @@ Status: Not tested MiniBolt
 ---
 
 ## Table of contents
-{: .text-delta }
+{: .no_toc .text-delta }
 
 1. TOC
 {:toc}
@@ -38,7 +38,7 @@ Status: Not tested MiniBolt
 
 ## Introduction
 
-Core Lightning (previously c-lightning) was one of the first implementation of the Bitcoin Lightning Network.
+Core Lightning (previously c-lightning) was one of the first implementations of the Bitcoin Lightning Network.
 
 ---
 
@@ -50,7 +50,7 @@ Core Lightning (previously c-lightning) was one of the first implementation of t
 
 ## Installation
 
-We will download, verify, install and configure CLN on your RaspiBolt setup. This can be done independently from an existing LND installation. In fact, you can run both at the same time if you wish to.  
+We will download, verify, install and configure CLN on your RaspiBolt setup. This can be done independently from an existing LND installation. In fact, you can run both at the same time if you wish to.
 
 ### User Creation
 
@@ -156,12 +156,12 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   log-level=info
   # for admin to interact with lightning-cli
   rpc-file-mode=0660
-  
+
   # default fees and channel min size
   fee-base=<1000>
   fee-per-satoshi=<1>
   min-capacity-sat=<your minchansize>
-  
+
   ## optional
   # wumbo channels
   large-channels
@@ -170,13 +170,13 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   # autoclean (86400=daily)
   autocleaninvoice-cycle=86400
   autocleaninvoice-expired-by=86400
-  
+
   # wallet settings (replication recommended, adjust backup path)
   wallet=sqlite3:///data/lightningd/bitcoin/lightningd.sqlite3:/home/lightningd/lightningd.sqlite3
-  
+
   # no replication:
   #wallet=sqlite3:///data/lightningd/bitcoin/lightning.sqlite3
-  
+
   # network
   proxy=127.0.0.1:9050
   bind-addr=0.0.0.0:9736
@@ -214,39 +214,39 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
   ```ini
   # MiniBolt: systemd unit for lightningd
   # /etc/systemd/system/lightningd.service
-  
+
   [Unit]
   Description=Core Lightning daemon
   Requires=bitcoind.service
   After=bitcoind.service
   Wants=network-online.target
   After=network-online.target
-  
+
   [Service]
   ExecStart=/bin/sh -c '/home/lightningd/lightning/lightningd/lightningd \
                          --conf=/data/lightningd/config \
                          --daemon \
                          --pid-file=/run/lightningd/lightningd.pid'
-  
+
   ExecStop=/bin/sh -c '/home/lightningd/lightning/cli/lightning-cli stop'
 
   RuntimeDirectory=lightningd
-  
+
   User=lightningd
-  
+
   # process management
   Type=simple
   PIDFile=/run/lightningd/lightningd.pid
   Restart=on-failure
   TimeoutSec=240
   RestartSec=30
-  
+
   # hardening measures
   PrivateTmp=true
   ProtectSystem=full
   NoNewPrivileges=true
   PrivateDevices=true
-  
+
   [Install]
   WantedBy=multi-user.target
   ```
@@ -269,7 +269,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 * If `lightningd.service` started without errors, we can check out and try CLN commands.
 
   ```sh
-  $ sudo su - lightningd 
+  $ sudo su - lightningd
   $ lightning-cli --version
   $ lightning-cli getinfo
   $ lightning-cli listfunds
@@ -293,7 +293,7 @@ We will download, verify, install and configure CLN on your RaspiBolt setup. Thi
 
 ## Backup
 
-* It is at least recommended to backup the wallet file `hsm_secret` that you can find in CLN's data directory `home/lightningd/.lightning/bitcoin/`. 
+* It is at least recommended to backup the wallet file `hsm_secret` that you can find in CLN's data directory `home/lightningd/.lightning/bitcoin/`.
 * For more detailed information, please have a look at the official [docs](https://lightning.readthedocs.io/FAQ.html#how-to-backup-my-wallet) and RaspiBlitz' incredible [FAQ](https://github.com/rootzoll/raspiblitz/blob/dev/FAQ.cl.md#backups).
 
 ## Upgrade CLN
@@ -400,7 +400,7 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
   $ curl https://keybase.io/suheb/pgp_keys.asc | gpg --import
   $ gpg --verify v0.9.0.tar.gz.asc v0.9.0.tar.gz
   ```
-  
+
 * Output should be like:
 
   ```sh
@@ -412,15 +412,15 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
   gpg:          There is no indication that the signature belongs to the owner.
   Primary key fingerprint: 3E9B D443 6C28 8039 CA82  7A92 00C9 E2BC 2E45 666F
   ```
-  
+
 * Extract and install with `npm`:
 
   ```sh
-  $ tar xvf v0.9.0.tar.gz 
+  $ tar xvf v0.9.0.tar.gz
   $ cd c-lightning-REST-0.9.0
   $ npm install
   ```
-  
+
 * Copy content to plugin datadir:
 
   ```sh
@@ -432,7 +432,7 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
   ```sh
   $ nano /data/lightningd/config
   ```
-  
+
 * Add at the end of the file:
 
   ```sh
@@ -442,9 +442,9 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
   rest-docport=4091
   rest-protocol=http
   ```
-  
+
 * Add a sample config file and run the plugin once manually to create required `access.macaroon`
-  
+
   ```sh
   $ cd /data/lightningd-plugins-available/c-lightning-REST-0.9.0
   $ cp sample-cl-rest-config.json cl-rest-config.json
@@ -471,25 +471,25 @@ c-lightning-Rest: REST APIs for c-lightning written with node.js and provided wi
 
 * Run cl-rest.js manually:
 
-  ```sh  
+  ```sh
   $ node cl-rest.js
   ```
-  
+
 * Now you should see a new folder being created in `/data/lightningd-plugins-available/c-lightning-REST-0.9.0/` called `certs` which contains the required `access.macaroon` for the next steps. Stop `cl-rest.js` by hitting CTRL+C.
-  
+
 * Go back to the "admin" user:
 
   ```sh
   $ exit
   ```
 
-* Copy `access.macaroon` to home directory of user `rtl`:  
-  
+* Copy `access.macaroon` to home directory of user `rtl`:
+
   ```sh
   $ sudo cp /data/lightningd-plugins-available/c-lightning-REST-0.9.0/certs/access.macaroon /home/rtl/
   $ sudo chown rtl:rtl /home/rtl/access.macaroon
   ```
-  
+
 * Restart `lightningd.service` and look for errors in cln's log: `tail -f /data/lightningd/cln.log`. Positive results look like this:
 
   ```sh
