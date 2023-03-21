@@ -63,7 +63,7 @@ Install and start the SSH client for your operating system:
     * Start Putty, to the left tree, select "session", in the "Hostname (or IP address)" box, type `temp@192.168.x.xx`, port `22` to the left box.
     * Press the button OPEN, when a "PuTTy security alert" banner appears, press the "Accept" button, and finally type your `password [A]`.
 
-  * Download MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install it permanently or not. [Source](https://mobaxterm.mobatek.net/)
+  * Download the MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install it permanently or not. [Source](https://mobaxterm.mobatek.net/)
 
     * Start MobaXterm, 2 options:
 
@@ -80,7 +80,7 @@ Install and start the SSH client for your operating system:
 
 📝 Note, connection details:
 
-  * host name: your MiniBolt IP address like: `192.168.x.xxx`
+  * hostname: your MiniBolt IP address like: `192.168.x.xxx`
   * port: `22`
   * username: `temp`
   * password: `password [A]`
@@ -122,7 +122,7 @@ In the following example, just enter `ls -la` and press the enter/return key:
 
 * **Using the Nano text editor**:
   We use the Nano editor to create new text files or edit existing ones.
-  It's not complicated, but saving and exiting are not intuitive.
+  It's not complicated, but saving and exiting is not intuitive.
 
   * Save: hit `Ctrl-O` (for Output), confirm the filename, and hit the `Enter` key
   * Exit: hit `Ctrl-X`
