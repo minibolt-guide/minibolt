@@ -32,9 +32,11 @@ Status: Tested MiniBolt
 
 ---
 
+## Storage configuration
+
 When you arrive at the **"Guided storage configuration"** **(step 8)** on the [Ubuntu server installation](../../system/operating-system.md#ubuntu-server-installation), follow the next steps:
 
-**8.2.** Pay attention to selecting **"Custom storage layout"** instead of ~~Use an entire disk~~, select **"Done"** and press **enter**
+**8.2.** Pay attention to checking **"Custom storage layout"** instead of ~~Use an entire disk~~, select **"Done"** and press **enter**
 
 📝 Under **AVAILABLE DEVICES** you will see both drives you installed on the PC, identify each one by **drive model name** and **storage**
 
