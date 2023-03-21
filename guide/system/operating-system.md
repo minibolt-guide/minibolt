@@ -62,6 +62,8 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 
    💡 In this step, you might want to take advantage of activating the **"Restore on AC"** or similar in the BIOS setup. Normally found in **Advanced** -> **ACPI Configuration**, switching to **"Power ON"** or similar. With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
 
+* If you configured boot options in BIOS, **save changes and exit**. This start automatically with the Ubuntu Server guided installation. You will keep selecting **"Try or Install Ubuntu Server"** and press **enter**, or wait 20 seconds for it to start automatically.
+
 ## Ubuntu Server installation
 
 Use the **UP**, **Down** and **ENTER** keys of your keyboard to navigate to the options. Follow the next instructions:
@@ -107,7 +109,7 @@ Use the **UP**, **Down** and **ENTER** keys of your keyboard to navigate to the 
 
 **13.** If you want to preinstall some additional software **(not recommended)**, select them, if not, press **"done"** directly to jump to the next step.
 
-**14.** Now all before configurations will be applied and the system installed. This would be a few minutes depending on the hardware used.
+**14.** Now all before configurations will be applied and the system installed. This would be a few minutes depending on the hardware used. You can show extended logs by pressing **[View full log]** if you want.
 
 ⌛ Wait until the installation finishes, when it happens, **"Reboot now"** will appear. Select it and press **enter**.
 
