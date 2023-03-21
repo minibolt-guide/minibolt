@@ -32,16 +32,18 @@ Status: Tested MiniBolt
 
 ---
 
-When you arrive at the **"Guided storage configuration"** (step 8) on the [Ubuntu server installation](../../system/operating-system.md#ubuntu-server-installation), follow the next steps:
 
-* Select this time **"Custom storage layout"** and press **"Done"**
 
-Under **AVAILABLE DEVICES** you will see both drives you installed on the PC, identify each one by drive model name and storage
-It is recommended to choose the smallest size drive for the system and the bigger size driver for the data storage **`(/data)`**.
+When you arrive at the **"Guided storage configuration"** **(step 8)** on the [Ubuntu server installation](../../system/operating-system.md#ubuntu-server-installation), follow the next steps:
 
-* Select the section where appeared the **MODEL** of the primary disk between `"[]"` and press enter -> Select **"Use As Boot Device"** and press enter again
+* Pay attention to select **"Custom storage layout"** instead of ~~Use an entire disk~~ and press **"Done"**
 
-This will select this storage as the boot disk and create automatically a new partition for the **"BIOS grub spacer"** on it.
+📝 Under **AVAILABLE DEVICES** you will see both drives you installed on the PC, identify each one by drive model name and storage
+💡 It is recommended to choose the **smallest size drive** for the system and the **bigger size drive** for the data storage **`(/data)`** (blockchain, databases, etc)
+
+* Select the section where appeared the **MODEL** of the **primary disk** between `"[]"` and press enter -> Select **"Use As Boot Device"** and press enter again
+
+📝 This will select this storage as the boot disk and create automatically a new partition for the **"BIOS grub spacer"** on it.
 
 * Select the **"free space"** section of the same device, and select **"Add GPT Partition"**. Ensure the format is selected as `"ext4"`, select **"/"** in the dropdown as mount point, select **"Create"** and press enter
 
@@ -53,9 +55,11 @@ This will select this storage as the boot disk and create automatically a new pa
 
 ![Storage secondary disk GIF](../../../resources/storage-secondary-disk.gif)
 
+⚠️ This GIF is a recreation of a scenario made with a virtual machine, VBOX_HARDDISK_**VB4**... would be the primary disk, and VBOX_HARDDISK_**VB5** would be as the secondary disk. In your case, this probably will not match exactly.
+
 ### Continue with the guide
 
-That's it: your PC now boots from the primary disk while the data directory **`(/data)`** is located on the secondary disk.
+That's it: when you finish the [Operating system](../../system/operating-system.md) section, your PC will boot the system from the primary disk while the data directory **`(/data)`** will be located on the secondary disk.
 
 **-->** Now you can continue with step **11** of the [Ubuntu Server installation](../../system/operating-system.md#ubuntu-server-installation)
 

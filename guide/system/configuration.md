@@ -126,7 +126,7 @@ Let's check if your drive works well as-is.
 
 💡 If the measured speeds are more than 50 MB/s, you're good.
 
-* If you installed a secondary disk, check and measure the speed with the next command, if not, skip it
+* If you installed a **secondary disk**, check and measure the speed with the next command, if not, skip it
 
   ```sh
   $ sudo hdparm -t --direct /dev/sdb
@@ -154,7 +154,7 @@ Additionally, it's easier to move that directory somewhere else, for instance to
   $ sudo mkdir /data
   ```
 
-💡 If the prompt shows you: `mkdir: cannot create directory '/data': File exists` probably you followed [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, then ignore it and follow with the next command
+💡 If the prompt shows you: `mkdir: cannot create directory '/data': File exists` probably you followed [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide to use a secondary disk, then ignore it and follow with the next command.
 
 * Assing to the `admin` user as the owner of the **(/data)** folder
 
