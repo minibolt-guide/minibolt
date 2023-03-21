@@ -22,6 +22,8 @@ Difficulty: Easy
 Status: Tested MiniBolt
 {: .label .label-blue }
 
+![Store data in a secondary disk](../../../images/store-data-secondary-disk.PNG)
+
 ---
 
 ## Table of contents
