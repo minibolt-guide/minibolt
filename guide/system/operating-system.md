@@ -84,10 +84,12 @@ Use the UP, Down and ENTER keys of your keyboard to navigate to the options. Fol
 
 * Check **"Use an entire disk"**, if you have only one primary unit storage (1+ TB). In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before pressing done.
 
-* Check **"Custom storage layout"**, if you want to use one **secondary** or multiple disks, e.g. primary storage for the system and other secondary storage for data (blockchain, indexes, etc)(1+ TB).
+* Check **"Custom storage layout"**, if you want to use one **secondary**, e.g. primary for the system and secondary disk for data (blockchain, indexes, etc)(1+ TB).
     Navigate to the [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide to get instructions about this.
 
 **9.** Confirm destructive action by selecting the **Continue** option. Press **enter**
+
+🚨 **This will delete all existing data on the disks, including existing partitions!**
 
 **10.** Keep selecting **"Skip for now"** when the **"Upgrade to Ubuntu Pro"** section appears you press **enter** on the **done** button
 
@@ -100,7 +102,7 @@ Use the UP, Down and ENTER keys of your keyboard to navigate to the options. Fol
 
 **12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key and down to select the **"Done"** box and press **enter** again. ⚠️ IMPORTANT step!
 
-**13.** If you want to preinstall some additional software (not recommended), select them, if not, press "done" directly to jump to the installation next step
+**13.** If you want to preinstall some additional software (not recommended), select them, if not, press **"done"** directly to jump to the next step
 
 **14.** Wait until the installation finishes and press "Reboot now" when the option appears you
 

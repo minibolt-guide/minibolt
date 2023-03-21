@@ -54,6 +54,11 @@ We will use the primary user "admin" instead of "temp" to make this guide more u
 
   ```sh
   $ sudo userdel -rf temp
+  ```
+
+Expected output:
+
+  ```
   > userdel: temp mail spool (/var/mail/temp) not found
   ```
 
@@ -74,6 +79,9 @@ The “Advanced Packaging Tool” (apt) makes this easy.
 
   ```sh
   $ echo "export LC_ALL=C" >> ~/.bashrc
+  ```
+
+  ```sh
   $ source ~/.bashrc
   ```
 
@@ -116,7 +124,21 @@ Let's check if your drive works well as-is.
   > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
   ```
 
-If the measured speeds are more than 50 MB/s, you're good.
+💡 If the measured speeds are more than 50 MB/s, you're good.
+
+* If you installed a secondary disk, check and measure the speed with the next command, if not, skip it
+
+  ```sh
+  $ sudo hdparm -t --direct /dev/sdb
+  ```
+
+**Example** of expected output:
+
+  ```
+  > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
+  ```
+
+💡 If the measured speeds are more than 50 MB/s, you're good.
 
 ## Data directory
 
@@ -124,13 +146,15 @@ We'll store all application data in the dedicated directory `/data`.
 This allows for better security because it's not inside any user's home directory.
 Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
 
+💡 Remember the next command is not necessary if you previously followed the [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md#case-1-build-it-during-system-installation---recommended) bonus guide searching to store the data in a secondary disk; because the **(/data)** folder was previously created.
+
 * Create the data folder
 
   ```sh
   $ sudo mkdir /data
   ```
 
-💡 Remember this command is not necessary if you previously followed the [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md#case-1-build-it-during-system-installation---recommended) bonus guide searching to store the data in a secondary disk; because the **(/data)** folder was previously created.
+💡 If the prompt shows you: `mkdir: cannot create directory '/data': File exists` probably you followed [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, then ignore it and follow with the next command
 
 * Assing to the `admin` user as the owner of the **(/data)** folder
 
