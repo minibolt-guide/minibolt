@@ -59,4 +59,10 @@ has_toc: false
 
 ---
 
+## Testnet
+
+* **[Running a Testnet MiniBolt Node](testnet.md)** - configure your MiniBolt for use on testnet
+
+---
+
 << Back: [Bonus Section](../index.md)
