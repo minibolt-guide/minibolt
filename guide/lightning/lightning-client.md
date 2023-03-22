@@ -30,51 +30,79 @@ We set up [LND](https://github.com/lightningnetwork/lnd/blob/master/README.md){:
 
 The installation of LND is straight-forward, but the application is quite powerful and capable of things not explained here. Check out their [GitHub repository](https://github.com/lightningnetwork/lnd/){:target="_blank"} for a wealth of information about their open-source project and Lightning in general.
 
-### Configure Bitcoin Core
+### **Configure Bitcoin Core**
 
-Before run LND, we need to set up settings in Bitcoin Core configuration file to enable LND RPC connection - add new lines if they are not present
+Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
-* Edit `bitcoin.conf`, and add the following lines. Save and exit
+* Login as user "admin", edit `bitcoin.conf`, and add the following lines. Save and exit
 
   ```sh
   $ sudo nano /data/bitcoin/bitcoin.conf
   ```
 
-  ```sh
+  ```
   # LND RPC connection
   zmqpubrawblock=tcp://127.0.0.1:28332
   zmqpubrawtx=tcp://127.0.0.1:28333
   ```
 
-### Download
+* Restart Bitcoin Core to apply changes
+
+  ```sh
+  $ sudo systemctl restart bitcoind
+  ```
+
+## Installation
+
+### **Download**
 
 We'll download, verify and install LND.
 
-* As user "admin", download the application, checksums and signature
+* Navigate to the temporary directory which is cleared on reboot
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/lnd-linux-amd64-v0.15.5-beta.tar.gz
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-v0.15.5-beta.txt
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-roasbeef-v0.15.5-beta.sig.ots
-  $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.15.5-beta/manifest-roasbeef-v0.15.5-beta.sig
   ```
 
-### Checksum check
+* Set a temporary version environment variable to the installation
+
+  ```sh
+  $ VERSION=0.15.5
+  ```
+
+* Download the application, checksums and signature
+
+  ```sh
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/lnd-linux-amd64-v$VERSION-beta.tar.gz
+  ```
+
+  ```sh
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
+  ```
+
+  ```sh
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
+  ```
+
+  ```sh
+  $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig
+  ```
+
+### **Checksum check**
 
 * Verify the signed checksum against the actual checksum of your download
 
   ```sh
-  $ sha256sum --check manifest-v0.15.5-beta.txt --ignore-missing
+  $ sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
   ```
 
 Expected output:
 
-  ```sh
-  > lnd-linux-amd64-v0.15.5-beta.tar.gz: OK
+  ```
+  > lnd-linux-amd64-v$VERSION-beta.tar.gz: OK
   ```
 
-### Signature check
+### **Signature check**
 
 Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
 
@@ -86,41 +114,40 @@ Now that we've verified the integrity of the downloaded binary, we need to check
 
 Expected output:
 
-  ```sh
-  > ...
-  > gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun <laolu32@gmail.com>"
-  > ...
+  ```
+  > [...]
+  > gpg: key 372CBD7633C61696: public key "Olaoluwa Osuntokun <laolu32@gmail.com>" imported
+  > [...]
   ```
 
 * Verify the signature of the text file containing the checksums for the application
 
   ```sh
-  $ gpg --verify manifest-roasbeef-v0.15.5-beta.sig manifest-v0.15.5-beta.txt
+  $ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
   ```
 
 Expected output:
 
   ```
+  [...]
   > gpg: Signature made Thu Dec  1 19:20:10 2022 UTC
   > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
   > gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
-  >      Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
+  [...]
   ```
 
-### Timestamp check
+### **Timestamp check**
 
 We can also check that the manifest file was in existence around the time of the release using its timestamp.
 
-* Let's verify the timestamp of the file matches the release date.
+* Let's verify the timestamp of the file matches the release date
 
   ```sh
-  $ ots --no-cache verify manifest-roasbeef-v0.15.5-beta.sig.ots -f manifest-roasbeef-v0.15.5-beta.sig
+  $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
   ```
 
-Expected output:
+**Example** expected output:
 
   ```
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
@@ -130,18 +157,18 @@ Expected output:
   > Success! Bitcoin block 765521 attests existence as of 2022-12-01 UTC
   ```
 
-* Check that the date of the timestamp (here 2022-12-01) is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary (2022-12-02).
+💡 Check that the date of the timestamp is close to the [release date](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} of the LND binary.
 
-## Installation
+### **Installation**
 
 Having verified the integrity and authenticity of the release binary, we can safely proceed to install it
 
   ```sh
-  $ tar -xzf lnd-linux-amd64-v0.15.5-beta.tar.gz
+  $ tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
   ```
 
   ```sh
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.15.5-beta/*
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v$VERSION-beta/*
   ```
 
   ```sh
@@ -151,14 +178,14 @@ Having verified the integrity and authenticity of the release binary, we can saf
 Expected output:
 
   ```
-  > lnd version 0.15.5-beta commit=v0.15.5-beta
+  > lnd version $VERSION-beta commit=v$VERSION-beta
   ```
 
-### Data directory
+### **Data directory**
 
 Now that LND is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
 
-* Create the "lnd" service user, and add it to the groups "bitcoin" and "debian-tor"
+* Create the **"lnd"** service user, and add it to the groups "bitcoin" and "debian-tor"
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" lnd
@@ -200,7 +227,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
   $ ln -s /data/bitcoin /home/lnd/.bitcoin
   ```
 
-### Wallet password
+### **Wallet password**
 
 LND includes a Bitcoin wallet that manages your on-chain and Lightning coins.
 It is password protected and must be unlocked when LND starts.
@@ -210,23 +237,23 @@ For this initial setup, we choose the easy route: we store the password in a fil
 This is not the most secure setup, but you can improve it later if you want, with the bonus guides linked below.
 To give some perspective: other Lightning implementations like c-lightning or Eclair don't even have a password.
 
-* As user "lnd", create a text file and enter your LND wallet `password [C]`. Save and exit.
+* As user **"lnd"**, create a text file and enter your LND wallet `password [C]`. Save and exit.
 
   ```sh
   $ nano /data/lnd/password.txt
   ```
 
-* Tighten access privileges and make the file readable only for user "lnd":
+* Tighten access privileges and make the file readable only for user "lnd"
 
   ```sh
   $ chmod 600 /data/lnd/password.txt
   ```
 
-### Configuration
+## Configuration
 
-#### Configure LND
+### **Configure LND**
 
-* Create the LND configuration file and paste the following content (adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` and fees). Save and exit.
+* Create the LND configuration file and paste the following content ***(adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` and fees)***. Save and exit.
 
   ```sh
   $ nano /data/lnd/lnd.conf
@@ -237,12 +264,11 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   # /data/lnd/lnd.conf
 
   [Application Options]
-  # Alias accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
+  # Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
   alias=<YOUR_FANCY_ALIAS>
   # You can choose the color you want at https://www.color-hex.com/
   color=#ff9900
   listen=localhost
-  restlisten=0.0.0.0:8080
   nat=false
   debuglevel=info
 
@@ -290,8 +316,8 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   [bolt]
   # Set the next value to false to disable auto-compact DB and fast boot and comment the next line
   db.bolt.auto-compact=true
-  # Uncomment and set the next value to "0" to do DB compact at every LND reboot (default: 168h)
-  #db.bolt.auto-compact-min-age=168h
+  # Uncomment to do DB compact at every LND reboot (default: 168h)
+  #db.bolt.auto-compact-min-age=0h
 
   [Bitcoind]
   bitcoind.estimatemode=ECONOMICAL
@@ -304,17 +330,18 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   [tor]
   tor.active=true
   tor.v3=true
+  tor.streamisolation=true
   ```
 
-🔍 *This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options
+🔍 This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf){:target="_blank"} with all possible options
 
-* Exit "lnd" user session to return to the "admin" user session
+* Exit "lnd" user session to return to the **"admin"** user session
 
   ```sh
   $ exit
   ```
 
-### Autostart on boot
+### **Autostart on boot**
 
 Now, let's set up LND to start automatically on system startup.
 
@@ -324,7 +351,7 @@ Now, let's set up LND to start automatically on system startup.
   $ sudo nano /etc/systemd/system/lnd.service
   ```
 
-  ```sh
+  ```
   # MiniBolt: systemd unit for lnd
   # /etc/systemd/system/lnd.service
 
@@ -337,8 +364,6 @@ Now, let's set up LND to start automatically on system startup.
   ExecStart=/usr/local/bin/lnd
   ExecStop=/usr/local/bin/lncli stop
   Type=simple
-  Restart=always
-  RestartSec=30
   TimeoutSec=240
   LimitNOFILE=128000
   User=lnd
@@ -354,7 +379,7 @@ Now, let's set up LND to start automatically on system startup.
   WantedBy=multi-user.target
   ```
 
-* Enable, start and unlock LND
+* Enable the service
 
   ```sh
   $ sudo systemctl enable lnd
@@ -372,6 +397,8 @@ Now, let's set up LND to start automatically on system startup.
 [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
+* Start LND
+
 ```sh
 $2 sudo systemctl start lnd
 ```
@@ -380,7 +407,7 @@ Monitor the systemd journal at the first session created to check if everything 
 
 Expected output:
 
-  ```sh
+  ```
   > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
   > Dec 02 09:23:37 minibolt lnd[2584156]: Attempting automatic RPC configuration to bitcoind
   > Dec 02 09:23:37 minibolt lnd[2584156]: Automatically obtained bitcoind's RPC credentials
@@ -393,7 +420,7 @@ Expected output:
   [...]
   ```
 
-### Wallet setup
+### **Wallet setup**
 
 Once LND is started, the process waits for us to create the integrated Bitcoin onchain wallet.
 
@@ -436,16 +463,18 @@ These 24 words is all that you need to restore the Bitcoin on-chain wallet.
 * **Write these 24 words down manually on a piece of paper and store it in a safe place.**
 
 You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf){:target="_blank"}, or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
-This piece of paper is all an attacker needs to completely empty your on-chain wallet!
-Do not store it on a computer.
-Do not take a picture with your mobile phone.
-**This information should never be stored anywhere in digital form.**
+
+🚨 This piece of paper is all an attacker needs to completely empty your on-chain wallet!
+🚫 Do not store it on a computer.
+🚫 Do not take a picture with your mobile phone.
+🚫 **This information should never be stored anywhere in digital form.**
+
 The current state of your channels, however, cannot be recreated from this seed.
-For this, the Static Channel Backup stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing.
+For this, the Static Channel Backup stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. Exist a dedicate [guide](../lightning/channel-backup.md) to automatic backup this.
 
 🚨 This information must be kept secret at all times.
 
-### Allow user "admin" to work with LND
+### **Allow user "admin" to work with LND**
 
 We interact with LND using the application `lncli`.
 At the moment, only the user "lnd" has the necessary access privileges.
@@ -458,7 +487,7 @@ To make the user "admin" the main administrative user, we make sure it can inter
   ```
 
 * As user "admin", link the LND data directory in the user "admin" home.
-  As a member or the group "lnd", admin has read-only access to certain files.
+  As a member of the group "lnd", admin has read-only access to certain files.
   We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
 
   ```sh
@@ -473,6 +502,14 @@ To make the user "admin" the main administrative user, we make sure it can inter
   $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
   ```
 
+* Newly added links and permissions become active only in a new user session. Log out from SSH.
+
+  ```sh
+  $2 exit
+  ```
+
+* Log in as user **“admin”** again `"ssh admin@minibolt.local"`
+
 * Check if you can use `lncli` by querying LND for information
 
   ```sh
@@ -483,10 +520,12 @@ To make the user "admin" the main administrative user, we make sure it can inter
 
 💊 Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real bitcoin to your MiniBolt, you have "skin in the game"
 
-### Watchtower client
+💡 The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping to do this just in case any log could give extra information about the command you just entered.
+
+### **Watchtower client**
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
-If your MiniBolt goes down for a longer period of time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
+If your MiniBolt goes down for a longer period of time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
 Watchtowers are other Lightning nodes that can monitor your channels for you.
 If they detect such bad behavior, they can react on your behalf, and send a punishing transaction to close this channel.
@@ -495,22 +534,22 @@ In this case, all channel funds will be sent to your LND on-chain wallet.
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them.
 It's good practice to add a few watchtowers, just to be on the safe side.
 
-* With user `"admin"` or `"lnd"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} as a first example
+* With user `"admin"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower){:target="_blank"} Tor address as a first example
 
   ```sh
-  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
+  $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
   ```
 
 * Or the clearnet address
 
   ```sh
-  $2 lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
+  $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
   ```
 
 * If you want to list your towers and active watchtowers
 
   ```sh
-  $2 lncli wtclient towers
+  $ lncli wtclient towers
   ```
 
 Expected output:
@@ -535,15 +574,15 @@ Expected output:
 * If you want to deactivate an active tower
 
   ```sh
-  $2 lncli wtclient remove <pubkey>
+  $ lncli wtclient remove <pubkey>
   ```
 
-### Watchtower server
+### **Watchtower server**
 
 Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. This was previously activated in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
   ```sh
-  $2 lncli tower info
+  $ lncli tower info
   ```
 
 Example output:
@@ -563,14 +602,14 @@ Example output:
 
 ⚠️ This service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
 
-💡 Almost all of the following steps could be run with the [mobile](../lightning/web-app.md)/[web](../lightning/web-app.md) app guides
+💡 Almost all of the following steps could be run with the [mobile](../lightning/mobile-app.md)/[web](../lightning/web-app.md) app guides
 
-### Funding your Lightning node
+### **Funding your Lightning node**
 
 * Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
 
   ```sh
-  $2 lncli newaddress p2tr
+  $ lncli newaddress p2tr
   ```
 
 Expected output:
@@ -582,7 +621,7 @@ Expected output:
 * Check your LND wallet balance. (The output is only an example)
 
   ```sh
-  $2 lncli walletbalance
+  $ lncli walletbalance
   ```
 
 Expected output:
@@ -600,7 +639,7 @@ As soon as your funding transaction is mined (1 confirmation), LND will show its
 💡 If you want to open a few channels, you might want to send a few transactions.
 If you have only one UTXO, you need to wait for the change to return to your wallet after every new channel opening.
 
-### Opening channels
+### **Opening channels**
 
 Although LND features an optional "autopilot", we manually open some channels.
 
@@ -617,7 +656,7 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 * **Connect** to the remote node, with the full URI.
 
   ```sh
-  $2 lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
+  $ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
   ```
 
 * **Open a channel** using the `<pubkey>` only (*i.e.*, the part of the URI before the `@`) and the channel capacity in satoshis.
@@ -628,24 +667,24 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
   The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/){:target="_blank"})
 
   ```sh
-  $2 lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
+  $ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
   ```
 
 * **Check your funds**, both in the on-chain wallet and the channel balances.
 
   ```sh
-  $2 lncli walletbalance
+  $ lncli walletbalance
   ```
 
   ```sh
-  $2 lncli channelbalance
+  $ lncli channelbalance
   ```
 
 * **List active channels**. Once the channel funding transaction has been mined and gained enough confirmations, your channel is fully operational.
   That can take an hour or more.
 
   ```sh
-  $2 lncli listchannels
+  $ lncli listchannels
   ```
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
@@ -653,95 +692,95 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 To try, why not send me satoshis! You simply need to input my node pukey [`⚡2FakTor⚡`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128){:target="_blank"}, the amount in satoshis and add the –keysend flag
 
   ```sh
-  $2 lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
+  $ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
   ```
 
-### More commands
+### **More commands**
 
 A quick reference with common commands to play around with:
 
 * list all arguments for the CLI (command line interface)
 
   ```sh
-  $2 lncli
+  $ lncli
   ```
 
 * get help for a specific command
 
   ```sh
-  $2 lncli help [COMMAND]
+  $ lncli help [COMMAND]
   ```
 
 * Find out some general stats about your node:
 
   ```sh
-  $2 lncli getinfo
+  $ lncli getinfo
   ```
 
 * Check the peers you are currently connected to:
 
   ```sh
-  $2 lncli listpeers
+  $ lncli listpeers
   ```
 
 * Check the status of your pending channels:
 
   ```sh
-  $2 lncli pendingchannels
+  $ lncli pendingchannels
   ```
 
 * Check the status of your active channels:
 
   ```sh
-  $2 lncli listchannels
+  $ lncli listchannels
   ```
 
 * Before paying an invoice, you should decode it to check if the amount and other info are correct:
 
   ```sh
-  $2 lncli decodepayreq [INVOICE]
+  $ lncli decodepayreq [INVOICE]
   ```
 
 * Pay an invoice:
 
   ```sh
-  $2 lncli payinvoice [INVOICE]
+  $ lncli payinvoice [INVOICE]
   ```
 
 * Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
   ```sh
-  $2 lncli payinvoice --amt <amount> <amp invoice>
+  $ lncli payinvoice --amt <amount> <amp invoice>
   ```
 
 * Send payment to a node without invoice using AMP (both sender and receiver nodes have to have AMP enabled):
 
   ```sh
-  $2 lncli sendpayment --dest <destination public key> --amt <amount> --amp
+  $ lncli sendpayment --dest <destination public key> --amt <amount> --amp
   ```
 
 * Send payment to a node without an invoice using Keysend (both sender and receiver nodes have to have Keysend enabled):
 
   ```sh
-  $2 lncli sendpayment --dest <destination public key> --amt <amount> --keysend
+  $ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
   ```
 
 * Check the payments that you sent:
 
   ```sh
-  $2 lncli listpayments
+  $ lncli listpayments
   ```
 
 * Create an invoice:
 
   ```sh
-  $2 lncli addinvoice [AMOUNT_IN_SATOSHIS]
+  $ lncli addinvoice [AMOUNT_IN_SATOSHIS]
   ```
 
 * Create a Re-Usable Static AMP invoice:
 
   ```sh
-  $2 lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
+  $ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
   ```
 
 💡 Flags `--memo "your memo here" --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time will be 30 days by default and the rest can be empty.
@@ -751,26 +790,29 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
 * List all invoices:
 
   ```sh
-  $2 lncli listinvoices
+  $ lncli listinvoices
   ```
 
 * to close a channel, you need the following two arguments that can be determined with `listchannels` and are listed as "channelpoint": `FUNDING_TXID`:`OUTPUT_INDEX`
 
   ```sh
-  $2 lncli listchannels
-  $2 lncli closechannel --sat_per_vbyte <fee> [FUNDING_TXID] [OUTPUT_INDEX]
+  $ lncli listchannels
+  ```
+
+  ```sh
+  $ lncli closechannel --sat_per_vbyte <fee> [FUNDING_TXID] [OUTPUT_INDEX]
   ```
 
 * to force close a channel (if your peer is offline or not cooperative), use `--force`
 
   ```sh
-  $2 lncli closechannel --force [FUNDING_TXID] [OUTPUT_INDEX]
+  $ lncli closechannel --force [FUNDING_TXID] [OUTPUT_INDEX]
   ```
 
 * to close all channels in cooperative mode
 
   ```sh
-  $2 lncli closeallchannels --sat_per_byte <sat/byte>
+  $ lncli closeallchannels --sat_per_byte <sat/byte>
   ````
 
 🔍 _more: full [LND API reference](https://api.lightning.community/){:target="_blank"}
@@ -780,21 +822,15 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
 Upgrading LND can lead to a number of issues.
 **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases){:target="_blank"} completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
 
-* Check your lnd version
+* Check your actual LND version
 
   ```sh
   $ lnd --version
   ```
 
-* As "admin" user, stop the LND service
+* Download, verify and install the latest LND binaries as described in the [LND section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
-  ```sh
-  $ sudo systemctl stop lnd
-  ```
-
-* Download, verify and install the latest LND binaries as described in the [LND section](lightning-client.md#installation) of this guide.
-
-* Restart the services with the new configuration
+* Restart LND to apply the new version
 
   ```sh
   $ sudo systemctl restart lnd

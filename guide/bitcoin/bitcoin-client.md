@@ -56,7 +56,13 @@ This is a precaution to make sure that this is an official release and not a mal
 
   ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+  ```
+
+  ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
+  ```
+
+  ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
   ```
 
@@ -70,7 +76,7 @@ This is a precaution to make sure that this is an official release and not a mal
 
 Expected output:
 
-  ```sh
+  ```
   > bitcoin-$VERSION-x86_64-linux-gnu.tar.gz: OK
   ```
 
@@ -86,7 +92,7 @@ Bitcoin releases are signed by several individuals, each using its own key. To v
 
 Expected output:
 
-  ```sh
+  ```
   > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
   > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
   > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
@@ -105,7 +111,7 @@ Expected output:
 
 * Check that at least a few signatures show the following text
 
-  ```sh
+  ```
   > gpg: Good signature from ...
   > Primary key fingerprint: ...
   ```
@@ -128,12 +134,23 @@ The following screenshot is just an example of one of the versions:
 
 ### **Binaries installation**
 
-* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
+* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check version.
 
   ```sh
   $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+  ```
+
+  ```sh
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/*
+  ```
+
+  ```sh
   $ bitcoind --version
+  ```
+
+Expected output:
+
+  ```
   > Bitcoin Core version v$VERSION
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
@@ -150,7 +167,7 @@ This user does not have admin rights and cannot change the system configuration.
   $ sudo adduser --gecos "" --disabled-password bitcoin
   ```
 
-* Add the user "admin" to the group "bitcoin" as well
+* Add the user **"admin"** to the group "bitcoin" as well
 
   ```sh
   $ sudo adduser admin bitcoin
@@ -171,6 +188,9 @@ Instead of creating this directory, we create a data directory in the general da
 
   ```sh
   $ mkdir /data/bitcoin
+  ```
+
+  ```sh
   $ sudo chown bitcoin:bitcoin /data/bitcoin
   ```
 
@@ -201,6 +221,9 @@ Bitcoin Core provides a simple Python program to generate the configuration line
 
   ```sh
   $ cd .bitcoin
+  ```
+
+  ```sh
   $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpcauth.py
   ```
 
@@ -216,7 +239,7 @@ Bitcoin Core provides a simple Python program to generate the configuration line
 
 Expected **example** output:
 
-  ```sh
+  ```
   > String to be appended to bitcoin.conf:
   > rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa
   ```
@@ -236,7 +259,7 @@ We'll also set the proper access permissions.
   $ nano /home/bitcoin/.bitcoin/bitcoin.conf
   ```
 
-  ```sh
+  ```
   # MiniBolt: bitcoind configuration
   # /home/bitcoin/.bitcoin/bitcoin.conf
 
@@ -311,7 +334,7 @@ We use `"systemd"`, a daemon that controls the startup process using configurati
   $ sudo nano /etc/systemd/system/bitcoind.service
   ```
 
-  ```sh
+  ```
   # MiniBolt: systemd unit for bitcoind
   # /etc/systemd/system/bitcoind.service
 
@@ -326,9 +349,7 @@ We use `"systemd"`, a daemon that controls the startup process using configurati
                                     -datadir=/home/bitcoin/.bitcoin
   Type=exec
   PIDFile=/run/bitcoind/bitcoind.pid
-  Restart=on-failure
   TimeoutSec=300
-  RestartSec=30
   User=bitcoin
   UMask=0027
   RuntimeDirectory=bitcoind
@@ -422,9 +443,13 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
 
 * Check the correct enablement of the I2P and Tor networks
 
-Example of expected output:
-
   ```sh
+  $2 bitcoin-cli -netinfo
+  ```
+
+**Example** of expected output:
+
+  ```
   Bitcoin Core client v24.0.1 - server 70016/Satoshi:24.0.1/
             ipv4    ipv6   onion   i2p   total   block
   in          0       0      25     2      27
@@ -471,12 +496,12 @@ We also now want to enable the node to listen to and relay transactions.
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
   ```
 
-  ```sh
+  ```
   #dbcache=2048
   #blocksonly=1
   ```
 
-* Restart Bitcoin Core for the settings to take effect.
+* Restart Bitcoin Core for the settings to take effect
 
   ```sh
   $ sudo systemctl restart bitcoind
@@ -564,7 +589,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
   ```
 
-  ```sh
+  ```
   ## Slow devices optimizations
   # Limit the number of max peers connections
   maxconnections=40
@@ -587,6 +612,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first!
 When upgrading, there might be breaking changes or changes in the data structure that need special attention.
+Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide.
 
 * Login as "admin" and change to the temporary directory.
 
@@ -604,8 +630,17 @@ When upgrading, there might be breaking changes or changes in the data structure
 
   ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+  ```
+
+  ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
+  ```
+
+  ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
+  ```
+
+  ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
   ```
 
@@ -617,7 +652,7 @@ When upgrading, there might be breaking changes or changes in the data structure
 
 Expected output:
 
-  ```sh
+  ```
   > bitcoin-$VERSION-x86_64-linux-gnu.tar.gz: OK
   ```
 
@@ -629,7 +664,7 @@ Expected output:
 
 Expected output:
 
-  ```sh
+  ```
   > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
   > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
   > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
@@ -648,12 +683,12 @@ Expected output:
 
 * Check that at least a few signatures show the following text
 
-  ```sh
+  ```
   > gpg: Good signature from ...
   > Primary key fingerprint: ...
   ```
 
-* Verify the timestamp. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing correctly OTS client in the [proper section](bitcoin-client.md#opentimestamps-client)
+* If you completed the IBD, now you can verify the timestamp with your own node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing correctly OTS client in the [proper section](bitcoin-client.md#opentimestamps-client)
 
   ```sh
   $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -661,7 +696,7 @@ Expected output:
 
 The following output is just an example of one of the versions:
 
-  ```sh
+  ```
   > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
   > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
   > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
@@ -675,6 +710,9 @@ Now, just check that the timestamp date is close to the [release](https://github
 
   ```sh
   $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+  ```
+
+  ```sh
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/*
   ```
 
@@ -682,12 +720,16 @@ Now, just check that the timestamp date is close to the [release](https://github
 
   ```sh
   $ bitcoind --version
+
+Expected output:
+
+  ```
   > Bitcoin Core version v$VERSION
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
   ```
 
-* Restart the Bitcoin Core to apply the version change
+* Restart the Bitcoin Core to apply the new version
 
   ```sh
   $ sudo systemctl restart bitcoind

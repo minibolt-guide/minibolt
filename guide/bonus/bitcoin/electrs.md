@@ -266,9 +266,7 @@ Electrs need to start automatically on system boot.
   [Service]
   ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
   Type=simple
-  Restart=always
   TimeoutSec=120
-  RestartSec=30
   KillMode=process
   User=electrs
   RuntimeDirectory=electrs
@@ -359,7 +357,7 @@ Note that the remote device needs to have Tor installed as well.
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service Electrs TCP & SSL
   HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
@@ -516,7 +514,7 @@ Expected output:
   $ rm -r /tmp/electrs
   ```
 
-* Restart Electrs
+* Restart Electrs to apply the new version
 
   ```sh
   $ sudo systemctl restart electrs

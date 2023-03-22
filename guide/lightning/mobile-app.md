@@ -29,9 +29,30 @@ Make payments with lightning or on-chain and manage your channels while you're o
 
 ## Preparations
 
+### **Configure LND**
+
+* Login as `“admin”` user, and configure LND to allow LND REST from anywhere. Edit `lnd.conf`
+
+  ```sh
+  $ nano /data/lnd/lnd.conf
+  ```
+
+* Add the next line under the `[Application Options]` section. Save and exit.
+
+  ```
+  [Application Options]
+  restlisten=0.0.0.0:8080
+  ```
+
+* Restart LND to apply changes
+
+  ```sh
+  $ sudo systemctl restart lnd
+  ```
+
 ### **Configure Firewall**
 
-* Login as `“admin”` user, and configure the Firewall to allow LND REST incoming requests
+* Configure the Firewall to allow LND REST incoming requests
 
   ```sh
   $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
