@@ -165,6 +165,14 @@ Expected output:
 
 ### **Build it from the source code**
 
+* Build BerkeleyDB 4.8 to allow for legacy wallets, necessary to use JoinMarket, Electrum Personal Server, and possibly other tools:
+
+  ```sh
+  $ wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4300aa6cf2c5cf5c19f55e73499c/contrib/install_db4.sh
+  $ chmod +x bdb.sh
+  $ ./bdb.sh bitcoin-$VERSION
+  ```
+
 * Enter the Bitcoin Core source code folder
 
   ```sh
@@ -180,7 +188,9 @@ Expected output:
 * The next command will pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
   ```sh
+  export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
   ./configure \
+     BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" \
     --disable-bench \
     --disable-gui-tests \
     --disable-maintainer-mode \
