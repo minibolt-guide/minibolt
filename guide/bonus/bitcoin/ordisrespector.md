@@ -151,7 +151,7 @@ The following command prints signature checks for each of the public keys that s
 
 Expected output:
 
-  ```sh
+  ```
   > gpg: Good signature from ...
   > Primary key fingerprint: ...
   [...]
@@ -169,7 +169,13 @@ Expected output:
 
   ```sh
   $ wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4300aa6cf2c5cf5c19f55e73499c/contrib/install_db4.sh
+  ```
+  
+  ```sh
   $ chmod +x bdb.sh
+  ```
+  
+  ```sh
   $ ./bdb.sh bitcoin-$VERSION
   ```
 
