@@ -243,7 +243,7 @@ e.g:
   PasswordAuthentication no
   ```
 
-* Test this barebone SSH configuration. Not output is OK, e.g "/etc/ssh/sshd_config line XX: unsupported option "XXX" is a wrong information
+* Test this barebone SSH configuration. If you see no output to the next command, that is OK. If you see something like "/etc/ssh/sshd_config line XX: unsupported option "XXX" that means something is incorrect.
 
   ```sh
   $ sudo sshd -t
