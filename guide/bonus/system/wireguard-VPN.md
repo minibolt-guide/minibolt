@@ -471,7 +471,7 @@ Expected output:
   $ ssh admin@10.0.0.1
   ```
 
-💡 Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [https://10.0.0.1:4000](https://10.0.1.1:4000){:target="_blank"}
+💡 Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [https://10.0.0.1:4000](https://10.0.0.1:4000){:target="_blank"}
 
 * Check the VPN client status using
 
