@@ -86,7 +86,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
   ```sh
   $ tor --version
-  > Tor version 0.4.7.10.
+  > Tor version 0.4.7.13.
   [...]
   ```
 
