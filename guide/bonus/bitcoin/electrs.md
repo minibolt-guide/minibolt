@@ -108,7 +108,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=0.9.12
+  $ VERSION=0.9.13
   ```
 
   ```sh
@@ -437,7 +437,7 @@ Expected output:
 * Replace the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
 
   ```sh
-  $ VERSION=0.9.12
+  $ VERSION=0.9.13
   ```
 
   ```sh

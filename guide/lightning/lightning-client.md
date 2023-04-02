@@ -67,7 +67,7 @@ We'll download, verify and install LND.
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=0.15.5
+  $ VERSION=0.16.0
   ```
 
 * Download the application, checksums and signature
@@ -116,7 +116,7 @@ Expected output:
 
   ```
   > [...]
-  > gpg: key 372CBD7633C61696: public key "Olaoluwa Osuntokun <laolu32@gmail.com>" imported
+  > gpg: key 372CBD7633C61696: public key "Olaoluwa Osuntokun <laolu32@gmail.com>" imported/not changed
   > [...]
   ```
 
@@ -303,12 +303,12 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   #wtclient.sweep-fee-rate=10
 
   # Watchtower server
-  watchtower.active=1
+  watchtower.active=true
 
   # Performance
   gc-canceled-invoices-on-startup=true
   gc-canceled-invoices-on-the-fly=true
-  ignore-historical-gossip-filters=1
+  ignore-historical-gossip-filters=true
   stagger-initial-reconnect=true
   routing.strictgraphpruning=true
 
@@ -323,8 +323,8 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   bitcoind.estimatemode=ECONOMICAL
 
   [Bitcoin]
-  bitcoin.active=1
-  bitcoin.mainnet=1
+  bitcoin.active=true
+  bitcoin.mainnet=true
   bitcoin.node=bitcoind
 
   [tor]
@@ -411,7 +411,7 @@ Expected output:
   > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
   > Dec 02 09:23:37 minibolt lnd[2584156]: Attempting automatic RPC configuration to bitcoind
   > Dec 02 09:23:37 minibolt lnd[2584156]: Automatically obtained bitcoind's RPC credentials
-  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Version: 0.15.5-beta commit=v0.15.5-beta, build=production, logging=default, debuglevel=info
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Version: $VERSION-beta commit=$VERSION-beta, build=production, logging=default, debuglevel=info
   > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Active chain: Bitcoin (network=mainnet)
   > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.975 [INF] RPCS: RPC server listening on 127.0.0.1:10009
   > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080

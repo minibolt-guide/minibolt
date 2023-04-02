@@ -55,7 +55,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
   ```
 
 * Create a new file called `tor.list`
-  
+
   ```sh
   $ sudo nano /etc/apt/sources.list.d/tor.list
   ```
@@ -86,9 +86,15 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
   ```sh
   $ tor --version
-  > Tor version 0.4.7.10.
+
+* **Example** of expected output:
+
+  ```
+  > Tor version 0.4.7.13.
   [...]
   ```
+
+💡 Please note that the before version number might change in your case, this is just an example of when the guide was made.
 
 ### Tor configuration
 
@@ -108,7 +114,7 @@ Save and exit
 
   # uncomment line 60
   CookieAuthentication 1
-  
+
   # add under the line 60:
   CookieAuthFileGroupReadable 1
   ```
@@ -133,7 +139,7 @@ Expected output:
   ```
 
 * Check the systemd journal to see Tor real time updates output logs.
-  
+
   ```sh
   $ sudo journalctl -f -u tor@default
   ```
@@ -193,7 +199,7 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
 ### I2P installation
 
-* Ensure that you are logged with user "admin" and add i2pd repository
+* Ensure that you are logged in with user "admin" and add the i2pd repository
 
   ```sh
   $ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
@@ -214,13 +220,13 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
   [...]
   ```
 
-* Enable autoboot on start
+* Enable autoboot on the start
 
   ```sh
   $ sudo systemctl enable i2pd
   ```
 
-* Check the service started and the correct autoboot enabled
+* Check the service is started and the correct autoboot enabled
 
   ```sh
   $ sudo systemctl status i2pd
@@ -245,10 +251,10 @@ Expected output, find *"enabled"* and *"Started"* labels:
   [...]
   ```
 
-* Ensure that i2pd service is working and listening at the default ports
+* Ensure that the i2pd service is working and listening at the default ports
 
   ```sh
-  $ sudo ss -tulpn | grep LISTEN | grep i2pd 
+  $ sudo ss -tulpn | grep LISTEN | grep i2pd
   ```
 
 Expected output:
@@ -350,13 +356,13 @@ Usage of SSH over Tor differs by client and operating system.
 To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
 * PuTTy:
-  
+
   * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
     * Go to the "Connection" tab -> Proxy, select "Socks5" as proxy type, on Proxy hostname, type "localhost", port "9050".
     * Press the button OPEN, when a "PuTTy security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
 
 * MobaXterm:
-  
+
   * Follow the same instructions of the [remote access section](../system/remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
   * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
   * Press the button OK, when a "Connexion to..." banner appears press the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.

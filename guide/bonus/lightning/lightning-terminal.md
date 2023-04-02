@@ -53,21 +53,33 @@ Because Pool is alpha software, Lightning Terminal is also alpha software.
 
   ```sh
   $ sudo ufw allow 8443/tcp comment 'allow Lightning Terminal SSL from anywhere'
-  $ sudo ufw status
   ```
 
 ## Installation
 
 ### Download, verify and install
 
-* With the "admin" user, download the latest arm64 binary and its checksum and verify the integrity of the binary
+* With the "admin" user, download the latest amd64 binary and its checksum and verify the integrity of the binary
 
   ```sh
   $ cd /tmp
+  ```
+
+  ```sh
   $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/lightning-terminal-linux-amd64-v0.8.5-alpha.tar.gz
+  ```
+
+  ```sh
   $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/manifest-v0.8.5-alpha.txt
+  ```
+
+  ```sh
   $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/manifest-v0.8.5-alpha.sig.ots
+  ```
+
+  ```sh
   $ wget https://github.com/lightninglabs/lightning-terminal/releases/download/v0.8.5-alpha/manifest-v0.8.5-alpha.sig
+  ```
 
 ### Checksum check
 
