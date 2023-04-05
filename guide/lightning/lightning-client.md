@@ -294,7 +294,6 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   accept-keysend=true
   accept-amp=true
   protocol.wumbo-channels=true
-  protocol.no-anchors=false
   coop-close-target-confs=24
 
   # Watchtower client
@@ -310,7 +309,6 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   gc-canceled-invoices-on-the-fly=true
   ignore-historical-gossip-filters=true
   stagger-initial-reconnect=true
-  routing.strictgraphpruning=true
 
   # Database
   [bolt]
