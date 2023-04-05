@@ -233,7 +233,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   ```sh
   $ cd /data/fulcrum
   ```
-
+  ```sh
   $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
   ```
 
