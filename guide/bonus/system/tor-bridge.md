@@ -44,7 +44,7 @@ Status: Tested MiniBolt
 
 ## Preparations
 
-### Install dependencies
+### **Install dependencies**
 
 obfs4 makes Tor traffic look random, and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configure all.
 
@@ -54,7 +54,7 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   $ sudo apt install obfs4proxy
   ```
 
-## Installation
+### **Installation**
 
 * Ensure you have Tor daemon installed in your system
 
@@ -71,9 +71,9 @@ Expected output:
 
 💡 If not obtain results, follow the [Privacy section](../../system/privacy.md#installation) to install it.
 
-### Configuration
+## Configuration
 
-* Edit your Tor config file adding the next lines **at the end of the file**. We are to use 2 ports: TODO1 and TODO2, replace them with ports of your preference > 1024.
+* Edit your Tor config file adding the next lines **at the end of the file**. We will use 2 ports: **TODO1** and **TODO2**, replace them with ports of your preference > 1024.
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -110,9 +110,9 @@ Expected output:
   BridgeRelay 1
   ```
 
-🚨 Don't forget to change the ORPort (<TODO1>), ServerTransportListenAddr (<TODO2>), ContactInfo (<address@email.com>), and Nickname (<PickANickname>) options.
+🚨 Don't forget to change the ORPort **(TODO1)**, ServerTransportListenAddr **(TODO2)**, ContactInfo **(address@email.com)**, and Nickname **(PickANickname)** options.
 
-### Configure Firewall and router NAT
+### **Configure Firewall and router NAT**
 
 * Configure the firewall to allow incoming requests replacing `<TODO1>` and `<TODO2>` previously configured in the section before
 
@@ -124,15 +124,9 @@ $ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge from anywhere'
 $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
-* Check the correct application of the rules
+🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network; and put your `"<TODO2>"` port.
 
-```sh
-$ sudo ufw status
-```
-
-🚨 Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public <IP ADDRESS> obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to [icanhazip.com] in your personal computer inside of the same local network; and put your `"<TODO2>"` port.
-
-### Systemd hardening
+### **Systemd hardening**
 
 * To work around systemd hardening, you will also need to set Tor services, edit the next files
 
@@ -142,7 +136,7 @@ $ sudo ufw status
 
 * Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
 
-  ```sh
+  ```
   # Hardening
   NoNewPrivileges=no
   ```
@@ -153,7 +147,7 @@ $ sudo ufw status
   $ sudo nano /lib/systemd/system/tor@.service
   ```
 
-  ```sh
+  ```
   # Hardening
   NoNewPrivileges=no
   ```
@@ -164,7 +158,7 @@ $ sudo ufw status
   $ sudo systemctl daemon-reload
   ```
 
-* Enable and start tor
+* Enable and start the Tor
 
   ```sh
   $ sudo systemctl enable --now tor.service
@@ -176,7 +170,7 @@ $ sudo ufw status
   $ sudo systemctl restart tor.service
   ```
 
-### Testing
+## Testing
 
 * Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit.
 
@@ -186,7 +180,7 @@ $ sudo ufw status
 
 * Verify that your relay works, if your logfile (syslog) contains the following entry after starting your tor daemon your relay should be up and running as expected
 
-  ```sh
+  ```
   [...]
   Your Tor server's identity key fingerprint is '<YourNickname> <FINGERPRINT>'
   Your Tor bridge's hashed identity key fingerprint is '<YourNickname> <HASHED FINGERPRINT>'
@@ -195,7 +189,7 @@ $ sudo ufw status
   [...]
   ```
 
-  ```sh
+  ```
   [...]
   > Now checking whether IPv4 ORPort <IP ADDRES:<TODO1>> is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
   > Self-testing indicates your ORPort <IP ADDRES:<TODO1>> is reachable from the outside. > Excellent. Publishing server descriptor.
@@ -203,29 +197,29 @@ $ sudo ufw status
   [...]
   ```
 
-🔍 About 3 hours after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname or IP address and can monitor your obfs4 bridge's usage on Relay Search. Just enter your bridge's <HASHED FINGERPRINT> in the form and click "Search".
+🔍 About **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname or IP address and can monitor your obfs4 bridge's usage on Relay Search. Just enter your bridge's **"HASHED FINGERPRINT"** in the form and click on "Search".
 
-* If you want to connect to your bridge manually, you will need to know the bridge's obfs4 certificate. Open file "obfs4_bridgeline.txt"
+* If you want to connect to your bridge manually, you will need to know the bridge's obfs4 certificate. Open the file **"obfs4_bridgeline.txt"** to obtain your bridge info
 
   ```sh
   $ sudo cat /var/lib/tor/pt_state/obfs4_bridgeline.txt | grep Bridge
   ```
 
-* Paste the entire bridge line into Tor Browser
+* Paste the next entire bridge line into your Tor browser
 
-  ```sh
+  ```
   Bridge obfs4 <IP ADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
   ```
 
-💡 You'll need to replace <IP ADDRESS>, <PORT>, and <FINGERPRINT> with the actual values, which you can find in the tor log. Make sure that you use <PORT> as the obfs4 port `"<TODO2>"` that you chose and <FINGERPRINT> not <HASHED FINGERPRINT>.
+💡 You'll need to replace **"IP ADDRESS"**, **"PORT"**, and **"FINGERPRINT"** with the actual values, which you can find in the tor log. Make sure that you use **"PORT"** as the obfs4 port **"TODO2"** that you chose and **"FINGERPRINT"** not **"HASHED FINGERPRINT"**.
 
-🔍 More info to connect Tor browser to your own Tor bridge in this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
+🔍 More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
 
-## Extras
+## Extras (optional)
 
-### Enable automatic software updates (optional)
+### **Enable automatic software updates**
 
-One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so you can not forget about it. Follow the instructions to enable automatic software updates for your operating system.
+One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so you can not forget about them. Follow the instructions to enable automatic software updates for your operating system.
 
 * Install dependencies
 
@@ -239,7 +233,7 @@ One of the most important things to keep your relay secure is to install securit
   $ sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
   ```
 
-  ```sh
+  ```
   Unattended-Upgrade::Origins-Pattern {
       "origin=Debian,codename=${distro_codename},label=Debian-Security";
       "origin=TorProject";
@@ -250,7 +244,7 @@ One of the most important things to keep your relay secure is to install securit
 
 * If you want to automatically reboot add also the following at the end of the file (optional)
 
-  ```sh
+  ```
   Unattended-Upgrade::Automatic-Reboot "true";
   ```
 
@@ -266,7 +260,7 @@ One of the most important things to keep your relay secure is to install securit
   $ unattended-upgrade --debug --dry-run
   ```
 
-### Install NYX
+### **Install NYX**
 
 [Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relays such as bandwidth usage, connections, logs, and much more.
 
@@ -284,11 +278,47 @@ One of the most important things to keep your relay secure is to install securit
 
 ![Nyx Tor bridge](../../../images/nyx-tor-bridge.png)
 
-* Press `"q"` key two times to exit
+* Press `"q"` key **two times** to exit
+
+### **Add bridge to Tor daemon**
+
+On some occasions, due to some circumstances, your ISP, the company's network, your country, etc, could be censoring your access to Tor and with it the proper functioning of MiniBolt.
+
+![Tor failing](../../../images/tor-failing.jpg)
+
+Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), complete captcha and get bridges. Select one of the 3 lines and replace the contain in the next torrc configuration.
+
+![Get Bridge](../../../images/get-bridge.PNG)
+
+* On the MiniBolt node, with user **"admin"**, edit the "torrc" file
+
+  ```sh
+  $ sudo nano /etc/tor/torrc
+  ```
+
+* Add the next lines at the end of the **"torrc"** file
+
+  ```
+  ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+  UseBridges 1
+  Bridge obfs4 IP_ADDRESS:PORT FINGERPRINT cert=CERTIFICATE iat-mode=0
+  ```
+
+💡 Replace **"IP_ADDRESS"**, **"PORT"**, **"FINGERPRINT"** and **"CERTIFICATE"** to those obtained above.
+
+* Restart to apply changes
+
+  ```sh
+  $ sudo systemctl restart tor
+  ```
+
+**Example** output:
+
+![Bridge running](../../../images/tor-bridge-running.png)
 
 ## Uninstall
 
-### Unistall obfs4 proxy
+### **Unistall obfs4 proxy**
 
 * Unistall obfs4proxy software
 
@@ -296,7 +326,7 @@ One of the most important things to keep your relay secure is to install securit
   $ sudo apt autoremove obfs4proxy --purge
   ```
 
-### Uninstall Tor configuration
+### **Uninstall Tor configuration**
 
 * Reverts "torrc" file configuration commenting previously configured lines. Save and exit
 
@@ -304,7 +334,7 @@ One of the most important things to keep your relay secure is to install securit
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   #BridgeRelay 1
   #ContactInfo <address@email.com>
   #Nickname PickANickname
@@ -313,12 +343,17 @@ One of the most important things to keep your relay secure is to install securit
   #ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
   ```
 
-### Uninstall FW configuration and router NAT
+### **Uninstall FW configuration and router NAT**
 
 * Display the UFW firewall rules and notes the numbers of the rules for Tor bridge (e.g. W, Z, Y and Z below)
 
   ```sh
   $ sudo ufw status numbered
+  ```
+
+Expected output:
+
+  ```
   > [...]
   > [W] <TODO1>                   ALLOW IN    Anywhere                   # allow OR port Tor bridge from anywhere
   > [X] <TODO1> (v6)              ALLOW IN    Anywhere (v6)              # allow OR port Tor bridge from anywhere
@@ -332,15 +367,15 @@ One of the most important things to keep your relay secure is to install securit
 $ sudo ufw delete X
 ```
 
-* Check the correct application of the rules
+* Check the correct update of the rules
 
 ```sh
 $ sudo ufw status verbose
 ```
 
-🚨 Reverts router NAT configuration following the same "[Configure Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat)" previous step but this time deleting the configuration setting.
+🚨 Reverts router NAT configuration following the same [Configure Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat) previous step but this time deleting the configuration setting.
 
-### Uninstall systemd hardening
+### **Uninstall systemd hardening**
 
 * Reverts "systemd hardening" in service files configuration changing the next files
 

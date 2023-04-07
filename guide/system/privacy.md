@@ -125,7 +125,7 @@ Save and exit
   $ sudo systemctl reload tor
   ```
 
-* Ensure that the Tor service is working and listening at the default ports `9050` and `9051`.
+* Ensure that the Tor service is working and listening at the default ports `9050` and `9051`
 
   ```sh
   $ sudo ss -tulpn | grep LISTEN | grep tor
@@ -138,7 +138,7 @@ Expected output:
   tcp   LISTEN 0      4096             127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=795,fd=7))
   ```
 
-* Check the systemd journal to see Tor real time updates output logs.
+* Check the systemd journal to see Tor in real time updates output logs
 
   ```sh
   $ sudo journalctl -f -u tor@default
@@ -187,7 +187,7 @@ But we now have the base to configure sensitive applications to use it.
   $ sudo systemctl start tor
   ```
 
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md) and see if that helps.
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring your access to Tor.
 
 ## I2P Project
 
