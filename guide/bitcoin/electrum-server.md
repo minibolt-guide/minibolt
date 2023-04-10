@@ -103,7 +103,7 @@ We have our Bitcoin Core configuration file set up and can now move on to the ne
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=1.9.0
+  $ VERSION=1.9.1
   ```
 
 * Download the application, checksums and signature
@@ -183,7 +183,7 @@ Expected output:
 Expected output:
 
   ```
-  > Fulcrum $VERSION (Release a5a53cf)
+  > Fulcrum $VERSION (Release xxxxx)
   > compiled: gcc 8.4.0
   [...]
   ```
@@ -233,6 +233,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   ```sh
   $ cd /data/fulcrum
   ```
+
   ```sh
   $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
   ```
@@ -272,7 +273,7 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   peering = false
 
   # Set fast-sync accorling with your device,
-  # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
+  # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
   fast-sync = 2048
 
   # Banner
@@ -347,7 +348,7 @@ Monitor the systemd journal at the first session created to check if everything 
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] simdjson: version 0.6.0
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] ssl: OpenSSL 1.1.1n  15 Mar 2022
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] zmq: libzmq version: 4.3.3, cppzmq version: 4.7.1
-  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.0 (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VERSION (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Max open files: 524288 (increased from default: 1024)
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.065] Loading database ...
   Jul 28 12:20:14 minibolt Fulcrum[181811]: [2022-07-28 12:20:14.489] DB memory: 512.00 MiB
