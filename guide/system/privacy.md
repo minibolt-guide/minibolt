@@ -44,7 +44,7 @@ It allows you to anonymize internet traffic by routing it through a network of n
 It is called "Tor" for "The Onion Router": information is routed through many hops and encrypted multiple times.
 Each node decrypts only the layer of information addressed to it, learning only the previous and the next hop of the whole route. The data package is peeled like an onion until it reaches the final destination.
 
-### Tor installation
+### **Tor installation**
 
 Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
@@ -62,7 +62,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
 * Add the following entries. Save and exit
 
-  ```sh
+  ```
   deb     [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
   deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
   ```
@@ -71,7 +71,13 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
   ```sh
   $ sudo su
+  ```
+
+  ```sh
   $ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
+  ```
+
+  ```sh
   $ exit
   ```
 
@@ -79,6 +85,9 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
    ```sh
    $ sudo apt update
+   ```
+
+   ```sh
    $ sudo apt install tor deb.torproject.org-keyring
    ```
 
@@ -86,8 +95,9 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
   ```sh
   $ tor --version
+  ```
 
-* **Example** of expected output:
+**Example** of expected output:
 
   ```
   > Tor version 0.4.7.13.
@@ -96,7 +106,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 
 💡 Please note that the before version number might change in your case, this is just an example of when the guide was made.
 
-### Tor configuration
+### **Tor configuration**
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network.
 We need to enable Tor to accept instructions through its control port, with the proper authentication.
@@ -108,7 +118,7 @@ Save and exit
   $ sudo nano /etc/tor/torrc --linenumbers
   ```
 
-  ```sh
+  ```
   # uncomment line 56:
   ControlPort 9051
 
@@ -133,7 +143,7 @@ Save and exit
 
 Expected output:
 
-  ```sh
+  ```
   tcp   LISTEN 0      4096             127.0.0.1:9050       0.0.0.0:*    users:(("tor",pid=795,fd=6))
   tcp   LISTEN 0      4096             127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=795,fd=7))
   ```
@@ -144,9 +154,9 @@ Expected output:
   $ sudo journalctl -f -u tor@default
   ```
 
-Expected output:
+**Example** expected output:
 
-  ```sh
+  ```
   Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor 0.4.7.11 running on Linux with Libevent 2.1.12-stable, OpenSSL 3.0.2, Zlib 1.2.11, Liblzma 5.2.5, Libzstd 1.4.8 and Glibc 2.35 as libc.
   Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor can't help you if you use it wrong! Learn how to be safe at https://support.torproject.org/faq/staying-anonymous/
   Dec 11 10:47:04 bitcoinbcn Tor[1065]: Read configuration file "/usr/share/tor/tor-service-defaults-torrc".
@@ -193,11 +203,11 @@ If your new set of entry guards still produces the stream error, try connecting 
 
 [I2P](https://geti2p.net/en/){:target="_blank"} is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted, participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
 
-I2P client is a software used for building and using anonymous I2P networks. Such networks are commonly used for anonymous peer-to-peer applications (filesharing, cryptocurrencies) and anonymous client-server applications (websites, instant messengers, chat-servers).
+I2P client is software used for building and using anonymous I2P networks. Such networks are commonly used for anonymous peer-to-peer applications (filesharing, cryptocurrencies) and anonymous client-server applications (websites, instant messengers, chat-servers).
 
 We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client, as a Tor network complement.
 
-### I2P installation
+### **I2P installation**
 
 * Ensure that you are logged in with user "admin" and add the i2pd repository
 
@@ -209,6 +219,9 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
   ```sh
   $ sudo apt update
+  ```
+
+  ```sh
   $ sudo apt install i2pd
   ```
 
@@ -216,6 +229,11 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
   ```sh
   $ i2pd --version
+  ```
+
+**Example** expected output:
+
+  ```
   > i2pd version 2.44.0 (0.9.56)
   [...]
   ```
@@ -234,7 +252,7 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
 Expected output, find *"enabled"* and *"Started"* labels:
 
-  ```sh
+  ```
   * i2pd.service - I2P Router written in C++
       Loaded: loaded (/lib/systemd/system/i2pd.service; enabled; vendor preset: enabled)
       Active: active (running) since Thu 2022-08-11 15:35:54 UTC; 3 days ago
@@ -259,7 +277,7 @@ Expected output, find *"enabled"* and *"Started"* labels:
 
 Expected output:
 
-  ```sh
+  ```
   tcp   LISTEN 0      4096            0.0.0.0:23570       0.0.0.0:*    users:(("i2pd",pid=827,fd=17))
   tcp   LISTEN 0      4096           127.0.0.1:4444       0.0.0.0:*    users:(("i2pd",pid=827,fd=29))
   tcp   LISTEN 0      4096           127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",pid=827,fd=22))
@@ -274,9 +292,9 @@ Expected output:
   $ sudo tail -f /var/log/i2pd/i2pd.log
   ```
 
-Expected output:
+**Example** expected output:
 
-  ```sh
+  ```
   11:52:56@883/none - i2pd v2.44.0 (0.9.56) starting...
   11:52:57@444/warn - Transports: 15 ephemeral keys generated at the time
   11:52:57@883/warn - Addressbook: subscriptions.txt usage is deprecated, use config file instead
@@ -299,7 +317,7 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
 
 💡 Note: in the I2P update process maybe appears you this message. Is recommended to select the `Y` option because the developer could have applied modifications in the config file and this could be useful for new features.
 
-  ```sh
+  ```
     Configuration file '/etc/i2pd/i2pd.conf'
   ==> Modified (by you or by a script) since installation.
   ==> Package distributor has shipped an updated version.
@@ -314,12 +332,12 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
 
 ## Extras
 
-### SSH remote access through Tor (optional)
+### **SSH remote access through Tor (optional)**
 
 If you want to log into your MiniBolt with SSH when you're away, you can easily do so by adding a Tor hidden service.
 This makes "calling home" very easy, without the need to configure anything on your internet router.
 
-#### SSH server
+#### **SSH server**
 
 * Add the following three lines in the "location-hidden services" section of the `torrc` file.
 Save and exit
@@ -328,7 +346,7 @@ Save and exit
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service SSH server
   HiddenServiceDir /var/lib/tor/hidden_service_sshd/
@@ -340,13 +358,21 @@ Save and exit
 
   ```sh
   $ sudo systemctl reload tor
+  ```
+
+  ```sh
   $ sudo cat /var/lib/tor/hidden_service_sshd/hostname
+  ```
+
+**Example** expected output:
+
+  ```
   > abcdefg..............xyz.onion
   ```
 
 * Save the Tor address in a secure location, e.g., your password manager.
 
-#### SSH client
+#### **SSH client**
 
 You also need to have Tor installed on your regular computer where you start the SSH connection.
 Usage of SSH over Tor differs by client and operating system.
@@ -403,7 +429,7 @@ To enable Tor in the background follow the same instructions for the [preparatio
   $ sudo nano .ssh/config
   ```
 
-  ```sh
+  ```
   Host HOSTNICKNAME
     Hostname abcdefg..............xyz.onion
     User admin
