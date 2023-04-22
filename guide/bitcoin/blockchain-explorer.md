@@ -40,10 +40,9 @@ It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin 
 ### Install Node.js
 
 * Add the [Node.js](https://nodejs.org){:target="_blank"} package repository from user "admin".
-  We'll use version 16, which is the latest stable version.
 
   ```sh
-  $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+  $ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   ```
 
 * Install Node.js using the apt package manager.
