@@ -14,7 +14,7 @@ has_toc: false
 
 ---
 
-We install [Ride The Lightning](https://github.com/Ride-The-Lightning/RTL#readme){:target="_blank"}, a powerful web interface to manage your Lightning node.
+We install [Ride The Lightning](https://github.com/Ride-The-Lightning/RTL){:target="_blank"}, a powerful web interface to manage your Lightning node.
 
 Difficulty: Medium
 {: .label .label-yellow }
@@ -36,23 +36,28 @@ Status: Not tested MiniBolt
 
 ## Preparations
 
-### Check Node.js
+### Check Node.js + NPM
 
-* Node.js v16 should have been installed for the BTC RPC Explorer. We can check our version of Node.js with user "admin"
+* Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md). We can check our version of Node.js with the user "admin"
 
   ```sh
   $ node -v
+  ```
+
+**Example** of expected output:
+
+  ```
   > v16.14.2
   ```
 
-* If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow [this guide](https://raspibolt.org/guide/bitcoin/blockchain-explorer.html#install-nodejs){:target="_blank"} to install it.
+* If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md){:target="_blank"} to install it.
 
 ### Firewall & reverse proxy
 
 In the [Security section](../raspberry-pi/security.md#prepare-nginx-reverse-proxy), we already set up NGINX as a reverse proxy.
 Now we can add the RTL configuration.
 
-* Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to RTL
+* With user "admin", enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to RTL
 
   ```sh
   $ sudo nano /etc/nginx/sites-enabled/rtl-reverse-proxy.conf
@@ -69,10 +74,15 @@ Now we can add the RTL configuration.
   }
   ```
 
-* Test and reload NGINX configuration
+* Test NGINX configuration
 
   ```sh
   $ sudo nginx -t
+  ```
+
+* Reload Nginx to apply configuration
+
+  ```sh
   $ sudo systemctl reload nginx
   ```
 
@@ -88,19 +98,33 @@ Now we can add the RTL configuration.
 
 We do not want to run Ride the Lightning alongside bitcoind and lnd because of security reasons. For that we will create a separate user and we will be running the code as the new user. We are going to install Ride the Lightning in the home directory since it doesn’t take up much space and doesn’t use a database.
 
-* Create a new user, copy the LND credentials and open a new session
+* With user "admin", create a new user, copy the LND credentials and open a new session
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" rtl
+  ```
+
+  ```sh
   $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/rtl/admin.macaroon
+  ```
+
+  ```sh
   $ sudo chown rtl:rtl /home/rtl/admin.macaroon
+  ```
+
+  ```sh
   $ sudo su - rtl
   ```
 
 * Download the PGP keys that are used to sign the software release
 
-  ```
+  ```sh
   $ curl https://keybase.io/suheb/pgp_keys.asc | gpg --import
+  ```
+
+Expected output:
+
+  ```
   > gpg: key 00C9E2BC2E45666F: public key "saubyk (added uid) <39208279+saubyk@users.noreply.github.com>" imported
   ```
 
@@ -108,11 +132,19 @@ We do not want to run Ride the Lightning alongside bitcoind and lnd because of s
 
   ```sh
   $ git clone https://github.com/Ride-The-Lightning/RTL.git
+  ```
+
+  ```sh
   $ cd RTL
   ```
 
   ```sh
   $ git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1
+  ```
+
+**Example** expected output:
+
+  ```
   > v0.13.4
   ```
 
@@ -122,6 +154,11 @@ We do not want to run Ride the Lightning alongside bitcoind and lnd because of s
 
   ```sh
   $ git verify-tag v0.13.4
+  ```
+
+Expected output:
+
+  ```
   > gpg: Signature made Tue 22 Nov 2022 03:04:55 CET
   > gpg:                using RSA key 3E9BD4436C288039CA827A9200C9E2BC2E45666F
   > gpg: Good signature from "saubyk (added uid) <39208279+saubyk@users.noreply.github.com>" [unknown]
@@ -145,7 +182,7 @@ If anything's wrong, it will time out sooner or later.
 * Also, there might be a lot of confusing output.
 If you something similar to the following at the end, installation was successful:
 
-  ```sh
+  ```
   > [...]
   > added 362 packages, and audited 363 packages in 12m
   >
@@ -163,25 +200,28 @@ Now we take the sample configuration file and add change it to our needs.
 
   ```sh
   $ cp Sample-RTL-Config.json ./RTL-Config.json
+  ```
+
+  ```sh
   $ nano RTL-Config.json
   ```
 
 * Set `password [E]` to access the RTL web interface. This should be a dedicated password not used anywhere else.
 
-  ```sh
+  ```
     "multiPass": "YourPassword[E]"
   ```
 
 * Specify the values where RTL can find the authentication macaroon file and the LND configuration
 
-  ```sh
+  ```
     "macaroonPath": "/home/rtl"
     "configPath": "/data/lnd/lnd.conf"
   ```
 
 * Change `localhost` to `127.0.0.1` on the following lines to avoid errors
 
-  ```sh
+  ```
     "lnServerUrl": "https://127.0.0.1:8080"
     "swapServerUrl": "https://127.0.0.1:8081"
     "boltzServerUrl": "https://127.0.0.1:9003"
@@ -189,7 +229,7 @@ Now we take the sample configuration file and add change it to our needs.
 
 * Save and exit
 
-* Exit "rtl" user session to return to "admin" user session
+* Exit "rtl" user session to return to the "admin" user session
 
   ```sh
   $ exit
@@ -208,7 +248,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
 
 * Paste the following configuration. Save and exit.
 
-  ```sh
+  ```
   # MiniBolt: systemd unit for Ride the Lightning
   # /etc/systemd/system/rtl.service
 
@@ -271,7 +311,7 @@ You can easily add a Tor hidden service on the RaspiBolt and access the Ride the
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```ini
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service RTL
   HiddenServiceDir /var/lib/tor/hidden_service_rtl/
@@ -283,7 +323,15 @@ Update Tor configuration changes and get your connection address
 
   ```sh
   $ sudo systemctl reload tor
+  ```
+
+  ```sh
   $ sudo cat /var/lib/tor/hidden_service_rtl/hostname
+  ```
+
+**Example** expected output:
+
+  ```
   > abcefg...................zyz.onion
   ```
 
@@ -307,6 +355,9 @@ Make sure to read the release notes first.
 
   ```sh
   $ sudo systemctl stop rtl
+  ```
+
+  ```sh
   $ sudo su - rtl
   ```
 
@@ -314,12 +365,33 @@ Make sure to read the release notes first.
 
   ```sh
   $ cd /home/rtl/RTL
+  ```
+
+  ```sh
   $ git fetch
+  ```
+
+  ```sh
   $ git reset --hard
+  ```
+
+  ```sh
   $ latest=$(git tag | grep -E "v[0-9]+.[0-9]+.[0-9]+$" | sort --version-sort | tail -n 1)
+  ```
+
+  ```sh
   $ git checkout $latest
+  ```
+
+  ```sh
   $ git verify-tag $latest
+  ```
+
+  ```sh
   $ npm install --omit=dev
+  ```
+
+  ```sh
   $ exit
   ```
 

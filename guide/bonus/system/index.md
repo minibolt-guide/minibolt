@@ -29,7 +29,8 @@ has_toc: false
 
 ## Install / Update / Uninstall common languages
 
-* **[Go](go.md)** - Install / Update / Uninstall [Go](https://go.dev)
+* **[Go](go.md)** - Install / Update / Uninstall Go
+* **[Node.js + NPM](nodejs-npm.md)** - Install / Update / Uninstall Node.js + NPM
 
 ---
 ## Security

@@ -12,7 +12,7 @@ parent: Lightning
 
 ---
 
-[ThunderHub](https://github.com/apotdevin/thunderhub){:target="_blank"} is an open source LND node manager where you can manage and monitor your node on any device or browser. It allows you to take control of the lightning network with a simple and intuitive UX and the most up-to-date tech stack.
+[ThunderHub](https://thunderhub.io/){:target="_blank"} is an open source LND node manager where you can manage and monitor your node on any device or browser. It allows you to take control of the lightning network with a simple and intuitive UX and the most up-to-date tech stack.
 
 ![Thunderhub](../../images/thunderhub.png)
 
@@ -28,16 +28,21 @@ parent: Lightning
 
 ## Preparations
 
-### Check Node.js
+### Check Node.js + NPM
 
-* Node.js v16 should have been installed for the BTC RPC Explorer and RTL. We can check our version of Node.js with user "admin":
+* Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md). We can check our version of Node.js with the user "admin"
 
   ```sh
   $ node -v
+  ```
+
+**Example** of expected output:
+
+  ```
   > v16.14.2
   ```
 
-* If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow [this guide](../../guide/bitcoin/blockchain-explorer.md#install-nodejs){:target="_blank"} to install it.
+* If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md){:target="_blank"} to install it.
 
 ### Reverse proxy & Firewall
 

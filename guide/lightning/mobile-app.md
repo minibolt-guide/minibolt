@@ -62,22 +62,34 @@ Make payments with lightning or on-chain and manage your channels while you're o
 
 [lndconnect](https://github.com/LN-Zap/lndconnect){:target="_blank"}, created by Zap, is a utility that generates QR Code or URI to connect applications to LND instances.
 
-* Navigate to the `"tmp"` folder, download, extract the binary and install it
+* Navigate to the `"tmp"` folder
 
   ```sh
   $ cd /tmp
   ```
 
-  ```sh
-  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v0.2.0/lndconnect-linux-amd64-v0.2.0.tar.gz
-  ```
+* Set the environment variable
 
   ```sh
-  $ tar -xvf lndconnect-linux-amd64-v0.2.0.tar.gz
+  $ VERSION=0.2.0
   ```
 
+* Download
+
   ```sh
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v0.2.0/lndconnect
+  $ wget https://github.com/LN-Zap/lndconnect/releases/download/v$VERSION/lndconnect-linux-amd64-v$VERSION.tar.gz
+  ```
+
+* Extract
+
+  ```sh
+  $ tar -xvf lndconnect-linux-amd64-v$VERSION.tar.gz
+  ```
+
+* Install
+
+  ```sh
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v$VERSION/lndconnect
   ```
 
 * Ensure lndconnect is correctly installed
