@@ -92,9 +92,11 @@ The “Advanced Packaging Tool” (apt) makes this easy.
   ```
 
 💡 Do this regularly every few months for security-related updates.
-If during the update process, a banner appears asking you: "Which services should be restarted?" you can press ENTER and take note of which services will be restarted during the update, marked with `[*]`
+If during the update process, a banner appears asking you: "Which services should be restarted?" you can press ENTER and take note of which services will be restarted during the update, marked with `[*]`. Example:
 
-* Make sure that all necessary software packages are installed:
+![update action](../../images/update-action.PNG)
+
+* Make sure that all necessary software packages are installed
 
   ```sh
   $ sudo apt install avahi-daemon

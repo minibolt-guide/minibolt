@@ -231,41 +231,10 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
   $ i2pd --version
   ```
 
-**Example** expected output:
+**Example** of expected output:
 
   ```
   > i2pd version 2.44.0 (0.9.56)
-  [...]
-  ```
-
-* Enable autoboot on the start
-
-  ```sh
-  $ sudo systemctl enable i2pd
-  ```
-
-* Check the service is started and the correct autoboot enabled
-
-  ```sh
-  $ sudo systemctl status i2pd
-  ```
-
-Expected output, find *"enabled"* and *"Started"* labels:
-
-  ```
-  * i2pd.service - I2P Router written in C++
-      Loaded: loaded (/lib/systemd/system/i2pd.service; enabled; vendor preset: enabled)
-      Active: active (running) since Thu 2022-08-11 15:35:54 UTC; 3 days ago
-        Docs: man:i2pd(1)
-              https://i2pd.readthedocs.io/en/latest/
-    Main PID: 828 (i2pd)
-        Tasks: 14 (limit: 9274)
-      Memory: 56.1M
-          CPU: 33min 28.265s
-      CGroup: /system.slice/i2pd.service
-              -175224 /usr/sbin/i2pd --conf=/etc/i2pd/i2pd.conf --tunconf=/etc/i2pd/tunnels.conf --tunnel...
-  Sep 27 18:54:57 minibolt systemd[1]: Starting I2P Router written in C++...
-  Sep 27 18:54:57 minibolt systemd[1]: Started I2P Router written in C++.
   [...]
   ```
 
@@ -275,15 +244,15 @@ Expected output, find *"enabled"* and *"Started"* labels:
   $ sudo ss -tulpn | grep LISTEN | grep i2pd
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```
-  tcp   LISTEN 0      4096            0.0.0.0:23570       0.0.0.0:*    users:(("i2pd",pid=827,fd=17))
-  tcp   LISTEN 0      4096           127.0.0.1:4444       0.0.0.0:*    users:(("i2pd",pid=827,fd=29))
-  tcp   LISTEN 0      4096           127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",pid=827,fd=22))
-  tcp   LISTEN 0      4096           127.0.0.1:4447       0.0.0.0:*    users:(("i2pd",pid=827,fd=30))
-  tcp   LISTEN 0      4096           127.0.0.1:7656       0.0.0.0:*    users:(("i2pd",pid=827,fd=38))
-  tcp   LISTEN 0      4096           127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",pid=827,fd=34))
+  tcp   LISTEN 0      4096       127.0.0.1:4444       0.0.0.0:*    users:(("i2pd",pid=17781,fd=32))
+  tcp   LISTEN 0      4096       127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",pid=17781,fd=22))
+  tcp   LISTEN 0      4096       127.0.0.1:4447       0.0.0.0:*    users:(("i2pd",pid=17781,fd=33))
+  tcp   LISTEN 0      4096        0.0.0.0:22848       0.0.0.0:*    users:(("i2pd",pid=17781,fd=17))
+  tcp   LISTEN 0      4096       127.0.0.1:7656       0.0.0.0:*    users:(("i2pd",pid=17781,fd=41))
+  tcp   LISTEN 0      4096       127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",pid=17781,fd=37))
   ```
 
 * See “i2p” in action by monitoring its log file. Exit with Ctrl-C
@@ -292,7 +261,7 @@ Expected output:
   $ sudo tail -f /var/log/i2pd/i2pd.log
   ```
 
-**Example** expected output:
+**Example** of expected output:
 
   ```
   11:52:56@883/none - i2pd v2.44.0 (0.9.56) starting...

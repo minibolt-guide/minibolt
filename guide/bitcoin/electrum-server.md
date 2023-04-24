@@ -475,17 +475,6 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ cd zram-swap && sudo ./install.sh
   ```
 
-* Set the following size value in zram configuration file. Save and exit
-
-  ```sh
-  $ sudo nano /etc/default/zram-swap
-  ```
-
-  ```
-  #_zram_fraction="1/2" #Comment this line
-  _zram_fixedsize="10G" #Uncomment and edit
-  ```
-
 * Add kernel parameters to make better use of zram
 
   ```sh
@@ -513,77 +502,18 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo systemctl restart zram-swap
   ```
 
-* Make sure zram was correctly installed, zram prioritized, and autoboot enabled
+* Make sure zram was correctly installed and zram prioritized
 
   ```sh
   $ sudo cat /proc/swaps
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```
-  Filename                               Type                 Size           Used    Priority
-  /var/swap                              file                 102396         0       -2
-  /dev/zram0                             partition            102396         0        5
-  ```
-
-* Check the status of zram-swap service
-
-  ```sh
-  $ sudo systemctl status zram-swap
-  ```
-
-Expected output, find *enabled* label:
-
-  ```
-  zram-swap.service - zram swap service
-  Loaded: loaded (/etc/systemd/system/zram-swap.service; enabled; vendor preset: enabled)
-  Active: active (exited) since Mon 2022-08-08 00:51:51 CEST; 10s ago
-  Process: 287452 ExecStart=/usr/local/sbin/zram-swap.sh start (code=exited, status=0/SUCCESS)
-  Main PID: 287452 (code=exited, status=0/SUCCESS)
-  CPU: 191ms
-  Aug 08 00:51:51 node systemd[1]: Starting zram swap service...
-  Aug 08 00:51:51 node zram-swap.sh[287471]: Setting up swapspace version 1, size = 4.6 GiB (4972199936 bytes)
-  ...
-  ```
-
-💡 After the initial sync of Fulcrum, if you want to still use zram, you can return to the default zram config following the next instructions
-
-* As user "admin", access to zram config again and return to default config. Save and exit
-
-  ```sh
-  $ sudo nano /etc/default/zram-swap
-  ```
-
-  ```
-  _zram_fraction="1/2"   #Uncomment this line
-  #_zram_fixedsize="10G" #Comment this line
-  ```
-
-* Then apply the changes with
-
-  ```sh
-  $ sudo sysctl --system
-  ```
-
-* Restart the service
-
-  ```sh
-  $ sudo systemctl restart zram-swap
-  ```
-
-* Make sure the change was correctly done
-
-  ```sh
-  $ sudo cat /proc/swaps
-  ```
-
-Expected output:
-
-  ```
-  Filename                                Type                Size           Used    Priority
-  /var/swap                              file                 102396         0       -2
-  /dev/zram0                             partition            20479          0        5
+  Filename                                Type            Size            Used            Priority
+  /swap.img                               file            4194300         0               -2
+  /dev/zram0                              partition       10055452        368896          15
   ```
 
 ### **Backup the database**
@@ -635,7 +565,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
   #HiddenServiceVersion 3
   #HiddenServicePort 50001 127.0.0.1:50001
   #HiddenServicePort 50002 127.0.0.1:50002
-    ```
+  ```
 
 * Reload the torrc config
 
@@ -664,7 +594,7 @@ Expected output:
   $ sudo ufw delete X
   ```
 
-### **Uninstall the Zram (optional)**
+### **Uninstall the Zram**
 
 * Ensure you are logged in with user `"admin"`, navigate to zram-swap folder and uninstall
 
