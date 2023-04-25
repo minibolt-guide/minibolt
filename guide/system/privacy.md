@@ -177,28 +177,6 @@ Expected output:
 Not all network traffic is routed over the Tor network.
 But we now have the base to configure sensitive applications to use it.
 
-⚠️**Troubleshooting note:** if you have problems with the Tor connection, is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, you will be forcing Tor to select an entirely new set of entry guards next time it starts.
-
-* Stop Tor
-
-  ```sh
-  $ sudo systemctl stop tor
-  ```
-
-* Delete the file called "state" in your Tor directory
-
-  ```sh
-  $ sudo rm /var/lib/tor/state
-  ```
-
-* Start Tor again
-
-  ```sh
-  $ sudo systemctl start tor
-  ```
-
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring your access to Tor.
-
 ## I2P Project
 
 [I2P](https://geti2p.net/en/){:target="_blank"} is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted, participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
@@ -418,6 +396,52 @@ To enable Tor in the background follow the same instructions for the [preparatio
   ```sh
   $ ssh HOSTNICKNAME
   ```
+
+### **Troubleshoting**
+
+#### **Tor troubleshotings**
+
+If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...) is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, you will be forcing Tor to select an entirely new set of entry guards next time it starts.
+
+* Stop Tor
+
+  ```sh
+  $ sudo systemctl stop tor
+  ```
+
+* Delete the file called "state" in your Tor directory
+
+  ```sh
+  $ sudo rm /var/lib/tor/state
+  ```
+
+* Start Tor again
+
+  ```sh
+  $ sudo systemctl start tor
+  ```
+
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use obfs bridges could help to avoid this censorship.
+
+**Example** of Tor censorship output:
+
+![tor-censorship-example](../../images/tor-censorship.png)
+
+#### **I2P troubleshotings**
+
+If you see these output logs on Bitcoin Core, normally could be that I2P is failing:
+
+![i2p-issue-example](../../images/i2p-troubleshoting.png)
+
+If this happens, usually this fix only with restarting the i2pd service
+
+* With user admin, restart the service
+
+  ```sh
+  $ sudo systemctl restart i2pd
+  ```
+
+* Check again Bitcoin Core logs to ensure that the errors don't appear anymore
 
 <br /><br />
 

@@ -67,7 +67,7 @@ We'll download, verify and install LND.
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=0.16.0
+  $ VERSION=0.16.1
   ```
 
 * Download the application, checksums and signature
@@ -147,7 +147,7 @@ We can also check that the manifest file was in existence around the time of the
   $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
   ```
 
-**Example** expected output:
+**Example** of expected output:
 
   ```
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org

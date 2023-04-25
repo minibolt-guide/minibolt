@@ -38,6 +38,8 @@ We're talking more than 700'000 blocks with a size of over 465 GB, so this is no
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum.
 This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
+💡 If you want to install Ordisrespector patch to reject Ordinals of your mempool, follow [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) and come back to continue with the ["Create the bitcoin user"](#create-the-bitcoin-user) section.
+
 ### **Preparations**
 
 * Login as "admin" and change to a temporary directory which is cleared on reboot
@@ -134,15 +136,19 @@ The following screenshot is just an example of one of the versions:
 
 ### **Binaries installation**
 
-* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check version.
+* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries
 
   ```sh
   $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
   ```
 
+* Install the binaries on the OS
+
   ```sh
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/*
   ```
+
+* Check the correct installation requesting the output of the version
 
   ```sh
   $ bitcoind --version

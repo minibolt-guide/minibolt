@@ -246,6 +246,14 @@ Expected output:
   $ sudo make install
   ```
 
+* Check the correct installation requesting the output of the version
+
+  ```sh
+  $ bitcoind --version
+  ```
+
+💡 Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../../guide/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps.
+
 * Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
 
   ```sh
