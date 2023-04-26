@@ -234,12 +234,12 @@ e.g:
   $ sudo nano /etc/ssh/sshd_config --linenumbers
   ```
 
-  ```sh
-  # uncomment and change line 33
+  ```
+  # uncomment and change the line to "no"
   PermitRootLogin no
-  # change line 85
+  # change the line to "no"
   UsePAM no
-  # change line 123 (at the end of the file)
+  # change the line to "no"
   PasswordAuthentication no
   ```
 
