@@ -48,14 +48,12 @@ You might also want to get this optional hardware:
 
 * UPS (uninterruptible power supply)
 
----
-
 ## Write down your passwords
 
 You will need several passwords, and it's easiest to write them all down in the beginning, instead of bumping into them throughout the guide.
 They should be unique and very secure, at least 12 characters in length. Do **not use uncommon special characters**, spaces, or quotes (‘ or “).
 
-  ```sh
+  ```
   [ A ] Master user password
   [ B ] Bitcoin RPC password
   [ C ] LND wallet password
@@ -79,4 +77,4 @@ Follow Parts 1 and 2 of this ["How to Secure Your Home Network Against Threats"]
 
 ---
 
-Next: [Operating system >>](operating-system.md)
+Next: [Operating system >>](operating-system.md){: .btn .btn-blue }
