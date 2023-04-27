@@ -12,7 +12,7 @@ parent: Bitcoin
 
 ---
 
-We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow){:target="_blank"} on a computer and connect it to your Electrum server on your node for private bitcoin on-chain transactions.  
+We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow){:target="_blank"} on a computer and connect it to your Electrum server on your node for private Bitcoin on-chain transactions.
 
 ![Sparrow wallet](../../images/sparrow.png)
 
@@ -73,11 +73,11 @@ We now configure Sparrow to connect to your node within your local network.
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
   ```
-  > Connected to Fulcrum 1.8.2 on protocol version 1.4
+  > Connected to Fulcrum x.x.x on protocol version...
   > [...]
   ```
 
-![Sparrow connect to Electrs](../../images/sparrow-electrum-no-proxy.png)
+![Sparrow connect to Fulcrum](../../images/sparrow-electrum-no-proxy.png)
 
 If there is a connection error message, try the following troubleshooting:
 
@@ -99,10 +99,10 @@ For maximal privacy, we highly recommend that you set up the Tor proxy when usin
 
 ## Sparrow in action
 
-Congratulations, you have now a Bitcoin desktop wallet, capable of securing your bitcoin, running with your own trustless Bitcoin full node!  
+Congratulations, you have now a Bitcoin desktop wallet, capable of securing your Bitcoin, running with your own trustless Bitcoin full node!
 Sparrow is a powerful wallet that allows you to use the most advanced features for securing your bitcoins and preserving your privacy.
 
-With Sparrow you can:
+With Sparrow, you can:
 
 * Connect any hardware wallet
 * Send and receive bitcoins
@@ -125,7 +125,12 @@ To connect via Tor to Fulcrum, the server must have a Tor hidden service connect
 If you've already set up the hidden service but lost the connection address, you can obtain it again by running the following command with "admin" on your node:
 
   ```sh
-  $ sudo cat /var/lib/tor/hidden_service_fulcrum_ssl/hostname
+  $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
+  ```
+
+Expected output:
+
+  ```
   > abcd...1234.onion
   ```
 
@@ -139,11 +144,11 @@ If you've already set up the hidden service but lost the connection address, you
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
   ```
-  > Connected to Fulcrum 1.8.2 on protocol version 1.4
+  > Connected to Fulcrum x.x.x on protocol version ...
   > [...]
   ```
 
-![Sparrow connect to Electrs via Tor](../../images/sparrow-electrum-tor-no-proxy.png)
+![Sparrow connect to Fulcrum via Tor](../../images/sparrow-electrum-tor-no-proxy.png)
 
 You're set! Sparrow is now configured to connect to your node over Tor and you can use it wherever you are.
 
@@ -165,15 +170,15 @@ By OS:
   * The application must be started manually and run in the background when you want to connect over Tor.
   * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 
-* **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
-  
+* **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
+
   ```sh
   $ sudo ss -tulpn | grep LISTEN | grep tor
   ```
 
 Expected output:
 
-  ```sh
+  ```
   tcp   LISTEN 0      4096           127.0.0.1:9050       0.0.0.0:*    users:(("tor",pid=1847,fd=6))
   tcp   LISTEN 0      4096           127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=1847,fd=7))
   ```
@@ -187,13 +192,13 @@ Expected output:
 
 * Open Sparrow
 * Navigate to the server configuration page by hitting `Ctrl`+`P`, or  `Cmd`+`,` on OSX, then click on "Server"
-* Click on the "Private Electrum" tab. If you've already have an existing clearnet connection, click on "Edit Existing Connection".
+* Click on the "Private Electrum" tab. If you already have an existing clearnet connection, click on "Edit Existing Connection".
 * Enable the Tor proxy by clicking on the "Use proxy" slider
 * On the "Proxy URL" line, paste `127.0.0.1` in the first box and either `9150` or `9050` in the second box depending if you run the Tor Browser or Tor as a background service.
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
   ```
-  > Connected to Fulcrum 1.8.2 on protocol version 1.4
+  > Connected to Fulcrum x.x.x on protocol version ...
   > [...]
   ```
 

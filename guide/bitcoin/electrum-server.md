@@ -250,11 +250,13 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
 
 MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
-* Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware. Create the config file with the following content. Save and exit
+* Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware.
 
   ```sh
   $ nano /data/fulcrum/fulcrum.conf
   ```
+
+* Create the config file with the following content. Save and exit
 
   ```
   # MiniBolt: fulcrum configuration
@@ -279,6 +281,8 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   # Banner
   banner = /data/fulcrum/fulcrum-banner.txt
   ```
+
+💡 Remember, if you have a slow-performance device, follow the [slow device section](#slow-device-mode) to improve the experience of the first indexation
 
 * Exit the "fulcrum" user session to return to the "admin" user session
 
@@ -436,7 +440,8 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
 
 #### **Fulcrum configuration**
 
-* As the `admin` user, add these lines to the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware.
+* As the `admin` user, add these lines at the end of the existing `fulcrum.conf` file.
+Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware.
 
  ```sh
   $ sudo nano /data/fulcrum/fulcrum.conf
