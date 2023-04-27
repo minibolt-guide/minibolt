@@ -77,4 +77,4 @@ Follow Parts 1 and 2 of this ["How to Secure Your Home Network Against Threats"]
 
 ---
 
-<button type="button" name="button" class="btn">Next</button> [Operating system >>](operating-system.md){: .btn .btn-blue }
+Next: [Operating system >>](operating-system.md)
