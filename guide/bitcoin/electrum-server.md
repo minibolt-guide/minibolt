@@ -312,9 +312,7 @@ Fulcrum needs to start automatically on system boot.
   KillSignal=SIGINT
   User=fulcrum
   Type=exec
-  TimeoutStopSec=300
-  RestartSec=30
-  Restart=on-failure
+  TimeoutStopSec=3600
 
   [Install]
   WantedBy=multi-user.target
@@ -374,7 +372,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
 ## For the future: Fulcrum upgrade
 
-Follow the complete [Installation](#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
+Follow the complete [Download and set up Fulcrum](#download-and-set-up-fulcrum) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
 * Restart the service to apply the changes
 
