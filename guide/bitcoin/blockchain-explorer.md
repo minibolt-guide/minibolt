@@ -37,16 +37,16 @@ It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin 
 
 ## Preparations
 
-### Install Node.js + NPM
+### **Install Node.js + NPM**
 
-Follow the [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md){:target="_blank"}
+Node.js package include NPM, follow the [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md){:target="_blank"}
 
-### Reverse proxy & Firewall
+### **Reverse proxy & Firewall**
 
-In the [Security section](../system/security.md#prepare-nginx-reverse-proxy), we set up NGINX as a reverse proxy.
+In the [ecurity section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy.
 Now we can add the BTC RPC Explorer configuration.
 
-* Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer.
+* Enable Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer.
   The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
   ```sh
@@ -63,7 +63,7 @@ Now we can add the BTC RPC Explorer configuration.
   }
   ```
 
-* Test and reload NGINX configuration
+* Test and reload Nginx configuration
 
   ```sh
   $ sudo nginx -t
@@ -81,7 +81,7 @@ Now we can add the BTC RPC Explorer configuration.
 
 ## BTC RPC Explorer
 
-### Installation
+### **Installation**
 
 For improved security, we create the new user "btcrpcexplorer" that will run the block explorer.
 Using a dedicated user limits potential damage in case there's a security vulnerability in the code.
@@ -115,7 +115,7 @@ An attacker would not be able to do much within this user's permission settings.
   $ npm install
   ```
 
-Installation can take some time, up to 20 minutes.
+Installation can take some time, be patient.
 There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
 
 **Example** expected output:
@@ -131,7 +131,7 @@ There might be a lot of confusing output, but if you see something similar to th
   >   run `npm audit fix` to fix them, or `npm audit` for details
   ```
 
-### Configuration
+### **Configuration**
 
 * Copy and edit the configuration template (skip this step when updating).
   Activate any setting by removing the `#` at the beginning of the line.
@@ -170,7 +170,7 @@ There might be a lot of confusing output, but if you see something similar to th
   BTCEXP_SLOW_DEVICE_MODE=false
   ```
 
-#### Optional
+#### **Optional**
 
 * You can decide whether you want to optimize for more information or more privacy.
 
@@ -216,7 +216,7 @@ There might be a lot of confusing output, but if you see something similar to th
   $ exit
   ```
 
-### Autostart on boot
+### **Autostart on boot**
 
 Now we'll make sure our blockchain explorer starts as a service on the Raspberry Pi so that it's always running.
 
@@ -287,7 +287,7 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 ## Extras
 
-### Slow device mode (resource-intensive features are disabled)
+### **Slow device mode (resource-intensive features are disabled)**
 
 * With user `admin`, change to the `btcrpcexplorer` user
 
@@ -314,7 +314,7 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
   #BTCEXP_SLOW_DEVICE_MODE=false
   ```
 
-### Sharing your Explorer
+### **Sharing your Explorer**
 
 You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "DEMO" mode, you will not have to provide password and RPC requests will be allowed (discarding rpcBlacklist commands).
 
@@ -337,7 +337,7 @@ You may want to share your BTC RPC Explorer **onion** address with confident peo
 
 💡 Remember to give them the `password [D]` if you added password protection in the reference step.
 
-### Remote access over Tor (optional)
+### **Remote access over Tor (optional)**
 
 Do you want to access your personal blockchain explorer remotely?
 You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.

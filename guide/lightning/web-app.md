@@ -28,9 +28,11 @@ parent: Lightning
 
 ## Preparations
 
-### Check Node.js + NPM
+### **Check Node.js + NPM**
 
-* Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md). We can check our version of Node.js with the user "admin"
+Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md){:target="_blank"}.
+
+* With the user "admin", check Nodejs version
 
   ```sh
   $ node -v
@@ -42,9 +44,21 @@ parent: Lightning
   > v16.14.2
   ```
 
+* Check NPM version
+
+  ```sh
+  $ npm -v
+  ```
+
+**Example** of expected output:
+
+  ```
+  > 8.19.3
+  ```
+
 * If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md){:target="_blank"} to install it.
 
-### Reverse proxy & Firewall
+### **Reverse proxy & Firewall**
 
 * Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to Thunderhub
 
@@ -63,10 +77,22 @@ parent: Lightning
   }
   ```
 
-* Test and reload NGINX configuration
+* Test Nginx configuration
 
   ```sh
   $ sudo nginx -t
+  ```
+
+Expected output:
+
+  ```
+  > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+  > nginx: configuration file /etc/nginx/nginx.conf test is successful
+  ```
+
+* Reload NGINX configuration
+
+  ```
   $ sudo systemctl reload nginx
   ```
 
@@ -78,7 +104,7 @@ parent: Lightning
 
 ## ThunderHub
 
-### Installation
+### **Installation**
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons.
 For that we will create a separate user and we will be running the code as the new user.
@@ -124,7 +150,7 @@ We are going to install Thunderhub in the home directory since it doesn't need t
   $ npm run build
   ```
 
-### Configuration
+### **Configuration**
 
 * Still with user "thunderhub", create a symbolic link pointing to your lnd data directory.
 
@@ -215,9 +241,7 @@ In order to do that we create a systemd unit that starts the service on boot dir
   WorkingDirectory=/home/thunderhub/thunderhub
   ExecStart=/usr/bin/npm run start:prod
   User=thunderhub
-  Restart=always
-  TimeoutSec=120
-  RestartSec=30
+  TimeoutSec=3600
   StandardOutput=null
   StandardError=journal
 
@@ -225,7 +249,7 @@ In order to do that we create a systemd unit that starts the service on boot dir
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable thunderhub
@@ -270,7 +294,7 @@ You can easily do so by adding a Tor hidden service on the RaspiBolt and accessi
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service Thunderhub
   HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
@@ -332,7 +356,7 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 
 ## Uninstall
 
-### Uninstall service
+### **Uninstall service**
 
 * Stop, disable and delete the Thunderhub systemd service
 
@@ -348,12 +372,17 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
   $ sudo rm /etc/systemd/system/thunderhub.service
   ```
 
-### Uninstall FW configuration
+### **Uninstall FW configuration**
 
 * Display the UFW firewall rules and notes the numbers of the rules for Thunderhub (e.g., X and Y below)
 
   ```sh
   $ sudo ufw status numbered
+  ```
+
+Expected output:
+
+  ```
   > [...]
   > [X] 4002                   ALLOW IN    Anywhere                 # allow ThunderHub SSL from anywhere
   ```
@@ -364,7 +393,7 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
   $ sudo ufw delete X
   ```
 
-### Uninstall Thunderhub
+### **Uninstall Thunderhub**
 
 * Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`.
 
@@ -382,7 +411,7 @@ Expected output:
   > userdel: thunderhub mail spool (/var/mail/thunderhub) not found
   ```
 
-### Uninstall Tor hidden service
+### **Uninstall Tor hidden service**
 
 * Comment or remove the fulcrum hidden service lines in torrc. Save and exit
 
@@ -390,7 +419,7 @@ Expected output:
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service Thunderhub
   #HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
