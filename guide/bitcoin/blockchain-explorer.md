@@ -250,7 +250,7 @@ In order to do that, we create a systemd unit that starts the service on boot di
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable btcrpcexplorer
@@ -273,7 +273,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start btcrpcexplorer
   ```
 
-Now point your browser to the secure access point provided by the NGINX web proxy, for example, <https://minibolt.local:4000> (or your node IP address like <https://192.168.0.20:4000>). You should see the home page of BTC RPC Explorer.
+Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:4000"` (or your node IP address like `"https://192.168.0.20:4000"`. You should see the home page of BTC RPC Explorer.
 
 Your browser will display a warning because we use a self-signed SSL certificate.
 We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
@@ -303,14 +303,14 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 * Extend the timeout period due to the limited resources of your possible PC
 
-  ```sh
+  ```
   # uncomment and change the value of line 38
   BTCEXP_BITCOIND_RPC_TIMEOUT=10000
   ```
 
-* Comment this line if it is uncommented in line 95 (default value is true)
+* Comment this line if it is uncommented in `line 95` (default value is true)
 
-  ```sh
+  ```
   #BTCEXP_SLOW_DEVICE_MODE=false
   ```
 
@@ -357,11 +357,13 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
   HiddenServicePort 80 127.0.0.1:3002
   ```
 
-* Reload the Tor configuration and get your connection address.
+* Reload the Tor configuration
 
   ```sh
   $ sudo systemctl reload tor
   ```
+
+* Get your connection address
 
   ```sh
   $ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
@@ -379,7 +381,7 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
 
 Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases){:target="_blank"} is straight-forward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md){:target="_blank"} first.
 
-* From user "admin", stop the service and open a "btcrpcexplorer" user session.
+* From user "admin", stop the service and open a "btcrpcexplorer" user session
 
   ```sh
   $ sudo systemctl stop btcrpcexplorer
@@ -389,7 +391,7 @@ Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/release
   $ sudo su - btcrpcexplorer
   ```
 
-* Fetch the latest GitHub repository information, display the release tags (use the latest `v3.3.0` in this example), and update:
+* Fetch the latest GitHub repository information, display the release tags (use the latest `v3.3.0` in this example), and update
 
   ```sh
   $ cd /home/btcrpcexplorer/btc-rpc-explorer
