@@ -67,7 +67,7 @@ We'll download, verify and install LND.
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=0.16.1
+  $ VERSION=0.16.2
   ```
 
 * Download the application, checksums and signature
