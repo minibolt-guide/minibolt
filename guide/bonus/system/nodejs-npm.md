@@ -12,7 +12,7 @@ has_toc: false
 
 {: .no_toc }
 
-Node.js [https://nodejs.org] is an open-source, cross-platform JavaScript runtime environment. Node.js includes NPM in the installation package as well.
+[Node.js](https://nodejs.org){:target="_blank"} is an open-source, cross-platform JavaScript runtime environment. Node.js includes NPM in the installation package as well.
 
 Difficulty: Easy
 {: .label .label-green }
@@ -41,7 +41,7 @@ Status: Tested MiniBolt
   $ VERSION=18
   ```
 
-* Add the [Node.js](https://nodejs.org){:target="_blank"} package repository
+* Add the Node.js package repository
 
   ```sh
   $ curl -fsSL https://deb.nodesource.com/setup_$VERSION.x | sudo -E bash -
@@ -59,10 +59,22 @@ Status: Tested MiniBolt
   $ node -v
   ```
 
+**Example** of expected output:
+
+  ```
+  > v18.16.0
+  ```
+
 * Check the correct installation of NPM
 
   ```sh
   $ npm -v
+  ```
+
+**Example** of expected output:
+
+  ```
+  > 9.5.1
   ```
 
 ## Update

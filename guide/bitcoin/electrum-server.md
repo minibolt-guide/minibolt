@@ -308,6 +308,7 @@ Fulcrum needs to start automatically on system boot.
   Description=Fulcrum
   After=bitcoind.service
   PartOf=bitcoind.service
+
   StartLimitBurst=2
   StartLimitIntervalSec=20
 
@@ -322,7 +323,7 @@ Fulcrum needs to start automatically on system boot.
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable fulcrum.service
@@ -343,9 +344,9 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 $2 sudo systemctl start fulcrum
 ```
 
-Monitor the systemd journal at the first session created to check if everything works fine:
+Monitor the systemd journal at the first session created to check if everything works fine. **Example** of expected output:
 
-  ```sh
+  ```
   -- Journal begins at Mon 2022-04-04 16:41:41 CEST. --
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] simdjson: version 0.6.0
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] ssl: OpenSSL 1.1.1n  15 Mar 2022
@@ -366,7 +367,7 @@ Fulcrum will now index the whole Bitcoin blockchain so that it can provide all n
 
 DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
 
-💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days. Only proceed with the [Desktop Wallet Section](../bitcoin/desktop-wallet.md) once Fulcrum is ready.
+💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days depending on the hardware. Only proceed with the [Desktop Wallet Section](../bitcoin/desktop-wallet.md) once Fulcrum is ready.
 
 * When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, it means that Fulcrum is fully indexed, ensure the service is working and listening at the default `50002` & `50001` ports
 

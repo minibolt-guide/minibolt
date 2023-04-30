@@ -362,7 +362,7 @@ Now, let's set up LND to start automatically on system startup.
   ExecStart=/usr/local/bin/lnd
   ExecStop=/usr/local/bin/lncli stop
   Type=simple
-  TimeoutSec=240
+  TimeoutSec=3600
   LimitNOFILE=128000
   User=lnd
   RuntimeDirectory=lightningd
@@ -377,14 +377,14 @@ Now, let's set up LND to start automatically on system startup.
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable lnd
   ```
 
 * Now, the daemon information is no longer displayed on the command line but is written into the system journal.
-  You can check on it using the following command.
+  You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
   $ sudo journalctl -f -u lnd
@@ -458,14 +458,14 @@ Once LND is started, the process waits for us to create the integrated Bitcoin o
 
 These 24 words is all that you need to restore the Bitcoin on-chain wallet.
 
-* **Write these 24 words down manually on a piece of paper and store it in a safe place.**
+* **Write these 24 words down manually on a piece of paper and store it in a safe place**
 
 You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf){:target="_blank"}, or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
 
 🚨 This piece of paper is all an attacker needs to completely empty your on-chain wallet!
 🚫 Do not store it on a computer.
 🚫 Do not take a picture with your mobile phone.
-🚫 **This information should never be stored anywhere in digital form.**
+🚫 **This information should never be stored anywhere in digital form**
 
 The current state of your channels, however, cannot be recreated from this seed.
 For this, the Static Channel Backup stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. Exist a dedicate [guide](../lightning/channel-backup.md) to automatic backup this.
