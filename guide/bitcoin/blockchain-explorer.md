@@ -37,27 +37,16 @@ It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin 
 
 ## Preparations
 
-### Install Node.js
+### **Install Node.js + NPM**
 
-* Add the [Node.js](https://nodejs.org){:target="_blank"} package repository from user "admin".
-  We'll use version 16, which is the latest stable version.
+Node.js package include NPM, follow the [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md){:target="_blank"}
 
-  ```sh
-  $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-  ```
+### **Reverse proxy & Firewall**
 
-* Install Node.js using the apt package manager.
-
-  ```sh
-  $ sudo apt install nodejs
-  ```
-
-### Reverse proxy & Firewall
-
-In the [Security section](../system/security.md#prepare-nginx-reverse-proxy), we set up NGINX as a reverse proxy.
+In the [ecurity section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy.
 Now we can add the BTC RPC Explorer configuration.
 
-* Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer.
+* Enable Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer.
   The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
   ```sh
@@ -74,10 +63,13 @@ Now we can add the BTC RPC Explorer configuration.
   }
   ```
 
-* Test and reload NGINX configuration
+* Test and reload Nginx configuration
 
   ```sh
   $ sudo nginx -t
+  ```
+
+  ```sh
   $ sudo systemctl reload nginx
   ```
 
@@ -89,7 +81,7 @@ Now we can add the BTC RPC Explorer configuration.
 
 ## BTC RPC Explorer
 
-### Installation
+### **Installation**
 
 For improved security, we create the new user "btcrpcexplorer" that will run the block explorer.
 Using a dedicated user limits potential damage in case there's a security vulnerability in the code.
@@ -99,7 +91,13 @@ An attacker would not be able to do much within this user's permission settings.
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" btcrpcexplorer
+  ```
+
+  ```sh
   $ sudo adduser btcrpcexplorer bitcoin
+  ```
+
+  ```sh
   $ sudo su - btcrpcexplorer
   ```
 
@@ -107,14 +105,22 @@ An attacker would not be able to do much within this user's permission settings.
 
   ```sh
   $ git clone --branch v3.3.0 https://github.com/janoside/btc-rpc-explorer.git
+  ```
+
+  ```
   $ cd btc-rpc-explorer
+  ```
+
+  ```sh
   $ npm install
   ```
 
-Installation can take some time, up to 20 minutes.
-There might be a lot of confusing output, but if you see something similar to the following, the installation was successful:
+Installation can take some time, be patient.
+There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
 
-  ```sh
+**Example** expected output:
+
+  ```
   > Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-amd64-83/binding.node
   > added 480 packages from 307 contributors and audited 482 packages in 570.14s
   >
@@ -125,19 +131,22 @@ There might be a lot of confusing output, but if you see something similar to th
   >   run `npm audit fix` to fix them, or `npm audit` for details
   ```
 
-### Configuration
+### **Configuration**
 
 * Copy and edit the configuration template (skip this step when updating).
   Activate any setting by removing the `#` at the beginning of the line.
 
   ```sh
   $ cp .env-sample .env
+  ```
+
+  ```
   $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
   ```
 
 * Instruct BTC RPC Explorer to connect to local Bitcoin Core.
 
-  ```sh
+  ```
   # uncomment line 33 & 34
   BTCEXP_BITCOIND_HOST=127.0.0.1
   BTCEXP_BITCOIND_PORT=8332
@@ -148,7 +157,7 @@ There might be a lot of confusing output, but if you see something similar to th
 * To get address balances, either an Electrum server or an external service is necessary.
   Your local Electrum server can provide address transaction lists, balances, and more.
 
-  ```sh
+  ```
   # replace line 48
   BTCEXP_ADDRESS_API=electrum
   # replace line 57
@@ -157,17 +166,17 @@ There might be a lot of confusing output, but if you see something similar to th
 
 * Uncomment line 95
 
-  ```sh
+  ```
   BTCEXP_SLOW_DEVICE_MODE=false
   ```
 
-#### Optional
+#### **Optional**
 
 * You can decide whether you want to optimize for more information or more privacy.
 
   * More information mode, including Bitcoin exchange rates
 
-    ```sh
+    ```
     # replace line 101
     BTCEXP_PRIVACY_MODE=false
     # replace line 106
@@ -176,7 +185,7 @@ There might be a lot of confusing output, but if you see something similar to th
 
   * More privacy mode, no external queries
 
-    ```sh
+    ```
     # uncomment line 101
     BTCEXP_PRIVACY_MODE=true
     # uncomment line 106
@@ -187,29 +196,30 @@ There might be a lot of confusing output, but if you see something similar to th
   Simply add your password [D] for the following option, for which the browser will then prompt you.
   You can enter any user name; only the password is checked.
 
-  ```sh
+  ```
   # replace `mypassword` to 'YourPassword [D] in line 111
   BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
   ```
 
 * Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark (default dark)
 
-  ```sh
+  ```
   # uncomment and replace line 178 with your selection
   BTCEXP_UI_THEME=dark
   ```
 
 * Save and exit
 
-* Exit "btcrpcexplorer" user session to return to "admin" user session
+* Exit the "btcrpcexplorer" user session to return to the "admin" user session
 
   ```sh
   $ exit
   ```
 
-### Autostart on boot
+### **Autostart on boot**
 
 Now we'll make sure our blockchain explorer starts as a service on the Raspberry Pi so that it's always running.
+
 In order to do that, we create a systemd unit that starts the service on boot directly after Bitcoin Core.
 
 * As user "admin", create the service file
@@ -220,30 +230,33 @@ In order to do that, we create a systemd unit that starts the service on boot di
 
 * Paste the following configuration. Save and exit
 
-  ```sh
+  ```
   # MiniBolt: systemd unit for BTC RPC Explorer
   # /etc/systemd/system/btcrpcexplorer.service
+
   [Unit]
   Description=BTC RPC Explorer
   After=bitcoind.service fulcrum.service
   PartOf=bitcoind.service
+
   [Service]
   WorkingDirectory=/home/btcrpcexplorer/btc-rpc-explorer
   ExecStart=/usr/bin/npm start
   User=btcrpcexplorer
   Restart=always
   RestartSec=30
+
   [Install]
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable btcrpcexplorer
   ```
 
-* Prepare "btcrpcexplorer" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+* Prepare "btcrpcexplorer" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
   $ sudo journalctl -f -u btcrpcexplorer
@@ -260,7 +273,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start btcrpcexplorer
   ```
 
-Now point your browser to the secure access point provided by the NGINX web proxy, for example <https://minibolt.local:4000> (or your nodes IP address like <https://192.168.0.20:4000>). You should see the home page of BTC RPC Explorer.
+Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:4000"` (or your node IP address like `"https://192.168.0.20:4000"`. You should see the home page of BTC RPC Explorer.
 
 Your browser will display a warning because we use a self-signed SSL certificate.
 We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize.
@@ -274,7 +287,7 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 ## Extras
 
-### Slow device mode (resource-intensive features are disabled)
+### **Slow device mode (resource-intensive features are disabled)**
 
 * With user `admin`, change to the `btcrpcexplorer` user
 
@@ -282,7 +295,7 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
   $ sudo su - btcrpcexplorer
   ```
 
-* Edit `.env` configuration file
+* Edit the `.env` configuration file
 
   ```sh
   $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
@@ -290,18 +303,18 @@ You now have the BTC RPC Explorer running to check the Bitcoin network informati
 
 * Extend the timeout period due to the limited resources of your possible PC
 
-  ```sh
+  ```
   # uncomment and change the value of line 38
   BTCEXP_BITCOIND_RPC_TIMEOUT=10000
   ```
 
-* Comment this line if it is uncommented in line 95 (default value is true)
+* Comment this line if it is uncommented in `line 95` (default value is true)
 
-  ```sh
+  ```
   #BTCEXP_SLOW_DEVICE_MODE=false
   ```
 
-### Sharing your Explorer
+### **Sharing your Explorer**
 
 You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "DEMO" mode, you will not have to provide password and RPC requests will be allowed (discarding rpcBlacklist commands).
 
@@ -311,20 +324,20 @@ You may want to share your BTC RPC Explorer **onion** address with confident peo
   $ sudo su - btcrpcexplorer
   ```
 
-* Edit `.env` configuration file
+* Edit the `.env` configuration file
 
   ```sh
   $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
   ```
 
-  ```sh
+  ```
   # uncomment line 89
   BTCEXP_DEMO=true
   ```
 
 💡 Remember to give them the `password [D]` if you added password protection in the reference step.
 
-### Remote access over Tor (optional)
+### **Remote access over Tor (optional)**
 
 Do you want to access your personal blockchain explorer remotely?
 You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
@@ -336,7 +349,7 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   ############### This section is just for location-hidden services ###
   # Hidden Service BTC RPC Explorer
   HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
@@ -344,11 +357,21 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
   HiddenServicePort 80 127.0.0.1:3002
   ```
 
-* Reload the Tor configuration and get your connection address.
+* Reload the Tor configuration
 
   ```sh
   $ sudo systemctl reload tor
+  ```
+
+* Get your connection address
+
+  ```sh
   $ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
+  ```
+
+**Example** of expected output:
+
+  ```
   > abcdefg..............xyz.onion
   ```
 
@@ -358,22 +381,43 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
 
 Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases){:target="_blank"} is straight-forward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md){:target="_blank"} first.
 
-* From user "admin", stop the service and open a "btcrpcexplorer" user session.
+* From user "admin", stop the service and open a "btcrpcexplorer" user session
 
   ```sh
   $ sudo systemctl stop btcrpcexplorer
+  ```
+
+  ```sh
   $ sudo su - btcrpcexplorer
   ```
 
-* Fetch the latest GitHub repository information, display the release tags (use the latest `v3.3.0` in this example), and update:
+* Fetch the latest GitHub repository information, display the release tags (use the latest `v3.3.0` in this example), and update
 
   ```sh
   $ cd /home/btcrpcexplorer/btc-rpc-explorer
+  ```
+
+  ```sh
   $ git fetch
+  ```
+
+  ```sh
   $ git reset --hard HEAD
+  ```
+
+  ```sh
   $ git tag
+  ```
+
+  ```sh
   $ git checkout v3.3.0
+  ```
+
+  ```sh
   $ npm install
+  ```
+
+  ```sh
   $ exit
   ```
 
