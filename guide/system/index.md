@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 1. System
+title: System
 nav_order: 20
 has_children: true
 ---
@@ -19,4 +19,4 @@ In the following sections, we will start it up and prepare the operating system 
 
 ---
 
-Next: [Preparationes >>](preparations.md)
+Next: [Preparations >>](preparations.md)
