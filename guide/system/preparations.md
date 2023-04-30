@@ -2,7 +2,7 @@
 layout: default
 title: 1.1 Preparations
 nav_order: 10
-parent: System
+parent: 1.1 System
 ---
 <!-- markdownlint-disable MD014 MD022 MD025 MD040 -->
 {% include include_metatags.md %}
