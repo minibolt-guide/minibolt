@@ -276,7 +276,7 @@ Expected output:
 
 ![ordisrespector-mempool-blocks](../../../images/ordisrespector-mempool-blocks.png)
 
-* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly **0.00010000 BTC** or **0.00005000 BTC** ***[NEW]*** output amount and click on the cube of the transaction to do a second verification
+* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly **0.00010000 BTC**, **0.00005000 BTC** or **0.00000546 BTC** ***[NEW]*** output amount and click on the cube of the transaction to do a second verification
 
 ![ordisrespector-mempool-cube-tx](../../../images/ordisrespector-mempool-cube-tx.png)
 
