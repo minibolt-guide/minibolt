@@ -40,6 +40,8 @@ This is a precaution to make sure that this is an official release and not a mal
 
 💡 If you want to install Ordisrespector patch to reject Ordinals of your mempool, follow [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) and come back to continue with the ["Create the bitcoin user"](#create-the-bitcoin-user) section.
 
+💡 If you want to install Bitcoin Core from source code but without Ordisrespector patch, follow [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) skipping [Apply the patch “Ordisrespector”](../bonus/bitcoin/ordisrespector.md#apply-the-patch-ordisrespector) and come back to continue with the ["Create the bitcoin user"](#create-the-bitcoin-user) section.
+
 ### **Preparations**
 
 * Login as "admin" and change to a temporary directory which is cleared on reboot
