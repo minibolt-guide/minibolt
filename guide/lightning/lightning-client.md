@@ -598,7 +598,9 @@ Example output:
 
   ```
 
-⚠️ This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
+{: .warning }
+>
+> This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
 
 {: .note-title }
 > Note
