@@ -210,6 +210,8 @@ Expected output:
 
 ### **Apply the patch "Ordisrespector"**
 
+💡 Skip this step if you want only to build Bitcoin Core from the source code but not apply the Ordisrespector patch
+
 * Download the Ordisrespector patch
 
   ```sh
@@ -276,7 +278,7 @@ Expected output:
 
 ![ordisrespector-mempool-blocks](../../../images/ordisrespector-mempool-blocks.png)
 
-* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly **0.00010000 BTC**, **0.00005000 BTC** or **0.00000546 BTC** ***[NEW]*** output amount and click on the cube of the transaction to do a second verification
+* Put the pointer above the cube's dynamic graphic at the bottom right, and find transactions with for example **0.00010000 BTC**, **0.00005000 BTC**, **0.00000546 BTC**, **0.00000330 BTC**, **0.00000538 6 BTC**... output amount, or similar recurrency amount and click on the cube of the transaction to do a second verification
 
 ![ordisrespector-mempool-cube-tx](../../../images/ordisrespector-mempool-cube-tx.png)
 
