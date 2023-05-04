@@ -337,7 +337,7 @@ Fulcrum needs to start automatically on system boot.
 
 ## Run Fulcrum
 
-[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+To keep an eye on the software movements, [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 ```sh

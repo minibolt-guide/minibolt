@@ -34,7 +34,7 @@ Status: Not tested MiniBolt
 
 [![tippin.me][def]](https://tippin.me/@kristapsk)
 
-### Introduction
+## Introduction
 
 [JoinMarket](https://github.com/JoinMarket-Org/joinmarket-clientserver) is a CoinJoin software, which allows you to increase privacy and fungibility of on-chain Bitcoin transactions. It includes its own Bitcoin wallet, backed by `bitcoind`, and uses a market maker / market taker model, which means that either you pay a small fee for having CoinJoin privacy fast (taker) or just keep the software running and get paid for providing liquidity for CoinJoins, in addition gaining privacy over a longer period of time (maker). Even if you aren't interested in the privacy of your coins, you can use JoinMarket for a little passive income from your bitcoin, without giving up your private keys.
 
