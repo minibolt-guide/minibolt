@@ -600,8 +600,10 @@ Example output:
 
 ⚠️ This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
 
-{: .note }
-💡 Almost all of the following steps could be run with the [mobile](../lightning/mobile-app.md)/[web](../lightning/web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line.
+{: .note-title }
+> Note
+>
+> Almost all of the following steps could be run with the [mobile](../lightning/mobile-app.md)/[web](../lightning/web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line.
 
 ### **Funding your Lightning node**
 
