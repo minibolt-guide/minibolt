@@ -120,6 +120,12 @@ Expected output:
   > Primary key fingerprint: ...
   ```
 
+* This command must generate a number greater than 0
+
+  ```sh
+  $ gpg --verify SHA256SUMS.asc 2>&1 | grep Good | wc -l
+  ```  
+
 ### **Timestamp check**
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
