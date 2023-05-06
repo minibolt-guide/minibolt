@@ -625,6 +625,20 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   #coinstatsindex=1
   #assumevalid=0
   ```
+### **Man pages **
+
+* For convenience it might be useful to have the bitcoin binaries manual pages in the same machine so that they can be consulted offline, they can be installed from the directory
+```
+$ cd bitcoin-$VERSION/share/man/man1
+$ gzip *
+$ sudo cp * /usr/share/man/man1/
+```
+* now ew can read the docs
+
+```
+$ man bitcoin-cli
+```
+
 
 ## For the future: upgrade Bitcoin Core
 
