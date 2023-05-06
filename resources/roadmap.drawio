@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-06T10:15:27.805Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0" etag="EeRNYUQIsbiG7U-LwTa-" version="21.2.9" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-06T10:18:03.178Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0" etag="G1zEv2NhXOFGCAWdi7sr" version="21.2.9" type="github">
   <diagram name="Page-1" id="XVAX3JMv7FcWVR3Oqlwc">
     <mxGraphModel dx="2537" dy="934" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -180,7 +180,7 @@
             <mxPoint x="350" y="2150.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="p0ROdNJVEXc7yzIytJlv-42" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Tareas:&lt;/b&gt;&lt;br&gt;&lt;/div&gt;- Revisar servicios" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;align=center;" vertex="1" parent="1">
+        <mxCell id="p0ROdNJVEXc7yzIytJlv-42" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Tareas:&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Revisar servicios&lt;/div&gt;&lt;div&gt;- 2 opciones (only testnet o ambos)&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;align=center;" vertex="1" parent="1">
           <mxGeometry x="360" y="150" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="p0ROdNJVEXc7yzIytJlv-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="p0ROdNJVEXc7yzIytJlv-42" target="p0ROdNJVEXc7yzIytJlv-42">
