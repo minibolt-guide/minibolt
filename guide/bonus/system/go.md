@@ -43,7 +43,7 @@ Status: Tested MiniBolt
 * Set the environment variable
 
   ```sh
-  $ VERSION=1.20.3
+  $ VERSION=1.20.4
   ```
 
 * Download the binary
@@ -52,10 +52,10 @@ Status: Tested MiniBolt
   $ wget https://go.dev/dl/go$VERSION.linux-amd64.tar.gz
   ```
 
-* Check on the download page what is the SHA256 checksum of the file, e.g. for the above: 74b9640724fd4e6bb0ed2a1bc44ae813a03f1e72a4c76253e2d5c015494430ba. Calculate the SHA256 hash of the downloaded file. It should give an "OK" as an output.
+* Check on the download page what is the SHA256 checksum of the file, e.g. for the above: 698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd. Calculate the SHA256 hash of the downloaded file. It should give an "OK" as an output.
 
   ```sh
-  $ echo "74b9640724fd4e6bb0ed2a1bc44ae813a03f1e72a4c76253e2d5c015494430ba go$VERSION.linux-amd64.tar.gz" | sha256sum --check
+  $ echo "698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd go$VERSION.linux-amd64.tar.gz" | sha256sum --check
   ```
 
 Expected output:
