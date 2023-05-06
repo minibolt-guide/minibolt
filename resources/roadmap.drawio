@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-06T10:21:56.863Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0" etag="4BHNSxqcRxJwheedcS8f" version="21.2.9" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-06T10:27:40.436Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0" etag="d4XSkc_Londhs7acwCXh" version="21.2.9" type="github">
   <diagram name="Page-1" id="XVAX3JMv7FcWVR3Oqlwc">
     <mxGraphModel dx="2537" dy="934" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -103,12 +103,12 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="p0ROdNJVEXc7yzIytJlv-24" value="&lt;h1 style=&quot;font-size: 16px;&quot;&gt;Configure options&lt;br&gt;&lt;/h1&gt;&lt;div&gt;- Disable unused networks + set static IP &amp;amp; DNS (no router conf necessary)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;- Conf static IP &amp;amp; DNS (warning)&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;- Disable Wifi&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;- Disable Bluetooth &lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="10" y="1340" width="190" height="150" as="geometry" />
+          <mxGeometry x="15" y="250" width="190" height="150" as="geometry" />
         </mxCell>
         <mxCell id="p0ROdNJVEXc7yzIytJlv-25" value="" style="endArrow=classic;html=1;rounded=0;fontSize=20;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="200" y="1410" as="sourcePoint" />
-            <mxPoint x="350" y="1410.5" as="targetPoint" />
+            <mxPoint x="205" y="320" as="sourcePoint" />
+            <mxPoint x="355" y="320.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p0ROdNJVEXc7yzIytJlv-26" value="&lt;h1 style=&quot;font-size: 16px;&quot;&gt;OS image + SSH preinstalled &lt;br&gt;&lt;/h1&gt;&lt;div&gt;- Search resize through command line &lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;strokeWidth=2;" vertex="1" parent="1">
