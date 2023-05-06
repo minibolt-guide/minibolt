@@ -39,4 +39,4 @@ exclude:
   - Gemfile
   - LICENSE
   - README.md
-  - roadmap.drawio
+  - resources/roadmap.drawio
