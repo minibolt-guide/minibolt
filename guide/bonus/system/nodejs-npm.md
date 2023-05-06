@@ -90,7 +90,7 @@ Status: Tested MiniBolt
 * To uninstall type this command
 
   ```sh
-  $ sudo apt autoremove nodejs
+  $ Sudo apt purge nodejs && rm -r /etc/apt/sources.list.d/nodesource.list
   ```
 
 <br /><br />

@@ -66,8 +66,6 @@ They should be unique and very secure, at least 12 characters in length. Do **no
 If you need inspiration for creating your passwords: the [xkcd: Password Strength](https://xkcd.com/936/){:target="_blank"} comic is funny and contains a lot of truth.
 Store a copy of your passwords somewhere safe (preferably in an open-source password manager like [KeePassXC](https://keepassxc.org/){:target="_blank"}), or whatever password manager you're already using, and keep your original notes out of sight once your system is up and running.
 
----
-
 ## Secure your home network and devices
 
 While the guide will show you how to secure your node, you will interact with it from your computer and mobile phone and use your home internet network. Before building your MiniBolt, it is recommended to secure your home network and devices.
