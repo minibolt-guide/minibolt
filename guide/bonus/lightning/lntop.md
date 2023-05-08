@@ -40,14 +40,14 @@ Status: Not tested MiniBolt
 
   ```sh
   $ cd /tmp/
-  $ wget https://github.com/edouardparis/lntop/releases/download/v0.1.0/lntop_Linux_x86_64.tar.gz
+  $ wget https://github.com/edouardparis/lntop/releases/download/v0.4.0/lntop-v0.4.0_Linux_x86_64.tar.gz
   ```
 
 * Install the application
 
   ```sh
-  $ tar -xvf lntop_Linux_x86_64.tar.gz
-  $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./lntop
+  $ tar -xvf lntop-v0.4.0_Linux_x86_64.tar.gz
+  $ sudo install -m 0755 -o root -g root -t /usr/local/bin release-v0.4.0-Linux-x86_64/lntop
   ```
 
 * Check the correct installation
@@ -127,7 +127,7 @@ To use all the functionalities of lntop, use the following keys:
 
   ```sh
   $ cd /usr/local/bin
-  $ rm -r lntop
+  $ sudo rm -r lntop
   ```
 
 <br /><br />
