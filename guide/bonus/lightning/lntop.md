@@ -54,7 +54,7 @@ Status: Not tested MiniBolt
 
   ```sh
   $ lntop --version
-  > lntop version v0.1.0
+  > lntop version v0.4.0
   ```
 
 ---
