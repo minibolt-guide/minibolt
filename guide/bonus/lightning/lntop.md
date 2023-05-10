@@ -126,7 +126,7 @@ To use all the functionalities of lntop, use the following keys:
 **Example** of expected output:
 
   ```
-  > lntop version v...
+  > lntop version v0.4.0
   ```
 
 * Check the lntop repository for [new releases](https://github.com/edouardparis/lntop/releases){:target="_blank"}.
