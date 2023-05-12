@@ -3,5 +3,4 @@
 .sass-cache
 Gemfile.lock
 _site
-cast/tmp
-*.drawio
+cast/tmp*
