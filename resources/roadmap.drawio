@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-12T21:08:05.583Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="S69ECAzcysvp3ctYj0N9" version="21.3.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-12T21:10:10.716Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="cvorjRFXVTathZnzDHdS" version="21.3.0" type="github">
   <diagram name="MiniBolt roadmap" id="XVAX3JMv7FcWVR3Oqlwc">
     <mxGraphModel dx="1581" dy="434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -168,7 +168,7 @@
             <mxPoint x="350" y="2150.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="p0ROdNJVEXc7yzIytJlv-42" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Tareas:&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Revisar servicios&lt;/div&gt;&lt;div&gt;- 2 opciones (only testnet o ambos)&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;align=center;" parent="1" vertex="1">
+        <mxCell id="p0ROdNJVEXc7yzIytJlv-42" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Tasks:&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Review services&lt;br&gt;&lt;/div&gt;&lt;div&gt;- 2 options (only testnet or both)&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;align=center;" parent="1" vertex="1">
           <mxGeometry x="360" y="150" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="p0ROdNJVEXc7yzIytJlv-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" edge="1">
@@ -238,19 +238,19 @@
         <mxCell id="p0ROdNJVEXc7yzIytJlv-59" value="&lt;h1 style=&quot;font-size: 20px;&quot;&gt;Nostr clients + relay&lt;br&gt;&lt;/h1&gt;&lt;p&gt;Bonus guide&lt;br&gt;&lt;/p&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;" parent="1" vertex="1">
           <mxGeometry x="10" y="700" width="200" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-1" value="&lt;h1 style=&quot;font-size: 20px;&quot;&gt;Cloudflared&lt;br&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-1" value="&lt;h1 style=&quot;font-size: 20px;&quot;&gt;Cloudflared&lt;br&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;" parent="1" vertex="1">
           <mxGeometry x="10" y="630" width="200" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-2" value="" style="endArrow=classic;html=1;rounded=0;fontSize=20;" edge="1" parent="1">
+        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-2" value="" style="endArrow=classic;html=1;rounded=0;fontSize=20;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="210" y="659.5" as="sourcePoint" />
             <mxPoint x="350" y="659.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;BTCPAY bonus guide&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;BTCPAY bonus guide&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;strokeWidth=2;" parent="1" vertex="1">
           <mxGeometry x="10" y="1340" width="190" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-4" value="" style="endArrow=classic;html=1;rounded=0;fontSize=20;" edge="1" parent="1">
+        <mxCell id="B6oCMaEPyzGIp2h4Jh5x-4" value="" style="endArrow=classic;html=1;rounded=0;fontSize=20;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="200" y="1354.5" as="sourcePoint" />
             <mxPoint x="350" y="1355" as="targetPoint" />
