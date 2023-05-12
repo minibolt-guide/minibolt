@@ -3,4 +3,5 @@
 .sass-cache
 Gemfile.lock
 _site
-cast/tmp*
+cast/tmp
+resources/networkmap.drawio*
