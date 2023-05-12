@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-12T21:10:10.716Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="cvorjRFXVTathZnzDHdS" version="21.3.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-12T21:30:08.741Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="L9mq6cd-uFrcqfVESBB4" version="21.3.0" type="github">
   <diagram name="MiniBolt roadmap" id="XVAX3JMv7FcWVR3Oqlwc">
     <mxGraphModel dx="1581" dy="434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -138,7 +138,7 @@
         <mxCell id="p0ROdNJVEXc7yzIytJlv-34" value="Priority" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=5;fontSize=19;" parent="1" vertex="1">
           <mxGeometry x="10" y="120" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="p0ROdNJVEXc7yzIytJlv-35" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Wait more time to the tech improvements&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;align=center;" parent="1" vertex="1">
+        <mxCell id="p0ROdNJVEXc7yzIytJlv-35" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Wait more time until the tech improvement&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=1;strokeWidth=2;align=center;" parent="1" vertex="1">
           <mxGeometry x="350" y="710" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="p0ROdNJVEXc7yzIytJlv-36" value="&lt;h1 style=&quot;font-size: 16px;&quot;&gt;Thunderhub improvement&lt;/h1&gt;&lt;div&gt;How to post messages on Amboss Billboard + review of backup with Amboss method&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;strokeWidth=2;" parent="1" vertex="1">
