@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-12T21:15:39.708Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="woxe2rh4xuvjfWKce4A-" version="21.3.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-12T21:18:48.380Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="YTqzlWOWLvPTPN49eKsH" version="21.3.0" type="github">
   <diagram name="Página-1" id="dB3eKQBNZShQxtix_K70">
     <mxGraphModel dx="731" dy="434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -12,6 +12,15 @@
         </mxCell>
         <mxCell id="h6LU9cW44lIvaIBkPetr-1" value="I2P" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="405" y="200" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="h6LU9cW44lIvaIBkPetr-2" value="BITCOIN CORE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="110" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="h6LU9cW44lIvaIBkPetr-3" value="FULCRUM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="250" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="h6LU9cW44lIvaIBkPetr-4" value="BTC RPC EXPLORER" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="390" y="310" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
