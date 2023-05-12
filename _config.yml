@@ -39,3 +39,4 @@ exclude:
   - Gemfile
   - LICENSE
   - README.md
+  - resources/
