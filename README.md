@@ -47,6 +47,15 @@ Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originall
 
 ---
 
+### Roadmap
+
+- [ ] Testnet bonus guide
+- [ ] BTCpay server bonus guide
+- [ ] Mempool bonus guide
+- [ ] Cloudflared bonus guide
+
+---
+
 ### Community
 
 * Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/)
