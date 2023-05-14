@@ -54,6 +54,8 @@ Based on [RaspiBolt guide v3](https://github.com/raspibolt/raspibolt), originall
 - [ ] Mempool bonus guide
 - [ ] Cloudflared bonus guide
 
+[...]
+
 💡 You can see the extended roadmap by access to the [drawio file](https://github.com/minibolt-guide/extra-resources/blob/main/roadmap.drawio.png)
 
 ---
