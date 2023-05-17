@@ -8,7 +8,6 @@ parent: System
 {% include include_metatags.md %}
 
 # Security
-
 {: .no_toc }
 
 ---
@@ -155,6 +154,8 @@ In this way, you can detect a possible brute-force attack and take appropriate m
 
 💡 Do this regularly to get security-related incidents.
 
+---
+
 ## Prepare NGINX reverse proxy
 
 Several components of this guide will expose a communication port, for example the Electrum server, the Block Explorer, or the "Ride The Lightning" web interface for your Lightning node.
@@ -179,8 +180,7 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
   ```
 
 * NGINX is also a full web server.
-
- To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the `nginx.conf` file. Save and exit
+  To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the `nginx.conf` file. Save and exit.
 
   ```sh
   $ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
