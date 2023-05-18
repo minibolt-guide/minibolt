@@ -170,6 +170,8 @@ Expected output:
   > [...]
   ```
 
+💡 Now, if you want to install manual page for bitcoin-cli, follow the Man page extra section and then come back to continue with the next section
+
 ### **Create the bitcoin user**
 
 The Bitcoin Core application will run in the background as a daemon and use the separate user “bitcoin” for security reasons.
@@ -625,20 +627,30 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   #coinstatsindex=1
   #assumevalid=0
   ```
-### **Man pages **
 
-* For convenience it might be useful to have the bitcoin binaries manual pages in the same machine so that they can be consulted offline, they can be installed from the directory
-```
-$ cd bitcoin-$VERSION/share/man/man1
-$ gzip *
-$ sudo cp * /usr/share/man/man1/
-```
-* now ew can read the docs
+### **Man pages**
 
-```
-$ man bitcoin-cli
-```
+* For convenience it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, they can be installed from the directory
 
+  ```sh
+  $ cd bitcoin-$VERSION/share/man/man1
+  ```
+
+  ```sh
+  $ gzip *
+  ```
+
+  ```sh
+  $ sudo cp * /usr/share/man/man1/
+  ```
+
+* Now you can read the docs doing
+
+  ```sh
+  $ man bitcoin-cli
+  ```
+
+⬆️ Now come back to continue with the Bitcoin Core installation process
 
 ## For the future: upgrade Bitcoin Core
 
