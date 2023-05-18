@@ -664,10 +664,14 @@ Replace the environment variable `"VERSION=x.xx"` value for the latest version i
   $ VERSION=24.1
   ```
 
-* Download binary, timestamp, checksum and signature files
+* Download binary, checksum, signature files and timestamp file
 
   ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+  ```
+
+  ```sh
+  $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
   ```
 
   ```sh
@@ -678,13 +682,9 @@ Replace the environment variable `"VERSION=x.xx"` value for the latest version i
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
   ```
 
-  ```sh
-  $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
-  ```
-
 * Verify the new version against its checksums
 
- ```sh
+  ```sh
   $ sha256sum --ignore-missing --check SHA256SUMS
   ```
 
