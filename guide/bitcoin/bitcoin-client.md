@@ -53,7 +53,7 @@ This is a precaution to make sure that this is an official release and not a mal
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=24.0.1
+  $ VERSION=24.1
   ```
 
 * Get the latest binaries and signatures
@@ -120,12 +120,6 @@ Expected output:
   > Primary key fingerprint: ...
   ```
 
-* This command must generate a number greater than 0
-
-  ```sh
-  $ gpg --verify SHA256SUMS.asc 2>&1 | grep Good | wc -l
-  ```  
-
 ### **Timestamp check**
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
@@ -162,10 +156,10 @@ The following screenshot is just an example of one of the versions:
   $ bitcoind --version
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```
-  > Bitcoin Core version v$VERSION
+  > Bitcoin Core version v24.1.0
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
   ```
@@ -408,7 +402,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start bitcoind
   ```
 
-Expected output on the first terminal with `$ sudo journalctl -f -u bitcoind`:
+**Example** of expected output on the first terminal with `$ sudo journalctl -f -u bitcoind`:
 
   ```
   > 2022-11-24T18:08:04Z Bitcoin Core version v24.0.1.0 (release build)
@@ -631,6 +625,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 ### **Man pages**
 
 * For convenience it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, they can be installed from the directory
+⚠️ This extra section is not valid if you compiled from source code 
 
   ```sh
   $ cd bitcoin-$VERSION/share/man/man1
@@ -738,7 +733,7 @@ Expected output:
   $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
   ```
 
-The following output is just an example of one of the versions:
+The following output is just an **example** of one of the versions:
 
   ```
   > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
@@ -766,10 +761,10 @@ Now, just check that the timestamp date is close to the [release](https://github
   $ bitcoind --version
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```
-  > Bitcoin Core version v$VERSION
+  > Bitcoin Core version v24.1.0
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
   ```
