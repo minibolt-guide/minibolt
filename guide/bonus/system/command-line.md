@@ -55,7 +55,7 @@ You can prettify your command prompt for each user by enabling color output and 
   PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u \[\033[01;34m\]\w\[\e[33m\] ₿\[\e[m\] "
   ```
   
-* Insert the following at the end of the file (line 121)
+* Insert the following at the end of the file
 
   ```
   alias ls='ls -la --color=always'
