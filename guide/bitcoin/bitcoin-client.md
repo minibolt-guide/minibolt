@@ -164,7 +164,7 @@ The following screenshot is just an example of one of the versions:
   > [...]
   ```
 
-💡 Now, if you want to install manual page for bitcoin-cli, follow the Man page extra section and then come back to continue with the next section
+💡 Now, if you want to install manual page for bitcoin-cli, follow the [manual page for bitcoin-cli](#manual-page-for-bitcoin-cli) extra section and then come back to continue with the [next section](#create-the-bitcoin-user)
 
 ### **Create the bitcoin user**
 
@@ -262,7 +262,7 @@ Now, the configuration file for `bitcoind` needs to be created.
 We'll also set the proper access permissions.
 
 * Still as user `"bitcoin"`, open it with Nano and paste the configuration below.
-  Replace the whole line starting with `"rpcauth="` with the connection string you just generated.
+  Replace the whole line starting with `"rpcauth=..."` with the connection string you just generated.
   Save and exit.
 
   ```sh
@@ -354,7 +354,6 @@ We use `"systemd"`, a daemon that controls the startup process using configurati
   [Unit]
   Description=Bitcoin daemon
   After=network.target
-  PartOf=tor.service i2pd.service
 
   [Service]
   ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind.pid \
@@ -597,7 +596,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 ### **Slow device mode**
 
-* As user `admin` add these lines to the end of the existing `bitcoin.`conf` file
+* As user `admin` add these lines to the end of the existing `bitcoin.conf` file
 
   ```sh
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -622,10 +621,10 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   #assumevalid=0
   ```
 
-### **Man pages**
+### **Manual page for bitcoin-cli**
 
 * For convenience it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, they can be installed from the directory
-⚠️ This extra section is not valid if you compiled from source code 
+⚠️ This extra section is not valid if you compiled from source code using the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md)
 
   ```sh
   $ cd bitcoin-$VERSION/share/man/man1
@@ -645,7 +644,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   $ man bitcoin-cli
   ```
 
-⬆️ Now come back to continue with the Bitcoin Core installation process
+⬆️ Now come back to the next section ["Create the bitcoin user"](#create-the-bitcoin-user) to continue with the Bitcoin Core installation process.
 
 ## For the future: upgrade Bitcoin Core
 
@@ -662,7 +661,7 @@ Replace the environment variable `"VERSION=x.xx"` value for the latest version i
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=24.0.1
+  $ VERSION=24.1
   ```
 
 * Download binary, timestamp, checksum and signature files
