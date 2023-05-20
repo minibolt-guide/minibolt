@@ -271,11 +271,11 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
   $ cd balanceofsatoshis
   ```
 
-* Check what version you are using currently (e.g. here v12.4.1)
+* Check what version you are using currently (e.g. here v15.8.1)
 
   ```sh
   $ bos -V
-  > 12.4.1
+  > 15.8.1
   ```
 
 * Update the local repository by downloading the new commits from the source repository and check if a new tag/version is available (e.g. here v99.99.9)
@@ -290,7 +290,7 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ git tag | sort --version-sort | tail -n 1
-  > v12.4.1
+  > v15.8.1
   > VERSION=$(git tag | sort --version-sort | tail -n 1)
   ```
 
