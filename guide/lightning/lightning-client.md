@@ -734,6 +734,14 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
   $ lncli listinvoices
   ```
 
+* Close all channels in cooperative mode
+
+  ```sh
+  $ lncli closeallchannels --sat_per_byte <sat/byte>
+  ````
+
+🔍 _more: full [LND API reference](https://api.lightning.community/){:target="_blank"}
+
 ## For the future: upgrade LND
 
 Upgrading LND can lead to a number of issues.

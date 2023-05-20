@@ -34,7 +34,7 @@ Make payments with lightning or on-chain and manage your channels while you're o
 * Login as `“admin”` user, and configure LND to allow LND REST from anywhere. Edit `lnd.conf`
 
   ```sh
-  $ nano /data/lnd/lnd.conf
+  $ sudo nano /data/lnd/lnd.conf
   ```
 
 * Add the next line under the `[Application Options]` section. Save and exit.

@@ -53,7 +53,7 @@ This is a precaution to make sure that this is an official release and not a mal
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=24.0.1
+  $ VERSION=24.1
   ```
 
 * Get the latest binaries and signatures
@@ -156,13 +156,15 @@ The following screenshot is just an example of one of the versions:
   $ bitcoind --version
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```
-  > Bitcoin Core version v$VERSION
+  > Bitcoin Core version v24.1.0
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
   ```
+
+💡 Now, if you want to install manual page for bitcoin-cli, follow the [manual page for bitcoin-cli](#manual-page-for-bitcoin-cli) extra section and then come back to continue with the [next section](#create-the-bitcoin-user)
 
 ### **Create the bitcoin user**
 
@@ -260,7 +262,7 @@ Now, the configuration file for `bitcoind` needs to be created.
 We'll also set the proper access permissions.
 
 * Still as user `"bitcoin"`, open it with Nano and paste the configuration below.
-  Replace the whole line starting with `"rpcauth="` with the connection string you just generated.
+  Replace the whole line starting with `"rpcauth=..."` with the connection string you just generated.
   Save and exit.
 
   ```sh
@@ -352,7 +354,6 @@ We use `"systemd"`, a daemon that controls the startup process using configurati
   [Unit]
   Description=Bitcoin daemon
   After=network.target
-  PartOf=tor.service i2pd.service
 
   [Service]
   ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind.pid \
@@ -400,7 +401,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
   $2 sudo systemctl start bitcoind
   ```
 
-Expected output on the first terminal with `$ sudo journalctl -f -u bitcoind`:
+**Example** of expected output on the first terminal with `$ sudo journalctl -f -u bitcoind`:
 
   ```
   > 2022-11-24T18:08:04Z Bitcoin Core version v24.0.1.0 (release build)
@@ -595,7 +596,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 ### **Slow device mode**
 
-* As user `admin` add these lines to the end of the existing `bitcoin.`conf` file
+* As user `admin` add these lines to the end of the existing `bitcoin.conf` file
 
   ```sh
   $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -620,6 +621,31 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   #assumevalid=0
   ```
 
+### **Manual page for bitcoin-cli**
+
+* For convenience it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, they can be installed from the directory
+⚠️ This extra section is not valid if you compiled from source code using the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md)
+
+  ```sh
+  $ cd bitcoin-$VERSION/share/man/man1
+  ```
+
+  ```sh
+  $ gzip *
+  ```
+
+  ```sh
+  $ sudo cp * /usr/share/man/man1/
+  ```
+
+* Now you can read the docs doing
+
+  ```sh
+  $ man bitcoin-cli
+  ```
+
+⬆️ Now come back to the next section ["Create the bitcoin user"](#create-the-bitcoin-user) to continue with the Bitcoin Core installation process.
+
 ## For the future: upgrade Bitcoin Core
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first!
@@ -635,13 +661,17 @@ Replace the environment variable `"VERSION=x.xx"` value for the latest version i
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=24.0.1
+  $ VERSION=24.1
   ```
 
-* Download binary, timestamp, checksum and signature files
+* Download binary, checksum, signature files and timestamp file
 
   ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+  ```
+
+  ```sh
+  $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
   ```
 
   ```sh
@@ -652,13 +682,9 @@ Replace the environment variable `"VERSION=x.xx"` value for the latest version i
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
   ```
 
-  ```sh
-  $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
-  ```
-
 * Verify the new version against its checksums
 
- ```sh
+  ```sh
   $ sha256sum --ignore-missing --check SHA256SUMS
   ```
 
@@ -706,7 +732,7 @@ Expected output:
   $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
   ```
 
-The following output is just an example of one of the versions:
+The following output is just an **example** of one of the versions:
 
   ```
   > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
@@ -734,10 +760,10 @@ Now, just check that the timestamp date is close to the [release](https://github
   $ bitcoind --version
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```
-  > Bitcoin Core version v$VERSION
+  > Bitcoin Core version v24.1.0
   > Copyright (C) 2009-2022 The Bitcoin Core developers
   > [...]
   ```

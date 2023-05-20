@@ -19,8 +19,8 @@ has_toc: false
 Difficulty: Easy
 {: .label .label-green }
 
-Status: Not tested MiniBolt
-{: .label .label-red }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![lntop](../../../images/74_lntop.png)
 
@@ -36,17 +36,27 @@ Status: Not tested MiniBolt
 
 ## Install lntop
 
-* As user “admin”, download the application
+* Login as "admin" and change to a temporary directory which is cleared on reboot
 
   ```sh
-  $ cd /tmp/
+  $ cd /tmp
+  ````
+  
+* Download the application
+ 
+  ```sh
   $ wget https://github.com/edouardparis/lntop/releases/download/v0.4.0/lntop-v0.4.0_Linux_x86_64.tar.gz
   ```
 
-* Install the application
+* Extract the package
 
   ```sh
   $ tar -xvf lntop-v0.4.0_Linux_x86_64.tar.gz
+  ```
+ 
+* Install the application
+
+  ```sh
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin release-v0.4.0-Linux-x86_64/lntop
   ```
 
@@ -54,10 +64,13 @@ Status: Not tested MiniBolt
 
   ```sh
   $ lntop --version
+  ```
+ 
+**Example** of expected output:
+
+  ```
   > lntop version v0.4.0
   ```
-
----
 
 ### Run lntop
 
@@ -66,8 +79,6 @@ Status: Not tested MiniBolt
   ```sh
   $ lntop
   ```
-
----
 
 ### lntop in action
 
@@ -104,30 +115,30 @@ To use all the functionalities of lntop, use the following keys:
 
 * **F10 (or q or Ctrl+C)** = Quit lntop
 
----
-
 ## Update
 
 * With user "admin", check the version of lntop that is installed on your node
 
   ```sh
   $ lntop --version
-  > lntop version v...
+  ```
+
+**Example** of expected output:
+
+  ```
+  > lntop version v0.4.0
   ```
 
 * Check the lntop repository for [new releases](https://github.com/edouardparis/lntop/releases){:target="_blank"}.
 
 * Follow the [installation guidelines](#install-lntop) while making sure to replace the file names to match the latest version if necessary.
 
----
-
 ## Uninstall
 
 * To remove lntop, simply delete the installed binary
 
-  ```sh
-  $ cd /usr/local/bin
-  $ sudo rm -r lntop
+  ```sh  
+  $ sudo rm /usr/local/bin/lntop
   ```
 
 <br /><br />
