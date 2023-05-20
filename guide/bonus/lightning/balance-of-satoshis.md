@@ -105,8 +105,9 @@ Status: Not tested MiniBolt
 
   ```sh
   $ git tag | sort --version-sort | tail -n 1
-  > v12.4.1
-  $ git verify-tag v12.4.1
+  > v15.8.1
+  > VERSION=$(git tag | sort --version-sort | tail -n 1)
+  $ git verify-tag $VERSION
   > gpg: Good signature from "Alex Bosworth <alex.bosworth@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg:          There is no indication that the signature belongs to the owner.
@@ -124,7 +125,7 @@ Status: Not tested MiniBolt
 
   ```sh
   $ bos -V
-  > v12.4.1
+  > v15.8.1
   ```
 
 ## Balance of Satoshis in action
@@ -137,7 +138,7 @@ To use Balance of Satoshis, we will use the "bos" user.
 
   ```sh
   $ bos help
-  > bos 12.4.1
+  > bos 15.8.1
   >
   > USAGE
   >
@@ -153,7 +154,7 @@ To use Balance of Satoshis, we will use the "bos" user.
 
   ```sh
   $ bos help rebalance
-  > bos 12.4.1
+  > bos 15.8.1
   >
   > USAGE
   >
