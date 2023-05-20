@@ -290,6 +290,7 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
   ```sh
   $ git tag | sort --version-sort | tail -n 1
   > v12.4.1
+  > VERSION=$(git tag | sort --version-sort | tail -n 1)
   ```
 
 * Remove any potential uncommited changes to your local branch to avoid issues when checking out the new tag
@@ -302,9 +303,9 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 * Switch to new branch identified with `git fetch` (i.e. v99.99.9) and check that it is now  the most recent tag
 
   ```sh
-  $ git checkout v99.99.9
+  $ git checkout $VERSION
   > Previous HEAD position was 1b2a38d add docs for coop close on open
-  > HEAD is now at dd58fc0 [...]
+  > HEAD is now at ebdeb2c [...]
   $ git describe --tags --abbrev=0
   > v99.99.9
   ```
@@ -312,12 +313,12 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 * Check the GPG signature of the new version
 
   ```sh
-  $ git verify-tag v99.99.9
+  $ git verify-tag $VERSION
   > [...]
   > gpg: Good signature from "Alex Bosworth <alex.bosworth@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: DE23 E73B FA8A 0AD5 587D  2FCD E80D 2F3F 311F D8
+  > Primary key fingerprint: DE23 E73B FA8A 0AD5 587D  2FCD E80D 2F3F 311F D87E
   ```
 
 * Install the new version and check this it has been installed properly
