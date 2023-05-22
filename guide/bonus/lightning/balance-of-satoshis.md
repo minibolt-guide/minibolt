@@ -43,24 +43,48 @@ Status: Not tested MiniBolt
 
 ## Installation
 
-### Check Node.js
+### **Check Node.js + NPM**
 
-* Noje.js v16 should have been installed for the BTC RPC Explorer and RTL. We can check our version of Node.js with user "admin":
+* Noje.js + NPM should have been installed for the BTC RPC Explorer and Thunderhub. We can check our version of Node.js. 
+With user "admin"
 
   ```sh
   $ node -v
-  > v16.13.2
+  ```
+  
+ **Example** of expected output:
+
+  ```
+  > v18.16.0
   ```
 
-* If the version is v12 or above, you can move to the next section. If Node.js is not installed, follow [this guide](../../bitcoin/blockchain-explorer.md#install-nodejs) to install it.
+* Check the NPM version
+  
+  ```sh
+  $ npm -v
+  ```
 
-### Create the "bos" user and prepare the directory
+ **Example** of expected output:
+
+  ```
+  > v9.5.1
+  ```
+
+If Node.js + NPM is not installed, follow the [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md){:target="_blank"}
+
+### **Create the "bos" user and prepare the directory**
 
 * Create a new user "bos" and make it a member of the "lnd" group
 
   ```sh
   $ sudo adduser --disabled-password --gecos "" bos
+  ```
+  
+  ```sh
   $ sudo adduser bos lnd
+  ```
+  
+  ```sh
   $ sudo su - bos
   ```
 
@@ -80,15 +104,23 @@ Status: Not tested MiniBolt
 
   ```sh
   $ echo 'export PATH=$PATH:/home/bos/balanceofsatoshis' >> /home/bos/.bashrc
+  ```
+  
+  ```sh
   $ source /home/bos/.bashrc
   ```
 
-### Install
+### **Install**
 
 * Check the main PGP key of Alex Bosworth, developer of Balance of Satoshis: [https://keybase.io/alexbosworth/](https://keybase.io/alexbosworth/){:target="_blank"}, i.e. E80D 2F3F 311F D87E
 
   ```sh
   $ gpg --receive-keys E80D2F3F311FD87E
+  ```
+  
+Expected output:
+
+  ```
   > gpg: key E80D2F3F311FD87E: public key "Alex Bosworth <alex.bosworth@gmail.com>" imported
   > gpg: Total number processed: 1
   > gpg:               imported: 1
@@ -98,6 +130,9 @@ Status: Not tested MiniBolt
 
   ```sh
   $ git clone https://github.com/alexbosworth/balanceofsatoshis.git
+  ```
+  
+  ```
   $ cd balanceofsatoshis
   ```
 
@@ -105,9 +140,22 @@ Status: Not tested MiniBolt
 
   ```sh
   $ git tag | sort --version-sort | tail -n 1
+  ````
+  
+ **Example** of expected output:
+ 
+  ```
   > v15.8.1
   > VERSION=$(git tag | sort --version-sort | tail -n 1)
+  ```
+  
+  ```sh
   $ git verify-tag $VERSION
+  ```
+  
+Expected output:
+
+  ```
   > gpg: Good signature from "Alex Bosworth <alex.bosworth@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
   > gpg:          There is no indication that the signature belongs to the owner.
@@ -118,6 +166,9 @@ Status: Not tested MiniBolt
 
   ```sh
   $ npm install
+  ````
+  
+  ```
   > [...]
   ```
 
@@ -125,6 +176,11 @@ Status: Not tested MiniBolt
 
   ```sh
   $ bos -V
+  ```
+  
+**Example** of expected output:
+
+  ```
   > v15.8.1
   ```
 
@@ -132,12 +188,17 @@ Status: Not tested MiniBolt
 
 To use Balance of Satoshis, we will use the "bos" user.
 
-### Introduction
+### **Introduction**
 
 * To see a list of all available commands run the following command
 
   ```sh
   $ bos help
+  ```
+  
+ **Example** of expected output:
+ 
+  ```
   > bos 15.8.1
   >
   > USAGE
@@ -154,6 +215,11 @@ To use Balance of Satoshis, we will use the "bos" user.
 
   ```sh
   $ bos help rebalance
+  ```
+  
+  **Example** of expected output:
+  
+  ```
   > bos 15.8.1
   >
   > USAGE
@@ -179,7 +245,7 @@ To use Balance of Satoshis, we will use the "bos" user.
   > [...]
   ```
 
-### Circular rebalancing
+### **Circular rebalancing**
 
 Circular rebalancing allows to send satoshis out through one channel (which has too little inbound liquidity) and back through another channel (which has too little outbound liquidity).
 
@@ -216,7 +282,7 @@ A good illustration is provided in Chapter 5 of 'Mastering the Lightning Network
   $ bos rebalance --minutes [number_of_minutes] --amount [AMOUNT_IN_SATS] --max-fee-rate [TOTAL_MAX_FEE_RATE_OF_REBALANCING] --avoid [NODE_PUBKEY] --in [NODE_C_PUBKEY] --out [NODE_B_PUBKEY]
   ```
 
-### Tags
+### **Tags**
 
 BoS allows to create user-defined tags to classify nodes and then be used in the commands.
 
@@ -226,6 +292,11 @@ BoS allows to create user-defined tags to classify nodes and then be used in the
 
   ```sh
   $ bos tags avoid-nodes --add [NODE_Y_PUBKEY] --add [NODE_Z_PUBKEY]
+  ```
+ 
+ Expected output:
+ 
+  ```
   > tag:
   >   alias: avoid-nodes
   >   id:    abc123...
@@ -238,6 +309,11 @@ BoS allows to create user-defined tags to classify nodes and then be used in the
 
   ```sh
   $ bos tags
+  ```
+ 
+ Expected output:
+ 
+ ```
   > tags:
   >   alias: avoid-nodes
   >   id:    abc123...
@@ -252,7 +328,7 @@ BoS allows to create user-defined tags to classify nodes and then be used in the
   $ bos rebalance --minutes [number_of_minutes] --amount [AMOUNT_IN_SATS] --max-fee-rate [TOTAL_MAX_FEE_RATE_OF_REBALANCING] --avoid avoid-nodes --in [NODE_C_PUBKEY] --out [NODE_B_PUBKEY]
   ```
 
-### Other commands
+### **Other commands**
 
 There are many additional options that can be used to improve the likelihood of a successful circular rebalancing. There are also many addditonal commands in addition to the rebalancing command. More information on all bos commands can be found in:
 
@@ -268,6 +344,9 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ sudo su - bos
+  ```
+  
+  ```sh
   $ cd balanceofsatoshis
   ```
 
@@ -275,6 +354,11 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ bos -V
+  ```
+  
+**Example** of expected output:
+
+  ```
   > 15.8.1
   ```
 
@@ -282,6 +366,9 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ git fetch
+  ```
+  
+  ```
   > [...]
   > * [new tag]         v99.99.9   -> v99.99.9
   ```
@@ -290,6 +377,11 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ git tag | sort --version-sort | tail -n 1
+  ```
+  
+**Example** of expected output:
+
+  ```
   > v15.8.1
   > VERSION=$(git tag | sort --version-sort | tail -n 1)
   ```
@@ -298,6 +390,11 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ git reset --hard HEAD
+  ```
+
+**Example** of expected output:
+
+  ```
   > HEAD is now at 1b2a38d add docs for coop close on open
   ```
 
@@ -305,6 +402,11 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ git checkout $VERSION
+  ```
+
+**Example** of expected output:
+
+  ```
   > Previous HEAD position was 1b2a38d add docs for coop close on open
   > HEAD is now at ebdeb2c [...]
   $ git describe --tags --abbrev=0
@@ -315,6 +417,11 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ git verify-tag $VERSION
+  ```
+
+Expected output:
+
+  ```
   > [...]
   > gpg: Good signature from "Alex Bosworth <alex.bosworth@gmail.com>" [unknown]
   > gpg: WARNING: This key is not certified with a trusted signature!
@@ -326,8 +433,19 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```sh
   $ npm install
+  ```
+  
+  ```
   > [...]
+  ```
+  
+  ```
   $ bos -V
+  ```
+
+**Example** of expected output:
+
+  ```
   > v99.99.9
   ```
 
@@ -335,11 +453,10 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
 If you want to uninstall Balance of Satoshis:
 
-* Log in with the "root" user and delete the "bos" user
-
+* Delete the "bos" user. Do not worry about the `userdel: temp mail spool (/var/mail/temp) not found` message
+  
   ```sh
-  $ sudo su
-  $ userdel -r bos
+  $ sudo userdel -r bos
   ```
 
 ## Optional: connect your node to a Telegram bot
@@ -350,7 +467,7 @@ Balance of Satoshis allows connecting a node to a Telegram bot to receive update
 
 *Requirements:* a Telegram account
 
-### Create a new TG bot with the BotFather
+### **Create a new TG bot with the BotFather**
 
 * Open Telegram, in the general search box look for the [@BotFather](https://t.me/BotFather){:target="_blank"} bot and start a conversation with the bot.
 * Type `/start`
@@ -358,14 +475,17 @@ Balance of Satoshis allows connecting a node to a Telegram bot to receive update
 * Once the bot is created, the BotFather will give you a HTTP API token, copy it and keep it somewhere safe (like in a password manager). Note that if you lose this token, you could always get it agin by typing `/myBot` in the BotFather feed.
 * You also get a link to your bot (in the form: t.me/[your_bot_username]) click on it and it will redirect you to your new bot feed. Keep Telegram opened.
 
-### Tor Proxy (requires v11.50.1+)
+### **Tor Proxy (requires v11.50.1+)**
 
 To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or VPN) using the flag `--use-proxy <file>`.
 
-* As user "bos", create and edit a new file `proxy_agent.json`. Insert host and port of your Tor (or VPN or other proxy) instance. Save (Ctrl+O) and exit (Ctrl+X)
+* As user "bos", create and edit a new file `proxy_agent.json`. Insert host and port of your Tor (or VPN or other proxy) instance. Save and exit
 
   ```sh
   $ sudo su - bos
+  ```
+  
+  ```sh
   $ nano balanceofsatoshis/proxy_agent.json
   ```
 
@@ -376,7 +496,7 @@ To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or
    }
   ```
 
-### Use bos to connect your node to the bot
+### **Use bos to connect your node to the bot**
 
 * Change to the "bos" user
 
@@ -396,7 +516,7 @@ To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or
 
 * Copy the connection code and paste it in your SSH session in the second prompt that bos created. You should get a connection message on both your SSH session and your TG bot feed. In the SSH session:
 
-  ```sh
+  ```
   > is_connected: true
   ```
 
@@ -408,7 +528,7 @@ To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or
   $ exit
   ```
 
-### Permanent connection and autostart on boot
+### **Permanent connection and autostart on boot**
 
 Now we’ll make sure our Telegram Bot command starts as a systemd service on the personal computer so it’s always running.
 
@@ -450,12 +570,21 @@ Now we’ll make sure our Telegram Bot command starts as a systemd service on th
   [...]
   ```
 
-* Enable the service, start it and check the status of the service. You should also receive a connection message from your TG bot ('Connect to ...').
+* Enable autoboot, start it and check the status of the service. You should also receive a connection message from your TG bot ('Connect to ...').
 
   ```sh
   $ sudo systemctl enable bos-telegram.service
+  ```
+  
+  ```sh
   $ sudo systemctl start bos-telegram.service
+  ```
+  
+  ```sh
   $ systemctl status bos-telegram.service
+  ```
+  
+  ```
   > bos-telegram.service - bos-telegram
   >   Loaded: loaded (/etc/systemd/system/bos-telegram.service; enabled; vendor preset: enabled)
   >   Active: active (running) since Fri 2021-12-03 13:52:06 GMT; 8s ago
@@ -472,9 +601,9 @@ Now we’ll make sure our Telegram Bot command starts as a systemd service on th
   $ sudo journalctl -f -u bos-telegram
   ```
 
-* Check that the program is running in the background: Go to your Telegram bot and type /version, it should return your currently installed version of bos and the latest available version.
+* Check that the program is running in the background: Go to your Telegram bot and type `/version`, it should return your currently installed version of bos and the latest available version.
 
-### Bos Telegram bot in action
+### **Bos Telegram bot in action**
 
 * The bot will notify you of the following events on your LN node:
   * 💵 - A payment being received (if it's a keysend with a message, the message will be decoded and displayed
