@@ -19,8 +19,8 @@ has_toc: false
 Difficulty: Medium
 {: .label .label-yellow }
 
-Status: Not tested MiniBolt
-{: .label .label-red }
+Status: Tested MiniBolt
+{: .label .label-blue }
 
 ![bos-rebalance](../../../images/bos-illustration.png)
 
