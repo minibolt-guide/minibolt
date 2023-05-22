@@ -146,7 +146,10 @@ Expected output:
  
   ```
   > v15.8.1
-  > VERSION=$(git tag | sort --version-sort | tail -n 1)
+  ```
+  
+  ```sh
+  $ VERSION=$(git tag | sort --version-sort | tail -n 1)
   ```
   
   ```sh
@@ -239,6 +242,11 @@ To use Balance of Satoshis, we will use the "bos" user.
 
   ```sh
   $ bos peers
+  ```
+  
+**Example** of expected output:
+
+  ```
   > │ Alias                      │ Inbound    │ In Fee       │ Outbound   │
   > ├────────────────────────────┼────────────┼──────────────┼────────────┤
   > │ euclid                     │ 0.00283195 │ 0.00% (7)    │ 0.00956736 ┤
@@ -383,7 +391,10 @@ You can also join the Balance of Satoshis Telegram group to get support: [https:
 
   ```
   > v15.8.1
-  > VERSION=$(git tag | sort --version-sort | tail -n 1)
+  ```
+  
+  ```sh
+  $ VERSION=$(git tag | sort --version-sort | tail -n 1)
   ```
 
 * Remove any potential uncommited changes to your local branch to avoid issues when checking out the new tag
@@ -475,7 +486,7 @@ Balance of Satoshis allows connecting a node to a Telegram bot to receive update
 * Once the bot is created, the BotFather will give you a HTTP API token, copy it and keep it somewhere safe (like in a password manager). Note that if you lose this token, you could always get it agin by typing `/myBot` in the BotFather feed.
 * You also get a link to your bot (in the form: t.me/[your_bot_username]) click on it and it will redirect you to your new bot feed. Keep Telegram opened.
 
-### **Tor Proxy (requires v11.50.1+)**
+### **Tor Proxy**
 
 To avoid leaking our node IP address to Telegram, we can tell bos to use Tor (or VPN) using the flag `--use-proxy <file>`.
 
