@@ -147,10 +147,10 @@ Expected output:
   ```
   > v15.8.1
   ```
- 
-  ```sh
   
  * Check the GPG signature of the new version
+  
+  ```sh
   $ git verify-tag $VERSION
   ```
   
