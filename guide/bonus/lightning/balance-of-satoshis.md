@@ -139,7 +139,7 @@ Expected output:
 * Find the most recent tag and verify the signature. Add the `--tags` option to select even a lightweight/non-annotated tag. Add the `--abbrev=0` option to remove any long-format tag names.
 
   ```sh
-  $ git tag | sort --version-sort | tail -n 1
+  $ VERSION=$(git tag | sort --version-sort | tail -n 1); echo $VERSION
   ````
   
  **Example** of expected output:
@@ -147,12 +147,10 @@ Expected output:
   ```
   > v15.8.1
   ```
-  
+ 
   ```sh
-  $ VERSION=$(git tag | sort --version-sort | tail -n 1)
-  ```
   
-  ```sh
+ * Check the GPG signature of the new version
   $ git verify-tag $VERSION
   ```
   
