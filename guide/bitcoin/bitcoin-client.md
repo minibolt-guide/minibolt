@@ -124,15 +124,15 @@ Expected output:
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="_blank"}, proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
 
-  * [https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS.ots)
-  * [https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-24.0.1/SHA256SUMS)
+  * [https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots)
+  * [https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS)
 
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/){:target="_blank"}
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
 * In the next box, drop or upload the SHA256SUMS file
-* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v24.0.1){:target="_blank"} of Bitcoin Core v24.0.1.
+* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v25.0){:target="_blank"} of Bitcoin Core v25.0
 
-The following screenshot is just an example of one of the versions:
+The following screenshot is just an **example** of one of the versions:
 
 ![Bitcoin timestamp check](../../images/bitcoin-ots-check.PNG)
 
@@ -661,7 +661,7 @@ Replace the environment variable `"VERSION=x.xx"` value for the latest version i
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=24.1
+  $ VERSION=25.0
   ```
 
 * Download binary, checksum, signature files and timestamp file
@@ -760,7 +760,7 @@ Now, just check that the timestamp date is close to the [release](https://github
   $ bitcoind --version
   ```
 
-**Example** of expected output:
+The following output is just an **example** of one of the versions:
 
   ```
   > Bitcoin Core version v24.1.0
