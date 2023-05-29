@@ -53,7 +53,7 @@ This is a precaution to make sure that this is an official release and not a mal
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=24.1
+  $ VERSION=25.0
   ```
 
 * Get the latest binaries and signatures
@@ -156,7 +156,7 @@ The following screenshot is just an example of one of the versions:
   $ bitcoind --version
   ```
 
-**Example** of expected output:
+The following output is just an **example** of one of the versions:
 
   ```
   > Bitcoin Core version v24.1.0

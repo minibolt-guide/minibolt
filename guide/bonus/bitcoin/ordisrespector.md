@@ -72,7 +72,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 * Set the next environment variable
 
   ```sh
-  $ VERSION=24.1
+  $ VERSION=25.0
   ```
 
 * Install the next dependencies packages
@@ -278,6 +278,14 @@ Expected output:
 
   ```sh
   $ bitcoind --version
+  ```
+
+The following output is just an **example** of one of the versions:
+
+  ```
+  > Bitcoin Core version v24.1.0
+  > Copyright (C) 2009-2022 The Bitcoin Core developers
+  > [...]
   ```
 
 💡 Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../../guide/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps.
