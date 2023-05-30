@@ -51,7 +51,7 @@ Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), thes
 
 ### **Firewall & reverse proxy**
 
-In the [Security section](../system/security.md), we already set up NGINX as a reverse proxy.
+In the [Security section](../../../guide/system/security.md), we already set up NGINX as a reverse proxy.
 Now we can add the Electrs configuration.
 
 * Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication.
