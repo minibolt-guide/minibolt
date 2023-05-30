@@ -37,7 +37,7 @@ Status: Tested MiniBolt
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync) after a full sync.
+Make sure that you have [reduced the database cache of Bitcoin Core](../../../guide/bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
 
 Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
@@ -261,12 +261,11 @@ Electrs need to start automatically on system boot.
   [Unit]
   Description=Electrs daemon
   After=bitcoind.service
-  PartOf=bitcoind.service
 
   [Service]
   ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
   Type=simple
-  TimeoutSec=120
+  TimeoutSec=3600
   KillMode=process
   User=electrs
   RuntimeDirectory=electrs
