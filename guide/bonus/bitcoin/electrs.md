@@ -294,7 +294,7 @@ Electrs need to start automatically on system boot.
 
 ## Run Electrs
 
-To keep an eye on the software movements, [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node and log in as "admin".
+To keep an eye on the software movements, [Start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the service. It will immediately start with the initial indexing of the Bitcoin blocks.
@@ -342,7 +342,7 @@ With this, the wallets you use no longer need to connect to any third-party serv
 
 💡 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets.
 This can take a few hours.
-Only proceed with the [next section](desktop-wallet.md) once Electrs is ready.
+Only proceed with the [next section](../../../guide/bitcoin/desktop-wallet.mddesktop-wallet.md) once Electrs is ready.
 
 ### **Remote access over Tor (optional)**
 
