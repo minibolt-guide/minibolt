@@ -382,6 +382,7 @@ To enable Tor in the background follow the same instructions for the [preparatio
     User admin
     Port 22
     CheckHostIP no
+    VerifyHostKeyDNS no
     ProxyCommand /usr/bin/nc -x localhost:9050 %h %p
   ```
 
