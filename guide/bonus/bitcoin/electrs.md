@@ -37,7 +37,7 @@ Status: Tested MiniBolt
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#reduce-dbcache-after-full-sync) after a full sync.
+Make sure that you have [reduced the database cache of Bitcoin Core](../../../guide/bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
 
 Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
@@ -51,7 +51,7 @@ Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), thes
 
 ### **Firewall & reverse proxy**
 
-In the [Security section](../system/security.md), we already set up NGINX as a reverse proxy.
+In the [Security section](../../../guide/system/security.md), we already set up NGINX as a reverse proxy.
 Now we can add the Electrs configuration.
 
 * Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication.
@@ -108,7 +108,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=0.9.12
+  $ VERSION=0.9.13
   ```
 
   ```sh
@@ -261,12 +261,11 @@ Electrs need to start automatically on system boot.
   [Unit]
   Description=Electrs daemon
   After=bitcoind.service
-  PartOf=bitcoind.service
 
   [Service]
   ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
   Type=simple
-  TimeoutSec=120
+  TimeoutSec=3600
   KillMode=process
   User=electrs
   RuntimeDirectory=electrs
@@ -281,7 +280,7 @@ Electrs need to start automatically on system boot.
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable electrs
@@ -295,7 +294,7 @@ Electrs need to start automatically on system boot.
 
 ## Run Electrs
 
-[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+To keep an eye on the software movements, [Start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the service. It will immediately start with the initial indexing of the Bitcoin blocks.
@@ -343,7 +342,7 @@ With this, the wallets you use no longer need to connect to any third-party serv
 
 💡 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets.
 This can take a few hours.
-Only proceed with the [next section](desktop-wallet.md) once Electrs is ready.
+Only proceed with the [next section](../../../guide/bitcoin/desktop-wallet.mddesktop-wallet.md) once Electrs is ready.
 
 ### **Remote access over Tor (optional)**
 
@@ -437,7 +436,7 @@ Expected output:
 * Replace the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
 
   ```sh
-  $ VERSION=0.9.12
+  $ VERSION=0.9.13
   ```
 
   ```sh

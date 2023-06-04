@@ -72,7 +72,7 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
 * Set the next environment variable
 
   ```sh
-  $ VERSION=24.0.1
+  $ VERSION=25.0
   ```
 
 * Install the next dependencies packages
@@ -102,6 +102,32 @@ Ordinals abuse the Bitcoin timechain which was meant to process financial transa
   ```sh
   $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
   ```
+
+💡 If you already had Bitcoin Core installed and OTS client with the IBD completed, you could do the timestamp check verification
+
+* Download the timestamp file
+
+  ```sh
+  $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
+  ```
+
+* Execute the OTS verification command
+
+  ```sh
+  $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
+  ```
+
+The following output is just an **example** of one of the versions:
+
+  ```
+  > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+  > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+  > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+  > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+  > Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
+  ```
+
+Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing.
 
 ### **Checksum check**
 
@@ -151,7 +177,7 @@ The following command prints signature checks for each of the public keys that s
 
 Expected output:
 
-  ```sh
+  ```
   > gpg: Good signature from ...
   > Primary key fingerprint: ...
   [...]
@@ -164,6 +190,20 @@ Expected output:
   ```
 
 ### **Build it from the source code**
+
+* Build BerkeleyDB 4.8 to allow for legacy wallets, necessary to use JoinMarket, Electrum Personal Server, and possibly other tools:
+
+  ```sh
+  $ wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4300aa6cf2c5cf5c19f55e73499c/contrib/install_db4.sh
+  ```
+
+  ```sh
+  $ chmod +x bdb.sh
+  ```
+
+  ```sh
+  $ ./bdb.sh bitcoin-$VERSION
+  ```
 
 * Enter the Bitcoin Core source code folder
 
@@ -180,7 +220,9 @@ Expected output:
 * The next command will pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
   ```sh
+  export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
   ./configure \
+     BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" \
     --disable-bench \
     --disable-gui-tests \
     --disable-maintainer-mode \
@@ -193,6 +235,8 @@ Expected output:
   ```
 
 ### **Apply the patch "Ordisrespector"**
+
+💡 Skip this step if you want only to build Bitcoin Core from the source code but not apply the Ordisrespector patch
 
 * Download the Ordisrespector patch
 
@@ -230,6 +274,22 @@ Expected output:
   $ sudo make install
   ```
 
+* Check the correct installation requesting the output of the version
+
+  ```sh
+  $ bitcoind --version
+  ```
+
+The following output is just an **example** of one of the versions:
+
+  ```
+  > Bitcoin Core version v24.1.0
+  > Copyright (C) 2009-2022 The Bitcoin Core developers
+  > [...]
+  ```
+
+💡 Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../../guide/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps.
+
 * Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
 
   ```sh
@@ -252,7 +312,7 @@ Expected output:
 
 ![ordisrespector-mempool-blocks](../../../images/ordisrespector-mempool-blocks.png)
 
-* Put the pointer above the cube's dynamic graphic at the bottom right, find a transaction with exactly **0.00010000 BTC** or **0.00005000 BTC** ***[NEW]*** output amount and click on the cube of the transaction to do a second verification
+* Put the pointer above the cube's dynamic graphic at the bottom right, and find transactions with for example **0.00010000 BTC**, **0.00005000 BTC**, **0.00000546 BTC**, **0.00000330 BTC**, **0.00000538 6 BTC**... output amount, or similar recurrency amount and click on the cube of the transaction to do a second verification
 
 ![ordisrespector-mempool-cube-tx](../../../images/ordisrespector-mempool-cube-tx.png)
 
@@ -305,13 +365,13 @@ Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/Nodo-Bitcoin-Barcelo
 If you have enabled the Tor network
 
   ```
-  addnode=ots6ud7ovx6furs4sxlm7aze5q44qtoeapwcukelcxc3i2r5tkxgdlqd.onion:8333
+  addnode=ize3qs3uizcvqrgxu74ymuhgpboagerz4p3me2pk5umz5vieqwcp3ead.onion:8333
   ```
 
 If you have enabled the I2P network, add this line as well
 
   ```
-  addnode=i2gu72r3tcmd5tuup53bauczdbvmylsoasvjxd56qobj7xhthxla.b32.i2p:0
+  addnode=4xwfv4riorh2fpumbdpbuszpj5253q5hw6625xyqekprljz6uasa.b32.i2p:0
   ```
 
 <br /><br />

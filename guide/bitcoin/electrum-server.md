@@ -79,7 +79,7 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
   ```
 
   ```sh
-  zmqpubhashblock=tcp://0.0.0.0:8433
+  zmqpubhashblock=tcp://127.0.0.1:8433
   ```
 
 * Restart Bitcoin Core
@@ -103,7 +103,7 @@ We have our Bitcoin Core configuration file set up and can now move on to the ne
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=1.9.0
+  $ VERSION=1.9.1
   ```
 
 * Download the application, checksums and signature
@@ -183,7 +183,7 @@ Expected output:
 Expected output:
 
   ```
-  > Fulcrum $VERSION (Release a5a53cf)
+  > Fulcrum $VERSION (Release xxxxx)
   > compiled: gcc 8.4.0
   [...]
   ```
@@ -234,6 +234,7 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   $ cd /data/fulcrum
   ```
 
+  ```sh
   $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
   ```
 
@@ -249,11 +250,13 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
 
 MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
-* Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware. Create the config file with the following content. Save and exit
+* Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware.
 
   ```sh
   $ nano /data/fulcrum/fulcrum.conf
   ```
+
+* Create the config file with the following content. Save and exit
 
   ```
   # MiniBolt: fulcrum configuration
@@ -272,12 +275,14 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   peering = false
 
   # Set fast-sync accorling with your device,
-  # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
+  # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
   fast-sync = 2048
 
   # Banner
   banner = /data/fulcrum/fulcrum-banner.txt
   ```
+
+💡 Remember, if you have a slow-performance device, follow the [slow device section](#slow-device-mode) to improve the experience of the first indexation
 
 * Exit the "fulcrum" user session to return to the "admin" user session
 
@@ -303,6 +308,7 @@ Fulcrum needs to start automatically on system boot.
   Description=Fulcrum
   After=bitcoind.service
   PartOf=bitcoind.service
+
   StartLimitBurst=2
   StartLimitIntervalSec=20
 
@@ -311,15 +317,13 @@ Fulcrum needs to start automatically on system boot.
   KillSignal=SIGINT
   User=fulcrum
   Type=exec
-  TimeoutStopSec=300
-  RestartSec=30
-  Restart=on-failure
+  TimeoutStopSec=3600
 
   [Install]
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable fulcrum.service
@@ -333,21 +337,21 @@ Fulcrum needs to start automatically on system boot.
 
 ## Run Fulcrum
 
-[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+To keep an eye on the software movements, [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 ```sh
 $2 sudo systemctl start fulcrum
 ```
 
-Monitor the systemd journal at the first session created to check if everything works fine:
+Monitor the systemd journal at the first session created to check if everything works fine. **Example** of expected output:
 
-  ```sh
+  ```
   -- Journal begins at Mon 2022-04-04 16:41:41 CEST. --
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] simdjson: version 0.6.0
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] ssl: OpenSSL 1.1.1n  15 Mar 2022
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] zmq: libzmq version: 4.3.3, cppzmq version: 4.7.1
-  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.0 (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
+  Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VERSION (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Max open files: 524288 (increased from default: 1024)
   Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.065] Loading database ...
   Jul 28 12:20:14 minibolt Fulcrum[181811]: [2022-07-28 12:20:14.489] DB memory: 512.00 MiB
@@ -363,7 +367,7 @@ Fulcrum will now index the whole Bitcoin blockchain so that it can provide all n
 
 DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
 
-💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days. Only proceed with the [Desktop Wallet Section](../bitcoin/desktop-wallet.md) once Fulcrum is ready.
+💡 Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to ~3.5 - 4 days depending on the hardware. Only proceed with the [Desktop Wallet Section](../bitcoin/desktop-wallet.md) once Fulcrum is ready.
 
 * When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, it means that Fulcrum is fully indexed, ensure the service is working and listening at the default `50002` & `50001` ports
 
@@ -373,7 +377,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING DB CREATION PROCESS. YOU MAY CORRUPT TH
 
 ## For the future: Fulcrum upgrade
 
-Follow the complete [Installation](#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
+Follow the complete [Download and set up Fulcrum](#download-and-set-up-fulcrum) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
 * Restart the service to apply the changes
 
@@ -437,7 +441,8 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
 
 #### **Fulcrum configuration**
 
-* As the `admin` user, add these lines to the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware.
+* As the `admin` user, add these lines at the end of the existing `fulcrum.conf` file.
+Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware.
 
  ```sh
   $ sudo nano /data/fulcrum/fulcrum.conf
@@ -474,17 +479,6 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ cd zram-swap && sudo ./install.sh
   ```
 
-* Set the following size value in zram configuration file. Save and exit
-
-  ```sh
-  $ sudo nano /etc/default/zram-swap
-  ```
-
-  ```
-  #_zram_fraction="1/2" #Comment this line
-  _zram_fixedsize="10G" #Uncomment and edit
-  ```
-
 * Add kernel parameters to make better use of zram
 
   ```sh
@@ -512,77 +506,18 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   $ sudo systemctl restart zram-swap
   ```
 
-* Make sure zram was correctly installed, zram prioritized, and autoboot enabled
+* Make sure zram was correctly installed and zram prioritized
 
   ```sh
   $ sudo cat /proc/swaps
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```
-  Filename                               Type                 Size           Used    Priority
-  /var/swap                              file                 102396         0       -2
-  /dev/zram0                             partition            102396         0        5
-  ```
-
-* Check the status of zram-swap service
-
-  ```sh
-  $ sudo systemctl status zram-swap
-  ```
-
-Expected output, find *enabled* label:
-
-  ```
-  zram-swap.service - zram swap service
-  Loaded: loaded (/etc/systemd/system/zram-swap.service; enabled; vendor preset: enabled)
-  Active: active (exited) since Mon 2022-08-08 00:51:51 CEST; 10s ago
-  Process: 287452 ExecStart=/usr/local/sbin/zram-swap.sh start (code=exited, status=0/SUCCESS)
-  Main PID: 287452 (code=exited, status=0/SUCCESS)
-  CPU: 191ms
-  Aug 08 00:51:51 node systemd[1]: Starting zram swap service...
-  Aug 08 00:51:51 node zram-swap.sh[287471]: Setting up swapspace version 1, size = 4.6 GiB (4972199936 bytes)
-  ...
-  ```
-
-💡 After the initial sync of Fulcrum, if you want to still use zram, you can return to the default zram config following the next instructions
-
-* As user "admin", access to zram config again and return to default config. Save and exit
-
-  ```sh
-  $ sudo nano /etc/default/zram-swap
-  ```
-
-  ```
-  _zram_fraction="1/2"   #Uncomment this line
-  #_zram_fixedsize="10G" #Comment this line
-  ```
-
-* Then apply the changes with
-
-  ```sh
-  $ sudo sysctl --system
-  ```
-
-* Restart the service
-
-  ```sh
-  $ sudo systemctl restart zram-swap
-  ```
-
-* Make sure the change was correctly done
-
-  ```sh
-  $ sudo cat /proc/swaps
-  ```
-
-Expected output:
-
-  ```
-  Filename                                Type                Size           Used    Priority
-  /var/swap                              file                 102396         0       -2
-  /dev/zram0                             partition            20479          0        5
+  Filename                                Type            Size            Used            Priority
+  /swap.img                               file            4194300         0               -2
+  /dev/zram0                              partition       10055452        368896          15
   ```
 
 ### **Backup the database**
@@ -634,7 +569,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
   #HiddenServiceVersion 3
   #HiddenServicePort 50001 127.0.0.1:50001
   #HiddenServicePort 50002 127.0.0.1:50002
-    ```
+  ```
 
 * Reload the torrc config
 
@@ -663,7 +598,7 @@ Expected output:
   $ sudo ufw delete X
   ```
 
-### **Uninstall the Zram (optional)**
+### **Uninstall the Zram**
 
 * Ensure you are logged in with user `"admin"`, navigate to zram-swap folder and uninstall
 

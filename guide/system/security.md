@@ -8,7 +8,6 @@ parent: System
 {% include include_metatags.md %}
 
 # Security
-
 {: .no_toc }
 
 ---
@@ -41,15 +40,27 @@ We'll open the port for Electrs and web applications later if needed.
 
   ```sh
   $ sudo ufw default deny incoming
+  ```
+
+  ```sh
   $ sudo ufw default allow outgoing
+  ```
+
+  ```sh
   $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
+  ```
+
+  ```sh
   $ sudo ufw logging off
+  ```
+
+  ```sh
   $ sudo ufw enable
   ```
 
 Expected output:
 
-  ```sh
+  ```
   > Firewall is active and enabled on system startup
   ```
 
@@ -57,6 +68,11 @@ Expected output:
 
   ```sh
   $ sudo ufw status verbose
+  ```
+
+Expected output:
+
+  ```
   > Status: active
   > Logging: off
   > Default: deny (incoming), allow (outgoing), disabled (routed)
@@ -83,7 +99,7 @@ This is due to the limit of open files (representing individual TCP connections)
   $ sudo nano /etc/security/limits.d/90-limits.conf
   ```
 
-  ```sh
+  ```
   *    soft nofile 128000
   *    hard nofile 128000
   root soft nofile 128000
@@ -96,7 +112,7 @@ This is due to the limit of open files (representing individual TCP connections)
   $ sudo nano /etc/pam.d/common-session
   ```
 
-  ```sh
+  ```
   session required                        pam_limits.so
   ```
 
@@ -104,7 +120,7 @@ This is due to the limit of open files (representing individual TCP connections)
   $ sudo nano /etc/pam.d/common-session-noninteractive
   ```
 
-  ```sh
+  ```
   session required                        pam_limits.so
   ```
 
@@ -122,7 +138,7 @@ This is due to the limit of open files (representing individual TCP connections)
   $ sudo tail --lines 500 /var/log/auth.log | grep sshd
   ```
 
-* Discarding your own connections from your regular computer in the local network
+* Discarding your connections from your regular computer in the local network
 
   ```sh
   $ sudo tail --lines 500 /var/log/auth.log | grep sshd | grep -v 192.168.X.XXX
@@ -137,6 +153,8 @@ This is due to the limit of open files (representing individual TCP connections)
 In this way, you can detect a possible brute-force attack and take appropriate mitigation measures.
 
 💡 Do this regularly to get security-related incidents.
+
+---
 
 ## Prepare NGINX reverse proxy
 
@@ -161,15 +179,18 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
   $ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
   ```
 
-* NGINX is also a full webserver.
-  To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the `nginx.conf` file.
+* NGINX is also a full web server.
+  To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the `nginx.conf` file. Save and exit.
 
   ```sh
   $ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-  $ sudo nano /etc/nginx/nginx.conf
   ```
 
   ```sh
+  $ sudo nano /etc/nginx/nginx.conf
+  ```
+
+  ```nginx
   user www-data;
   worker_processes auto;
   pid /run/nginx.pid;
@@ -216,8 +237,19 @@ This setup is called a "reverse proxy": NGINX provides secure communication to t
 
   ```sh
   $ sudo nginx -t
+  ```
+
+Expected output:
+
+  ```
   > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
   > nginx: configuration file /etc/nginx/nginx.conf test is successful
+  ```
+
+* Reload Nginx to apply the configuration
+
+  ```sh
+  $ sudo systemctl reload nginx
   ```
 
 <br /><br />

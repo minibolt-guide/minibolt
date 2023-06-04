@@ -42,31 +42,28 @@ You can prettify your command prompt for each user by enabling color output and 
   $ nano /home/admin/.bashrc --linenumbers
   ```
 
-* In line 46
+* Uncomment line 46
 
-  ```sh
-  # enable color prompt (uncomment, if commented out)
+  ```
   force_color_prompt=yes
   ```
 
-* In line 60
+* Comment existing line 60 (backup) and add the next line (in line 61)
 
-  ```sh
-  # pimp prompt (comment/replace the PS1 line)
-  PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u \[\033[01;34m\]\w\[\e[33;40m\] ₿\[\e[m\] "
+  ```
+  #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u \[\033[01;34m\]\w\[\e[33m\] ₿\[\e[m\] "
   ```
 
-* Insert the following at the end of the file
+* Insert the following at the end of the file (line 121)
 
-  ```sh
-  # set "ls" to always use the -la option, to list details of all files (including hidden), as default
-  # simply insert the following line at the end of the file, or replace existing "alias ls='ls --color=auto'" if already present in the "enable color support of ls" section
+  ```
   alias ls='ls -la --color=always'
   ```
 
-![Pimp prompt](../../../images/60_pimp_prompt.png)
+![Pimp prompt](../../../images/60_pimp_prompt_update.png)
 
-* Reload configuration
+* Apply changes
 
   ```sh
   $ source /home/admin/.bashrc

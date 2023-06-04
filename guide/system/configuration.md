@@ -71,20 +71,6 @@ Now, you can start to access it without a password by following the [SSH keys bo
 
 ## System update
 
-It is important to keep the system up-to-date with security patches and application updates.
-The “Advanced Packaging Tool” (apt) makes this easy.
-
-* Instruct your shell to always use the default language settings.
-  This prevents annoying error messages.
-
-  ```sh
-  $ echo "export LC_ALL=C" >> ~/.bashrc
-  ```
-
-  ```sh
-  $ source ~/.bashrc
-  ```
-
 * Update the operating system and all installed software packages
 
   ```sh
@@ -92,9 +78,11 @@ The “Advanced Packaging Tool” (apt) makes this easy.
   ```
 
 💡 Do this regularly every few months for security-related updates.
-If during the update process, a banner appears asking you: "Which services should be restarted?" you can press ENTER and take note of which services will be restarted during the update, marked with `[*]`
+If during the update process, a banner appears asking you: "Which services should be restarted?" you can press ENTER and take note of which services will be restarted during the update, marked with `[*]`. Example:
 
-* Make sure that all necessary software packages are installed:
+![update action](../../images/update-action.PNG)
+
+* To be able to use the "minibolt" hostname instead of the IP address, we must install this necessary software package
 
   ```sh
   $ sudo apt install avahi-daemon

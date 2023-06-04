@@ -37,7 +37,7 @@ Status: Tested MiniBolt
 
 ## Preparations
 
-### Generate SSH keys on Windows
+### **Generate SSH keys on Windows**
 
 * On your regular computer, download Puttygen [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/puttygen.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/puttygen.exe) version depending on your OS architecture and start it. Also, you can download [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html) start it and use the "MobaKeyGen (SSH key generator)" integrated tool in the "Tools" submenu
 
@@ -49,7 +49,7 @@ Status: Tested MiniBolt
   * "Save public key", and give it a name, eg. minibolt_SSH_pubkey.txt
   * "Save private key", and give it a name, eg. minibolt_SSH_privkey (Keep this safe!)
 
-### Generate SSH keys on Linux or macOS
+### **Generate SSH keys on Linux or macOS**
 
 * In the terminal on your regular computer, first, check if the keys already exist
 
@@ -85,7 +85,7 @@ Status: Tested MiniBolt
 
 ## Import SSH pubkey to MiniBolt node
 
-### From your regular Windows PC
+### **From your regular Windows PC**
 
 * Login with "admin" user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step.
 
@@ -117,7 +117,7 @@ e.g:
   $ chmod 600 authorized_keys
   ```
 
-### From your regular Linux PC
+### **From your regular Linux PC**
 
 * Login with "admin" user on MiniBolt and create a new folder at home called `".ssh"`. If already exists, skip the next step.
 
@@ -149,7 +149,7 @@ e.g:
   $ chmod 600 .ssh/authorized_keys
   ```
 
-### From GitHub keyserver
+### **From GitHub keyserver**
 
 * On your regular computer, access to "GPG and SSH keys" section of your [GitHub account](https://github.com/settings/keys), if you don't have an account [create one](https://github.com/signup)
 
@@ -193,7 +193,7 @@ e.g:
 
 ## Connect to MiniBolt through SSH keys
 
-## Linux or macOS command line
+### **Linux or macOS command line**
 
 * From the Terminal, use the native command
 
@@ -203,7 +203,7 @@ e.g:
 
 ⚠️ Attention: This command only works if you generated the SSH keys [on Linux or macOS](#generate-ssh-keys-on-linux-or-macos) with OpenSSH terminal method, not Putty or MobaXterm generation methods.
 
-## Putty Linux/Windows
+### **Putty Linux/Windows**
 
 * On your regular computer, download Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture and start it.
 
@@ -211,7 +211,7 @@ e.g:
 
 * To the left tree, select "session", in the "Hostname (or IP address)" box, type `admin@minibolt.local` or `admin@192.168.x.xx`, left port `22` to the right box. Click on `Open`. If you selected a key passphrase in [preparations](#preparations) section, enter it. That’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords.
 
-## MobaXterm Windows
+### **MobaXterm Windows**
 
 * On your regular computer, download MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending of you want to install it permanently or not.
 
@@ -223,7 +223,7 @@ e.g:
 
 * Click on the "OK" button and that’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the "Open" button without the need to enter passwords.
 
-### Disable password login
+### **Disable password login**
 
 * Log in to the MiniBolt as "admin" using SSH with your SSH key.
   You shouldn't be prompted for the admin's password anymore.
@@ -234,16 +234,16 @@ e.g:
   $ sudo nano /etc/ssh/sshd_config --linenumbers
   ```
 
-  ```sh
-  # uncomment and change line 33
+  ```
+  # uncomment and change the line to "no"
   PermitRootLogin no
-  # change line 85
+  # change the line to "no"
   UsePAM no
-  # change line 123 (at the end of the file)
+  # change the line to "no"
   PasswordAuthentication no
   ```
 
-* Test this barebone SSH configuration. Not output is OK, e.g "/etc/ssh/sshd_config line XX: unsupported option "XXX" is a wrong information
+* Test this barebone SSH configuration. If you see no output to the next command, that is OK. If you see something like "/etc/ssh/sshd_config line XX: unsupported option "XXX" that means something is incorrect.
 
   ```sh
   $ sudo sshd -t
@@ -266,6 +266,22 @@ You can follow the guide where you left it by clicking [here](../../system/confi
 🚨 **Backup your SSH keys!**
 
 You will need to attach a screen and keyboard to your PC if you lose them.
+
+### **Disable admin password request (optional -caution!)**
+
+⚠️ Attention: This could be a security risk, is not recommended to disable the admin password to avoid a possible and hypothetical attacker could gain complete control of the node in case of intrusion, if you do it, act at your own risk.
+
+* Ensure you are logged in with user admin, edit the next file
+
+  ```sh
+  $ sudo visudo
+  ```
+
+* Add the next line at the end of the file. Save and exit
+
+  ```
+  admin ALL=(ALL) NOPASSWD:ALL
+  ```
 
 <br /><br />
 

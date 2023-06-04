@@ -264,7 +264,7 @@ Public key ***example*** expected output, we'll call **`"<Your_Server_Public_Key
   $ sudo nano /etc/wireguard/wg0.conf
   ```
 
-Write the following content and replace only **`"<Your_Server_Private_Key>"`** with the data previously obtained. `"<Your_Client_Public_Key>"` will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](#server-configuration-part-2).
+* Write the following content and replace only **`"<Your_Server_Private_Key>"`** with the data previously obtained. `"<Your_Client_Public_Key>"` will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](#server-configuration-part-2)
 
   ```
   ## Server configuration (MiniBolt)
@@ -347,7 +347,7 @@ Public key ***example*** expected output, we'll it call **`"<Your_Client_Public_
   $ sudo nano /etc/wireguard/wg0.conf
   ```
 
-Write the following contents to the `wg0.conf` file
+* Write the following contents to the `wg0.conf` file
 
   ```
   ## Client configuration
@@ -390,7 +390,7 @@ Now return to the MiniBolt node to allow access to the newly created Wireguard V
 
 Now we are going to complete the previous parameter **`"<Your_Client_Public_Key>"`** that we left pending to complete before with the created in the **["generate client key pair"](#generate-client-key-pair)** section.
 
-Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one.
+* Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one.
 
   ```
   ## Client configuration
@@ -471,7 +471,7 @@ Expected output:
   $ ssh admin@10.0.0.1
   ```
 
-💡 Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [https://10.0.0.1:4000](https://10.0.1.1:4000){:target="_blank"}
+💡 Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [https://10.0.0.1:4000](https://10.0.0.1:4000){:target="_blank"}
 
 * Check the VPN client status using
 

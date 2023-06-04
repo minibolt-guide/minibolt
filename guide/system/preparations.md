@@ -48,14 +48,12 @@ You might also want to get this optional hardware:
 
 * UPS (uninterruptible power supply)
 
----
-
 ## Write down your passwords
 
 You will need several passwords, and it's easiest to write them all down in the beginning, instead of bumping into them throughout the guide.
 They should be unique and very secure, at least 12 characters in length. Do **not use uncommon special characters**, spaces, or quotes (‘ or “).
 
-  ```sh
+  ```
   [ A ] Master user password
   [ B ] Bitcoin RPC password
   [ C ] LND wallet password
@@ -67,8 +65,6 @@ They should be unique and very secure, at least 12 characters in length. Do **no
 
 If you need inspiration for creating your passwords: the [xkcd: Password Strength](https://xkcd.com/936/){:target="_blank"} comic is funny and contains a lot of truth.
 Store a copy of your passwords somewhere safe (preferably in an open-source password manager like [KeePassXC](https://keepassxc.org/){:target="_blank"}), or whatever password manager you're already using, and keep your original notes out of sight once your system is up and running.
-
----
 
 ## Secure your home network and devices
 

@@ -19,4 +19,4 @@ In the following sections, we will start it up and prepare the operating system 
 
 ---
 
-Next: [Preparationes >>](preparations.md)
+Next: [Preparations >>](preparations.md)

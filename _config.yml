@@ -29,6 +29,11 @@ type: website
 # enable theme for local usage
 #theme: "just-the-docs"
 
+callouts:
+  note:
+    title: Note
+    color: green
+
 exclude:
   - CNAME
   - Gemfile

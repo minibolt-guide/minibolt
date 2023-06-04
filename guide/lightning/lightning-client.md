@@ -67,7 +67,7 @@ We'll download, verify and install LND.
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=0.15.5
+  $ VERSION=0.16.2
   ```
 
 * Download the application, checksums and signature
@@ -116,7 +116,7 @@ Expected output:
 
   ```
   > [...]
-  > gpg: key 372CBD7633C61696: public key "Olaoluwa Osuntokun <laolu32@gmail.com>" imported
+  > gpg: key 372CBD7633C61696: public key "Olaoluwa Osuntokun <laolu32@gmail.com>" imported/not changed
   > [...]
   ```
 
@@ -147,7 +147,7 @@ We can also check that the manifest file was in existence around the time of the
   $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
   ```
 
-**Example** expected output:
+**Example** of expected output:
 
   ```
   > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
@@ -294,7 +294,6 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   accept-keysend=true
   accept-amp=true
   protocol.wumbo-channels=true
-  protocol.no-anchors=false
   coop-close-target-confs=24
 
   # Watchtower client
@@ -303,14 +302,13 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   #wtclient.sweep-fee-rate=10
 
   # Watchtower server
-  watchtower.active=1
+  watchtower.active=true
 
   # Performance
   gc-canceled-invoices-on-startup=true
   gc-canceled-invoices-on-the-fly=true
-  ignore-historical-gossip-filters=1
+  ignore-historical-gossip-filters=true
   stagger-initial-reconnect=true
-  routing.strictgraphpruning=true
 
   # Database
   [bolt]
@@ -323,8 +321,8 @@ To give some perspective: other Lightning implementations like c-lightning or Ec
   bitcoind.estimatemode=ECONOMICAL
 
   [Bitcoin]
-  bitcoin.active=1
-  bitcoin.mainnet=1
+  bitcoin.active=true
+  bitcoin.mainnet=true
   bitcoin.node=bitcoind
 
   [tor]
@@ -364,7 +362,7 @@ Now, let's set up LND to start automatically on system startup.
   ExecStart=/usr/local/bin/lnd
   ExecStop=/usr/local/bin/lncli stop
   Type=simple
-  TimeoutSec=240
+  TimeoutSec=3600
   LimitNOFILE=128000
   User=lnd
   RuntimeDirectory=lightningd
@@ -379,14 +377,14 @@ Now, let's set up LND to start automatically on system startup.
   WantedBy=multi-user.target
   ```
 
-* Enable the service
+* Enable autoboot
 
   ```sh
   $ sudo systemctl enable lnd
   ```
 
 * Now, the daemon information is no longer displayed on the command line but is written into the system journal.
-  You can check on it using the following command.
+  You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
 
   ```sh
   $ sudo journalctl -f -u lnd
@@ -394,7 +392,7 @@ Now, let's set up LND to start automatically on system startup.
 
 ## Run LND
 
-[Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the PC and log in as "admin".
+To keep an eye on the software movements, [Start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node and log in as "admin".
 Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start LND
@@ -411,10 +409,10 @@ Expected output:
   > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
   > Dec 02 09:23:37 minibolt lnd[2584156]: Attempting automatic RPC configuration to bitcoind
   > Dec 02 09:23:37 minibolt lnd[2584156]: Automatically obtained bitcoind's RPC credentials
-  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Version: 0.15.5-beta commit=v0.15.5-beta, build=production, logging=default, debuglevel=info
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Version: $VERSION-beta commit=$VERSION-beta, build=production, logging=default, debuglevel=info
   > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Active chain: Bitcoin (network=mainnet)
   > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.975 [INF] RPCS: RPC server listening on 127.0.0.1:10009
-  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
+  > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] RPCS: gRPC proxy started at 0.0.0.0:8080
   > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] LTND: Opening the main database, this might take a few minutes...
   > Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] LTND: Opening bbolt database, sync_freelist=false, auto_compact=true
   [...]
@@ -460,14 +458,14 @@ Once LND is started, the process waits for us to create the integrated Bitcoin o
 
 These 24 words is all that you need to restore the Bitcoin on-chain wallet.
 
-* **Write these 24 words down manually on a piece of paper and store it in a safe place.**
+* **Write these 24 words down manually on a piece of paper and store it in a safe place**
 
 You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf){:target="_blank"}, or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
 
 🚨 This piece of paper is all an attacker needs to completely empty your on-chain wallet!
 🚫 Do not store it on a computer.
 🚫 Do not take a picture with your mobile phone.
-🚫 **This information should never be stored anywhere in digital form.**
+🚫 **This information should never be stored anywhere in digital form**
 
 The current state of your channels, however, cannot be recreated from this seed.
 For this, the Static Channel Backup stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. Exist a dedicate [guide](../lightning/channel-backup.md) to automatic backup this.
@@ -522,7 +520,7 @@ To make the user "admin" the main administrative user, we make sure it can inter
 
 💡 The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping to do this just in case any log could give extra information about the command you just entered.
 
-### **Watchtower client**
+### **Watchtower client (recommended)**
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers.
 If your MiniBolt goes down for a longer period of time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
@@ -577,7 +575,7 @@ Expected output:
   $ lncli wtclient remove <pubkey>
   ```
 
-### **Watchtower server**
+### **Watchtower server (optional)**
 
 Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. This was previously activated in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
@@ -600,9 +598,12 @@ Example output:
 
   ```
 
-⚠️ This service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
+⚠️ This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
 
-💡 Almost all of the following steps could be run with the [mobile](../lightning/mobile-app.md)/[web](../lightning/web-app.md) app guides
+{: .note-title }
+> Note
+>
+> Almost all of the following steps could be run with the [mobile](../lightning/mobile-app.md)/[web](../lightning/web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line.
 
 ### **Funding your Lightning node**
 
@@ -689,63 +690,15 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
 
-To try, why not send me satoshis! You simply need to input my node pukey [`⚡2FakTor⚡`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128){:target="_blank"}, the amount in satoshis and add the –keysend flag
+To try, why not send me satoshis! You simply need to input my node pubkey [`⚡2FakTor⚡`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128){:target="_blank"}, the amount in satoshis and add the "–keysend" flag
 
   ```sh
   $ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
   ```
 
-### **More commands**
+### **Some useful commands**
 
-A quick reference with common commands to play around with:
-
-* list all arguments for the CLI (command line interface)
-
-  ```sh
-  $ lncli
-  ```
-
-* get help for a specific command
-
-  ```sh
-  $ lncli help [COMMAND]
-  ```
-
-* Find out some general stats about your node:
-
-  ```sh
-  $ lncli getinfo
-  ```
-
-* Check the peers you are currently connected to:
-
-  ```sh
-  $ lncli listpeers
-  ```
-
-* Check the status of your pending channels:
-
-  ```sh
-  $ lncli pendingchannels
-  ```
-
-* Check the status of your active channels:
-
-  ```sh
-  $ lncli listchannels
-  ```
-
-* Before paying an invoice, you should decode it to check if the amount and other info are correct:
-
-  ```sh
-  $ lncli decodepayreq [INVOICE]
-  ```
-
-* Pay an invoice:
-
-  ```sh
-  $ lncli payinvoice [INVOICE]
-  ```
+A quick reference with special commands to play around with:
 
 * Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
@@ -753,37 +706,25 @@ A quick reference with common commands to play around with:
   $ lncli payinvoice --amt <amount> <amp invoice>
   ```
 
-* Send payment to a node without invoice using AMP (both sender and receiver nodes have to have AMP enabled):
+* Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
   ```sh
   $ lncli sendpayment --dest <destination public key> --amt <amount> --amp
   ```
 
-* Send payment to a node without an invoice using Keysend (both sender and receiver nodes have to have Keysend enabled):
+* Send payment to a node without an invoice using Keysend (both sender and receiver nodes have to have Keysend enabled)
 
   ```sh
   $ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
   ```
 
-* Check the payments that you sent:
-
-  ```sh
-  $ lncli listpayments
-  ```
-
-* Create an invoice:
-
-  ```sh
-  $ lncli addinvoice [AMOUNT_IN_SATOSHIS]
-  ```
-
-* Create a Re-Usable Static AMP invoice:
+* Create your own Re-Usable Static AMP invoice
 
   ```sh
   $ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
   ```
 
-💡 Flags `--memo "your memo here" --amt <amount in sats> --expiry <time in seconds>` are optional. Default expiry time will be 30 days by default and the rest can be empty.
+💡 Flags "--memo" "--amt" and "--expiry" are optional. Default expiry time will be 30 days by default and the rest can be empty.
 
 Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website or add it to your social media. LibreOffice has a built-in functionality, and there are plenty of freely available online tools.
 
@@ -793,23 +734,7 @@ Copy the output [lnbc...] of the "payment_request": "lnbc...". Transform your ou
   $ lncli listinvoices
   ```
 
-* to close a channel, you need the following two arguments that can be determined with `listchannels` and are listed as "channelpoint": `FUNDING_TXID`:`OUTPUT_INDEX`
-
-  ```sh
-  $ lncli listchannels
-  ```
-
-  ```sh
-  $ lncli closechannel --sat_per_vbyte <fee> [FUNDING_TXID] [OUTPUT_INDEX]
-  ```
-
-* to force close a channel (if your peer is offline or not cooperative), use `--force`
-
-  ```sh
-  $ lncli closechannel --force [FUNDING_TXID] [OUTPUT_INDEX]
-  ```
-
-* to close all channels in cooperative mode
+* Close all channels in cooperative mode
 
   ```sh
   $ lncli closeallchannels --sat_per_byte <sat/byte>

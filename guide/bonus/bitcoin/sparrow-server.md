@@ -34,17 +34,35 @@ Status: Tested MiniBolt
 {:toc}
 
 ---
+
 ## Installation
 
 ### Download Sparrow Server
 
-* With user "admin", download Sparrow Server and signatures into "/tmp" directory, which is cleared on the reboot.
+* Login as "admin" and change to a temporary directory which is cleared on reboot
 
   ```sh
   $ cd /tmp
-  $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-server-1.7.1-x86_64.tar.gz
-  $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-1.7.1-manifest.txt.asc
-  $ wget https://github.com/sparrowwallet/sparrow/releases/download/1.7.1/sparrow-1.7.1-manifest.txt
+  ```
+
+* Set a temporary version environment variable to the installation
+
+  ```sh
+  $ VERSION=1.7.4
+  ```
+
+* Download the application, checksums and signature
+
+  ```sh
+  $ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-server-$VERSION-x86_64.tar.gz
+  ```
+
+  ```sh
+  $ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt.asc
+  ```
+
+  ```sh
+  $ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt
   ```
 
 * Import keys that signed the release
@@ -56,11 +74,13 @@ Status: Tested MiniBolt
 * Verify the release
 
   ```sh
-  $ gpg --verify sparrow-1.7.1-manifest.txt.asc
+  $ gpg --verify sparrow-$VERSION-manifest.txt.asc
   ```
 
-  ```sh
-  > gpg: assuming signed data in 'sparrow-1.7.1-manifest.txt'
+Expected output:
+
+  ```
+  > gpg: assuming signed data in 'sparrow-$VERSION-manifest.txt'
   > gpg: Signature made Thu Nov 17 14:08:59 2022 GMT
   > gpg:                using RSA key D4D0D3202FC06849A257B38DE94618334C674B40
   > gpg: Good signature from "Craig Raw <craigraw@gmail.com>" [unknown]
@@ -70,14 +90,19 @@ Status: Tested MiniBolt
   ```
 
   ```sh
-  $ sha256sum --check sparrow-1.7.1-manifest.txt --ignore-missing
-  > sparrow-server-1.7.1-x86_64.tar.gz: OK
+  $ sha256sum --check sparrow-$VERSION-manifest.txt --ignore-missing
+  ```
+
+Expected output:
+
+  ```
+  > sparrow-server-$VERSION-x86_64.tar.gz: OK
   ```
 
 * If everything is correct, unpack Sparrow
 
   ```sh
-  $ tar -xvf sparrow-server-1.7.1-x86_64.tar.gz
+  $ tar -xvf sparrow-server-$VERSION-x86_64.tar.gz
   ```
 
 * Move data files to the home "admin" user
@@ -206,7 +231,9 @@ Closing or logging out from your node without detaching would cause mixing to st
 
 ## For the Future: Sparrow Server update
 
-* Download and install Sparrow Server by following the [installation section](#installation), you will overwrite several files.
+Follow the complete [Installation](#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
+
+* Restart the service to apply the changes
 
 ## Uninstall
 
