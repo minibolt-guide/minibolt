@@ -142,7 +142,7 @@ eps needs a "dummy" wallet configured in bitcoind to correctly scan for transact
 Create a basic wallet with
 
   ```sh
-  $ bitcoin-cli createwallet "default" "true" "true" "" "true"
+  $ bitcoin-cli createwallet "default" "true" "true" "" "true" "false"
   ```
 
 and then add directive to autoload it into `bitcoin.conf`:
