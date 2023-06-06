@@ -356,7 +356,6 @@ Now, let's set up LND to start automatically on system startup.
   [Unit]
   Description=LND Lightning Network Daemon
   After=bitcoind.service
-  PartOf=bitcoind.service
 
   [Service]
   ExecStart=/usr/local/bin/lnd

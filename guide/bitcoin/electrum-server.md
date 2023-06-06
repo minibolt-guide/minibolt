@@ -265,6 +265,7 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
   ## Bitcoin Core settings
   bitcoind = 127.0.0.1:8332
   rpccookie = /data/bitcoin/.cookie
+  admin = 8000
 
   ## Fulcrum server general settings
   datadir = /data/fulcrum/fulcrum_db
@@ -307,13 +308,13 @@ Fulcrum needs to start automatically on system boot.
   [Unit]
   Description=Fulcrum
   After=bitcoind.service
-  PartOf=bitcoind.service
 
   StartLimitBurst=2
   StartLimitIntervalSec=20
 
   [Service]
   ExecStart=/usr/local/bin/Fulcrum /data/fulcrum/fulcrum.conf
+  ExecStop=/usr/local/bin/FulcrumAdmin -p 8000 stop
   KillSignal=SIGINT
   User=fulcrum
   Type=exec
@@ -437,6 +438,32 @@ This way, you can connect the BitBoxApp or Electrum wallet also remotely, or eve
 
 * You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 50001 (TCP) or 50002 (SSL)
 
+### **Admin Script: FulcrumAdmin**
+
+Fulcrum comes with an admin script. The admin service is used for sending special control commands to the server, such as stopping the server. You may send commands to Fulcrum using this script.
+
+* Type the next command to see a list of possible subcommands that you can send to Fulcrum
+
+  ```sh
+  $ FulcrumAdmin -h
+  ```
+
+Expected output:
+
+  ```
+  usage: FulcrumAdmin [-h] -p port [-j] [-H [host]]
+                    {addpeer,ban,banpeer,bitcoind_throttle,clients,sessions,getinfo,kick,listbanned,banlist,loglevel,maxbuffer,peers,query,rmpeer,simdjson,stop,shutdown,unban,unbanpeer} ...
+  [...]
+  ```
+
+* Type the next command to get a complete server information
+
+  ```sh
+  $ FulcrumAdmin -p 8000 getinfo
+  ```
+
+🔍 Get more information about this command in the official documentation [section](https://github.com/cculianu/Fulcrum#admin-script-fulcrumadmin)
+
 ### **Slow device mode**
 
 #### **Fulcrum configuration**
@@ -522,7 +549,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
 
 ### **Backup the database**
 
-If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo` systemctl stop fulcrum"`.
+If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
 ## Uninstall
 

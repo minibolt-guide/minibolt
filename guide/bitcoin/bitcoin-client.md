@@ -31,8 +31,6 @@ We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/){:target="_blank"
 Bitcoin Core will download the full Bitcoin blockchain, and validate all transactions since 2009.
 We're talking more than 700'000 blocks with a size of over 465 GB, so this is not an easy task.
 
----
-
 ## Installation
 
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum.
@@ -546,7 +544,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
 
 ## Extras (optional)
 
-### **Privacy mode**
+### **Reject non-private networks**
 
 * As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes. You can add more seed nodes are of this list: [seed nodes](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes_main_manual.txt)
 
@@ -555,7 +553,7 @@ Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp c
   ```
 
   ```
-  # Privacy mode
+  # Reject non-private networks
   onlynet=onion
   onlynet=i2p
   dns=0

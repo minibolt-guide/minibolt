@@ -140,7 +140,7 @@ There might be a lot of confusing output, but if you see something similar to th
   $ cp .env-sample .env
   ```
 
-  ```
+  ```sh
   $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
   ```
 

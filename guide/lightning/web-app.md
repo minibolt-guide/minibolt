@@ -66,7 +66,7 @@ Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/b
   $ sudo nano /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
   ```
 
-  ```sh
+  ```nginx
   server {
     listen 4002 ssl;
     error_page 497 =301 https://$host:$server_port$request_uri;

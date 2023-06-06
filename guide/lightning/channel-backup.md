@@ -93,7 +93,7 @@ We create a shell script to monitor `channel.backup` and make a copy to our back
 
 * Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit.
 
-  ```sh
+  ```
   #!/bin/bash
 
   # Safety bash script options
@@ -190,7 +190,6 @@ We set up the backup script as a systemd service to run in the background and st
   [Unit]
   Description=SCB Backup daemon
   After=lnd.service
-  PartOf=lnd.service
 
   [Service]
   ExecStart=/usr/local/bin/scb-backup
@@ -236,6 +235,9 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
   ```sh
   $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+  ```
+
+  ```
   > NAME   MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL      MODEL
   > sda                                                           931.5G            SSD_PLUS_1000GB
   > |-sda1 /boot      DBF3-0E3A                            vfat     256M boot
@@ -247,6 +249,9 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
   ```sh
   $ awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
+  ```
+
+  ```
   > GID: XXXX / UID: YYYY
   ```
 
@@ -265,6 +270,9 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
   ```sh
   $ sudo mount -a
   $ df -h /mnt/static-channel-backup-external
+  ```
+
+  ```
   > Filesystem      Size  Used Avail Use% Mounted on
   > /dev/sdb        1.9G  4.0K  1.9G   1% /mnt/static-channel-backup-external
   ```
@@ -277,7 +285,7 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
   $ sudo nano /usr/local/bin/scb-backup --linenumbers
   ```
 
-  ```sh
+  ```
   $ LOCAL_BACKUP_ENABLED=true
   ```
 
@@ -307,6 +315,9 @@ Follow this section if you want a remote backup. If you already set up a local b
   ```sh
   $ sudo su - lnd
   $ ssh-keygen -t rsa -b 4096
+  ```
+
+  ```
   > Generating public/private rsa key pair.
   > [...]
   ```
@@ -315,6 +326,9 @@ Follow this section if you want a remote backup. If you already set up a local b
 
   ```sh
   $ cat ~/.ssh/id_rsa.pub
+  ```
+
+  ```
   > ssh-rsa 1234abcd... lnd@minibolt
   ```
 
@@ -333,6 +347,9 @@ Follow this section if you want a remote backup. If you already set up a local b
   $ git config --global core.sshCommand "torsocks ssh"
   $ cd ~/.lnd
   $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
+  ```
+
+  ```
   > Cloning into 'remote-lnd-backup'...
   > The authenticity of host 'github.com (140.82.121.3)' can't be established.
   > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -352,10 +369,19 @@ Follow this section if you want a remote backup. If you already set up a local b
   $ touch test
   $ git add .
   $ git commit -m "testing"
+  ```
+
+  ```
   > [main (root-commit) 826563d] testing
   > 1 file changed, 0 insertions(+), 0 deletions(-)
   > create mode 100644 test
+  ```
+
+  ```sh
   $ git push --set-upstream origin main
+  ```
+
+  ```
   > Enumerating objects: 3, done.
   > Counting objects: 100% (3/3), done.
   > Writing objects: 100% (3/3), 206 bytes | 206.00 KiB/s, done.
@@ -385,7 +411,7 @@ Follow this section if you want a remote backup. If you already set up a local b
   $ sudo nano /usr/local/bin/scb-backup --linenumbers
   ```
 
-  ```ini
+  ```
   $ REMOTE_BACKUP_ENABLED=true
   ```
 
@@ -405,6 +431,9 @@ Then we check if a copy gets stored at the intended backup location(s).
 
   ```sh
   $ sudo journalctl -f -u scb-backup
+  ```
+
+  ```
   > [...]
   > Feb 05 10:55:09 minibolt scb-backup.sh[25782]: Watches established.
   ```
@@ -421,7 +450,7 @@ Then we check if a copy gets stored at the intended backup location(s).
 
 Example output:
 
-  ```sh
+  ```
   > [...]
   > Feb 05 11:05:11 minibolt scb-backup[25885]: Local backup is enabled
   > Feb 05 11:05:11 minibolt scb-backup[25885]: Copying backup file to local storage device...
@@ -453,6 +482,9 @@ Example output:
 
   ```sh
   $ ls -la /mnt/static-channel-backup-external
+  ```
+
+  ```
   > -rwxr-xr-x 1 lnd  lnd  14011 Feb  5 10:59 channel-20220205-105949.backup
   ```
 
