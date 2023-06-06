@@ -20,6 +20,11 @@ You can run your MiniBolt node on testnet to develop and experiment with new app
 Difficulty: Medium
 {: .label .label-yellow }
 
+Status: Tested MiniBolt
+{: .label .label-blue }
+
+![bitcoin testnet](../../../images/bitcoin-testnet.PNG)
+
 ---
 
 ## Table of contents
@@ -42,7 +47,7 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ### **Bitcoin client**
 
-Follow the complete guide from the beginning, when you arrive at the [configuration section](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the "bitcoin.conf" file
+Follow the complete guide from the beginning, when you arrive at the ["Configuration section"](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the "bitcoin.conf" file:
 
   ```
   ## Replace
@@ -51,9 +56,29 @@ Follow the complete guide from the beginning, when you arrive at the [configurat
   testnet=1
   ```
 
-The rest of the Bitcoin client guide is completely equal. Note that the seeds nodes of the [privacy mode](../../bitcoin/bitcoin-client.md#privacy-mode) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes_test.txt). There are only Tor seed nodes, no clearnet or I2P nodes.
+The rest of the Bitcoin client guide is exactly equal. Note that the seeds nodes of the [privacy mode](../../bitcoin/bitcoin-client.md#privacy-mode) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes_test.txt). There are only Tor seed nodes, no clearnet or I2P nodes.
 
 ### **Fulcrum**
+
+Follow the complete guide from the beginning, when you arrive to the ["Configure Firewall"](../../bitcoin/electrum-server.md#configure-firewall) section.
+
+#### **Configure Firewall**
+
+  ```sh
+  $ sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
+  ```
+
+  ```sh
+  $ sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
+  ```
+
+When you arrive at the [Data directory](../../bitcoin/electrum-server.md#data-directory) section on the "Download the custom Fulcrum banner based on MiniBolt...". Download the Fulcrum Testnet banner instead of mainnet.
+
+  ```sh
+  $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/fulcrum-banner-testnet.txt
+  ```
+
+In the next ["Configuration"](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `"/fulcrum.conf"` file:
 
   ```sh
   $ nano /data/fulcrum/fulcrum.conf
@@ -72,63 +97,122 @@ The rest of the Bitcoin client guide is completely equal. Note that the seeds no
   banner = /data/fulcrum/fulcrum-banner-testnet.txt
   ```
 
+#### **Remote access over Tor**
+
+* Ensure that you are logged in with user "admin" and add the following three lines in the section for "location-hidden services" in the torrc file. Save and exit
+
+  ```sh
+  $ sudo nano /etc/tor/torrc
+  ```
+
+* Edit torrc
+
+  ```
+  ############### This section is just for location-hidden services ###
+  # Hidden Service Fulcrum Testnet TCP & SSL
+  HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/
+  HiddenServiceVersion 3
+  HiddenServicePort 60001 127.0.0.1:60001
+  HiddenServicePort 60002 127.0.0.1:60002
+  ```
+
+* Reload the Tor configuration and get your connection addresses
+
+  ```sh
+  $ sudo systemctl reload tor
+  ```
+
+  ```sh
+  $ sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
+  ```
+
+*Example* expected output:
+
+  ```
+  > abcdefg..............xyz.onion
+  ```
+
+* You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 60001 (TCP) or 60002 (SSL)
+
+The rest of the Fulcrum guide is exactly the same to the mainnet.
+
+### **BTC RPC Explorer**
+
+Follow the complete guide from the beginning, when you arrive to the ["Configuration section"](../../bitcoin/blockchain-explorer.md#configuration) section. Set the next lines with the next values instead of the existing for mainnet. 
+
+  ```sh
+  $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
+  ```
+
+  ```
+  BTCEXP_BITCOIND_PORT=18332
+  BTCEXP_BITCOIND_COOKIE=/data/bitcoin/testnet3/.cookie
+  BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:60001
+  ```
+
 ### **Electrs**
 
-  ```
-  # Bitcoin Core settings
-  network = "testnet"
-  daemon_dir= "/data/bitcoin"
-  cookie_file = "/data/bitcoin/testnet3/.cookie"
-  daemon_rpc_addr = "127.0.0.1:18332"
-  daemon_p2p_addr = "127.0.0.1:18333"
+Follow the complete guide from the beginning, when you arrive at the [Firewall & reverse proxy](../bitcoin/electrs.md#firewall--reverse-proxy) section.
 
-  # Electrs settings
-  electrum_rpc_addr = "127.0.0.1:60001"
-  db_dir = "/data/electrs/db/"
-  server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node testnet!"
+#### **Firewall & reverse proxy**
 
-  # Logging
-  log_filters = "INFO"
-  timestamp = true
+* Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication.
+  Create the configuration file and paste the following content
+
+  ```sh
+  $ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
   ```
 
-#### **Nginx**
-
-File location: `/etc/nginx/streams-enabled/electrs-testnet-reverse-proxy.conf`
-
-  ```
+  ```nginx
   upstream electrs {
     server 127.0.0.1:60001;
   }
-
   server {
     listen 60002 ssl;
     proxy_pass electrs;
   }
   ```
 
-  ```sh
-  $ sudo nginx -t
-  ```
+* Test and reload NGINX configuration
 
   ```sh
+  $ sudo nginx -t
   $ sudo systemctl reload nginx
   ```
 
-#### **Firewall**
+* Configure the Firewall to allow incoming requests
 
   ```sh
-  $ sudo ufw allow 60001/tcp comment 'allow Electrs TCP Testnet from anywhere'
-
-  ```sh
-  $ sudo ufw allow 60002/tcp comment 'allow Electrs SSL Testnet from anywhere'
+  $ sudo ufw allow 60002/tcp comment 'allow Electrs SSL from anywhere'
   ```
 
-#### **Tor**
+  ```sh
+  $ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
+  ```
 
-Create a separate service for testnet over Tor by adding the following lines in the `location-hidden services` section:
+When you arrive to the [Configuration](../bitcoin/electrs.md#configuration) section, replace the next lines
 
-File location: `/etc/tor/torrc`
+  ```sh
+  $ nano /data/electrs/electrs.conf
+  ```
+
+  ```
+  network = "testnet"
+  cookie_file = "/data/bitcoin/testnet3/.cookie"
+  daemon_rpc_addr = "127.0.0.1:18332"
+  daemon_p2p_addr = "127.0.0.1:18333"
+  electrum_rpc_addr = "127.0.0.1:60001"
+
+  server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node testnet!"
+  ```
+
+#### **Remote access over Tor**
+
+* Ensure are you logged in with user `admin`, add the following lines in the section for "location-hidden services" in the `torrc` file
+
+  ```sh
+  $ sudo nano /etc/tor/torrc
+  ```
 
   ```
   ############### This section is just for location-hidden services ###
@@ -149,28 +233,32 @@ Once that's done, you'll need to start the service using:
   $ sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
   ```
 
+*Example* expected output:
+
+  ```
+  > abcdefg..............xyz.onion
+  ```
+
 ## Lightning
 
 ### **LND**
 
-The following are the lines that need changing in the LND configuration file.
-
-File location: `/data/lnd/lnd.conf`
+When you arrive to the ["Configure LND"](../../lightning/lightning-client.md#configure-lnd) section, replace `"bitcoin.mainnet=true"` parameter to the `"bitcoin.testnet=true"`
 
   ```
   [Bitcoin]
-  bitcoin.testnet=1
+  bitcoin.testnet=true
   ```
 
-And the following command gives members of the group `lnd` permission to traverse the LND directories to reach the macaroons
+On the ["Allow user "admin" to work with LND"](../../lightning/lightning-client.md#allow-user-admin-to-work-with-lnd) step, replace the following command to the correct testnet path.
 
   ```sh
   $ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
   ```
 
-### Interacting with the LND daemon
+### **Interacting with the LND daemon**
 
-Note that when interacting with the LND daemon, you'll need to use the `--network testnet` option like so:
+Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` option like so:
 
   ```sh
   $ lncli --network testnet walletbalance
