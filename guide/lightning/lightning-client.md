@@ -67,7 +67,7 @@ We'll download, verify and install LND.
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=0.16.2
+  $ VERSION=0.16.3
   ```
 
 * Download the application, checksums and signature
@@ -180,6 +180,8 @@ Expected output:
   ```
   > lnd version $VERSION-beta commit=v$VERSION-beta
   ```
+
+💡 If you come to update this is the final step
 
 ### **Data directory**
 
