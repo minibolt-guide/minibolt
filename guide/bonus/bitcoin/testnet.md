@@ -47,7 +47,11 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ### **Bitcoin client**
 
-Follow the complete guide from the beginning, when you arrive at the ["Configuration section"](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the "bitcoin.conf" file:
+Follow the complete MiniBolt guide from the beginning, Bitcoin client included, when you arrive at the ["Configuration section"](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the "bitcoin.conf" file:
+
+  ```sh
+  $ nano /home/bitcoin/.bitcoin/bitcoin.conf
+  ```
 
   ```
   ## Replace
@@ -56,11 +60,11 @@ Follow the complete guide from the beginning, when you arrive at the ["Configura
   testnet=1
   ```
 
-The rest of the Bitcoin client guide is exactly equal. Note that the seeds nodes of the [privacy mode](../../bitcoin/bitcoin-client.md#privacy-mode) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes_test.txt). There are only Tor seed nodes, no clearnet or I2P nodes.
+The rest of the Bitcoin client guide is exactly the same. Note that the seeds nodes of the [privacy mode](../../bitcoin/bitcoin-client.md#privacy-mode) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes_test.txt). There are only Tor seed nodes, no clearnet or I2P nodes.
 
-### **Fulcrum**
+### **Electrum server**
 
-Follow the complete guide from the beginning, when you arrive to the ["Configure Firewall"](../../bitcoin/electrum-server.md#configure-firewall) section.
+Follow the complete Electrum server guide from the beginning, when you arrive to the ["Configure Firewall"](../../bitcoin/electrum-server.md#configure-firewall) section.
 
 #### **Configure Firewall**
 
@@ -72,7 +76,7 @@ Follow the complete guide from the beginning, when you arrive to the ["Configure
   $ sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
   ```
 
-When you arrive at the [Data directory](../../bitcoin/electrum-server.md#data-directory) section on the "Download the custom Fulcrum banner based on MiniBolt...". Download the Fulcrum Testnet banner instead of mainnet.
+When you arrive at the ["Data directory"](../../bitcoin/electrum-server.md#data-directory) section on the "Download the custom Fulcrum banner based on MiniBolt...". Download the Fulcrum Testnet banner instead of mainnet.
 
   ```sh
   $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/fulcrum-banner-testnet.txt
@@ -126,7 +130,7 @@ In the next ["Configuration"](../../bitcoin/electrum-server.md#configuration) st
   $ sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
   ```
 
-*Example* expected output:
+**Example** of expected output:
 
   ```
   > abcdefg..............xyz.onion
@@ -136,9 +140,9 @@ In the next ["Configuration"](../../bitcoin/electrum-server.md#configuration) st
 
 The rest of the Fulcrum guide is exactly the same to the mainnet.
 
-### **BTC RPC Explorer**
+### **Blockchain Explorer**
 
-Follow the complete guide from the beginning, when you arrive to the ["Configuration section"](../../bitcoin/blockchain-explorer.md#configuration) section. Set the next lines with the next values instead of the existing for mainnet. 
+Follow the complete Blockchain Explorer guide from the beginning, when you arrive to the ["Configuration section"](../../bitcoin/blockchain-explorer.md#configuration) section. Set the next lines with the next values instead of the existing for mainnet.
 
   ```sh
   $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
@@ -190,7 +194,7 @@ Follow the complete guide from the beginning, when you arrive at the [Firewall &
   $ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
   ```
 
-When you arrive to the [Configuration](../bitcoin/electrs.md#configuration) section, replace the next lines
+When you arrive to the ["Configuration"](../bitcoin/electrs.md#configuration) section, replace with the next lines
 
   ```sh
   $ nano /data/electrs/electrs.conf
@@ -223,7 +227,7 @@ When you arrive to the [Configuration](../bitcoin/electrs.md#configuration) sect
   HiddenServicePort 60002 127.0.0.1:60002
   ```
 
-Once that's done, you'll need to start the service using:
+* Reload the Tor configuration and get your connection addresses
 
   ```sh
   $ sudo systemctl reload tor
@@ -241,7 +245,7 @@ Once that's done, you'll need to start the service using:
 
 ## Lightning
 
-### **LND**
+### **Lightning client**
 
 When you arrive to the ["Configure LND"](../../lightning/lightning-client.md#configure-lnd) section, replace `"bitcoin.mainnet=true"` parameter to the `"bitcoin.testnet=true"`
 
@@ -256,7 +260,7 @@ On the ["Allow user "admin" to work with LND"](../../lightning/lightning-client.
   $ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
   ```
 
-### **Interacting with the LND daemon**
+#### **Interacting with the LND daemon**
 
 Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` option like so:
 
@@ -264,11 +268,65 @@ Note that when interacting with the LND daemon, you'll need to use the `"--netwo
   $ lncli --network testnet walletbalance
   ```
 
-### **ThunderHub**
+Note that it has a list of testnet aliases related to these commonly used commands to make it easier to introduce in the terminal
+
+### **Channel backup**
+
+  ```sh
+  $ sudo nano /usr/local/bin/scb-backup
+  ```
+
+  ```
+  SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
+  ```
+
+### **Web app**
+
+#### **ThunderHub**
 
   ```sh
   $ sudo cp /data/lnd/data/chain/bitcoin/testnet/admin.macaroon /home/thunderhub/admin.macaroon
   ```
+
+### **Mobile app**
+
+#### **Zeus**
+
+  ```sh
+  --bitcoin.testnet       Use the test network
+  ```
+
+# Parallel mainnet & testnet mode
+
+## **Bitcoin client**
+
+Crear dos servicios uno con "bitcoind" y otro con "bitcoind -testnet"
+
+  ```
+  [main]
+  startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
+
+  [test]
+  startupnotify=chmod g+r /home/bitcoin/.bitcoin/testne3/.cookie
+  ```
+
+## **Electrum server**
+
+### **Fulcrum**
+
+Dos servicios, uno con un config un normal y uno con el archivo testnet
+
+Diferentes directorios para las bases de datos
+
+### **Electrs**
+
+Igual que fulcrum
+
+## **Blockchain explorer**
+
+## **Lightning client**
+
+###
 
 ---
 
