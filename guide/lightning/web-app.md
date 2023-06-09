@@ -146,9 +146,40 @@ We are going to install Thunderhub in the home directory since it doesn't need t
   $ npm install
   ```
 
+Expected output:
+
+  ```
+  npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws    For general help using `graphql-ws`, see https://github.com/enisdenjo/graphql-ws/blob/master/README.md
+  npm WARN deprecated apollo-server-plugin-base@3.7.1: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+  [...]
+  ```
+
   ```sh
   $ npm run build
   ```
+
+Expected output:
+
+  ```
+  [...]
+  ├ λ /peers                                 7.21 kB         268 kB
+  ├ λ /rebalance                             9.5 kB          285 kB
+  ├ λ /settings                              8.13 kB         261 kB
+  ├ λ /settings/dashboard                    460 B           249 kB
+  ├ λ /sso                                   3.42 kB         248 kB
+  ├ λ /stats                                 7.12 kB         252 kB
+  ├ λ /swap                                  12.6 kB         291 kB
+  ├ λ /tools                                 10 kB           255 kB
+  └ λ /transactions                          5.92 kB         350 kB
+  + First Load JS shared by all              245 kB
+    ├ chunks/framework-0bff4c72fef67389.js   42 kB
+    ├ chunks/main-1620fe742cfceb1f.js        27.6 kB
+    ├ chunks/pages/_app-e0561dc8c6a45056.js  173 kB
+    ├ chunks/webpack-74c128dc0ca7f46d.js     2.04 kB
+    └ css/4bab2f810587958d.css               3.4 kB
+
+  λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+  ````
 
 ### **Configuration**
 
@@ -174,7 +205,7 @@ We are going to install Thunderhub in the home directory since it doesn't need t
 
 * Edit the following lines, save and exit:
 
-  ```sh
+  ```
   # -----------
   # Server Configs
   # -----------
@@ -228,14 +259,13 @@ In order to do that we create a systemd unit that starts the service on boot dir
 
 * Paste the following configuration. Save and exit.
 
-  ```sh
+  ```
   # MiniBolt: systemd unit for Thunderhub
   # /etc/systemd/system/thunderhub.service
 
   [Unit]
   Description=Thunderhub
   After=lnd.service
-  PartOf=lnd.service
 
   [Service]
   WorkingDirectory=/home/thunderhub/thunderhub
@@ -257,7 +287,7 @@ In order to do that we create a systemd unit that starts the service on boot dir
 
 * Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
-  ```
+  ```sh
   $ sudo journalctl -f -u thunderhub
   ```
 
@@ -269,7 +299,7 @@ Commands for the **second session** start with the prompt `$2` (which must not b
 * Start the service.
 
   ```sh
-  $2 sudo systemctl start thunderhub.service
+  $2 sudo systemctl start thunderhub
   ```
 
 * Now point your browser to `https://minibolt.local:4002` (or whatever you chose as the hostname) or the IP address (e.g. `https://192.168.x.xxx:4002`).

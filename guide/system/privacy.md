@@ -127,6 +127,7 @@ Save and exit
 
   # add under the line 60:
   CookieAuthFileGroupReadable 1
+  DataDirectoryGroupReadable 1
   ```
 
 * Reload the Tor configuration to activate the modifications

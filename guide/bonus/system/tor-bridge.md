@@ -48,7 +48,7 @@ Status: Tested MiniBolt
 
 obfs4 makes Tor traffic look random, and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configure all.
 
-* Ensure you are logged in with user `"admin"` and install obfs4proxy
+* Ensure you are logged in with user `"admin"` and install obfs4 proxy
 
   ```sh
   $ sudo apt install obfs4proxy
@@ -62,7 +62,7 @@ obfs4 makes Tor traffic look random, and also prevents censors from finding brid
   $ tor --version
   ```
 
-Expected output:
+**Example** of expected output:
 
   ```sh
   > Tor version 0.4.7.10.
@@ -79,17 +79,17 @@ Expected output:
   $ sudo nano /etc/tor/torrc
   ```
 
-  ```sh
+  ```
   # Replace <TODO1> with a Tor port of your choice >1024.
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
-  ORPort <TODO1> IPv4Only
   ExtORPort auto
+  ORPort <TODO1> IPv4Only
 
   # Replace <TODO2> with an obfs4 port of your choice.
   # This port must be externally reachable and must be different from the one specified for ORPort (<TODO1>).
   # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
-  ServerTransportListenAddr obfs4 0.0.0.0:<TODO2>
   ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+  ServerTransportListenAddr obfs4 0.0.0.0:<TODO2>
 
   # Replace "<address@email.com>" with your email address so we can contact you
   # if there are problems with your bridge. This line
@@ -110,7 +110,21 @@ Expected output:
   BridgeRelay 1
   ```
 
-🚨 Don't forget to change the ORPort **(TODO1)**, ServerTransportListenAddr **(TODO2)**, ContactInfo **(address@email.com)**, and Nickname **(PickANickname)** options.
+🚨 Don't forget to change the ORPort **(TODO1)**, ServerTransportListenAddr **(TODO2)**, ContactInfo **(address[@]email.com)**, and Nickname **(PickANickname)** options.
+
+Bridges that have a distribution mechanism of "None" are not distributed by BridgeDB. It is the bridge operator's responsibility to distribute their bridges to users. Preventing BridgeDB from giving out the bridge. Set it to "none" if you want BridgeDB to avoid distributing your bridge addres. If you want to run a private bridge, for example because you'll give out your bridge address manually to your friends. (Default: any) "any" to let BridgeDB decide. By default, Tor will advertise your bridge to users through various mechanisms like https://bridges.torproject.org/. If you want to run a private bridge, for example because you'll give out your bridge address manually to your friends, uncomment this line:
+
+* Add the next line to the end of the torrc file
+
+  ```
+  BridgeDistribution none
+  ```
+
+Currently valid, recognised options are: `none` | `any` | `https` | `email` | `moat`
+
+More info about the options: https://bridges.torproject.org/info?lang=en
+
+https://support.torproject.org/relay-operators/change-bridge-distribution/
 
 ### **Configure Firewall and router NAT**
 
@@ -158,13 +172,13 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
   $ sudo systemctl daemon-reload
   ```
 
-* Enable and start the Tor
+* Enable Tor
 
   ```sh
   $ sudo systemctl enable --now tor.service
   ```
 
-* Or restart it if it was running already, so configurations take effect
+* Restart Tor to apply changes
 
   ```sh
   $ sudo systemctl restart tor.service
@@ -205,7 +219,7 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
   $ sudo cat /var/lib/tor/pt_state/obfs4_bridgeline.txt | grep Bridge
   ```
 
-* Paste the next entire bridge line into your Tor browser
+* Paste the next entire bridge line into your Tor browser, remember not to include "Bridge" word to avoid incompatibility with the Tor Browser Android version
 
   ```
   Bridge obfs4 <IP ADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
@@ -260,7 +274,7 @@ One of the most important things to keep your relay secure is to install securit
   $ unattended-upgrade --debug --dry-run
   ```
 
-### **Install NYX**
+### **Install Nyx**
 
 [Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relays such as bandwidth usage, connections, logs, and much more.
 
@@ -270,7 +284,7 @@ One of the most important things to keep your relay secure is to install securit
   $ sudo apt install nyx
   ````
 
-* Execute with and press the right key to navigate to page 2/5 to show your bridge data information
+* Execute with and press the right key to navigate to page 2/5 to show the traffic of your bridge
 
   ```sh
   $ sudo nyx
@@ -290,7 +304,13 @@ Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), c
 
 ![Get Bridge](../../../images/get-bridge.PNG)
 
-* On the MiniBolt node, with user **"admin"**, edit the "torrc" file
+* On the MiniBolt node, with user **"admin"**, install ofbs4 proxy
+
+  ```sh
+  $ sudo apt install obfs4proxy
+  ```
+
+* Edit the "torrc" file
 
   ```sh
   $ sudo nano /etc/tor/torrc
@@ -304,7 +324,7 @@ Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), c
   Bridge obfs4 IP_ADDRESS:PORT FINGERPRINT cert=CERTIFICATE iat-mode=0
   ```
 
-💡 Replace **"IP_ADDRESS"**, **"PORT"**, **"FINGERPRINT"** and **"CERTIFICATE"** to those obtained above.
+💡 Add needed lines with the number of bridges that you wish, replacing **"IP_ADDRESS"**, **"PORT"**, **"FINGERPRINT"**, and **"CERTIFICATE"** with those obtained before.
 
 * Restart to apply changes
 

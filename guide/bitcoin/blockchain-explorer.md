@@ -237,12 +237,11 @@ In order to do that, we create a systemd unit that starts the service on boot di
   [Unit]
   Description=BTC RPC Explorer
   After=bitcoind.service fulcrum.service
-  PartOf=bitcoind.service
 
   [Service]
+  User=btcrpcexplorer
   WorkingDirectory=/home/btcrpcexplorer/btc-rpc-explorer
   ExecStart=/usr/bin/npm start
-  User=btcrpcexplorer
 
   [Install]
   WantedBy=multi-user.target
