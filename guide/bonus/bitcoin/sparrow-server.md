@@ -48,7 +48,7 @@ Status: Tested MiniBolt
 * Set a temporary version environment variable to the installation
 
   ```sh
-  $ VERSION=1.7.4
+  $ VERSION=1.7.6
   ```
 
 * Download the application, checksums and signature
@@ -116,6 +116,7 @@ Expected output:
   ```sh
   $ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
   ```
+  💡 If you come to update this is the final step
 
 ## Run Sparrow
 
