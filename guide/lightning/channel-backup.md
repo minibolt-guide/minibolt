@@ -134,7 +134,7 @@ We create a shell script to monitor `channel.backup` and make a copy to our back
     git add .
     git commit -m "Static Channel Backup $(date +"%Y%m%d-%H%M%S")"
     echo "Pushing changes to remote repository..."
-    git push --set-upstream origin main
+    git push --set-upstream origin master
     echo "Success! The file is now remotely backed up!"
   }
 
@@ -378,7 +378,7 @@ Follow this section if you want a remote backup. If you already set up a local b
   ```
 
   ```sh
-  $ git push --set-upstream origin main
+  $ git push --set-upstream origin master
   ```
 
   ```
@@ -387,8 +387,8 @@ Follow this section if you want a remote backup. If you already set up a local b
   > Writing objects: 100% (3/3), 206 bytes | 206.00 KiB/s, done.
   > Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
   > To github.com:<YourGithubUsername>/remote-lnd-backup.git
-  > * [new branch]      main -> main
-  > Branch 'main' set up to track remote branch 'main' from 'origin'.
+  > * [new branch]      master -> master
+  > Branch 'main' set up to track remote branch 'master' from 'origin'.
   ```
 
 * Check that a copy of the "test" file is now in your remote GitHub repository (in the `[ <> Code ]` tab).
