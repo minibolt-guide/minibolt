@@ -62,7 +62,7 @@ Use the **UP**, **Down,** and **ENTER** keys of your keyboard to navigate to the
 **5.** Select the interface network connection that you choose to use **(Ethernet recommended)** and **take note of your IP** obtained automatically through DHCP. (Normally 192.168.x.xx). Press **done**
 
 {% hint style="info" %}
-The router reserves the IP address of the device for a time, but If the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the "[Set Static IP address](operating-system.md#set-static-ip-address-optional)" optional section to get more instructions to do this.\
+The router reserves the IP address of the device for a time, but If the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Set Static IP address](operating-system.md#set-a-static-ip-address-and-custom-dns-nameservers-optional) optional section to get more instructions to do this.\
 🚨 <mark style="color:red;">Be careful by setting this!</mark> If you change the router could be **the new router doesn't work in the same IP address range as the old router**, the MiniBolt won't be registered and will be completely out of the connection. More details on the "[Set Static IP address](operating-system.md#set-static-ip-address-optional)" section.
 {% endhint %}
 
@@ -148,9 +148,9 @@ This is only an example if your local network IP range is `192.168.1.0-255` beca
 {% endhint %}
 
 {% hint style="danger" %}
-**Be careful by setting this!** If you change the router could be the new router doesn't work in the same IP address range as the old router, the device won't be registered on the local network and will be completely out of the connection.&#x20;
+**Be careful by setting this!** If you change the router could be the new router doesn't work in the same IP address range as the old router, the device won't be registered on the local network and will be completely out of the connection.
 
-💡 To avoid this, you will need to **enable the "Automatic (DHCP)" mode again before changing the router**, to ensure that the DHCP server assigns an IP to the node in the range you are working on, and finally reconfigure again a static IP address.&#x20;
+💡 To avoid this, you will need to **enable the "Automatic (DHCP)" mode again before changing the router**, to ensure that the DHCP server assigns an IP to the node in the range you are working on, and finally reconfigure again a static IP address.
 
 If you don't do this, you will have to attach the monitor screen or television and keyboard again to fix this.
 {% endhint %}
