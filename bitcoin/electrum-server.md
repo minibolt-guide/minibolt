@@ -92,24 +92,25 @@ We have our Bitcoin Core configuration file set up and can now move on to the ne
     ```
     {% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
+```
+{% endcode %}
 
-    {% code overflow="wrap" fullWidth="false" %}
-    ```sh
-    $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
-    ```
-    {% endcode %}
-*   Get the public key from the Fulcrum developer
+{% code overflow="wrap" fullWidth="false" %}
+```bash
+$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
+```
+{% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
-    ```
-    {% endcode %}
+* Get the public key from the Fulcrum developer
+
+{% code overflow="wrap" %}
+```bash
+$ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+```
+{% endcode %}
 
 Expected output:
 
@@ -160,11 +161,12 @@ Expected output:
     $ tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
     ```
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-$VERSION-x86_64-linux/Fulcrum Fulcrum-$VERSION-x86_64-linux/FulcrumAdmin
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-$VERSION-x86_64-linux/Fulcrum Fulcrum-$VERSION-x86_64-linux/FulcrumAdmin
+```
+{% endcode %}
+
 *   Check the correct installation requesting the version
 
     ```sh
@@ -221,23 +223,23 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
     $ cd /data/fulcrum
     ```
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+```
+{% endcode %}
 
 {% hint style="info" %}
 When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
 {% endhint %}
 
-*   Download the custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display\&f=Slant\&t=fulcrum)
+* Download the custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display\&f=Slant\&t=fulcrum)
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt-gitbook/main/resources/fulcrum-banner.txt
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner.txt
+```
+{% endcode %}
 
 ### **Configuration**
 
@@ -389,12 +391,12 @@ Follow the complete [Download and set up Fulcrum](electrum-server.md#download-an
     $ sudo journalctl -f -u fulcrum
     ```
 
-    {% code overflow="wrap" %}
-    ```
-    Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VERSION (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
-    [...]
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```
+Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VERSION (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
+[...]
+```
+{% endcode %}
 
 ## Extras (optional)
 

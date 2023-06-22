@@ -42,7 +42,7 @@ Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), thes
 
 ### **Firewall & reverse proxy**
 
-In the [Security section](broken-reference), we already set up NGINX as a reverse proxy. Now we can add the Electrs configuration.
+In the [Security section](broken-reference/), we already set up NGINX as a reverse proxy. Now we can add the Electrs configuration.
 
 *   Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication. Create the configuration file and paste the following content
 
@@ -135,17 +135,18 @@ Expected output:
 > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
 ```
 
-*   Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
+* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
+```
+{% endcode %}
 
-    ```sh
-    $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
-    ```
+```bash
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
+```
+
 *   Check the correct installation
 
     ```sh
@@ -279,7 +280,7 @@ To keep an eye on the software movements, [start your SSH program](../../system/
     $2 sudo systemctl start electrs
     ```
 
-Monitor the systemd journal at the first session created to check if everything works fine.&#x20;
+Monitor the systemd journal at the first session created to check if everything works fine.
 
 **Example** of expected output:
 
@@ -455,17 +456,18 @@ Expected output:
 > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
 ```
 
-*   Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
+* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
+```
+{% endcode %}
 
-    ```sh
-    $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
-    ```
+```bash
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
+```
+
 *   Check the correct installation
 
     ```sh

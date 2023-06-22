@@ -81,4 +81,6 @@ $ wget https://raw.githubusercontent.com/lightningnetwork/lnd/master/contrib/lnc
 $ sudo cp *.bash-completion /etc/bash_completion.d/
 ```
 
+{% hint style="info" %}
 Bash completion will be enabled after your next login.
+{% endhint %}

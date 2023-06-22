@@ -26,20 +26,25 @@ The following list of aliases was derived from contributions by [RobClark56](htt
 
 ## Set up aliases
 
-*   With user "admin", access to `home` folder and download the aliases list provided for a MiniBolt environment. ⚠️ This command will automatically overwrite the previous file you downloaded.
+* With user "admin", access to `home` folder and download the aliases list provided for a MiniBolt environment. ⚠️ This command will automatically overwrite the previous file you downloaded.
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ cd /home/admin
-    $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt-gitbook/main/resources/.bash_aliases -O .bash_aliases 
-    ```
-    {% endcode %}
-*   If you have a custom aliases list in a personal private or public GitHub repository
+{% code overflow="wrap" %}
+```bash
+$ cd /home/admin
+$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases -O .bash_aliases 
+```
+{% endcode %}
 
-    ```sh
-    $ cd /home/admin
-    $ wget <personal URL RAW list aliases> -O .bash_aliases
-    ```
+\* If you have a custom aliases list in a personal private or public GitHub repository
+
+```bash
+$ cd /home/admin
+```
+
+```bash
+$ wget <personal URL RAW list aliases> -O .bash_aliases
+```
+
 *   Inspect the list of aliases to make sure it does not do bad things and modify it with your personal aliases if you want. Exit with Ctrl-X
 
     ```sh

@@ -54,7 +54,7 @@ $ sudo apt update && sudo apt full-upgrade
     deb     [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
     deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
     ```
-*   Then up to `"root"` user temporarily to add the gpg key used to sign the packages by running the following command at your command prompt. Return to `admin` using `exit` command
+*   Then up to `"root"` user temporarily to add the gpg key used to sign the packages by running the following command at your command prompt
 
     ```sh
     $ sudo su
@@ -65,10 +65,12 @@ $ sudo apt update && sudo apt full-upgrade
     $ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
     ```
     {% endcode %}
+* Return to `admin` using `exit` command
 
-    ```sh
-    $ exit
-    ```
+```bash
+$ exit
+```
+
 *   Install tor and tor Debian keyring
 
     ```sh
@@ -208,10 +210,9 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
 **Example** of expected output:
 
-```
-> i2pd version 2.44.0 (0.9.56)
-[...]
-```
+<pre><code><strong>> i2pd version 2.44.0 (0.9.56)
+</strong>[...]
+</code></pre>
 
 *   Ensure that the i2pd service is working and listening at the default ports
 
@@ -365,40 +366,40 @@ To enable Tor in the background follow the same instructions for the [preparatio
 
     You can SSH to your PC "out of the box" with the following proxy command:
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg..............xyz.onion
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg..............xyz.onion
+```
+{% endcode %}
 
-    For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save and exit.
+* For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save and exit.
 
-    ```sh
-    $ sudo nano .ssh/config
-    ```
+```bash
+$ sudo nano .ssh/config
+```
 
-    ```
-    Host HOSTNICKNAME
-      Hostname abcdefg..............xyz.onion
-      User admin
-      Port 22
-      CheckHostIP no
-      ProxyCommand /usr/bin/nc -x localhost:9050 %h %p
-    ```
+```
+Host HOSTNICKNAME
+  Hostname abcdefg..............xyz.onion
+  User admin
+  Port 22
+  CheckHostIP no
+  ProxyCommand /usr/bin/nc -x localhost:9050 %h %p
+```
 
-    Restart Tor
+* Restart Tor
 
-    ```sh
-    $ brew services restart tor
-    ```
+```
+brew services restart tor
+```
 
-    You should now be able to SSH to your PC with
+* You should now be able to SSH to your PC with
 
-    ```sh
-    $ ssh HOSTNICKNAME
-    ```
+```
+ssh HOSTNICKNAME
+```
 
-#### **Troubleshoting**
+#### **Troubleshooting**
 
 **Tor troubleshooting**
 

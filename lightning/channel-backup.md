@@ -36,7 +36,7 @@ This guide covers two automated backup methods:
 * **LOCAL**: store the backup on a USB thumbdrive or microSD card plugged into your Pi
 * **REMOTE**: send the encrypted backup to a private GitHub repository
 
-<table data-full-width="true"><thead><tr><th align="center">Method</th><th align="center">Requires hardware</th><th align="center">Requires GitHub account</th><th align="center">Protects against</th><th align="center">Relies on 3rd-party</th></tr></thead><tbody><tr><td align="center">LOCAL</td><td align="center">YES</td><td align="center">NO</td><td align="center">Drive failure only</td><td align="center">NO</td></tr><tr><td align="center">REMOTE</td><td align="center">NO</td><td align="center">YES</td><td align="center">Drive failure &#x26; widespread node damage</td><td align="center">YES</td></tr></tbody></table>
+<table data-full-width="false"><thead><tr><th align="center">Method</th><th align="center">Requires hardware</th><th align="center">Requires GitHub account</th><th align="center">Protects against</th><th align="center">Relies on 3rd-party</th></tr></thead><tbody><tr><td align="center">LOCAL</td><td align="center">YES</td><td align="center">NO</td><td align="center">Drive failure only</td><td align="center">NO</td></tr><tr><td align="center">REMOTE</td><td align="center">NO</td><td align="center">YES</td><td align="center">Drive failure &#x26; widespread node damage</td><td align="center">YES</td></tr></tbody></table>
 
 We recommend using both methods, but you can choose either one of them, depending on your own requirements and preferences. Whatever method you choose:
 

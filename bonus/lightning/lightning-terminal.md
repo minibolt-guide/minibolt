@@ -392,13 +392,13 @@ Rather than always typing the flags, we can create aliases for the "admin" user.
 
 ### Lightning Node Connect
 
-![web-terminal](../../images/terminal-web-dashboard.png)
+![](../../images/terminal-web-dashboard.png)
 
 #### Introduction
 
 Lightning Node Connect allows to connect to Lightning Terminal and the node from the web via Lightning Lab's [web Terminal](https://terminal.lightning.engineering/){:target="\_blank"}. Like, the Lightning Terminal web UI, the Terminal dashboard offers an overview of the channels and the Loop and Pool services but it also offers an health check and ranking information, gives a summary of recent routing and payment events and payments can be made and received. For more information, check out the Lighning Labs [blog post announcement](https://lightning.engineering/posts/2021-11-30-lightning-terminal/){:target="\_blank"}.
 
-_Note:_ Contrary to the Lightning Terminal web UI that can only be accessed in your LAN, the web Terminal can be used (securely) from anywhere.
+_Note:_ Contrary to the Lightning Terminal web UI that can only be accessed on your LAN, the web Terminal can be used (securely) from anywhere.
 
 #### How to connect
 
@@ -422,11 +422,11 @@ Congrats! You've connected your node to the web Terminal and can now manage it f
 
 You can loop in/out using the CLI (check `litloop --help`), the Lightning Terminal, the web Terminal or the Ride The Lightning web UI (see [next section of the guide](lightning-terminal.md#optional-set-up-the-loop-service-in-ride-the-lightning))
 
-* **For more information:** Check out the Loop [webpage](https://lightning.engineering/loop/){:target="\_blank"}, [documentation page](https://docs.lightning.engineering/lightning-network-tools/loop){:target="\_blank"}, [GitHub repository](https://github.com/lightninglabs/loop){:target="\_blank"} and the Lightning Labs [blog post announcement](https://blog.lightning.engineering/announcement/2020/02/05/loop-beta.html){:target="\_blank"}.
+* **For more information:** Check out the Loop [webpage](https://lightning.engineering/loop/), [documentation page](https://docs.lightning.engineering/lightning-network-tools/loop), [GitHub repository](https://github.com/lightninglabs/loop) and the Lightning Labs [blog post announcement](https://blog.lightning.engineering/announcement/2020/02/05/loop-beta.html).
 
 ### Pool
 
-[Pool](https://github.com/lightninglabs/pool){:target="\_blank"} is a marketplace for Lightning channels. You can rent a channel when you need inbound liquidity or earn an income by leasing a channel.
+[Pool](https://github.com/lightninglabs/pool) is a marketplace for Lightning channels. You can rent a channel when you need inbound liquidity or earn an income by leasing a channel.
 
 Pool requires to fund an account from your LND onchain wallet. This account will be used to draw the sats required to open channels and pay the Pool fees. Make sure you fund your LND wallet with at least the amount of sats you'd like to have in your Pool account. Note that using Pool will trigger the automatic creation of an LSAT identification token that costs 1,000 sats.
 

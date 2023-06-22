@@ -62,13 +62,13 @@ Follow the complete Electrum server guide from the beginning, when you arrive at
     ```sh
     $ sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
     ```
-*   When you arrive at the ["Data directory"](../../bitcoin/electrum-server.md#data-directory) section on the _"Download the custom Fulcrum banner based on MiniBolt..." step_. Download the Fulcrum testnet banner instead of the mainnet banner
+* When you arrive at the ["Data directory"](../../bitcoin/electrum-server.md#data-directory) section on the _"Download the custom Fulcrum banner based on MiniBolt..." step_. Download the Fulcrum testnet banner instead of the mainnet banner
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://raw.githubusercontent.com/twofaktor/minibolt/main/resources/fulcrum-banner-testnet.txt
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner-testnet.txt
+```
+{% endcode %}
 
 [**Configuration**](../../bitcoin/electrum-server.md#configuration)
 
@@ -218,13 +218,13 @@ The rest of the **Channel Backup guide** is exactly the same as the mainnet mode
 
 ### [**Web app: ThunderHub**](../../lightning/web-app.md)
 
-*   Follow the complete guide from the beginning, when you arrive at the ["Installation"](../../lightning/web-app.md#installation) section, replace the next command to match with the testnet mode LND path
+* Follow the complete guide from the beginning, when you arrive at the ["Installation"](../../lightning/web-app.md#installation) section, replace the next command to match with the testnet mode LND path
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ sudo cp /data/lnd/data/chain/bitcoin/testnet/admin.macaroon /home/thunderhub/admin.macaroon
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ sudo cp /data/lnd/data/chain/bitcoin/testnet/admin.macaroon /home/thunderhub/admin.macaroon
+```
+{% endcode %}
 
 {% hint style="success" %}
 The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode.
@@ -232,13 +232,13 @@ The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode.
 
 ### [**Mobile app: Zeus**](../../lightning/mobile-app.md)
 
-*   Follow the complete guide from the beginning, when you arrive at the ["**Create a lndconnect QR code"**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, add to the "lndconnect" command the next flags
+* Follow the complete guide from the beginning, when you arrive at the ["**Create a lndconnect QR code"**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, add to the "lndconnect" command the next flags
 
-    {% code overflow="wrap" %}
-    ```sh
-    --bitcoin.testnet --adminmacaroonpath=/home/satoshi/.lnd/data/chain/bitcoin/testnet/admin.macaroon
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ --bitcoin.testnet --adminmacaroonpath=/home/satoshi/.lnd/data/chain/bitcoin/testnet/admin.macaroon
+```
+{% endcode %}
 
 For example, to generate a QR code for a Wireguard VPN connection, enter this command:
 

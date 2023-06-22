@@ -16,7 +16,7 @@ parent: Lightning
 
 Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md).
 
-*   With the user "admin", check Nodejs version
+*   With the user "admin", check the Node version
 
     ```sh
     $ node -v
@@ -102,19 +102,20 @@ We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of 
     $ sudo adduser thunderhub lnd
     ```
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/admin.macaroon
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/admin.macaroon
+```
+{% endcode %}
 
-    ```sh
-    $ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
-    ```
+```bash
+$ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
+```
 
-    ```sh
-    $ sudo su - thunderhub
-    ```
+```bash
+$ sudo su - thunderhub
+```
+
 *   Download the source code directly from GitHub and install all dependencies using NPM.
 
     ```sh
@@ -128,8 +129,6 @@ We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of 
     ```sh
     $ npm install
     ```
-
-
 
 Expected output:
 

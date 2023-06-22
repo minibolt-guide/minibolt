@@ -63,13 +63,13 @@ You enter commands and the PC answers by printing the results below your command
     ```sh
     $ VERSION=25.0
     ```
-*   Install the next dependencies packages
+* Install the next dependencies packages
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ sudo apt-get install autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config libzmq3-dev --no-install-recommends
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ sudo apt-get install autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config libzmq3-dev --no-install-recommends
+```
+{% endcode %}
 
 ## Installation
 
@@ -137,13 +137,13 @@ Expected output:
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-*   The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
+```
+{% endcode %}
 
 Expected output:
 
@@ -183,26 +183,28 @@ Expected output:
 
 ### **Build it from the source code**
 
-*   Build BerkeleyDB 4.8 to allow for legacy wallets, necessary to use JoinMarket, Electrum Personal Server, and possibly other tools:
+* Build BerkeleyDB 4.8 to allow for legacy wallets, necessary to use JoinMarket, Electrum Personal Server, and possibly other tools
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4300aa6cf2c5cf5c19f55e73499c/contrib/install_db4.sh
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4300aa6cf2c5cf5c19f55e73499c/contrib/install_db4.sh
+```
+{% endcode %}
 
-    ```sh
-    $ chmod +x bdb.sh
-    ```
+```
+$ chmod +x bdb.sh
+```
 
-    ```sh
-    $ ./bdb.sh bitcoin-$VERSION
-    ```
-*   Enter the Bitcoin Core source code folder
+```
+$ ./bdb.sh bitcoin-$VERSION
+```
 
-    ```sh
-    $ cd bitcoin-$VERSION
-    ```
+* Enter the Bitcoin Core source code folder
+
+```sh
+$ cd bitcoin-$VERSION
+```
+
 *   Execute the next command
 
     ```sh
@@ -231,13 +233,14 @@ Expected output:
 Skip this step if you want only to build Bitcoin Core from the source code but not apply the Ordisrespector patch
 {% endhint %}
 
-*   Download the Ordisrespector patch
+* Download the Ordisrespector patch
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt-gitbook/main/resources/ordisrespector.patch
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/ordisrespector.patch
+```
+{% endcode %}
+
 *   Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
 
     ```sh

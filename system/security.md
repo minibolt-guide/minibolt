@@ -71,7 +71,7 @@ Expected output:
 </details>
 
 {% hint style="info" %}
-If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). M_ore:_ [_UFW Essentials_](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
+If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). M\_ore:\_ [_UFW Essentials_](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
 
 ### Increase your open files limit
@@ -148,58 +148,61 @@ We use NGINX to encrypt the communication with SSL/TLS (Transport Layer Security
     ```sh
     $ sudo apt install nginx
     ```
-*   Create a self-signed SSL/TLS certificate (valid for 10 years)
+* Create a self-signed SSL/TLS certificate (valid for 10 years)
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
-    ```
-    {% endcode %}
-*   NGINX is also a full web server. To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the `nginx.conf` file. Save and exit.
+{% code overflow="wrap" %}
+```bash
+$ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
+```
+{% endcode %}
 
-    ```sh
-    $ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-    ```
+\* NGINX is also a full web server. To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the \`nginx.conf\` file. Save and exit.
 
-    ```sh
-    $ sudo nano /etc/nginx/nginx.conf
-    ```
+```bash
+$ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+```
 
-    ```nginx
-    user www-data;
-    worker_processes auto;
-    pid /run/nginx.pid;
-    include /etc/nginx/modules-enabled/*.conf;
+```bash
+$ sudo nano /etc/nginx/nginx.conf
+```
 
-    events {
-      worker_connections 768;
-    }
+```nginx
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
 
-    http {
-      ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-      ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-      ssl_session_cache shared:HTTP-TLS:1m;
-      ssl_session_timeout 4h;
-      ssl_protocols TLSv1.2 TLSv1.3;
-      ssl_prefer_server_ciphers on;
-      include /etc/nginx/sites-enabled/*.conf;
-    }
+events {
+  worker_connections 768;
+}
 
-    stream {
-      ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-      ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-      ssl_session_cache shared:STREAM-TLS:1m;
-      ssl_session_timeout 4h;
-      ssl_protocols TLSv1.2 TLSv1.3;
-      ssl_prefer_server_ciphers on;
-      include /etc/nginx/streams-enabled/*.conf;
-    }
-    ```
-*   Create a new directory for future configuration files
+http {
+  ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+  ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+  ssl_session_cache shared:HTTP-TLS:1m;
+  ssl_session_timeout 4h;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers on;
+  include /etc/nginx/sites-enabled/*.conf;
+}
 
-    ```sh
-    $ sudo mkdir /etc/nginx/streams-enabled
-    ```
+stream {
+  ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+  ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+  ssl_session_cache shared:STREAM-TLS:1m;
+  ssl_session_timeout 4h;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers on;
+  include /etc/nginx/streams-enabled/*.conf;
+}
+```
+
+* Create a new directory for future configuration files
+
+```sh
+$ sudo mkdir /etc/nginx/streams-enabled
+```
+
 *   Disable NGINX's default site
 
     ```sh

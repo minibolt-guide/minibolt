@@ -65,13 +65,14 @@ We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connect
     ```sh
     $ tar -xvf lndconnect-linux-amd64-v$VERSION.tar.gz
     ```
-*   Install
+* Install
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v$VERSION/lndconnect
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v$VERSION/lndconnect
+```
+{% endcode %}
+
 *   Ensure lndconnect is correctly installed
 
     ```sh
@@ -170,7 +171,7 @@ On Android, you can get Zeus from [Google Play](https://play.google.com/store/ap
 * Enter a Nickname for your node (e.g. "MiniBolt LN")
 
 {% hint style="info" %}
-&#x20;If you will use the Tor connection hit on the switch **"Use Tor"**
+If you will use the Tor connection hit on the switch **"Use Tor"**
 {% endhint %}
 
 * Click on **"SAVE NODE CONFIG"**

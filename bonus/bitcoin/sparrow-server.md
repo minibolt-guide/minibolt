@@ -35,25 +35,26 @@ Status: Tested MiniBolt
     ```sh
     $ VERSION=1.7.6
     ```
-*   Download the application, checksums, and signature
+* Download the application, checksums, and signature
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-server-$VERSION-x86_64.tar.gz
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-server-$VERSION-x86_64.tar.gz
+```
+{% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt.asc
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt.asc
+```
+{% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt
+```
+{% endcode %}
+
 *   Import keys that signed the release
 
     ```sh

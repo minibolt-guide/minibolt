@@ -37,13 +37,13 @@ Status: Tested MiniBolt
     ```sh
     $ wget https://go.dev/dl/go$VERSION.linux-amd64.tar.gz
     ```
-*   Check on the download page what is the SHA256 checksum of the file, e.g. for the above: 698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd. Calculate the SHA256 hash of the downloaded file. It should give an "OK" as an output.
+* Check on the download page what is the SHA256 checksum of the file, e.g. for the above: 698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd. Calculate the SHA256 hash of the downloaded file. It should give an "OK" as an output.
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ echo "698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd go$VERSION.linux-amd64.tar.gz" | sha256sum --check
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ echo "698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd go$VERSION.linux-amd64.tar.gz" | sha256sum --check
+```
+{% endcode %}
 
 **Example** of expected output:
 

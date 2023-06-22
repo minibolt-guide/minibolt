@@ -169,7 +169,9 @@ ssh-rsa AAAAB3N........
     $ ssh -i /home/<user>/.ssh/privkey admin@minibolt.local
     ```
 
-⚠️ Attention: This command only works if you generated the SSH keys [on Linux or macOS](ssh-keys.md#generate-ssh-keys-on-linux-or-macos) with OpenSSH terminal method, not Putty or MobaXterm generation methods.
+{% hint style="warning" %}
+Attention: This command only works if you generated the SSH keys [on Linux or macOS](ssh-keys.md#generate-ssh-keys-on-linux-or-macos) with OpenSSH terminal method, not Putty or MobaXterm generation methods.
+{% endhint %}
 
 ### **Putty Linux/Windows**
 
@@ -215,7 +217,7 @@ ssh-rsa AAAAB3N........
 * Type `exit` or `logout` to finish the session
 * Log in again with user "admin"
 
-You can no longer log in with a password. User "admin" is the only user that has the necessary SSH keys, no other user can log in remotely. You can follow the guide where you left it by clicking [here](broken-reference)
+You can no longer log in with a password. User "admin" is the only user that has the necessary SSH keys, no other user can log in remotely. You can follow the guide where you left it by clicking [here](broken-reference/)
 
 🚨 **Backup your SSH keys!**
 
@@ -223,7 +225,9 @@ You will need to attach a screen and keyboard to your PC if you lose them.
 
 ### **Disable admin password request (optional -caution!)**
 
-⚠️ Attention: This could be a security risk, is not recommended to disable the admin password to avoid a possible and hypothetical attacker could gain complete control of the node in case of intrusion, if you do it, act at your own risk.
+{% hint style="warning" %}
+**Attention:** This could be a security risk, is not recommended to disable the admin password to avoid a possible and hypothetical attacker could gain complete control of the node in case of intrusion, if you do it, act at your own risk.
+{% endhint %}
 
 *   Ensure you are logged in with user admin, edit the next file
 

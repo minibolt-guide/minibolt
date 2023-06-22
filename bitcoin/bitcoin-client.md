@@ -38,21 +38,20 @@ If you want to install Bitcoin Core from the source code but without the Ordisre
     ```sh
     $ VERSION=25.0
     ```
-*   Get the latest binaries and signatures
+* Get the latest binaries and signatures
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+```
+{% endcode %}
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
-    ```
+```bash
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
+```
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
-    ```
+<pre class="language-bash"><code class="lang-bash"><strong>$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
+</strong></code></pre>
 
 ### **Checksum check**
 
@@ -72,13 +71,13 @@ If you want to install Bitcoin Core from the source code but without the Ordisre
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-*   The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
+```
+{% endcode %}
 
 **Example** of expected output:
 
@@ -200,24 +199,29 @@ Another option to get access credentials is through the `.cookie` file in the Bi
 
 Bitcoin Core provides a simple Python program to generate the configuration line for the config file.
 
-*   In the Bitcoin folder, download the RPCAuth program
+* In the Bitcoin folder
 
-    ```sh
-    $ cd .bitcoin
-    ```
+```bash
+$ cd .bitcoin
+```
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpcauth.py
-    ```
-    {% endcode %}
-*   Run the script with the Python3 interpreter, providing the username (`minibolt`) and your `"password [B]"` arguments.
+* Download the RPCAuth program
 
-    🚨 All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space ( ) in front of the command shown below.
+{% code overflow="wrap" %}
+```bash
+$ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpcauth.py
+```
+{% endcode %}
 
-    ```sh
-    $  python3 rpcauth.py minibolt YourPasswordB
-    ```
+* Run the script with the Python3 interpreter, providing the username (`minibolt`) and your **`"password [B]"`** arguments.
+
+{% hint style="info" %}
+All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space ( ) in front of the command shown below.
+{% endhint %}
+
+```sh
+$  python3 rpcauth.py minibolt YourPasswordB
+```
 
 Expected **example** output:
 
@@ -301,13 +305,13 @@ This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf]
     ```sh
     $ chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
     ```
-*   Exit the “bitcoin” user session back to user “admin”
+* Exit the “bitcoin” user session back to user “admin”
 
-    {% code fullWidth="false" %}
-    ```sh
-    $ exit
-    ```
-    {% endcode %}
+{% code fullWidth="false" %}
+```bash
+$ exit
+```
+{% endcode %}
 
 ### **Autostart on boot**
 
@@ -358,7 +362,9 @@ The system needs to run the bitcoin daemon automatically in the background, even
     $ sudo journalctl -f -u bitcoind
     ```
 
-💡 Keep **this terminal open,** you'll need to come back here on the next step to monitor logs.
+{% hint style="info" %}
+Keep **this terminal open,** you'll need to come back here on the next step to monitor logs.
+{% endhint %}
 
 ## Running bitcoind
 
@@ -416,13 +422,14 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
     $ exit
     ```
 * Log in as user “admin” again `("ssh admin@minibolt.local")`
-*   Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
+* Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
 
-    {% code overflow="wrap" %}
-    ```sh
-    $2 bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo | grep address.*i2p
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$2 bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo | grep address.*i2p
+```
+{% endcode %}
+
 *   Check the correct enablement of the I2P and Tor networks
 
     ```sh
@@ -607,30 +614,26 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoin/
     ```sh
     $ VERSION=25.0
     ```
-*   Download binary, checksum, signature files, and timestamp file
+* Download binary, checksum, signature files, and timestamp file
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+```
+{% endcode %}
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
-    ```
+<pre class="language-bash"><code class="lang-bash"><strong>$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
+</strong></code></pre>
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
-    ```
+```
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
+```
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
-    ```
-*   Verify the new version against its checksums
+* Verify the new version against its checksums
 
-    ```sh
-    $ sha256sum --ignore-missing --check SHA256SUMS
-    ```
+```sh
+$ sha256sum --ignore-missing --check SHA256SUMS
+```
 
 **Example** of expected output:
 
@@ -638,13 +641,13 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoin/
 > bitcoin-25.0-x86_64-linux-gnu.tar.gz: OK
 ```
 
-*   The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
+```
+{% endcode %}
 
 Expected output:
 

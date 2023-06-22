@@ -29,7 +29,7 @@ This script can be run by the user "admin" without root privileges, but you shou
 
     ```sh
     $ cd /tmp/
-    $ wget https://raw.githubusercontent.com/raspibolt/raspibolt/master/resources/20-raspibolt-welcome
+    $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/20-raspibolt-welcome
     ```
 *   Inspect the script to make sure it does not do bad things. Exit with `Ctrl`-`X`
 
