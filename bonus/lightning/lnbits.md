@@ -39,16 +39,17 @@ Status: Not tested MiniBolt
 *   Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to LNBits.
 
     ```sh
-    $ sudo nano /etc/nginx/streams-enabled/lnbits-reverse-proxy.conf
+    $ sudo nano /etc/nginx/sites-enabled/lnbits-reverse-proxy.conf
     ```
 
     ```nginx
-    upstream lnbits {
-      server 127.0.0.1:5000;
-    }
     server {
       listen 4003 ssl;
-      proxy_pass lnbits;
+      error_page 497 =301 https://$host:$server_port$request_uri;
+
+      location / {
+        proxy_pass http://127.0.0.1:5000;
+      }
     }
     ```
 *   Test and reload NGINX configuration.
