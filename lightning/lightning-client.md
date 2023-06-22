@@ -63,23 +63,23 @@ We'll download, verify and install LND.
     ```
     {% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
+```
+{% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
+```
+{% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```sh
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig
+```
+{% endcode %}
 
 ### **Checksum check**
 
@@ -99,13 +99,13 @@ We'll download, verify and install LND.
 
 Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
 
-*   Get the public key from the LND developer, [Olaoluwa Osuntokun](https://keybase.io/roasbeef), who signed the manifest file; and add it to your GPG keyring
+* Get the public key from the LND developer, [Olaoluwa Osuntokun](https://keybase.io/roasbeef), who signed the manifest file; and add it to your GPG keyring
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
+```
+{% endcode %}
 
 **Example** of expected output:
 
@@ -138,13 +138,13 @@ Expected output:
 
 We can also check that the manifest file was in existence around the time of the release using its timestamp.
 
-*   Let's verify the timestamp of the file matches the release date
+* Let's verify the timestamp of the file matches the release date
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
+```
+{% endcode %}
 
 **Example** of expected output:
 
@@ -434,26 +434,26 @@ Once LND is started, the process waits for us to create the integrated Bitcoin o
     ```sh
     $2 lncli create
     ```
-*   Enter your `password [C]` as wallet password (it must be exactly the same one you stored in `password.txt`). To create a new wallet, select `n` when asked if you have an existing cipher seed. Just press enter if asked about an additional seed passphrase unless you know what you're doing. A new cipher seed consisting of 24 words is created.
+* Enter your `password [C]` as wallet password (it must be exactly the same one you stored in `password.txt`). To create a new wallet, select `n` when asked if you have an existing cipher seed. Just press enter if asked about an additional seed passphrase unless you know what you're doing. A new cipher seed consisting of 24 words is created.
 
-    {% code fullWidth="false" %}
-    ```
-    Do you have an existing cipher seed mnemonic or extended master root key you want to use?
-    Enter 'y' to use an existing cipher seed mnemonic, 'x' to use an extended master root key
-    or 'n' to create a new seed (Enter y/x/n): n
+{% code fullWidth="false" %}
+```
+Do you have an existing cipher seed mnemonic or extended master root key you want to use?
+Enter 'y' to use an existing cipher seed mnemonic, 'x' to use an extended master root key
+or 'n' to create a new seed (Enter y/x/n): n
 
-    Your cipher seed can optionally be encrypted.
-    Input your passphrase if you wish to encrypt it (or press enter to proceed without a cipher seed passphrase):
+Your cipher seed can optionally be encrypted.
+Input your passphrase if you wish to encrypt it (or press enter to proceed without a cipher seed passphrase):
 
-    Generating fresh cipher seed...
+Generating fresh cipher seed...
 
-    !!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
+!!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
 
-    ---------------BEGIN LND CIPHER SEED---------------
-    1. secret     2. secret    3. secret     4. secret
-    ...
-    ```
-    {% endcode %}
+---------------BEGIN LND CIPHER SEED---------------
+1. secret     2. secret    3. secret     4. secret
+[...]
+```
+{% endcode %}
 
 These 24 words are all that you need to restore the Bitcoin on-chain wallet.
 
@@ -490,11 +490,12 @@ We interact with LND using the application `lncli`. At the moment, only the user
     $2 sudo chmod -R g+X /data/lnd/data/
     ```
 
-    {% code overflow="wrap" %}
-    ```sh
-    $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
+```
+{% endcode %}
+
 *   Newly added links and permissions become active only in a new user session. Log out from SSH.
 
     ```sh
@@ -523,20 +524,22 @@ Watchtowers are other Lightning nodes that can monitor your channels for you. If
 
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them. It's good practice to add a few watchtowers, just to be on the safe side.
 
-*   With user `"admin"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower) Tor address as a first example
+* With user `"admin"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower) Tor address as a first example
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
-    ```
-    {% endcode %}
-*   Or the clearnet address
+{% code overflow="wrap" %}
+```bash
+$ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
+```
+{% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
-    ```
-    {% endcode %}
+* Or the clearnet address
+
+{% code overflow="wrap" %}
+```bash
+$ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
+```
+{% endcode %}
+
 *   If you want to list your towers and active watchtowers
 
     ```sh
@@ -648,24 +651,26 @@ To connect to a remote node, you need its URI that looks like `<pubkey>@host`:
 
 Just grab the whole URI above the big QR code and use it as follows (we will use the `⚡2FakTor⚡` node as an example):
 
-*   **Connect** to the remote node, with the full URI.
+* **Connect** to the remote node, with the full URI.
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
+```
+{% endcode %}
+
 *   **Open a channel** using the `<pubkey>` only (_i.e._, the part of the URI before the `@`) and the channel capacity in satoshis.
 
     One Bitcoin equals 100 million satoshis, so at $10'000/BTC, $10 amount to 0.001 BTC or 100'000 satoshis. To avoid mistakes, you can just use an [online converter](https://www.buybitcoinworldwide.com/satoshi/to-usd/).
 
     The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/))
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
+```
+{% endcode %}
+
 *   **Check your funds**, both in the on-chain wallet and the channel balances.
 
     ```sh
@@ -709,13 +714,13 @@ A quick reference with special commands to play around with:
     ```sh
     $ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
     ```
-*   Create your own Re-Usable Static AMP invoice
+* Create your own Re-Usable Static AMP invoice
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```bash
+$ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
+```
+{% endcode %}
 
 {% hint style="info" %}
 The default flags "--memo" "--amt" and "--expiry" are optional. The default expiry time will be 30 days by default and the rest can be empty
@@ -735,7 +740,7 @@ Copy the output \[lnbc...] of the "payment\_request": "lnbc...". Transform your 
     ```
 
 {% hint style="info" %}
-&#x20;More: full [LND API reference](https://api.lightning.community/)
+More: full [LND API reference](https://api.lightning.community/)
 {% endhint %}
 
 ## For the future: upgrade LND
