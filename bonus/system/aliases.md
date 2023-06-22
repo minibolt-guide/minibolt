@@ -31,25 +31,16 @@ The following list of aliases was derived from contributions by [RobClark56](htt
 {% code overflow="wrap" %}
 ```bash
 $ cd /home/admin
-$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases -O .bash_aliases 
+$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases -O .bash_aliases
 ```
 {% endcode %}
 
-\* If you have a custom aliases list in a personal private or public GitHub repository
+If you want, inspect the list of aliases to make sure it does not do bad things, and modify it with your personal aliases if you want. Exit with Ctrl-X
 
-```bash
-$ cd /home/admin
+```sh
+$ nano .bash_aliases --linenumbers
 ```
 
-```bash
-$ wget <personal URL RAW list aliases> -O .bash_aliases
-```
-
-*   Inspect the list of aliases to make sure it does not do bad things and modify it with your personal aliases if you want. Exit with Ctrl-X
-
-    ```sh
-    $ nano .bash_aliases --linenumbers
-    ```
 *   Execute a `source` command to register changes of the `.bash_aliases` file in the .bashrc file
 
     ```sh
@@ -87,9 +78,17 @@ $ wget <personal URL RAW list aliases> -O .bash_aliases
     > nginx version: nginx/1.18.0 (Ubuntu)
     ```
 
+## For the future: upgrade Aliases
+
+Follow the [Set up Aliases](aliases.md#set-up-aliases) section again to overwrite aliases.
+
+{% hint style="info" %}
+You can see if the aliases have a recent update by entering [here](https://github.com/minibolt-guide/minibolt/commits/main/resources/.bash\_aliases).
+{% endhint %}
+
 ## Uninstall
 
-*   To remove these special aliases, with user "admin", simply delete the `.bash_aliases` and execute a source command to register changes. The aliases will be gone with the next login.
+*   To remove these special aliases, with the user "admin", simply delete the `.bash_aliases` and execute a source command to register changes. The aliases will be gone with the next login.
 
     ```sh
     $ rm ~/.bash_aliases
