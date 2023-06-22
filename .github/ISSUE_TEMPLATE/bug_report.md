@@ -13,7 +13,7 @@ A clear and concise description of what the bug is.
 
 ### Location in guide
 
-Link to the corresponding page and section on <https://twofaktor.github.io/minibolt/>
+Link to the corresponding page and section on <https://minibolt.info>
 
 ### Expected behavior
 

@@ -1,6 +1,0 @@
-*.xcf
-.jekyll-metadata
-.sass-cache
-Gemfile.lock
-_site
-cast/tmp*
