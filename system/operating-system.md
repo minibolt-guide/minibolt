@@ -55,28 +55,28 @@ Use the **UP**, **Down,** and **ENTER** keys of your keyboard to navigate to the
 
 **2.** If there is an installer update available, select **"Update to the new installer"**, press **enter,** and wait
 
-**3.** Select your keyboard layout and variant **(Spanish recommended to Spanish native speakers)** and press **done**
+**3.** Select your keyboard layout and variant **(Spanish recommended to Spanish native speakers)** and press \[**done]**
 
 **4.** Keep selecting **"Ubuntu Server"** as the base for the installation, down to **done,** and press **enter**
 
-**5.** Select the interface network connection that you choose to use **(Ethernet recommended)** and **take note of your IP** obtained automatically through DHCP. (Normally 192.168.x.xx). Press **done**
+**5.** Select the interface network connection that you choose to use **(Ethernet recommended)** and **take note of your IP** obtained automatically through DHCP. (Normally 192.168.x.xx). Press \[**done]**
 
 {% hint style="info" %}
 The router reserves the IP address of the device for a time, but If the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Set Static IP address](operating-system.md#set-a-static-ip-address-and-custom-dns-nameservers-optional) optional section to get more instructions to do this.\
-🚨 <mark style="color:red;">Be careful by setting this!</mark> If you change the router could be **the new router doesn't work in the same IP address range as the old router**, the MiniBolt won't be registered and will be completely out of the connection. More details on the "[Set Static IP address](operating-system.md#set-static-ip-address-optional)" section.
+🚨 <mark style="color:red;">Be careful by setting this!</mark> If you change the router could be **the new router doesn't work in the same IP address range as the old router**, the MiniBolt won't be registered and will be completely out of the connection. More details on the [Set Static IP address](operating-system.md#set-a-static-ip-address-and-custom-dns-nameservers-optional) section.
 {% endhint %}
 
-**6.** Leave the empty next option if you don't want to use an HTTP proxy to access it. Press **done**
+**6.** Leave the empty next option if you don't want to use an HTTP proxy to access it. Press \[**done]**
 
-**7.** If you don't want to use an alternative mirror for Ubuntu, leave it empty and press **done** directly
+**7.** If you don't want to use an alternative mirror for Ubuntu, leave it empty and press \[**done]** directly
 
 **8.** Configure a **guided storage layout**, with 2 options:
 
-> **8.1.** Check **"Use an entire disk"**, if you have **only one primary unit storage (1+ TB)**. In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before select **done** and press **enter**. Then, continue with **step 9**.
+> **8.1.** Check **"Use an entire disk"**, if you have **only one primary unit storage (1+ TB)**. In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before select \[**done]** and press **enter**. Then, continue with **step 9**.
 
 > **8.2.** Check **"Custom storage layout"**, if you want to use one **secondary** disk, e.g. primary for the system and secondary disk for data (blockchain, indexes, etc)(1+ TB). For this case, go to --> [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, to get instructions about how to follow, and then continue with **step 10**.
 
-**9.** Confirm destructive action by selecting the **Continue** option. Press **enter**
+**9.** Confirm destructive action by selecting the \[**Continue]** option. Press **enter**
 
 {% hint style="danger" %}
 **This will delete all existing data on the disks, including existing partitions!**
@@ -99,17 +99,17 @@ This is an IMPORTANT step!
 ```
 {% endcode %}
 
-**12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key, and down to select the **"Done"** box and press **enter** again.
+**12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key, and down to select the \[**Done]** box and press **enter** again
 
 {% hint style="danger" %}
 This is an IMPORTANT step!
 {% endhint %}
 
-**13.** If you want to preinstall some additional software **(not recommended)**, select them, if not, press **"done"** directly to jump to the next step.
+**13.** If you want to preinstall some additional software **(not recommended)**, select them, if not, press \[**done]** directly to jump to the next step.
 
 **14.** Now all before configurations will be applied and the system installed. This would be a few minutes depending on the hardware used. You can show extended logs by pressing **\[View full log]** if you want.
 
-⌛ Wait until the installation finishes, when it happens, **"Reboot now"** will appear. Select it and press **enter**.
+⌛ Wait until the installation finishes, when it happens, \[**Reboot now]** will appear. Select it and press **enter**.
 
 **15.** When the prompt shows you **"Please remove the installation medium, then press ENTER"**, extract the pen drive of the PC and press **enter** finally.
 
@@ -156,5 +156,5 @@ If you don't do this, you will have to attach the monitor screen or television a
 {% endhint %}
 
 {% hint style="info" %}
-In this step, you can set DNS name servers too, for this example we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1/1.0.0.1) but you could set [others](https://www.quad9.net/)
+In this step, you can set DNS name servers too, for this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1/1.0.0.1) but you could set [others](https://www.quad9.net/)
 {% endhint %}
