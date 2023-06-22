@@ -78,9 +78,9 @@ The bonus section contains more specific guides that build on top of the main se
 
 ### Community
 
-* [GitHub Pull Requests](https://github.com/minibolt-guide/minibolt-gitbook/pulls)
-* [GitHub Issues / Knowledge Base](https://github.com/minibolt-guide/minibolt-gitbook/issues)
-* [GitHub discussions](https://github.com/minibolt-guide/minibolt-gitbook/discussions)
+* [GitHub Pull Requests](https://github.com/minibolt-guide/minibolt/pulls)
+* [GitHub Issues / Knowledge Base](https://github.com/minibolt-guide/minibolt/issues)
+* [GitHub discussions](https://github.com/orgs/minibolt-guide/discussions)
 * Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/)
 * Telegram Groups:
   * [Spanish](https://t.me/minibolt\_es)
