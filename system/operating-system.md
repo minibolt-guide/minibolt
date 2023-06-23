@@ -140,7 +140,7 @@ The GIF before is only a recreation of a scenario made with a virtual machine, *
 
 #### Option 1: At the beginning, during the Ubuntu Server installation GUI
 
-When you arrive at **step 15** of the [Ubuntu Server guided installation](operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS name server/s.&#x20;
+When you arrive at **step 5** of the [Ubuntu Server guided installation](operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS name server/s.&#x20;
 
 Wait for the router's DHCP server to assign the IP address to your MiniBolt node to find out what IP range the node is in, you will be able to assign the same or a different IP in the next step.
 
@@ -152,7 +152,7 @@ Wait for the router's DHCP server to assign the IP address to your MiniBolt node
 >
 > > **Gateway:** you router IP, eg. 192.168.1.1
 >
-> > **Name servers:** DNS servers choosen, eg. same of gateway (192.168.1.1,192.168.1.1) (your ISP DNS) or Cloudflare DNS server (1.1.1.1,1.0.0.1) <- (recommended)
+> > **Name servers:** DNS servers choosen, eg. same of gateway (192.168.1.1,192.168.1.1) (your ISP DNS) or Cloudflare DNS server (1.1.1.1,1.0.0.1) <- **(recommended)**
 >
 > > **Search domains:** \<left blank>
 
@@ -169,7 +169,7 @@ This is **only** an **example** if your local network IP range is `192.168.1.0-2
 
 💡 To avoid this, you will need to **enable the "Automatic (DHCP)" mode again before changing the router**, following the [Set the DCHP (automatic) configuration](operating-system.md#set-the-automatic-dhcp-mode-configuration-by-command-line) to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want, after router change, reconfigure the static IP address again following the [Option 2](operating-system.md#option-2-after-ubuntu-server-installation-by-command-line).
 
-If you don't do this, you will have to attach the monitor screen or television and keyboard again to fix this.
+If you don't do this, you will have to attach the monitor screen or television and keyboard to fix this.
 {% endhint %}
 
 {% hint style="info" %}
@@ -178,9 +178,9 @@ In this step, you can set DNS name servers too, for this example, we have config
 
 #### Option 2: After Ubuntu Server installation (by command line)
 
-After having done the [1.3 Remote access](remote-access.md) section, you could want set a static IP address to your MiniBolt
+After having done the [1.3 Remote access](remote-access.md) section, you could want to set a static IP address to your MiniBolt by the command line
 
-* Check your current data network interface by doing
+* With user **admin**, check your current data network interface by doing
 
 ```bash
 $ ip address
@@ -206,22 +206,22 @@ Check your own configuration, the next output is **only** an **example** of a co
 Definitions in the case of before:
 
 > > ```
-> > <interface> = eno1
+> > <interface> = e.g eno1
 > > ```
 >
 > > ```
-> > <ipaddress> = 192.168.1.147
+> > <ipaddress> = e.g 192.168.1.147
 > > ```
 >
 > > ```
-> > <gateway> = 192.168.1.1 (this case) -> for case 192.168.0.147 choose 192.168.0.1
+> > <gateway> = 192.168.1.1 (this case) -> case 192.168.0.147, choose 192.168.0.1
 > > ```
 
 {% hint style="info" %}
 Take note of your case data, you will need it later
 {% endhint %}
 
-* &#x20;Check the current DNS server setted
+* &#x20;Check the current DNS server set, typing the next command
 
 ```bash
 $ resolvectl status
@@ -249,7 +249,7 @@ In the case of before:
 > > ```
 >
 > > ```
-> > <nameserver2> = (secondary DNS server not setted in this case)
+> > <nameserver2> = (secondary DNS server, not setted in this case)
 > > ```
 
 * Edit the content of the next file
@@ -317,7 +317,7 @@ $ sudo netplan apply
 If you chose a different IP address than the router assigned you, this step could break the current SSH connection, reconnect using the chosen IP address
 {% endhint %}
 
-#### **Check changes are applied:**
+#### **Check changes are applied correctly:**
 
 * For the IP address change, type the next command
 
@@ -380,7 +380,7 @@ $ sudo netplan apply
 ```
 
 {% hint style="info" %}
-#### Check changes are applied following [the same step as before](operating-system.md#check-changes-are-applied-following-the-same-step-before)
+Check changes are applied correctly following the [same step](operating-system.md#check-changes-are-applied-correctly) as before
 {% endhint %}
 
 [^1]: \<interface>
