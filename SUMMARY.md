@@ -4,7 +4,7 @@
 
 * [MiniBolt](README.md)
 
-## 1. System
+## System
 
 * [1. System](system/README.md)
   * [1.1 Preparations](system/preparations.md)
