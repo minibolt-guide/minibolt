@@ -68,9 +68,7 @@ We aim to keep the core of this guide well maintained and up-to-date:
 2. [Bitcoin](bitcoin/): sync your own Bitcoin full node, Electrum server, Blockchain Explorer, and connect a desktop wallet to the Electrum server
 3. [Lightning](lightning/): run your own Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup
 
-The bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.
-
-* [Bonus guides](bonus/)
+* Bonus guides: the bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.
 
 ### How build
 
