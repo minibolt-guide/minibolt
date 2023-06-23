@@ -4,6 +4,17 @@ parent: + System
 grand_parent: System
 nav_exclude: true
 has_toc: false
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # Configure NUT to safely shutdown your node

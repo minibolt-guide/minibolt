@@ -2,6 +2,17 @@
 title: Web app
 nav_order: 30
 parent: Lightning
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # 3.3 Web app: ThunderHub

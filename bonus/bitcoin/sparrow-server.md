@@ -5,6 +5,17 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_children: false
 has_toc: false
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # Sparrow Server
@@ -98,23 +109,21 @@ Expected output:
     ```sh
     $ sudo cp -r Sparrow /home/admin/
     ```
+*   Clean the remaining installation files from the "tmp" folder to avoid problems for the next update
 
-* Clean the remaining installation files from the "tmp" folder to avoid problems for the next update
-
-     ```sh
-     $ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
-     ```
+    ```sh
+    $ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
+    ```
 
 {% hint style="info" %}
-If you come to update this is the final step, check the correct update by entering `$ Sparrow --version` command and skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run-sparrow) section to start Sparrow server again with the new version.
+If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command and skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run-sparrow) section to start Sparrow server again with the new version.
 {% endhint %}
-    
+
 *   Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH.
 
     ```sh
     $ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
     ```
-    
 *   Check the correct installation by reclaiming the version output
 
     ```sh

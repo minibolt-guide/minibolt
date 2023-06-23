@@ -2,6 +2,17 @@
 title: Bitcoin
 nav_order: 30
 has_children: true
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # 2. Bitcoin

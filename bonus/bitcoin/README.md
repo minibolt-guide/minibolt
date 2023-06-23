@@ -4,6 +4,17 @@ nav_order: 2000
 parent: Bonus Section
 has_children: false
 has_toc: false
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # Bitcoin

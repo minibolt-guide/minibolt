@@ -2,6 +2,17 @@
 title: Configuration
 nav_order: 30
 parent: System
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # 1.4 Configuration

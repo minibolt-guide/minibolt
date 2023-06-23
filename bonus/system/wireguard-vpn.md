@@ -4,6 +4,17 @@ parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # WireGuard: a simple yet fast VPN
@@ -131,7 +142,7 @@ Keep **this dashboard open,** you'll need to come back here later.
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yoursubdomain.dedyn.io>"`** from the deSEC registration step.
 
-*   As `"admin"` user, [log in](broken-reference) to MiniBolt and create the following script
+*   As `"admin"` user, [log in](broken-reference/) to MiniBolt and create the following script
 
     ```sh
     $ sudo nano /opt/dynamic-ip-refresh.sh
@@ -449,7 +460,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-Try to create a [new SSH session](broken-reference) to the MiniBolt, using this time the VPN IP instead of the local IP address
+Try to create a [new SSH session](broken-reference/) to the MiniBolt, using this time the VPN IP instead of the local IP address
 {% endhint %}
 
 ```sh
@@ -556,7 +567,7 @@ You could create a Wireguard VPN client connection manually from scratch filling
 
 * Paste the entire [configure Wireguard VPN Client](wireguard-vpn.md#client-configuration-part-1) content of the `"wg0.conf"` file in the big text box and push on **"Save"**.
 * Click on the **"Activate"** button to enable the VPN connection.
-* Test it creating a [new SSH connection](broken-reference) to MiniBolt for example, this time with the VPN IP address.
+* Test it creating a [new SSH connection](broken-reference/) to MiniBolt for example, this time with the VPN IP address.
 
 ### **Configure additional clients**
 

@@ -4,6 +4,17 @@ parent: + Lightning
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # Zap iOS Lightning Wallet
@@ -103,9 +114,9 @@ The nifty helper tool LND Connect helps to pair the RaspiBolt with the iPhone, e
 * Open the Zap iOS on your phone.
 * Scan the QR code and check/modify the ip address you want to use to connect. It should be something like `192.168.x.x`.
 
-&#x20;![Zap IOS scan example](../../images/72\_zapios\_scan.png)
+![Zap IOS scan example](../../images/72\_zapios\_scan.png)
 
-* A successful connection will take you into the Zap iOS application:&#x20;
+* A successful connection will take you into the Zap iOS application:
 
 ![Zap iOS succesful example](../../images/72\_zapios\_succesful.png)
 

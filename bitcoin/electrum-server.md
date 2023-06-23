@@ -2,6 +2,17 @@
 title: Electrum server
 nav_order: 20
 parent: Bitcoin
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # 2.2 Electrum Server: Fulcrum

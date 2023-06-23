@@ -4,6 +4,17 @@ parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # Tor Bridge
@@ -56,7 +67,7 @@ obfs4 makes Tor traffic look random and also prevents censors from finding bridg
 ```
 
 {% hint style="info" %}
-&#x20;If not obtain results, follow the [Privacy section](../../system/privacy.md#tor-installation) to install it.
+If not obtain results, follow the [Privacy section](../../system/privacy.md#tor-installation) to install it.
 {% endhint %}
 
 ## Configuration
@@ -128,7 +139,7 @@ Replace <PickANickname> with a nickname that you like for your bridge. Nicknames
 </details>
 
 {% hint style="warning" %}
-Don't forget to change the ORPort <**TODO1>**, ServerTransportListenAddr <**TODO2>**, ContactInfo <**address@email.com>**, and Nickname <**PickANickname>** options.&#x20;
+Don't forget to change the ORPort <**TODO1>**, ServerTransportListenAddr <**TODO2>**, ContactInfo [\*\*address@email.com](mailto:\*\*address@email.com)\*\*, and Nickname <**PickANickname>** options.
 {% endhint %}
 
 {% hint style="info" %}

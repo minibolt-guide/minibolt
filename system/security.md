@@ -2,6 +2,17 @@
 title: Security
 nav_order: 40
 parent: System
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # 1.5 Security

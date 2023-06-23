@@ -4,6 +4,17 @@ parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # Store data in a secondary disk
@@ -22,7 +33,7 @@ Status: Tested MiniBolt
 
 ## Storage configuration
 
-When you arrive at the **"Guided storage configuration"** **(step 8)** on the [Ubuntu server installation](broken-reference), follow the next steps:
+When you arrive at the **"Guided storage configuration"** **(step 8)** on the [Ubuntu server installation](broken-reference/), follow the next steps:
 
 **8.2.** Pay attention to checking **"Custom storage layout"** instead of ~~Use an entire disk~~, select **"Done"** and press **enter**
 
