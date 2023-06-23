@@ -96,17 +96,19 @@ Expected output:
 *   Move data files to the home "admin" user
 
     ```sh
-    $ sudo mv Sparrow /home/admin/
+    $ sudo cp -r Sparrow /home/admin/
     ```
+{% hint style="info" %}
+If you come to update this is the final step
+{% endhint %}
+    
 *   Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH.
 
     ```sh
     $ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
     ```
 
-{% hint style="info" %}
-If you come to update this is the final step
-{% endhint %}
+
 
 ### Run Sparrow
 
