@@ -1,6 +1,11 @@
 # Table of contents
 
+## Home
+
 * [MiniBolt](README.md)
+
+## System
+
 * [1. System](system/README.md)
   * [1.1 Preparations](system/preparations.md)
   * [1.2 Operating system](system/operating-system.md)
@@ -8,16 +13,25 @@
   * [1.4 Configuration](system/configuration.md)
   * [1.5 Security](system/security.md)
   * [1.6 Privacy](system/privacy.md)
+ 
+## Bitcoin
+
 * [2. Bitcoin](bitcoin/README.md)
   * [2.1 Bitcoin client: Bitcoin Core](bitcoin/bitcoin-client.md)
   * [2.2 Electrum Server: Fulcrum](bitcoin/electrum-server.md)
   * [2.3 Desktop wallet: Sparrow Wallet](bitcoin/desktop-wallet.md)
   * [2.4 Blockchain explorer: BTC RPC Explorer](bitcoin/blockchain-explorer.md)
+
+## Lightning
+
 * [3. Lightning](lightning/README.md)
   * [3.1 Lightning client: LND](lightning/lightning-client.md)
   * [3.2 Channel backup for LND](lightning/channel-backup.md)
   * [3.3 Web app: ThunderHub](lightning/web-app.md)
   * [3.4 Mobile app: Zeus](lightning/mobile-app.md)
+
+## Bonus guides
+
 * [Bonus guides](bonus/README.md)
   * [System](bonus/system/README.md)
     * [System overview](bonus/system/system-overview.md)
