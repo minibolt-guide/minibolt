@@ -14,15 +14,15 @@ layout:
 
 # Static IP & Custom DNS servers
 
-Set a static IP address and custom DNS nameservers
+#### Set a static IP address and custom DNS nameservers
 
-#### Option 1: At the beginning, during the Ubuntu Server installation GUI
+### Option 1: At the beginning, during the Ubuntu Server installation GUI
 
-When you arrive at **step 5** of the [Ubuntu Server guided installation](operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS name server/s.&#x20;
+When you arrive at **step 5** of the [Ubuntu Server guided installation](operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS name server/s.
 
 Wait for the router's DHCP server to assign the IP address to your MiniBolt node to find out what IP range the node is in, you will be able to assign the same or a different IP in the next step.
 
-<figure><img src="../.gitbook/assets/static-ip-dns-gif.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/static-ip-dns-gif.gif" alt=""><figcaption></figcaption></figure>
 
 > > **Subnet:** your router subnet, e.g 192.168.1.0/24
 >
@@ -54,7 +54,7 @@ If you don't do this, you will have to attach the monitor screen or television a
 In this step, you can set DNS name servers too, for this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1/1.0.0.1) but you could set [others](https://www.quad9.net/service/service-addresses-and-features)
 {% endhint %}
 
-#### Option 2: After Ubuntu Server installation (by command line)
+### Option 2: After Ubuntu Server installation (by command line)
 
 After having done the [1.3 Remote access](remote-access.md) section, you could want to set a static IP address to your MiniBolt by the command line
 
@@ -75,7 +75,7 @@ Check your own configuration, the next output is **only** an **example** of a co
 2: <a data-footnote-ref href="#user-content-fn-1">eno1</a>: &#x3C;BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 40:a8:f0:ac:6a:37 brd ff:ff:ff:ff:ff:ff
     altname enp0s25
-    inet <a data-footnote-ref href="#user-content-fn-2">192.168.1.147</a>/24 metric 100 brd 192.168.1.255 scope global dynamic eno1
+    inet 192.168.1.147/24 metric 100 brd 192.168.1.255 scope global dynamic eno1
        valid_lft 76855sec preferred_lft 76855sec
     inet6 fe80::42a8:f0ff:feac:6a37/64 scope link
        valid_lft forever preferred_lft forever
@@ -99,7 +99,7 @@ Definitions in the case of before:
 Take note of your case data, you will need it later
 {% endhint %}
 
-* &#x20;Check the current DNS server set, typing the next command
+* Check the current DNS server set, typing the next command
 
 ```bash
 $ resolvectl status
@@ -156,9 +156,9 @@ network:
 ```
 
 {% hint style="info" %}
-Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>**, **\<nameserver2>** (optional but recommended)**,** and **\<gateway>** to your own data. \
+Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>**, **\<nameserver2>** (optional but recommended)**,** and **\<gateway>** to your own data.\
 \
-You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**) whatever you want, including the default one set in the DNS server of your router (normally of the ISP), in that case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**.  For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1/1.0.0.1) <-- (recommended), but you could set [others](https://www.quad9.net/service/service-addresses-and-features)
+You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**) whatever you want, including the default one set in the DNS server of your router (normally of the ISP), in that case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**. For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1/1.0.0.1) <-- (recommended), but you could set [others](https://www.quad9.net/service/service-addresses-and-features)
 {% endhint %}
 
 <details>
@@ -262,5 +262,3 @@ Check changes are applied correctly following the [same step](operating-system.m
 {% endhint %}
 
 [^1]: \<interface>
-
-[^2]: \<ipaddress>
