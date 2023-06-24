@@ -128,7 +128,7 @@ Replace <address@email.com> with your email address so we can contact you if the
 
 <details>
 
-<summary>💡 ContactInfo ⬇️</summary>
+<summary>💡 Nickname ⬇️</summary>
 
 {% code overflow="wrap" %}
 ```

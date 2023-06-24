@@ -322,7 +322,7 @@ After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mem
 
 ![](../../images/ordisrespector-mempool-blocks.png)
 
-* Put the pointer above the cube's dynamic graphic at the bottom right, and find transactions with for example **0.00010000 BTC**, **0.00005000 BTC**, **0.00000546 BTC**, **0.00000330 BTC**, **0.00000538 6 BTC**... output amount, or similar recurrency amount and click on the cube of the transaction to do a second verification
+* Put the pointer above the cube's dynamic graphic at the bottom right, and find transactions with for example **0.00010000 BTC**, **0.00005000 BTC**, **0.00000546 BTC**, **0.00000330 BTC**, **0.000005386 BTC**... output amount, or similar recurrency amount and click on the cube of the transaction to do a second verification
 
 ![](../../images/ordisrespector-mempool-cube-tx.png)
 

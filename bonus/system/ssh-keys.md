@@ -177,7 +177,7 @@ ssh-rsa AAAAB3N........
 *   From the Terminal, use the native command
 
     ```sh
-    $ ssh -i /home/<user>/.ssh/privkey admin@minibolt.local
+    $ ssh -i /home/<user>/.ssh/id_rsa admin@minibolt.local
     ```
 
 {% hint style="warning" %}
@@ -188,7 +188,7 @@ Attention: This command only works if you generated the SSH keys [on Linux or ma
 
 * On your regular computer, download Putty [64-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture and start it.
 * To automatically connect and log in to your server you need to add the Private Key to the Putty client. Then go to the left Category menu, select SSH –> Auth -> Credentials, on "Private key file for authentication" hit the "Browse" button, search and add your Private Key file.
-* To the left tree, select "session", in the "Hostname (or IP address)" box, type `admin@minibolt.local` or `admin@192.168.x.xx`, left port `22` to the right box. Click on `Open`. If you selected a key passphrase in [preparations](ssh-keys.md#preparations) section, enter it. That’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords.
+* To the left tree, select "session", in the "Hostname (or IP address)" box, type `admin@minibolt.local` or `admin@192.168.x.xx`, left port `22` to the right box. Click on `Open`. If you selected a key passphrase in the [preparations](ssh-keys.md#preparations) section, enter it. That’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords.
 
 ### **MobaXterm Windows**
 
