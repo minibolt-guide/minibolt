@@ -73,10 +73,10 @@ Use the **UP**, **Down,** and **ENTER** keys of your keyboard to navigate to the
 **5.** Select the interface network connection that you choose to use **(Ethernet recommended)** and **take note of your IP** obtained automatically through DHCP. (Normally 192.168.x.xx). Press \[**done]**
 
 {% hint style="info" %}
-The router reserves the IP address of the device for a time, but If the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Set Static IP address](operating-system.md#set-a-static-ip-address-and-custom-dns-nameservers-optional) optional section to get more instructions to do this.
+The router reserves the IP address of the device for a time, but If the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Static IP & custom DNS servers](../bonus-guides/system/static-ip-and-custom-dns-servers.md) bonus guide to get more instructions to do this.
 
 \
-🚨 <mark style="color:red;">Be careful by setting this!</mark> If you change the router could be **the new router doesn't work in the same IP address range as the old router**, the MiniBolt won't be registered and will be completely out of the connection. To avoid this, follow the [Set the DCHP (automatic) configuration](operating-system.md#set-the-automatic-dhcp-mode-configuration) section to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want after the change of the router, reconfigure the static IP address again following the [Option 2](operating-system.md#option-2-after-ubuntu-server-installation-by-command-line) section.
+🚨 <mark style="color:red;">Be careful by setting this!</mark> If you change the router could be **the new router doesn't work in the same IP address range as the old router**, the MiniBolt won't be registered and will be completely out of the connection. To avoid this, follow the [Set the DCHP (automatic) configuration](../bonus-guides/system/static-ip-and-custom-dns-servers.md#set-the-automatic-dhcp-mode-configuration-by-command-line) section of the bonus guide to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want after the change of the router, reconfigure the static IP address again following the [Option 2](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-after-ubuntu-server-installation-by-command-line) section.
 {% endhint %}
 
 **6.** Leave the empty next option if you don't want to use an HTTP proxy to access it. Press \[**done]**
@@ -97,10 +97,10 @@ The router reserves the IP address of the device for a time, but If the device g
 
 **10.** Keep selecting **"Skip for now",** when the **"Upgrade to Ubuntu Pro"** section appears you press **enter** on the **done** button
 
-**11.** The username **`"admin"`** is reserved for use by the system, to use in the first place, so we are going to create a **temporary user** which we will **delete later**. Complete the profile configuration form with the following.
+**11.** The username **`"admin"`** is reserved for use by the system, to use in the first place, so we are going to create a **temporary user** called "temp" which we will **delete later**. Complete the profile configuration form with the following.
 
 {% hint style="danger" %}
-This is an IMPORTANT step!
+Very IMPORTANT step!
 {% endhint %}
 
 {% code fullWidth="false" %}
@@ -115,7 +115,7 @@ This is an IMPORTANT step!
 **12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key, and down to select the \[**Done]** box and press **enter** again
 
 {% hint style="danger" %}
-This is an IMPORTANT step!
+Very IMPORTANT step!
 {% endhint %}
 
 **13.** If you want to preinstall some additional software **(not recommended)**, select them, if not, press \[**done]** directly to jump to the next step.
@@ -130,8 +130,8 @@ This is an IMPORTANT step!
 🥳 Now the PC should reboot and show you the prompt to log in. You can disconnect the keyboard and the screen of the MiniBolt node, and proceed to connect remotely from your regular computer to continue with the installation
 {% endhint %}
 
-![](../resources/demo-install-os.gif)
+![GIF showing an example of Ubuntu installation using automatic (DHCP) ](../resources/demo-install-os.gif)
 
 {% hint style="info" %}
-The GIF before is only a recreation of a scenario made with a virtual machine, **VBOX\_HARDDISK\_**... is the **example name** for the name of the disk. In your case, this probably will not match exactly
+The GIF before is only a recreation of a scenario made with a virtual machine, (**VBOX\_HARDDISK\_**...) is the **example name** for the name of the disk. In your case, this probably will not match exactly
 {% endhint %}

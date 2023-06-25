@@ -37,7 +37,7 @@
   * [Pimp the command line](bonus/system/command-line.md)
   * [Homer](bonus/system/homer.md)
   * [Aliases](bonus/system/aliases.md)
-  * [Static IP & Custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
+  * [Static IP & custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
   * [Install / Update / Uninstall Go](bonus/system/go.md)
   * [Install / Update / Uninstall Node.js + NPM](bonus/system/nodejs-npm.md)
   * [Login with SSH keys](bonus/system/ssh-keys.md)
