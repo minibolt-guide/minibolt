@@ -96,7 +96,7 @@ $ sudo adduser --gecos "" --disabled-password nym
 
 * Staying in the temporary folder, copy to the home nym user the "nym network requester" binary
 
-```
+```bash
 $ sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
 ```
 
@@ -154,7 +154,9 @@ Address of this network-requester: <a data-footnote-ref href="#user-content-fn-2
 
 </details>
 
-Take note of your network-requester address \<requesteraddress>
+{% hint style="info" %}
+Take note of your network-requester address, (**\<requesteraddress>)**
+{% endhint %}
 
 > Example -->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
 
@@ -168,7 +170,7 @@ $ exit
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-* Create the configuration file in the nano text editor and copy the following paragraph. Save and exit.
+* Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/systemd/system/nym-network-requester.service
 </strong></code></pre>
@@ -269,7 +271,7 @@ $ sudo chown nym:nym /home/nym/nym-socks5-client
 $ sudo su - nym
 ```
 
-* Init the nym socks5 client for the first time with `gateway based selection` flag to choose a gateway based on its location relative to your device
+* Init the nym socks5 client for the first time with `gateway based selection` flag to choose a gateway based on its location relative to your device and replace **\<requesteraddress>** with the obtained in the [Run NYM network requester](nym-mixnet.md#run-nym-network-requester) step before
 
 {% code overflow="wrap" %}
 ```bash
