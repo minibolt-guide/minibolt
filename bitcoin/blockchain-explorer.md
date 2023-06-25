@@ -191,9 +191,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 
 ### **Autostart on boot**
 
-Now we'll make sure our blockchain explorer starts as a service on the Raspberry Pi so that it's always running.
-
-In order to do that, we create a systemd unit that starts the service on boot directly after Bitcoin Core.
+Now we'll make sure our blockchain explorer starts as a service on the PC so that it's always running.
 
 *   As user "admin", create the service file
 
