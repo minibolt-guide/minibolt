@@ -30,7 +30,7 @@ layout:
 
 #### Desktop wallets
 
-* [**BitBoxApp**](bitboxapp.md) - a beginner-friendly desktop wallet that pionneered hardware wallets support
+* [**BitBoxApp**](bitboxapp.md) - a beginner-friendly desktop wallet that pioneered hardware wallets support
 * [**Electrum Wallet Desktop**](electrum-wallet-desktop.md) - a feature-rich desktop wallet for power-users
 
 #### CLI
@@ -40,6 +40,7 @@ layout:
 ### Privacy
 
 * [**JoinMarket**](joinmarket.md) - a CoinJoin software, which allows you to increase privacy and fungibility of on-chain Bitcoin transactions and also get a little passive income from your bitcoins
+* [**NYM mixnet**](../../bonus-guides/bitcoin/nym-mixnet.md) - proxifies the Bitcoin Core clearnet networks and wallets using the NYM Mixnet network
 
 ### Decentralized exchange
 
