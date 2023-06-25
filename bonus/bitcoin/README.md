@@ -40,7 +40,7 @@ layout:
 ### Privacy
 
 * [**JoinMarket**](joinmarket.md) - a CoinJoin software, which allows you to increase privacy and fungibility of on-chain Bitcoin transactions and also get a little passive income from your bitcoins
-* [**NYM mixnet**](../../bonus-guides/bitcoin/nym-mixnet.md) - proxifies the Bitcoin Core clearnet networks and wallets using the NYM Mixnet network
+* [**NYM mixnet**](../../bonus-guides/bitcoin/nym-mixnet.md) - proxifies the clearnet connections using the NYM Mixnet
 
 ### Decentralized exchange
 
