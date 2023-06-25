@@ -30,6 +30,7 @@ layout:
 ### System administration
 
 * [**Aliases**](aliases.md) - set up CLI command shortcuts to simplify your node management experience
+* [Static IP & custom DNS servers](../../bonus-guides/system/static-ip-and-custom-dns-servers.md) - set a static IP local address and customize the DNS servers
 
 ### Install / Update / Uninstall common languages
 
