@@ -38,13 +38,15 @@ $ sudo apt install pkg-config build-essential libssl-dev jq
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-When the prompt asks you for an option, type `1` and press enter
+{% hint style="info" %}
+When the prompt asks you to choose an option, type "`1`" and press enter
+{% endhint %}
 
 ```bash
 $ source "$HOME/.cargo/env"
 ```
 
-**Compile NYM binaries from the source code**
+#### **Compile NYM binaries from the source code**
 
 * Now we will go to the temporary folder to create the NYM binaries that we will need for the installation process
 
@@ -86,7 +88,7 @@ This process can take quite a long time, 10-15 minutes or more, depending on the
 
 ### Install NYM network Requester
 
-#### **Create the nym user**
+### **Create the nym user**
 
 * Create the user nym with this command
 
@@ -106,7 +108,7 @@ $ sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
 $ sudo chown nym:nym /home/nym/nym-network-requester
 ```
 
-#### Run NYM  network requester
+### Init NYM  network requester
 
 * Switch to the user "nym"
 
@@ -166,7 +168,7 @@ Take note of your network-requester address, (**\<requesteraddress>)**
 $ exit
 ```
 
-#### **Autostart on boot**
+### **Autostart on boot**
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
@@ -208,7 +210,7 @@ $ sudo systemctl enable nym-network-requester
 $ sudo journalctl -f -u nym-network-requester
 ```
 
-#### Running NYM network requester
+### Running NYM network requester
 
 To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -263,7 +265,7 @@ $ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
 $ sudo chown nym:nym /home/nym/nym-socks5-client
 ```
 
-#### Run NYM  socks5 client
+### Init NYM  socks5 client
 
 * Switch to the user "nym"
 
@@ -321,7 +323,7 @@ Address of this client: GwFEXSpQP1VFZwDdYRkuRTUpQ28v3zvZbq3mtQnNELwr.EeAiN8mySPw
 $ exit
 ```
 
-#### **Autostart on boot**
+### **Autostart on boot**
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
@@ -365,7 +367,7 @@ $ sudo systemctl enable nym-network-requester
 $ sudo journalctl -f -u nym-socks5-client
 ```
 
-#### Running NYM socks5 client
+### Running NYM socks5 client
 
 To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -408,11 +410,61 @@ Jun 25 21:19:31 minibolt nym-socks5-client[1776937]:  2023-06-25T19:19:31.394Z I
 $2 sudo ss -tulpn | grep LISTEN | grep nym-socks5
 ```
 
-* Delete NYM compilation folder
+* Delete the NYM compilation folder to be ready for the next update
 
 ```bash
 $ sudo rm -r /tmp/nym
 ```
+
+## For the future: upgrade NYM binaries
+
+Follow again the entire [**Compile NYM binaries from the source code**](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), the next step is to replace the binaries to make the update
+
+* First of all, stop socks5 client and network requester
+
+```bash
+$ sudo systemctl stop nym-network-requester
+```
+
+```bash
+$ sudo systemctl stop nym-socks5-client
+```
+
+**For the Network requester**
+
+* Replace the network requester binary
+
+```bash
+$ sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
+```
+
+* Change to the nym user
+
+```bash
+$ sudo su - nym
+```
+
+* Init again the network requester to update the `config.toml` file if needed
+
+```bash
+$ ./nym-network-requester init --id bitcoin --latency-based-selection
+```
+
+* Start network requester again
+
+```bash
+$ sudo systemctl start nym-network-requester
+```
+
+**For the Socks5 client**
+
+* Replace the socks5 client binary
+
+```bash
+$ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
+```
+
+##
 
 ## Uninstall
 
