@@ -54,13 +54,7 @@ $ source "$HOME/.cargo/env"
 $ cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
-
-```bash
-$ VERSION=1.1.22
-```
-
-* Clone the latest version of the source code from the GitHub repository
+* Clone the latest version of the source code from the GitHub repository and enter it in the nym folder
 
 ```bash
 $ git clone https://github.com/nymtech/nym.git
@@ -68,12 +62,6 @@ $ git clone https://github.com/nymtech/nym.git
 
 ```bash
 $ cd nym
-```
-
-* Ensure you downloaded the latest version
-
-```bash
-$ git checkout release/v$VERSION
 ```
 
 * Enter the command to compile
@@ -590,9 +578,57 @@ $ sudo userdel -rf nym
 
 ## Extras
 
-### Proxifies Bitcoin Core
+### Proxying Bitcoin Core
 
-* In `bitcoin.conf`, modify the following line. Save and exit
+So far, we have been proxying all clearnet networks using Tor, but it is possible to proxy clearnet connections (IPv4/IPv6) using the NYM mixnet instead. By doing this, we can reduce the volume of traffic to the Tor network.
+
+* With user admin, modify the following line. Save and exit
+
+```bash
+$ nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+```
+# Connect through SOCKS5 proxy
+proxy=127.0.0.1:1080
+```
+
+* Restart bitcoind to apply changes
+
+```bash
+$ sudo systemctl restart bitcoind
+```
+
+### Proxying wallets
+
+#### Electrum
+
+Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md)
+
+{% code overflow="wrap" %}
+```bash
+$ ./electrum-4.4.3-x86_64.AppImage -1 -s electrum.blockstream.info:50002:s -p socks5:localhost:1080
+```
+{% endcode %}
+
+#### Sparrow
+
+Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md), wallets could be used for these cases of uses
+
+* If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
+* If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using NYM mixnet
+
+#### Green
+
+### Proxying other services
+
+#### Keybase
+
+Download Keybase
+
+### NYM connect
+
+Download the NYM connect app for your OS: [https://nymtech.net/download-nymconnect/](https://nymtech.net/download-nymconnect/)&#x20;
 
 [^1]: ID key of the gateway selected by latency
 
