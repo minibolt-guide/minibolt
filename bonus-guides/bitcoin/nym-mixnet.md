@@ -611,6 +611,10 @@ $ ./electrum-4.4.3-x86_64.AppImage -1 -s electrum.blockstream.info:50002:s -p so
 ```
 {% endcode %}
 
+```bash
+./electrum-4.4.3-x86_64.AppImage -p socks5:localhost:1080
+```
+
 #### Sparrow
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md), wallets could be used for these cases of uses
@@ -624,11 +628,19 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md), wa
 
 #### Keybase
 
-Download Keybase
+Download [Keybase](https://keybase.io/download) app for your OS
+
+#### Telegram
+
+#### Browser (Firefox based browsers)
 
 ### NYM connect
 
-Download the NYM connect app for your OS: [https://nymtech.net/download-nymconnect/](https://nymtech.net/download-nymconnect/)&#x20;
+Download the [NYM connect](https://nymtech.net/download-nymconnect/) app for your OS
+
+### NYM Android
+
+Download the [NYM android .apk version](https://github.com/nymtech/nym/releases/download/nyms5-android-v1.0/nyms5-arch64-debug.apk), this link could change, if is broken, try enter in [this page ](https://github.com/nymtech/nym/releases/tag/nyms5-android-v1.0)and download the "nyms5-arch64-debug.apk" current version
 
 [^1]: ID key of the gateway selected by latency
 
