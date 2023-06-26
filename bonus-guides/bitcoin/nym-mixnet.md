@@ -86,6 +86,10 @@ $ cargo build --release
 This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
+{% hint style="info" %}
+If you come to update, this is the final step, now go back to the [Upgrade section](nym-mixnet.md#for-the-future-upgrade-nym-binaries) to continue
+{% endhint %}
+
 ### Install NYM network Requester
 
 ### **Create the nym user**
@@ -410,7 +414,11 @@ Jun 25 21:19:31 minibolt nym-socks5-client[1776937]:  2023-06-25T19:19:31.394Z I
 $2 sudo ss -tulpn | grep LISTEN | grep nym-socks5
 ```
 
-* Delete the NYM compilation folder to be ready for the next update
+Expected output:
+
+
+
+* Delete the NYM compilation folder to be ready for the next update and free up space
 
 ```bash
 $ sudo rm -r /tmp/nym
@@ -418,9 +426,9 @@ $ sudo rm -r /tmp/nym
 
 ## For the future: upgrade NYM binaries
 
-Follow again the entire [**Compile NYM binaries from the source code**](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), the next step is to replace the binaries to make the update
+Follow again the entire [**Compile NYM binaries from the source code**](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below
 
-* First of all, stop socks5 client and network requester
+* Stop the network requester and the socks5 client
 
 ```bash
 $ sudo systemctl stop nym-network-requester
@@ -450,6 +458,37 @@ $ sudo su - nym
 $ ./nym-network-requester init --id bitcoin --latency-based-selection
 ```
 
+* Check the correct update
+
+```bash
+$ ./nym-network-requester -V
+```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+      _ __  _   _ _ __ ___
+     | '_ \| | | | '_ \ _ \
+     | | | | |_| | | | | | |
+     |_| |_|\__, |_| |_| |_|
+            |___/
+
+             (nym-network-requester - version 1.1.21)
+
+
+nym-network-requester 1.1.21
+```
+
+</details>
+
+* Exit from the nym user session
+
+```bash
+$ exit
+```
+
 * Start network requester again
 
 ```bash
@@ -464,7 +503,62 @@ $ sudo systemctl start nym-network-requester
 $ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
 ```
 
-##
+* Change to the nym user
+
+```bash
+$ sudo su - nym
+```
+
+* Init again the socks5 client with the same command and service provider, this update the `config.toml` file if needed
+
+{% code overflow="wrap" %}
+```bash
+$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
+```
+{% endcode %}
+
+* Check the correct update
+
+```bash
+$ ./nym-socks5-client -V
+```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+      _ __  _   _ _ __ ___
+     | '_ \| | | | '_ \ _ \
+     | | | | |_| | | | | | |
+     |_| |_|\__, |_| |_| |_|
+            |___/
+
+             (nym-socks5-client - version 1.1.21)
+
+
+nym-socks5-client 1.1.21
+```
+
+</details>
+
+* Exit from the nym user
+
+```bash
+$ exit
+```
+
+* Start socks5 client again
+
+```bash
+$ sudo systemctl start nym-socks5-client
+```
+
+* Delete the NYM compilation folder to be ready for the next update and free up space
+
+```bash
+$ sudo rm -r /tmp/nym
+```
 
 ## Uninstall
 
@@ -488,7 +582,7 @@ $ sudo rm /etc/systemd/system/nym-network-requester.service
 $ sudo rm /etc/systemd/system/nym-socks5-client.service
 ```
 
-* Delete nym user
+* Delete nym user. Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash
 $ sudo userdel -rf nym
