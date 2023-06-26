@@ -590,9 +590,9 @@ $ sudo userdel -rf nym
 
 ## Extras
 
-### Proxies Bitcoin Core
+### Proxifies Bitcoin Core
 
-
+* In `bitcoin.conf`, modify the following line. Save and exit
 
 [^1]: ID key of the gateway selected by latency
 
