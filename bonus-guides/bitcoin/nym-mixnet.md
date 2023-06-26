@@ -588,6 +588,12 @@ $ sudo rm /etc/systemd/system/nym-socks5-client.service
 $ sudo userdel -rf nym
 ```
 
+## Extras
+
+### Proxies Bitcoin Core
+
+
+
 [^1]: ID key of the gateway selected by latency
 
 [^2]: Your service provider address (take note)
