@@ -151,19 +151,21 @@ $ curl https://github.com/apotdevin.gpg | gpg --import
 $ cd thunderhub
 ```
 
-```bash
-$ git checkout release/v$VERSION
-```
-
 * Verify the release
 
 ```bash
-$ git verify-commit
+$ git verify-commit v$VERSION
 ```
 
 **Example** of expected output:
 
 ```
+gpg: Signature made Fri May 26 16:56:42 2023 CEST
+gpg:                using RSA key 3C8A01A8344B66E7875CE5534403F1DFBE779457
+gpg: Good signature from "Anthony Potdevin <potdevin.anthony@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 ```
 
 ```sh

@@ -97,7 +97,7 @@ For improved security, we create the new user "btcrpcexplorer" that will run the
 $ curl https://github.com/janoside.gpg | gpg --import
 ```
 
-*   Download the source code directly from GitHub and install all dependencies using the Node Package Manager (NPM).
+*   Download the source code directly from GitHub and install all dependencies using the Node Package Manager (NPM)
 
     ```sh
     $ git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git
