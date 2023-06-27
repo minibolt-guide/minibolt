@@ -74,7 +74,7 @@ $ cargo build --release
 This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
-{% hint style="info" %}
+{% hint style="success" %}
 If you come to update, this is the final step, now go back to the [Upgrade section](nym-mixnet.md#for-the-future-upgrade-nym-binaries) to continue
 {% endhint %}
 
@@ -606,19 +606,13 @@ $ sudo systemctl restart bitcoind
 
 Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md)
 
-{% code overflow="wrap" %}
-```bash
-$ ./electrum-4.4.3-x86_64.AppImage -1 -s electrum.blockstream.info:50002:s -p socks5:localhost:1080
-```
-{% endcode %}
-
 ```bash
 ./electrum-4.4.3-x86_64.AppImage -p socks5:localhost:1080
 ```
 
 #### Sparrow
 
-Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md), wallets could be used for these cases of uses
+Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), wallets could be used for these 2 cases of uses
 
 * If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 * If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using NYM mixnet
