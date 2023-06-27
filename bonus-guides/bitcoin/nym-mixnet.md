@@ -16,6 +16,8 @@ layout:
 
 The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity. The NYM mixnet is a powerful solution for individuals seeking to enhance their privacy and security in the digital realm.
 
+
+
 <div data-full-width="false">
 
 <figure><img src="../../.gitbook/assets/nym-build-structure.png" alt=""><figcaption></figcaption></figure>
@@ -589,7 +591,7 @@ $ sudo userdel -rf nym
 
 ### Proxying Bitcoin Core
 
-So far, we have been proxying all clearnet networks using Tor, but it is possible to proxy clearnet connections (IPv4/IPv6) using the NYM mixnet instead. By doing this, we can reduce the volume of traffic to the Tor network.
+So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. By doing this, we can reduce the volume of traffic on the Tor network.
 
 * With user admin, modify the following line. Save and exit
 
@@ -608,6 +610,26 @@ proxy=127.0.0.1:1080
 $ sudo systemctl restart bitcoind
 ```
 
+* Check the correct proxy change network connection
+
+```bash
+$ bitcoin-cli getnetworkinfo | grep -A 3 ipv
+```
+
+Expected output:
+
+```
+      "name": "ipv4",
+      "limited": false,
+      "reachable": true,
+      "proxy": "127.0.0.1:1080",
+--
+      "name": "ipv6",
+      "limited": false,
+      "reachable": true,
+      "proxy": "127.0.0.1:1080",
+```
+
 ### Proxying wallets
 
 #### Electrum
@@ -622,8 +644,8 @@ Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-d
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), wallets could be used for these 2 cases of uses
 
-* If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
-* If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using NYM mixnet
+* If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM
+* If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using NYM
 
 #### Green
 
@@ -635,6 +657,8 @@ Download the [Keybase](https://keybase.io/download) app for your OS
 
 #### Telegram
 
+Download the [Telegram](https://desktop.telegram.org/) app for your OS
+
 #### Browser (Firefox-based browsers)
 
 ### NYM connect
@@ -643,7 +667,7 @@ Download the [NYM connect](https://nymtech.net/download-nymconnect/) app for you
 
 ### NYM Android
 
-Download the [NYM android .apk version](https://github.com/nymtech/nym/releases/download/nyms5-android-v1.0/nyms5-arch64-debug.apk), this link could change, if is broken, try to enter in [this page ](https://github.com/nymtech/nym/releases/tag/nyms5-android-v1.0)and downloading the "nyms5-arch64-debug.apk" current version
+Download the [NYM android .apk version](https://github.com/nymtech/nym/releases/download/nyms5-android-v1.0/nyms5-arch64-debug.apk), this link could change if is broken, try to enter in [this page ](https://github.com/nymtech/nym/releases/tag/nyms5-android-v1.0)and download the "nyms5-arch64-debug.apk" current version
 
 [^1]: ID key of the gateway selected by latency
 
