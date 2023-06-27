@@ -15,7 +15,7 @@ layout:
     visible: true
 ---
 
-# 2.4 Blockchain explorer: BTC RPC Explorer
+# 2.3 Blockchain explorer: BTC RPC Explorer
 
 Run your own private blockchain explorer with [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer). Trust your node, not some external services.
 
@@ -91,19 +91,44 @@ For improved security, we create the new user "btcrpcexplorer" that will run the
 <pre class="language-bash"><code class="lang-bash"><strong>$ VERSION=3.4.0
 </strong></code></pre>
 
+* Import the GPG key of the developer
+
+```bash
+$ curl https://github.com/janoside.gpg | gpg --import
+```
+
 *   Download the source code directly from GitHub and install all dependencies using the Node Package Manager (NPM).
 
     ```sh
     $ git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git
     ```
 
-    ```
-    $ cd btc-rpc-explorer
-    ```
+    <pre><code><strong>$ cd btc-rpc-explorer
+    </strong></code></pre>
 
-    ```sh
-    $ npm install
-    ```
+
+* Verify the release
+
+```bash
+$ git verify-commit v$VERSION
+```
+
+**Example** of expected output:
+
+```
+gpg: Signature made Wed Jun 14 15:18:11 2023 CEST
+gpg:                using EDDSA key 4D841E6E6B1B68EBFAB4A9E670C0B166321C0AF8
+gpg: Good signature from "Dan Janosik <dan@47.io>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 4D84 1E6E 6B1B 68EB FAB4  A9E6 70C0 B166 321C 0AF8
+```
+
+* Install all dependencies using NPM
+
+```sh
+$ npm install
+```
 
 Installation can take some time, be patient. There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
 

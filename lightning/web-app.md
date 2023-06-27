@@ -99,7 +99,7 @@ Expected output:
 
 ## ThunderHub
 
-### **Installation**
+### **Preparation**
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
@@ -123,30 +123,61 @@ $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/a
 $ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
 ```
 
+### Installation
+
 ```bash
 $ sudo su - thunderhub
 ```
 
-*   Download the source code directly from GitHub and install all dependencies using NPM.
+* Set a temporary version environment variable to the installation
+
+```bash
+$ VERSION=0.13.19
+```
+
+* Import the GPG key of the developer
+
+```bash
+$ curl https://github.com/apotdevin.gpg | gpg --import
+```
+
+*   Download the source code directly from GitHub and install all dependencies using NPM
 
     ```sh
     $ git clone https://github.com/apotdevin/thunderhub.git
     ```
 
-    ```sh
-    $ cd thunderhub
-    ```
+```sh
+$ cd thunderhub
+```
 
-    ```sh
-    $ npm install
-    ```
+```bash
+$ git checkout release/v$VERSION
+```
+
+* Verify the release
+
+```bash
+$ git verify-commit
+```
+
+**Example** of expected output:
+
+```
+```
+
+```sh
+$ npm install
+```
 
 Expected output:
 
+{% code overflow="wrap" %}
 ```
 npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws
 [...]
 ```
+{% endcode %}
 
 ```sh
 $ npm run build
