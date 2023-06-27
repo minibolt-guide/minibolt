@@ -39,7 +39,7 @@ $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 {% hint style="info" %}
-When the prompt asks you to choose an option, type "`1`" and press enter
+When the prompt asks you to choose an option, type "`1`" and press enter to "Proceed with installation"
 {% endhint %}
 
 ```bash
@@ -404,7 +404,8 @@ $2 sudo ss -tulpn | grep LISTEN | grep nym-socks5
 
 Expected output:
 
-
+<pre><code>tcp  LISTEN 0  1024  127.0.0.1:<a data-footnote-ref href="#user-content-fn-3">1080</a>  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
+</code></pre>
 
 * Delete the NYM compilation folder to be ready for the next update and free up space
 
@@ -628,11 +629,11 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md), wa
 
 #### Keybase
 
-Download [Keybase](https://keybase.io/download) app for your OS
+Download the [Keybase](https://keybase.io/download) app for your OS
 
 #### Telegram
 
-#### Browser (Firefox based browsers)
+#### Browser (Firefox-based browsers)
 
 ### NYM connect
 
@@ -640,8 +641,10 @@ Download the [NYM connect](https://nymtech.net/download-nymconnect/) app for you
 
 ### NYM Android
 
-Download the [NYM android .apk version](https://github.com/nymtech/nym/releases/download/nyms5-android-v1.0/nyms5-arch64-debug.apk), this link could change, if is broken, try enter in [this page ](https://github.com/nymtech/nym/releases/tag/nyms5-android-v1.0)and download the "nyms5-arch64-debug.apk" current version
+Download the [NYM android .apk version](https://github.com/nymtech/nym/releases/download/nyms5-android-v1.0/nyms5-arch64-debug.apk), this link could change, if is broken, try to enter in [this page ](https://github.com/nymtech/nym/releases/tag/nyms5-android-v1.0)and downloading the "nyms5-arch64-debug.apk" current version
 
 [^1]: ID key of the gateway selected by latency
 
 [^2]: Your service provider address (take note)
+
+[^3]: 
