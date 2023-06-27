@@ -103,7 +103,7 @@ Expected output:
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
-*   Create a new "thunderhub" user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`, so we add him to the "lnd" group. Open a new session.
+*   Create a new "thunderhub" user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`, so we add him to the "lnd" group
 
     ```sh
     $ sudo adduser --disabled-password --gecos "" thunderhub
@@ -124,6 +124,8 @@ $ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
 ```
 
 ### Installation
+
+* Change to the thunderhub user
 
 ```bash
 $ sudo su - thunderhub
@@ -322,7 +324,9 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
 
 Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface.
 
-**Congratulations!** You now have Thunderhub up and running.
+{% hint style="success" %}
+**Congratulations!** You now have Thunderhub up and running
+{% endhint %}
 
 ## Remote access over Tor (optional)
 
@@ -432,15 +436,11 @@ Expected output:
 
 ### **Uninstall Thunderhub**
 
-*   Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`.
+* Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
 
-    ```sh
-    $ sudo su
-    ```
-
-    ```sh
-    $ userdel -r thunderhub
-    ```
+```sh
+$ sudo userdel -rf thunderhub
+```
 
 Expected output:
 
