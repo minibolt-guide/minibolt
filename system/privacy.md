@@ -145,8 +145,8 @@ Bitcoin Core will communicate directly with the Tor daemon to route all traffic 
 <summary>Expected output ⬇️</summary>
 
 ```
-tcp   LISTEN 0      4096             127.0.0.1:9050       0.0.0.0:*    users:(("tor",pid=795,fd=6))
-tcp   LISTEN 0      4096             127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=795,fd=7))
+tcp     LISTEN 0    4096     127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=795,fd=6))
+tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795,fd=7))
 ```
 
 </details>
@@ -162,21 +162,21 @@ tcp   LISTEN 0      4096             127.0.0.1:9051       0.0.0.0:*    users:(("
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor 0.4.7.11 running on Linux with Libevent 2.1.12-stable, OpenSSL 3.0.2, Zlib 1.2.11, Liblzma 5.2.5, Libzstd 1.4.8 and Glibc 2.35 as libc.
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Tor can't help you if you use it wrong! Learn how to be safe at https://support.torproject.org/faq/staying-anonymous/
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Read configuration file "/usr/share/tor/tor-service-defaults-torrc".
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Read configuration file "/etc/tor/torrc".
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Based on detected system memory, MaxMemInQueues is set to 2751 MB. You can override this by setting MaxMemInQueues by hand.
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opening Socks listener on 127.0.0.1:9050
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opened Socks listener connection (ready) on 127.0.0.1:9050
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opening Control listener on 127.0.0.1:9051
-Dec 11 10:47:04 bitcoinbcn Tor[1065]: Opened Control listener connection (ready) on 127.0.0.1:9051
+Dec 11 10:47:04 minibolt Tor[1065]: Tor 0.4.7.11 running on Linux with Libevent 2.1.12-stable, OpenSSL 3.0.2, Zlib 1.2.11, Liblzma 5.2.5, Libzstd 1.4.8 and Glibc 2.35 as libc.
+Dec 11 10:47:04 minibolt Tor[1065]: Tor can't help you if you use it wrong! Learn how to be safe at https://support.torproject.org/faq/staying-anonymous/
+Dec 11 10:47:04 minibolt Tor[1065]: Read configuration file "/usr/share/tor/tor-service-defaults-torrc".
+Dec 11 10:47:04 minibolt Tor[1065]: Read configuration file "/etc/tor/torrc".
+Dec 11 10:47:04 minibolt Tor[1065]: Based on detected system memory, MaxMemInQueues is set to 2751 MB. You can override this by setting MaxMemInQueues by hand.
+Dec 11 10:47:04 minibolt Tor[1065]: Opening Socks listener on 127.0.0.1:9050
+Dec 11 10:47:04 minibolt Tor[1065]: Opened Socks listener connection (ready) on 127.0.0.1:9050
+Dec 11 10:47:04 minibolt Tor[1065]: Opening Control listener on 127.0.0.1:9051
+Dec 11 10:47:04 minibolt Tor[1065]: Opened Control listener connection (ready) on 127.0.0.1:9051
 [...]
-Dec 11 10:47:36 bitcoinbcn Tor[1065]: Bootstrapped 75% (enough_dirinfo): Loaded enough directory info to build circuits
-Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 89% (ap_handshake): Finishing handshake with a relay to build circuits
-Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 90% (ap_handshake_done): Handshake finished with a relay to build circuits
-Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 95% (circuit_create): Establishing a Tor circuit
-Dec 11 10:47:37 bitcoinbcn Tor[1065]: Bootstrapped 100% (done): Done
+Dec 11 10:47:36 minibolt Tor[1065]: Bootstrapped 75% (enough_dirinfo): Loaded enough directory info to build circuits
+Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 89% (ap_handshake): Finishing handshake with a relay to build circuits
+Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 90% (ap_handshake_done): Handshake finished with a relay to build circuits
+Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 95% (circuit_create): Establishing a Tor circuit
+Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 100% (done): Done
 ```
 
 </details>
@@ -280,7 +280,7 @@ $ sudo apt update && sudo apt upgrade
 ```
 
 {% hint style="info" %}
-Note: in the I2P update process maybe appears you this message. Is recommended to select the `Y` option because the developer could have applied modifications in the config file and this could be useful for new features.
+Note: in the I2P update process maybe appears you the next message if you modified the configuration file. Is recommended to select the `Y` option because the developer could have applied modifications in the config file and this could be useful for new features.
 {% endhint %}
 
 ```
@@ -327,7 +327,7 @@ If you want to log into your MiniBolt with SSH when you're away, you can easily 
     $ sudo cat /var/lib/tor/hidden_service_sshd/hostname
     ```
 
-**Example** expected output:
+**Example** of expected output:
 
 ```
 > abcdefg..............xyz.onion
@@ -410,11 +410,11 @@ brew services restart tor
 ssh HOSTNICKNAME
 ```
 
-#### **Troubleshooting**
+### **Troubleshooting**
 
-**Tor troubleshooting**
+#### **Tor troubleshooting**
 
-If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...) is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, you will be forcing Tor to select an entirely new set of entry guards next time it starts.
+If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...) is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
 
 *   Stop Tor
 
@@ -438,7 +438,7 @@ If your new set of entry guards still produces the stream error, try connecting 
 
 ![](../images/tor-censorship.png)
 
-**I2P troubleshotings**
+**I2P troubleshooting**
 
 If you see these output logs on Bitcoin Core, normally could be that I2P is failing:
 

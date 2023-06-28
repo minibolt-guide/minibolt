@@ -146,7 +146,7 @@ $ curl https://github.com/apotdevin.gpg | gpg --import
 *   Download the source code directly from GitHub and install all dependencies using NPM
 
     ```sh
-    $ git clone https://github.com/apotdevin/thunderhub.git
+    $ git clone --branch v$VERSION https://github.com/apotdevin/thunderhub.git
     ```
 
 ```sh
@@ -245,25 +245,30 @@ Expected output:
     # -----------
     ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
     ```
-*   If not already done, change your directory and edit your `thubConfig.yaml`. Change the `[E] ThunderHub password` to your one
+* If not already done, change your directory and edit your `thubConfig.yaml`.
 
-    ```sh
-    $ cd ~/thunderhub
-    ```
+```sh
+$ cd ~/thunderhub
+```
 
-    ```sh
-    $ nano thubConfig.yaml
-    ```
+```sh
+$ nano thubConfig.yaml
+```
 
-    ```
-    masterPassword: 'PASSWORD' # Default password unless defined in account
-    accounts:
-      - name: 'MiniBolt'
-        serverUrl: '127.0.0.1:10009'
-        macaroonPath: '/home/thunderhub/admin.macaroon'
-        certificatePath: '/home/thunderhub/.lnd/tls.cert'
-        password: '[E] ThunderHub password'
-    ```
+```
+masterPassword: 'PASSWORD' # Default password unless defined in account
+accounts:
+  - name: 'MiniBolt'
+    serverUrl: '127.0.0.1:10009'
+    macaroonPath: '/home/thunderhub/admin.macaroon'
+    certificatePath: '/home/thunderhub/.lnd/tls.cert'
+    password: '[E] ThunderHub password'
+```
+
+{% hint style="info" %}
+Replace the `[E] ThunderHub password` to your one
+{% endhint %}
+
 *   Exit "thunderhub" user session to return to "admin" user session
 
     ```sh
@@ -320,9 +325,25 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
     ```sh
     $2 sudo systemctl start thunderhub
     ```
+
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+```
+Jun 28 11:10:00 minibolt systemd[1]: Started Thunderhub.
+Jun 28 11:10:27 minibolt npm[3737558]: Persisted queries are enabled and are using an unbounded cache. Your server is vulnerable to denial of service attacks via memory exhaustion. Set `cache: "bounded"` or `persistedQueries: false` in your ApolloServer constructor, or see https://go.apollo.dev/s/cache-backends for other alternatives.
+Jun 28 11:10:30 minibolt npm[3737558]: (node:3737558) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+Jun 28 11:10:30 minibolt npm[3737558]: (Use `node --trace-deprecation ...` to show where the warning was created)
+```
+
+</details>
+
 * Now point your browser to `https://minibolt.local:4002` (or whatever you chose as the hostname) or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub.
 
+{% hint style="info" %}
 Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface.
+{% endhint %}
 
 {% hint style="success" %}
 **Congratulations!** You now have Thunderhub up and running
