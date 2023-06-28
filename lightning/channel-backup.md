@@ -175,7 +175,7 @@ We set up the backup script as a systemd service to run in the background and st
     # /etc/systemd/system/scb-backup.service
 
     [Unit]
-    Description=SCB Backup daemon
+    Description=SCB Backup
     After=lnd.service
 
     [Service]

@@ -240,8 +240,18 @@ $ sudo cp /data/lnd/data/chain/bitcoin/testnet/admin.macaroon /home/thunderhub/a
 ```
 {% endcode %}
 
+* When you arrive to the [Configuration](../../lightning/web-app.md#configuration) section, replace this line
+
+```bash
+$ nano .env.local
+```
+
+```
+MEMPOOL_URL='https://mempool.space/testnet'
+```
+
 {% hint style="success" %}
-The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode.
+The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode
 {% endhint %}
 
 ### [**Mobile app: Zeus**](../../lightning/mobile-app.md)

@@ -62,7 +62,7 @@ Status: Tested MiniBolt
     Use the command `ssh-copy-id`, which stores your public key on the remote machine (and creates files and directories, if needed). You will be prompted for your SSH login password once. If fails you can try `admin@192.168.x.xxx` instead
 
     ```sh
-    $ ssh-copy-id admin@minibolt.local
+    $ ssh-copy-id admin@minibolt
     ```
 
 💡 If you are on macOS and encounter an error, you might need to install `ssh-copy-id` first by running the following command on your Mac's command line:

@@ -370,7 +370,8 @@ Now, let's set up LND to start automatically on system startup.
     # /etc/systemd/system/lnd.service
 
     [Unit]
-    Description=LND Lightning Network Daemon
+    Description=LND
+    Wants=bitcoind.service
     After=bitcoind.service
 
     [Service]

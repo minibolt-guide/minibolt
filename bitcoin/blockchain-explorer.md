@@ -270,7 +270,9 @@ Your browser will display a warning because we use a self-signed SSL certificate
 If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer.
 {% endhint %}
 
-🥳 **Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node.
+{% hint style="success" %}
+**Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node
+{% endhint %}
 
 ## Extras
 

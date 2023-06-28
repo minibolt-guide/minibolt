@@ -339,7 +339,7 @@ The system needs to run the bitcoin daemon automatically in the background, even
     # /etc/systemd/system/bitcoind.service
 
     [Unit]
-    Description=Bitcoin daemon
+    Description=Bitcoin
     After=network.target
 
     [Service]
@@ -483,7 +483,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 Once Bitcoin Core is fully synced, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
-*   As user `"admin"`, comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit.
+*   As user `"admin"`, comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit
 
     ```sh
     $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf

@@ -237,8 +237,6 @@ Closing or logging out from your node without detaching would cause mixing to st
 
 Follow the complete [Installation](sparrow-server.md#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
-* Restart the service to apply the changes
-
 ### Uninstall
 
 #### Delete Sparrow

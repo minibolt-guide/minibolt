@@ -250,7 +250,8 @@ Electrs need to start automatically on system boot.
     # /etc/systemd/system/electrs.service
 
     [Unit]
-    Description=Electrs daemon
+    Description=Electrs
+    Wants=bitcoind.service
     After=bitcoind.service
 
     [Service]
