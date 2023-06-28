@@ -164,6 +164,10 @@ Take note of your network-requester address, (**\<requesteraddress>)**
 
 > Example -->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
 
+{% hint style="warning" %}
+**Important!** It is strongly advised **not to share** the address of your NYM service provider with anyone. Sharing this information could potentially involve you in illicit activities carried out by others using your network requester as a router. Please bear in mind that we operate in **open proxy mode** to avoid centralizing connections to concrete nodes of Bitcoin and servers of the other services. Safeguarding the confidentiality of your service provider address is essential to protect yourself and prevent any legal implications
+{% endhint %}
+
 * Exit from the nym user session
 
 ```bash
@@ -618,17 +622,16 @@ $ bitcoin-cli getnetworkinfo | grep -A 3 ipv
 
 Expected output:
 
-```
-      "name": "ipv4",
+<pre><code>      "name": "ipv4",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:1080",
+      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-4">1080</a>",
 --
       "name": "ipv6",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:1080",
-```
+      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">1080</a>",
+</code></pre>
 
 ### Proxying wallets
 
@@ -667,10 +670,22 @@ Download the [NYM connect](https://nymtech.net/download-nymconnect/) app for you
 
 ### NYM Android
 
-Download the [NYM android .apk version](https://github.com/nymtech/nym/releases/download/nyms5-android-v1.0/nyms5-arch64-debug.apk), this link could change if is broken, try to enter in [this page ](https://github.com/nymtech/nym/releases/tag/nyms5-android-v1.0)and download the "nyms5-arch64-debug.apk" current version
+{% hint style="info" %}
+At the moment, the Android app is undergoing constant development, and the download link on the GitHub repository is being regularly updated, with some updates being non-functional. The following link is not available on GitHub, but it is a static and functional link, although it is also a pre-alpha version and may have bugs on certain occasions.
+
+Download [here](https://nymtech.net/nyms5-arm64-v8a-debug.apk)
+{% endhint %}
+
+{% hint style="warning" %}
+Notice: This app consumes significant data and battery when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app.
+{% endhint %}
 
 [^1]: ID key of the gateway selected by latency
 
 [^2]: Your service provider address (take note)
 
 [^3]: 
+
+[^4]: NYM socks5 port
+
+[^5]: NYM socks5 port
