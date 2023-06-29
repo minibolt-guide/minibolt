@@ -33,7 +33,11 @@ Difficulty: Medium
 Status: Tested MiniBolt
 {% endhint %}
 
-![](../../images/tor-bridge.png)
+<div data-full-width="false">
+
+<img src="../../images/tor-bridge.png" alt="">
+
+</div>
 
 ## Requirements
 
@@ -324,11 +328,11 @@ On some occasions, due to some circumstances, your ISP, the company's network, y
 
 ![](../../images/tor-failing.jpg)
 
-Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the contain in the next torrc configuration.
+Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the content in the next torrc configuration.
 
 ![](../../images/get-bridge.PNG)
 
-* On the MiniBolt node, with user **"admin"**, install ofbs4 proxy
+* On the MiniBolt node, with user **"admin"**, install the ofbs4 proxy
 
 ```bash
 $ sudo apt install obfs4proxy

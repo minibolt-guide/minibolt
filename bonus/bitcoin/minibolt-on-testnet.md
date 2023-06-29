@@ -57,6 +57,16 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
 testnet=1
 ```
 
+* When you finish the [Running Bitcoin](../../bitcoin/bitcoin-client.md#running-bitcoind) section, change to the user "bitcoin," and provide read and execute permissions to the Bitcoin group for the testnet folder.
+
+```bash
+$ sudo su - bitcoin
+```
+
+```bash
+$ chmod g+rx /data/bitcoin/testnet3
+```
+
 {% hint style="success" %}
 The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../bitcoin/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
 {% endhint %}
