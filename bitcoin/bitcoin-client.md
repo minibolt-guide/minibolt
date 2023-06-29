@@ -241,7 +241,26 @@ Expected **example** output:
 > rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa
 ```
 
-* Copy the `rpcauth` line, we'll need to paste it into the Bitcoin config file.
+{% hint style="warning" %}
+Backup the entire `rpcauth` line, we'll need to paste it into the Bitcoin config file in the next step
+{% endhint %}
+
+### Check IPv6 availability
+
+Before enabling your Bitcoin Core to use IPv6 (by default) in addition to IPv4 you should do some basic IPv6 connectivity tests.
+
+The following command line will ping IPv6 addresses from your server
+
+{% code overflow="wrap" %}
+```bash
+$ ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
+```
+{% endcode %}
+
+{% hint style="info" %}
+At the end of the output, you should see **"OK."** in this case, **delete all "onlynet=" lines** in the next step of the bitcoin.conf**,** if not (more common), the prompt output you: `ping6: connect: Network is unreachable`, then, keep the same configuration provided.\
+If you enable IPv6 without working IPv6 connectivity, you could obtain log erros of connection when you use SOCKS5 proxy to proxy clearnet IPv6 outbound connection.
+{% endhint %}
 
 ### **Configuration**
 
@@ -261,9 +280,17 @@ Now, the configuration file for `bitcoind` needs to be created. We'll also set t
     server=1
     txindex=1
 
+    # Disable integrated Bitcoin Core wallet
+    disablewallet=1
+
     # Aditional logs
     debug=tor
     debug=i2p
+
+    # Disable IPv6 network
+    onlynet=onion
+    onlynet=i2p
+    onlynet=ipv4
 
     # Assign read permission to the Bitcoin group users
     startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
@@ -289,7 +316,7 @@ Now, the configuration file for `bitcoind` needs to be created. We'll also set t
     # Network
     listen=1
 
-    # Connect through Tor SOCKS5 proxy
+    # Proxy clearnet (ipv4) outbound connection using SOCKS5 proxy
     proxy=127.0.0.1:9050
 
     # I2P SAM proxy to reach I2P peers and accept I2P connections
@@ -450,11 +477,12 @@ $2 bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinf
 **Example** of expected output:
 
 ```
-Bitcoin Core client v24.0.1 - server 70016/Satoshi:24.0.1/
-                    ipv4    ipv6   onion   i2p   total   block
-in                    0       0      25     2      27
-out                   7       0       2     1      10       2
-total                 7       0      27     3      37
+Bitcoin Core client v25.0.0 - server 70016/Satoshi:25.0.0/
+
+         ipv4   onion     i2p   total   block
+in          0       4       1       5
+out         6       5       0      11       2
+total       6       9       1      16
 ```
 
 * Please note:
