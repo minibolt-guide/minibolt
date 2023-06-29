@@ -643,12 +643,14 @@ Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-d
 ./electrum-4.4.3-x86_64.AppImage -p socks5:localhost:1080
 ```
 
-#### Sparrow
+#### Sparrow desktop
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), wallets could be used for these 2 cases of uses
 
 * If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM
 * If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using NYM
+
+#### Sparrow server
 
 #### Green
 
