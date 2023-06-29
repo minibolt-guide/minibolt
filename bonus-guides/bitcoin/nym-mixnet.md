@@ -16,8 +16,6 @@ layout:
 
 The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity. The NYM mixnet is a powerful solution for individuals seeking to enhance their privacy and security in the digital realm.
 
-
-
 <div data-full-width="false">
 
 <figure><img src="../../.gitbook/assets/nym-build-structure.png" alt=""><figcaption></figcaption></figure>
@@ -26,13 +24,15 @@ The NYM mixnet technology ensures enhanced privacy and anonymity for online comm
 
 The technology involves two key components: the **Network Requester** and the **SOCKS5 Client**. The Network Requester acts as an intermediary, **encrypting and routing data** through a decentralized mixnet network to **enhance privacy and prevent surveillance**. The SOCKS5 Client establishes a **secure connection** to the mixnet, enabling users to **route network traffic** and enjoy **improved privacy**.
 
+<figure><img src="../../.gitbook/assets/nymtopology-NYM Networkmap socks5.drawio.png" alt="" width="563"><figcaption></figcaption></figure>
+
 Implementing these components empowers users to protect their **online activities** and **sensitive information**. **Service providers**, such as the network requester and mix nodes, offer services that leverage **data mixing, identity protection**, and **traffic routing**, further enhancing privacy in the NYM network.
+
+<figure><img src="../../.gitbook/assets/nym-mixnet.gif" alt="" width="563"><figcaption></figcaption></figure>
 
 Together, these components and service providers create a decentralized infrastructure within the NYM network, safeguarding **user anonymity** and protecting **online activities**.
 
-## Installation
-
-### Preparations
+## Preparations
 
 #### Install dependencies
 
@@ -87,6 +87,8 @@ This process can take quite a long time, 10-15 minutes or more, depending on the
 {% hint style="success" %}
 If you come to update, this is the final step, now go back to the [Upgrade section](nym-mixnet.md#for-the-future-upgrade-nym-binaries) to continue
 {% endhint %}
+
+## Installation
 
 ### Install NYM network Requester
 
@@ -162,7 +164,7 @@ Address of this network-requester: <a data-footnote-ref href="#user-content-fn-2
 Take note of your network-requester address, (**\<requesteraddress>)**
 {% endhint %}
 
-> Example -->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
+> **Example** -->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
 
 {% hint style="warning" %}
 **Important!** It is strongly advised **not to share** the address of your NYM service provider with anyone. Sharing this information could potentially involve you in illicit activities carried out by others using your network requester as a router. Please bear in mind that we operate in **open proxy mode** to avoid centralizing connections to concrete nodes of Bitcoin and servers of the other services. Safeguarding the confidentiality of your service provider address is essential to protect yourself and prevent any legal implications
@@ -591,9 +593,7 @@ $ sudo rm /etc/systemd/system/nym-socks5-client.service
 $ sudo userdel -rf nym
 ```
 
-## Extras
-
-### Proxying Bitcoin Core
+## Proxying Bitcoin Core
 
 So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. By doing this, we can reduce the volume of traffic on the Tor network.
 
@@ -633,9 +633,9 @@ Expected output:
       "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">1080</a>",
 </code></pre>
 
-### Proxying wallets
+## Proxying wallets
 
-#### Electrum
+### Electrum
 
 Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md)
 
@@ -643,45 +643,67 @@ Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-d
 ./electrum-4.4.3-x86_64.AppImage -p socks5:localhost:1080
 ```
 
-#### Sparrow desktop
+<div align="center">
+
+<figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes" alt="" width="398"><figcaption></figcaption></figure>
+
+</div>
+
+### Sparrow desktop
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), wallets could be used for these 2 cases of uses
 
 * If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM
 * If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using NYM
 
-#### Sparrow server
+<div align="center" data-full-width="false">
 
+<figure><img src="../../.gitbook/assets/proxy-server-nym" alt="" width="563"><figcaption></figcaption></figure>
 
+</div>
 
-#### Green
+### Sparrow server
 
-### Proxying other services
+<figure><img src="../../.gitbook/assets/sparrow-server-nym-proxy" alt=""><figcaption></figcaption></figure>
 
-#### Keybase
+### Green
+
+<figure><img src="../../.gitbook/assets/green-wallet-nym-proxy.PNG" alt=""><figcaption></figcaption></figure>
+
+## Proxying other services
+
+### Keybase
 
 Download the [Keybase](https://keybase.io/download) app for your OS
 
-#### Telegram
+<figure><img src="../../.gitbook/assets/keybase-nym-proxy.PNG" alt=""><figcaption></figcaption></figure>
+
+### Telegram
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
 
-#### Browser (Firefox-based browsers)
+<figure><img src="../../.gitbook/assets/telegram-nym-proxy.PNG" alt="" width="275"><figcaption></figcaption></figure>
 
-### NYM connect
+### Browser (Firefox-based browsers)
+
+<figure><img src="../../.gitbook/assets/librewolf-socks5-nym-proxy.PNG" alt="" width="563"><figcaption></figcaption></figure>
+
+## NYM connect
 
 Download the [NYM connect](https://nymtech.net/download-nymconnect/) app for your OS
 
-### NYM Android
+<figure><img src="../../.gitbook/assets/nym-connect.PNG" alt="" width="180"><figcaption></figcaption></figure>
 
-{% hint style="info" %}
+## NYM Android
+
 At the moment, the Android app is undergoing constant development, and the download link on the GitHub repository is being regularly updated, with some updates being non-functional. The following link is not available on GitHub, but it is a static and functional link, although it is also a pre-alpha version and may have bugs on certain occasions.
 
 Download [here](https://nymtech.net/nyms5-arm64-v8a-debug.apk)
-{% endhint %}
+
+<figure><img src="../../.gitbook/assets/android-nym-proxy.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-Notice: This app consumes significant data and battery when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app.
+**Notice**: This app consumes significant data and battery when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app.
 {% endhint %}
 
 [^1]: ID key of the gateway selected by latency
