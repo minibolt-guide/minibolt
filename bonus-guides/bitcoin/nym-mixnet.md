@@ -604,7 +604,7 @@ $ nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
 ```
-# Connect through SOCKS5 proxy
+# Proxy clearnet (ipv4) outbound connection using SOCKS5 proxy
 proxy=127.0.0.1:1080
 ```
 
@@ -651,6 +651,8 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 * If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using NYM
 
 #### Sparrow server
+
+
 
 #### Green
 
