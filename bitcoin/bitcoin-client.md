@@ -253,13 +253,13 @@ The following command line will ping IPv6 addresses from your server
 
 {% code overflow="wrap" %}
 ```bash
-$ ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
+$ ping6 -c 5 ipv6.google.com && echo OK.
 ```
 {% endcode %}
 
 {% hint style="info" %}
-At the end of the output, you should see **"OK."** in this case, **delete all "onlynet=" lines** in the next step of the bitcoin.conf**,** if not (more common), the prompt output you: `ping6: connect: Network is unreachable`, then, keep the same configuration provided.\
-If you enable IPv6 without working IPv6 connectivity, you could obtain log erros of connection when you use SOCKS5 proxy to proxy clearnet IPv6 outbound connection.
+At the end of the output, you should see **"OK."** in this case, **delete all "onlynet=" lines** in the next step of the bitcoin.conf**,** if not (more common), the prompt output you: **`ping6: connect: Network is unreachable`**, then, keep the same configuration provided.\
+If you enable IPv6 without working IPv6 connectivity, you could obtain log errors of connection when you use SOCKS5 proxy to proxy clearnet IPv6 outbound connection.
 {% endhint %}
 
 ### **Configuration**
