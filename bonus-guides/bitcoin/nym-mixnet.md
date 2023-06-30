@@ -653,17 +653,17 @@ Expected output:
 
 ### Electrum
 
-Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md). 2 options:
+Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md). You have 2 options:
 
 * If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
-Use this **example** of a shortcut for Linux to select public server automatically proxying using NYM mixnet:
+Use this **example** of a shortcut for Linux to select a public server automatically proxying using NYM mixnet:
 
 ```bash
 $ ./electrum-4.4.5-x86_64.AppImage -p socks5:localhost:1080
 ```
 
-Or directly on the interface; on top menu, go to **Tools** --> **Network** --> Proxy tab, check "**Use proxy**", select "**SOCKS5**"
+Or directly on the interface; on the top menu, go to **Tools** --> **Network** --> Proxy tab, check "**Use proxy**", select "**SOCKS5**"
 
 > > Host: 127.0.0.1 or localhost
 >
@@ -681,7 +681,7 @@ Or directly on the interface; on top menu, go to **Tools** --> **Network** --> P
 
 * If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
-Use this **example** of a shortcut for Linux to select private server, proxying throught NYM mixnet:
+Use this **example** of a shortcut for Linux to select your private server (your MiniBolt Electrum server), proxying through NYM mixnet:
 
 <pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s <a data-footnote-ref href="#user-content-fn-6">192.168.1.147</a>:50002:s -p socks5:localhost:1080
 </code></pre>
@@ -758,13 +758,28 @@ Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through
 
 <figure><img src="../../.gitbook/assets/green-wallet-nym-proxy.PNG" alt=""><figcaption><p>Screenshot showing a proxy connection using NYM mixnet</p></figcaption></figure>
 
+### Bitbox app
+
+Download the [Bitbox app](https://bitbox.swiss/download/?source=bitboxapp) for your OS
+
+Go to **Settings** --> **Advanced settings --> Enable Tor proxy,** check **"Enable Tor proxy"** and type `127.0.0.1:1080` --> **Set proxy address**
+
+Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bitbox app or choose one of your elections, Go to Add a server: &#x20;
+
+1. Enter the endpoint: electrum.blockstream.info:50002
+2. Click on the **"Download remote certificate"** button
+3. Click on the "**Check**" button, click **OK**
+4. Finally, click on the "**Add**" button and click again on the "**Check**" button, and "**OK**"&#x20;
+
+<figure><img src="../../.gitbook/assets/bitbox-app-nym-proxy-check.PNG" alt="" width="563"><figcaption></figcaption></figure>
+
 ## NYM connect
 
 NymConnect is an easy-to-use interface that enables you to connect other applications to the Nym mixnet for enhanced privacy. This desktop application allows you to effortlessly run the Nym SOCKS5 client without the need for manual commands.&#x20;
 
 Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).&#x20;
 
-These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallets. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled. \
+These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled. \
 
 
 The previously configured Nym SOCKS5 client can run in the background as a daemon, commonly used in server operating systems without a desktop interface. Meanwhile, NYM Connect is typically utilized in desktop versions of operating systems.
@@ -797,7 +812,7 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
 
-Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically save configuration, click on "**Enable**" or go to **Settings --> Advanced --> Connection type --> Check "use custom proxy"**
+Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically save the configuration, click on "**Enable**" or go to **Settings --> Advanced --> Connection type --> Check "use custom proxy"**
 
 <figure><img src="../../.gitbook/assets/telegram-nym-proxy.PNG" alt="" width="275"><figcaption></figcaption></figure>
 
@@ -863,7 +878,7 @@ Pastenym is an adaptation of pastebin.com, using Nym’s mixnet, to protect user
 {% endtab %}
 
 {% tab title="NYM chat" %}
-A simple chat client which sends its traffic through the nym-mixnet.
+A simple chat client which sends its traffic through the nym mixnet.
 
 [Link](https://chat-demo.nymtech.net/) | [GitHub](https://github.com/nymtech/demo-mixnet-chat-client)
 {% endtab %}
