@@ -626,7 +626,7 @@ So far, we have been routing all clearnet network traffic through Tor. However, 
 * With user admin, modify the following line. Save and exit
 
 ```bash
-$ nano /home/bitcoin/.bitcoin/bitcoin.conf
+$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
 ```
@@ -661,7 +661,7 @@ Expected output:
 
 ## Proxying wallets
 
-### Electrum
+#### Electrum
 
 Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md). You have 2 options:
 
@@ -698,7 +698,7 @@ Use this **example** of a shortcut for Linux to select your private server (your
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 
-### Sparrow desktop
+#### Sparrow desktop
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
 
@@ -720,7 +720,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
-### Sparrow server
+#### Sparrow server
 
 Follow the [Sparrow server bonus guide](../../bonus/bitcoin/sparrow-server.md), which could be used for these 2 cases of uses:
 
@@ -756,7 +756,7 @@ Go to **Preferences --> Server --> Public Electrum**
 You have Sparrow server configured to proxy public Electrum servers and third parties servers connection using NYM mixnet
 {% endhint %}
 
-### Blockstream Green
+#### Blockstream Green
 
 Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS
 
@@ -768,7 +768,7 @@ Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through
 
 <figure><img src="../../.gitbook/assets/green-wallet-nym-proxy.PNG" alt=""><figcaption><p>Screenshot showing a proxy connection using NYM mixnet</p></figcaption></figure>
 
-### Bitbox app
+#### Bitbox app
 
 Download the [Bitbox app](https://bitbox.swiss/download/?source=bitboxapp) for your OS
 
@@ -801,7 +801,7 @@ If you wish to choose your own gateway from the provided [list](https://explorer
 
 ## Proxying other services
 
-### Keybase
+#### Keybase
 
 Download the [Keybase](https://keybase.io/download) app for your OS and install it.\
 \
@@ -817,7 +817,7 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 **Save proxy Settings**
 {% endhint %}
 
-### Telegram Desktop
+#### Telegram Desktop
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
 
@@ -829,7 +829,7 @@ Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically
 Save and close all banners to go back to the running app
 {% endhint %}
 
-### Browser (Firefox-based browsers)
+#### Browser (Firefox-based browsers)
 
 Download [Firefox](https://www.mozilla.org/es-ES/firefox/all/#product-desktop-release) or [Librewolf](https://librewolf.net/installation/) for your OS\
 \
@@ -925,7 +925,7 @@ $ sudo su - nym
 $ rm -r /home/nym/.nym/service-providers/network-requester/bitcoin
 ```
 
-* Init again the network requester by following [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section. Choose again latency based selection or manual selection
+* Init again the network requester by following the [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section. Choose again latency based selection or manual selection
 * Exit nym user session to go back to the admin user
 
 ```bash
@@ -958,7 +958,7 @@ $ sudo su - nym
 $ rm -r /home/nym/.nym/socks5-clients/bitcoin
 ```
 
-* Init again the socks5 client by following [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section. Choose again latency based selection or manual selection
+* Init again the socks5 client by following the [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section. Choose again latency based selection or manual selection
 * Exit nym user session to go back to the admin user
 
 ```bash

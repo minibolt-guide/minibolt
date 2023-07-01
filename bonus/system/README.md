@@ -47,6 +47,7 @@ layout:
 
 * [**UPS NUT**](ups-nut.md) - have your RaspiBolt automatically and safely shutdown when a connected UPS reaches a critical power level
 * [**Tor Bridge**](tor-bridge.md) - run an obfs4 bridge to help censored users connect to the Tor network
+* [**NYM mixnet**](../../bonus-guides/system/nym-mixnet.md) - proxying the clearnet connections using the NYM Mixnet
 
 ### Hardware
 

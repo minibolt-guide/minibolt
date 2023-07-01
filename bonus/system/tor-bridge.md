@@ -143,11 +143,11 @@ Replace <PickANickname> with a nickname that you like for your bridge. Nicknames
 </details>
 
 {% hint style="warning" %}
-Don't forget to change the ORPort <**TODO1>**, ServerTransportListenAddr <**TODO2>**, ContactInfo [\*\*address@email.com](mailto:\*\*address@email.com)\*\*, and Nickname <**PickANickname>** options.
+Don't forget to change the ORPort <**TODO1>**, ServerTransportListenAddr <**TODO2>**, ContactInfo [address@email.com](mailto:\*\*address@email.com), and Nickname <**PickANickname>** options.
 {% endhint %}
 
 {% hint style="info" %}
-By default, Tor will advertise your bridge to users through various [mechanisms](https://bridges.torproject.org/). If you want to run a private bridge, for example, you'll give out your bridge address manually to your friends. **Add** the next line at the end of the torrc file:
+By default, Tor will advertise your bridge to users through various [mechanisms](https://bridges.torproject.org/info?lang=en). If you want to run a private bridge, for example, you'll give out your bridge address manually to your friends. **Add** the next line at the end of the torrc file:
 {% endhint %}
 
 ```
