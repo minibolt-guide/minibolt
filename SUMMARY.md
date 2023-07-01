@@ -53,6 +53,7 @@
   * [Electrum Wallet Desktop](bonus/bitcoin/electrum-wallet-desktop.md)
   * [Sparrow Server](bonus/bitcoin/sparrow-server.md)
   * [JoinMarket clientserver](bonus/bitcoin/joinmarket.md)
+  * [NYM mixnet](bonus-guides/bitcoin/nym-mixnet.md)
   * [Bisq](bonus/bitcoin/bisq.md)
   * [Safu Ninja, a DIY steel mnemonic backup](bonus/bitcoin/safu-ninja.md)
   * [Ordisrespector spam filter](bonus/bitcoin/ordisrespector.md)
