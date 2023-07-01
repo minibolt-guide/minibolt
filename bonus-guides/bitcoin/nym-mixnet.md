@@ -14,7 +14,7 @@ layout:
 
 # NYM mixnet
 
-The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity. The NYM mixnet is a powerful solution for individuals seeking to enhance their privacy and security in the digital realm.
+The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity.
 
 <div data-full-width="false">
 
@@ -165,7 +165,7 @@ Address of this network-requester: <a data-footnote-ref href="#user-content-fn-2
 </details>
 
 {% hint style="info" %}
-Take note of your network-requester address (**\<requesteraddress>)**
+Take note of your network requester address (**\<requesteraddress>)**
 {% endhint %}
 
 > **Example** -->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
@@ -252,7 +252,7 @@ Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.58
 Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.581Z INFO  nym_client_core::client::base_client                                          > Starting mix traffic controller...
 Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.581Z INFO  nym_client_core::client::base_client                                          > Starting real traffic stream...
 Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.581Z INFO  nym_client_core::client::base_client                                          > Starting loop cover traffic stream...
-Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.581Z INFO  nym_network_requester::core                                                   > The address of this client is: Zq2pc3b7tiSWbjdgvQi9Xw5WLvmVVzfTouSvy8DUws9.HCThYe3mTBHPZDayqH46p73iYLMe3GNEKrgVtoPjkhdj@BTZNB3bkkEePsT14GN8ofVtM1SJae4YLWjpBerrKust
+Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.581Z INFO  nym_network_requester::core                                                   > The address of this client is: Zq2pc3b7tiSWbjdgvQi9Xw5WLvmVVzfTouSvy8DUws9.HCThYe3mTBHPZDayqH46p73iYLMe3GNEKrgVtoPjjdte@BTZNB3bkkEePsT14GN8ofVtM1SJae4YLWjpBerrKust
 Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.581Z INFO  nym_network_requester::core                                                   > All systems go. Press CTRL-C to stop the server.
 Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.582Z INFO  nym_network_requester::allowed_hosts::standard_list                           > Refreshing standard allowed hosts
 ```
@@ -260,7 +260,7 @@ Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.58
 </details>
 
 {% hint style="info" %}
-All network-requester-specific configurations can be found in `/home/.nym/service-providers/network-requester/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service.
+All network requester specific configurations can be found in `/home/.nym/service-providers/network-requester/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service.
 {% endhint %}
 
 ### Install NYM socks5 client
@@ -291,11 +291,8 @@ $ sudo su - nym
 
 * Init the nym socks5 client for the first time with `gateway based selection` flag to choose a gateway based on its location relative to your device and replace **\<requesteraddress>** with the obtained in the [Run NYM network requester](nym-mixnet.md#run-nym-network-requester) step before
 
-{% code overflow="wrap" %}
-```bash
-$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
-```
-{% endcode %}
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <a data-footnote-ref href="#user-content-fn-3">&#x3C;requesteraddress></a>
+</code></pre>
 
 {% hint style="info" %}
 If you want to select the gateway that your socks5 client will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection flag`
@@ -432,7 +429,7 @@ $2 sudo ss -tulpn | grep LISTEN | grep nym-socks5
 
 Expected output:
 
-<pre><code>tcp  LISTEN 0  1024  127.0.0.1:<a data-footnote-ref href="#user-content-fn-3">1080</a>  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
+<pre><code>tcp  LISTEN 0  1024  127.0.0.1:<a data-footnote-ref href="#user-content-fn-4">1080</a>  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
 </code></pre>
 
 * Delete the NYM compilation folder to be ready for the next update and free up space
@@ -532,11 +529,8 @@ $ sudo su - nym
 
 * Init again the socks5 client with the same command and service provider, this update the `config.toml` file if needed
 
-{% code overflow="wrap" %}
-```bash
-$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
-```
-{% endcode %}
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <a data-footnote-ref href="#user-content-fn-5">&#x3C;requesteraddress></a>
+</code></pre>
 
 * Check the correct update
 
@@ -641,12 +635,12 @@ Expected output:
 <pre><code>      "name": "ipv4",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-4">1080</a>",
+      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">1080</a>",
 --
       "name": "ipv6",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">1080</a>",
+      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">1080</a>",
 </code></pre>
 
 ## Proxying wallets
@@ -683,7 +677,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 Use this **example** of a shortcut for Linux to select your private server (your MiniBolt Electrum server), proxying through NYM mixnet:
 
-<pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s <a data-footnote-ref href="#user-content-fn-6">192.168.1.147</a>:50002:s -p socks5:localhost:1080
+<pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s <a data-footnote-ref href="#user-content-fn-8">192.168.1.147</a>:50002:s -p socks5:localhost:1080
 </code></pre>
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
@@ -780,14 +774,13 @@ NymConnect is an easy-to-use interface that enables you to connect other applica
 Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).&#x20;
 
 These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled. \
-
-
+\
 The previously configured Nym SOCKS5 client can run in the background as a daemon, commonly used in server operating systems without a desktop interface. Meanwhile, NYM Connect is typically utilized in desktop versions of operating systems.
 
 <figure><img src="../../.gitbook/assets/nym-connect.PNG" alt="" width="180"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you wish to choose your own gateway from the provided [list](https://explorer.nymtech.net/network-components/gateways) or configure your own service provider, you can do so by accessing the settings menu. Simply click on the **hamburger** icon located in the top-left corner --> **Settings -->** Select your gateway / Select your service provider using **\<requesteraddress>** before configured
+If you wish to choose your own gateway from the provided [list](https://explorer.nymtech.net/network-components/gateways) or configure your own service provider, you can do so by accessing the settings menu. Simply click on the **hamburger** icon located in the top-left corner --> **Settings --> Select your gateway** / **Select your service provider** using **\<requesteraddress>** before configured
 {% endhint %}
 
 ## Proxying other services
@@ -884,14 +877,92 @@ A simple chat client which sends its traffic through the nym mixnet.
 {% endtab %}
 {% endtabs %}
 
+## Troubleshooting
+
+NYM is currently in development and may experience occasional issues.
+
+<figure><img src="../../.gitbook/assets/troubleshooting.png" alt=""><figcaption><p>Example of issiues with a nym socks5 client connected to a network requester</p></figcaption></figure>
+
+If you encounter any issues, it is possible that they are related to the gateway. To resolve this, you can attempt to change the gateway by deleting the data folder.
+
+**Case NYM network requester issues:**
+
+* With user admin, stop the network requester
+
+```bash
+$ sudo systemctl stop nym-network-requester
+```
+
+* Change to the nym user
+
+```bash
+$ sudo su - nym
+```
+
+* Delete bitcoin folder
+
+```bash
+$ rm -r /home/nym/.nym/service-providers/network-requester/bitcoin
+```
+
+* Init again the network requester by following [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section. Choose again latency based selection or manual selection
+* Exit nym user session to go back to the admin user
+
+```bash
+$ exit
+```
+
+* Start network requester again
+
+```bash
+$ sudo systemctl start nym-network-requester
+```
+
+**Case NYM socks5 client issues:**
+
+* With user admin, stop the socks5 client
+
+```bash
+$ sudo systemctl stop nym-socks5-client
+```
+
+* Change to the nym user
+
+```bash
+$ sudo su - nym
+```
+
+* Delete bitcoin folder
+
+```bash
+$ rm -r /home/nym/.nym/socks5-clients/bitcoin
+```
+
+* Init again the socks5 client by following [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section. Choose again latency based selection or manual selection
+* Exit nym user session to go back to the admin user
+
+```bash
+$ exit
+```
+
+* Start socks5 client again
+
+```bash
+$ sudo systemctl start nym-socks5-client
+```
+
 [^1]: ID key of the gateway selected
 
 [^2]: Your service provider address (take note)
 
 [^3]: 
 
-[^4]: NYM socks5 port
+[^4]: 
 
-[^5]: NYM socks5 port
+[^5]: 
 
-[^6]: Replace for your MiniBolt local IP address
+[^6]: NYM socks5 port
+
+[^7]: NYM socks5 port
+
+[^8]: Replace for your MiniBolt local IP address
