@@ -16,6 +16,14 @@ layout:
 
 The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity.
 
+{% hint style="warning" %}
+Difficulty: Intermediate
+{% endhint %}
+
+{% hint style="success" %}
+Status: Tested MiniBolt
+{% endhint %}
+
 <div data-full-width="false">
 
 <figure><img src="../../.gitbook/assets/nym-build-structure.png" alt=""><figcaption></figcaption></figure>
@@ -106,13 +114,13 @@ $ sudo adduser --gecos "" --disabled-password nym
 $ sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
 ```
 
-* Assign the owner of the binary to the nym user&#x20;
+* Assign the owner of the binary to the nym user
 
 ```bash
 $ sudo chown nym:nym /home/nym/nym-network-requester
 ```
 
-### Init NYM  network requester
+### Init NYM network requester
 
 * Switch to the user "nym"
 
@@ -127,7 +135,7 @@ $ ./nym-network-requester init --id bitcoin --latency-based-selection
 ```
 
 {% hint style="info" %}
-If you want to select the gateway that your network requester will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection flag`
+If you want to select the gateway that your network requester will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and deleting the `--latency-based-selection flag`
 {% endhint %}
 
 <details>
@@ -159,13 +167,13 @@ Identity key: <a data-footnote-ref href="#user-content-fn-1">84K1SPBsSPGcCGQ6hK4
 Encryption: Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewYJa5
 Gateway ID: 2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjiFmYW
 Gateway: ws://194.182.172.173:9000
-Address of this network-requester: <a data-footnote-ref href="#user-content-fn-2">84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS</a>
+Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS
 </code></pre>
 
 </details>
 
 {% hint style="info" %}
-Take note of your network requester address (**\<requesteraddress>)**
+Take note of your network requester address **\<requesteraddress>**
 {% endhint %}
 
 > **Example** -->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
@@ -275,13 +283,13 @@ $ cd /tmp
 $ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
 ```
 
-* Assign the owner of the binary to the nym user&#x20;
+* Assign the owner of the binary to the nym user
 
 ```bash
 $ sudo chown nym:nym /home/nym/nym-socks5-client
 ```
 
-### Init NYM  socks5 client
+### Init NYM socks5 client
 
 * Switch to the user "nym"
 
@@ -291,7 +299,7 @@ $ sudo su - nym
 
 * Init the nym socks5 client for the first time with `gateway based selection` flag to choose a gateway based on its location relative to your device and replace **\<requesteraddress>** with the obtained in the [Run NYM network requester](nym-mixnet.md#run-nym-network-requester) step before
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <a data-footnote-ref href="#user-content-fn-3">&#x3C;requesteraddress></a>
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <a data-footnote-ref href="#user-content-fn-2">&#x3C;requesteraddress></a>
 </code></pre>
 
 {% hint style="info" %}
@@ -429,8 +437,9 @@ $2 sudo ss -tulpn | grep LISTEN | grep nym-socks5
 
 Expected output:
 
-<pre><code>tcp  LISTEN 0  1024  127.0.0.1:<a data-footnote-ref href="#user-content-fn-4">1080</a>  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
-</code></pre>
+```
+tcp  LISTEN 0  1024  127.0.0.1:1080  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
+```
 
 * Delete the NYM compilation folder to be ready for the next update and free up space
 
@@ -533,8 +542,11 @@ $ sudo su - nym
 
 * Init again the socks5 client with the same command and service provider, this update the `config.toml` file if needed
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <a data-footnote-ref href="#user-content-fn-5">&#x3C;requesteraddress></a>
-</code></pre>
+{% code overflow="wrap" %}
+```bash
+$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
+```
+{% endcode %}
 
 * Check the correct update
 
@@ -639,12 +651,12 @@ Expected output:
 <pre><code>      "name": "ipv4",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">1080</a>",
+      "proxy": "127.0.0.1:1080",
 --
       "name": "ipv6",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">1080</a>",
+      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-3">1080</a>",
 </code></pre>
 
 ## Proxying wallets
@@ -681,7 +693,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 Use this **example** of a shortcut for Linux to select your private server (your MiniBolt Electrum server), proxying through NYM mixnet:
 
-<pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s <a data-footnote-ref href="#user-content-fn-8">192.168.1.147</a>:50002:s -p socks5:localhost:<a data-footnote-ref href="#user-content-fn-9">1080</a>
+<pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localhost:<a data-footnote-ref href="#user-content-fn-4">1080</a>
 </code></pre>
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
@@ -712,7 +724,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 Follow the [Sparrow server bonus guide](../../bonus/bitcoin/sparrow-server.md), which could be used for these 2 cases of uses:
 
-1. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet.&#x20;
+1. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet.
 
 Go to **Preferences --> Server --> Private Electrum**
 
@@ -762,22 +774,22 @@ Download the [Bitbox app](https://bitbox.swiss/download/?source=bitboxapp) for y
 
 Go to **Settings** --> **Advanced settings --> Enable Tor proxy,** check **"Enable Tor proxy"** and type `127.0.0.1:1080` --> **Set proxy address**
 
-Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bitbox app or choose one of your elections, Go to Add a server: &#x20;
+Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bitbox app or choose one of your elections, Go to Add a server:
 
 1. Enter the endpoint: electrum.blockstream.info:50002
 2. Click on the **"Download remote certificate"** button
 3. Click on the "**Check**" button, click **OK**
-4. Finally, click on the "**Add**" button and click again on the "**Check**" button, and "**OK**"&#x20;
+4. Finally, click on the "**Add**" button and click again on the "**Check**" button, and "**OK**"
 
 <figure><img src="../../.gitbook/assets/bitbox-app-nym-proxy-check.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
 ## NYM connect
 
-NymConnect is an easy-to-use interface that enables you to connect other applications to the Nym mixnet for enhanced privacy. This desktop application allows you to effortlessly run the Nym SOCKS5 client without the need for manual commands.&#x20;
+NymConnect is an easy-to-use interface that enables you to connect other applications to the Nym mixnet for enhanced privacy. This desktop application allows you to effortlessly run the Nym SOCKS5 client without the need for manual commands.
 
-Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).&#x20;
+Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).
 
-These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled. \
+These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled.\
 \
 The previously configured Nym SOCKS5 client can run in the background as a daemon, commonly used in server operating systems without a desktop interface. Meanwhile, NYM Connect is typically utilized in desktop versions of operating systems.
 
@@ -835,7 +847,7 @@ Press OK and go back to the navigation
 
 At the moment, the Android app is undergoing constant development, and the download link on the GitHub repository is being regularly updated, with some updates being non-functional. The following link is not available on GitHub, but it is a static and functional link, although it is also a pre-alpha version and may have bugs on certain occasions.
 
-Download [here](https://nymtech.net/nyms5-arm64-v8a-debug.apk)
+Download [here](https://nymtech.net/nyms5-arm64-v8a-debug.apk) or in the future, download [here](https://github.com/nymtech/nym/releases/tag/nyms5-android-v1.0)
 
 <figure><img src="../../.gitbook/assets/android-nym-proxy.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -843,9 +855,9 @@ Download [here](https://nymtech.net/nyms5-arm64-v8a-debug.apk)
 You could use NYM proxy with the Telegram app for example ⬇️
 {% endhint %}
 
-Scan [this **QR code**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fdgm2BbSsYdaTVDCk9Tde%2Fuploads%2FtMxUa6RB6JGOvLsg4rR0%2Ftg-app-nym-proxy-qr.jpg?alt=media\&token=653cdc12-2144-4dd5-8d76-1fccfc97265c) click on **"Connect proxy"** or manually, go to **Settings** --> **Data and Storage** --> **Proxy Settings -->** switch **"Use proxy"**
+Scan [this **QR code**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fdgm2BbSsYdaTVDCk9Tde%2Fuploads%2FtMxUa6RB6JGOvLsg4rR0%2Ftg-app-nym-proxy-qr.jpg?alt=media\&token=653cdc12-2144-4dd5-8d76-1fccfc97265c)**,** click on **"Connect proxy"** or manually, go to **Settings** --> **Data and Storage** --> **Proxy Settings -->** switch **"Use proxy"**
 
-> > Keep select **"SOCKS5 proxy"**
+> > Keep selected **"SOCKS5 proxy"**
 >
 > > Server: 127.0.0.1
 >
@@ -866,7 +878,7 @@ Save, switch "Use proxy" again
 </div>
 
 {% hint style="warning" %}
-**Notice**: This app consumes significant data and battery when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app.
+**Notice**: This app **consumes significant data and battery** when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app.
 {% endhint %}
 
 ## Other NYM tools
@@ -961,18 +973,8 @@ $ sudo systemctl start nym-socks5-client
 
 [^1]: ID key of the gateway selected or assigned
 
-[^2]: Your service provider address (take note)
+[^2]: Replace with your network requester address
 
-[^3]: Replace with your network requester address
+[^3]: NYM socks5 port
 
-[^4]: 
-
-[^5]: 
-
-[^6]: NYM socks5 port
-
-[^7]: NYM socks5 port
-
-[^8]: Replace for your MiniBolt local IP address
-
-[^9]: NYM socks5 client port
+[^4]: NYM socks5 client port
