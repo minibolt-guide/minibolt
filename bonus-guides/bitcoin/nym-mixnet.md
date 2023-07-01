@@ -442,6 +442,10 @@ $ sudo rm -r /tmp/nym
 All socks5-client-specific configurations can be found in `/home/.nym/socks5-client/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service.
 {% endhint %}
 
+{% hint style="info" %}
+You can get more information about the complete documentation [here](https://nymtech.net/docs/)
+{% endhint %}
+
 ## For the future: upgrade NYM binaries
 
 Follow again the entire [**Compile NYM binaries from the source code**](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below
@@ -649,7 +653,7 @@ Expected output:
 
 Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md). You have 2 options:
 
-* If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
+1. If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
 Use this **example** of a shortcut for Linux to select a public server automatically proxying using NYM mixnet:
 
@@ -673,11 +677,11 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 </div>
 
-* If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
+2. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
 Use this **example** of a shortcut for Linux to select your private server (your MiniBolt Electrum server), proxying through NYM mixnet:
 
-<pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s <a data-footnote-ref href="#user-content-fn-8">192.168.1.147</a>:50002:s -p socks5:localhost:1080
+<pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s <a data-footnote-ref href="#user-content-fn-8">192.168.1.147</a>:50002:s -p socks5:localhost:<a data-footnote-ref href="#user-content-fn-9">1080</a>
 </code></pre>
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
@@ -686,7 +690,7 @@ Use this **example** of a shortcut for Linux to select your private server (your
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
 
-* If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
+1. If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
 > > URL: select one of the public serveres provided for Sparrow
 >
@@ -700,7 +704,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 </div>
 
-* If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
+2. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -708,7 +712,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 Follow the [Sparrow server bonus guide](../../bonus/bitcoin/sparrow-server.md), which could be used for these 2 cases of uses:
 
-* If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet.&#x20;
+1. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet.&#x20;
 
 Go to **Preferences --> Server --> Private Electrum**
 
@@ -726,7 +730,7 @@ Go to **Preferences --> Server --> Private Electrum**
 You have Sparrow server configured to proxy third parties servers connection using NYM mixnet
 {% endhint %}
 
-* If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
+2. If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
 Go to **Preferences --> Server --> Public Electrum**
 
@@ -744,7 +748,7 @@ You have Sparrow server configured to proxy public Electrum servers and third pa
 
 Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS
 
-Go to **App Settings -->** Navigate to **Network -->** switch "**Connect throught a proxy**"
+Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through a proxy**"
 
 > > Proxy host: 127.0.0.1
 >
@@ -801,7 +805,7 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 **Save proxy Settings**
 {% endhint %}
 
-### Telegram
+### Telegram Desktop
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
 
@@ -810,7 +814,7 @@ Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically
 <figure><img src="../../.gitbook/assets/telegram-nym-proxy.PNG" alt="" width="275"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Save and close
+Save and close all banners to go back to the running app
 {% endhint %}
 
 ### Browser (Firefox-based browsers)
@@ -822,6 +826,10 @@ Go to **General** --> **Network Settings** --> **Settings**...
 Fill the form with the next data:
 
 <figure><img src="../../.gitbook/assets/librewolf-socks5-nym-proxy.PNG" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="success" %}
+Press OK and go back to the navigation
+{% endhint %}
 
 ## NYM Android
 
@@ -951,11 +959,11 @@ $ exit
 $ sudo systemctl start nym-socks5-client
 ```
 
-[^1]: ID key of the gateway selected
+[^1]: ID key of the gateway selected or assigned
 
 [^2]: Your service provider address (take note)
 
-[^3]: 
+[^3]: Replace with your network requester address
 
 [^4]: 
 
@@ -966,3 +974,5 @@ $ sudo systemctl start nym-socks5-client
 [^7]: NYM socks5 port
 
 [^8]: Replace for your MiniBolt local IP address
+
+[^9]: NYM socks5 client port
