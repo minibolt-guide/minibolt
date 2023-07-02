@@ -57,3 +57,7 @@ layout:
 ### Testnet
 
 * [**Running a Testnet MiniBolt Node**](minibolt-on-testnet.md) - configure your MiniBolt for use on testnet
+
+### Payment processors
+
+* **BTCpay server** - a free and open-source Bitcoin payment processor which allows you to accept bitcoin without fees or intermediaries
