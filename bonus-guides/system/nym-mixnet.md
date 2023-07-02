@@ -651,7 +651,8 @@ $ bitcoin-cli getnetworkinfo | grep -A 3 ipv
 
 Expected output:
 
-<pre><code>      "name": "ipv4",
+```
+      "name": "ipv4",
       "limited": false,
       "reachable": true,
       "proxy": "127.0.0.1:1080",
@@ -659,8 +660,8 @@ Expected output:
       "name": "ipv6",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-2">1080</a>",
-</code></pre>
+      "proxy": "127.0.0.1:1080",
+```
 
 ## Proxying wallets
 
@@ -686,7 +687,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure>
 
@@ -875,7 +876,7 @@ Save, switch "Use proxy" again
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure>
 
@@ -975,9 +976,4 @@ $ exit
 $ sudo systemctl start nym-socks5-client
 ```
 
-1. Replace with your network requester address
-2. NYM socks5 client port
-
 [^1]: ID key of the gateway selected or assigned
-
-[^2]: NYM socks5 port
