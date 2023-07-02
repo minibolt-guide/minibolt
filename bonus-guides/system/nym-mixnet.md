@@ -831,7 +831,7 @@ Save and close all banners to go back to the running app
 
 #### Browser (Firefox-based browsers)
 
-Download [Firefox](https://www.mozilla.org/es-ES/firefox/all/#product-desktop-release) or [Librewolf](https://librewolf.net/installation/) for your OS\
+Download [Firefox](https://www.mozilla.org/es-ES/firefox/all/#product-desktop-release) | [Librewolf](https://librewolf.net/installation/) | [Mullvad](https://mullvad.net/es/download/browser/linux) or any Firefox-based browser for your OS\
 \
 Go to **General** --> **Network Settings** --> **Settings**...
 
@@ -840,7 +840,7 @@ Fill the form with the next data:
 <figure><img src="../../.gitbook/assets/librewolf-socks5-nym-proxy.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="success" %}
-Press OK and go back to the navigation
+Press OK and start the navigation
 {% endhint %}
 
 ## NYM Android
