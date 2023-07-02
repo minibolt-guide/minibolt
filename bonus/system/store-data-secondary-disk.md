@@ -31,7 +31,7 @@ Status: Tested MiniBolt
 
 ![](../../images/store-data-secondary-disk.PNG)
 
-## Storage configuration
+## Case 1: during the Ubuntu server guided installation
 
 When you arrive at the **"Guided storage configuration"** **(step 8)** on the [Ubuntu server installation](broken-reference/), follow the next steps:
 
@@ -62,148 +62,152 @@ This will select this storage as the boot disk and create automatically a new pa
 ![](../../resources/storage-secondary-disk.gif)
 
 {% hint style="warning" %}
-The GIF above is a recreation of a scenario made with a virtual machine **-->** **VBOX\_HARDDISK\_**_VB4_\*\*...\*\* would be the **primary disk**, and **-->** **VBOX\_HARDDISK\_**_VB5_\*\*...\*\* would be the **secondary disk**. In your case, this probably **will not match exactly.**
+The GIF above is a recreation of a scenario made with a virtual machine **-->** **VBOX\_HARDDISK\_**_VB4_... would be the **primary disk**, and **-->** **VBOX\_HARDDISK\_**_VB5_... would be the **secondary disk**. In your case, this probably **will not match exactly**
 {% endhint %}
 
-## Continue with the guide
+### Continue with the guide
 
 {% hint style="success" %}
 That's it: when you finish the [Operating system](../../system/operating-system.md) section, your PC will boot the system from the primary disk while the data directory **`(/data)`** will be located on the secondary disk.
 {% endhint %}
 
-**-->** Now you can continue with **step 10** of the [Ubuntu Server installation](../../system/operating-system.md)
+**-->** Now you can continue with **step 10** of the [Ubuntu Server installation](../../system/operating-system.md#ubuntu-server-installation)
 
-### **Build it after system installation (by commando line)**
+## **Case 2: build it after system installation (by command line)**
 
-Attach the secondary disk
+Attach the secondary disk to the MiniBolt node
 
 ### **Format secondary disk**
 
-* List all block devices with additional information
+*   List all block devices with additional information
 
-  ```sh
-  $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
-  ```
+    ```sh
+    $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+    ```
 
-*Example* expected output without existing partitions:
+**Example** of expected output without existing partitions:
 
-  ```
-  > NAME          MOUNTPOINT UUID                          FSTYPE   SIZE    LABEL  MODEL
-  > **sdb**                                                         931.5G         Samsung SSD 870
-  ```
+```
+> NAME          MOUNTPOINT UUID       FSTYPE   SIZE    LABEL  MODEL
+> **sdb**                                      931.5G         Samsung SSD 870
+```
 
-*Example* expected output with existing partitions:
+_Example_ expected output with existing partitions:
 
-  ```
-  > NAME          MOUNTPOINT UUID                          FSTYPE   SIZE    LABEL  MODEL
-  > sdb                                                             931.5G         Samsung SSD 870
-  > sdb1                     2219-782E                     ext4     931.5G
-  ```
+```
+> NAME          MOUNTPOINT UUID              FSTYPE   SIZE    LABEL  MODEL
+> sdb                                                 931.5G         Samsung SSD 870
+> sdb1                     2219-782E         ext4     931.5G
+```
 
+{% hint style="info" %}
 Here we will see if the new disk has been detected by the system and what unit name has been assigned to it. Normally `sda` is name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: "Samsung SSD 870".
+{% endhint %}
 
-### **Delete existing partition & create a new one**
+### **Delete the existing partition & create a new one**
 
-* Type this command to use the `"fdisk"` utility and manage the secondary disk
+*   Type this command to use the `"fdisk"` utility and manage the secondary disk
 
-  ```sh
-  $ sudo fdisk /dev/sdb
-  ```
+    ```sh
+    $ sudo fdisk /dev/sdb
+    ```
+* Now we select the option wished pressing the option letter and enter.
+  * Press **`"n"`** to create a new partition and then enter. Press enter until the prompt show "**(Command (m for help))"** again.
 
-* Now we are select the option wished pressing the option letter and enter.
+> **Case 1:** if you had existing partition/s, the prompt will show you **"All space for primary partitions is in use"**, you will need to type **`d`** and press enter until the prompt shows you **"Partition X has been deleted",** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
 
-  * Press **`"n"`** to create a new partition and then enter.
-  Press enter until prompt show **"(Command (m for help))"** again.
+> **Case 2:** if you had existing partition/s, the prompt will show you **"Partition #1 contains an ext4 signature"** **"Do you want to remove the signature? \[Y]es/\[N]o"**, type **`Y`** and press enter until the prompt shows you **"The signature will be removed by a write command",** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
 
-If you had existing partition/s, the prompt will shows you **"All space for primary partitions is in use"**, you will need typing **`"d"`** and press enter until the prompt shows you **"Partition X has been deleted"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
+* Finally, don't forget, to type **`w`** to automatically write on disk and exit
 
-If you had existing partition/s, the prompt will shows you **"Partition #1 contains a ext4 signature"** **"Do you want to remove the signature? [Y]es/[N]o"**, type **`"Y"`** and press enter until the prompt shows you **"The signature will be removed by a write command"** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
-
-* Finally, don't forget, type **`"w"`** to automatically write on disk and exit
-
+{% hint style="info" %}
 This will create a new partition called probably **`"sdb1"`**
+{% endhint %}
 
-* Finally format the new partition to `"Ext4"` and obtain the **UUID**
+*   Finally, format the new partition to `"Ext4"` and obtain the **UUID**
 
-  ```sh
-  $ sudo mkfs.ext4 /dev/[NAME_P]
-  ```
+    ```sh
+    $ sudo mkfs.ext4 /dev/[NAME_P]
+    ```
 
-  ```
-  mke2fs 1.46.5 (30-Dec-2021)
-  Creating filesystem with 1572608 4k blocks and 393216 inodes
-  ***Filesystem UUID:*** **dafc3c67-c6e5-4eaa-8840-adaf604c85db**
-  Superblock backups stored on blocks:
-          32768, 98304, 163840, 229376, 294912, 819200, 884736
-  ```
+**Example** of expected output
 
-Take note of your **UUID** e.g dafc3c67-c6e5-4eaa-8840-adaf604c85db
+```
+mke2fs 1.46.5 (30-Dec-2021)
+Creating filesystem with 1572608 4k blocks and 393216 inodes
+***Filesystem UUID:*** **dafc3c67-c6e5-4eaa-8840-adaf604c85db**
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736
+```
 
-* Make a note of the partition name of your secondary disk (normally **"sdb1"**)
+{% hint style="info" %}
+Take note of your **UUID** e.g dafc3c67-c6e5-4eaa-8840-adaf604c85db and the partition name of your secondary disk (normally **"sdb1"**)
+{% endhint %}
 
-### **Mount secondary disk**
+### **Mount the secondary disk**
 
 The secondary disk is then attached to the file system and becomes available as a regular folder (this is called “mounting”).
 
-* List the block devices once more and copy the new partition's `UUID` into a text editor on your main machine.
+*   List the block devices once more and copy the new partitions `UUID` into a text editor on your main machine
 
-  ```sh
-  $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
-  ```
+    ```sh
+    $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+    ```
 
-*Example* expected output:
+**Example** of expected output:
 
-  ```
-  > NAME        MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL  MODEL
-  > sdb                                                                931.5G        Samsung SSD 870
-  > └─sdb1                 3aab0952-3ed4-4652-b203-d994c4fdff20 ext4   931.5G
-  ```
+```
+> NAME        MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL  MODEL
+> sdb                                                                931.5G        Samsung SSD 870
+> └─sdb1                 3aab0952-3ed4-4652-b203-d994c4fdff20 ext4   931.5G
+```
 
-* Edit the `"fstab"` file and add the following as a new line **at the end**, replacing `123456...` with your own `UUID`.
+*   Edit the `"fstab"` file and add the following as a new line **at the end**, replacing `<yourUUID>` with your own `UUID`
 
-  ```sh
-  $ sudo nano /etc/fstab
-  ```
+    ```sh
+    $ sudo nano /etc/fstab
+    ```
 
-  ```
-  UUID=123456... /data ext4 defaults 0 2
-  ```
+```
+UUID=<yourUUID> /data ext4 defaults 0 2
+```
 
-* Create the data directory as a mount point
+*   Create the data directory as a mount point
 
-  ```sh
-  $ sudo mkdir /data
-  ```
+    ```sh
+    $ sudo mkdir /data
+    ```
+*   Assign as the owner to the `admin` user
 
-* Assign as owner to the `admin` user
+    ```sh
+    $ sudo chown admin:admin /data
+    ```
+*   Mount all disks and check the file system
 
-  ```sh
-  $ sudo chown admin:admin /data
-  ```
+    ```sh
+    $ sudo mount -a
+    ```
+*   Is “/data” listed?
 
-* Mount all disks and check the file system.
-
-  ```sh
-  $ sudo mount -a
-  ```
-
-* Is “/data” listed?
-
-  ```sh
-  $ df -h /data
-  ```
+    ```sh
+    $ df -h /data
+    ```
 
 **Example** expected output:
 
-  ```
-  > Filesystem      Size  Used Avail Use% Mounted on
-  > /dev/sdb1       938G   77M  891G   1% /data
-  ```
+```
+> Filesystem      Size  Used Avail Use% Mounted on
+> /dev/sdb1       938G   77M  891G   1% /data
+```
 
-* Check measure the speed of your secondary drive with
+*   Check measure the speed of your secondary drive with
 
-  ```sh
-  $ sudo hdparm -t --direct /dev/sdb
-  ```
+    ```sh
+    $ sudo hdparm -t --direct /dev/sdb
+    ```
 
-If the measured speeds are more than 50 MB/s, you're good.
+{% hint style="success" %}
+If the measured speeds are more than 100 MB/s, you're good
+{% endhint %}
+
+**-->** Now you can continue with the Security section of the guide, press [here](../../system/security.md)
