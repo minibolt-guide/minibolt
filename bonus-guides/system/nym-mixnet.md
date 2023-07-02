@@ -686,7 +686,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure>
 
- 
+
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure>
 
@@ -875,7 +875,7 @@ Save, switch "Use proxy" again
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure>
 
- 
+
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure>
 
