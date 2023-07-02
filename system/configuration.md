@@ -68,10 +68,14 @@ Now, you can start to access it without a password by following the [SSH keys bo
     ```
 
 {% hint style="info" %}
-Do this regularly every few months for security-related updates. If during the update process, a banner appears asking you: "Which services should be restarted?" you can press ENTER and take note of which services will be restarted during the update, marked with `[*]`. Example:
+Do this regularly every few months for security-related updates. If during the update process, a banner appears asking you, "Which services should be restarted?" you can press ENTER and take note of the services that will be restarted, marked with `[*]`. Example 🔽
 {% endhint %}
 
 ![](../images/update-action.PNG)
+
+{% hint style="info" %}
+It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press ENTER to confirm
+{% endhint %}
 
 *   To be able to use the "minibolt" hostname instead of the IP address, we must install this necessary software package
 
@@ -102,8 +106,8 @@ Let's check if your drive works well as-is.
 > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
 ```
 
-{% hint style="info" %}
-If the measured speeds are more than 50 MB/s, you're good.
+{% hint style="success" %}
+If the measured speeds are more than 100 MB/s, you're good
 {% endhint %}
 
 *   If you installed a **secondary disk**, check and measure the speed with the next command, if not, skip it
@@ -118,17 +122,13 @@ If the measured speeds are more than 50 MB/s, you're good.
 > Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
 ```
 
-{% hint style="info" %}
-If the measured speeds are more than 50 MB/s, you're good.
+{% hint style="success" %}
+If the measured speeds are more than 100 MB/s, you're good
 {% endhint %}
 
 ### Data directory
 
 We'll store all application data in the dedicated directory `/data`. This allows for better security because it's not inside any user's home directory. Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
-
-{% hint style="info" %}
-Remember the next command is not necessary if you previously followed the [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide searching to store the data in a secondary disk; because the **(/data)** folder was previously created.
-{% endhint %}
 
 *   Create the data folder
 
@@ -137,7 +137,7 @@ Remember the next command is not necessary if you previously followed the [Store
     ```
 
 {% hint style="info" %}
-If the prompt shows you: `mkdir: cannot create directory '/data': File exists` probably you followed [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide to use a secondary disk, then ignore it and follow with the next command.
+Remember that the before command is not necessary if you previously followed [Case 1](../bonus/system/store-data-secondary-disk.md#case-1-during-the-ubuntu-server-guided-installation) of [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, which involves storing the data in a secondary disk. This is because the **(/data)** folder has already been created. If the prompt shows you: `mkdir: cannot create directory '/data': File exists` probably is that. Then ignore it and follow with the next command 🔽
 {% endhint %}
 
 *   Assing to the `admin` user as the owner of the **`(/data)`** folder
