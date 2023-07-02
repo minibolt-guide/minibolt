@@ -299,8 +299,11 @@ $ sudo su - nym
 
 * Init the nym socks5 client for the first time with `gateway based selection` flag to choose a gateway based on its location relative to your device and replace **\<requesteraddress>** with the obtained in the [Run NYM network requester](nym-mixnet.md#run-nym-network-requester) step before
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <a data-footnote-ref href="#user-content-fn-2">&#x3C;requesteraddress></a>
-</code></pre>
+{% code overflow="wrap" %}
+```bash
+$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
+```
+{% endcode %}
 
 {% hint style="info" %}
 If you want to select the gateway that your socks5 client will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection flag`
@@ -656,7 +659,7 @@ Expected output:
       "name": "ipv6",
       "limited": false,
       "reachable": true,
-      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-3">1080</a>",
+      "proxy": "127.0.0.1:<a data-footnote-ref href="#user-content-fn-2">1080</a>",
 </code></pre>
 
 ## Proxying wallets
@@ -683,7 +686,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure>
 
- 
+
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure>
 
@@ -693,8 +696,9 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 Use this **example** of a shortcut for Linux to select your private server (your MiniBolt Electrum server), proxying through NYM mixnet:
 
-<pre class="language-bash"><code class="lang-bash">$ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localhost:<a data-footnote-ref href="#user-content-fn-4">1080</a>
-</code></pre>
+```bash
+$ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localhost:1080
+```
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 
@@ -871,7 +875,7 @@ Save, switch "Use proxy" again
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure>
 
- 
+
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure>
 
@@ -971,10 +975,9 @@ $ exit
 $ sudo systemctl start nym-socks5-client
 ```
 
+1. Replace with your network requester address
+2. NYM socks5 client port
+
 [^1]: ID key of the gateway selected or assigned
 
-[^2]: Replace with your network requester address
-
-[^3]: NYM socks5 port
-
-[^4]: NYM socks5 client port
+[^2]: NYM socks5 port
