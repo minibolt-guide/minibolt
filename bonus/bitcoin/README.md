@@ -60,4 +60,4 @@ layout:
 
 ### Payment processors
 
-* **BTCpay server** - a free and open-source Bitcoin payment processor which allows you to accept bitcoin without fees or intermediaries
+* [**BTCpay server**](../../bonus-guides/bitcoin/btcpay-server.md) - a free and open-source Bitcoin payment processor which allows you to accept Bitcoin without fees or intermediaries
