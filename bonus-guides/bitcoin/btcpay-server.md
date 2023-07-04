@@ -103,9 +103,15 @@ $ dotnet --version
 > 6.0.411
 ```
 
+* Come back to the "admin" user
+
+```bash
+$ exit
+```
+
 ### Install PostgreSQL
 
-* Still with user "admin", create the file repository configuration
+* With user "admin", create the file repository configuration
 
 {% code overflow="wrap" %}
 ```bash
@@ -229,7 +235,7 @@ $ mkdir src
 $ cd src
 ```
 
-* Download NBXplorer source code and enter the folder
+* Download the NBXplorer source code and enter the folder
 
 ```bash
 $ git clone https://github.com/dgarage/NBXplorer
@@ -245,11 +251,12 @@ $ cd NBXplorer
 $ nano build.sh
 ```
 
-* Replace the next line with this
+* Comment the existing line and add the next line bellow
 
-```
-/home/btcpay/.dotnet/dotnet build -c Release NBXplorer/NBXplorer.csproj
-```
+<pre><code>#dotnet build -c Release NBXplorer/NBXplorer.csproj
+<strong>
+</strong>/home/btcpay/.dotnet/dotnet build -c Release NBXplorer/NBXplorer.csproj
+</code></pre>
 
 * Build NBXplorer
 
@@ -304,15 +311,17 @@ Build succeeded.
 $ nano run.sh
 ```
 
-* Replace the next line with this. Save and exit. Save and exit
+* Comment the existing line and add the next line. Save and exit
 
 {% code overflow="wrap" %}
 ```
+#dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
+
 /home/btcpay/.dotnet/dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
 ```
 {% endcode %}
 
-* Run NBXplorer in order to generate default config files
+* Run NBXplorer in order to generate default config files. Don't worry with the "**fail: Configuration:"** line
 
 ```bash
 $ ./run.sh
@@ -338,8 +347,8 @@ fail: Configuration:  You need to select your backend implementation. There is t
 
 * Change to the installation folder
 
-```
-cd /home/btcpay/.nbxplorer/Main
+```bash
+$ cd /home/btcpay/.nbxplorer/Main
 ```
 
 * Edit the config file
@@ -354,7 +363,7 @@ $ nano settings.config -l
 btc.rpc.cookiefile=/home/bitcoin/.bitcoin/.cookie
 ```
 
-* Insert the following line in the beginning
+* Insert the following line at the beginning
 
 ```
 ### Database ###
@@ -388,8 +397,8 @@ ExecStart=/home/btcpay/src/NBXplorer/run.sh
 User=btcpay
 
 Type=simple
-Restart=always
 TimeoutSec=120
+Restart=always
 RestartSec=30
 KillMode=process
 
