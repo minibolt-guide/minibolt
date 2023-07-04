@@ -49,7 +49,7 @@ If you want to install Bitcoin Core from the source code but without the Ordisre
     ```sh
     $ VERSION=25.0
     ```
-* Get the latest binaries and signatures
+* Download binary, checksum, and signature files
 
 {% code overflow="wrap" %}
 ```bash
@@ -660,6 +660,10 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoin/
 $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
 {% endcode %}
+
+```bash
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
+```
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 </strong></code></pre>
