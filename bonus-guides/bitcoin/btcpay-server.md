@@ -460,7 +460,7 @@ Jul 05 17:50:23 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: New block 
 
 </details>
 
-* Ensure NBXplorer is running on the default port 24444
+* Ensure NBXplorer is running on the default port `24444`
 
 ```bash
 $ sudo ss -tulpn | grep LISTEN | grep NBXplorer
@@ -675,3 +675,53 @@ Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Connected to WebS
 ```
 
 </details>
+
+* Ensure BTCpay server is running on the default port `23000`
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep 23000
+```
+
+Expected output:
+
+```
+> tcp   LISTEN 0      512        127.0.0.1:23000      0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
+```
+
+## Remote access over Tor
+
+You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCpay server with the Tor browser from any device.
+
+* Add the following three lines in the "location-hidden services" section in the `torrc` file. Save and exit
+
+```bash
+$ sudo nano /etc/tor/torrc
+```
+
+```
+############### This section is just for location-hidden services ###
+# Hidden Service BTCPay
+HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
+HiddenServiceVersion 3
+HiddenServicePort 80 127.0.0.1:23000
+```
+
+* Reload the Tor configuration
+
+```bash
+$ sudo systemctl reload tor
+```
+
+* Get your connection address
+
+```bash
+$ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
+```
+
+**Example** of expected output:
+
+```
+> abcdefg..............xyz.onion
+```
+
+* With the [Tor browser](https://www.torproject.org/),  you can access this onion address from any device
