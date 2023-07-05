@@ -16,12 +16,12 @@ layout:
 
 BTCPay Server is a free and open-source Bitcoin payment processor which allows you to accept bitcoin without fees or intermediaries
 
-{% hint style="warning" %}
-Difficulty: Intermediate
+{% hint style="danger" %}
+Difficulty: Hard
 {% endhint %}
 
 {% hint style="success" %}
-Status: Tested v3
+Status: Tested MiniBolt
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/btc-pay-banner.png" alt=""><figcaption></figcaption></figure>
@@ -34,6 +34,8 @@ Status: Tested v3
 ## Preparations
 
 To run the BTCPayServer you will need to install .NET Core SDK, NBXplorer, and PostgreSQL
+
+
 
 ### Create a new btcpay user
 
@@ -103,6 +105,12 @@ $ dotnet --version
 > 6.0.411
 ```
 
+* Delete the installation script
+
+```bash
+$ rm dotnet-install.sh
+```
+
 * Come back to the "admin" user
 
 ```bash
@@ -127,7 +135,14 @@ $ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo ap
 ```
 {% endcode %}
 
-* Update the package lists. You can ignore the `Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8))` message
+Expected output:
+
+```
+> Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+OK
+```
+
+* Update the package lists. You can ignore the `W: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8))` message
 
 ```bash
 $ sudo apt update
@@ -145,6 +160,12 @@ $ sudo apt install postgresql postgresql-contrib
 $ psql -V
 ```
 
+**Example** of expected output:
+
+```
+> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+```
+
 ### Create a PostgreSQL database for NBXplorer
 
 * Change to the automatically created user for the PostgreSQL installation called "postgres"
@@ -153,59 +174,35 @@ $ psql -V
 $ sudo su - postgres
 ```
 
-* Enter the PostgreSQL CLI
+* Create a new database user
 
 ```bash
-$ psql
+$ createuser --pwprompt --interactive
 ```
 
-* Create a database for NBXplorer. "postgres=#" is the prompt of PostgreSQL CLI, don't enter
+Type in the following:
+
+> > Enter name of role to add: **admin**
+>
+> > Enter password for new role: **admin**
+>
+> > Enter it again: **admin**
+>
+> > Shall the new role be a superuser? (y/n) **n**
+>
+> > Shall the new role be allowed to create databases? (y/n) **y**
+>
+> > Shall the new role be allowed to create more new roles? (y/n) **n**
+
+* Create 2 new databases
 
 ```bash
-postgres=# CREATE DATABASE nbxplorer TEMPLATE 'template0' LC_CTYPE 'C' LC_COLLATE 'C' ENCODING 'UTF8';
+$ createdb -O admin btcpayserver
 ```
-
-Expected output:
-
-```
-> CREATE DATABASE
-```
-
-* Create user
 
 ```bash
-postgres=# CREATE USER nbxplorer WITH ENCRYPTED PASSWORD 'urpassword';
+$ createdb -O admin nbxplorer
 ```
-
-* Grant privileges
-
-```bash
-postgres=# GRANT ALL PRIVILEGES ON DATABASE nbxplorer TO nbxplorer;
-```
-
-### Create a PostgreSQL database for the BTCpay server
-
-* Create a PostgreSQL database for the BTCpay server
-
-```bash
-postgres=# CREATE DATABASE btcpay TEMPLATE 'template0' LC_CTYPE 'C' LC_COLLATE 'C' ENCODING 'UTF8';
-```
-
-* Create user
-
-<pre class="language-bash"><code class="lang-bash"><strong>postgres=# CREATE USER btcpay WITH ENCRYPTED PASSWORD 'urpassword';
-</strong></code></pre>
-
-* Grant privileges
-
-```bash
-postgres=# GRANT ALL PRIVILEGES ON DATABASE btcpay TO btcpay;
-```
-
-* Exit PostgreSQL
-
-<pre class="language-bash"><code class="lang-bash"><strong>postgres=# \q
-</strong></code></pre>
 
 * Go back to the "admin" user
 
@@ -217,7 +214,7 @@ $ exit
 
 ### Install NBXplorer
 
-[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, exploited by BTCPay Server.
+[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, exploited by BTCPay Server
 
 * Switch to the btcpay user
 
@@ -245,13 +242,29 @@ $ git clone https://github.com/dgarage/NBXplorer
 $ cd NBXplorer
 ```
 
+* Modify NBXplorer run script
+
+```bash
+$ nano run.sh
+```
+
+* Comment the existing line and add the next line bellow. Save and exit
+
+{% code overflow="wrap" %}
+```
+#dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
+
+/home/btcpay/.dotnet/dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
+```
+{% endcode %}
+
 * Modify NBXplorer build script
 
 ```bash
 $ nano build.sh
 ```
 
-* Comment the existing line and add the next line bellow
+* Comment the existing line and add the next line bellow. Save and exit
 
 <pre><code>#dotnet build -c Release NBXplorer/NBXplorer.csproj
 <strong>
@@ -266,7 +279,7 @@ $ ./build.sh
 
 <details>
 
-<summary>Expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 Welcome to .NET 6.0!
@@ -305,69 +318,32 @@ Build succeeded.
 
 </details>
 
-* Modify NBXplorer run script
+* Create the data folder and navigate to it
+
+<pre class="language-sh"><code class="lang-sh"><strong>$ mkdir -p ~/.nbxplorer/Main
+</strong></code></pre>
 
 ```bash
-$ nano run.sh
+$ cd ~/.nbxplorer/Main
 ```
 
-* Comment the existing line and add the next line. Save and exit
-
-{% code overflow="wrap" %}
-```
-#dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
-
-/home/btcpay/.dotnet/dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
-```
-{% endcode %}
-
-* Run NBXplorer in order to generate default config files. Don't worry with the "**fail: Configuration:"** line
+* Create a new config file
 
 ```bash
-$ ./run.sh
+$ nano settings.config
 ```
 
-<details>
-
-<summary>Expected output ⬇️</summary>
+* Add the complete next lines
 
 ```
-info: Configuration:  Data Directory: /home/btcpay/.nbxplorer/Main
-info: Configuration:  Configuration File: /home/btcpay/.nbxplorer/Main/settings.config
-info: Configuration:  Creating configuration file
-info: Configuration:  Network: Mainnet
-info: Configuration:  Supported chains: BTC
-info: Configuration:  DBCache: 50 MB
-fail: Configuration:  You need to select your backend implementation. There is two choices, PostgresSQL and DBTrie.
-        * To use postgres, please use --postgres "..." (or NBXPLORER_POSTGRES="...") with a postgres connection string (see https://www.connectionstrings.com/postgresql/)
-        * To use DBTrie, use --dbtrie (or NBXPLORER_DBTRIE=1). This backend is deprecated, only use if you haven't yet migrated. For more information about how to migrate, see https://github.com                              /dgarage/NBXplorer/tree/master/docs/Postgres-Migration.md
-```
+# MiniBolt: nbxplorer configuration
+# /home/btcpay/.nbxplorer/Main/settings.config
 
-</details>
-
-* Change to the installation folder
-
-```bash
-$ cd /home/btcpay/.nbxplorer/Main
-```
-
-* Edit the config file
-
-```bash
-$ nano settings.config -l
-```
-
-* Uncomment and replace line 33 with this line
-
-```
+## Bitcoind connection
 btc.rpc.cookiefile=/home/bitcoin/.bitcoin/.cookie
-```
 
-* Insert the following line at the beginning
-
-```
-### Database ###
-postgres=User ID=nbxplorer;Password=urpassword;Application Name=nbxplorer;MaxPoolSize=20;Host=localhost;Port=5432;Database=nbxplorer;
+## Database
+postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ```
 
 * Go back to the "admin" user
@@ -385,22 +361,25 @@ $ sudo nano /etc/systemd/system/nbxplorer.service
 ```
 
 ```
+# MiniBolt: systemd unit for NBXplorer
+# /etc/systemd/system/nbxplorer.service
+
 [Unit]
 Description=NBXplorer daemon
-Requires=bitcoind.service
+Wants=bitcoind.service
 After=bitcoind.service
 
 [Service]
 WorkingDirectory=/home/btcpay/src/NBXplorer
 ExecStart=/home/btcpay/src/NBXplorer/run.sh
-
 User=btcpay
 
 Type=simple
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
 TimeoutSec=120
-Restart=always
-RestartSec=30
-KillMode=process
 
 [Install]
 WantedBy=multi-user.target
@@ -419,7 +398,7 @@ $ sudo journalctl -f -u nbxplorer
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor logs.
+Keep **this terminal open,** you'll need to come back here on the next step to monitor logs
 {% endhint %}
 
 #### Running nbxplorer
@@ -437,9 +416,262 @@ $ sudo systemctl start nbxplorer
 <summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u</code> nbxplorer ⬇️</summary>
 
 ```
-// Some code
+Jul 05 17:50:20 bbonode systemd[1]: Started NBXplorer daemon.
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Data Directory: /home/btcpay/.nbxplorer/Main
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Configuration File: /home/btcpay/.nbxplorer/Main/settings.config
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Network: Mainnet
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Supported chains: BTC
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  DBCache: 50 MB
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Network: Mainnet
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Supported chains: BTC
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  DBCache: 50 MB
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Postgres services activated
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 001.Migrations...
+Jul 05 17:50:21 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 002.Model...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 003.Legacy...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 004.Fixup...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 005.ToBTCFix...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 006.GetWalletsRecent2...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 007.FasterSaveMatches...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 008.FasterGetUnused...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 009.FasterGetUnused2...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 010.ChangeEventsIdType...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 011.FixGetWalletsRecent...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 012.PerfFixGetWalletsRecent...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 013.FixTrackedTransactions...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 014.FixAddressReuse...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 015.AvoidWAL...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: TCP Connection succeed, handshaking...
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Handshaked
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Testing RPC connection to http://localhost:8332/
+Jul 05 17:50:22 bbonode run.sh[2808966]: Hosting environment: Production
+Jul 05 17:50:22 bbonode run.sh[2808966]: Content root path: /home/btcpay/src/NBXplorer/NBXplorer/bin/Release/net6.0/
+Jul 05 17:50:22 bbonode run.sh[2808966]: Now listening on: http://127.0.0.1:24444
+Jul 05 17:50:22 bbonode run.sh[2808966]: Application started. Press Ctrl+C to shut down.
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: RPC connection successful
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Full node version detected: 250000
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Has txindex support
+Jul 05 17:50:22 bbonode run.sh[2808966]: warn: NBXplorer.Indexer.BTC: BTC: Your NBXplorer server is not whitelisted by your node, you should add "whitelist=127.0.0.1" to the configuration file of your node. (Or use whitebind)
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: Node state changed: NotStarted => NBXplorerSynching
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Current Index Progress not found, start syncing from the header's chain tip (At height: 797318)
+Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: Node state changed: NBXplorerSynching => Ready
+Jul 05 17:50:23 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: New block 00000000000000000001415583131d3c1da985497830abcf638413226892d4ad (797318)
 ```
 
 </details>
 
+* Ensure NBXplorer is running on the default port 24444
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep NBXplorer
+```
+
+Expected output:
+
+```
+tcp   LISTEN 0      512        127.0.0.1:24444      0.0.0.0:*    users:(("NBXplorer",pid=2808966,fd=176))
+```
+
+{% hint style="success" %}
+You have NBxplorer running and prepared for BTCpay server to use it
+{% endhint %}
+
 ### Install BTCpay server
+
+* Switch to the btcpay user and go to the src folder
+
+```bash
+$ sudo su - btcpay
+```
+
+```bash
+$ cd src
+```
+
+* Clone BTCpay server official GitHub repository and go to the "btcpayserver" folder
+
+```bash
+$ git clone https://github.com/btcpayserver/btcpayserver
+```
+
+```bash
+$ cd btcpayserver
+```
+
+* Modify BTCpay server run script
+
+```bash
+$ nano run.sh
+```
+
+* Comment the next line and add the bellow
+
+```
+#dotnet "BTCPayServer.dll" $@
+
+/home/btcpay/.dotnet/dotnet "BTCPayServer.dll" $@
+```
+
+* Modify the BTCpay server build script
+
+```bash
+$ nano build.sh
+```
+
+* Comment the next line and add the bellow
+
+<pre><code>#dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
+
+<strong>/home/btcpay/.dotnet/dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
+</strong></code></pre>
+
+* Build BTCpay server
+
+```bash
+$ ./build.sh
+```
+
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+```
+MSBuild version 17.3.2+561848881 for .NET
+  Determining projects to restore...
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj (in 59.8 sec).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Rating/BTCPayServer.Rating.csproj (in 59.8 sec).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Common/BTCPayServer.Common.csproj (in 28 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Client/BTCPayServer.Client.csproj (in 596 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj (in 17 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Data/BTCPayServer.Data.csproj (in 675 ms).
+  BTCPayServer.Client -> /home/btcpay/src/btcpayserver/BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
+  BTCPayServer.Rating -> /home/btcpay/src/btcpayserver/BTCPayServer.Rating/bin/Release/net6.0/BTCPayServer.Rating.dll
+  BTCPayServer.Common -> /home/btcpay/src/btcpayserver/BTCPayServer.Common/bin/Release/net6.0/BTCPayServer.Common.dll
+  BTCPayServer.Abstractions -> /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/bin/Release/net6.0/BTCPayServer.Abstractions.dll
+  BTCPayServer.Data -> /home/btcpay/src/btcpayserver/BTCPayServer.Data/bin/Release/net6.0/BTCPayServer.Data.dll
+  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/net6.0/BTCPayServer.dll
+  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/publish/
+```
+
+</details>
+
+* Create the data folder and enter it
+
+```bash
+$ mkdir -p ~/.btcpayserver/Main
+```
+
+```bash
+$ cd ~/.btcpayserver/Main
+```
+
+* Create a new config file
+
+```bash
+$ nano settings.config
+```
+
+* Add the complete following lines
+
+```
+# MiniBolt: btcpayserver configuration
+# /home/btcpay/.btcpayserver/Main/settings.config
+
+# Database
+postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
+
+# Explorer
+BTC.explorer.url=http://127.0.0.1:24444
+```
+
+* Go back to the "admin" user
+
+```bash
+$ exit
+```
+
+#### Autostart BTCpay server on boot
+
+* Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
+
+```bash
+$ sudo nano /etc/systemd/system/btcpay.service
+```
+
+<pre><code># MiniBolt: systemd unit for BTCpay server
+# /etc/systemd/system/btcpay.service
+
+<strong>[Unit]
+</strong>Description=BTCPay Server
+Wants=nbxplorer.service
+After=nbxplorer.service
+
+[Service]
+WorkingDirectory=/home/btcpay/src/btcpayserver
+ExecStart=/home/btcpay/src/btcpayserver/run.sh
+User=btcpay
+
+Type=simple
+TimeoutSec=120
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+* Enable autoboot
+
+```bash
+$ sudo systemctl enable btcpay
+```
+
+* Prepare “btcpay” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+
+```bash
+$ sudo journalctl -f -u btcpay
+```
+
+{% hint style="info" %}
+Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
+{% endhint %}
+
+#### Running BTCpay
+
+To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
+
+```bash
+$ sudo systemctl start btcpay
+```
+
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+```
+Jul 05 18:01:08 bbonode run.sh[2810276]: info: Configuration:  Data Directory: /home/btcpay/.btcpayserver/Main
+Jul 05 18:01:08 bbonode run.sh[2810276]: info: Configuration:  Configuration File: /home/btcpay/.btcpayserver/Main/settings.config
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Loading plugins from /home/btcpay/.btcpayserver/Plugins
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer - 1.10.3
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.Shopify - 1.10.3
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.PointOfSale - 1.10.3
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.PayButton - 1.10.3
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.NFC - 1.10.3
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.Crowdfund - 1.10.3
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  Supported chains: BTC
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  BTC: Explorer url is http://127.0.0.1:24444/
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  BTC: Cookie file is /home/btcpay/.nbxplorer/Main/.cookie
+Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  Network: Mainnet
+Jul 05 18:01:13 bbonode run.sh[2810276]: info: Configuration:  Root Path: /
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Checking if any payment arrived on lightning while the server was offline...
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Processing lightning payments...
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Starting listening NBXplorer (BTC)
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Start watching invoices
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Starting payment request expiration watcher
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      0 pending payment requests being checked since last run
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: Configuration:  Now listening on: http://127.0.0.1:23000
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      BTC: Checking if any pending invoice got paid while offline...
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      BTC: 0 payments happened while offline
+Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Connected to WebSocket of NBXplorer (BTC)
+
+```
+
+</details>
