@@ -14,7 +14,7 @@ layout:
 
 # BTCpay server
 
-BTCPay Server is a free and open-source Bitcoin payment processor which allows you to accept bitcoin without fees or intermediaries
+[BTCPay Server](https://github.com/btcpayserver/btcpayserver) is a free and open-source Bitcoin payment processor which allows you to accept bitcoin without fees or intermediaries
 
 {% hint style="danger" %}
 Difficulty: Hard
@@ -29,13 +29,10 @@ Status: Tested MiniBolt
 ## Requisites
 
 * Bitcoin Core
-* LND
 
 ## Preparations
 
 To run the BTCPayServer you will need to install .NET Core SDK, NBXplorer, and PostgreSQL
-
-
 
 ### Create a new btcpay user
 
@@ -242,6 +239,14 @@ $ git clone https://github.com/dgarage/NBXplorer
 $ cd NBXplorer
 ```
 
+* Checkout latest tag
+
+{% code overflow="wrap" %}
+```bash
+$ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1)
+```
+{% endcode %}
+
 * Modify NBXplorer run script
 
 ```bash
@@ -332,6 +337,8 @@ $ cd ~/.nbxplorer/Main
 ```bash
 $ nano settings.config
 ```
+
+#### NBXplorer configuration
 
 * Add the complete next lines
 
@@ -498,6 +505,14 @@ $ git clone https://github.com/btcpayserver/btcpayserver
 $ cd btcpayserver
 ```
 
+* Checkout latest tag
+
+{% code overflow="wrap" %}
+```bash
+$ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1)
+```
+{% endcode %}
+
 * Modify BTCpay server run script
 
 ```bash
@@ -565,6 +580,8 @@ $ mkdir -p ~/.btcpayserver/Main
 $ cd ~/.btcpayserver/Main
 ```
 
+#### BTCpay server configuration
+
 * Create a new config file
 
 ```bash
@@ -577,11 +594,19 @@ $ nano settings.config
 # MiniBolt: btcpayserver configuration
 # /home/btcpay/.btcpayserver/Main/settings.config
 
+### Server settings
+socksendpoint=127.0.0.1:9050
+
+# NBXplorer settings
+BTC.explorer.url=http://127.0.0.1:24444/
+
 # Database
+## BTCpay server
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 
+## NBXplorer
 # Explorer
-BTC.explorer.url=http://127.0.0.1:24444
+explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ```
 
 * Go back to the "admin" user
@@ -692,7 +717,7 @@ Expected output:
 
 You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCpay server with the Tor browser from any device.
 
-* Add the following three lines in the "location-hidden services" section in the `torrc` file. Save and exit
+* With user admin, add the following three lines in the "location-hidden services" section in the `torrc` file. Save and exit
 
 ```bash
 $ sudo nano /etc/tor/torrc
@@ -725,3 +750,93 @@ $ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
 ```
 
 * With the [Tor browser](https://www.torproject.org/),  you can access this onion address from any device
+
+## For the future: BTCpay & NBXplorer server upgrade
+
+Updating to a new release of [BTCpay](https://github.com/btcpayserver/btcpayserver/releases) or [NBXplorer](https://github.com/dgarage/NBXplorer/tags) should be straightforward.
+
+#### Upgrade NBXplorer
+
+* With user admin, stop NBXplorer & BTCpay server
+
+```bash
+$ sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
+```
+
+* Change to the btcpay user
+
+```bash
+$ sudo su - btcpay
+```
+
+* Enter the "src/nbxplorer" folder
+
+```bash
+$ cd src/NBXplorer
+```
+
+* Fetch the latest tag
+
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ git fetch --tags &#x26;&#x26; git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1) &#x26;&#x26; ./build.sh
+</strong></code></pre>
+
+* Build it
+
+```bash
+$ ./build.sh
+```
+
+* Go back to the "admin" user
+
+```bash
+$ exit
+```
+
+* Start NBXplorer & BTCpay server again
+
+```bash
+$ sudo systemctl start nbxplorer && sudo systemctl start btcpay
+```
+
+#### Upgrade BTCpay server
+
+* With user admin, stop BTCpay server
+
+```bash
+$ sudo systemctl stop btcpay
+```
+
+* Change to the btcpay user
+
+```bash
+$ sudo su - btcpay
+```
+
+* Enter the "src/btcpayserver" folder
+
+```bash
+$ cd src/btcpayserver
+```
+
+* Fetch the latest tag
+
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ git fetch --tags &#x26;&#x26; git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1)
+</strong></code></pre>
+
+* Build it
+
+```bash
+$ ./build.sh
+```
+
+* Go back to the "admin" user
+
+```bash
+$ exit
+```
+
+* Start BTCpay server again
+
+```bash
+$ sudo systemctl start btcpay
+```
