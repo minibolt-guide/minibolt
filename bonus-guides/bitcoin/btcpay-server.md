@@ -14,7 +14,7 @@ layout:
 
 # BTCpay server
 
-[BTCPay Server](https://github.com/btcpayserver/btcpayserver) is a free and open-source Bitcoin payment processor which allows you to accept bitcoin without fees or intermediaries
+[BTCPay Server](https://github.com/btcpayserver/btcpayserver) is a free and open-source Bitcoin payment processor which allows you to accept Bitcoin without fees or intermediaries
 
 {% hint style="danger" %}
 Difficulty: Hard
@@ -34,11 +34,58 @@ Status: Tested MiniBolt
 
 To run the BTCPayServer you will need to install .NET Core SDK, NBXplorer, and PostgreSQL
 
+### **Reverse proxy & Firewall**
+
+In the security [section](../../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
+
+* With user `admin`, enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTCpay server. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
+
+```bash
+$ sudo nano /etc/nginx/sites-enabled/btcpay-reverse-proxy.conf
+```
+
+```
+server {
+  listen 23001 ssl;
+  error_page 497 =301 https://$host:$server_port$request_uri;
+  location / {
+    proxy_pass http://127.0.0.1:23000;
+  }
+}
+```
+
+* Test and reload Nginx configuration
+
+```bash
+$ sudo nginx -t
+```
+
+```bash
+$ sudo systemctl reload nginx
+```
+
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+```
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+</details>
+
+* Configure the firewall to allow incoming HTTPS requests
+
+```bash
+$ sudo ufw allow 23001/tcp comment 'allow BTCpay SSL from anywhere'
+```
+
 ### Create a new btcpay user
 
 We do not want to run BTCPay Server and other related services alongside other services due to security reasons. Therefore, we will create a separate user and run the code under the new user's account.
 
-* Create a new user called "btcpay". We will need this user later
+* With user `admin`, create a new user called "btcpay". We will need this user later
 
 ```bash
 $ sudo adduser --disabled-password --gecos "" btcpay
@@ -165,7 +212,7 @@ $ psql -V
 
 ### Create a PostgreSQL database for NBXplorer
 
-* Change to the automatically created user for the PostgreSQL installation called "postgres"
+* With user `admin`, change to the automatically created user for the PostgreSQL installation called "postgres"
 
 ```bash
 $ sudo su - postgres
@@ -213,7 +260,7 @@ $ exit
 
 [NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, exploited by BTCPay Server
 
-* Switch to the btcpay user
+* With user `admin`, switch to the btcpay user
 
 ```bash
 $ sudo su - btcpay
@@ -346,10 +393,10 @@ $ nano settings.config
 # MiniBolt: nbxplorer configuration
 # /home/btcpay/.nbxplorer/Main/settings.config
 
-## Bitcoind connection
+# Bitcoind connection
 btc.rpc.cookiefile=/home/bitcoin/.bitcoin/.cookie
 
-## Database
+# Database
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ```
 
@@ -412,7 +459,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
-* Start the service
+* With user `admin`, start the nbxplorer service
 
 ```bash
 $ sudo systemctl start nbxplorer
@@ -467,7 +514,7 @@ Jul 05 17:50:23 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: New block 
 
 </details>
 
-* Ensure NBXplorer is running on the default port `24444`
+* Ensure NBXplorer is running and listening on the default port `24444`
 
 ```bash
 $ sudo ss -tulpn | grep LISTEN | grep NBXplorer
@@ -485,7 +532,7 @@ You have NBxplorer running and prepared for BTCpay server to use it
 
 ### Install BTCpay server
 
-* Switch to the btcpay user and go to the src folder
+* Switch to the btcpay user and go to the `src` folder
 
 ```bash
 $ sudo su - btcpay
@@ -495,7 +542,7 @@ $ sudo su - btcpay
 $ cd src
 ```
 
-* Clone BTCpay server official GitHub repository and go to the "btcpayserver" folder
+* Clone the BTCpay server official GitHub repository and go to the "`btcpayserver`" folder
 
 ```bash
 $ git clone https://github.com/btcpayserver/btcpayserver
@@ -570,7 +617,7 @@ MSBuild version 17.3.2+561848881 for .NET
 
 </details>
 
-* Create the data folder and enter it
+* Create the data folder and enter on it
 
 ```bash
 $ mkdir -p ~/.btcpayserver/Main
@@ -594,7 +641,7 @@ $ nano settings.config
 # MiniBolt: btcpayserver configuration
 # /home/btcpay/.btcpayserver/Main/settings.config
 
-### Server settings
+# Server settings
 socksendpoint=127.0.0.1:9050
 
 # NBXplorer settings
@@ -605,7 +652,6 @@ BTC.explorer.url=http://127.0.0.1:24444/
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 
 ## NBXplorer
-# Explorer
 explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ```
 
@@ -701,7 +747,7 @@ Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Connected to WebS
 
 </details>
 
-* Ensure BTCpay server is running on the default port `23000`
+* Ensure BTCpay server is running and listening on the default port `23000`
 
 ```bash
 $ sudo ss -tulpn | grep LISTEN | grep 23000
@@ -712,6 +758,18 @@ Expected output:
 ```
 > tcp   LISTEN 0      512        127.0.0.1:23000      0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
 ```
+
+Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:23001"` (or your node IP address) like `"https://192.168.0.20:23001"`.
+
+Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the BTCpay server web interface. On the login page, you should see the registration process.
+
+{% hint style="info" %}
+You can now create the first account to access the dashboard using a real (recommended) or a dummy email and password
+{% endhint %}
+
+{% hint style="success" %}
+**Congratulations!** You now have the amazing BTCpay server payment processor running
+{% endhint %}
 
 ## Remote access over Tor
 
@@ -740,7 +798,7 @@ $ sudo systemctl reload tor
 * Get your connection address
 
 ```bash
-$ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
+$ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 ```
 
 **Example** of expected output:
@@ -769,7 +827,7 @@ $ sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
 $ sudo su - btcpay
 ```
 
-* Enter the "src/nbxplorer" folder
+* Enter the `src/nbxplorer` folder
 
 ```bash
 $ cd src/NBXplorer
@@ -792,7 +850,7 @@ $ ./build.sh
 $ exit
 ```
 
-* Start NBXplorer & BTCpay server again
+* Start the NBXplorer & BTCpay server again. Monitor logs with `$ sudo journalctl -f -u nbxplorer` to ensure that all is running well
 
 ```bash
 $ sudo systemctl start nbxplorer && sudo systemctl start btcpay
@@ -812,7 +870,7 @@ $ sudo systemctl stop btcpay
 $ sudo su - btcpay
 ```
 
-* Enter the "src/btcpayserver" folder
+* Enter the `src/btcpayserver` folder
 
 ```bash
 $ cd src/btcpayserver
@@ -835,7 +893,7 @@ $ ./build.sh
 $ exit
 ```
 
-* Start BTCpay server again
+* Start the BTCpay server again. Monitor logs with `$ sudo journalctl -f -u btcpay` to ensure that all is running well
 
 ```bash
 $ sudo systemctl start btcpay
