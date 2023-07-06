@@ -35,7 +35,7 @@ Node.js package includes NPM, follow the [Node.js + NPM bonus guide](../bonus/sy
 
 ### **Reverse proxy & Firewall**
 
-In the security[ section](broken-reference/), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
+In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
 
 *   Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 

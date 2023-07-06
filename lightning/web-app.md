@@ -57,7 +57,9 @@ If the version is v14.15 or above, you can move to the next section. If Node.js 
 
 ### **Reverse proxy & Firewall**
 
-*   Enable NGINX reverse proxy to route external encrypted HTTPS traffic internally to Thunderhub
+In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
+
+*   Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
     ```sh
     $ sudo nano /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
@@ -79,7 +81,16 @@ If the version is v14.15 or above, you can move to the next section. If Node.js 
     $ sudo nginx -t
     ```
 
-Expected output:
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+```
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+</details>
 
 ```
 > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -174,20 +185,24 @@ Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 $ npm install
 ```
 
-Expected output:
+<details>
 
-{% code overflow="wrap" %}
+<summary>Expected output ⬇️</summary>
+
 ```
 npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws
 [...]
 ```
-{% endcode %}
+
+</details>
 
 ```sh
 $ npm run build
 ```
 
-Expected output:
+<details>
+
+<summary>Expected output ⬇️</summary>
 
 ```
   [...]
@@ -209,9 +224,11 @@ Expected output:
   λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ```
 
+</details>
+
 ### **Configuration**
 
-*   Still with user "thunderhub", create a symbolic link pointing to your lnd data directory.
+*   Still with user "thunderhub", create a symbolic link pointing to your lnd data directory
 
     ```sh
     $ ln -s /data/lnd /home/thunderhub/.lnd
@@ -229,22 +246,26 @@ Expected output:
     ```sh
     $ nano .env.local
     ```
-*   Edit the following lines, save and exit:
+*   Add or edit the following lines, save and exit
 
     ```
     # -----------
     # Server Configs
     # -----------
-    TOR_PROXY_SERVER=socks://127.0.0.1:9050
     NODE_ENV=production
     PORT=3010
+
+    # -----------
+    # Optional (more privacy)
+    TOR_PROXY_SERVER=socks://127.0.0.1:9050
+    # -----------
 
     # -----------
     # Account Configs
     # -----------
     ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
     ```
-* If not already done, change your directory and edit your `thubConfig.yaml`.
+* Change the directory and edit your `thubConfig.yaml`
 
 ```sh
 $ cd ~/thunderhub
@@ -278,7 +299,7 @@ Replace the `[E] ThunderHub password` to your one
 
 Now we'll make sure ThunderHub starts as a service on the PC so it's always running. In order to do that we create a systemd unit that starts the service on boot directly after LND.
 
-*   As user "admin", create the service file.
+*   As user "admin", create the service file
 
     ```sh
     $ sudo nano /etc/systemd/system/thunderhub.service
@@ -430,7 +451,7 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 
 </details>
 
-* Now point your browser to `https://minibolt.local:4002` (or whatever you chose as the hostname) or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub.
+* Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
 
 {% hint style="info" %}
 Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface.
@@ -444,7 +465,7 @@ Your browser will display a warning because we use a self-signed SSL certificate
 
 Do you want to access ThunderHub remotely? You can easily do so by adding a Tor hidden service on the RaspiBolt and accessing ThunderHub with the Tor browser from any device.
 
-*   Add the following three lines in the section for "location-hidden services" in the `torrc` file. Save and exit.
+*   Add the following three lines in the section for "location-hidden services" in the `torrc` file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -473,13 +494,13 @@ Expected output:
 > abcdefg..............xyz.onion
 ```
 
-* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device.
+* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
 ## Upgrade
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
 
-*   From user "admin", stop the service and open a "thunderhub" user session.
+*   From user "admin", stop the service and open a "thunderhub" user session
 
     ```sh
     $ sudo systemctl stop thunderhub
@@ -537,7 +558,7 @@ Expected output:
 
 ```
 > [...]
-> [X] 4002      ALLOW IN    Anywhere           # allow ThunderHub SSL from anywhere
+> [X] 4002  ALLOW IN    Anywhere  # allow ThunderHub SSL from anywhere
 ```
 
 *   Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
