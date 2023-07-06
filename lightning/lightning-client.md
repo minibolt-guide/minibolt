@@ -331,8 +331,9 @@ For this initial setup, we choose the easy route: we store the password in a fil
     # Uncomment to do DB compact at every LND reboot (default: 168h)
     #db.bolt.auto-compact-min-age=0h
 
-    [Bitcoind]
-    bitcoind.estimatemode=ECONOMICAL
+    # Optional (uncomment the next 2 lines)
+    #[Bitcoind]
+    #bitcoind.estimatemode=ECONOMICAL
 
     [Bitcoin]
     bitcoin.active=true
