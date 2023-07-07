@@ -43,7 +43,7 @@
   * [Login with SSH keys](bonus/system/ssh-keys.md)
   * [Trezor Agent](bonus/system/trezor-agent.md)
   * [WireGuard: a simple yet fast VPN](bonus/system/wireguard-vpn.md)
-  * [Cloudflare Tunnel client](bonus-guides/system/cloudflare-tunnel-client.md)
+  * [Cloudflare Tunnel](bonus-guides/system/cloudflare-tunnel.md)
   * [Configure NUT to safely shutdown your node](bonus/system/ups-nut.md)
   * [Tor Bridge](bonus/system/tor-bridge.md)
   * [NYM mixnet](bonus-guides/system/nym-mixnet.md)
