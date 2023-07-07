@@ -39,7 +39,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Preparations
 
-To run the BTCPay Server you will need to install .NET Core SDK,  PostgreSQL, and NBXplorer
+To run the BTCPay Server you will need to install .NET Core SDK, PostgreSQL, and NBXplorer
 
 ### **Reverse proxy & Firewall**
 
@@ -104,7 +104,7 @@ $ sudo adduser --disabled-password --gecos "" btcpay
 $ sudo adduser btcpay bitcoin
 ```
 
-### Install  .NET Core SDK
+### Install .NET Core SDK
 
 * With user `admin`, change to the user btcpay
 
@@ -325,10 +325,11 @@ $ nano build.sh
 
 * Comment the existing line and add the next line below. Save and exit
 
-<pre><code>#dotnet build -c Release NBXplorer/NBXplorer.csproj
-<strong>
-</strong>/home/btcpay/.dotnet/dotnet build -c Release NBXplorer/NBXplorer.csproj
-</code></pre>
+```
+#dotnet build -c Release NBXplorer/NBXplorer.csproj
+
+/home/btcpay/.dotnet/dotnet build -c Release NBXplorer/NBXplorer.csproj
+```
 
 * Build NBXplorer
 
@@ -659,7 +660,7 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 ```
 
 {% hint style="info" %}
-If you want to connect your Lightning LND node to BTCpay too, go to the [Connect to your LND local node](btcpay-server.md#connect-to-your-lnd-local-node) optional section
+If you want to connect your Lightning LND node to BTCpay too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
 {% endhint %}
 
 * Go back to the `admin` user
@@ -816,9 +817,9 @@ $ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 > abcdefg..............xyz.onion
 ```
 
-* With the [Tor browser](https://www.torproject.org/),  you can access this onion address from any device
+* With the [Tor browser](https://www.torproject.org/), you can access this onion address from any device
 
-### Connect to your LND local node
+### Connect to your LND internal node
 
 * With user `admin`, change to the `lnd` user
 
@@ -858,7 +859,7 @@ Take note of your Fingerprint
 $ exit
 ```
 
-* With user admin, copy-paste the `admin.macaroon` file to the `btcpay`  home folder
+* With user admin, copy-paste the `admin.macaroon` file to the `btcpay` home folder
 
 {% code overflow="wrap" %}
 ```bash
@@ -896,7 +897,7 @@ $ cd ~/.btcpayserver/Main
 $ nano settings.config
 ```
 
-* Add the next content to the end of the file, replacing `<fingerprint>` with your content obtained before. Save and exit
+* Add the next content to the end of the file, replacing `<fingerprint>` with your own obtained earlier. Save and exit
 
 ```
 # Lightning
@@ -1089,7 +1090,7 @@ $ sudo systemctl reload tor
 
 #### Delete btcpay user
 
-* Ensure you are logged in with user "`admin`". Delete the btcpay user. \
+* Ensure you are logged in with user "`admin`". Delete the btcpay user.\
   Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash

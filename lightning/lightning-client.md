@@ -586,7 +586,7 @@ Expected output:
 
 ### **Watchtower server (optional)**
 
-Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. This was previously activated in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
+Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
 ```sh
 $ lncli tower info
@@ -613,7 +613,7 @@ This watchtower server service is not recommended to activate if you have a slow
 
 > Note
 >
-> Almost all of the following steps could be run with the [mobile](mobile-app.md)/[web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line.
+> Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line.
 
 ### **Funding your Lightning node**
 

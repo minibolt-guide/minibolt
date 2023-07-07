@@ -198,6 +198,10 @@ bitcoin.testnet=true
     $ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
     ```
 
+{% hint style="info" %}
+When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with LND testnet, same with LND mainnet peer suggested to open the channel and send a payment
+{% endhint %}
+
 **Interacting with the LND daemon**
 
 *   Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag
@@ -211,7 +215,7 @@ Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/m
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the **Lightning Clien**t guide is exactly the same as the mainnet mode.
+The rest of the **Lightning Clien**t guide is exactly the same as the mainnet mode
 {% endhint %}
 
 ### [**Channel backup**](../../lightning/channel-backup.md)
@@ -270,7 +274,7 @@ The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode
 
 {% code overflow="wrap" %}
 ```bash
-$ --bitcoin.testnet --adminmacaroonpath=/home/satoshi/.lnd/data/chain/bitcoin/testnet/admin.macaroon
+$ --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon
 ```
 {% endcode %}
 
@@ -278,7 +282,7 @@ For example, to generate a QR code for a Wireguard VPN connection, enter this co
 
 {% code overflow="wrap" %}
 ```sh
-$ lndconnect --host=10.0.0.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/satoshi/.lnd/data/chain/bitcoin/testnet/admin.macaroon
+$ lndconnect --host=10.0.0.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon
 ```
 {% endcode %}
 
