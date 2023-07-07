@@ -106,7 +106,7 @@ $ sudo adduser btcpay bitcoin
 
 ### Install  .NET Core SDK
 
-* With user admin, change to the user btcpay
+* With user `admin`, change to the user btcpay
 
 ```bash
 $ sudo su - btcpay
@@ -170,7 +170,7 @@ $ exit
 
 ### Install PostgreSQL
 
-* With user "admin", create the file repository configuration
+* With user `admin`, create the file repository configuration
 
 {% code overflow="wrap" %}
 ```bash
@@ -219,7 +219,7 @@ $ psql -V
 
 ### Create a PostgreSQL database for NBXplorer
 
-* With user `admin`, change to the automatically created user for the PostgreSQL installation called "postgres"
+* With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
 
 ```bash
 $ sudo su - postgres
@@ -255,7 +255,7 @@ $ createdb -O admin btcpayserver
 $ createdb -O admin nbxplorer
 ```
 
-* Go back to the "admin" user
+* Go back to the `admin` user
 
 ```bash
 $ exit
@@ -267,7 +267,7 @@ $ exit
 
 [NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, exploited by BTCPay Server
 
-* With user `admin`, switch to the btcpay user
+* With user `admin`, switch to the `btcpay` user
 
 ```bash
 $ sudo su - btcpay
@@ -307,7 +307,7 @@ $ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)'
 $ nano run.sh
 ```
 
-* Comment the existing line and add the next line bellow. Save and exit
+* Comment the existing line and add the next line below. Save and exit
 
 {% code overflow="wrap" %}
 ```
@@ -407,7 +407,7 @@ btc.rpc.cookiefile=/home/bitcoin/.bitcoin/.cookie
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ```
 
-* Go back to the "admin" user
+* Go back to the `admin` user
 
 ```bash
 $ exit
@@ -452,7 +452,7 @@ WantedBy=multi-user.target
 $ sudo systemctl enable nbxplorer
 ```
 
-* Prepare “nbxplorer” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare “`nbxplorer`” monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
 $ sudo journalctl -f -u nbxplorer
@@ -466,7 +466,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
-* With user `admin`, start the nbxplorer service
+* With user `admin`, start the `nbxplorer` service
 
 ```bash
 $ sudo systemctl start nbxplorer
@@ -534,12 +534,12 @@ tcp   LISTEN 0      512        127.0.0.1:24444      0.0.0.0:*    users:(("NBXplo
 ```
 
 {% hint style="success" %}
-You have NBxplorer running and prepared for BTCpay server to use it
+You have NBxplorer running and prepared for the BTCpay server to use it
 {% endhint %}
 
 ### Install BTCpay server
 
-* Switch to the btcpay user and go to the `src` folder
+* Switch to the `btcpay` user and go to the `src` folder
 
 ```bash
 $ sudo su - btcpay
@@ -651,11 +651,9 @@ $ nano settings.config
 # Server settings
 socksendpoint=127.0.0.1:9050
 
-# NBXplorer settings
-BTC.explorer.url=http://127.0.0.1:24444/
-explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
-
 # Database
+## NBXplorer
+explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ## BTCpay server
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 ```
@@ -664,7 +662,7 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 If you want to connect your Lightning LND node to BTCpay too, go to the [Connect to your LND local node](btcpay-server.md#connect-to-your-lnd-local-node) optional section
 {% endhint %}
 
-* Go back to the "admin" user
+* Go back to the `admin` user
 
 ```bash
 $ exit
@@ -704,7 +702,7 @@ WantedBy=multi-user.target
 $ sudo systemctl enable btcpay
 ```
 
-* Prepare “btcpay” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare “`btcpay`” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
 $ sudo journalctl -f -u btcpay
@@ -716,7 +714,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 #### Running BTCpay
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
+To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "`admin`". Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
 ```bash
 $ sudo systemctl start btcpay
@@ -773,7 +771,7 @@ Now point your browser to the secure access point provided by the NGINX web prox
 Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the BTCpay server web interface. On the login page, you should see the registration process.
 
 {% hint style="info" %}
-You can now create the first account to access the dashboard using a real (recommended) or a dummy email and password
+You can now create the first account to access the dashboard using a real (recommended) or a dummy email, and password
 {% endhint %}
 
 {% hint style="success" %}
@@ -822,7 +820,7 @@ $ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 
 ### Connect to your LND local node
 
-* With user admin, change to the `lnd` user
+* With user `admin`, change to the `lnd` user
 
 ```bash
 $ sudo su - lnd
@@ -850,7 +848,7 @@ $ openssl x509 -noout -fingerprint -sha256 -inform pem -in tls.cert
 Take note of your Fingerprint
 {% endhint %}
 
-> **Example:**&#x20;
+> **Example:**
 >
 > `<fingerprint> = 1D:8D:CC:44:A5:56:DF:D6:B8:26:CC:D2:EE:2E:4C:AE:5F:89:F2:FC:E4:0A:CC:32:E5:04:19:BA:10:CA:8D:98`
 
@@ -886,7 +884,7 @@ $ sudo systemctl stop btcpay
 $ sudo su - btcpay
 ```
 
-* Go to the .btcpayserver folder
+* Go to the `.btcpayserver` folder
 
 ```bash
 $ cd ~/.btcpayserver/Main
@@ -923,13 +921,13 @@ Updating to a new release of [BTCpay](https://github.com/btcpayserver/btcpayserv
 
 #### Upgrade NBXplorer
 
-* With user admin, stop NBXplorer & BTCpay server
+* With user `admin`, stop NBXplorer & BTCpay server
 
 ```bash
 $ sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
 ```
 
-* Change to the btcpay user
+* Change to the `btcpay` user
 
 ```bash
 $ sudo su - btcpay
@@ -952,7 +950,7 @@ $ cd src/NBXplorer
 $ ./build.sh
 ```
 
-* Go back to the "admin" user
+* Go back to the "`admin`" user
 
 ```bash
 $ exit
@@ -966,13 +964,13 @@ $ sudo systemctl start nbxplorer && sudo systemctl start btcpay
 
 #### Upgrade BTCpay server
 
-* With user admin, stop BTCpay server
+* With user `admin`, stop BTCpay server
 
 ```bash
 $ sudo systemctl stop btcpay
 ```
 
-* Change to the btcpay user
+* Change to the `btcpay` user
 
 ```bash
 $ sudo su - btcpay
@@ -995,7 +993,7 @@ $ cd src/btcpayserver
 $ ./build.sh
 ```
 
-* Go back to the "admin" user
+* Go back to the "`admin`" user
 
 ```bash
 $ exit
@@ -1011,7 +1009,7 @@ $ sudo systemctl start btcpay
 
 #### Uninstall services
 
-* Ensure you are logged in with user "admin", stop btcpay and nbxplorer services
+* Ensure you are logged in with user `admin`, stop btcpay and nbxplorer services
 
 ```bash
 $ sudo systemctl stop btcpay
@@ -1033,7 +1031,7 @@ $ sudo rm /etc/systemd/system/nbxplorer.service
 
 #### Uninstall Firewall **configuration** & Reverse proxy
 
-* Ensure you are logged in with user "admin", display the UFW firewall rules, and note the numbers of the rules for BTCpay (e.g., X and Y below)
+* Ensure you are logged in with user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCpay (e.g., X and Y below)
 
 ```bash
 $ sudo ufw status numbered
@@ -1045,7 +1043,7 @@ Expected output:
 > [Y] 23001       ALLOW IN    Anywhere          # allow BTCpay SSL from anywhere
 ```
 
-* Delete the rule with the correct number and confirm with "yes"
+* Delete the rule with the correct number and confirm with "`yes`"
 
 ```bash
 $ sudo ufw delete X
@@ -1069,7 +1067,7 @@ $ sudo systemctl reload nginx
 
 **Uninstall Tor hidden service**
 
-* Ensure you are logged in with user "admin", comment or remove btcpay hidden service in the torrc. Save and exit
+* Ensure you are logged in with user "`admin`", comment or remove btcpay hidden service in the torrc. Save and exit
 
 ```bash
 $ sudo nano /etc/tor/torrc
@@ -1091,7 +1089,7 @@ $ sudo systemctl reload tor
 
 #### Delete btcpay user
 
-* Ensure you are logged in with user "admin". Delete the btcpay user. \
+* Ensure you are logged in with user "`admin`". Delete the btcpay user. \
   Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash
