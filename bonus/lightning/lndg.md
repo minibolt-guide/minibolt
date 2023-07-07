@@ -593,7 +593,7 @@ LNDg uses a Python script (`~/lndg/htlc_stream.py`) to keep a log of failed HTLC
     > [...]
     ```
 
-***
+
 
 ## Dashboard privacy configuration
 
