@@ -42,6 +42,7 @@ layout:
 * [**SSH Keys**](ssh-keys.md) - a safe way to SSH authentification in your system
 * [**Hardware-based (Trezor) SSH authentification**](trezor-agent.md) - a safer way to SSH to your device using your hardware wallet
 * [**WireGuard VPN**](wireguard-vpn.md) - set up a WireGuard Virtual Private Network to securely log into your node remotely
+* Cloudflare Tunnel client - provides you with a secure way to connect your resources to Cloudflare without a publicly routable IP address
 
 ### Resilience
 
