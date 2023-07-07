@@ -14,7 +14,7 @@ layout:
 
 # BTCpay server
 
-[BTCPay Server](https://github.com/btcpayserver/btcpayserver) is a free and open-source Bitcoin payment processor which allows you to accept Bitcoin without fees or intermediaries
+[BTCPay Server](https://github.com/btcpayserver/btcpayserver) is a free, open-source, and self-hosted Bitcoin payment gateway, which means developers and security auditors can always inspect the code for quality. It enables individuals and businesses to accept Bitcoin payments online or in person without any fees, offering self-sovereignty in the process.
 
 {% hint style="danger" %}
 Difficulty: Hard
@@ -26,17 +26,24 @@ Status: Tested MiniBolt
 
 <figure><img src="../../.gitbook/assets/btc-pay-banner.png" alt=""><figcaption></figcaption></figure>
 
+[BTCPay Server](https://btcpayserver.org/) is a self-hosted and automated invoicing system. At checkout, a customer is presented with an invoice that they pay from their wallet. BTCPay Server follows the status of the invoice through the blockchain and informs you when the payment has been settled so that you can fulfill the order. It also takes care of payment refunding and bitcoin management alongside plenty of other features.
+
+{% hint style="info" %}
+More information can be found in its [documentation](https://docs.btcpayserver.org/), and stay tuned for news on its [blog](https://blog.btcpayserver.org/)
+{% endhint %}
+
 ## Requisites
 
 * Bitcoin Core
+* LND (optional)
 
 ## Preparations
 
-To run the BTCPayServer you will need to install .NET Core SDK, NBXplorer, and PostgreSQL
+To run the BTCPayServer you will need to install .NET Core SDK,  PostgreSQL, and NBXplorer
 
 ### **Reverse proxy & Firewall**
 
-In the security [section](../../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
+In the security [section](../../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTCpay server configuration.
 
 * With user `admin`, enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTCpay server. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
@@ -617,7 +624,7 @@ MSBuild version 17.3.2+561848881 for .NET
 
 </details>
 
-* Create the data folder and enter on it
+* Create the data folder and enter it
 
 ```bash
 $ mkdir -p ~/.btcpayserver/Main
@@ -646,14 +653,16 @@ socksendpoint=127.0.0.1:9050
 
 # NBXplorer settings
 BTC.explorer.url=http://127.0.0.1:24444/
+explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 
 # Database
 ## BTCpay server
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
-
-## NBXplorer
-explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ```
+
+{% hint style="info" %}
+If you want to connect your Lightning LND node to BTCpay too, go to the [Connect to your LND local node](btcpay-server.md#connect-to-your-lnd-local-node) optional section
+{% endhint %}
 
 * Go back to the "admin" user
 
@@ -771,7 +780,9 @@ You can now create the first account to access the dashboard using a real (recom
 **Congratulations!** You now have the amazing BTCpay server payment processor running
 {% endhint %}
 
-## Remote access over Tor
+## Extras (optional)
+
+### Remote access over Tor
 
 You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCpay server with the Tor browser from any device.
 
@@ -808,6 +819,103 @@ $ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 ```
 
 * With the [Tor browser](https://www.torproject.org/),  you can access this onion address from any device
+
+### Connect to your LND local node
+
+* With user admin, change to the `lnd` user
+
+```bash
+$ sudo su - lnd
+```
+
+* Go to the `lnd` folder
+
+```bash
+$ cd /data/lnd
+```
+
+* Get the LND's certificate fingerprint
+
+```bash
+$ openssl x509 -noout -fingerprint -sha256 -inform pem -in tls.cert
+```
+
+**Example** of expected output:
+
+```
+> sha256 Fingerprint=1D:8D:CC:44:A5:56:DF:D6:B8:26:CC:D2:EE:2E:4C:AE:5F:89:F2:FC:E4:0A:CC:32:E5:04:19:BA:10:CA:8D:98
+```
+
+{% hint style="warning" %}
+Take note of your Fingerprint
+{% endhint %}
+
+> **Example:**&#x20;
+>
+> `<fingerprint> = 1D:8D:CC:44:A5:56:DF:D6:B8:26:CC:D2:EE:2E:4C:AE:5F:89:F2:FC:E4:0A:CC:32:E5:04:19:BA:10:CA:8D:98`
+
+* Go back to the admin user
+
+```bash
+$ exit
+```
+
+* With user admin, copy-paste the `admin.macaroon` file to the `btcpay`  home folder
+
+{% code overflow="wrap" %}
+```bash
+$ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/btcpay/admin.macaroon
+```
+{% endcode %}
+
+* Change the owner to the `btcpay` user
+
+```bash
+$ sudo chown btcpay:btcpay /home/btcpay/admin.macaroon
+```
+
+* Stop BTCpay
+
+```bash
+$ sudo systemctl stop btcpay
+```
+
+* Change to the `btcpay` user
+
+```bash
+$ sudo su - btcpay
+```
+
+* Go to the .btcpayserver folder
+
+```bash
+$ cd ~/.btcpayserver/Main
+```
+
+* Edit the `settings.config` file
+
+```bash
+$ nano settings.config
+```
+
+* Add the next content to the end of the file, replacing `<fingerprint>` with your content obtained before. Save and exit
+
+```
+# Lightning
+BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/home/btcpay/admin.macaroon;certthumbprint=<fingerprint>
+```
+
+* Go back to the `admin` user
+
+```bash
+$ exit
+```
+
+* Start BTCpay again. Monitor logs with `$ sudo journalctl -f -u btcpay` to ensure that all is running well
+
+```bash
+$ sudo systemctl start btcpay
+```
 
 ## For the future: BTCpay & NBXplorer server upgrade
 
@@ -897,4 +1005,95 @@ $ exit
 
 ```bash
 $ sudo systemctl start btcpay
+```
+
+## Uninstall
+
+#### Uninstall services
+
+* Ensure you are logged in with user "admin", stop btcpay and nbxplorer services
+
+```bash
+$ sudo systemctl stop btcpay
+```
+
+```
+$ sudo systemctl stop nbxplorer
+```
+
+* Delete btcpay and nbxplorer services
+
+```bash
+$ sudo rm /etc/systemd/system/btcpay.service
+```
+
+```bash
+$ sudo rm /etc/systemd/system/nbxplorer.service
+```
+
+#### Uninstall Firewall **configuration** & Reverse proxy
+
+* Ensure you are logged in with user "admin", display the UFW firewall rules, and note the numbers of the rules for BTCpay (e.g., X and Y below)
+
+```bash
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 23001       ALLOW IN    Anywhere          # allow BTCpay SSL from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "yes"
+
+```bash
+$ sudo ufw delete X
+```
+
+* Delete the BTCpay Nginx reverse proxy configuration
+
+```bash
+$ sudo rm /etc/nginx/sites-enabled/btcpay-reverse-proxy.conf
+```
+
+* Test and reload Nginx configuration
+
+```bash
+$ sudo nginx -t
+```
+
+```bash
+$ sudo systemctl reload nginx
+```
+
+**Uninstall Tor hidden service**
+
+* Ensure you are logged in with user "admin", comment or remove btcpay hidden service in the torrc. Save and exit
+
+```bash
+$ sudo nano /etc/tor/torrc
+```
+
+```
+############### This section is just for location-hidden services ###
+# Hidden Service BTCPay
+#HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
+#HiddenServiceVersion 3
+#HiddenServicePort 80 127.0.0.1:23000
+```
+
+* Reload the torrc config
+
+```bash
+$ sudo systemctl reload tor
+```
+
+#### Delete btcpay user
+
+* Ensure you are logged in with user "admin". Delete the btcpay user. \
+  Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
+
+```bash
+$ sudo userdel -rf btcpay
 ```
