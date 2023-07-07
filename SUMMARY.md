@@ -59,7 +59,7 @@
   * [Ordisrespector spam filter](bonus/bitcoin/ordisrespector.md)
   * [Download the bitcoin whitepaper directly from your own blockchain](bonus/bitcoin/white-paper.md)
   * [MiniBolt on Testnet](bonus/bitcoin/minibolt-on-testnet.md)
-  * [BTCpay server](bonus-guides/bitcoin/btcpay-server.md)
+  * [BTCPay Server](bonus-guides/bitcoin/btcpay-server.md)
 * [Lightning](bonus/lightning/README.md)
   * [Core Lightning](bonus/lightning/cln.md)
   * [Use lncli on a different computer](bonus/lightning/remote-lncli.md)
