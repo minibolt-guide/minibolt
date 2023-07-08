@@ -462,7 +462,7 @@ You can get more information about the complete documentation [here](https://nym
 
 Follow again the entire [**Compile NYM binaries from the source code**](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below
 
-* Stop the network requester and the socks5 client
+* With user `admin`, stop the network requester and the socks5 client
 
 ```bash
 $ sudo systemctl stop nym-network-requester
@@ -596,7 +596,7 @@ $ sudo rm -r /tmp/nym
 
 ## Uninstall
 
-* Stop network requester and socks5 client services
+* With user `admin`, stop network requester and socks5 client services
 
 ```bash
 $ sudo systemctl stop nym-network-requester
@@ -626,7 +626,7 @@ $ sudo userdel -rf nym
 
 So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. By doing this, we can reduce the volume of traffic on the Tor network.
 
-* With user admin, modify the following line. Save and exit
+* With user `admin`, modify the following line. Save and exit
 
 ```bash
 $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -860,7 +860,7 @@ Download [here](https://nymtech.net/nyms5-arm64-v8a-debug.apk) or in the future,
 You could use NYM proxy with the Telegram app for example ⬇️
 {% endhint %}
 
-Scan [this **QR code**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fdgm2BbSsYdaTVDCk9Tde%2Fuploads%2FtMxUa6RB6JGOvLsg4rR0%2Ftg-app-nym-proxy-qr.jpg?alt=media\&token=653cdc12-2144-4dd5-8d76-1fccfc97265c)**,** click on **"Connect proxy"** or manually, go to **Settings** --> **Data and Storage** --> **Proxy Settings -->** switch **"Use proxy"**
+Scan [**this QR code**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fdgm2BbSsYdaTVDCk9Tde%2Fuploads%2FtMxUa6RB6JGOvLsg4rR0%2Ftg-app-nym-proxy-qr.jpg?alt=media\&token=653cdc12-2144-4dd5-8d76-1fccfc97265c)**,** click on **"Connect proxy"** or manually, go to **Settings** --> **Data and Storage** --> **Proxy Settings -->** switch **"Use proxy"**
 
 > > Keep selected **"SOCKS5 proxy"**
 >
@@ -912,7 +912,7 @@ If you encounter any issues, it is possible that they are related to the gateway
 
 **Case NYM network requester issues:**
 
-* With user admin, stop the network requester
+* With user `admin`, stop the network requester
 
 ```bash
 $ sudo systemctl stop nym-network-requester
@@ -931,7 +931,7 @@ $ rm -r /home/nym/.nym/service-providers/network-requester/bitcoin
 ```
 
 * Init again the network requester by following the [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section. Choose again latency based selection or manual selection
-* Exit nym user session to go back to the admin user
+* Exit the nym user session to go back to the admin user
 
 ```bash
 $ exit
@@ -945,7 +945,7 @@ $ sudo systemctl start nym-network-requester
 
 **Case NYM socks5 client issues:**
 
-* With user admin, stop the socks5 client
+* With user `admin`, stop the socks5 client
 
 ```bash
 $ sudo systemctl stop nym-socks5-client
@@ -964,7 +964,7 @@ $ rm -r /home/nym/.nym/socks5-clients/bitcoin
 ```
 
 * Init again the socks5 client by following the [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section. Choose again latency based selection or manual selection
-* Exit nym user session to go back to the admin user
+* Exit the `nym` user session to go back to the admin user
 
 ```bash
 $ exit

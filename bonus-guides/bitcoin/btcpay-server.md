@@ -88,11 +88,25 @@ $ sudo systemctl reload nginx
 $ sudo ufw allow 23001/tcp comment 'allow BTCpay SSL from anywhere'
 ```
 
+### **Configure Bitcoin Core**
+
+We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
+
+* With user `admin`, in `bitcoin.conf`, add the following line in the `"# Connections"` section. Save and exit
+
+```bash
+$ sudo nano /data/bitcoin/bitcoin.conf
+```
+
+<pre><code><strong># NBXplorer dependency
+</strong><strong>whitelist=127.0.0.1
+</strong></code></pre>
+
 ### Create a new btcpay user
 
 We do not want to run BTCPay Server and other related services alongside other services due to security reasons. Therefore, we will create a separate user and run the code under the new user's account.
 
-* With user `admin`, create a new user called "btcpay". We will need this user later
+* With user `admin`, create a new user called "`btcpay`". We will need this user later
 
 ```bash
 $ sudo adduser --disabled-password --gecos "" btcpay

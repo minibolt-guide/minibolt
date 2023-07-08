@@ -64,7 +64,7 @@ We'll download, verify and install LND.
 *   Set a temporary version environment variable to the installation
 
     ```sh
-    $ VERSION=0.16.3
+    $ VERSION=0.16.4
     ```
 *   Download the application, checksums and signature
 
@@ -680,7 +680,7 @@ $ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a21
 
 {% code overflow="wrap" %}
 ```bash
-$ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 100000 0
+$ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 500000 0
 ```
 {% endcode %}
 

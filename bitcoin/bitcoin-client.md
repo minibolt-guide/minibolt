@@ -322,7 +322,7 @@ Now, the configuration file for `bitcoind` needs to be created. We'll also set t
     # I2P SAM proxy to reach I2P peers and accept I2P connections
     i2psam=127.0.0.1:7656
 
-    ## Connections
+    # Connections
     rpcauth=<replace with your own auth line generated in the previous step>
 
     # Initial block download optimizations 
