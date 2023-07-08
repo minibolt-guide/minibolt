@@ -192,7 +192,7 @@ $ lnd --version
 **Example** of expected output:
 
 ```
-> lnd version 0.16.3-beta commit=v$VERSION-beta
+> lnd version 0.16.3-beta commit=v0.16.3-beta
 ```
 
 {% hint style="info" %}
@@ -203,7 +203,7 @@ If you come to update this is the final step
 
 Now that LND is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
 
-*   Create the **"lnd"** service user, and add it to the groups "bitcoin" and "debian-tor"
+*   Create the **`lnd`** service user, and add it to the groups "bitcoin" and "debian-tor"
 
     ```sh
     $ sudo adduser --disabled-password --gecos "" lnd
@@ -212,7 +212,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
     ```sh
     $ sudo usermod -a -G bitcoin,debian-tor lnd
     ```
-*   Add the user "admin" to the group "lnd"
+*   Add the user `admin` to the group "lnd"
 
     ```sh
     $ sudo adduser admin lnd
@@ -226,7 +226,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
     ```sh
     $ sudo chown -R lnd:lnd /data/lnd
     ```
-*   Open a "lnd" user session
+*   Open a `lnd` user session
 
     ```sh
     $ sudo su - lnd
@@ -243,11 +243,11 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 
 ### **Wallet password**
 
-LND includes a Bitcoin wallet that manages your on-chain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your PC, or you store the password somewhere on the node.
+LND includes a Bitcoin wallet that manages your on-chain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your PC, or store the password somewhere on the node.
 
 For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically. This is not the most secure setup, but you can improve it later if you want, with the bonus guides linked below. To give some perspective: other Lightning implementations like c-lightning or Eclair don't even have a password.
 
-*   Still as user **"lnd"**, create a text file and enter your LND wallet `password [C]`. Save and exit.
+*   Still as user **"lnd"**, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
 
     ```sh
     $ nano /data/lnd/password.txt
@@ -262,7 +262,7 @@ For this initial setup, we choose the easy route: we store the password in a fil
 
 ### **Configure LND**
 
-*   Create the LND configuration file and paste the following content _**(adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` and fees)**_. Save and exit.
+*   Create the LND configuration file and paste the following content _**(adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` , and fees)**_. Save and exit.
 
     ```sh
     $ nano /data/lnd/lnd.conf
@@ -529,7 +529,7 @@ $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping to do this just in case any log could give extra information about the command you just entered.
 {% endhint %}
 
-### **Watchtower client (recommended)**
+### **Watchtower client**
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer period of time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
@@ -584,7 +584,7 @@ Expected output:
     $ lncli wtclient remove <pubkey>
     ```
 
-### **Watchtower server (optional)**
+### **Watchtower server**
 
 Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
@@ -617,7 +617,7 @@ This watchtower server service is not recommended to activate if you have a slow
 
 ### **Funding your Lightning node**
 
-*   Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice.
+*   Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
 
     ```sh
     $ lncli newaddress p2tr
