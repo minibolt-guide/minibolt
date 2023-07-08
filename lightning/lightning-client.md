@@ -64,7 +64,7 @@ We'll download, verify and install LND.
 *   Set a temporary version environment variable to the installation
 
     ```sh
-    $ VERSION=0.16.3
+    $ VERSION=0.16.4
     ```
 *   Download the application, checksums and signature
 
@@ -103,7 +103,8 @@ $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/
 **Example** of expected output:
 
 ```
-> lnd-linux-amd64-v0.16.3-beta.tar.gz: OK
+> lnd-linux-amd64-v0.16.4
+-beta.tar.gz: OK
 ```
 
 ### **Signature check**
@@ -192,7 +193,7 @@ $ lnd --version
 **Example** of expected output:
 
 ```
-> lnd version 0.16.3-beta commit=v$VERSION-beta
+> lnd version 0.16.4-beta commit=v$VERSION-beta
 ```
 
 {% hint style="info" %}
