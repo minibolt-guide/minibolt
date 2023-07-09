@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Cloudflare Tunnel
+# Copy of Cloudflare Tunnel
 
 Cloudflare tunnel offers an alternative to those solutions with a single downside: Cloudflare can see or modify all of your traffic, as it acts as a middleman between the client's browser and your local server.
 
@@ -134,7 +134,7 @@ We will create a configuration file in your `.cloudflared` directory. This file 
 * Staying with user `admin`
 
 ```bash
-$ sudo nano /home/admin/.cloudflared/config.yml
+$ sudo nano /etc/cloudflared/config.yml
 ```
 
 * Replace Save and exit
@@ -164,6 +164,33 @@ $ cloudflared tunnel route dns 8566c33454-6ac3-4b39-3484-88ae32ce55a6 subdomain.
 > 2023-07-09T18:01:07Z INF Added CNAME subdomain.domain.com which will route to this tunnel tunnelID=8566c33454-6ac3-4b39-3484-88ae32ce55a6
 ```
 
+## Autostart Cloudflared on boot
+
+Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
+
+```bash
+$ sudo nano /etc/systemd/system/cloudflared.service
+```
+
+```
+# MiniBolt: systemd unit for Cloudflared
+# /etc/systemd/system/cloudflared.service
+
+[Unit]
+Description=cloudflared
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Type=notify
+ExecStart=/usr/bin/cloudflared --no-autoupdate --config /etc/cloudflared/config.yml tunnel run
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+
 ### Run the tunnel <a href="#6-run-the-tunnel" id="6-run-the-tunnel"></a>
 
 * Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin
@@ -191,8 +218,6 @@ $ cloudflared tunnel run <UUID or NAME>
 2023-07-09T18:06:39Z INF Registered tunnel connection connIndex=2 connection=3351c4e1-d522-48a0-826e-12e729f86787 event=0 ip=198.41.200.53 location=MAD protocol=quic
 2023-07-09T18:06:40Z INF Registered tunnel connection connIndex=3 connection=8640bb32-0702-416d-ba7c-1d60f6a0168b event=0 ip=198.41.192.27 location=MRS protocol=quic
 ```
-
-## Autostart on boot
 
 
 
