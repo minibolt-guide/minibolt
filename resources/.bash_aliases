@@ -38,7 +38,8 @@ alias showbonusversion='echo The installed versions of the bonus services are as
   echo Electrs: `electrs --version` ; \
   lntop --version ; \
   sudo -u nym /home/nym/nym-socks5-client -V | grep nym ; \
-  sudo -u nym /home/nym/nym-network-requester -V | grep nym'
+  sudo -u nym /home/nym/nym-network-requester -V | grep nym ; \
+  cloudflared --version'
 
 alias manualscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
 alias manualtestnetbackup='sudo touch /data/lnd/data/chain/bitcoin/testnet/channel.backup'
@@ -191,7 +192,8 @@ alias enablenymrequester='sudo systemctl enable nym-network-requester'
 alias enablenymsocks5='sudo systemctl enable nym-socks5-client'
 alias enablebtcpay='sudo systemctl enable btcpay'
 alias enablenbx='sudo systemctl enable nbxplorer'
-alias enableallbonus='sudo systemctl enable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer'
+alias enablecloudflared='sudo systemctl enable cloudflared'
+alias enableallbonus='sudo systemctl enable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared'
 
 ########################
 # START BONUS SERVICES #
@@ -209,6 +211,7 @@ alias startwireguard='sudo systemctl start wg-quick@wg0'
 alias startnymrequester='sudo systemctl start nym-network-requester'
 alias startnymsocks5='sudo systemctl start nym-socks5-client'
 alias startbtcpay='sudo systemctl start btcpay'
+alias startcloudflared='sudo systemctl start cloudflared'
 alias startnbx='sudo systemctl start nbxplorer'
 
 #########################
@@ -228,8 +231,9 @@ alias statusnymrequester='sudo systemctl status nym-network-requester'
 alias statusnymsocks5='sudo systemctl status nym-socks5-client'
 alias statusbtcpay='sudo systemctl status btcpay'
 alias statusnbx='sudo systemctl status nbxplorer'
+alias statuscloudflared='sudo systemctl status cloudflared'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
-  sudo systemctl status homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer'
+  sudo systemctl status homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared'
 
 #######################
 # STOP BONUS SERVICES #
@@ -248,7 +252,8 @@ alias stopnymrequester='sudo systemctl stop nym-network-requester'
 alias stopnymsocks5='sudo systemctl stop nym-socks5-client'
 alias stopbtcpay='sudo systemctl stop btcpay'
 alias stopnbx='sudo systemctl stop nbxplorer'
-alias stopallbonus='sudo systemctl stop homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer'
+alias stopcloudflared='sudo systemctl stop cloudflared'
+alias stopallbonus='sudo systemctl stop homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared'
 
 ##########################
 # DISABLE BONUS SERVICES #
@@ -267,7 +272,8 @@ alias disablenymrequester='sudo systemctl disable nym-network-requester'
 alias disablenymsocks5='sudo systemctl disable nym-socks5-client'
 alias disablebtcpay='sudo systemctl disable btcpay'
 alias disablenbx='sudo systemctl disable nbxplorer'
-alias disableallbonus='sudo systemctl disable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer'
+alias disablecloudflared='sudo systemctl disable cloudflared'
+alias disableallbonus='sudo systemctl disable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared'
 
 #######################
 # BONUS SERVICES LOGS #
@@ -285,6 +291,7 @@ alias wireguardlogs='sudo journalctl -f -u wg-quick@wg0'
 alias nymrequesterlogs='sudo journalctl -f -u nym-network-requester'
 alias nymsocks5logs='sudo journalctl -f -u nym-socks5-client'
 alias btcpaylogs='sudo journalctl -f -u btcpay'
+alias cloudflaredlogs='sudo journalctl -f -u cloudflared'
 alias nbxlogs='sudo journalctl -f -u nbxplorer'
 
 #################
