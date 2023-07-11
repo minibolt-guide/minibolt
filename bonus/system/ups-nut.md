@@ -21,6 +21,10 @@ layout:
 
 Have your MiniBolt safely shutdown when a connected UPS reaches a critical power level.
 
+{% hint style="success" %}
+Difficulty: Easy
+{% endhint %}
+
 {% hint style="warning" %}
 Status: Not tested MiniBolt
 {% endhint %}

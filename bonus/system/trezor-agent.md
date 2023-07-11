@@ -21,25 +21,31 @@ layout:
 
 This project allows you to use various hardware security devices to operate GPG and SSH. Instead of keeping your key on your computer and decrypting it with a passphrase when you want to use it, the key is generated and stored on the device and never reaches your computer.
 
-Difficulty: Easy {: .label .label-green }
+{% hint style="success" %}
+Difficulty: Easy
+{% endhint %}
 
-Status: Not tested MiniBolt {: .label .label-red }
+{% hint style="warning" %}
+Status: Not tested MiniBolt
+{% endhint %}
 
 It is possible to SSH to your device using your Trezor (It should be possible with Ledger and Keepkey but I haven't tried)
 
-* Using romanz's trezor-agent [https://github.com/romanz/trezor-agent](https://github.com/romanz/trezor-agent){:target="\_blank"} and Trezor's documentation [https://wiki.trezor.io/Apps:SSH\_agent](https://wiki.trezor.io/Apps:SSH\_agent){:target="\_blank"}
-* This Process is currently only available on Linux
-*   Install pre-requisites on your main machine:
+* Using romanz's [trezor-agent](https://github.com/romanz/trezor-agent) and [Trezor's documentation](https://wiki.trezor.io/Apps:SSH\_agent)
+* This process is currently only available on Linux
+*   Install pre-requisites on your main machine
 
+    {% code overflow="wrap" %}
     ```sh
     $ sudo apt update && sudo apt install python3-pip libusb-1.0-0-dev libudev-dev pinentry-curses
     ```
+    {% endcode %}
 *   Install trezor-agent
 
     ```sh
     $ pip3 install trezor_agent
     ```
-*   Set up udev rules on your machine: While your device is disconnected, open a file with nano and paste the udev rules. Save and exit.
+*   Set up udev rules on your machine: While your device is disconnected, open a file with nano and paste the udev rules. Save and exit
 
     ```sh
     $ sudo nano /etc/udev/rules.d/51-trezor.rules
@@ -63,9 +69,9 @@ It is possible to SSH to your device using your Trezor (It should be possible wi
     KERNEL=="hidraw*", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="53c1", MODE="0660", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
     ```
 
-Generate a public keys for 'admin' and 'root' users, when asked enter the pin of your trezor and a passphrase
+Generate a public key for 'admin' and 'root' users, when asked enter the pin of your trezor and a passphrase
 
-*   You can use PASSWORD\[A], or come up with a diffrent passphrase
+*   You can use PASSWORD\[A], or come up with a different passphrase
 
     ```sh
     $ trezor-agent admin@192.168.0.20
@@ -92,12 +98,12 @@ Generate a public keys for 'admin' and 'root' users, when asked enter the pin of
     $ cp -r /home/admin/.ssh .ssh
     $ exit
     ```
-*   Exit from you pi
+*   Exit from your PC
 
     ```sh
     $ exit
     ```
-*   SSH from your trezor as admin, enter pin and the password that you chosen
+*   SSH from your trezor as admin, enter the pin and the password that you have chosen
 
     ```sh
     $ trezor-agent -c admin@192.168.0.20
@@ -109,4 +115,8 @@ or as root
 $ trezor-agent -c root@192.168.0.20
 ```
 
-If the SSH succeeded go to your authorized keys file and delete/comment out all other public keys That's it, Now you can only SSH to your raspibolt using your trezor.
+If the SSH succeeded go to your authorized keys file and delete/comment out all other public keys&#x20;
+
+{% hint style="success" %}
+That's it, now you can only SSH to your MiniBolt using your Trezor
+{% endhint %}

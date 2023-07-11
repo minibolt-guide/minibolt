@@ -33,15 +33,20 @@ Status: Tested MiniBolt
 
 ## Acknowledgments
 
-The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor).
+The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor)
 
 ## Set up aliases
 
-* With user "admin", access to `home` folder and download the aliases list provided for a MiniBolt environment. ⚠️ This command will automatically overwrite the previous file you downloaded.
+* With user `admin`, access to `home` folder and download the aliases list provided for a MiniBolt environment
 
 {% code overflow="wrap" %}
 ```bash
 $ cd /home/admin
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
 $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases -O .bash_aliases
 ```
 {% endcode %}
@@ -49,10 +54,10 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 If you want, inspect the list of aliases to make sure it does not do bad things, and modify it with your personal aliases if you want. Exit with Ctrl-X
 
 ```sh
-$ nano .bash_aliases --linenumbers
+$ nano .bash_aliases
 ```
 
-*   Execute a `source` command to register changes of the `.bash_aliases` file in the .bashrc file
+*   Execute a `source` command to register changes of the `.bash_aliases` file in the `.bashrc` file
 
     ```sh
     $ source /home/admin/.bashrc
@@ -72,29 +77,38 @@ $ nano .bash_aliases --linenumbers
     alias enablefulcrum='sudo systemctl enable fulcrum'
     [...]
     ```
-*   Test some of the aliases to see if it has been installed properly
+* Test some of the aliases to see if it has been installed properly
 
-    ```sh
-    $ showmainversion
-    > The installed versions of the services are as follows:
-    > Bitcoin Core version v23.0.0
-    > lnd version 0.15.3-beta commit=v0.15.3-beta
-    > BTC RPC Explorer: "version": "3.3.0",
-    > Electrs: v0.9.9
-    > RTL: "version": "0.12.3",
-    > Tor version 0.4.7.10.
-    > NPM: v8.15.0
-    > NodeJS: v16.17.1
-    > htop 3.0.5
-    > nginx version: nginx/1.18.0 (Ubuntu)
-    ```
+```sh
+$ showmainversion
+```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+> The installed versions of the services are as follows:
+> Bitcoin Core version v23.0.0
+> lnd version 0.15.3-beta commit=v0.15.3-beta
+> BTC RPC Explorer: "version": "3.3.0",
+> Electrs: v0.9.9
+> RTL: "version": "0.12.3",
+> Tor version 0.4.7.10.
+> NPM: v8.15.0
+> NodeJS: v16.17.1
+> htop 3.0.5
+> nginx version: nginx/1.18.0 (Ubuntu)
+```
+
+</details>
 
 ## For the future: upgrade Aliases
 
-Follow the [Set up Aliases](aliases.md#set-up-aliases) section again to overwrite aliases.
+Follow again the [Set up Aliases](aliases.md#set-up-aliases) section again to overwrite aliases.
 
 {% hint style="info" %}
-You can see if the aliases have a recent update by entering [here](https://github.com/minibolt-guide/minibolt/commits/main/resources/.bash\_aliases).
+You can see if the aliases have a recent update by entering [here](https://github.com/minibolt-guide/minibolt/commits/main/resources/.bash\_aliases)
 {% endhint %}
 
 ## Uninstall
