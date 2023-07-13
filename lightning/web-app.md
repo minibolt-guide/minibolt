@@ -289,7 +289,7 @@ accounts:
 Replace the `[E] ThunderHub password` to your one
 {% endhint %}
 
-*   Exit "thunderhub" user session to return to "admin" user session
+*   Exit "thunderhub" user session to return to the "admin" user session
 
     ```sh
     $ exit
@@ -606,7 +606,7 @@ Expected output:
 
 ### Access to your Amboss node account
 
-* In the "Home" screen - "Quick Actions" section, click on Amboss icon "Login", wait for the top right corner notification to show you "Logged in" and click again on the Amboss icon "Go to". This will open a secondary tab in your browser to access your Amboss account node.
+* In the "Home" screen - "Quick Actions" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "Logged in" and click again on the Amboss icon "Go to". This will open a secondary tab in your browser to access your Amboss account node.
 
 Advice: If you can't do "Login", maybe the cause is that you don't have a channel opened yet. Planning to open a small size channel to be connected with the Lightning Network and to the Amboss node.
 

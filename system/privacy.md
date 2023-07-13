@@ -125,14 +125,13 @@ Bitcoin Core will communicate directly with the Tor daemon to route all traffic 
     # uncomment line 60
     CookieAuthentication 1
 
-    # add under the line 60:
+    # add under line 60:
     CookieAuthFileGroupReadable 1
-    DataDirectoryGroupReadable 1
     ```
 *   Reload the Tor configuration to activate the modifications
 
     ```sh
-    $ sudo systemctl reload tor
+    $ sudo systemctl restart tor
     ```
 *   Ensure that the Tor service is working and listening at the default ports `9050` and `9051`
 

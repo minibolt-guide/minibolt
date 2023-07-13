@@ -281,8 +281,8 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 ### Create a GitHub repository
 
-* Go to [GitHub](https://github.com/), sign up for a new user account, or log in with an existing one. If you don't want GitHub to know your identity and IP address in relation to your Lightning node, it is recommended to create a new account even if you have an existing one, and use [Tor Browser](https://www.torproject.org/download/) for this and follow the steps.
-* Create a new repository: [https://github.com/new](https://github.com/new)
+* Go to [GitHub](https://github.com/), sign up for a new user account, or log in with an existing one. If you don't want GitHub to know your identity and IP address in relation to your Lightning node, it is recommended to create a new account even if you have an existing one, and use [Tor Browser](https://www.torproject.org/download/) for this and follow the steps
+* Create a [new repository](https://github.com/new)
   * Type the following repository name: `remote-lnd-backup`
   * Select "Private" (rather than the default "Public")
   * Click on "Create repository"
@@ -315,57 +315,73 @@ Follow this section if you want a remote backup. If you already set up a local b
   * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 5678efgh... lnd@minibolt`)
   * Tick the box "Allow write access" to enable this key to push changes to the repository
   * Click "Add key"
-*   Set up global Git configuration values (the name and email are required but can be dummy values). Then, move to the LND data folder and clone your newly created empty repository. Replace `<YourGitHubUsername>` with your own GitHub username. When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter".
+* Set up global Git configuration values (the name and email are required but can be dummy values). Then, move to the LND data folder and clone your newly created empty repository. Replace `<YourGitHubUsername>` with your own GitHub username. When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter"
 
-    ```sh
-    $ git config --global user.name "MiniBolt"
-    $ git config --global user.email "minibolt@dummyemail.com"
-    $ git config --global core.sshCommand "torsocks ssh"
-    $ cd ~/.lnd
-    $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
-    ```
+```sh
+$ git config --global user.name "MiniBolt"
+```
 
-    ```
-    > Cloning into 'remote-lnd-backup'...
-    > The authenticity of host 'github.com (140.82.121.3)' can't be established.
-    > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
-    > This key is not known by any other names
-    > Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-    > Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
-    > warning: You appear to have cloned an empty repository.
-    [...]
-    ```
+```bash
+$ git config --global user.email "minibolt@dummyemail.com"
+```
+
+* (Optional) Add this step if you want to preserve your privacy with GitHub servers if not, jump to the next step --> (`$ cd ~/.lnd`)
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ git config --global core.sshCommand "torsocks ssh"
+</strong></code></pre>
+
+```bash
+$ cd ~/.lnd
+```
+
+```bash
+$ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
+```
+
+**Example** of expected output:
+
+```
+> Cloning into 'remote-lnd-backup'...
+> The authenticity of host 'github.com (140.82.121.3)' can't be established.
+> ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+> This key is not known by any other names
+> Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+> Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+> warning: You appear to have cloned an empty repository.
+[...]
+```
 
 ### GitHub Test
 
-*   Still with user "lnd", enter your local Git repository, create a dummy file, and push it to your remote GitHub repository
+* Still with user `lnd` enter your local Git repository, create a dummy file, and push it to your remote GitHub repository
 
-    ```sh
-    $ cd remote-lnd-backup
-    $ touch test
-    $ git add .
-    $ git commit -m "testing"
-    ```
+```sh
+$ cd remote-lnd-backup
+$ touch test
+$ git add .
+$ git commit -m "testing"
+```
 
-    ```
-    > [main (root-commit) 826563d] testing
-    > 1 file changed, 0 insertions(+), 0 deletions(-)
-    > create mode 100644 test
-    ```
+```
+> [main (root-commit) 826563d] testing
+> 1 file changed, 0 insertions(+), 0 deletions(-)
+> create mode 100644 test
+```
 
-    ```sh
-    $ git push --set-upstream origin main
-    ```
+```sh
+$ git push --set-upstream origin main
+```
 
-    ```
-    > Enumerating objects: 3, done.
-    > Counting objects: 100% (3/3), done.
-    > Writing objects: 100% (3/3), 206 bytes | 206.00 KiB/s, done.
-    > Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-    > To github.com:<YourGithubUsername>/remote-lnd-backup.git
-    > * [new branch]      main -> main
-    > Branch 'main' set up to track remote branch 'main' from 'origin'.
-    ```
+```
+> Enumerating objects: 3, done.
+> Counting objects: 100% (3/3), done.
+> Writing objects: 100% (3/3), 206 bytes | 206.00 KiB/s, done.
+> Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+> To github.com:<YourGithubUsername>/remote-lnd-backup.git
+> * [new branch]      main -> main
+> Branch 'main' set up to track remote branch 'main' from 'origin'.
+```
+
 * Check that a copy of the "test" file is now in your remote GitHub repository (in the `[ <> Code ]` tab).
 *   Go back to the SSH session, delete the test file, commit this change, and exit the "lnd" user
 

@@ -117,8 +117,8 @@ $ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" 
 ### **Timestamp check**
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots)
-  * [https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS)
+  * [SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots)
+  * [SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS)
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
 * In the next box, drop or upload the SHA256SUMS file
@@ -202,6 +202,23 @@ Bitcoin Core uses by default the folder `.bitcoin` in the user's home. Instead o
     $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
     ```
 
+
+* Check symbolic link has been created correctly
+
+```bash
+$ ls -la /home/bitcoin
+```
+
+**Expected output:**
+
+<pre><code>drwxr-x--- 2 bitcoin bitcoin 4096 Jul 12 10:26 .
+drwxr-xr-x 5 root    root    4096 Jul 12 10:25 ..
+-rw-r--r-- 1 bitcoin bitcoin  220 Jul 12 10:25 .bash_logout
+-rw-r--r-- 1 bitcoin bitcoin 3771 Jul 12 10:25 .bashrc
+lrwxrwxrwx 1 bitcoin bitcoin   13 Jul 12 10:26 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
+-rw-r--r-- 1 bitcoin bitcoin  807 Jul 12 10:25 .profile
+</code></pre>
+
 ### **Generate access credentials**
 
 For other programs to query Bitcoin Core they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Core to accept a password, hash it and compare it to the stored hash, while it is not possible to retrieve the original password.
@@ -224,14 +241,14 @@ $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rp
 ```
 {% endcode %}
 
-* Run the script with the Python3 interpreter, providing the username (`minibolt`) and your **`"password [B]"`** arguments.
+* Run the script with the Python3 interpreter, providing the username (`minibolt`) and your **`password [B]`** arguments
 
 {% hint style="info" %}
-All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space ( ) in front of the command shown below.
+All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, **put a space ( )** in front of the command shown below
 {% endhint %}
 
 ```sh
-$  python3 rpcauth.py minibolt YourPasswordB
+$  python3 rpcauth.py minibolt YourPassword [B]
 ```
 
 Expected **example** output:
@@ -266,79 +283,78 @@ If you enable IPv6 without working IPv6 connectivity, you could obtain log error
 
 Now, the configuration file for `bitcoind` needs to be created. We'll also set the proper access permissions.
 
-*   Still as user `"bitcoin"`, open it with Nano and paste the configuration below. Replace the whole line starting with: `"rpcauth=..."`, with the connection string, you just generated. Save and exit.
-
-    ```bash
-    $ nano /home/bitcoin/.bitcoin/bitcoin.conf
-    ```
-
-    ```
-    # MiniBolt: bitcoind configuration
-    # /home/bitcoin/.bitcoin/bitcoin.conf
-
-    ## Bitcoin daemon
-    server=1
-    txindex=1
-
-    # Disable integrated Bitcoin Core wallet
-    disablewallet=1
-
-    # Aditional logs
-    debug=tor
-    debug=i2p
-
-    # Disable IPv6 network
-    onlynet=onion
-    onlynet=i2p
-    onlynet=ipv4
-
-    # Assign read permission to the Bitcoin group users
-    startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
-
-    # Disable debug.log
-    nodebuglogfile=1
-
-    # Avoid assuming that a block and its ancestors are valid,
-    # and potentially skipping their script verification.
-    # We will set it to 0, to verify all.
-    # Remember to comment after IBD!
-    assumevalid=0
-
-    # Enable all compact filters
-    blockfilterindex=1
-    # Support filtering of blocks and transactions with bloom filters
-    peerbloomfilters=1
-    # Serve compact block filters to peers per BIP 157
-    peerblockfilters=1
-    # Maintain coinstats index used by the gettxoutsetinfo RPC
-    coinstatsindex=1
-
-    # Network
-    listen=1
-
-    # Proxy clearnet (ipv4) outbound connection using SOCKS5 proxy
-    proxy=127.0.0.1:9050
-
-    # I2P SAM proxy to reach I2P peers and accept I2P connections
-    i2psam=127.0.0.1:7656
-
-    # Connections
-    rpcauth=<replace with your own auth line generated in the previous step>
-
-    # Initial block download optimizations 
-    # (set dbcache size in megabytes (4 to 16384, default: 300) 
-    # according to the available RAM of your device.
-    # recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048).
-    # Remember to comment after IBD!
-    dbcache=2048
-    blocksonly=1
-    ```
+* Still as user `bitcoin`, open it with Nano and paste the configuration below. Save and exit
 
 {% hint style="info" %}
-This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92) with all possible options
+Remember to replace the whole line starting with: `"rpcauth=..."`, with the connection string, you just generated, \
+Set `dbcache` size in megabytes (4 to 16384, default: 300) according to the available RAM of your device. Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048).&#x20;
+
+⚠️ **Remember to comment the parameters of the section "**`# Initial block download optimizations` " of the "bitcoin.conf" file **after the IBD!** by following the [proper section](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
 {% endhint %}
 
-*   Set permissions: only the user 'bitcoin' and members of the 'bitcoin' group can read it
+```bash
+$ nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+```
+# MiniBolt: bitcoind configuration
+# /home/bitcoin/.bitcoin/bitcoin.conf
+
+## Bitcoin daemon
+server=1
+txindex=1
+
+# Disable integrated Bitcoin Core wallet
+disablewallet=1
+
+# Aditional logs
+debug=tor
+debug=i2p
+
+# Disable IPv6 network
+onlynet=onion
+onlynet=i2p
+onlynet=ipv4
+
+# Assign read permission to the Bitcoin group users
+startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
+
+# Disable debug.log
+nodebuglogfile=1
+
+# Enable all compact filters
+blockfilterindex=1
+# Support filtering of blocks and transactions with bloom filters
+peerbloomfilters=1
+# Serve compact block filters to peers per BIP 157
+peerblockfilters=1
+# Maintain coinstats index used by the gettxoutsetinfo RPC
+coinstatsindex=1
+
+# Network
+listen=1
+
+# Proxy clearnet (ipv4) outbound connection using Tor SOCKS5 proxy
+proxy=127.0.0.1:9050
+
+# I2P SAM proxy to reach I2P peers and accept I2P connections
+i2psam=127.0.0.1:7656
+
+# Connections
+rpcauth=<replace with your own auth line generated in the previous step>
+
+# Initial block download optimizations 
+dbcache=2048
+blocksonly=1
+```
+
+{% hint style="info" %}
+> You could want to add some additional parameters and features, go to the [Extra section](bitcoin-client.md#extras-optional) to get this ⬇️
+
+> This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/twofaktor/323ca0e3c185ace0286462705db3c189) with all possible options
+{% endhint %}
+
+*   Set permissions: only the user `bitcoin` and members of the `bitcoin` group can read it
 
     ```sh
     $ chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
@@ -406,7 +422,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Running bitcoind
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 *   Start the service
 
@@ -449,7 +465,7 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
 
 Monitor the log file for a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
 
-*   Link the Bitcoin data directory from the "admin" user home directory as well. This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
+*   Stay logged in with the user `admin`, link the Bitcoin data directory from the "admin" user home directory as well. This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
 
     ```sh
     $2 ln -s /data/bitcoin /home/admin/.bitcoin
@@ -459,7 +475,40 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
     ```sh
     $ exit
     ```
-* Log in as user “admin” again `("ssh admin@minibolt.local")`
+* Log in as user `admin` again --> `ssh admin@minibolt.local`
+* Check symbolic link has been created correctly
+
+```bash
+$ ls -la /home/admin
+```
+
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+<pre><code>total 64
+drwxr-x--- 9 admin admin 4096 Jul 12 10:41 .
+drwxr-xr-x 5 root  root  4096 Jul 12 10:25 ..
+-rw------- 1 admin admin 1102 Jul 11 22:19 .bash_history
+-rw-r--r-- 1 admin admin  220 Jul 11 20:25 .bash_logout
+-rw-r--r-- 1 admin admin 3792 Jul 12 07:56 .bashrc
+lrwxrwxrwx 1 admin admin   13 Jul 12 10:41 <a data-footnote-ref href="#user-content-fn-2">.bitcoin -> /data/bitcoin</a>
+drwx------ 2 admin admin 4096 Jul 11 20:27 .cache
+drwxrwxr-x 5 admin admin 4096 Jul 12 07:57 .cargo
+drwxrwxr-x 3 admin admin 4096 Jul 11 20:32 .config
+drwx------ 3 admin admin 4096 Jul 12 10:25 .gnupg
+-rw------- 1 admin admin   20 Jul 11 22:09 .lesshst
+drwxrwxr-x 3 admin admin 4096 Jul 12 09:15 .local
+-rw-r--r-- 1 admin admin  828 Jul 12 07:56 .profile
+drwxrwxr-x 6 admin admin 4096 Jul 12 07:56 .rustup
+drwx------ 2 admin admin 4096 Jul 11 20:47 .ssh
+-rw-r--r-- 1 admin admin    0 Jul 11 20:27 .sudo_as_admin_successful
+-rw-rw-r-- 1 admin admin  258 Jul 12 10:24 .wget-hsts
+-rw------- 1 admin admin  228 Jul 12 10:33 .Xauthority
+</code></pre>
+
+</details>
+
 * Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
 
 {% code overflow="wrap" %}
@@ -485,9 +534,13 @@ out         6       5       0      11       2
 total       6       9       1      16
 ```
 
-* Please note:
-  * When “bitcoind” is still starting, you may get an error message like “verifying blocks”. That’s normal, just give it a few minutes.
-  * Among other info, the “verificationprogress” is shown. Once this value reaches almost 1 (0.999…), the blockchain is up-to-date and fully validated.
+{% hint style="info" %}
+Please note:
+
+> When “bitcoind” is still starting, you may get an error message like “verifying blocks”. That’s normal, just give it a few minutes
+
+> Among other info, the “verificationprogress” is shown. Once this value reaches almost 1 (0.999…), the blockchain is up-to-date and fully validated
+{% endhint %}
 
 ## Bitcoin Core is syncing
 
@@ -505,39 +558,39 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
     <figure><img src="../images/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
 * [**Learning Bitcoin from the Command Line**](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
-* Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original\_Bitcoin\_client/API\_calls\_list)
+* Also, check out the [**bitcoin-cli reference**](https://en.bitcoin.it/wiki/Original\_Bitcoin\_client/API\_calls\_list)
 
 ### **Activate mempool & reduce 'dbcache' after a full sync**
 
 Once Bitcoin Core is fully synced, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
-*   As user `"admin"`, comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit
+* As user `admin`, comment the following lines (add a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit
 
-    ```sh
-    $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
-    ```
+```sh
+$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
 
-    ```
-    #dbcache=2048
-    #blocksonly=1
-    #assumevalid=0
-    ```
-*   Restart Bitcoin Core for the settings to take effect
+```
+#dbcache=2048
+#blocksonly=1
+```
 
-    ```sh
-    $ sudo systemctl restart bitcoind
-    ```
+* Restart Bitcoin Core for the settings to take effect
+
+```sh
+$ sudo systemctl restart bitcoind
+```
 
 ## OpenTimestamps client
 
-When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
+When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable to verify the timestamps using your own blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
 
-*   As user `"admin"`, install dependencies
+*   As user `admin`, install dependencies
 
     ```sh
-    $ sudo apt-get install python3-dev python3-pip python3-wheel
+    $ sudo apt install python3-dev python3-pip python3-wheel
     ```
-*   With user "admin", globally install the OpenTimestamp client
+*   Install the OpenTimestamp client
 
     ```sh
     $ sudo pip3 install opentimestamps-client
@@ -550,100 +603,141 @@ When we installed Bitcoin Core, we verified the timestamp of the checksum file u
 
 ## Extras (optional)
 
+### Expand the mempool size
+
+The value for the default mempool size of your node is 300MB, if the size of the mempool in the network exceeds that size, the transactions will be rejected and your node will not propagate them, then but you could want to broadcast more volume of transactions to the rest of the Bitcoin nodes increasing the size of it
+
+* As user `admin` add this line to the end of the existing `bitcoin.conf` file. Set this value depending on your available RAM
+
+```bash
+$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+```
+# Keep the transaction memory pool below <n> megabytes
+maxmempool=<n>
+```
+
+{% hint style="info" %}
+**Example:** `maxmempool=1000` to use 1GB of RAM for the mempool
+{% endhint %}
+
+### Assume valid
+
+To ensure the validity of blocks and their ancestors, it is recommended to set the script verification to 0, which will verify all scripts. By assuming that a block in the chain and its ancestors are valid, there is a potential to skip their script verification (set to 0 to verify all, the default block height on v25.0 is 784000)
+
+* As user `admin` add these lines to the end of the existing `bitcoin.conf` file
+
+```bash
+$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+```
+assumevalid=0
+```
+
 ### Slow devices mode
 
-*   As user `admin` add these lines to the end of the existing `bitcoin.conf` file
+You might be using a low-performing device, there are some recommended parameters you can enable/disable in your `bitcoin.conf` so that your node can function properly without causing device issues
 
-    ```sh
-    $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
-    ```
+* As user `admin` add these lines to the end of the existing `bitcoin.conf` file
 
-    ```
-    # Slow devices optimizations
-    ## Limit the number of max peers connections
-    maxconnections=40
-    ## Tries to keep outbound traffic under the given target per 24h
-    maxuploadtarget=5000
-    ## Increase the number of threads to service RPC calls (default: 4)
-    rpcthreads=128
-    ## Increase the depth of the work queue to service RPC calls (default: 16)
-    rpcworkqueue=256
-    ```
-*   Comment these lines to the existing `bitcoin.conf` file
+```sh
+$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
 
-    ```
-    #coinstatsindex=1
-    #assumevalid=0
-    ```
+```
+# Slow devices optimizations
+## Limit the number of max peers connections
+maxconnections=40
+## Tries to keep outbound traffic under the given target per 24h
+maxuploadtarget=5000
+## Increase the number of threads to service RPC calls (default: 4)
+rpcthreads=128
+## Increase the depth of the work queue to service RPC calls (default: 16)
+rpcworkqueue=256
+```
+
+* Comment these lines to the existing `bitcoin.conf` file
+
+```
+#coinstatsindex=1
+#assumevalid=0
+```
 
 ### **Manual page for bitcoin-cli**
 
-* For convenience, it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, can be installed from the directory
-*   Now you can read the docs doing
+For convenience, it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, can be installed from the directory
 
-    ```sh
-    $ man bitcoin-cli
-    ```
+* Now you can read the docs doing
+
+```sh
+$ man bitcoin-cli
+```
 
 {% hint style="warning" %}
-This extra section is not valid if you compiled it, from source code using the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md)
+This extra section is not valid if you compiled it from source code, using the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md)
 {% endhint %}
 
-⬆️ Now come back to the next section ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) to continue with the Bitcoin Core installation process.
+⬆️ Now come back to the next section [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user) to continue with the Bitcoin Core installation process.
 
 ### **Reject non-private networks**
 
-*   As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes. You can add more seed nodes are of this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt)
+Bitcoin Core on MiniBolt by default proxies all outgoing connections to the clearnet network (ipv4) using Tor or NYM (by following the [NYM mixnet bonus guide](../bonus-guides/system/nym-mixnet.md)), and your privacy is protected when using these networks. But still, you might want to opt out of these networks and only communicate using only hidden by-default networks, like I2P or Tor.
 
-    ```sh
-    $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
-    ```
+💡 Remember to add seed nodes. You can add more seed nodes are of this --> [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt)
 
-    ```
-    # Reject non-private networks settings
-    onlynet=onion
-    onlynet=i2p
-    dns=0
-    dnsseed=0
+* As user `admin` add these lines to the end of `bitcoin.conf` file
 
-    ##Tor seed nodes
-    seednode=2bqghnldu6mcug4pikzprwhtjjnsyederctvci6klcwzepnjd46ikjyd.onion:8333
-    seednode=4lr3w2iyyl5u5l6tosizclykf5v3smqroqdn2i4h3kq6pfbbjb2xytad.onion:8333
-    seednode=5g72ppm3krkorsfopcm2bi7wlv4ohhs4u4mlseymasn7g7zhdcyjpfid.onion:8333
-    seednode=5sbmcl4m5api5tqafi4gcckrn3y52sz5mskxf3t6iw4bp7erwiptrgqd.onion:8333
-    seednode=776aegl7tfhg6oiqqy76jnwrwbvcytsx2qegcgh2mjqujll4376ohlid.onion:8333
-    seednode=77mdte42srl42shdh2mhtjr7nf7dmedqrw6bkcdekhdvmnld6ojyyiad.onion:8333
-    seednode=azbpsh4arqlm6442wfimy7qr65bmha2zhgjg7wbaji6vvaug53hur2qd.onion:8333
-    seednode=b64xcbleqmwgq2u46bh4hegnlrzzvxntyzbmucn3zt7cssm7y4ubv3id.onion:8333
-    seednode=bsqbtcparrfihlwolt4xgjbf4cgqckvrvsfyvy6vhiqrnh4w6ghixoid.onion:8333
-    seednode=bsqbtctulf2g4jtjsdfgl2ed7qs6zz5wqx27qnyiik7laockryvszqqd.onion:8333
+```sh
+$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
 
-    ##I2P seed nodes
-    seednode=255fhcp6ajvftnyo7bwz3an3t4a4brhopm3bamyh2iu5r3gnr2rq.b32.i2p:0
-    seednode=27yrtht5b5bzom2w5ajb27najuqvuydtzb7bavlak25wkufec5mq.b32.i2p:0
-    seednode=3gocb7wc4zvbmmebktet7gujccuux4ifk3kqilnxnj5wpdpqx2hq.b32.i2p:0
-    seednode=4fcc23wt3hyjk3csfzcdyjz5pcwg5dzhdqgma6bch2qyiakcbboa.b32.i2p:0
-    seednode=4osyqeknhx5qf3a73jeimexwclmt42cju6xdp7icja4ixxguu2hq.b32.i2p:0
-    seednode=4umsi4nlmgyp4rckosg4vegd2ysljvid47zu7pqsollkaszcbpqq.b32.i2p:0
-    seednode=6j2ezegd3e2e2x3o3pox335f5vxfthrrigkdrbgfbdjchm5h4awa.b32.i2p:0
-    seednode=6n36ljyr55szci5ygidmxqer64qr24f4qmnymnbvgehz7qinxnla.b32.i2p:0
-    seednode=72yjs6mvlby3ky6mgpvvlemmwq5pfcznrzd34jkhclgrishqdxva.b32.i2p:0
-    seednode=a5qsnv3maw77mlmmzlcglu6twje6ttctd3fhpbfwcbpmewx6fczq.b32.i2p:0
-    seednode=aovep2pco7v2k4rheofrgytbgk23eg22dczpsjqgqtxcqqvmxk6a.b32.i2p:0
-    seednode=bitcoi656nll5hu6u7ddzrmzysdtwtnzcnrjd4rfdqbeey7dmn5a.b32.i2p:0
-    seednode=brifkruhlkgrj65hffybrjrjqcgdgqs2r7siizb5b2232nruik3a.b32.i2p:0
-    seednode=c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p:0
-    seednode=day3hgxyrtwjslt54sikevbhxxs4qzo7d6vi72ipmscqtq3qmijq.b32.i2p:0
-    seednode=du5kydummi23bjfp6bd7owsvrijgt7zhvxmz5h5f5spcioeoetwq.b32.i2p:0
-    seednode=e55k6wu46rzp4pg5pk5npgbr3zz45bc3ihtzu2xcye5vwnzdy7pq.b32.i2p:0
-    seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
-    ```
+```
+# Reject non-private networks settings
+onlynet=onion
+onlynet=i2p
+dns=0
+dnsseed=0
+
+##Tor seed nodes
+seednode=2bqghnldu6mcug4pikzprwhtjjnsyederctvci6klcwzepnjd46ikjyd.onion:8333
+seednode=4lr3w2iyyl5u5l6tosizclykf5v3smqroqdn2i4h3kq6pfbbjb2xytad.onion:8333
+seednode=5g72ppm3krkorsfopcm2bi7wlv4ohhs4u4mlseymasn7g7zhdcyjpfid.onion:8333
+seednode=5sbmcl4m5api5tqafi4gcckrn3y52sz5mskxf3t6iw4bp7erwiptrgqd.onion:8333
+seednode=776aegl7tfhg6oiqqy76jnwrwbvcytsx2qegcgh2mjqujll4376ohlid.onion:8333
+seednode=77mdte42srl42shdh2mhtjr7nf7dmedqrw6bkcdekhdvmnld6ojyyiad.onion:8333
+seednode=azbpsh4arqlm6442wfimy7qr65bmha2zhgjg7wbaji6vvaug53hur2qd.onion:8333
+seednode=b64xcbleqmwgq2u46bh4hegnlrzzvxntyzbmucn3zt7cssm7y4ubv3id.onion:8333
+seednode=bsqbtcparrfihlwolt4xgjbf4cgqckvrvsfyvy6vhiqrnh4w6ghixoid.onion:8333
+seednode=bsqbtctulf2g4jtjsdfgl2ed7qs6zz5wqx27qnyiik7laockryvszqqd.onion:8333
+
+##I2P seed nodes
+seednode=255fhcp6ajvftnyo7bwz3an3t4a4brhopm3bamyh2iu5r3gnr2rq.b32.i2p:0
+seednode=27yrtht5b5bzom2w5ajb27najuqvuydtzb7bavlak25wkufec5mq.b32.i2p:0
+seednode=3gocb7wc4zvbmmebktet7gujccuux4ifk3kqilnxnj5wpdpqx2hq.b32.i2p:0
+seednode=4fcc23wt3hyjk3csfzcdyjz5pcwg5dzhdqgma6bch2qyiakcbboa.b32.i2p:0
+seednode=4osyqeknhx5qf3a73jeimexwclmt42cju6xdp7icja4ixxguu2hq.b32.i2p:0
+seednode=4umsi4nlmgyp4rckosg4vegd2ysljvid47zu7pqsollkaszcbpqq.b32.i2p:0
+seednode=6j2ezegd3e2e2x3o3pox335f5vxfthrrigkdrbgfbdjchm5h4awa.b32.i2p:0
+seednode=6n36ljyr55szci5ygidmxqer64qr24f4qmnymnbvgehz7qinxnla.b32.i2p:0
+seednode=72yjs6mvlby3ky6mgpvvlemmwq5pfcznrzd34jkhclgrishqdxva.b32.i2p:0
+seednode=a5qsnv3maw77mlmmzlcglu6twje6ttctd3fhpbfwcbpmewx6fczq.b32.i2p:0
+seednode=aovep2pco7v2k4rheofrgytbgk23eg22dczpsjqgqtxcqqvmxk6a.b32.i2p:0
+seednode=bitcoi656nll5hu6u7ddzrmzysdtwtnzcnrjd4rfdqbeey7dmn5a.b32.i2p:0
+seednode=brifkruhlkgrj65hffybrjrjqcgdgqs2r7siizb5b2232nruik3a.b32.i2p:0
+seednode=c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p:0
+seednode=day3hgxyrtwjslt54sikevbhxxs4qzo7d6vi72ipmscqtq3qmijq.b32.i2p:0
+seednode=du5kydummi23bjfp6bd7owsvrijgt7zhvxmz5h5f5spcioeoetwq.b32.i2p:0
+seednode=e55k6wu46rzp4pg5pk5npgbr3zz45bc3ihtzu2xcye5vwnzdy7pq.b32.i2p:0
+seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
+```
 
 ## For the future: upgrade Bitcoin Core
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide.
 
-*   Login as "admin" and change to the temporary directory.
+*   Login as `admin` and change to the temporary directory
 
     ```sh
     $ cd /tmp
@@ -721,7 +815,7 @@ Expected output:
     $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
     ```
 
-The following output is just an **example** of one of the versions:
+**Example** of expected output:
 
 ```
 > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
@@ -748,7 +842,7 @@ Now, just check that the timestamp date is close to the [release](https://github
     $ bitcoind --version
     ```
 
-The following output is just an **example** of one of the versions:
+**Example** of expected output:
 
 ```
 > Bitcoin Core version v25.0.0
@@ -761,3 +855,7 @@ The following output is just an **example** of one of the versions:
     ```sh
     $ sudo systemctl restart bitcoind
     ```
+
+[^1]: Symbolic link
+
+[^2]: Symbolic link

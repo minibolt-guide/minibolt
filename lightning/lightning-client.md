@@ -262,95 +262,95 @@ For this initial setup, we choose the easy route: we store the password in a fil
 
 ### **Configure LND**
 
-*   Create the LND configuration file and paste the following content _**(adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` , and fees)**_. Save and exit.
+* Create the LND configuration file and paste the following content _**(adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` , and fees)**_. Save and exit
 
-    ```sh
-    $ nano /data/lnd/lnd.conf
-    ```
+```sh
+$ nano /data/lnd/lnd.conf
+```
 
-    ```
-    # MiniBolt: lnd configuration
-    # /data/lnd/lnd.conf
+```
+# MiniBolt: lnd configuration
+# /data/lnd/lnd.conf
 
-    [Application Options]
-    # Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-    alias=<YOUR_FANCY_ALIAS>
-    # You can choose the color you want at https://www.color-hex.com/
-    color=#ff9900
-    listen=localhost
-    nat=false
-    debuglevel=info
+[Application Options]
+# Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
+alias=<YOUR_FANCY_ALIAS>
+# You can choose the color you want at https://www.color-hex.com/
+color=#ff9900
+listen=localhost
+nat=false
+debuglevel=info
 
-    # Password: automatically unlock wallet with the password in this file
-    # -- comment out to manually unlock wallet, and see MiniBolt guide for 
-    # more secure options
-    wallet-unlock-password-file=/data/lnd/password.txt
-    wallet-unlock-allow-create=true
+# Password: automatically unlock wallet with the password in this file
+# -- comment out to manually unlock wallet, and see MiniBolt guide for 
+# more secure options
+wallet-unlock-password-file=/data/lnd/password.txt
+wallet-unlock-allow-create=true
 
-    # Automatically regenerate certificate when near expiration
-    tlsautorefresh=true
-    # Do not include the interface IPs or the system hostname in TLS certificate.
-    tlsdisableautofill=true
+# Automatically regenerate certificate when near expiration
+tlsautorefresh=true
+# Do not include the interface IPs or the system hostname in TLS certificate.
+tlsdisableautofill=true
 
-    # Channel settings
-    # Fee settings - default LND base fee = 1000 (mSat), 
-    # default LND fee rate = 1 (ppm)
-    # You can choose whatever you want e.g ZeroFeeRouting (0,0)
-    #bitcoin.basefee=0
-    #bitcoin.feerate=0
+# Channel settings
+# Fee settings - default LND base fee = 1000 (mSat), 
+# default LND fee rate = 1 (ppm)
+# You can choose whatever you want e.g ZeroFeeRouting (0,0)
+#bitcoin.basefee=0
+#bitcoin.feerate=0
 
-    # Minimum channel size (in satoshis, default and minimun 
-    # from source code is 20,000 sats). You can choose whatever you want
-    #minchansize=20000
-    maxpendingchannels=5
-    accept-keysend=true
-    accept-amp=true
-    protocol.wumbo-channels=true
-    coop-close-target-confs=24
+# Minimum channel size (in satoshis, default and minimun 
+# from source code is 20,000 sats). You can choose whatever you want
+#minchansize=20000
+maxpendingchannels=5
+accept-keysend=true
+accept-amp=true
+protocol.wumbo-channels=true
+coop-close-target-confs=24
 
-    # Watchtower client
-    wtclient.active=true
-    # Specify the fee rate with which justice transactions will be signed. 
-    # The default is 10 sat/byte.
-    #wtclient.sweep-fee-rate=10
+# Watchtower client
+wtclient.active=true
+# Specify the fee rate with which justice transactions will be signed. 
+# The default is 10 sat/byte.
+#wtclient.sweep-fee-rate=10
 
-    # Watchtower server
-    watchtower.active=true
+# Watchtower server
+watchtower.active=true
 
-    # Performance
-    gc-canceled-invoices-on-startup=true
-    gc-canceled-invoices-on-the-fly=true
-    ignore-historical-gossip-filters=true
-    stagger-initial-reconnect=true
+# Performance
+gc-canceled-invoices-on-startup=true
+gc-canceled-invoices-on-the-fly=true
+ignore-historical-gossip-filters=true
+stagger-initial-reconnect=true
 
-    # Database
-    [bolt]
-    # Set the next value to false to disable auto-compact DB 
-    # and fast boot and comment the next line
-    db.bolt.auto-compact=true
-    # Uncomment to do DB compact at every LND reboot (default: 168h)
-    #db.bolt.auto-compact-min-age=0h
+# Database
+[bolt]
+# Set the next value to false to disable auto-compact DB 
+# and fast boot and comment the next line
+db.bolt.auto-compact=true
+# Uncomment to do DB compact at every LND reboot (default: 168h)
+#db.bolt.auto-compact-min-age=0h
 
-    # Optional (uncomment the next 2 lines)
-    #[Bitcoind]
-    #bitcoind.estimatemode=ECONOMICAL
+# Optional (uncomment the next 2 lines)
+#[Bitcoind]
+#bitcoind.estimatemode=ECONOMICAL
 
-    [Bitcoin]
-    bitcoin.active=true
-    bitcoin.mainnet=true
-    bitcoin.node=bitcoind
+[Bitcoin]
+bitcoin.active=true
+bitcoin.mainnet=true
+bitcoin.node=bitcoind
 
-    [tor]
-    tor.active=true
-    tor.v3=true
-    tor.streamisolation=true
-    ```
+[tor]
+tor.active=true
+tor.v3=true
+tor.streamisolation=true
+```
 
 {% hint style="info" %}
 This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf) with all possible options
 {% endhint %}
 
-*   Exit of the "lnd" user session to return to the **"admin"** user session
+*   Exit of the `lnd` user session to return to the **"admin"** user session
 
     ```sh
     $ exit
@@ -523,10 +523,10 @@ $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 
 ## LND in action
 
-💊 Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real bitcoin to your MiniBolt, you have "skin in the game"
+💊 Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real Bitcoin to your MiniBolt, you have "skin in the game"
 
 {% hint style="info" %}
-The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping to do this just in case any log could give extra information about the command you just entered.
+The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping to do this just in case any log could give extra information about the command you just entered
 {% endhint %}
 
 ### **Watchtower client**
@@ -537,7 +537,7 @@ Watchtowers are other Lightning nodes that can monitor your channels for you. If
 
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them. It's good practice to add a few watchtowers, just to be on the safe side.
 
-* With user `"admin"`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower) Tor address as a first example
+* With user `admin`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower) Tor address as a first example
 
 {% code overflow="wrap" %}
 ```bash
@@ -586,7 +586,7 @@ Expected output:
 
 ### **Watchtower server**
 
-Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
+Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
 ```sh
 $ lncli tower info
@@ -684,20 +684,22 @@ $ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3a
 ```
 {% endcode %}
 
-*   **Check your funds**, both in the on-chain wallet and the channel balances.
+* **Check your funds**, both in the on-chain wallet and the channel balances
 
-    ```sh
-    $ lncli walletbalance
-    ```
+```sh
+$ lncli walletbalance
+```
 
-    ```sh
-    $ lncli channelbalance
-    ```
-*   **List active channels**. Once the channel funding transaction has been mined and gained enough confirmations, your channel is fully operational. That can take an hour or more.
+```sh
+$ lncli channelbalance
+```
 
-    ```sh
-    $ lncli listchannels
-    ```
+* **List active channels**. Once the channel funding transaction has been mined and gained enough confirmations, your channel is fully operational. That can take an hour or more
+
+```sh
+$ lncli listchannels
+```
+
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
 
 To try, why not send me satoshis! You simply need to input my node pubkey [`⚡2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128), the amount in satoshis and add the "–keysend" flag
