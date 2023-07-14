@@ -313,3 +313,9 @@ alias lntestconnect='lncli --network testnet connect'
 alias lntestpayinvoice='lncli --network testnet payinvoice'
 alias lntestaddinvoice='lncli --network testnet addinvoice'
 alias lntestaddAMPinvoice30d='lncli --network testnet addinvoice --amp'
+
+##########################
+# LND Testnet Watchtower #
+##########################
+alias lntestwtclientinfo='lncli --network testnet wtclient towers'
+alias lntestwtserverinfo='lncli --network testnet tower info'
