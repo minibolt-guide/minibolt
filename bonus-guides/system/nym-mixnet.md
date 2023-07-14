@@ -268,7 +268,7 @@ Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.58
 </details>
 
 {% hint style="info" %}
-All network requester specific configurations can be found in `/home/.nym/service-providers/network-requester/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service.
+All network requester specific configurations can be found in `/home/nym/.nym/service-providers/network-requester/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service.
 {% endhint %}
 
 ### Install NYM socks5 client
@@ -451,7 +451,7 @@ $ sudo rm -r /tmp/nym
 ```
 
 {% hint style="info" %}
-All socks5-client-specific configurations can be found in `/home/.nym/socks5-client/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service.
+All socks5-client-specific configurations can be found in `/home/nym/.nym/socks5-clients/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service
 {% endhint %}
 
 {% hint style="info" %}
@@ -729,7 +729,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 Follow the [Sparrow server bonus guide](../../bonus/bitcoin/sparrow-server.md), which could be used for these 2 cases of uses:
 
-1. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet.
+1. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
 Go to **Preferences --> Server --> Private Electrum**
 
@@ -790,7 +790,7 @@ Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bit
 
 ## NYM connect
 
-NymConnect is an easy-to-use interface that enables you to connect other applications to the Nym mixnet for enhanced privacy. This desktop application allows you to effortlessly run the Nym SOCKS5 client without the need for manual commands.
+NymConnect is an easy-to-use interface that enables you to connect other applications to the NYM mixnet for enhanced privacy. This desktop application allows you to effortlessly run the NYM SOCKS5 client without the need for manual commands.
 
 Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).
 
@@ -883,22 +883,48 @@ Save, switch "Use proxy" again
 </div>
 
 {% hint style="warning" %}
-**Notice**: This app **consumes significant data and battery** when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app.
+**Notice**: This app **consumes significant data and battery** when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app
 {% endhint %}
 
 ## Other NYM tools
 
 {% tabs %}
 {% tab title="Paste NYM" %}
-Pastenym is an adaptation of pastebin.com, using Nym’s mixnet, to protect users and their data but especially their metadata.\
+An adaptation of pastebin.com, using NYM mixnet, to protect users and their data but especially their metadata\
 \
-[Link](https://pastenym.ch) | [GitHub](https://github.com/notrustverify/pastenym)
+[Link](https://pastenym.ch) | [GitHub](https://github.com/notrustverify/pastenym)\
+\
+Paste NYM-CLI --> [GitHub](https://github.com/notrustverify/pastenym-cli)[https://nostrnym.pnproxy.org/](https://nostrnym.pnproxy.org/)
 {% endtab %}
 
 {% tab title="NYM chat" %}
-A simple chat client which sends its traffic through the nym mixnet.
+A simple chat client which sends its traffic through the NYM mixnet
 
 [Link](https://chat-demo.nymtech.net/) | [GitHub](https://github.com/nymtech/demo-mixnet-chat-client)
+{% endtab %}
+
+{% tab title="Nostr-NYM Proxy" %}
+Proxy for using Nostr over Nym mixnet. Nostr-nym is a proxy for using Nostr through the Nym Mixnet. It stands between Nostr users and a specific Nostr relay, preferably on the same machine as the relay, allowing users to connect to this relay without leaking their IP address to it
+
+[GitHub](https://github.com/notrustverify/nostr-nym)
+{% endtab %}
+
+{% tab title="NYM Nostr client" %}
+A Nostr client connected to a Nostr-NYM Proxy\
+\
+[Link](https://nostrnym.pnproxy.org/) | [GitHub](https://github.com/Pineapple-Proxy-DAO/iris-messenger)
+{% endtab %}
+
+{% tab title="NYM Swap" %}
+\[Unofficial] Swap different tokens <-> NYM token
+
+[Link](https://nymswap.com/)
+{% endtab %}
+
+{% tab title="NYM Network Explorer" %}
+Explorer to get information of the NYM network components
+
+[Link](https://explorer.nymtech.net/)
 {% endtab %}
 {% endtabs %}
 
@@ -906,7 +932,7 @@ A simple chat client which sends its traffic through the nym mixnet.
 
 NYM is currently in development and may experience occasional issues.
 
-<figure><img src="../../.gitbook/assets/troubleshooting.png" alt=""><figcaption><p>Example of issiues with a nym socks5 client connected to a network requester</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/troubleshooting.png" alt=""><figcaption><p>Example of issues with a nym socks5 client</p></figcaption></figure>
 
 If you encounter any issues, it is possible that they are related to the gateway. To resolve this, you can attempt to change the gateway by deleting the data folder.
 
@@ -924,13 +950,16 @@ $ sudo systemctl stop nym-network-requester
 $ sudo su - nym
 ```
 
-* Delete bitcoin folder
+* Init again network requester, by following the [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section, this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key
 
-```bash
-$ rm -r /home/nym/.nym/service-providers/network-requester/bitcoin
-```
+{% hint style="info" %}
+**Example:** `./nym-network-requester init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --force-register-gateway`
+{% endhint %}
 
-* Init again the network requester by following the [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section. Choose again latency based selection or manual selection
+{% hint style="warning" %}
+Take note of the new "`Address of this network-requester:"` to refresh it on socks5 clients are using this network requester (`--provider` flag)
+{% endhint %}
+
 * Exit the nym user session to go back to the admin user
 
 ```bash
@@ -957,14 +986,32 @@ $ sudo systemctl stop nym-socks5-client
 $ sudo su - nym
 ```
 
-* Delete bitcoin folder
+* Init again the socks5 client by following the [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section, this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key. Remember to change the network requester address (service provider) if you changed it at any moment
+
+{% hint style="info" %}
+**Example:** `./nym-socks5-client init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --provider 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS --force-register-gateway`
+{% endhint %}
+
+* If you want to change only the service provider of your nym socks5 client connected, edit the config file and replace the `provider_mix_address =` parameter with the new one. With user `nym.` Save and exit
 
 ```bash
-$ rm -r /home/nym/.nym/socks5-clients/bitcoin
+$ nano /home/nym/.nym/socks5-clients/bitcoin/config/config.toml
 ```
 
-* Init again the socks5 client by following the [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section. Choose again latency based selection or manual selection
-* Exit the `nym` user session to go back to the admin user
+<details>
+
+<summary>Example ⬇️</summary>
+
+```
+[core.socks5]
+
+# The mix address of the provider to which all requests are going to be sent.
+provider_mix_address = '84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS'
+```
+
+</details>
+
+* Exit the `nym` user session to go back to the `admin` user
 
 ```bash
 $ exit
