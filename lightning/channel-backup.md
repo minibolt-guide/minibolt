@@ -168,7 +168,7 @@ We set up the backup script as a systemd service to run in the background and st
     ```sh
     $ sudo nano /etc/systemd/system/scb-backup.service
     ```
-*   Paste the following lines. Save and exit.
+*   Paste the following lines. Save and exit
 
     ```sh
     # MiniBolt: systemd unit for automatic SCB backup
@@ -187,12 +187,16 @@ We set up the backup script as a systemd service to run in the background and st
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable and start the service, and check its status (it should be 'active')
+*   Enable autoboot (optional)
 
     ```sh
-    $ sudo systemctl enable scb-backup.service
-    $ sudo systemctl start scb-backup.service
+    $ sudo systemctl enable scb-backup
     ```
+* Start the service
+
+```bash
+$ sudo systemctl start scb-backup
+```
 
 ## Option 1: Local backup
 

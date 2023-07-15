@@ -214,20 +214,36 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
     ```sh
     $ sudo chown -R fulcrum:fulcrum /data/fulcrum/
     ```
-*   Create a symlink to /home/fulcrum/.fulcrum and assign as the owner to the "fulcrum" user
+* Open a `fulcrum` user session
+
+```bash
+$ sudo su - fulcrum
+```
+
+*   Create a symlink from `/home/fulcrum/.fulcrum` folder to the `/data/fulcrum` folder\
+
 
     ```sh
-    $ sudo ln -s /data/fulcrum /home/fulcrum/.fulcrum
+    $ ln -s /data/fulcrum /home/fulcrum/.fulcrum
     ```
+* Check symbolic link has been created correctly
 
-    ```sh
-    $ sudo chown -R fulcrum:fulcrum /home/fulcrum/.fulcrum
-    ```
-*   Open a "fulcrum" user session
+```bash
+$ ls -la /home/fulcrum
+```
 
-    ```sh
-    $ sudo su - fulcrum
-    ```
+Expected output:
+
+<pre><code>total 24
+drwxr-x--- 2 fulcrum fulcrum 4096 Jul 15 07:59 .
+drwxr-xr-x 6 root    root    4096 Jul 15 07:56 ..
+-rw------- 1 fulcrum fulcrum   24 Jul 15 07:59 .bash_history
+-rw-r--r-- 1 fulcrum fulcrum  220 Jul 15 07:56 .bash_logout
+-rw-r--r-- 1 fulcrum fulcrum 3771 Jul 15 07:56 .bashrc
+lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-1">.fulcrum -> /data/fulcrum</a>
+-rw-r--r-- 1 fulcrum fulcrum  807 Jul 15 07:56 .profile
+</code></pre>
+
 *   Change to the fulcrum data folder and generate cert and key files for SSL
 
     ```sh
@@ -241,7 +257,7 @@ $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out
 {% endcode %}
 
 {% hint style="info" %}
-When it asks you to put some info, press `Enter` until the prompt is shown again, is not necessary to put any info
+When it asks you to put some info, press `Enter`until the prompt is shown again is not necessary to put any info
 {% endhint %}
 
 * Download the custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display\&f=Slant\&t=fulcrum)
@@ -294,7 +310,7 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
 Remember, if you have a slow-performance device, follow the [slow device section](electrum-server.md#slow-devices-mode) to improve the experience of the first indexation
 {% endhint %}
 
-*   Exit the "fulcrum" user session to return to the "admin" user session
+*   Exit the `fulcrum` user session to return to the "admin" user session
 
     ```sh
     $ exit
@@ -309,6 +325,8 @@ Fulcrum needs to start automatically on system boot.
     ```sh
     $ sudo nano /etc/systemd/system/fulcrum.service
     ```
+
+
 
     ```
     # MiniBolt: systemd unit for Fulcrum
@@ -333,10 +351,10 @@ Fulcrum needs to start automatically on system boot.
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot
+*   Enable autoboot (optional)
 
     ```sh
-    $ sudo systemctl enable fulcrum.service
+    $ sudo systemctl enable fulcrum
     ```
 *   Prepare "fulcrum" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
@@ -657,3 +675,5 @@ Expected output:
     Filename            Type                Size           Used    Priority
     /var/swap           file                 102396         0       -2
     ```
+
+[^1]: Symbolic link

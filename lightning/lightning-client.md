@@ -393,7 +393,7 @@ Now, let's set up LND to start automatically on system startup.
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot
+*   Enable autoboot (optional)
 
     ```sh
     $ sudo systemctl enable lnd
@@ -437,7 +437,7 @@ $2 sudo systemctl start lnd
 
 Once LND is started, the process waits for us to create the integrated Bitcoin onchain wallet.
 
-*   Change to the "lnd" user
+*   Change to the `lnd` user
 
     ```sh
     $2 sudo su - lnd

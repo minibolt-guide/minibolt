@@ -271,7 +271,7 @@ Electrs need to start automatically on system boot.
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot
+*   Enable autoboot (optional)
 
     ```sh
     $ sudo systemctl enable electrs

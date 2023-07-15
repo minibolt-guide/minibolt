@@ -323,7 +323,7 @@ Now we'll make sure ThunderHub starts as a service on the PC so it's always runn
     [Install]
     WantedBy=multi-user.target
     </code></pre>
-*   Enable autoboot
+*   Enable autoboot (optional)
 
     ```sh
     $ sudo systemctl enable thunderhub

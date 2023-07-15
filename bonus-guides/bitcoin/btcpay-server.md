@@ -461,7 +461,7 @@ TimeoutSec=120
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot
+* Enable autoboot (optional)
 
 ```bash
 $ sudo systemctl enable nbxplorer
@@ -711,7 +711,7 @@ TimeoutSec=120
 WantedBy=multi-user.target
 </code></pre>
 
-* Enable autoboot
+* Enable autoboot (optional)
 
 ```bash
 $ sudo systemctl enable btcpay

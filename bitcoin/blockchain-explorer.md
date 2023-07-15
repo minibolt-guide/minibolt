@@ -241,7 +241,7 @@ Now we'll make sure our blockchain explorer starts as a service on the PC so tha
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot
+*   Enable autoboot (optional)
 
     ```sh
     $ sudo systemctl enable btcrpcexplorer

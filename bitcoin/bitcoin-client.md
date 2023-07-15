@@ -405,7 +405,7 @@ The system needs to run the bitcoin daemon automatically in the background, even
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot
+*   Enable autoboot (optional)
 
     ```sh
     $ sudo systemctl enable bitcoind
