@@ -120,6 +120,8 @@ We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of 
     $ sudo adduser --disabled-password --gecos "" thunderhub
     ```
 
+
+
     ```sh
     $ sudo adduser thunderhub lnd
     ```
@@ -265,11 +267,7 @@ $ npm run build
     # -----------
     ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
     ```
-* Change the directory and edit your `thubConfig.yaml`
-
-```sh
-$ cd ~/thunderhub
-```
+* Edit your `thubConfig.yaml`
 
 ```sh
 $ nano thubConfig.yaml
@@ -289,7 +287,7 @@ accounts:
 Replace the `[E] ThunderHub password` to your one
 {% endhint %}
 
-*   Exit "thunderhub" user session to return to the "admin" user session
+*   Exit `thunderhub` user session to return to the `admin` user session
 
     ```sh
     $ exit
@@ -299,7 +297,7 @@ Replace the `[E] ThunderHub password` to your one
 
 Now we'll make sure ThunderHub starts as a service on the PC so it's always running. In order to do that we create a systemd unit that starts the service on boot directly after LND.
 
-*   As user "admin", create the service file
+*   As user `admin`, create the service file
 
     ```sh
     $ sudo nano /etc/systemd/system/thunderhub.service
@@ -471,6 +469,8 @@ Do you want to access ThunderHub remotely? You can easily do so by adding a Tor 
     $ sudo nano /etc/tor/torrc
     ```
 
+
+
     ```
     ############### This section is just for location-hidden services ###
     # Hidden Service Thunderhub
@@ -483,6 +483,8 @@ Do you want to access ThunderHub remotely? You can easily do so by adding a Tor 
     ```sh
     $ sudo systemctl reload tor
     ```
+
+
 
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
@@ -500,11 +502,13 @@ Expected output:
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
 
-*   From user "admin", stop the service and open a "thunderhub" user session
+*   From user `admin`, stop the service, and open a "thunderhub" user session
 
     ```sh
     $ sudo systemctl stop thunderhub
     ```
+
+
 
     ```sh
     $ sudo su - thunderhub
@@ -515,9 +519,13 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
     $ cd ~/thunderhub
     ```
 
+
+
     ```sh
     $ npm run update
     ```
+
+
 
     ```sh
     $ exit
@@ -538,9 +546,13 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
     $ sudo systemctl stop thunderhub
     ```
 
+
+
     ```sh
     $ sudo systemctl disable thunderhub
     ```
+
+
 
     ```sh
     $ sudo rm /etc/systemd/system/thunderhub.service

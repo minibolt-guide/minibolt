@@ -56,6 +56,8 @@ Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-cli
     $ sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
     ```
 
+
+
     ```sh
     $ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
     ```
@@ -69,6 +71,8 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
     ```sh
     $ sudo nano /data/bitcoin/bitcoin.conf
     ```
+
+
 
     ```sh
     zmqpubhashblock=tcp://127.0.0.1:8433
@@ -95,7 +99,7 @@ We have our Bitcoin Core configuration file set up and can now move on to the ne
     ```sh
     $ VERSION=1.9.1
     ```
-*   Download the application, checksums and signature
+*   Download the application, checksums, and signature
 
     {% code overflow="wrap" %}
     ```sh
@@ -196,11 +200,13 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-$VERSION-x86_64
 
 Now that Fulcrum is installed, we need to configure it to run automatically on startup.
 
-*   Create the "fulcrum" user, and add it to the "bitcoin" group
+*   Create the `fulcrum` user, and add it to the "bitcoin" group
 
     ```sh
     $ sudo adduser --disabled-password --gecos "" fulcrum
     ```
+
+
 
     ```sh
     $ sudo adduser fulcrum bitcoin
@@ -210,6 +216,8 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
     ```sh
     $ sudo mkdir -p /data/fulcrum/fulcrum_db
     ```
+
+
 
     ```sh
     $ sudo chown -R fulcrum:fulcrum /data/fulcrum/
@@ -434,7 +442,7 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VER
 
 To use your Fulcrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-*   Ensure that you are logged in with user "admin" and add the following three lines in the section for "location-hidden services" in the torrc file. Save and exit
+*   Ensure that you are logged in with user `admin` and add the following three lines in the section for "location-hidden services" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -455,17 +463,19 @@ To use your Fulcrum server when you're on the go, you can easily create a Tor hi
     $ sudo systemctl reload tor
     ```
 
+
+
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
     ```
 
-_Example_ expected output:
+**Example** expected output:
 
 ```
 > abcdefg..............xyz.onion
 ```
 
-* You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 50001 (TCP) or 50002 (SSL)
+* You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port `50001` (TCP) or `50002` (SSL)
 
 ### **Admin Script: FulcrumAdmin**
 
@@ -497,7 +507,7 @@ usage: FulcrumAdmin [-h] -p port [-j] [-H [host]]
 
 #### **Fulcrum configuration**
 
-* As the `admin` user, add these lines at the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware.
+* As the `admin` user, add these lines at the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware
 
 ```sh
  $ sudo nano /data/fulcrum/fulcrum.conf
@@ -526,9 +536,13 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
     $ cd /home/admin/
     ```
 
+
+
     ```sh
     $ git clone https://github.com/foundObjects/zram-swap.git
     ```
+
+
 
     ```
     $ cd zram-swap && sudo ./install.sh
@@ -578,20 +592,24 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 ### **Uninstall Fulcrum**
 
-*   Ensure you are logged in with user "admin", stop, disable, and delete the service
+*   Ensure you are logged in with user `admin`, stop, disable, and delete the service
 
     ```sh
     $ sudo systemctl stop fulcrum
     ```
 
+
+
     ```sh
     $ sudo systemctl disable fulcrum
     ```
 
+
+
     ```sh
     $ sudo rm /etc/systemd/system/fulcrum.service
     ```
-*   Delete "fulcrum" user
+*   Delete `fulcrum` user
 
     ```sh
     $ sudo userdel -r fulcrum
@@ -653,13 +671,19 @@ Expected output:
     $ cd /home/admin/zram-swap
     ```
 
+
+
     ```sh
     $ sudo ./install.sh --uninstall
     ```
 
+
+
     ```sh
     $ sudo rm /etc/default/zram-swap
     ```
+
+
 
     ```sh
     $ sudo rm -rf /home/admin/zram-swap

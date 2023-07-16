@@ -37,7 +37,7 @@ Node.js package includes NPM, follow the [Node.js + NPM bonus guide](../bonus/sy
 
 In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
 
-*   Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+*   Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
     ```sh
     $ sudo nano /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf
@@ -52,11 +52,15 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
       }
     }
     ```
+
+
 *   Test and reload Nginx configuration
 
     ```sh
     $ sudo nginx -t
     ```
+
+
 
     ```sh
     $ sudo systemctl reload nginx
@@ -79,9 +83,13 @@ For improved security, we create the new user "btcrpcexplorer" that will run the
     $ sudo adduser --disabled-password --gecos "" btcrpcexplorer
     ```
 
+
+
     ```sh
     $ sudo adduser btcrpcexplorer bitcoin
     ```
+
+
 
     ```sh
     $ sudo su - btcrpcexplorer
@@ -97,13 +105,15 @@ For improved security, we create the new user "btcrpcexplorer" that will run the
 $ curl https://github.com/janoside.gpg | gpg --import
 ```
 
-*   Download the source code directly from GitHub and install all dependencies using the Node Package Manager (NPM)
+*   Download the source code directly from GitHub
 
     ```sh
     $ git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git
     ```
 
-    <pre><code><strong>$ cd btc-rpc-explorer
+
+
+    <pre class="language-bash"><code class="lang-bash"><strong>$ cd btc-rpc-explorer
     </strong></code></pre>
 
 
@@ -147,16 +157,18 @@ Installation can take some time, be patient. There might be a lot of confusing o
 
 ### **Configuration**
 
-*   Copy and edit the configuration template (skip this step when updating). Activate any setting by removing the `#` at the beginning of the line.
+*   Copy and edit the configuration template (skip this step when updating). Activate any setting by removing the `#` at the beginning of the line
 
     ```sh
     $ cp .env-sample .env
     ```
 
+
+
     ```sh
-    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
+    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
     ```
-*   Instruct BTC RPC Explorer to connect to local Bitcoin Core.
+*   Instruct BTC RPC Explorer to connect to local Bitcoin Core
 
     ```
     # uncomment these lines
@@ -208,7 +220,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
     BTCEXP_UI_THEME=dark
     ```
 * Save and exit
-*   Exit the "btcrpcexplorer" user session to return to the "admin" user session
+*   Exit the `btcrpcexplorer` user session to return to the "admin" user session
 
     ```sh
     $ exit
@@ -218,7 +230,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 
 Now we'll make sure our blockchain explorer starts as a service on the PC so that it's always running.
 
-*   As user "admin", create the service file
+*   As user `admin`, create the service file
 
     ```sh
     $ sudo nano /etc/systemd/system/btcrpcexplorer.service
@@ -267,7 +279,7 @@ Now point your browser to the secure access point provided by the NGINX web prox
 Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Block Explorer web interface.
 
 {% hint style="info" %}
-If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer.
+If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer
 {% endhint %}
 
 {% hint style="success" %}
@@ -315,6 +327,8 @@ You may want to share your BTC RPC Explorer **onion** address with confident peo
     $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
     ```
 
+
+
     ```
     # uncomment this line
     BTCEXP_DEMO=true
@@ -328,11 +342,13 @@ Remember to give them the `password [D]` if you added password protection in the
 
 Do you want to access your personal blockchain explorer remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
 
-*   Add the following three lines in the "location-hidden services" section in the `torrc` file. Save and exit.
+*   Add the following three lines in the "location-hidden services" section in the `torrc` file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
     ```
+
+
 
     ```
     ############### This section is just for location-hidden services ###
@@ -364,11 +380,13 @@ Do you want to access your personal blockchain explorer remotely? You can easily
 
 Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
 
-*   From user "admin", stop the service and open a "btcrpcexplorer" user session
+*   From user `admin`, stop the service and open a "btcrpcexplorer" user session
 
     ```sh
     $ sudo systemctl stop btcrpcexplorer
     ```
+
+
 
     ```sh
     $ sudo su - btcrpcexplorer
@@ -385,30 +403,42 @@ $ VERSION=3.4.0
     $ cd /home/btcrpcexplorer/btc-rpc-explorer
     ```
 
+
+
     ```sh
     $ git fetch
     ```
+
+
 
     ```sh
     $ git reset --hard HEAD
     ```
 
+
+
     ```sh
     $ git tag
     ```
+
+
 
     ```sh
     $ git checkout v$VERSION
     ```
 
+
+
     ```sh
     $ npm install
     ```
 
+
+
     ```sh
     $ exit
     ```
-*   Start the service again.
+*   Start the service again
 
     ```sh
     $ sudo systemctl start btcrpcexplorer

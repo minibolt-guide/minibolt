@@ -35,7 +35,7 @@ This SCB-based recovery method has several consequences worth bearing in mind:
 
 You need to set up an automated SCB update mechanism that:
 
-1. Creates or updates your SCB file each time you open a channel (or close one, although this is less important)
+1. Creates or updates your SCB file each time you open a channel (or close one, although this is less important).
 2. Stores the SCB file in a different backup location to ensure that it is available in case of a failing SSD.
 
 You can read more about SCBs in [this section of 'Mastering the Lighning Network'](https://github.com/lnbook/lnbook/blob/ec806916edd6f4d1b2f9da2fef08684f80acb671/05\_node\_operations.asciidoc#node-and-channel-backups).
@@ -61,11 +61,11 @@ We prepare a shell script that automatically updates the LND SCB file on a chang
 
 ### Install inotify-tools
 
-Installing `inotify-tools` allows us to use `inotify`, an application that monitors files and directories for changes.
+Installing [`inotify-tools`](https://github.com/inotify-tools/inotify-tools) allows us to use `inotify`, an application that monitors files and directories for changes.
 
 We will use it to monitor the `channel.backup` file and detect updates by LND each time a channel is opened or closed.
 
-*   With user "admin", install `inotify-tools`
+*   With user `admin`, install `inotify-tools`
 
     ```sh
     $ sudo apt install inotify-tools
@@ -78,81 +78,82 @@ We create a shell script to monitor `channel.backup` and make a copy o our backu
 *   Create a new shell script file
 
     ```sh
-    $ sudo nano /usr/local/bin/scb-backup --linenumbers
+    $ sudo nano /usr/local/bin/scb-backup
     ```
-*   Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit.
+* Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit
 
-    ```
-    #!/bin/bash
+```
+#!/bin/bash
 
-    # Safety bash script options
-    # -e causes a bash script to exit immediately when a command fails
-    # -u causes the bash shell to treat unset variables as an error and exit immediately.
-    set -eu
+# Safety bash script options
+# -e causes a bash script to exit immediately when a command fails
+# -u causes the bash shell to treat unset variables as an error and exit immediately.
+set -eu
 
-    # The script waits for a change in /data/lnd/data/chain/bitcoin/mainnet/channel.backup.
-    # When a change happens, it creates a backup of the file locally
-    #   on a storage device and/or remotely in a GitHub repo
+# The script waits for a change in /data/lnd/data/chain/bitcoin/mainnet/channel.backup.
+# When a change happens, it creates a backup of the file locally
+#   on a storage device and/or remotely in a GitHub repo
 
-    # By default, both methods are used. If you do NOT want to use one of the
-    #   method, replace "true" by "false" in the two variables below:
-    LOCAL_BACKUP_ENABLED=false
-    REMOTE_BACKUP_ENABLED=false
+# By default, both methods are used. If you do NOT want to use one of the
+#   method, replace "true" by "false" in the two variables below:
+LOCAL_BACKUP_ENABLED=false
+REMOTE_BACKUP_ENABLED=false
 
-    # Locations of source SCB file and the backup target directories (local and remote)
-    SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/mainnet/channel.backup"
-    LOCAL_BACKUP_DIR="/mnt/static-channel-backup-external"
-    REMOTE_BACKUP_DIR="/data/lnd/remote-lnd-backup"
+# Locations of source SCB file and the backup target directories (local and remote)
+SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/mainnet/channel.backup"
+LOCAL_BACKUP_DIR="/mnt/static-channel-backup-external"
+REMOTE_BACKUP_DIR="/data/lnd/remote-lnd-backup"
 
-    # Local backup function
-    run_local_backup_on_change () {
-      echo "Copying backup file to local storage device..."
-      echo "$1"
-      cp "$SCB_SOURCE_FILE" "$1"
-      echo "Success! The file is now locally backed up!"
-    }
+# Local backup function
+run_local_backup_on_change () {
+  echo "Copying backup file to local storage device..."
+  echo "$1"
+  cp "$SCB_SOURCE_FILE" "$1"
+  echo "Success! The file is now locally backed up!"
+}
 
-    # Remote backup function
-    run_remote_backup_on_change () {
-      echo "Entering Git repository..."
-      cd $REMOTE_BACKUP_DIR || exit
-      echo "Making a timestamped copy of channel.backup..."
-      echo "$1"
-      cp "$SCB_SOURCE_FILE" "$1"
-      echo "Committing changes and adding a message"
-      git add .
-      git commit -m "Static Channel Backup $(date +"%Y%m%d-%H%M%S")"
-      echo "Pushing changes to remote repository..."
-      git push --set-upstream origin main
-      echo "Success! The file is now remotely backed up!"
-    }
+# Remote backup function
+run_remote_backup_on_change () {
+  echo "Entering Git repository..."
+  cd $REMOTE_BACKUP_DIR || exit
+  echo "Making a timestamped copy of channel.backup..."
+  echo "$1"
+  cp "$SCB_SOURCE_FILE" "$1"
+  echo "Committing changes and adding a message"
+  git add .
+  git commit -m "Static Channel Backup $(date +"%Y%m%d-%H%M%S")"
+  echo "Pushing changes to remote repository..."
+  git push --set-upstream origin main
+  echo "Success! The file is now remotely backed up!"
+}
 
 
-    # Monitoring function
-    run () {
-      while true; do
+# Monitoring function
+run () {
+  while true; do
 
-          inotifywait $SCB_SOURCE_FILE
-          echo "channel.backup has been changed!"
+      inotifywait $SCB_SOURCE_FILE
+      echo "channel.backup has been changed!"
 
-          LOCAL_BACKUP_FILE="$LOCAL_BACKUP_DIR/channel-$(date +"%Y%m%d-%H%M%S").backup"
-          REMOTE_BACKUP_FILE="$REMOTE_BACKUP_DIR/channel-$(date +"%Y%m%d-%H%M%S").backup"
+      LOCAL_BACKUP_FILE="$LOCAL_BACKUP_DIR/channel-$(date +"%Y%m%d-%H%M%S").backup"
+      REMOTE_BACKUP_FILE="$REMOTE_BACKUP_DIR/channel-$(date +"%Y%m%d-%H%M%S").backup"
 
-          if [ "$LOCAL_BACKUP_ENABLED" == true ]; then
-            echo "Local backup is enabled"
-            run_local_backup_on_change "$LOCAL_BACKUP_FILE"
-          fi
+      if [ "$LOCAL_BACKUP_ENABLED" == true ]; then
+        echo "Local backup is enabled"
+        run_local_backup_on_change "$LOCAL_BACKUP_FILE"
+      fi
 
-          if [ "$REMOTE_BACKUP_ENABLED" == true ]; then
-            echo "Remote backup is enabled"
-            run_remote_backup_on_change "$REMOTE_BACKUP_FILE"
-          fi
+      if [ "$REMOTE_BACKUP_ENABLED" == true ]; then
+        echo "Remote backup is enabled"
+        run_remote_backup_on_change "$REMOTE_BACKUP_FILE"
+      fi
 
-      done
-    }
+  done
+}
 
-    run
-    ```
+run
+```
+
 *   Make the script executable
 
     ```sh
@@ -217,13 +218,19 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
     ```sh
     $ sudo mkdir /mnt/static-channel-backup-external
-    $ sudo chattr +i /mnt/static-channel-backup-external
     ```
-*   List active block devices and copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`).
+
+```bash
+$ sudo chattr +i /mnt/static-channel-backup-external
+```
+
+*   List active block devices and copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`)
 
     ```sh
     $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
     ```
+
+
 
     ```
     > NAME   MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL      MODEL
@@ -238,37 +245,45 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
     $ awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
     ```
 
+
+
     ```
     > GID: XXXX / UID: YYYY
     ```
-*   Edit your Filesystem Table configuration file and add the following as a new line at the end, replacing `123456`, `XXXX` and `YYYY` with your own `UUID`, `GID` and `UID`
+* Edit your Filesystem Table configuration file and add the following as a new line at the end, replacing `123456`, `XXXX` and `YYYY` with your own `UUID`, `GID` and `UID`
 
-    ```sh
-    $ sudo nano /etc/fstab
-    ```
+```sh
+$ sudo nano /etc/fstab
+```
 
-    ```sh
-    UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,nosuid,nodev,noatime,nodiratime,nofail,umask=022,gid=XXXX,uid=YYYY 0 0
-    ```
+```sh
+UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,nosuid,nodev,noatime,nodiratime,nofail,umask=022,gid=XXXX,uid=YYYY 0 0
+```
+
 *   Mount the drive and check the file system. Is “/mnt/static-channel-backup-external” listed?
 
     ```sh
     $ sudo mount -a
-    $ df -h /mnt/static-channel-backup-external
     ```
 
-    ```
-    > Filesystem      Size  Used Avail Use% Mounted on
-    > /dev/sdb        1.9G  4.0K  1.9G   1% /mnt/static-channel-backup-external
-    ```
+```bash
+$ df -h /mnt/static-channel-backup-external
+```
+
+```
+> Filesystem      Size  Used Avail Use% Mounted on
+> /dev/sdb        1.9G  4.0K  1.9G   1% /mnt/static-channel-backup-external
+```
 
 ### Enable the local backup function in the script
 
-*   Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit.
+*   Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit
 
     ```sh
     $ sudo nano /usr/local/bin/scb-backup --linenumbers
     ```
+
+
 
     ```
     LOCAL_BACKUP_ENABLED=true
@@ -293,12 +308,19 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 ### Clone the repository to your node
 
-*   Using the "lnd" user, create a pair of SSH keys. When prompted, press "Enter" to confirm the default SSH directory and not set up a password.
+*   Using the `lnd` user, create a pair of SSH keys. When prompted, press "Enter" to confirm the default SSH directory and not set up a password
 
     ```sh
     $ sudo su - lnd
+    ```
+
+
+
+    ```
     $ ssh-keygen -t rsa -b 4096
     ```
+
+
 
     ```
     > Generating public/private rsa key pair.
@@ -309,6 +331,8 @@ Follow this section if you want a remote backup. If you already set up a local b
     ```sh
     $ cat ~/.ssh/id_rsa.pub
     ```
+
+
 
     ```
     > ssh-rsa 1234abcd... lnd@minibolt
@@ -361,10 +385,20 @@ $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
 
 ```sh
 $ cd remote-lnd-backup
-$ touch test
+```
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ touch test
+</strong></code></pre>
+
+```bash
 $ git add .
+```
+
+```bash
 $ git commit -m "testing"
 ```
+
+Expected output:
 
 ```
 > [main (root-commit) 826563d] testing
@@ -376,6 +410,8 @@ $ git commit -m "testing"
 $ git push --set-upstream origin main
 ```
 
+Expected output:
+
 ```
 > Enumerating objects: 3, done.
 > Counting objects: 100% (3/3), done.
@@ -386,14 +422,34 @@ $ git push --set-upstream origin main
 > Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```
 
-* Check that a copy of the "test" file is now in your remote GitHub repository (in the `[ <> Code ]` tab).
+* Check that a copy of the "test" file is now in your remote GitHub repository (in the `[Code]` tab)
 *   Go back to the SSH session, delete the test file, commit this change, and exit the "lnd" user
 
     ```sh
     $ rm test
+    ```
+
+
+
+    ```bash
     $ git add .
+    ```
+
+
+
+    ```bash
     $ git commit -m 'removing test file'
+    ```
+
+
+
+    ```bash
     $ git push
+    ```
+
+
+
+    ```bash
     $ exit
     ```
 
@@ -404,6 +460,8 @@ $ git push --set-upstream origin main
     ```sh
     $ sudo nano /usr/local/bin/scb-backup --linenumbers
     ```
+
+
 
     ```
     REMOTE_BACKUP_ENABLED=true
@@ -424,15 +482,23 @@ The automated backup is now up and running. To test if everything works, we now 
     $ sudo journalctl -f -u scb-backup
     ```
 
-    ```
-    > [...]
-    > Feb 05 10:55:09 minibolt scb-backup.sh[25782]: Watches established.
-    ```
-* Start your SSH program (eg. PuTTY) a second time and log in as "admin". Commands for the second session start with the prompt $2.
+Expected output:
+
+```
+> [...]
+> Feb 05 10:55:09 minibolt scb-backup.sh[25782]: Watches established.
+```
+
+* Start your SSH program (eg. PuTTY) a second time and log in as "admin". Commands for the second session start with the prompt $2
 *   Simulate a `channel.backup` file change with the `touch` command (don't worry! It simply updates the timestamp of the file but not its content) and then exits the session.
 
     ```sh
     $2 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
+    ```
+
+
+
+    ```bash
     $2 exit
     ```
 * Switch back to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled):
@@ -477,9 +543,14 @@ The automated backup is now up and running. To test if everything works, we now 
     $ ls -la /mnt/static-channel-backup-external
     ```
 
-    ```
-    > -rwxr-xr-x 1 lnd  lnd  14011 Feb  5 10:59 channel-20220205-105949.backup
-    ```
+Expected output:
+
+```
+> -rwxr-xr-x 1 lnd  lnd  14011 Feb  5 10:59 channel-20220205-105949.backup
+```
+
 * If you enabled the remote backup, check your GitHub repository (in the `[ <> Code ]` tab). It should now contain the latest timestamped backup file
 
-You're set! Each time you open a new channel or close an existing one, the monitoring script will automatically save a timestamped copy of the backup file to your backup location(s).
+{% hint style="success" %}
+You're set! Each time you open a new channel or close an existing one, the monitoring script will automatically save a timestamped copy of the backup file to your backup location(s)
+{% endhint %}

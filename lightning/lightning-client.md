@@ -241,18 +241,37 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
     $ ln -s /data/bitcoin /home/lnd/.bitcoin
     ```
 
+
+* Check symbolic link has been created correctly
+
+```bash
+$ ls -la
+```
+
+Expected output:
+
+<pre><code>total 20
+drwxr-x--- 2 lnd  lnd  4096 Jul 15 20:57 .
+drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
+-rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
+-rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
+lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
+-rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
+</code></pre>
+
 ### **Wallet password**
 
 LND includes a Bitcoin wallet that manages your on-chain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your PC, or store the password somewhere on the node.
 
 For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically. This is not the most secure setup, but you can improve it later if you want, with the bonus guides linked below. To give some perspective: other Lightning implementations like c-lightning or Eclair don't even have a password.
 
-*   Still as user **"lnd"**, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
+*   Still as user `lnd`, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
 
     ```sh
     $ nano /data/lnd/password.txt
     ```
-*   Tighten access privileges and make the file readable only for user "lnd"
+*   Tighten access privileges and make the file readable only for user `lnd`
 
     ```sh
     $ chmod 600 /data/lnd/password.txt
@@ -773,3 +792,7 @@ Upgrading LND can lead to a number of issues. **Always** read the [LND release n
     ```sh
     $ sudo systemctl restart lnd
     ```
+
+[^1]: Symbolic link
+
+[^2]: Symbolic link
