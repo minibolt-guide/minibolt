@@ -633,7 +633,7 @@ $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
 ```
-# Proxy clearnet (ipv4) outbound connection using SOCKS5 proxy
+# Proxy clearnet (ipv4) outbound connection using NYM SOCKS5 proxy
 proxy=127.0.0.1:1080
 ```
 
@@ -781,7 +781,7 @@ Go to **Settings** --> **Advanced settings --> Enable Tor proxy,** check **"Enab
 
 Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bitbox app or choose one of your elections, Go to Add a server:
 
-1. Enter the endpoint: electrum.blockstream.info:50002
+1. Enter the endpoint: `electrum.blockstream.info:50002`
 2. Click on the **"Download remote certificate"** button
 3. Click on the "**Check**" button, click **OK**
 4. Finally, click on the "**Add**" button and click again on the "**Check**" button, and "**OK**"
@@ -808,7 +808,7 @@ If you wish to choose your own gateway from the provided [list](https://explorer
 
 #### Keybase
 
-Download the [Keybase](https://keybase.io/download) app for your OS and install it.\
+Download the [Keybase](https://keybase.io/download) app for your OS and install it\
 \
 Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and check **"SOCKS5",** type this info:
 

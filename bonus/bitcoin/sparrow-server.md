@@ -36,7 +36,7 @@ Status: Tested MiniBolt
 
 #### Download Sparrow Server
 
-*   Login as "admin" and change to a temporary directory which is cleared on reboot
+*   Login as `admin` and change to a temporary directory which is cleared on reboot
 
     ```sh
     $ cd /tmp
@@ -104,12 +104,12 @@ Expected output:
     ```sh
     $ tar -xvf sparrow-server-$VERSION-x86_64.tar.gz
     ```
-*   Move data files to the home "admin" user
+*   Move data files to the home `admin` user
 
     ```sh
     $ sudo cp -r Sparrow /home/admin/
     ```
-*   Clean the remaining installation files from the "tmp" folder to avoid problems for the next update
+*   Clean the remaining installation files from the `tmp` folder to avoid problems for the next update
 
     ```sh
     $ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
@@ -119,7 +119,7 @@ Expected output:
 If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command and skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run-sparrow) section to start Sparrow server again with the new version.
 {% endhint %}
 
-*   Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH.
+*   Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH
 
     ```sh
     $ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow

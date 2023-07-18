@@ -333,6 +333,18 @@ Jul 18 11:08:35 minibolt npm[140461]: 2023-07-18T11:08:35.135Z btcexp:app Networ
 > If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer
 {% endhint %}
 
+* Ensure the service is working and listening at the default `3002` port
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep node | grep 3002
+```
+
+Expected output:
+
+```
+tcp   LISTEN 0   511   127.0.0.1:3002   0.0.0.0:*   users:(("node",pid=140461,fd=20))
+```
+
 {% hint style="success" %}
 **Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node
 {% endhint %}
@@ -400,7 +412,7 @@ Do you want to access your personal blockchain explorer remotely? You can easily
 
 ### **Sharing your Explorer**
 
-You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "DEMO" mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
+You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "`DEMO`" mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
 
 *   With user `admin`, change to the `btcrpcexplorer` user
 
@@ -421,7 +433,7 @@ You may want to share your BTC RPC Explorer **onion** address with confident peo
     ```
 
 {% hint style="info" %}
-Remember to give them the `password [D]` if you added password protection in the reference step
+Remember to give them the **`password [D]`** if you added password protection in the reference step
 {% endhint %}
 
 ### **Slow device mode (resource-intensive features are disabled)**

@@ -65,13 +65,15 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
     $ sudo nano /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
     ```
 
+
+
     ```nginx
     server {
       listen 4002 ssl;
       error_page 497 =301 https://$host:$server_port$request_uri;
 
       location / {
-        proxy_pass http://127.0.0.1:3010;
+        proxy_pass http://127.0.0.1:3000;
       }
     }
     ```
@@ -189,11 +191,39 @@ $ npm install
 
 <details>
 
-<summary>Expected output ⬇️</summary>
+<summary>Example of expected output ⬇️</summary>
 
 ```
-npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws
+npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws    For general help using `graphql-ws`, see https://github.com/enisdenjo/graphql-ws/blob/master/README.md
+npm WARN deprecated apollo-server-plugin-base@3.7.2: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-types@3.8.0: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-express@3.12.0: The `apollo-server-express` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server@3.12.0: The `apollo-server` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-reporting-protobuf@3.4.0: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-core@3.12.0: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+(#################⠂) ⠧ reify:value-or-promise: timing reifyNode:node_modules/foreground-child/node_modules/signal-exit Completed in 39393ms
 [...]
+> thunderhub@0.13.19 prepare
+> husky install
+
+husky - Git hooks installed
+
+added 1879 packages, and audited 1880 packages in 1m
+
+201 packages are looking for funding
+  run `npm fund` for details
+
+16 vulnerabilities (1 low, 5 moderate, 10 high)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+npm notice
+npm notice New minor version of npm available! 9.5.1 -> 9.8.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v9.8.0
+npm notice Run npm install -g npm@9.8.0 to update!
+npm notice
 ```
 
 </details>
@@ -204,42 +234,73 @@ $ npm run build
 
 <details>
 
-<summary>Expected output ⬇️</summary>
+<summary>Example of expected output ⬇️</summary>
 
 ```
-  [...]
-  ├ λ /peers                                 7.21 kB         268 kB
-  ├ λ /rebalance                             9.5 kB          285 kB
-  ├ λ /settings                              8.13 kB         261 kB
-  ├ λ /settings/dashboard                    460 B           249 kB
-  ├ λ /sso                                   3.42 kB         248 kB
-  ├ λ /stats                                 7.12 kB         252 kB
-  ├ λ /swap                                  12.6 kB         291 kB
-  ├ λ /tools                                 10 kB           255 kB
-  └ λ /transactions                          5.92 kB         350 kB
-  + First Load JS shared by all              245 kB
-    ├ chunks/framework-0bff4c72fef67389.js   42 kB
-    ├ chunks/main-1620fe742cfceb1f.js        27.6 kB
-    ├ chunks/pages/_app-e0561dc8c6a45056.js  173 kB
-    ├ chunks/webpack-74c128dc0ca7f46d.js     2.04 kB
-    └ css/4bab2f810587958d.css               3.4 kB
-  λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+> thunderhub@0.13.19 prebuild
+> rimraf dist && rimraf .next
+
+
+> thunderhub@0.13.19 build
+> npm run build:nest && npm run build:next
+
+
+> thunderhub@0.13.19 build:nest
+> nest build
+
+
+> thunderhub@0.13.19 build:next
+> cd src/client && next build
+
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+- info Linting and checking validity of types
+- info Creating an optimized production build
+- info Compiled successfully
+- info Collecting page data
+- info Finalizing page optimization
+
+Route (pages)                              Size     First Load JS
+┌ λ /                                      22.3 kB         377 kB
+├   /_app                                  0 B             243 kB
+├ λ /404                                   339 B           244 kB
+├ λ /amboss                                3.19 kB         250 kB
+├ λ /chain                                 5.39 kB         267 kB
+├ λ /channels                              5.84 kB         309 kB
+├ λ /channels/[slug]                       4.35 kB         251 kB
+├ λ /chat                                  5.61 kB         252 kB
+├ λ /dashboard                             568 B           247 kB
+├ λ /forwards                              10.3 kB         353 kB
+├ λ /leaderboard                           3.49 kB         279 kB
+├ λ /lnmarkets                             5.06 kB         249 kB
+├ λ /login                                 5.4 kB          249 kB
+├ λ /peers                                 6.03 kB         268 kB
+├ λ /rebalance                             8.16 kB         281 kB
+├ λ /settings                              8.44 kB         257 kB
+├ λ /settings/dashboard                    454 B           247 kB
+├ λ /sso                                   2.7 kB          246 kB
+├ λ /stats                                 6.13 kB         250 kB
+├ λ /swap                                  11 kB           286 kB
+├ λ /tools                                 7.12 kB         251 kB
+└ λ /transactions                          4.86 kB         345 kB
++ First Load JS shared by all              247 kB
+  ├ chunks/framework-d6b15d8b3dd1dcdb.js   45.2 kB
+  ├ chunks/main-c500a90111607c9d.js        27.7 kB
+  ├ chunks/pages/_app-a6dc7da2774e90d5.js  168 kB
+  ├ chunks/webpack-e7ee4d06fbc921c4.js     2.09 kB
+  └ css/d7f6629e77206f04.css               3.75 kB
+
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ```
 
 </details>
 
 ### **Configuration**
 
-*   Still with user `thunderhub`, create a symbolic link pointing to your lnd data directory
-
-    ```sh
-    $ ln -s /data/lnd /home/thunderhub/.lnd
-    ```
 *   Copy and open the configuration file
-
-    ```sh
-    $ cd ~/thunderhub
-    ```
 
 
 
@@ -259,7 +320,6 @@ $ npm run build
     # Server Configs
     # -----------
     NODE_ENV=production
-    PORT=3010
 
     # -----------
     # Optional (more privacy)
@@ -271,11 +331,13 @@ $ npm run build
     # -----------
     ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
     ```
-* Edit your `thubConfig.yaml`
+* Create your `thubConfig.yaml`
 
 ```sh
 $ nano thubConfig.yaml
 ```
+
+* Copy and paste the next information
 
 ```
 masterPassword: 'PASSWORD' # Default password unless defined in account
@@ -283,12 +345,12 @@ accounts:
   - name: 'MiniBolt'
     serverUrl: '127.0.0.1:10009'
     macaroonPath: '/home/thunderhub/admin.macaroon'
-    certificatePath: '/home/thunderhub/.lnd/tls.cert'
+    certificatePath: 'data/lnd/tls.cert'
     password: '[E] ThunderHub password'
 ```
 
 {% hint style="info" %}
-Replace the `[E] ThunderHub password` to your one
+Replace the **`[E] ThunderHub password`** to your one
 {% endhint %}
 
 *   Exit `thunderhub` user session to return to the `admin` user session
@@ -445,7 +507,7 @@ Jun 28 23:35:54 minibolt npm[513313]:   level: 'info',
 Jun 28 23:35:54 minibolt npm[513313]:   message: 'Nest application successfully started',
 Jun 28 23:35:54 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:54.524Z'
 Jun 28 23:35:54 minibolt npm[513313]: }
-Jun 28 23:35:54 minibolt npm[513313]: Application is running on: http://[::1]:3010
+Jun 28 23:35:54 minibolt npm[513313]: Application is running on: http://[::1]:3000
 Jun 28 23:35:54 minibolt npm[513313]: (node:513313) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
 Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to show where the warning was created)
 [...]
@@ -458,6 +520,18 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 
 > Now point your browser to `https://minibolt.local:4002`  or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
 {% endhint %}
+
+* Ensure the service is working and listening at the default `3000` port
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep node | grep 3000
+```
+
+Expected output:
+
+```
+tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd=25))
+```
 
 {% hint style="success" %}
 **Congratulations!** You now have Thunderhub up and running
@@ -479,7 +553,7 @@ Do you want to access ThunderHub remotely? You can easily do so by adding a Tor 
     # Hidden Service Thunderhub
     HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
     HiddenServiceVersion 3
-    HiddenServicePort 80 127.0.0.1:3010
+    HiddenServicePort 80 127.0.0.1:3000
     ```
 *   Restart Tor and get your connection address.
 
@@ -610,7 +684,7 @@ Expected output:
     # Hidden Service Thunderhub
     #HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
     #HiddenServiceVersion 3
-    #HiddenServicePort 80 127.0.0.1:3010
+    #HiddenServicePort 80 127.0.0.1:3000
     ```
 *   Reload torrc config
 

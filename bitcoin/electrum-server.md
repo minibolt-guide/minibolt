@@ -408,11 +408,11 @@ Jul 28 12:20:21 minibolt Fulcrum[181811]: [2022-07-28 12:20:21.643] Checking tx 
 > DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
 {% endhint %}
 
-*   When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed, ensure the service is working and listening at the default `50002` & `50001` ports
+* When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed, ensure the service is working and listening at the default `50002` & `50001` ports
 
-    ```sh
-    $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum
-    ```
+```sh
+$2 sudo ss -tulpn | grep LISTEN | grep Fulcrum
+```
 
 ## For the future: Fulcrum upgrade
 

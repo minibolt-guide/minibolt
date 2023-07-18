@@ -33,7 +33,7 @@ Status: Tested MiniBolt
 
 ### Install Node.js + NPM
 
-*   With user "admin", set the environment variable
+*   With user `admin`, set the environment variable
 
     ```sh
     $ VERSION=18

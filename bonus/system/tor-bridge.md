@@ -264,7 +264,9 @@ Remember to exclude the "Bridge" word to avoid incompatibility with the Tor Brow
 You'll need to replace **"IP ADDRESS"**, **"PORT"**, and **"FINGERPRINT"** with the actual values, which you can find in the tor log. Make sure that you use **"PORT"** as the obfs4 port <**TODO2>,** not ~~**\<TODO1>,**~~ and that you chose **"FINGERPRINT",** not ~~**"HASHED FINGERPRINT"**~~.
 {% endhint %}
 
-🔍 More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
+{% hint style="info" %}
+More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
+{% endhint %}
 
 ## Extras (optional)
 
@@ -313,7 +315,7 @@ One of the most important things to keep your relay secure is to install securit
 
 [Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relays such as bandwidth usage, connections, logs, and much more.
 
-*   With user `"admin"`, install the package
+*   With user `admin`, install the package
 
     ```sh
     $ sudo apt install nyx
@@ -430,7 +432,7 @@ $ sudo ufw status verbose
 ```
 
 {% hint style="info" %}
-Reverts router NAT configuration following the same [Configure Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat) previous step but this time deleting the configuration setting.
+Reverts router NAT configuration following the same [Configure Firewall and NAT](https://raspibolt.org/guide/bonus/raspberry-pi/tor-bridge.html#configure-firewall-and-router-nat) previous step but this time deleting the configuration setting
 {% endhint %}
 
 ### **Uninstall systemd hardening**

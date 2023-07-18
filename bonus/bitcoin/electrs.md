@@ -100,7 +100,7 @@ An easy and performant way to run an Electrum server is to use [Electrs](https:/
 
 We get the latest release of the Electrs source code, verify it, compile it to an executable binary and install it.
 
-*   Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration, though.
+*   Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration, though
 
     ```sh
     $ cd /tmp
@@ -348,7 +348,9 @@ Starting electrs $VERSION on x86_64 linux with Config { network: Bitcoin, db_pat
 
 </details>
 
-Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
+{% hint style="info" %}
+Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
+{% endhint %}
 
 *   Ensure electrs service is working and listening at the default `50001` and `50002` ports
 
@@ -439,7 +441,7 @@ Updating Electrs is straightforward. You can display the current version with th
 > v0.9.14
 ```
 
-*   Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration, though.
+*   Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration, though
 
     ```sh
     $ cd /tmp
