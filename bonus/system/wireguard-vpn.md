@@ -142,7 +142,7 @@ Keep **this dashboard open,** you'll need to come back here later.
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yoursubdomain.dedyn.io>"`** from the deSEC registration step.
 
-*   As `"admin"` user, [log in](broken-reference/) to MiniBolt and create the following script
+*   As `"admin"` user, [log in](../../system/remote-access.md#access-with-secure-shell) to MiniBolt and create the following script
 
     ```sh
     $ sudo nano /opt/dynamic-ip-refresh.sh
@@ -190,7 +190,7 @@ Keep the MiniBolt SSH session on the terminal opened to go back later, return to
 ![](../../images/desec\_io10.png)
 
 {% hint style="success" %}
-You now have a free domain that always points to your existing public IP address. Now you can log out of Desec webpage by clicking on the `"LOG OUT"` button on the top right, we won't need it more.
+You now have a free domain that always points to your existing public IP address. Now you can log out of the Desec webpage by clicking on the `"LOG OUT"` button on the top right, we won't need it any more
 {% endhint %}
 
 ### **Configure Firewall**
@@ -226,7 +226,7 @@ Remember to have forwarded the **`"51820"`** port and the **`"UDP"`** protocol o
     $ wg genkey | tee private_key
     ```
 
-Private key _**example expected output**_, we'll it call **`"<Your_Server_Private_Key>"`** from now on
+Private key _**example expected output**_, we'll call **`"<Your_Server_Private_Key>"`** from now on
 
 ```
 e.g: mJFGKxeQqxafyDdLDEDHRml6rDJUs7JZte3uqfJBQ0Q=
@@ -282,14 +282,14 @@ Replace **`"<Your_Server_Private_Key>"`**
 This will **turn it on permanently**, and also **start it automatically** when MiniBolt reboots. We won't do this on the client because we want it to be able to connect to the VPN selectively.
 {% endhint %}
 
-*   Delete the `private_key` and `public_key` files, but ensure before you take note of the server's keys in your preferred password manager.
+*   Delete the `private_key` and `public_key` files, but ensure before you take note of the server's keys in your preferred password manager
 
     ```sh
     $ sudo rm /home/admin/private_key && rm /home/admin/public_key
     ```
 
 {% hint style="info" %}
-Keep the MiniBolt SSH session open in the terminal to come back later.
+Keep the MiniBolt SSH session open in the terminal to come back later
 {% endhint %}
 
 ## Install WireGuard VPN on Client
@@ -324,7 +324,7 @@ e.g: GGH/UCK3K9qzd48u8m872azvsdeyaSjs9cVs0pl4fko=
     $ cat private_key | wg pubkey | tee public_key
     ```
 
-Public key _**example**_ expected output, we'll it call **`"<Your_Client_Public_Key>"`** from now on.
+Public key _**example**_ expected output, we'll call **`"<Your_Client_Public_Key>"`** from now on.
 
 ```
 e.g: pNfWyNJ9WnbMqlLzHxwhvGnZ0/alT18MGy6K0iOxHCI=
@@ -376,7 +376,7 @@ Keep this terminal open to come back later.
 
 Now return to the MiniBolt node to allow access to the newly created Wireguard VPN client.
 
-*   Ensure are you logged in as `"admin"` user, and edit the `"wg0.conf"` file:
+*   Ensure are you logged in as `admin` user, and edit the `"wg0.conf"` file:
 
     ```sh
     $ sudo nano /etc/wireguard/wg0.conf
@@ -384,7 +384,7 @@ Now return to the MiniBolt node to allow access to the newly created Wireguard V
 
 Now we are going to complete the previous parameter **`"<Your_Client_Public_Key>"`** that we left pending to complete before with the created in the [**"generate client key pair"**](wireguard-vpn.md#generate-client-key-pair) section.
 
-*   Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one.
+*   Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one
 
     ```
     ## Client configuration
@@ -468,7 +468,7 @@ $ ssh admin@10.0.0.1
 ```
 
 {% hint style="info" %}
-Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [https://10.0.0.1:4000](https://10.0.0.1:4000)
+Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [http://10.0.0.1:3002](http://10.0.0.1:3002)
 {% endhint %}
 
 *   Check the VPN client status using
@@ -517,7 +517,7 @@ $ sudo apt install qrencode
 ```
 
 {% hint style="success" %}
-Now, you can convert the `"wg0.conf"` file to a QR code like so.
+Now, you can convert the `"wg0.conf"` file to a QR code like so
 {% endhint %}
 
 *   Change to root user to create a temporary root session
@@ -561,7 +561,7 @@ You could create a Wireguard VPN client connection manually from scratch filling
 ### **Install & configure WireGuard VPN Client on Windows**
 
 * Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
-* Hit on the little arrow down on the bottom left and select **"Add empty tunnel"**.
+* Hit on the little arrow down on the bottom left and select **"Add empty tunnel"**
 
 ![](../../images/wireguard-windows.png)
 

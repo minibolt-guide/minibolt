@@ -35,17 +35,25 @@ For now, only SSH should be reachable from the outside. Bitcoin Core and LND are
     $ sudo ufw default deny incoming
     ```
 
+
+
     ```sh
     $ sudo ufw default allow outgoing
     ```
+
+
 
     ```sh
     $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
     ```
 
+
+
     ```sh
     $ sudo ufw logging off
     ```
+
+
 
     ```sh
     $ sudo ufw enable
@@ -87,13 +95,15 @@ If you find yourself locked out by mistake, you can connect a keyboard and scree
 
 ### Increase your open files limit
 
-If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the "can't accept connection: too many open files" error. This is due to the limit of open files (representing individual TCP connections) set too low.
+If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the "can't accept connection: too many open files" error. This is due to the limit of open files (representing individual TCP connections) being set too low.
 
-*   Create the file `/etc/security/limits.d/90-limits.conf`, copy these lines into it, save and exit.
+*   Create the file `/etc/security/limits.d/90-limits.conf`, and copy these lines into it. Save and exit
 
     ```sh
     $ sudo nano /etc/security/limits.d/90-limits.conf
     ```
+
+
 
     ```
     *    soft nofile 128000
@@ -101,19 +111,25 @@ If your MiniBolt is swamped with internet requests (honest or malicious due to a
     root soft nofile 128000
     root hard nofile 128000
     ```
-*   Edit both of the following two files, add the additional line(s) right before the end comment, save and exit.
+*   Edit both of the following two files and add the additional line(s) right before the end comment. Save and exit
 
     ```sh
     $ sudo nano /etc/pam.d/common-session
     ```
 
+
+
     ```
     session required                        pam_limits.so
     ```
 
+
+
     ```sh
     $ sudo nano /etc/pam.d/common-session-noninteractive
     ```
+
+
 
     ```
     session required                        pam_limits.so
@@ -150,7 +166,7 @@ Do this regularly to get security-related incidents.
 
 ### Prepare NGINX reverse proxy
 
-Several components of this guide will expose a communication port, for example the Electrum server, the Block Explorer, or the "Ride The Lightning" web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
+Several components of this guide will expose a communication port, for example, the Electrum server, the Block Explorer, or the "Ride The Lightning" web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
 We use NGINX to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": NGINX provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 

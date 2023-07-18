@@ -228,7 +228,8 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
 $ sudo su - fulcrum
 ```
 
-*   Create a symlink from `/home/fulcrum/.fulcrum` folder to the `/data/fulcrum` folder\\
+*   Create a symlink from `/home/fulcrum/.fulcrum` folder to the `/data/fulcrum` folder\
+
 
     ```sh
     $ ln -s /data/fulcrum /home/fulcrum/.fulcrum
@@ -441,7 +442,7 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VER
 
 To use your Fulcrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-*   Ensure that you are logged in with user `admin` and add the following lines in "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+*   Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -460,6 +461,8 @@ To use your Fulcrum server when you're on the go, you can easily create a Tor hi
     ```sh
     $ sudo systemctl reload tor
     ```
+
+
 
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
@@ -532,9 +535,13 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
     $ cd /home/admin/
     ```
 
+
+
     ```sh
     $ git clone https://github.com/foundObjects/zram-swap.git
     ```
+
+
 
     ```
     $ cd zram-swap && sudo ./install.sh
@@ -590,9 +597,13 @@ If the database gets corrupted and you don't have a backup, you will have to res
     $ sudo systemctl stop fulcrum
     ```
 
+
+
     ```sh
     $ sudo systemctl disable fulcrum
     ```
+
+
 
     ```sh
     $ sudo rm /etc/systemd/system/fulcrum.service
@@ -610,14 +621,15 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 ### **Uninstall Tor hidden service**
 
-*   Ensure you are logged in with user "admin", comment or remove fulcrum hidden service in the torrc. Save and exit
+*   Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
     ```
 
+
+
     ```
-    ############### This section is just for location-hidden services ###
     # Hidden Service Fulcrum TCP & SSL
     #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
     #HiddenServiceVersion 3
@@ -659,13 +671,19 @@ Expected output:
     $ cd /home/admin/zram-swap
     ```
 
+
+
     ```sh
     $ sudo ./install.sh --uninstall
     ```
 
+
+
     ```sh
     $ sudo rm /etc/default/zram-swap
     ```
+
+
 
     ```sh
     $ sudo rm -rf /home/admin/zram-swap

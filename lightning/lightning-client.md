@@ -248,6 +248,8 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
     ```sh
     $ ln -s /data/bitcoin /home/lnd/.bitcoin
     ```
+
+
 * Check symbolic link has been created correctly
 
 ```bash
@@ -262,7 +264,7 @@ drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
 -rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
 -rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
 lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
-lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 .lnd -> /data/lnd
+lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
 </code></pre>
 
@@ -538,12 +540,12 @@ $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 ```
 {% endcode %}
 
-*   Newly added links and permissions become active only in a new user session. Log out from SSH.
+*   Newly added links and permissions become active only in a new user session. Log out from SSH
 
     ```sh
     $2 exit
     ```
-* Log in as user **“admin”** again `"ssh admin@minibolt.local"`
+* Log in as user **`admin`** again `"ssh admin@minibolt.local"`
 * Check symbolic link has been created correctly
 
 ```bash
@@ -567,7 +569,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-3">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -673,12 +675,12 @@ Expected output:
 ```
 
 {% hint style="info" %}
-This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it.
+This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it
 {% endhint %}
 
-> Note
->
-> Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line.
+{% hint style="info" %}
+Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line
+{% endhint %}
 
 ### **Funding your Lightning node**
 
@@ -839,8 +841,8 @@ Upgrading LND can lead to a number of issues. **Always** read the [LND release n
     $ sudo systemctl restart lnd
     ```
 
-1. Symbolic link
-
 [^1]: Symbolic link
 
 [^2]: Symbolic link
+
+[^3]: Symbolic link

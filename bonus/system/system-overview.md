@@ -47,7 +47,7 @@ This script can be run by the user "admin" without root privileges, but you shou
     ```sh
     $ nano 20-raspibolt-welcome --linenumbers
     ```
-*   Show your network device name typing `tcpdump --list-interfaces` go to line 19 and change `wlan0` to the correct one name interface that you show "\[Up, Running, Connected]". Save with `Ctrl`-`O`and exit `nano` with `Ctrl`-`X`.
+*   Show your network device name typing `tcpdump --list-interfaces` go to line 19 and change `wlan0` to the correct one name interface that you show "\[Up, Running, Connected]". Save with `Ctrl`-`O`and exit `nano` with `Ctrl`-`X`
 
     ```sh
     # set to network device name (usually "eth0" for ethernet, and "wlan0" for wifi)
@@ -59,7 +59,7 @@ This script can be run by the user "admin" without root privileges, but you shou
     $ sudo mv 20-raspibolt-welcome /usr/local/bin/raspibolt
     $ sudo chmod +x /usr/local/bin/raspibolt
     ```
-*   You can now run the script with the user "admin"
+*   You can now run the script with the user `admin`
 
     ```sh
     $ raspibolt

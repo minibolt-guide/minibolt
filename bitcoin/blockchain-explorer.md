@@ -52,11 +52,15 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
       }
     }
     ```
+
+
 *   Test and reload Nginx configuration
 
     ```sh
     $ sudo nginx -t
     ```
+
+
 
     ```sh
     $ sudo systemctl reload nginx
@@ -79,9 +83,13 @@ For improved security, we create the new user "btcrpcexplorer" that will run the
     $ sudo adduser --disabled-password --gecos "" btcrpcexplorer
     ```
 
+
+
     ```sh
     $ sudo adduser btcrpcexplorer bitcoin
     ```
+
+
 
     ```sh
     $ sudo su - btcrpcexplorer
@@ -103,8 +111,12 @@ $ curl https://github.com/janoside.gpg | gpg --import
     $ git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git
     ```
 
+
+
     <pre class="language-bash"><code class="lang-bash"><strong>$ cd btc-rpc-explorer
     </strong></code></pre>
+
+
 * Verify the release
 
 ```bash
@@ -150,6 +162,8 @@ Installation can take some time, be patient. There might be a lot of confusing o
     ```sh
     $ cp .env-sample .env
     ```
+
+
 
     ```sh
     $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
@@ -274,61 +288,11 @@ If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might
 
 ## Extras
 
-### **Slow device mode (resource-intensive features are disabled)**
-
-*   With user `admin`, change to the `btcrpcexplorer` user
-
-    ```sh
-    $ sudo su - btcrpcexplorer
-    ```
-*   Edit the `.env` configuration file
-
-    ```sh
-    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-    ```
-*   Extend the timeout period due to the limited resources of your possible PC
-
-    ```
-    # uncomment and change the value of this line
-    BTCEXP_BITCOIND_RPC_TIMEOUT=10000
-    ```
-*   Comment this line if it is uncommented (default value is **true**)
-
-    ```
-    #BTCEXP_SLOW_DEVICE_MODE=false
-    ```
-
-### **Sharing your Explorer**
-
-You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "DEMO" mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
-
-*   With user `admin`, change to the `btcrpcexplorer` user
-
-    ```sh
-    $ sudo su - btcrpcexplorer
-    ```
-*   Edit the `.env` configuration file
-
-    ```sh
-    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-    ```
-
-
-
-    ```
-    # uncomment this line
-    BTCEXP_DEMO=true
-    ```
-
-{% hint style="info" %}
-Remember to give them the `password [D]` if you added password protection in the reference step.
-{% endhint %}
-
 ### **Remote access over Tor (optional)**
 
 Do you want to access your personal blockchain explorer remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
 
-*   Ensure that you are logged in with the user `admin` and add the following lines in "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+*   Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -361,6 +325,56 @@ Do you want to access your personal blockchain explorer remotely? You can easily
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device.
 
+### **Sharing your Explorer**
+
+You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "DEMO" mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
+
+*   With user `admin`, change to the `btcrpcexplorer` user
+
+    ```sh
+    $ sudo su - btcrpcexplorer
+    ```
+*   Edit the `.env` configuration file
+
+    ```sh
+    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+    ```
+
+
+
+    ```
+    # uncomment this line
+    BTCEXP_DEMO=true
+    ```
+
+{% hint style="info" %}
+Remember to give them the `password [D]` if you added password protection in the reference step
+{% endhint %}
+
+### **Slow device mode (resource-intensive features are disabled)**
+
+*   With user `admin`, change to the `btcrpcexplorer` user
+
+    ```sh
+    $ sudo su - btcrpcexplorer
+    ```
+*   Edit the `.env` configuration file
+
+    ```sh
+    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+    ```
+*   Extend the timeout period due to the limited resources
+
+    ```
+    # uncomment and change the value of this line
+    BTCEXP_BITCOIND_RPC_TIMEOUT=10000
+    ```
+*   Comment this line if it is uncommented (default value is **true**)
+
+    ```
+    #BTCEXP_SLOW_DEVICE_MODE=false
+    ```
+
 ## For the future: BTC RPC Explorer update
 
 Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
@@ -370,6 +384,8 @@ Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/release
     ```sh
     $ sudo systemctl stop btcrpcexplorer
     ```
+
+
 
     ```sh
     $ sudo su - btcrpcexplorer

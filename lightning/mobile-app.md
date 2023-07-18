@@ -25,7 +25,7 @@ We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connect
 
 ### **Configure LND**
 
-*   Login as `“admin”` user, and configure LND to allow LND REST from anywhere. Edit `lnd.conf`
+*   Login as `admin` user, and configure LND to allow LND REST from anywhere. Edit `lnd.conf`
 
     ```sh
     $ sudo nano /data/lnd/lnd.conf
@@ -111,9 +111,9 @@ Application Options:
 
 </details>
 
-### **Create access via Tor**
+## Remote access over Tor (optional)
 
-*   Ensure that you are logged in with the user `admin` and add the following lines in "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+*   Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -145,11 +145,11 @@ Application Options:
 
 * Save the onion address in a safe place (e.g., password manager)
 
-### **Create a lndconnect QR code**
+## **Create a lndconnect QR code**
 
 lndconnect generates a URI and displays it as a QR code that Zeus can read.
 
-*   Still with the `"admin"` user, and use the following command
+*   Still with the `admin` user, and use the following command
 
     * If you want to use the Tor connection, make sure to replace the `".onion"` address with the one you generated above
 
@@ -210,7 +210,7 @@ Anyone using Zeus on your phone has control over your node and all its funds. It
 In order to preserve your privacy, you can choose your private blockchain explorer when making inquiries related to on-chain transactions.
 
 * In the app, tap on the Zeus icon in the top-left corner
-* Click on `"Privacy"` and change `"Default Block explorer"`, by selecting `"Custom"`, on the `"Custom block explorer"` box, enter your preferred Block Explorer URL, `".onion"`, the local IP address of BTC RPC explorer: `"https://192.168.X.XXX:4000"`, or Wireguard VPN IP address: [https://10.0.0.1:4000](https://10.0.1.1:4000), depending on the situation.
+* Click on `"Privacy"` and change `"Default Block explorer"`, by selecting `"Custom"`, on the `"Custom block explorer"` box, enter your preferred Block Explorer URL, `".onion"`, the local IP address of BTC RPC explorer: `"https://192.168.X.XXX:4000"`, or Wireguard VPN IP address: [http://10.0.0.1:3002](http://10.0.0.1:3002), depending on the situation.
 
 ## Update
 

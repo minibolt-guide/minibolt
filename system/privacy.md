@@ -71,6 +71,8 @@ $ sudo apt update && sudo apt full-upgrade
     $ sudo su
     ```
 
+
+
     {% code overflow="wrap" %}
     ```sh
     $ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
@@ -87,6 +89,8 @@ $ exit
     ```sh
     $ sudo apt update
     ```
+
+
 
     ```sh
     $ sudo apt install tor deb.torproject.org-keyring
@@ -117,6 +121,8 @@ Bitcoin Core will communicate directly with the Tor daemon to route all traffic 
     ```sh
     $ sudo nano /etc/tor/torrc --linenumbers
     ```
+
+
 
     ```
     # uncomment line 56:
@@ -208,6 +214,8 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
     ```sh
     $ sudo apt update
     ```
+
+
 
     ```sh
     $ sudo apt install i2pd
@@ -303,24 +311,26 @@ If you want to log into your MiniBolt with SSH when you're away, you can easily 
 
 **SSH server**
 
-*   Add the following three lines in the "location-hidden services" section of the `torrc` file. Save and exit
+* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
 
-    ```
-    ############### This section is just for location-hidden services ###
-    # Hidden Service SSH server
-    HiddenServiceDir /var/lib/tor/hidden_service_sshd/
-    HiddenServiceVersion 3
-    HiddenServicePort 22 127.0.0.1:22
-    ```
+```
+# Hidden Service SSH server
+HiddenServiceDir /var/lib/tor/hidden_service_sshd/
+HiddenServiceVersion 3
+HiddenServicePort 22 127.0.0.1:22
+```
+
 *   Reload the Tor configuration and look up your Tor connection address
 
     ```sh
     $ sudo systemctl reload tor
     ```
+
+
 
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_sshd/hostname
@@ -354,15 +364,17 @@ To enable Tor in the background follow the same instructions for the [preparatio
 📝 If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
 
 * **Linux**:
-*   Use `torify` or `torsocks`, both work similarly; just use whatever you have available:
+  *   Use `torify` or `torsocks`, both work similarly; just use whatever you have available
 
-    ```sh
-    $ torify ssh admin@abcdefg..............xyz.onion
-    ```
+      ```sh
+      $ torify ssh admin@abcdefg..............xyz.onion
+      ```
 
-    ```sh
-    $ torsocks ssh admin@abcdefg..............xyz.onion
-    ```
+
+
+      ```sh
+      $ torsocks ssh admin@abcdefg..............xyz.onion
+      ```
 
 📝 When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER.
 
@@ -382,7 +394,7 @@ $ ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg...........
 ```
 {% endcode %}
 
-* For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save and exit.
+* For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save and exit
 
 ```bash
 $ sudo nano .ssh/config
@@ -431,7 +443,7 @@ If you have problems with the Tor connection (LN channels offline, excessive del
     $ sudo systemctl start tor
     ```
 
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use obfs bridges could help to avoid this censorship.
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs bridges could help to avoid this censorship.
 
 **Example** of Tor censorship output:
 

@@ -32,12 +32,18 @@ Your Personal Computer is starting and gets a new address from your home network
 
     ```sh
     $ ping 192.168.x.xxx
-    PING 192.168.x.xxx (192.168.x.xxx) 56(84) bytes of data.
-    64 bytes from 192.168.x.xxx: icmp_seq=1 ttl=64 time=2.44 ms
-    64 bytes from 192.168.x.xxx: icmp_seq=2 ttl=64 time=1.75 ms
-    64 bytes from 192.168.x.xxx: icmp_seq=3 ttl=64 time=1.61 ms
-    64 bytes from 192.168.x.xxx: icmp_seq=4 ttl=64 time=1.58 ms
     ```
+
+**Example** of expected output:
+
+```
+PING 192.168.1.147 (192.168.1.147) 56(84) bytes of data.
+64 bytes from 192.168.1.147: icmp_seq=1 ttl=64 time=2.44 ms
+64 bytes from 192.168.1.147: icmp_seq=2 ttl=64 time=1.75 ms
+64 bytes from 192.168.1.147: icmp_seq=3 ttl=64 time=1.61 ms
+64 bytes from 192.168.1.147: icmp_seq=4 ttl=64 time=1.58 ms
+```
+
 * If the `ping` command fails or does not return anything, you need to manually look for your PC
 * You should now be able to reach your PC, with the IP address like `192.168.x.xxx`
 

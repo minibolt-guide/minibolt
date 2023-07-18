@@ -93,5 +93,5 @@ $ sudo cp *.bash-completion /etc/bash_completion.d/
 ```
 
 {% hint style="info" %}
-Bash completion will be enabled after your next login.
+Bash completion will be enabled after your next login
 {% endhint %}

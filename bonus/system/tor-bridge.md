@@ -76,11 +76,13 @@ If not obtain results, follow the [Privacy section](../../system/privacy.md#tor-
 
 ## Configuration
 
-*   Edit your Tor config file adding the next lines **at the end of the file**. We will use 2 ports: <**TODO1>** and <**TODO2>, m**ake sure you replace them.
+*   Edit your Tor config file adding the next lines **at the end of the file**. We will use 2 ports: <**TODO1>** and <**TODO2>, m**ake sure you replace them
 
     ```sh
     $ sudo nano /etc/tor/torrc
     ```
+
+
 
     ```
     BridgeRelay 1
@@ -191,6 +193,8 @@ Note that both Tor's OR port and its obfs4 port must be reachable. If your bridg
     $ sudo nano /lib/systemd/system/tor@.service
     ```
 
+
+
     ```
     # Hardening
     NoNewPrivileges=no
@@ -213,7 +217,7 @@ Note that both Tor's OR port and its obfs4 port must be reachable. If your bridg
 
 ## Testing
 
-*   Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit.
+*   Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit
 
     ```sh
     $ sudo journalctl -f -u tor@default --since '1 hour ago'
@@ -279,6 +283,8 @@ One of the most important things to keep your relay secure is to install securit
     $ sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
     ```
 
+
+
     ```
     Unattended-Upgrade::Origins-Pattern {
         "origin=Debian,codename=${distro_codename},label=Debian-Security";
@@ -328,7 +334,7 @@ On some occasions, due to some circumstances, your ISP, the company's network, y
 
 ![](../../images/tor-failing.jpg)
 
-Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the content in the next torrc configuration.
+Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the content in the next torrc configuration
 
 ![](../../images/get-bridge.PNG)
 
@@ -445,6 +451,8 @@ Reverts router NAT configuration following the same [Configure Firewall and NAT]
     ```sh
     $ sudo nano /lib/systemd/system/tor@.service
     ```
+
+
 
     ```sh
     # Hardening

@@ -27,7 +27,7 @@ layout:
 
 Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md).
 
-*   With the user "admin", check the Node version
+*   With the user `admin`, check the Node version
 
     ```sh
     $ node -v
@@ -52,7 +52,7 @@ Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/b
 ```
 
 {% hint style="info" %}
-If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it.
+If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 ### **Reverse proxy & Firewall**
@@ -114,11 +114,13 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
-*   Create a new "thunderhub" user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`, so we add him to the "lnd" group
+*   Create a new `thunderhub` user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`, so we add him to the "lnd" group
 
     ```sh
     $ sudo adduser --disabled-password --gecos "" thunderhub
     ```
+
+
 
     ```sh
     $ sudo adduser thunderhub lnd
@@ -228,7 +230,7 @@ $ npm run build
 
 ### **Configuration**
 
-*   Still with user "thunderhub", create a symbolic link pointing to your lnd data directory
+*   Still with user `thunderhub`, create a symbolic link pointing to your lnd data directory
 
     ```sh
     $ ln -s /data/lnd /home/thunderhub/.lnd
@@ -239,9 +241,13 @@ $ npm run build
     $ cd ~/thunderhub
     ```
 
+
+
     ```sh
     $ cp .env .env.local
     ```
+
+
 
     ```sh
     $ nano .env.local
@@ -447,7 +453,7 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 
 </details>
 
-* Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
+* Now point your browser to `https://minibolt.local:4002`  or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
 
 {% hint style="info" %}
 Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface.
@@ -461,7 +467,7 @@ Your browser will display a warning because we use a self-signed SSL certificate
 
 Do you want to access ThunderHub remotely? You can easily do so by adding a Tor hidden service on the RaspiBolt and accessing ThunderHub with the Tor browser from any device.
 
-*   Ensure that you are logged in with the user `admin` and add the following lines in "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+*   Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -480,6 +486,8 @@ Do you want to access ThunderHub remotely? You can easily do so by adding a Tor 
     ```sh
     $ sudo systemctl reload tor
     ```
+
+
 
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
@@ -596,8 +604,9 @@ Expected output:
     $ sudo nano /etc/tor/torrc
     ```
 
+
+
     ```
-    ############### This section is just for location-hidden services ###
     # Hidden Service Thunderhub
     #HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
     #HiddenServiceVersion 3

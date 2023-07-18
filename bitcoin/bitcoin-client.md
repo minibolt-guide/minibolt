@@ -167,12 +167,12 @@ The Bitcoin Core application will run in the background as a daemon and use the 
     ```sh
     $ sudo adduser --gecos "" --disabled-password bitcoin
     ```
-*   Add the user **"admin"** to the group "bitcoin" as well
+*   Add the user `admin` to the group "bitcoin" as well
 
     ```sh
     $ sudo adduser admin bitcoin
     ```
-*   Allow the user "bitcoin" to configure Tor directly by adding it to the "debian-tor" group
+*   Allow the user `bitcoin` to configure Tor directly by adding it to the "debian-tor" group
 
     ```sh
     $ sudo adduser bitcoin debian-tor
@@ -187,6 +187,8 @@ Bitcoin Core uses by default the folder `.bitcoin` in the user's home. Instead o
     ```sh
     $ mkdir /data/bitcoin
     ```
+
+
 
     ```sh
     $ sudo chown bitcoin:bitcoin /data/bitcoin
@@ -376,6 +378,8 @@ The system needs to run the bitcoin daemon automatically in the background, even
     ```sh
     $ sudo nano /etc/systemd/system/bitcoind.service
     ```
+
+
 
     ```
     # MiniBolt: systemd unit for bitcoind
