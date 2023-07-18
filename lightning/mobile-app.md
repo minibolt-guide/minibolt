@@ -113,14 +113,15 @@ Application Options:
 
 ### **Create access via Tor**
 
-*   Add the following lines in the section for “location-hidden services” in the `torrc` file. Save and exit.
+*   Ensure that you are logged in with the user `admin` and add the following lines in "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
     ```
 
+
+
     ```
-    ############### This section is just for location-hidden services ###
     # Hidden Service LND REST
     HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
     HiddenServiceVersion 3
@@ -226,8 +227,9 @@ To uninstall, you need to uninstall the app on your phone and deactivate the LND
     $ sudo nano /etc/tor/torrc
     ```
 
+
+
     ```
-    ############### This section is just for location-hidden services ###
     # Hidden Service LND REST
     #HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
     #HiddenServiceVersion 3

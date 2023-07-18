@@ -120,8 +120,6 @@ We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of 
     $ sudo adduser --disabled-password --gecos "" thunderhub
     ```
 
-
-
     ```sh
     $ sudo adduser thunderhub lnd
     ```
@@ -463,7 +461,7 @@ Your browser will display a warning because we use a self-signed SSL certificate
 
 Do you want to access ThunderHub remotely? You can easily do so by adding a Tor hidden service on the RaspiBolt and accessing ThunderHub with the Tor browser from any device.
 
-*   Add the following three lines in the section for "location-hidden services" in the `torrc` file. Save and exit
+*   Ensure that you are logged in with the user `admin` and add the following lines in "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -472,7 +470,6 @@ Do you want to access ThunderHub remotely? You can easily do so by adding a Tor 
 
 
     ```
-    ############### This section is just for location-hidden services ###
     # Hidden Service Thunderhub
     HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
     HiddenServiceVersion 3
@@ -483,8 +480,6 @@ Do you want to access ThunderHub remotely? You can easily do so by adding a Tor 
     ```sh
     $ sudo systemctl reload tor
     ```
-
-
 
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname

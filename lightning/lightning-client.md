@@ -39,6 +39,8 @@ Before running LND, we need to set up settings in the Bitcoin Core configuration
     $ sudo nano /data/bitcoin/bitcoin.conf
     ```
 
+
+
     ```
     # LND RPC connection
     zmqpubrawblock=tcp://127.0.0.1:28332
@@ -209,6 +211,8 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
     $ sudo adduser --disabled-password --gecos "" lnd
     ```
 
+
+
     ```sh
     $ sudo usermod -a -G bitcoin,debian-tor lnd
     ```
@@ -222,6 +226,8 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
     ```sh
     $ sudo mkdir /data/lnd
     ```
+
+
 
     ```sh
     $ sudo chown -R lnd:lnd /data/lnd
@@ -237,11 +243,11 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
     $ ln -s /data/lnd /home/lnd/.lnd
     ```
 
+
+
     ```sh
     $ ln -s /data/bitcoin /home/lnd/.bitcoin
     ```
-
-
 * Check symbolic link has been created correctly
 
 ```bash
@@ -256,7 +262,7 @@ drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
 -rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
 -rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
 lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
-lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
+lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 .lnd -> /data/lnd
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
 </code></pre>
 
@@ -384,6 +390,8 @@ Now, let's set up LND to start automatically on system startup.
     ```sh
     $ sudo nano /etc/systemd/system/lnd.service
     ```
+
+
 
     ```
     # MiniBolt: systemd unit for lnd
@@ -518,6 +526,8 @@ We interact with LND using the application `lncli`. At the moment, only the user
     $2 ln -s /data/lnd /home/admin/.lnd
     ```
 
+
+
     ```sh
     $2 sudo chmod -R g+X /data/lnd/data/
     ```
@@ -534,6 +544,42 @@ $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
     $2 exit
     ```
 * Log in as user **“admin”** again `"ssh admin@minibolt.local"`
+* Check symbolic link has been created correctly
+
+```bash
+$ ls -la /home/admin
+```
+
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+<pre><code>total 96
+drwxr-x--- 10 admin admin  4096 Jul 18 07:10 .
+drwxr-xr-x  8 root  root   4096 Jul 16 09:28 ..
+-rw-rw-r--  1 admin admin 13901 Jul 12 15:54 .bash_aliases
+-rw-------  1 admin admin 13993 Jul 18 06:31 .bash_history
+-rw-r--r--  1 admin admin   220 Jul 11 20:25 .bash_logout
+-rw-r--r--  1 admin admin  3792 Jul 12 07:56 .bashrc
+lrwxrwxrwx  1 admin admin    13 Jul 12 10:41 .bitcoin -> /data/bitcoin
+drwx------  2 admin admin  4096 Jul 11 20:27 .cache
+drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
+drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
+drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
+-rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
+drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
+drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
+-rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
+drwxrwxr-x  6 admin admin  4096 Jul 12 07:56 .rustup
+drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
+-rw-r--r--  1 admin admin     0 Jul 11 20:27 .sudo_as_admin_successful
+-rw-rw-r--  1 admin admin   293 Jul 15 20:53 .wget-hsts
+-rw-------  1 admin admin   228 Jul 18 07:04 .Xauthority
+</code></pre>
+
+</details>
+
 *   Check if you can use `lncli` by querying LND for information
 
     ```sh
@@ -792,6 +838,8 @@ Upgrading LND can lead to a number of issues. **Always** read the [LND release n
     ```sh
     $ sudo systemctl restart lnd
     ```
+
+1. Symbolic link
 
 [^1]: Symbolic link
 

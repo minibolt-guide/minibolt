@@ -52,15 +52,11 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
       }
     }
     ```
-
-
 *   Test and reload Nginx configuration
 
     ```sh
     $ sudo nginx -t
     ```
-
-
 
     ```sh
     $ sudo systemctl reload nginx
@@ -83,13 +79,9 @@ For improved security, we create the new user "btcrpcexplorer" that will run the
     $ sudo adduser --disabled-password --gecos "" btcrpcexplorer
     ```
 
-
-
     ```sh
     $ sudo adduser btcrpcexplorer bitcoin
     ```
-
-
 
     ```sh
     $ sudo su - btcrpcexplorer
@@ -111,12 +103,8 @@ $ curl https://github.com/janoside.gpg | gpg --import
     $ git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git
     ```
 
-
-
     <pre class="language-bash"><code class="lang-bash"><strong>$ cd btc-rpc-explorer
     </strong></code></pre>
-
-
 * Verify the release
 
 ```bash
@@ -162,8 +150,6 @@ Installation can take some time, be patient. There might be a lot of confusing o
     ```sh
     $ cp .env-sample .env
     ```
-
-
 
     ```sh
     $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
@@ -298,7 +284,7 @@ If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might
 *   Edit the `.env` configuration file
 
     ```sh
-    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
+    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
     ```
 *   Extend the timeout period due to the limited resources of your possible PC
 
@@ -324,7 +310,7 @@ You may want to share your BTC RPC Explorer **onion** address with confident peo
 *   Edit the `.env` configuration file
 
     ```sh
-    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
+    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
     ```
 
 
@@ -342,7 +328,7 @@ Remember to give them the `password [D]` if you added password protection in the
 
 Do you want to access your personal blockchain explorer remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
 
-*   Add the following three lines in the "location-hidden services" section in the `torrc` file. Save and exit
+*   Ensure that you are logged in with the user `admin` and add the following lines in "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
@@ -351,7 +337,6 @@ Do you want to access your personal blockchain explorer remotely? You can easily
 
 
     ```
-    ############### This section is just for location-hidden services ###
     # Hidden Service BTC RPC Explorer
     HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
     HiddenServiceVersion 3
@@ -385,8 +370,6 @@ Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/release
     ```sh
     $ sudo systemctl stop btcrpcexplorer
     ```
-
-
 
     ```sh
     $ sudo su - btcrpcexplorer
