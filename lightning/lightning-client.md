@@ -33,7 +33,7 @@ The installation of LND is straightforward, but the application is quite powerfu
 
 Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
-*   Login as user "admin", edit the `bitcoin.conf` file, and add the following lines. Save and exit
+*   Login as user `admin`, edit the `bitcoin.conf` file, and add the following lines. Save and exit
 
     ```sh
     $ sudo nano /data/bitcoin/bitcoin.conf
@@ -522,7 +522,7 @@ We interact with LND using the application `lncli`. At the moment, only the user
     ```sh
     $2 exit
     ```
-*   As user "admin", link the LND data directory in the user "admin" home. As a member of the group "lnd", the "admin" user has read-only access to certain files. We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
+*   As user `admin`, link the LND data directory in the user "admin" home. As a member of the group "lnd", the "admin" user has read-only access to certain files. We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
 
     ```sh
     $2 ln -s /data/lnd /home/admin/.lnd
@@ -545,7 +545,7 @@ $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
     ```sh
     $2 exit
     ```
-* Log in as user **`admin`** again `"ssh admin@minibolt.local"`
+* Log in as user **`admin`** again (`ssh admin@minibolt.local)`
 * Check symbolic link has been created correctly
 
 ```bash
@@ -769,7 +769,7 @@ $ lncli listchannels
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
 
-To try, why not send me satoshis! You simply need to input my node pubkey [`⚡2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128), the amount in satoshis and add the "–keysend" flag
+To try, why not send me satoshis! You simply need to input my node pubkey [`⚡2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128), the amount in satoshis and add the "`–keysend`" flag
 
 {% code overflow="wrap" %}
 ```sh
@@ -810,7 +810,7 @@ The default flags "--memo" "--amt" and "--expiry" are optional. The default expi
 
 Copy the output \[lnbc...] of the "payment\_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website, or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools.
 
-*   List all invoices:
+*   List all invoices
 
     ```sh
     $ lncli listinvoices

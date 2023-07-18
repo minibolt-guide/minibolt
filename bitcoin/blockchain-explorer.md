@@ -75,7 +75,7 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
 
 ### **Installation**
 
-For improved security, we create the new user "btcrpcexplorer" that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
+For improved security, we create the new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
 
 *   Create a new user, assign it to the "bitcoin" group, and open a new session
 
@@ -177,7 +177,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
     # replace this line
     BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
     ```
-*   To get address balances, either an Electrum server or an external service is necessary. Your local Electrum server can provide address transaction lists, balances, and more.
+*   To get address balances, either an Electrum server or an external service is necessary. Your local Electrum server can provide address transaction lists, balances, and more
 
     ```
     # replace these lines
@@ -192,7 +192,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 
 #### **Optional**
 
-* You can decide whether you want to optimize for more information or more privacy.
+* You can decide whether you want to optimize for more information or more privacy:
   *   More information mode, including Bitcoin exchange rates
 
       ```
@@ -207,7 +207,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
       BTCEXP_PRIVACY_MODE=true
       BTCEXP_NO_RATES=true
       ```
-*   You can add password protection to the web interface. Simply add your password \[D] for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked.
+*   You can add password protection to the web interface. Simply add your password \[D] for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
 
     ```
     # replace `mypassword` with 'YourPassword [D] in this line
@@ -274,12 +274,63 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
     $2 sudo systemctl start btcrpcexplorer
     ```
 
-Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:4000"` (or your node IP address) like `"https://192.168.0.20:4000"`. You should see the home page of BTC RPC Explorer.
+<details>
 
-Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Block Explorer web interface.
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
+
+```
+Jul 18 11:08:29 minibolt systemd[1]: Started BTC RPC Explorer.
+Jul 18 11:08:30 minibolt npm[140449]: > btc-rpc-explorer@3.4.0 start
+Jul 18 11:08:30 minibolt npm[140449]: > node ./bin/www
+Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.765Z btcexp:app Searching for config files...
+Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.767Z btcexp:app Config file not found at /home/btcrpcexplorer/.config/btc-rpc-explorer.env, continuing...
+Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.767Z btcexp:app Config file not found at /etc/btc-rpc-explorer/.env, continuing...
+Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.767Z btcexp:app Config file found at /home/btcrpcexplorer/btc-rpc-explorer/.env, loading...
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.086Z btcexp:app Default cacheId '3.4.0'
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.122Z btcexp:app Enabling view caching (performance will be improved but template edits will not be reflected)
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.133Z btcexp:app Session config: {"secret":"*****","resave":false,"saveUninitialized":true,"cookie":{"secure":false}}
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.142Z btcexp:app Environment(development) - Node: v18.16.1, Platform: linux, Versions: {"node":"18.16.1","acorn":"8.8.2","ada":"1.0.4","ares":"1.19.1","brotli":"1.0.9","cldr":"42.0","icu":"72.1","llhttp":"6.0.11","modules":"108","napi":"8","nghttp2":"1.52.0","nghttp3":"0.7.0","ngtcp2":"0.8.1","openssl":"3.0.9+quic","simdutf":"3.2.2","tz":"2022g","undici":"5.21.0","unicode":"15.0","uv":"1.44.2","uvwasi":"0.0.15","v8":"10.2.154.26-node.26","zlib":"1.2.13"}
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.193Z btcexp:app Using sourcecode metadata as cacheId: '2023-06-14-bfc9f97715'
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.193Z btcexp:app Starting BTC RPC Explorer, v3.4.0 (commit: 'bfc9f97715', date: 2023-06-14) at http://127.0.0.1:3002/
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.194Z btcexp:app RPC Credentials: {
+Jul 18 11:08:33 minibolt npm[140461]:     "host": "127.0.0.1",
+Jul 18 11:08:33 minibolt npm[140461]:     "port": "8332",
+Jul 18 11:08:33 minibolt npm[140461]:     "authType": "cookie",
+Jul 18 11:08:33 minibolt npm[140461]:     "username": "__cookie__",
+Jul 18 11:08:33 minibolt npm[140461]:     "password": "*****",
+Jul 18 11:08:33 minibolt npm[140461]:     "authCookieFilepath": "/data/bitcoin/.cookie",
+Jul 18 11:08:33 minibolt npm[140461]:     "timeout": 5000
+Jul 18 11:08:33 minibolt npm[140461]: }
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.194Z btcexp:app Connecting to RPC node at [127.0.0.1]:8332
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.195Z btcexp:app RPC Connection properties: {
+Jul 18 11:08:33 minibolt npm[140461]:     "host": "127.0.0.1",
+Jul 18 11:08:33 minibolt npm[140461]:     "port": "8332",
+Jul 18 11:08:33 minibolt npm[140461]:     "username": "__cookie__",
+Jul 18 11:08:33 minibolt npm[140461]:     "password": "*****",
+Jul 18 11:08:33 minibolt npm[140461]:     "timeout": 5000
+Jul 18 11:08:33 minibolt npm[140461]: }
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.196Z btcexp:app RPC authentication is cookie based; watching for changes to the auth cookie file...
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.198Z btcexp:app Verifying RPC connection...
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.201Z btcexp:app Loading mining pools config
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.365Z btcexp:app RPC Connected: version=250000 subversion=/Satoshi:25.0.0/, parsedVersion(used for RPC versioning)=25.0.0, protocolversion=70016, chain=main, services=[NETWORK, BLOOM, WITNESS, COMPACT_FILTERS, NETWORK_LIMITED]
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.365Z btcexp:app Loading historical data for chain=main
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.365Z btcexp:app Loading holiday data
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.370Z btcexp:app txindex check: trying getindexinfo
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.371Z btcexp:app ATH difficulty: 53911173001054.59
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.376Z btcexp:app txindex check: getindexinfo={"txindex":{"synced":true,"best_block_height":799232},"coinstatsindex":{"synced":true,"best_block_height":799232},"basic block filter index":{"synced":true,"best_block_height":799232}}
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.377Z btcexp:app txindex check: available!
+Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.426Z btcexp:app Refreshed utxo summary: {"height":799232,"bestblock":"00000000000000000000882023825176273fb8ae3ba10ab5e7bccb3f1d7e7a49","txouts":110323290,"bogosize":8350852748,"muhash":"a4a8e5dd85de604fe5c05ef0018b4eec06f5cf475ed565fd7334828759f365b5","total_amount":19432486.84621219,"total_unspendable_amount":219.40378781,"block_info":{"prevout_spent":4444.44336697,"coinbase":6.32505263,"new_outputs_ex_coinbase":4444.36831434,"unspendable":0,"unspendables":{"genesis_block":0,"bip30":0,"scripts":0,"unclaimed_rewards":0}},"usingCoinStatsIndex":true,"lastUpdated":1689678513425}
+Jul 18 11:08:35 minibolt npm[140461]: 2023-07-18T11:08:35.135Z btcexp:app Network volume: {"d1":{"amt":"947555.33623057","blocks":159,"startBlock":799232,"endBlock":799074,"startTime":1689678236,"endTime":1689592319}}
+```
+
+</details>
 
 {% hint style="info" %}
-If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer
+> Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:4000"` (or your node IP address) like `"https://192.168.x.xxx:4000"`. You should see the home page of BTC RPC Explorer
+
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g. https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Block Explorer web interface
+
+> If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer
 {% endhint %}
 
 {% hint style="success" %}
@@ -287,6 +338,28 @@ If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might
 {% endhint %}
 
 ## Extras
+
+*   With user `admin`, change to the `btcrpcexplorer` user
+
+    ```sh
+    $ sudo su - btcrpcexplorer
+    ```
+*   Edit the `.env` configuration file
+
+    ```sh
+    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+    ```
+*   Extend the timeout period due to the limited resources of your possible PC
+
+    ```
+    # uncomment and change the value of this line
+    BTCEXP_BITCOIND_RPC_TIMEOUT=10000
+    ```
+*   Comment this line if it is uncommented (default value is **true**)
+
+    ```
+    #BTCEXP_SLOW_DEVICE_MODE=false
+    ```
 
 ### **Remote access over Tor (optional)**
 
@@ -323,7 +396,7 @@ Do you want to access your personal blockchain explorer remotely? You can easily
 > abcdefg..............xyz.onion
 ```
 
-* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device.
+* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
 ### **Sharing your Explorer**
 

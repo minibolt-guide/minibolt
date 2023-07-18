@@ -455,7 +455,7 @@ Expected output:
 
 ### Enable the remote backup function in the script
 
-*   Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` at line 15 to `true`. Save and exit.
+*   Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` at line 15 to `true`. Save and exit
 
     ```sh
     $ sudo nano /usr/local/bin/scb-backup --linenumbers
@@ -537,7 +537,7 @@ Expected output:
 
 </details>
 
-*   If you enabled the local backup, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above
+*   **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above
 
     ```sh
     $ ls -la /mnt/static-channel-backup-external

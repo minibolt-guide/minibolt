@@ -15,7 +15,7 @@ layout:
     visible: true
 ---
 
-# 2.3 Desktop wallet: Sparrow Wallet
+# 2.4 Desktop wallet: Sparrow Wallet
 
 We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) on a computer and connect it to your Electrum server on your node for private Bitcoin on-chain transactions.
 
@@ -44,7 +44,7 @@ Sparrow also connects to a couple of external services to get the Bitcoin price 
 
 On your local computer, download, verify, and install Sparrow Wallet.
 
-* [Using the instructions on this page](https://www.sparrowwallet.com/download/):
+* [Using the instructions on this page](https://www.sparrowwallet.com/download/)
   * Download the required version for your OS
   * Download the manifest and manifest signature files
   * Verify the release

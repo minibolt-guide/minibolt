@@ -241,9 +241,12 @@ Follow the complete [Installation](sparrow-server.md#installation) section repla
 
 #### Delete Sparrow
 
-*   Delete Sparrow symlinks & directory
+* Delete Sparrow symlinks & directory
 
-    ```sh
-    $ sudo rm /usr/local/bin/Sparrow
-    $ sudo rm -r /home/admin/Sparrow
-    ```
+```bash
+$ sudo rm /usr/local/bin/Sparrow
+```
+
+```bash
+$ sudo rm -r /home/admin/Sparrow
+```

@@ -61,6 +61,8 @@ In the [Security section](broken-reference/), we already set up NGINX as a rever
     $ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
     ```
 
+
+
     ```nginx
     upstream electrs {
       server 127.0.0.1:50001;
@@ -76,11 +78,15 @@ In the [Security section](broken-reference/), we already set up NGINX as a rever
     $ sudo nginx -t
     $ sudo systemctl reload nginx
     ```
+
+
 *   Configure the firewall to allow incoming requests
 
     ```sh
     $ sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
     ```
+
+
 
     ```sh
     $ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
@@ -105,14 +111,18 @@ We get the latest release of the Electrs source code, verify it, compile it to a
     $ VERSION=0.9.14
     ```
 
+
+
     ```sh
     $ git clone --branch v$VERSION https://github.com/romanz/electrs.git
     ```
 
+
+
     ```sh
     $ cd electrs
     ```
-*   To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz).
+*   To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz)
 
     ```sh
     $ curl https://romanzey.de/pgp.txt | gpg --import
@@ -146,7 +156,7 @@ Expected output:
 > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
 ```
 
-* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
+* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour
 
 {% code overflow="wrap" %}
 ```bash
@@ -176,17 +186,21 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
     $ cd
     ```
 
+
+
     ```sh
     $ rm -r /tmp/electrs
     ```
 
 ### **Configuration**
 
-*   Create the "electrs" service user, and make it a member of the "bitcoin" group
+*   Create the `electrs` user, and make it a member of the "bitcoin" group
 
     ```sh
     $ sudo adduser --disabled-password --gecos "" electrs
     ```
+
+
 
     ```sh
     $ sudo adduser electrs bitcoin
@@ -197,18 +211,24 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
     $ sudo mkdir /data/electrs
     ```
 
+
+
     ```sh
     $ sudo chown -R electrs:electrs /data/electrs
     ```
-*   Switch to the "electrs" user and create the config file with the following content
+*   Switch to the `electrs` user and create the config file with the following content
 
     ```sh
     $ sudo su - electrs
     ```
 
+
+
     ```sh
     $ nano /data/electrs/electrs.conf
     ```
+
+
 
     ```
     # MiniBolt: electrs configuration
@@ -229,7 +249,7 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
     log_filters = "INFO"
     timestamp = true
     ```
-*   Exit "electrs" user session to return to the "admin" user session
+*   Exit `electrs` user session to return to the "admin" user session
 
     ```sh
     $ exit
@@ -239,11 +259,13 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
 
 Electrs need to start automatically on system boot.
 
-*   As user "admin", create the Electrs systemd unit and copy/paste the following configuration. Save and exit
+*   As user `admin`, create the Electrs systemd unit, and copy/paste the following configuration. Save and exit
 
     ```sh
     $ sudo nano /etc/systemd/system/electrs.service
     ```
+
+
 
     ```
     # MiniBolt: systemd unit for electrs
@@ -284,21 +306,19 @@ Electrs need to start automatically on system boot.
 
 ## Run Electrs
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
-*   Start the service. It will immediately start with the initial indexing of the Bitcoin blocks.
+*   Start the service. It will immediately start with the initial indexing of the Bitcoin blocks
 
     ```sh
     $2 sudo systemctl start electrs
     ```
 
-Monitor the systemd journal at the first session created to check if everything works fine.
-
-**Example** of expected output:
+Monitor the systemd journal at the first session created to check if everything works fine
 
 <details>
 
-<summary><strong>Example</strong> of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u electrs</code> ⬇️</summary>
 
 ```
 Starting electrs $VERSION on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 127.0.0.1:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
@@ -337,32 +357,35 @@ Electrs will now index the whole Bitcoin blockchain so that it can provide all n
     ```
 
 {% hint style="info" %}
-Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready.
+Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
 ### **Remote access over Tor (optional)**
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-*   Ensure are you logged in with the user `admin`, add the following three lines in the section for "location-hidden services" in the `torrc` file
+*   Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
     ```sh
     $ sudo nano /etc/tor/torrc
     ```
 
+
+
     ```
-    ############### This section is just for location-hidden services ###
     # Hidden Service Electrs TCP & SSL
     HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
     HiddenServiceVersion 3
     HiddenServicePort 50001 127.0.0.1:50001
     HiddenServicePort 50002 127.0.0.1:50002
     ```
-*   Reload the Tor configuration, get your connection addresses, and take note of these, later you will need them.
+*   Reload the Tor configuration, get your connection addresses, and take note of these, later you will need them
 
     ```sh
     $ sudo systemctl reload tor
     ```
+
+
 
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
@@ -401,7 +424,7 @@ To get address balances, either an Electrum server or an external service is nec
 Updating Electrs is straightforward. You can display the current version with the command below and check the Electrs [release page](https://github.com/romanz/electrs/releases) to see if a newer version is available.
 
 {% hint style="warning" %}
-**Check the release notes!** Make sure to check the [release notes](https://github.com/romanz/electrs/blob/master/RELEASE-NOTES.md) first to understand if there have been any breaking changes or special upgrade procedures.
+**Check the release notes!** Make sure to check the [release notes](https://github.com/romanz/electrs/blob/master/RELEASE-NOTES.md) first to understand if there have been any breaking changes or special upgrade procedures
 {% endhint %}
 
 *   Check the current Electrs version
@@ -427,14 +450,18 @@ Updating Electrs is straightforward. You can display the current version with th
     $ VERSION=0.9.14
     ```
 
+
+
     ```sh
     $ git clone --branch v$VERSION https://github.com/romanz/electrs.git
     ```
 
+
+
     ```sh
     $ cd electrs
     ```
-*   To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz).
+*   To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz)
 
     ```sh
     $ curl https://romanzey.de/pgp.txt | gpg --import
@@ -468,7 +495,7 @@ Expected output:
 > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
 ```
 
-* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour.
+* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour
 
 {% code overflow="wrap" %}
 ```bash
@@ -497,6 +524,8 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
     ```sh
     $ cd
     ```
+
+
 
     ```sh
     $ rm -r /tmp/electrs

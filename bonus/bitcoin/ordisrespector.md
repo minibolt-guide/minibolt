@@ -63,7 +63,7 @@ More info and original text on: [https://ordisrespector.com](https://ordisrespec
 You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `"$"` sign. The system response is marked with the `">"` character.
 {% endhint %}
 
-* Login as `"admin"` user (for a MiniBolt environment), or your assigned user with `sudo` permissions
+* Login as `admin` user (for a MiniBolt environment), or your assigned user with `sudo` permissions
 *   Update and upgrade your OS
 
     ```sh
@@ -89,7 +89,7 @@ $ sudo apt-get install autoconf automake build-essential libboost-filesystem-dev
     ```sh
     $ cd /tmp
     ```
-*   Get the latest source code, the list of cryptographic checksums and the signatures attesting to validity of the checksums
+*   Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
 
     ```sh
     $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION.tar.gz
@@ -168,9 +168,7 @@ Expected output:
 [...]
 ```
 
-* Verify that the checksums file is cryptographically signed by the release signing keys.
-
-The following command prints signature checks for each of the public keys that signed the checksums.
+* Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
 
 ```sh
 $ gpg --verify SHA256SUMS.asc

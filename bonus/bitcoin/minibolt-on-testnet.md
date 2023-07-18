@@ -44,7 +44,7 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ### [**Bitcoin client: Bitcoin Core**](../../bitcoin/bitcoin-client.md)
 
-*   Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file:
+*   Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
 
     ```sh
     $ nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -57,7 +57,7 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
 testnet=1
 ```
 
-* When you finish the [Running Bitcoin](../../bitcoin/bitcoin-client.md#running-bitcoind) section, change to the user "bitcoin," and provide read and execute permissions to the Bitcoin group for the testnet folder.
+* When you finish the [Running Bitcoin](../../bitcoin/bitcoin-client.md#running-bitcoind) section, change to the user "bitcoin," and provide read and execute permissions to the Bitcoin group for the testnet folder
 
 ```bash
 $ sudo su - bitcoin
@@ -82,6 +82,8 @@ Follow the complete Electrum server guide from the beginning, when you arrive at
     ```sh
     $ sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
     ```
+
+
 
     ```sh
     $ sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
@@ -199,7 +201,7 @@ bitcoin.testnet=true
     ```
 
 {% hint style="info" %}
-When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with LND testnet, same with LND mainnet peer suggested to open the channel and send a payment
+When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet, same with LND mainnet peer suggested to open the channel and send a payment
 {% endhint %}
 
 **Interacting with the LND daemon**
@@ -288,7 +290,7 @@ $ --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/test
 ```
 {% endcode %}
 
-For example, to generate a QR code for a Wireguard VPN connection, enter this command:
+For **example**, to generate a QR code for a Wireguard VPN connection, enter this command:
 
 {% code overflow="wrap" %}
 ```sh
@@ -309,6 +311,8 @@ Follow the complete guide from the beginning, when you arrive at the ["Firewall 
     ```sh
     $ sudo ufw allow 60002/tcp comment 'allow Electrs SSL from anywhere'
     ```
+
+
 
     ```sh
     $ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
@@ -365,7 +369,6 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 * Edit torrc and replace ports to 60001/60002 to match with testnet mode
 
 ```
-############### This section is just for location-hidden services ###
 # Hidden Service Electrs Testnet TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/
 HiddenServiceVersion 3

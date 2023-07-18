@@ -338,7 +338,7 @@ Now we'll make sure ThunderHub starts as a service on the PC so it's always runn
 
 ## Run Thunderhub
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) straightforward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 *   Start the service
 
@@ -348,7 +348,7 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
 
 <details>
 
-<summary><strong>Example</strong> of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u thunderhub</code> ⬇️</summary>
 
 ```
 Jun 28 23:35:43 minibolt npm[513274]: > thunderhub@0.13.15 start
@@ -453,10 +453,10 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 
 </details>
 
-* Now point your browser to `https://minibolt.local:4002`  or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
-
 {% hint style="info" %}
-Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface.
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface
+
+> Now point your browser to `https://minibolt.local:4002`  or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
 {% endhint %}
 
 {% hint style="success" %}

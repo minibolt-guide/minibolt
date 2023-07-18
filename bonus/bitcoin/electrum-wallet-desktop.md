@@ -35,11 +35,12 @@ Status: Tested MiniBolt
 
 On your local computer, download, verify, and install Electrum Wallet.
 
-* [Using the instructions on this page](https://electrum.org/#download):
-  * Download the required version for your OS
-  * Download the signature file
-  * Verify the signature following the instructions on the page depending on your OS
-  * Install Electrum Wallet Desktop
+Using the instructions on [this page](https://electrum.org/#download):
+
+* Download the required version for your OS
+* Download the signature file
+* Verify the signature following the instructions on the page depending on your OS
+* Install Electrum Wallet Desktop
 
 ### Configuration
 
@@ -73,9 +74,11 @@ If you plan to use Electrum from only within your own secured local area network
 
     * Execute this command in the Terminal application to -1 (connect to single server only) -s (server address)
 
+    {% code overflow="wrap" %}
     ```sh
     /Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s minibolt.local:50002:s
     ```
+    {% endcode %}
 *   After using this command for the first run, close Electrum, and open the Electrum config file with the following customized command:
 
     ```sh
@@ -161,9 +164,11 @@ Now, execute Electrum Wallet choosing the correct way depending on your OS (repl
     * Open the Tor browser
     * In the Terminal application, run the following command
 
+    {% code overflow="wrap" %}
     ```sh
     /Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
     ```
+    {% endcode %}
 
 After opening a wallet or creating a new one, Electrum will indicate an active connection to a Tor server with a blue dot in the bottom right corner of the screen.
 

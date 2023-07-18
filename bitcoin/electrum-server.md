@@ -400,12 +400,12 @@ Jul 28 12:20:21 minibolt Fulcrum[181811]: [2022-07-28 12:20:21.643] Checking tx 
 
 </details>
 
-Fulcrum will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
-
-DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
-
 {% hint style="info" %}
-Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~3.5 - 4 days depending on the hardware. Only proceed with the [Desktop Wallet Section](desktop-wallet.md) once Fulcrum is ready.
+> Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~3.5 - 4 days depending on the hardware. Only proceed with the [Desktop Wallet Section](desktop-wallet.md) once Fulcrum is ready
+
+> Fulcrum will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
+
+> DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
 {% endhint %}
 
 *   When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed, ensure the service is working and listening at the default `50002` & `50001` ports
