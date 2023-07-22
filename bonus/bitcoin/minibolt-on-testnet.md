@@ -57,14 +57,10 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
 testnet=1
 ```
 
-* When you finish the [Running Bitcoin](../../bitcoin/bitcoin-client.md#running-bitcoind) section, change to the user "bitcoin," and provide read and execute permissions to the Bitcoin group for the testnet folder
+* When you finish the [Running Bitcoin](../../bitcoin/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
 
 ```bash
-$ sudo su - bitcoin
-```
-
-```bash
-$ chmod g+rx /data/bitcoin/testnet3
+$ sudo chmod g+rx /data/bitcoin/testnet3
 ```
 
 {% hint style="success" %}
@@ -164,7 +160,7 @@ The rest of the **Fulcrum** guide is exactly the same as the mainnet mode
 *   Follow the complete guide from the beginning, when you arrive at the ["Configuration section"](../../bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
 
     ```sh
-    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env --linenumbers
+    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
     ```
 
 ```
