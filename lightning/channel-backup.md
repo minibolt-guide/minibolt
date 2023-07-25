@@ -221,11 +221,12 @@ $ sudo nano /etc/fstab
 UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,nosuid,nodev,noatime,nodiratime,nofail,umask=022,gid=XXXX,uid=YYYY 0 0
 ```
 
-*   Mount the drive and check the file system. Is “/mnt/static-channel-backup-external” listed?
+*   Mount the drive and check the file system
 
     ```sh
     $ sudo mount -a
     ```
+* &#x20;Is “`/mnt/static-channel-backup-external`” listed?
 
 ```bash
 $ df -h /mnt/static-channel-backup-external
@@ -338,7 +339,7 @@ $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
 [...]
 ```
 
-* Exit the `lnd` session to return to the "admin" user session
+* Exit the `lnd` session to return to the `admin` user session
 
 ```bash
 $ exit
@@ -407,7 +408,7 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
 $2 sudo systemctl start scb-backup
 ```
 
-**Example** of expected output on the first terminal with `$ sudo journalctl -f -u btcrpcexplorer` ⬇️
+**Example** of expected output on the  first SSH session with `$ sudo journalctl -f -u btcrpcexplorer` ⬇️
 
 ```
 Jul 25 17:31:54 minibolt systemd[1]: Started SCB Backup.
@@ -419,7 +420,7 @@ Jul 25 17:31:54 minibolt scb-backup[401705]: Watches established.
     ```sh
     $2 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
     ```
-* Switch back to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled)
+* Switch back again to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled)
 
 <details>
 
@@ -437,7 +438,7 @@ Jul 25 17:32:32 minibolt scb-backup[401740]: [main (root-commit) 927ac24] Static
 Jul 25 17:32:32 minibolt scb-backup[401740]:  1 file changed, 0 insertions(+), 0 deletions(-)
 Jul 25 17:32:32 minibolt scb-backup[401740]:  create mode 100644 channel-20230725-173232.backup
 Jul 25 17:32:32 minibolt scb-backup[401704]: Pushing changes to remote repository...
-Jul 25 17:32:34 minibolt scb-backup[401742]: To github.com:twofaktor/remote-lnd-backup.git
+Jul 25 17:32:34 minibolt scb-backup[401742]: To github.com:minibolt/remote-lnd-backup.git
 Jul 25 17:32:34 minibolt scb-backup[401742]:  * [new branch]      main -> main
 Jul 25 17:32:34 minibolt scb-backup[401742]: Branch 'main' set up to track remote branch 'main' from 'origin'.
 Jul 25 17:32:34 minibolt scb-backup[401704]: Success! The file is now remotely backed up!
@@ -453,7 +454,7 @@ Jul 25 17:32:34 minibolt scb-backup[401749]: Watches established.
     $ ls -la /mnt/static-channel-backup-external
     ```
 
-Expected output:
+**Example** of expected output:
 
 ```
 > -rwxr-xr-x 1 lnd  lnd  14011 Feb  5 10:59 channel-20220205-105949.backup
