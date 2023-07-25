@@ -345,7 +345,7 @@ accounts:
   - name: 'MiniBolt'
     serverUrl: '127.0.0.1:10009'
     macaroonPath: '/home/thunderhub/admin.macaroon'
-    certificatePath: 'data/lnd/tls.cert'
+    certificatePath: '/data/lnd/tls.cert'
     password: '[E] ThunderHub password'
 ```
 
