@@ -109,7 +109,7 @@ Generate a public key for 'admin' and 'root' users, when asked enter the pin of 
     $ trezor-agent -c admin@192.168.0.20
     ```
 
-or as root
+or as root:
 
 ```sh
 $ trezor-agent -c root@192.168.0.20

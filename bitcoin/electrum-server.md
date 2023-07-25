@@ -359,7 +359,7 @@ Fulcrum needs to start automatically on system boot.
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot (optional)
+*   Enable autoboot **(optional)**
 
     ```sh
     $ sudo systemctl enable fulcrum

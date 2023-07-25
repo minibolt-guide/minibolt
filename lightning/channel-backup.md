@@ -387,7 +387,7 @@ We set up the backup script as a systemd service to run in the background and op
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot (optional)
+*   Enable autoboot **(optional)**
 
     ```sh
     $ sudo systemctl enable scb-backup

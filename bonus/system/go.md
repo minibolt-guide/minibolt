@@ -33,7 +33,7 @@ Status: Tested MiniBolt
 
 ### Install Go
 
-*   With user "admin, enter the "tmp" folder and download the binary
+*   With user `admin`, enter the "tmp" folder, and download the binary
 
     ```sh
     $ cd /tmp

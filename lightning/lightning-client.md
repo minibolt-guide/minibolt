@@ -422,7 +422,7 @@ Now, let's set up LND to start automatically on system startup.
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot (optional)
+*   Enable autoboot **(optional)**
 
     ```sh
     $ sudo systemctl enable lnd

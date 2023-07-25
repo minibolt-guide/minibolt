@@ -362,7 +362,7 @@ accounts:
 ```
 
 {% hint style="info" %}
-Replace the **`[E] ThunderHub password`** to your one
+Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
 {% endhint %}
 
 *   Exit `thunderhub` user session to return to the `admin` user session
@@ -399,7 +399,7 @@ Now we'll make sure ThunderHub starts as a service on the PC so it's always runn
     [Install]
     WantedBy=multi-user.target
     </code></pre>
-*   Enable autoboot (optional)
+*   Enable autoboot **(optional)**
 
     ```sh
     $ sudo systemctl enable thunderhub
@@ -635,6 +635,10 @@ $ exit
     ```sh
     $ sudo systemctl start thunderhub
     ```
+
+{% hint style="warning" %}
+If the update failed, you probably will have to stop Thunderhub, follow the "[Uninstall ThunderHub section](web-app.md#uninstall-thunderhub)" and repeat the installation process starting from the "[Preparation section](web-app.md#preparation)"
+{% endhint %}
 
 ## Uninstall
 

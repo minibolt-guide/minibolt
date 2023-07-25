@@ -106,7 +106,7 @@ $ sudo nano /data/bitcoin/bitcoin.conf
 
 We do not want to run BTCPay Server and other related services alongside other services due to security reasons. Therefore, we will create a separate user and run the code under the new user's account.
 
-* With user `admin`, create a new user called "`btcpay`". We will need this user later
+* With user `admin`, create a new user called `btcpay`. We will need this user later
 
 ```bash
 $ sudo adduser --disabled-password --gecos "" btcpay
@@ -461,7 +461,7 @@ TimeoutSec=120
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot (optional)
+* Enable autoboot **(optional)**
 
 ```bash
 $ sudo systemctl enable nbxplorer

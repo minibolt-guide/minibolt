@@ -255,7 +255,7 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
     $ exit
     ```
 
-### **Autostart on boot**
+### **Create systemd service**
 
 Electrs need to start automatically on system boot.
 
@@ -293,7 +293,7 @@ Electrs need to start automatically on system boot.
     [Install]
     WantedBy=multi-user.target
     ```
-*   Enable autoboot (optional)
+*   Enable autoboot **(optional)**
 
     ```sh
     $ sudo systemctl enable electrs

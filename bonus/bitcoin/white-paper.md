@@ -26,8 +26,8 @@ Download the Bitcoin white paper PDF directly from the blockchain data on your o
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="warning" %}
-Status: Not tested MiniBolt
+{% hint style="success" %}
+Status: Tested MiniBolt
 {% endhint %}
 
 ![](../../images/paper-pink.png)
@@ -42,28 +42,38 @@ This guide explains how to reconstruct the Bitcoin white paper PDF using your ow
 
 ## Preparations
 
-*   Install `jq`, a JSON processor that will be used to parse the transaction data
+* Install `jq`, a JSON processor that will be used to parse the transaction data
 
-    ```sh
-    $ sudo apt update
-    $ sudo apt install jq --install-recommends
-    ```
+```sh
+$ sudo apt update
+```
+
+```bash
+$ sudo apt install jq
+```
 
 ## Extract the whitepaper directly from Bitcoin Core
 
-*   With the "admin" user, create a new directory in the admin user home folder to store the PDF and move it to this directory
+*   With the `admin` user, go to the temporary folder
 
     ```sh
-    $ mkdir bitcoin-white-paper
-    $ cd bitcoin-white-paper
+    $ cd /tmp
     ```
 *   Use `bitcoin-cli` to download and create the PDF
 
-    ```sh
-    $ bitcoin-cli getrawtransaction 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 true | jq -r '.vout[].scriptPubKey.asm' | cut -c3- | xxd -p -r | tail +9c | head -c 184292 > bitcoin.pdf
-    $ ls -la
-    > bitcoin.pdf
-    ```
+    <pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>$ bitcoin-cli getrawtransaction 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 true | jq -r '.vout[].scriptPubKey.asm' | cut -c3- | xxd -p -r | tail +9c | head -c 184292 > bitcoin.pdf
+    </strong></code></pre>
+* Check PDF was correctly created
+
+```bash
+$ ls -la bitcoin.pdf
+```
+
+Expected output:
+
+```
+> -rw-rw-r-- 1 admin admin 184292 Jul 25 21:08 bitcoin.pdf
+```
 
 ### How does this work?
 
@@ -97,31 +107,36 @@ To be read, the PDF can now be sent from the remote node to your local computer 
 
 *   **macOS or Linux**
 
-    On your local computer, open a terminal window and type the following command. Replace YourNodeIP with the MiniBolt IP address (or `minibolt.local` if it works) and do not forget the dot at the end of the line (representing the destination of the file, here the 'Home' folder of your local computer).
+    On your local computer, open a terminal window and type the following command. Replace YourNodeIP with the MiniBolt IP address (or `minibolt.local` if it works) and do not forget the dot at the end of the line (representing the destination of the file, here the 'Home' folder of your local computer)
 
-    ```sh
-    $ scp admin@YourNodeIP:~/bitcoin-white-paper/bitcoin.pdf .
-    ```
+```sh
+$ scp admin@YourNodeIP:/tmp/bitcoin.pdf .
+```
+
 *   **Windows**
 
-    This also works with the PSCP tool from PuTTY that you can run from the command line. See [How to Use Putty pscp to Copy Files](https://tonyteaches.tech/putty-pscp-tutorial/) for more information.
+    This also works with the PSCP tool from PuTTY that you can run from the command line. See [How to Use Putty pscp to Copy Files](https://tonyteaches.tech/putty-pscp-tutorial/) for more information
 
-    ```sh
-    pscp admin@YourNodeIP:~/bitcoin-white-paper/bitcoin.pdf .
-    ```
+```sh
+$ pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
+```
+
 * The file should now be located in the Home folder of your local computer.
 
 ### Send the PDF to your Telegram account
 
 🚨 **Privacy warning**: Using this method will leak your IP address to the Telegram server.
 
-* Follow [this tutorial](https://www.shellhacks.com/telegram-api-send-message-personal-notification-bot/) to create a new Telegram bot (up to, and including, 'Get the Chat ID'). Write down the bot ID and the chat ID in a secure location (e.g., your password manager).
-*   Send the white paper to your bot (replace YourChatID and YourBotID by respectively your chat and bot ID obtained from the previous step). It might take a few seconds.
+* Follow [this tutorial](https://www.shellhacks.com/telegram-api-send-message-personal-notification-bot/) to create a new Telegram bot (up to, and including, 'Get the Chat ID'). Write down the bot ID and the chat ID in a secure location (e.g., your password manager)
+* Send the white paper to your bot (replace YourChatID and YourBotID by respectively your chat and bot ID obtained from the previous step). It might take a few seconds
 
-    ```sh
-    $ curl -v -F "chat_id=YourChatID" -F document=@/home/admin/bitcoin-white-paper/bitcoin.pdf https://api.telegram.org/botYourBotID/sendDocument
-    ```
-* The PDF should now be available for download in your Telegram bot.
+{% code overflow="wrap" %}
+```sh
+$ curl -v -F "chat_id=YourChatID" -F document=@/tmp/bitcoin.pdf https://api.telegram.org/botYourBotID/sendDocument
+```
+{% endcode %}
+
+* The PDF should now be available for download in your Telegram bot
 
 ## Get the whitepaper from BTC RPC Explorer
 
@@ -129,7 +144,7 @@ The BTC-RPC-Explorer has also a functionality to extract the data from the node 
 
 ![](../../images/white-paper-transac.png)
 
-* Open your Explorer at [https://minibolt.local:4000/](https://miniboltt.local:4000/) (replace minibolt.local with your node IP address if needed).
+* Open your Explorer at [https://minibolt.local:4000](https://miniboltt.local:4000/) or replace "minibolt.local" with your node IP address if needed)
 * Look up the transaction ID in explorer: `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713`
-* Click on the link "bitcoin whitepaper" in the top box, this will generate the PDF from the node blockchain and displays it as a pdf file in the browser.
+* Click on the link "bitcoin whitepaper" in the top box, this will generate the PDF from the node blockchain and displays it as a pdf file in the browser
 * Alternatively, use the following URL: [https://minibolt.local:4000/bitcoin-whitepaper](https://minibolt.local:4000/bitcoin-whitepaper)
