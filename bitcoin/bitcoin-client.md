@@ -369,7 +369,7 @@ $ exit
 ```
 {% endcode %}
 
-### **Autostart on boot**
+## Create systemd service
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 

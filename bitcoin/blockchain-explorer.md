@@ -43,6 +43,8 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
     $ sudo nano /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf
     ```
 
+
+
     ```nginx
     server {
       listen 4000 ssl;
@@ -155,6 +157,17 @@ Installation can take some time, be patient. There might be a lot of confusing o
 >   run `npm audit fix` to fix them, or `npm audit` for details
 ```
 
+* Check the correct installation
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
+</strong></code></pre>
+
+**Example** of expected output:
+
+```
+> "version": "3.4.0",
+```
+
 ### **Configuration**
 
 *   Copy and edit the configuration template (skip this step when updating). Activate any setting by removing the `#` at the beginning of the line
@@ -226,7 +239,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
     $ exit
     ```
 
-### **Autostart on boot**
+## Create systemd service
 
 Now we'll make sure our blockchain explorer starts as a service on the PC so that it's always running.
 

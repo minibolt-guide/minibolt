@@ -53,7 +53,7 @@ We recommend using both methods, but you can choose either one of them, dependin
 
 1. Follow the "Preparations" section first, then
 2. Follow the optional local or/and remote backup sections.
-3. Finally, follow the "Test" section that works for whatever method you've chosen.
+3. Finally, follow the "Run SCB-Backup" section that works for whatever method you've chosen.
 
 ## Preparations
 
@@ -160,45 +160,6 @@ run
     $ sudo chmod +x /usr/local/bin/scb-backup
     ```
 
-### Run backup script in background
-
-We set up the backup script as a systemd service to run in the background and start automatically on system startup.
-
-*   Still as user `admin`, create a new service file
-
-    ```sh
-    $ sudo nano /etc/systemd/system/scb-backup.service
-    ```
-*   Paste the following lines. Save and exit
-
-    ```sh
-    # MiniBolt: systemd unit for automatic SCB backup
-    # /etc/systemd/system/scb-backup.service
-
-    [Unit]
-    Description=SCB Backup
-    After=lnd.service
-
-    [Service]
-    ExecStart=/usr/local/bin/scb-backup
-    Restart=always
-    RestartSec=1
-    User=lnd
-
-    [Install]
-    WantedBy=multi-user.target
-    ```
-*   Enable autoboot (optional)
-
-    ```sh
-    $ sudo systemctl enable scb-backup
-    ```
-* Start the service
-
-```bash
-$ sudo systemctl start scb-backup
-```
-
 ## Option 1: Local backup
 
 Follow this section if you want a local backup. If you only want a remote backup, skip to the [next section](channel-backup.md#option-2-remote-backup-preparations).
@@ -210,7 +171,7 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 ### Formatting
 
 * To ensure that the storage device does not contain malicious code, we will format it on our local computer (select a name easy to recognize like "SCB backup" and choose the FAT filesystem). The following external guides explain how to format your USB thumbdrive or microSD card on [Windows](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-in-windows-12893), [macOS](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-on-a-mac-12899), or [Linux](https://phoenixnap.com/kb/linux-format-usb).
-* Once formatted, plug the storage device into your Pi. If using a thumbdrive, use one of the black USB2 ports.
+* Once formatted, plug the storage device into your PC. If using a thumbdrive, use one of the black USB2 ports.
 
 ### Set up a mounting point for the storage device
 
@@ -288,15 +249,10 @@ $ df -h /mnt/static-channel-backup-external
     ```
     LOCAL_BACKUP_ENABLED=true
     ```
-*   Restart the systemd service to activate the change
-
-    ```sh
-    $ sudo systemctl restart scb-backup
-    ```
 
 ## Option 2: Remote backup preparations
 
-Follow this section if you want a remote backup. If you already set up a local backup, and don't want a remote backup, skip to the [next section](channel-backup.md#github-test).
+Follow this section if you want a remote backup. If you already set up a local backup, and don't want a remote backup, skip to the [next section](channel-backup.md#create-systemd-service).
 
 ### Create a GitHub repository
 
@@ -308,25 +264,24 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 ### Clone the repository to your node
 
-*   Using the `lnd` user, create a pair of SSH keys. When prompted, press "Enter" to confirm the default SSH directory and not set up a password
+*   Using the `lnd` user
 
     ```sh
     $ sudo su - lnd
     ```
+* Create a pair of SSH keys
 
+```bash
+$ ssh-keygen -t rsa -b 4096
+```
 
-
-    ```
-    $ ssh-keygen -t rsa -b 4096
-    ```
-
-
+*   When prompted, press "Enter" to confirm the default SSH directory and press "Enter" again to not set up a password
 
     ```
     > Generating public/private rsa key pair.
     > [...]
     ```
-*   Display the public key
+*   Display the public key and take note
 
     ```sh
     $ cat ~/.ssh/id_rsa.pub
@@ -341,9 +296,9 @@ Follow this section if you want a remote backup. If you already set up a local b
   * Click on "Settings", then "Deploy keys", then "Add deploy key"
   * Type a title (e.g. "SCB")
   * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 5678efgh... lnd@minibolt`)
-  * Tick the box "Allow write access" to enable this key to push changes to the repository
+  * Tick the box "`Allow write access`" to enable this key to push changes to the repository
   * Click "Add key"
-* Set up global Git configuration values (the name and email are required but can be dummy values). Then, move to the LND data folder and clone your newly created empty repository. Replace `<YourGitHubUsername>` with your own GitHub username. When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter"
+* Set up global Git configuration values (the name and email are required but can be dummy values) When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter"
 
 ```sh
 $ git config --global user.name "MiniBolt"
@@ -358,9 +313,13 @@ $ git config --global user.email "minibolt@dummyemail.com"
 <pre class="language-bash"><code class="lang-bash"><strong>$ git config --global core.sshCommand "torsocks ssh"
 </strong></code></pre>
 
+* Move to the LND data folder and clone your newly created empty repository
+
 ```bash
 $ cd ~/.lnd
 ```
+
+* Replace `<YourGitHubUsername>` with your own GitHub username.  When prompted `"Are you sure you want to continue connecting (yes/no/[fingerprint])?"` type "yes" and enter
 
 ```bash
 $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
@@ -379,83 +338,15 @@ $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
 [...]
 ```
 
-### GitHub Test
-
-* Still with user `lnd` enter your local Git repository, create a dummy file, and push it to your remote GitHub repository
-
-```sh
-$ cd remote-lnd-backup
-```
-
-<pre class="language-bash"><code class="lang-bash"><strong>$ touch test
-</strong></code></pre>
+* Exit the `lnd` session to return to the "admin" user session
 
 ```bash
-$ git add .
+$ exit
 ```
-
-```bash
-$ git commit -m "testing"
-```
-
-Expected output:
-
-```
-> [main (root-commit) 826563d] testing
-> 1 file changed, 0 insertions(+), 0 deletions(-)
-> create mode 100644 test
-```
-
-```sh
-$ git push --set-upstream origin main
-```
-
-Expected output:
-
-```
-> Enumerating objects: 3, done.
-> Counting objects: 100% (3/3), done.
-> Writing objects: 100% (3/3), 206 bytes | 206.00 KiB/s, done.
-> Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-> To github.com:<YourGithubUsername>/remote-lnd-backup.git
-> * [new branch]      main -> main
-> Branch 'main' set up to track remote branch 'main' from 'origin'.
-```
-
-* Check that a copy of the "test" file is now in your remote GitHub repository (in the `[Code]` tab)
-*   Go back to the SSH session, delete the test file, commit this change, and exit the "lnd" user
-
-    ```sh
-    $ rm test
-    ```
-
-
-
-    ```bash
-    $ git add .
-    ```
-
-
-
-    ```bash
-    $ git commit -m 'removing test file'
-    ```
-
-
-
-    ```bash
-    $ git push
-    ```
-
-
-
-    ```bash
-    $ exit
-    ```
 
 ### Enable the remote backup function in the script
 
-*   Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` at line 15 to `true`. Save and exit
+*   Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` line 15 to `true`. Save and exit
 
     ```sh
     $ sudo nano /usr/local/bin/scb-backup --linenumbers
@@ -466,73 +357,92 @@ Expected output:
     ```
     REMOTE_BACKUP_ENABLED=true
     ```
-*   Restart the systemd service to activate the change
+
+## Create systemd service
+
+We set up the backup script as a systemd service to run in the background and optionally start automatically on system startup.
+
+*   Still as user `admin`, create a new service file
 
     ```sh
-    $ sudo systemctl restart scb-backup
+    $ sudo nano /etc/systemd/system/scb-backup.service
     ```
-
-## Test
-
-The automated backup is now up and running. To test if everything works, we now cause the default `channel.backup` file to change. Then we check if a copy gets stored at the intended backup location(s).
-
-*   Follow the system log entries for the SCB backup service in real-time
+*   Paste the following lines. Save and exit
 
     ```sh
-    $ sudo journalctl -f -u scb-backup
+    # MiniBolt: systemd unit for automatic SCB backup
+    # /etc/systemd/system/scb-backup.service
+
+    [Unit]
+    Description=SCB Backup
+    After=lnd.service
+
+    [Service]
+    ExecStart=/usr/local/bin/scb-backup
+    Restart=always
+    RestartSec=1
+    User=lnd
+
+    [Install]
+    WantedBy=multi-user.target
     ```
+*   Enable autoboot (optional)
 
-Expected output:
+    ```sh
+    $ sudo systemctl enable scb-backup
+    ```
+* Prepare “scb-backup” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+
+```bash
+$ sudo journalctl -f -u scb-backup
+```
+
+## Run SCB-Backup
+
+To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+
+* Start the service
+
+```bash
+$2 sudo systemctl start scb-backup
+```
+
+**Example** of expected output on the first terminal with `$ sudo journalctl -f -u btcrpcexplorer` ⬇️
 
 ```
-> [...]
-> Feb 05 10:55:09 minibolt scb-backup.sh[25782]: Watches established.
+Jul 25 17:31:54 minibolt systemd[1]: Started SCB Backup.
+Jul 25 17:31:54 minibolt scb-backup[401705]: Watches established.
 ```
 
-* Start your SSH program (eg. PuTTY) a second time and log in as "admin". Commands for the second session start with the prompt $2
-*   Simulate a `channel.backup` file change with the `touch` command (don't worry! It simply updates the timestamp of the file but not its content) and then exits the session.
+*   The automated backup is now up and running. To test if everything works, we now cause the default `channel.backup` file to change. Then we check if a copy gets stored at the intended backup location(s). Simulate a `channel.backup` file change with the `touch` command (don't worry! It simply updates the timestamp of the file but not its content)
 
     ```sh
     $2 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
     ```
-
-
-
-    ```bash
-    $2 exit
-    ```
-* Switch back to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled):
+* Switch back to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled)
 
 <details>
 
-<summary><strong>Example</strong> of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output  with <code>$ sudo journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
 
 ```
-> [...]
-> Feb 05 11:05:11 minibolt scb-backup[25885]: Local backup is enabled
-> Feb 05 11:05:11 minibolt scb-backup[25885]: Copying backup file to local storage device...
-> Feb 05 11:05:11 minibolt scb-backup[25885]: Success! The file is now locally backed up!
-> [...]
-> Feb 05 11:05:13 minibolt scb-backup[25885]: Success! The file is now remotely backed up!
-> Feb 05 11:05:13 minibolt scb-backup[25885]: Waiting for an update of the SCB file...
-> [...]
-> Jan 12 18:47:40 minibolt scb-backup[1068518]: /data/lnd/data/chain/bitcoin/mainnet/channel.backup OPEN
-> Jan 12 18:47:40 minibolt scb-backup[1068517]: channel.backup has been changed!
-> Jan 12 18:47:40 minibolt scb-backup[1068517]: Remote backup is enabled
-> Jan 12 18:47:40 minibolt scb-backup[1068517]: Entering Git repository...
-> Jan 12 18:47:40 minibolt scb-backup[1068517]: Making a timestamped copy of channel.backup...
-> Jan 12 18:47:40 minibolt scb-backup[1068517]: /data/lnd/remote-lnd-backup/channel-20230112-184740.backup
-> Jan 12 18:47:40 minibolt scb-backup[1068517]: Committing changes and adding a message
-> Jan 12 18:47:40 minibolt scb-backup[1068572]: [main eee67ad] Static Channel Backup 20230112-184740
-> Jan 12 18:47:40 minibolt scb-backup[1068572]:  1 file changed, 0 insertions(+), 0 deletions(-)
-> Jan 12 18:47:40 minibolt scb-backup[1068572]:  create mode 100644 channel-20230112-184740.backup
-> Jan 12 18:47:40 minibolt scb-backup[1068517]: Pushing changes to remote repository...
-> Jan 12 18:47:47 minibolt scb-backup[1068574]: To github.com:<YourGitHubUsername>/remote-lnd-backup.git
-> Jan 12 18:47:47 minibolt scb-backup[1068574]:    4b43165..eee67ad  main -> main
-> Jan 12 18:47:47 minibolt scb-backup[1068574]: Branch 'main' set up to track remote branch 'main' from 'origin'.
-> Jan 12 18:47:47 minibolt scb-backup[1068517]: Success! The file is now remotely backed up!
-> Jan 12 18:47:47 minibolt scb-backup[1068594]: Setting up watches.
-> Jan 12 18:47:47 minibolt scb-backup[1068594]: Watches established.
+Jul 25 17:32:32 minibolt scb-backup[401705]: /data/lnd/data/chain/bitcoin/mainnet/channel.backup OPEN
+Jul 25 17:32:32 minibolt scb-backup[401704]: channel.backup has been changed!
+Jul 25 17:32:32 minibolt scb-backup[401704]: Remote backup is enabled
+Jul 25 17:32:32 minibolt scb-backup[401704]: Entering Git repository...
+Jul 25 17:32:32 minibolt scb-backup[401704]: Making a timestamped copy of channel.backup...
+Jul 25 17:32:32 minibolt scb-backup[401704]: /data/lnd/remote-lnd-backup/channel-20230725-173232.backup
+Jul 25 17:32:32 minibolt scb-backup[401704]: Committing changes and adding a message
+Jul 25 17:32:32 minibolt scb-backup[401740]: [main (root-commit) 927ac24] Static Channel Backup 20230725-173232
+Jul 25 17:32:32 minibolt scb-backup[401740]:  1 file changed, 0 insertions(+), 0 deletions(-)
+Jul 25 17:32:32 minibolt scb-backup[401740]:  create mode 100644 channel-20230725-173232.backup
+Jul 25 17:32:32 minibolt scb-backup[401704]: Pushing changes to remote repository...
+Jul 25 17:32:34 minibolt scb-backup[401742]: To github.com:twofaktor/remote-lnd-backup.git
+Jul 25 17:32:34 minibolt scb-backup[401742]:  * [new branch]      main -> main
+Jul 25 17:32:34 minibolt scb-backup[401742]: Branch 'main' set up to track remote branch 'main' from 'origin'.
+Jul 25 17:32:34 minibolt scb-backup[401704]: Success! The file is now remotely backed up!
+Jul 25 17:32:34 minibolt scb-backup[401749]: Setting up watches.
+Jul 25 17:32:34 minibolt scb-backup[401749]: Watches established.
 ```
 
 </details>
@@ -549,7 +459,7 @@ Expected output:
 > -rwxr-xr-x 1 lnd  lnd  14011 Feb  5 10:59 channel-20220205-105949.backup
 ```
 
-* If you enabled the remote backup, check your GitHub repository (in the `[ <> Code ]` tab). It should now contain the latest timestamped backup file
+* **If you enabled the remote backup**, check your GitHub repository (in the `[ <> Code ]` tab). It should now contain the latest timestamped backup file
 
 {% hint style="success" %}
 You're set! Each time you open a new channel or close an existing one, the monitoring script will automatically save a timestamped copy of the backup file to your backup location(s)

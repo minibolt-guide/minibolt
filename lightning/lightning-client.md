@@ -383,7 +383,7 @@ This is a standard configuration. Check the official LND [sample-lnd.conf](https
     $ exit
     ```
 
-### **Autostart on boot**
+## Create systemd service
 
 Now, let's set up LND to start automatically on system startup.
 

@@ -324,7 +324,7 @@ Remember, if you have a slow-performance device, follow the [slow device section
     $ exit
     ```
 
-### **Autostart on boot**
+## Create systemd service
 
 Fulcrum needs to start automatically on system boot.
 

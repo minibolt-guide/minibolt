@@ -261,11 +261,11 @@ Remember to exclude the "Bridge" word to avoid incompatibility with the Tor Brow
 {% endhint %}
 
 {% hint style="warning" %}
-You'll need to replace **"IP ADDRESS"**, **"PORT"**, and **"FINGERPRINT"** with the actual values, which you can find in the tor log. Make sure that you use **"PORT"** as the obfs4 port <**TODO2>,** not ~~**\<TODO1>,**~~ and that you chose **"FINGERPRINT",** not ~~**"HASHED FINGERPRINT"**~~.
+You'll need to replace **"IP ADDRESS"**, **"PORT"**, and **"FINGERPRINT"** with the actual values, which you can find in the tor log. Make sure that you use **"PORT"** as the obfs4 port <**TODO2>,** not ~~**\<TODO1>,**~~ and that you chose **"FINGERPRINT",** not ~~**"HASHED FINGERPRINT"**~~
 {% endhint %}
 
 {% hint style="info" %}
-More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section.
+More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section
 {% endhint %}
 
 ## Extras (optional)
@@ -340,7 +340,7 @@ Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), a
 
 ![](../../images/get-bridge.PNG)
 
-* On the MiniBolt node, with user **"admin"**, install the ofbs4 proxy
+* On the MiniBolt node, with user **`admin`**, install the ofbs4 proxy
 
 ```bash
 $ sudo apt install obfs4proxy
