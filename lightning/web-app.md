@@ -602,149 +602,35 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
     ```sh
     $ sudo su - thunderhub
     ```
-*   Run the update command provided within the package:
+*   Go to the thunderhub folder
 
     ```sh
     $ cd thunderhub
     ```
-
-
+*   There are two options, run the update command provided within the package
 
     ```sh
     $ npm run update
     ```
 
-<details>
 
-<summary>Example of expected output ⬇️</summary>
+* Or step by step
 
-```
-> thunderhub@0.13.19 update
-> sh ./scripts/updateToLatest.sh
+<pre class="language-bash"><code class="lang-bash"><strong>$ git pull
+</strong></code></pre>
 
-Checking for changes upstream ...
-remote: Enumerating objects: 39, done.
-remote: Counting objects: 100% (39/39), done.
-remote: Compressing objects: 100% (13/13), done.
-remote: Total 39 (delta 26), reused 34 (delta 26), pack-reused 0
-Unpacking objects: 100% (39/39), 10.95 KiB | 35.00 KiB/s, done.
-From https://github.com/apotdevin/thunderhub
-   c9f1a5e4..a740b75a  echarts-implementation -> origin/echarts-implementation
-   ec2857b1..d3a92e36  master                 -> origin/master
- * [new tag]           v0.13.20               -> v0.13.20
-fatal: HEAD does not point to a branch
-./scripts/updateToLatest.sh: 9: [: =: argument expected
-Reseting repository...
-HEAD is now at 1408605c chore(release): 0.13.19
-Pulling latest changes...
-You are not currently on a branch.
-Please specify which branch you want to merge with.
-See git-pull(1) for details.
-
-    git pull <remote> <branch>
-
-Installing dependencies...
-
-> thunderhub@0.13.19 prepare
-> husky install
-
-husky - Git hooks installed
-
-up to date, audited 1880 packages in 23s
-
-201 packages are looking for funding
-  run `npm fund` for details
-
-15 vulnerabilities (1 low, 4 moderate, 10 high)
-
-To address all issues, run:
-  npm audit fix
-
-Run `npm audit` for details.
-Building application...
-
-> thunderhub@0.13.19 prebuild
-> rimraf dist && rimraf .next
-
-
-> thunderhub@0.13.19 build
-> npm run build:nest && npm run build:next
-
-
-> thunderhub@0.13.19 build:nest
-> nest build
-
-
-> thunderhub@0.13.19 build:next
-> cd src/client && next build
-
-- info Linting and checking validity of types
-- info Creating an optimized production build
-- info Compiled successfully
-- info Collecting page data
-- info Finalizing page optimization
-
-Route (pages)                              Size     First Load JS
-┌ λ /                                      22.3 kB         377 kB
-├   /_app                                  0 B             243 kB
-├ λ /404                                   339 B           244 kB
-├ λ /amboss                                3.19 kB         250 kB
-├ λ /chain                                 5.39 kB         267 kB
-├ λ /channels                              5.84 kB         309 kB
-├ λ /channels/[slug]                       4.35 kB         251 kB
-├ λ /chat                                  5.61 kB         252 kB
-├ λ /dashboard                             568 B           247 kB
-├ λ /forwards                              10.3 kB         353 kB
-├ λ /leaderboard                           3.49 kB         279 kB
-├ λ /lnmarkets                             5.06 kB         249 kB
-├ λ /login                                 5.4 kB          249 kB
-├ λ /peers                                 6.03 kB         268 kB
-├ λ /rebalance                             8.16 kB         281 kB
-├ λ /settings                              8.44 kB         257 kB
-├ λ /settings/dashboard                    454 B           247 kB
-├ λ /sso                                   2.7 kB          246 kB
-├ λ /stats                                 6.13 kB         250 kB
-├ λ /swap                                  11 kB           286 kB
-├ λ /tools                                 7.12 kB         251 kB
-└ λ /transactions                          4.86 kB         345 kB
-+ First Load JS shared by all              247 kB
-  ├ chunks/framework-d6b15d8b3dd1dcdb.js   45.2 kB
-  ├ chunks/main-c500a90111607c9d.js        27.7 kB
-  ├ chunks/pages/_app-a6dc7da2774e90d5.js  168 kB
-  ├ chunks/webpack-e7ee4d06fbc921c4.js     2.09 kB
-  └ css/d7f6629e77206f04.css               3.75 kB
-
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
-
-Removing unneccesary modules...
-npm WARN config production Use `--omit=dev` instead.
-
-up to date, audited 944 packages in 8s
-
-74 packages are looking for funding
-  run `npm fund` for details
-
-11 vulnerabilities (1 low, 2 moderate, 8 high)
-
-To address all issues, run:
-  npm audit fix
-
-Run `npm audit` for details.
-Updated to version v0.13.20
-npm notice
-npm notice New minor version of npm available! 9.5.1 -> 9.8.1
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v9.8.1
-npm notice Run npm install -g npm@9.8.1 to update!
-npm notice
+```bash
+$ npm install
 ```
 
-</details>
+<pre class="language-bash"><code class="lang-bash"><strong>$ npm run build
+</strong></code></pre>
 
 ```sh
 $ exit
 ```
 
-*   Start the service again.
+*   Start the service again
 
     ```sh
     $ sudo systemctl start thunderhub
