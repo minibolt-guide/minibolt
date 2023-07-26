@@ -829,12 +829,12 @@ More: full [LND API reference](https://api.lightning.community/)
 
 Upgrading LND can lead to a number of issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases) completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
 
-*   Check your actual LND version
+*   Check your current LND version
 
     ```sh
     $ lnd --version
     ```
-* Download, verify, and install the latest LND binaries as described in the [LND section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
+* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
 *   Restart LND to apply the new version
 
     ```sh
