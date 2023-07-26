@@ -262,16 +262,6 @@ $ nano .env.local
 MEMPOOL_URL='https://mempool.space/testnet'
 ```
 
-* When you arrive at the `thubConfig.yaml` config, add the next line below&#x20;
-
-```bash
-$ nano thubConfig.yaml
-```
-
-```
-defaultNetwork: 'testnet'
-```
-
 {% hint style="success" %}
 The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode
 {% endhint %}

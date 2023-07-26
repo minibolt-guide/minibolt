@@ -142,7 +142,9 @@ Primary key fingerprint: 4D84 1E6E 6B1B 68EB FAB4  A9E6 70C0 B166 321C 0AF8
 $ npm install
 ```
 
+{% hint style="info" %}
 Installation can take some time, be patient. There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
+{% endhint %}
 
 **Example** of expected output:
 

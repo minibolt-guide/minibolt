@@ -185,6 +185,8 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 ```
 
+* Install all the necessary modules. Not run `$ npm audit fix`, which could break the original code
+
 ```sh
 $ npm install
 ```
@@ -227,6 +229,8 @@ npm notice
 ```
 
 </details>
+
+* Build it
 
 ```sh
 $ npm run build
@@ -325,7 +329,7 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
     ```sh
     $ nano .env.local
     ```
-*   Add or edit the following lines, save and exit
+*   Add or edit the following lines, save, and exit
 
     ```
     # -----------
@@ -343,7 +347,7 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
     # -----------
     ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
     ```
-* Create your `thubConfig.yaml`
+* Create a new`thubConfig.yaml` file
 
 ```sh
 $ nano thubConfig.yaml
@@ -363,6 +367,24 @@ accounts:
 
 {% hint style="info" %}
 Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
+{% endhint %}
+
+* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines at the end of the file (without indentation). Anyway is possible to enable this later using the ThunderHub interface that will be explained in the [Enable auto backups and healthcheck notifications](web-app.md#enable-auto-backups-and-healthcheck-notifications-to-the-amboss-account) extra section
+
+Enable auto-backups:
+
+```
+backupsEnabled: true
+```
+
+Enable-auto healthchecks:
+
+```
+healthCheckPingEnabled: true
+```
+
+{% hint style="info" %}
+Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
 {% endhint %}
 
 *   Exit `thunderhub` user session to return to the `admin` user session
@@ -607,37 +629,48 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
     ```sh
     $ cd thunderhub
     ```
-*   There are two options, run the update command provided within the package
+* Pull the changes from GitHub
 
-    ```sh
-    $ npm run update
-    ```
-
-
-* Or step by step
-
-<pre class="language-bash"><code class="lang-bash"><strong>$ git pull
+<pre class="language-bash"><code class="lang-bash"><strong>$ git pull https://github.com/apotdevin/thunderhub.git master
 </strong></code></pre>
+
+* Install all the necessary modules. Not run `$ npm audit fix`, which could break the original code
 
 ```bash
 $ npm install
 ```
 
+* Build it
+
 <pre class="language-bash"><code class="lang-bash"><strong>$ npm run build
 </strong></code></pre>
 
-```sh
+* Check the correct update
+
+```bash
+$ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
+```
+
+**Example** of expected output:
+
+```
+> "version": "0.13.20",
+```
+
+* Exit to go back to the `admin` user
+
+```bash
 $ exit
 ```
 
-*   Start the service again
+* Start the service again
 
-    ```sh
-    $ sudo systemctl start thunderhub
-    ```
+```sh
+$ sudo systemctl start thunderhub
+```
 
 {% hint style="warning" %}
-If the update failed, you probably will have to stop Thunderhub, follow the "[Uninstall ThunderHub section](web-app.md#uninstall-thunderhub)" and repeat the installation process starting from the "[Preparation section](web-app.md#preparation)"
+If the update fails, you probably will have to stop Thunderhub, follow the "[Uninstall ThunderHub section](web-app.md#uninstall-thunderhub)" to delete `thunderhub` user, and repeat the installation process starting from the "[Preparation section](web-app.md#preparation)"
 {% endhint %}
 
 ## Uninstall
@@ -723,33 +756,57 @@ Expected output:
 
 ### Access to your Amboss node account
 
-* In the "Home" screen - "Quick Actions" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "Logged in" and click again on the Amboss icon "Go to". This will open a secondary tab in your browser to access your Amboss account node.
+* In the "**Home**" screen - "**Quick Actions**" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "**Logged in**" and click again on the Amboss icon "**Go to**". This will open a secondary tab in your browser to access your Amboss account node
 
-Advice: If you can't do "Login", maybe the cause is that you don't have a channel opened yet. Planning to open a small size channel to be connected with the Lightning Network and to the Amboss node.
+{% hint style="warning" %}
+If you can't do "**Login**", maybe the cause is that you don't have a **public** channel opened yet. **You'll need at least one public channel that has been open for a few days.** Planning to open a public small-size channel to be connected with some Lightning Network peers or directly to the [Amboss node](https://amboss.space/es/node/03006fcf3312dae8d068ea297f58e2bd00ec1ffe214b793eda46966b6294a53ce6). More info on [Amboss docs](https://amboss.tech/docs)
+{% endhint %}
 
-* Making sure we are connected to the Amboss account, now back to Thunderhub for the next steps.
+* Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account), now back to Thunderhub for the next steps
 
 ### Enable auto backups and healthcheck notifications to the Amboss account
 
-1. Open the “Settings” by pressing the cogwheel in the top right corner of the Thunderhub
-2. Switch to "Yes" -> Amboss: "Auto backups" and "Healthcheck Pings"
-3. Test pushing a backup to Amboss by entering the "Tools" section, to the left main menu
-4. Press to "Push" button to test the correct working
-5. Go back to the Amboss website and access "Account" in the main menu
-6. Access to "Backup" and ensure that the last date of the backup is the same as before. It is recommended to download the backup file and store it in a safe place for future recovers. The backup file will be updated automatically in Amboss for every channel opening and closing. You could do this too in the "Tools" section in Thunderhub, "Backups" -> "Backup all channels" -> "Download" button.
-7. In Amboss, access "Monitoring" to configure "Healthcheck Settings".
+#### Enable automatic backups to Amboss
+
+1. In ThunderHub, from the left sidebar, click on 🌍**Amboss.**
+2. In the **Backups section**, push on the **Push** button to test and push the first backup to Amboss. If all was good, you could enable automatic backups to Amboss, by pushing on **Enable** just above, now the backup file encrypted will be updated automatically on Amboss for every channel opening and closing.&#x20;
+3. Go to the Amboss website, [backups section](https://amboss.space/settings?page=backups).
+4. Ensure that the last date of the backup is the same as before.
+
+<figure><img src="../.gitbook/assets/pushed-backup-amboss.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Feel free to link to Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account.
+> You could test that the possible recovery process would be available, by clicking on the "**Get**" button and copying the entire string, then going back to the Thunderhub from the left sidebar, clicking on "**Tools",** going to the "Backups" section -> "Verify Channels Backup" -> click on "**Verify"** button, paste the before string copied and click on "Verify" button again. A green banner "**Valid backup String**" should appear.
+
+> Also is recommended to download the backup file from ThunderHub and store locally it in a safe place for future recovery. You can do this "**Tools**" section in Thunderhub, "**Backups**" -> "Backup all channels" -> click the "**Download**" button.
+{% endhint %}
+
+#### Enable automatic healthcheck pings to Amboss
+
+1. In ThunderHub, from the left sidebar, click on 🌍**Amboss.**
+2. Go to the **Healthchecks section** and push the "**Enable**" button to enable automatic healthcheck pings to Amboss.
+3. Now go to the Amboss [Monitoring section](https://amboss.space/settings?page=monitoring), and configure "Healthcheck Settings" as you wish.
+4. Go to the [Notifications section](https://amboss.space/settings?page=notifications) to enable the different notification ways that you wish to be notified.
+
+{% hint style="info" %}
+> Feel free to link to the Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account
+
+> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
 {% endhint %}
 
 ### Recovering channels using the ThunderHub method
 
-After possible data corruption of your LND node, ensure that this old node is completely off. Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete and Thunderhub installed, access to the Thunderhub dashboard
+After possible data corruption of your LND node, ensure that this old node is completely off before starting the recovery.&#x20;
 
-1. Access to the "Tools" section, "Backups" -> "Recover Funds from channels" -> "Recover" button
-2. Enter the complete string text of your previously downloaded channels backup file in the step before and push the "Recover" button. All of the channels that you had opened in your old node will be forced closed and they will appear in the "Pending" tab in the "Channels" section until closings are confirmed
+Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete, and Thunderhub installed and running, go to the Thunderhub dashboard.
+
+1. From the left sidebar, click on "**Tools"**, and go to the "Backups" section -> "**Recover Funds from Channels**" -> push the "**Recover**" button.
+2. In this box, enter the complete string text that contains your manually downloaded channels backup file in the step before, or use the string got using the content of the latest Amboss automatic backup (recommended) and push again the "**Recover**" button.
+
+{% hint style="info" %}
+All of the channels that you had opened in your old node will be forced closed and they will appear in the "Pending" tab in the "Channels" section until closings are confirmed. Check logs of LND to see how the recovery process is executed and get more information about it
+{% endhint %}
 
 {% hint style="danger" %}
-Use this guide as a last resort if you have lost access to your node or are unable to start LND due to a fatal error. This guide will close all your channels. Your funds will become available on-chain at varying speeds.
+Use this guide as a last resort if you have lost access to your node or are unable to start LND due to a fatal error. This guide will close all your channels. Your funds will become available on-chain at varying speeds
 {% endhint %}
