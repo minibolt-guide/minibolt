@@ -589,7 +589,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 ## Uninstall
 
-### **Uninstall Fulcrum**
+#### **Uninstall Fulcrum**
 
 *   Ensure you are logged in with user `admin`, stop, disable, and delete the service
 
@@ -608,10 +608,11 @@ If the database gets corrupted and you don't have a backup, you will have to res
     ```sh
     $ sudo rm /etc/systemd/system/fulcrum.service
     ```
-*   Delete `fulcrum` user
+*   Ensure you are logged in with the user `admin`. Delete the fulcum user.\
+    Don't worry about `userdel: fulcrum mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
     ```sh
-    $ sudo userdel -r fulcrum
+    $ sudo userdel -rf fulcrum
     ```
 *   Delete fulcrum directory
 
@@ -619,7 +620,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
     $ sudo rm -rf /data/fulcrum/
     ```
 
-### **Uninstall Tor hidden service**
+#### **Uninstall Tor hidden service**
 
 *   Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -642,7 +643,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
     $ sudo systemctl reload tor
     ```
 
-### **Uninstall FW configuration**
+#### **Uninstall FW configuration**
 
 *   Ensure you are logged in with user "admin", display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
 
@@ -663,7 +664,7 @@ Expected output:
     $ sudo ufw delete X
     ```
 
-### **Uninstall the Zram**
+#### **Uninstall the Zram**
 
 *   Ensure you are logged in with the user `"admin"`, navigate to the zram-swap folder, and uninstall
 

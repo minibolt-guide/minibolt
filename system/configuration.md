@@ -23,14 +23,14 @@ You are now on the command line of your own Bitcoin node. Let's start with the c
 
 ### Add the admin user (and log in with it)
 
-We will use the primary user "admin" instead of "temp" to make this guide more universal.
+We will use the primary user `admin` instead of `temp` to make this guide more universal.
 
-*   Create a new user called "admin" with your `password [A]`
+*   Create a new user called `admin` with your `password [A]`
 
     ```sh
     $ sudo adduser --gecos "" admin
     ```
-*   Make this new user a superuser by adding it to the "sudo" and old "temp" user groups
+*   Make this new user a superuser by adding it to the `sudo` and old `temp` user groups
 
     ```sh
     $ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
@@ -53,11 +53,15 @@ Expected output:
 > userdel: temp mail spool (/var/mail/temp) not found
 ```
 
-To change the system configuration and files that don't belong to the user "admin", you have to prefix commands with `sudo`. You will be prompted to enter your admin `password [A]` from time to time for increased security.
+{% hint style="info" %}
+To change the system configuration and files that don't belong to the user "admin", you have to prefix commands with `sudo`. You will be prompted to enter your admin `password [A]` from time to time for increased security
+{% endhint %}
 
 ### Login with SSH keys (optional)
 
-Now, you can start to access it without a password by following the [SSH keys bonus guide](../bonus/system/ssh-keys.md).
+{% hint style="info" %}
+Now, you can start to access it without a password by following the [SSH keys bonus guide](../bonus/system/ssh-keys.md)
+{% endhint %}
 
 ### System update
 
@@ -74,7 +78,7 @@ Do this regularly every few months for security-related updates. If during the u
 ![](../images/update-action.PNG)
 
 {% hint style="info" %}
-It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press ENTER to confirm
+It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press `ENTER` to confirm
 {% endhint %}
 
 *   To be able to use the "minibolt" hostname instead of the IP address, we must install this necessary software package
@@ -123,7 +127,7 @@ If the measured speeds are more than 100 MB/s, you're good
 ```
 
 {% hint style="success" %}
-If the measured speeds are more than 100 MB/s, you're good
+If the measured speeds are more than 100 MB/s, you're good but is recommended more for a better experience
 {% endhint %}
 
 ### Data directory

@@ -29,7 +29,7 @@ A firewall controls what kind of outside traffic your machine accepts and which 
 
 For now, only SSH should be reachable from the outside. Bitcoin Core and LND are using Tor and don't need incoming ports. We'll open the port for Electrs and web applications later if needed.
 
-*   With user "admin", configure and enable the firewall rules, when the prompt ask you `Command may disrupt existing ssh connections. Proceed with operation (y|n)?` type `y` key and enter
+*   With user `admin`, configure and enable the firewall rules, when the prompt asks you `Command may disrupt existing ssh connections. Proceed with operation (y|n)?` type `y` key and enter
 
     ```sh
     $ sudo ufw default deny incoming
@@ -90,7 +90,7 @@ Expected output:
 </details>
 
 {% hint style="info" %}
-If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). M\_ore:\_ [_UFW Essentials_](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
+If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). More: [_UFW Essentials_](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
 
 ### Increase your open files limit
@@ -161,7 +161,7 @@ If your MiniBolt is swamped with internet requests (honest or malicious due to a
 In this way, you can detect a possible brute-force attack and take appropriate mitigation measures.
 
 {% hint style="info" %}
-Do this regularly to get security-related incidents.
+Do this regularly to get security-related incidents
 {% endhint %}
 
 ### Prepare NGINX reverse proxy

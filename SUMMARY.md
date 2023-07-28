@@ -44,7 +44,7 @@
   * [Trezor Agent](bonus/system/trezor-agent.md)
   * [WireGuard: a simple yet fast VPN](bonus/system/wireguard-vpn.md)
   * [Configure NUT to safely shutdown your node](bonus/system/ups-nut.md)
-  * [Tor Bridge](bonus/system/tor-bridge.md)
+  * [Tor Obfs4 Bridge](bonus/system/tor-bridge.md)
   * [NYM mixnet](bonus-guides/system/nym-mixnet.md)
   * [Store data in a secondary disk](bonus/system/store-data-secondary-disk.md)
 * [Bitcoin](bonus/bitcoin/README.md)

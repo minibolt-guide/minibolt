@@ -30,7 +30,7 @@ Difficulty: Medium
 Status: Tested MiniBolt
 {% endhint %}
 
-![](../../images/ordisrespector-thread.png)
+![](../../.gitbook/assets/ordisrespector-thread.png)
 
 ## Context
 
@@ -318,15 +318,15 @@ After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mem
 * Go to the public mempool.space [clearnet](https://mempool.space) or [Tor](http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion) link official web page
 * Click on the first mempool candidate blocks in the green/yellow color blocks
 
-![](../../images/ordisrespector-mempool-blocks.png)
+![](../../.gitbook/assets/ordisrespector-mempool-blocks.png)
 
 * Put the pointer above the cube's dynamic graphic at the bottom right, and find transactions with for example **0.00010000 BTC**, **0.00005000 BTC**, **0.00000546 BTC**, **0.00000330 BTC**, **0.000005386 BTC**... output amount, or similar recurrency amount and click on the cube of the transaction to do a second verification
 
-![](../../images/ordisrespector-mempool-cube-tx.png)
+![](../../.gitbook/assets/ordisrespector-mempool-cube-tx.png)
 
 * Look for "Taproot", "Segwit", "RBF" and "CPFP" tags (this last doesn't appear always)
 
-![](../../images/ordisrespector-mempool-space-tx.png)
+![](../../.gitbook/assets/ordisrespector-mempool-space-tx.png)
 
 #### **Check the Ordisrespector filter working on your mempool**
 
@@ -335,11 +335,11 @@ After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mem
 
 _**Mempool space**_ expected output:
 
-![](../../images/ordisrespector-mempool-notfound.PNG)
+![](../../.gitbook/assets/ordisrespector-mempool-notfound.PNG)
 
 _**BTC RPC Explorer**_ expected output:
 
-![](../../images/ordisrespector-btcrpcexplorer-notfound.png)
+![](../../.gitbook/assets/ordisrespector-btcrpcexplorer-notfound.png)
 
 Or if you prefer, check directly through the Bitcoin Core CLI command, doing
 

@@ -17,7 +17,7 @@ layout:
     visible: true
 ---
 
-# Tor Bridge
+# Tor Obfs4 Bridge
 
 The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called obfs4, a special kind of bridge, to address this by adding a layer of obfuscation.
 
@@ -49,7 +49,7 @@ Status: Tested MiniBolt
 
 obfs4 makes Tor traffic look random and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configure all.
 
-*   Ensure you are logged in with the user `"admin"` and install obfs4 proxy
+*   Ensure you are logged in with the user `admin` and install obfs4 proxy
 
     ```sh
     $ sudo apt install obfs4proxy
@@ -150,11 +150,11 @@ Don't forget to change the ORPort <**TODO1>**, ServerTransportListenAddr <**TODO
 
 {% hint style="info" %}
 By default, Tor will advertise your bridge to users through various [mechanisms](https://bridges.torproject.org/info?lang=en). If you want to run a private bridge, for example, you'll give out your bridge address manually to your friends. **Add** the next line at the end of the torrc file:
-{% endhint %}
 
-```
-BridgeDistribution none
-```
+> ```
+> BridgeDistribution none
+> ```
+{% endhint %}
 
 > Currently valid, recognised options are: `none` | `any` | `https` | `email` | `moat`
 
@@ -207,12 +207,12 @@ Note that both Tor's OR port and its obfs4 port must be reachable. If your bridg
 *   Enable autoboot
 
     ```sh
-    $ sudo systemctl enable --now tor.service
+    $ sudo systemctl enable --now tor
     ```
 *   Restart Tor to apply changes
 
     ```sh
-    $ sudo systemctl restart tor.service
+    $ sudo systemctl restart tor
     ```
 
 ## Testing

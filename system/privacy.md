@@ -17,7 +17,7 @@ layout:
 
 # 1.6 Privacy
 
-We configure Tor and I2P to run your node anonymously.
+addsWe configure Tor and I2P to run your node anonymously.
 
 <figure><img src="../.gitbook/assets/privacy.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -41,7 +41,7 @@ It is called "Tor" for "The Onion Router": information is routed through many ho
 
 #### **Tor installation**
 
-Log in to your MiniBolt via SSH as user "admin" and install Tor.
+Log in to your MiniBolt via SSH as user `admin` and install Tor.
 
 * Update the packages and upgrade to keep up to date with the OS
 
@@ -49,7 +49,7 @@ Log in to your MiniBolt via SSH as user "admin" and install Tor.
 $ sudo apt update && sudo apt full-upgrade
 ```
 
-*   Install "apt-transport-https"
+*   Install dependency
 
     ```sh
     $ sudo apt install apt-transport-https
@@ -65,7 +65,7 @@ $ sudo apt update && sudo apt full-upgrade
     deb     [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
     deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
     ```
-*   Then up to `"root"` user temporarily to add the gpg key used to sign the packages by running the following command at your command prompt
+*   Then up to `"root"` user temporarily adds the gpg key used to sign the packages by running the following command at your command prompt
 
     ```sh
     $ sudo su
@@ -443,7 +443,9 @@ If you have problems with the Tor connection (LN channels offline, excessive del
     $ sudo systemctl start tor
     ```
 
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to. If not, try using [obfs bridges](../bonus/system/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs bridges could help to avoid this censorship.
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to.&#x20;
+
+If not, try using [obfs bridges](../bonus/system/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs bridges could help to avoid this censorship.
 
 **Example** of Tor censorship output:
 

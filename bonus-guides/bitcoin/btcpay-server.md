@@ -564,7 +564,7 @@ $ sudo su - btcpay
 $ cd src
 ```
 
-* Clone the BTCPay Server official GitHub repository and go to the "`btcpayserver`" folder
+* Clone the BTCPay Server official GitHub repository and go to the `btcpayserver` folder
 
 ```bash
 $ git clone https://github.com/btcpayserver/btcpayserver
@@ -955,7 +955,7 @@ $ cd src/NBXplorer
 
 * Fetch the latest tag
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ git fetch --tags &#x26;&#x26; git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1) &#x26;&#x26; ./build.sh
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ git fetch --tags &#x26;&#x26; git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1)
 </strong></code></pre>
 
 * Build it
@@ -1029,7 +1029,7 @@ $ sudo systemctl start btcpay
 $ sudo systemctl stop btcpay
 ```
 
-```
+```bash
 $ sudo systemctl stop nbxplorer
 ```
 
@@ -1102,7 +1102,7 @@ $ sudo systemctl reload tor
 
 #### Delete btcpay user
 
-* Ensure you are logged in with user `admin`. Delete the btcpay user.\
+* Ensure you are logged in with the user `admin`. Delete the btcpay user.\
   Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash
