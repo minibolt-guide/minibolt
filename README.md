@@ -12,7 +12,7 @@ description: >-
 <mark style="color:red;">**Attention! This project is a fork under construction, some chapters could not be attached to the reference use case. Pay special attention to the "Status: Not tested MiniBolt" tag at the beginning of the guides. Be careful and act at your own risk.**</mark>
 {% endhint %}
 
-<figure><img src=".gitbook/assets/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -35,7 +35,7 @@ There are many reasons why you should run your own Bitcoin node:
 
 <div align="center" data-full-width="false">
 
-<img src=".gitbook/assets/bitcoin-network-small.png" alt="">
+<img src="images/bitcoin-network-small.png" alt="">
 
 </div>
 

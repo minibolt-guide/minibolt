@@ -17,7 +17,7 @@ layout:
 
 # 3. Lightning
 
-<figure><img src="../.gitbook/assets/20221211_183707.jpg" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lightning.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
 Now you're all set up for Bitcoin. But Bitcoin is not primarily designed for fast and cheap payments. The blockchain that records all transactions cannot grow without limit if we want to keep the whole system decentralized and nodes like this RaspiBolt feasible.
 

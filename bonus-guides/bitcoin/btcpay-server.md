@@ -964,7 +964,7 @@ $ cd src/NBXplorer
 $ ./build.sh
 ```
 
-* Go back to the "`admin`" user
+* Go back to the `admin` user
 
 ```bash
 $ exit
@@ -1007,7 +1007,7 @@ $ cd src/btcpayserver
 $ ./build.sh
 ```
 
-* Go back to the "`admin`" user
+* Go back to the `admin` user
 
 ```bash
 $ exit
@@ -1023,7 +1023,7 @@ $ sudo systemctl start btcpay
 
 #### Uninstall services
 
-* Ensure you are logged in with the user `admin`, stop btcpay and nbxplorer services
+* Ensure you are logged in with the user `admin`, stop `btcpay` and `nbxplorer` services
 
 ```bash
 $ sudo systemctl stop btcpay
@@ -1033,7 +1033,7 @@ $ sudo systemctl stop btcpay
 $ sudo systemctl stop nbxplorer
 ```
 
-* Delete btcpay and nbxplorer services
+* Delete `btcpay` and `nbxplorer` services
 
 ```bash
 $ sudo rm /etc/systemd/system/btcpay.service

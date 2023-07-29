@@ -31,7 +31,7 @@ Difficulty: Hard
 Status: Tested MiniBolt
 {% endhint %}
 
-![](../../.gitbook/assets/wireguard.png)
+![](../../images/wireguard.png)
 
 ## Acknowledgments
 
@@ -51,7 +51,7 @@ A VPN is an encrypted tunnel between two computers over the internet. In our cas
 * WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which allows telling that you are using WireGuard VPN.
 * You need to open one port on your router.
 
-![](../../.gitbook/assets/wireguard-VPN.png)
+![](../../images/wireguard-VPN.png)
 
 ## Prerequisites
 
@@ -104,11 +104,11 @@ If you have a contracted static IP on your ISP, you can log in to the MiniBolt d
 
     **3.** Hit the **"CREATE ACCOUNT"** button
 
-![](../../.gitbook/assets/desec\_io0.png)
+![](../../images/desec\_io0.png)
 
 **You'll see the following form:**
 
-![](../../.gitbook/assets/desec\_io1.png)
+![](../../images/desec\_io1.png)
 
 * Ensure to keep selecting the second option **Register a new domain under dedyn.io (dynDNS)**
 * For this demo, I've typed **"yoursubdomain"**, but _**you can use anything memorable**_ to you as long as no one has already taken that name. We'll it call **`"<yoursubdomain.dedyn.io>"`** from now on.
@@ -124,13 +124,13 @@ After this, deSEC will email you to confirm the address. It will contain a **ver
 
 * Type again your email, complete the **"CAPTCHA"** and click on the **"RESET PASSWORD"** button.
 
-![](../../.gitbook/assets/desec\_io7.PNG)
+![](../../images/desec\_io7.PNG)
 
 This will prompt deSEC to send you another email with another link that will let you **set your account password**.
 
 **6.** After all that is done, click **LOG IN** and use your **email** and the **password** set before.
 
-![](../../.gitbook/assets/desec\_io8.png)
+![](../../images/desec\_io8.png)
 
 {% hint style="info" %}
 Keep **this dashboard open,** you'll need to come back here later.
@@ -183,11 +183,11 @@ Now we'll write a Bash script for MiniBolt that will periodically poll its own I
 Keep the MiniBolt SSH session on the terminal opened to go back later, return to [deSEC web page](https://desec.io/domains), ensure you are on the **"DOMAIN MANAGEMENT"** tab, and **click on your domain**
 {% endhint %}
 
-![](../../.gitbook/assets/desec\_io3.png)
+![](../../images/desec\_io3.png)
 
 **Wait 2 minutes**, and refresh the page, you should see a new **"type A"** DNS record entry with your public IP address, created automatically
 
-![](../../.gitbook/assets/desec\_io10.png)
+![](../../images/desec\_io10.png)
 
 {% hint style="success" %}
 You now have a free domain that always points to your existing public IP address. Now you can log out of the Desec webpage by clicking on the `"LOG OUT"` button on the top right, we won't need it anymore
@@ -569,7 +569,7 @@ You could create a Wireguard VPN client connection manually from scratch filling
 * Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
 * Hit on the little arrow down on the bottom left and select **"Add empty tunnel"**
 
-![](../../.gitbook/assets/wireguard-windows.png)
+![](../../images/wireguard-windows.png)
 
 * Paste the entire [configure Wireguard VPN Client](wireguard-vpn.md#client-configuration-part-1) content of the `"wg0.conf"` file in the big text box and push on **"Save"**
 * Click on the **"Activate"** button to enable the VPN connection
