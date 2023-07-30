@@ -715,7 +715,7 @@ Expected output:
 As soon as your funding transaction is mined (1 confirmation), LND will show its amount as "confirmed\_balance".
 
 {% hint style="info" %}
-If you want to open a few channels, you might want to send a few transactions. If you have only one UTXO, you need to wait for the change to return to your wallet after every new channel opening.
+If you want to open a few channels, you might want to send a few transactions. If you have only one UTXO, you need to wait for the change to return to your wallet after every new channel opening
 {% endhint %}
 
 ### **Opening channels**

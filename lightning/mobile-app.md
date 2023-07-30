@@ -133,6 +133,8 @@ Application Options:
     $ sudo systemctl reload tor
     ```
 
+
+
     ```sh
     $ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
     ```
@@ -202,7 +204,7 @@ Once you verify that the connection has been made correctly with your Lightning 
 Anyone using Zeus on your phone has control over your node and all its funds. It is strongly recommended to set up a password or biometrics identification for the app.
 
 * In the app, tap on the Zeus icon in the top-left corner
-* Click on `"Security"` and `"Set/Change Password"` to enter a Password/PIN or enable the Biometrics feature
+* Click on `Security` and `Set/Change Password` to enter a Password/PIN or enable the Biometrics feature
 * Save your password or PIN somewhere safe, e.g., in your password manager
 
 ### **Privacy**
@@ -210,11 +212,11 @@ Anyone using Zeus on your phone has control over your node and all its funds. It
 In order to preserve your privacy, you can choose your private blockchain explorer when making inquiries related to on-chain transactions.
 
 * In the app, tap on the Zeus icon in the top-left corner
-* Click on `"Privacy"` and change `"Default Block explorer"`, by selecting `"Custom"`, on the `"Custom block explorer"` box, enter your preferred Block Explorer URL, `".onion"`, the local IP address of BTC RPC explorer: `"https://192.168.X.XXX:4000"`, or Wireguard VPN IP address: [http://10.0.0.1:3002](http://10.0.0.1:3002), depending on the situation.
+* Click on `Privacy` and change `Default Block explorer`, by selecting `Custom`, on the `Custom block explorer` box, enter your preferred Block Explorer URL, `.onion`, the local IP address of BTC RPC explorer: `https://192.168.X.XXX:4000`, or Wireguard VPN IP address: `https://10.0.0.1:4000`, depending on the situation.
 
-## Update
+## For the future: upgrade Zeus
 
-To update Zeus, update the app using the same app store you used to install it.
+To update Zeus, update the app using the same app store or the app source you chose to install it.
 
 ## Uninstall
 

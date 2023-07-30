@@ -57,7 +57,7 @@ A VPN is an encrypted tunnel between two computers over the internet. In our cas
 
 Before starting with the installation proper, you need to:
 
-1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat). If that's the case **you have no way of doing port forwarding**, and you'll need to contact them asking to **put you out of CG-NAT** (this means giving your router a dedicated public IP). Most ISP simply do this on request or charge a small fee to allocate a public IP just for you.
+1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat). If that's the case **you have no way of doing port forwarding**, and you'll need to contact them asking to **put you out of CG-NAT** (this means giving your router a dedicated public IP). Most ISP simply does this on request or charge a small fee to allocate a public IP just for you.
 2. Figure out the public IP of your home network. If you have a **static public IP** it'll simplify the setup, but it's not mandatory. There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
 3. Forward the `"51820"` port and `"UDP"` protocol of your router to the local IP of your MiniBolt. This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](wireguard-vpn.md#port-forwarding), you can show a few instructions to do this for the most common cases.
 
@@ -111,8 +111,8 @@ If you have a contracted static IP on your ISP, you can log in to the MiniBolt d
 ![](../../images/desec\_io1.png)
 
 * Ensure to keep selecting the second option **Register a new domain under dedyn.io (dynDNS)**
-* For this demo, I've typed **"yoursubdomain"**, but _**you can use anything memorable**_ to you as long as no one has already taken that name. We'll it call **`"<yoursubdomain.dedyn.io>"`** from now on.
-* Complete the **"CAPTCHA"** and check the box **"Yes, I agree to the..."** option and click on the **"SIGN UP"** button.
+* For this demo, I've typed **`yoursubdomain`**, but _**you can use anything memorable**_ to you as long as no one has already taken that name. We'll it call **`"<yoursubdomain.dedyn.io>"`** from now on.
+* Complete the **"CAPTCHA"** and check the box **"Yes, I agree to the..."** option, and click on the **"SIGN UP"** button.
 
 After this, deSEC will email you to confirm the address. It will contain a **verification link** that will send you to this page:
 
@@ -253,7 +253,7 @@ e.g: GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
     ```sh
     $ sudo nano /etc/wireguard/wg0.conf
     ```
-*   Write the following content and replace only **`"<Your_Server_Private_Key>"`** with the data previously obtained. `"<Your_Client_Public_Key>"` will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](wireguard-vpn.md#server-configuration-part-2)
+*   Write the following content and replace only **`"<Your_Server_Private_Key>"`** with the data previously obtained. `"`**`<Your_Client_Public_Key>`**`"` will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](wireguard-vpn.md#server-configuration-part-2)
 
     ```
     # MiniBolt: Wireguard configuration
@@ -474,7 +474,7 @@ $ ssh admin@10.0.0.1
 ```
 
 {% hint style="info" %}
-Try to navigate to web services as BTC RPC Explorer, open your favorite browser, using this time the VPN IP instead of the local IP address: [http://10.0.0.1:3002](http://10.0.0.1:3002)
+Try to navigate to web services such as BTC RPC Explorer, and open your favorite browser, using this time the VPN IP instead of the local IP address: `https://10.0.0.1:4000`
 {% endhint %}
 
 *   Check the VPN client status using
@@ -516,7 +516,7 @@ Expected output:
 
 Entering all information about the Wireguard VPN Client into a mobile phone is particularly cumbersome. A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel through a QR code format.
 
-To do that you need to install the `"qrencode"` package on your regular computer with Linux and Wireguard VPN client installed as we explained previously in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section.
+To do that you need to install the `qrencode` package on your regular computer with Linux and Wireguard VPN client installed as we explained previously in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section.
 
 ```sh
 $ sudo apt install qrencode
@@ -552,7 +552,7 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) | Link to [A
 
 **1.** Hit on **(+)** button
 
-**2.** Select the **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Press "ALLOW"
+**2.** Select the **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Press `ALLOW`
 
 **3.** Scan the QR code generated previously
 

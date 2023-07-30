@@ -369,7 +369,7 @@ accounts:
 Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
 {% endhint %}
 
-* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines at the end of the file (without indentation). Anyway is possible to enable this later using the ThunderHub interface that will be explained in the [Enable auto backups and healthcheck notifications](web-app.md#enable-auto-backups-and-healthcheck-notifications-to-the-amboss-account) extra section
+* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines at the end of the file (without indentation)
 
 Enable auto-backups:
 
@@ -384,7 +384,9 @@ healthCheckPingEnabled: true
 ```
 
 {% hint style="info" %}
-Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
+> Anyway is possible to enable this later using the ThunderHub interface that will be explained in the [Enable auto backups and healthcheck notifications](web-app.md#enable-auto-backups-and-healthcheck-notifications-to-the-amboss-account) extra section
+
+> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
 {% endhint %}
 
 *   Exit `thunderhub` user session to return to the `admin` user session
@@ -609,7 +611,7 @@ Expected output:
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
-## Upgrade
+## For the future: upgrade Thunderhub
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
 
@@ -707,7 +709,7 @@ Expected output:
 
 ```
 > [...]
-> [X] 4002  ALLOW IN    Anywhere  # allow ThunderHub SSL from anywhere
+> [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
 ```
 
 *   Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)

@@ -33,7 +33,7 @@ Status: Tested MiniBolt
 
 ### Install Go
 
-*   With user `admin`, enter the "tmp" folder, and download the binary
+*   With user `admin`, enter the temporary folder, and download the binary
 
     ```sh
     $ cd /tmp
@@ -48,7 +48,7 @@ Status: Tested MiniBolt
     ```sh
     $ wget https://go.dev/dl/go$VERSION.linux-amd64.tar.gz
     ```
-* Check on the download page what is the SHA256 checksum of the file, e.g. for the above: 698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd. Calculate the SHA256 hash of the downloaded file. It should give an "OK" as an output.
+* Check on the download page what is the SHA256 checksum of the file, e.g. for the above: `698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd`. Calculate the SHA256 hash of the downloaded file. It should give an "OK" as an output
 
 {% code overflow="wrap" %}
 ```bash
@@ -62,7 +62,7 @@ $ echo "698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd go$VERS
 > go1.20.4.linux-amd64.tar.gz: OK
 ```
 
-*   Extract the binary and install Go in the `/usr/local` directory.
+*   Extract the binary and install Go in the `/usr/local` directory
 
     ```sh
     $ sudo tar -xvf go$VERSION.linux-amd64.tar.gz -C /usr/local
@@ -72,17 +72,17 @@ $ echo "698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd go$VERS
     ```sh
     $ sudo nano /etc/profile
     ```
-*   Add the following line at the end of the file, save and exit.
+*   Add the following line at the end of the file, save, and exit
 
     ```
     export PATH=$PATH:/usr/local/go/bin
     ```
-*   To make the changes effective immediately (and not wait for the next login), execute them from the profile using the following command.
+*   To make the changes effective immediately (and not wait for the next login), execute them from the profile using the following command
 
     ```sh
     $ source /etc/profile
     ```
-*   Test that "Go" has been properly installed by checking its version.
+*   Test that "Go" has been properly installed by checking its version
 
     ```sh
     $ go version
@@ -109,16 +109,16 @@ $ echo "698ef3243972a51ddb4028e4a1ac63dc6d60821bf18e59a807e051fee0a385bd go$VERS
 ```
 
 * Check for the most recent version of Go on their [GitHub releases page](https://github.com/golang/go/tags)
-*   Remove the current installation.
+*   Remove the current installation
 
     ```sh
     sudo rm -rvf /usr/local/go/
     ```
-* Download, verify, and install the latest Go binaries as described in the [Install Go](go.md#install-go) section of this guide.
+* Download, verify, and install the latest Go binaries as described in the [Install Go](go.md#install-go) section of this guide
 
 ### Uninstall Go
 
-*   Remove the current installation.
+*   Remove the current installation
 
     ```sh
     sudo rm -rvf /usr/local/go/

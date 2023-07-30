@@ -14,7 +14,7 @@ layout:
 
 # Static IP & custom DNS servers
 
-Set a static IP address and custom DNS nameservers for your MiniBolt
+Set a static IP address and custom DNS nameservers for your MiniBolt.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -70,7 +70,7 @@ In this step, you can set DNS name servers too, for this example, we have config
 
 ### Option 2: After Ubuntu Server installation (by command line)
 
-After having done the [1.3 Remote access](remote-access.md) section, you could want to set a static IP address to your MiniBolt by the command line
+After having done the [1.3 Remote access](remote-access.md) section, you could want to set a static IP address to your MiniBolt by the command line.
 
 #### Preparations
 

@@ -181,8 +181,9 @@ Expected output:
 
 ## Create a tunnel and give it a name <a href="#3-create-a-tunnel-and-give-it-a-name" id="3-create-a-tunnel-and-give-it-a-name"></a>
 
-<pre class="language-bash"><code class="lang-bash">$ cloudflared tunnel create <a data-footnote-ref href="#user-content-fn-2">&#x3C;NAME></a>
-</code></pre>
+```bash
+$ cloudflared tunnel create <NAME>
+```
 
 {% hint style="info" %}
 Suggestion: **\<NAME>** = miniboltunnel
@@ -197,7 +198,7 @@ Created tunnel <NAME> with id <UUID>
 ```
 
 {% hint style="info" %}
-Take note of the tunnel ID ->`<UUID>: e.g: 8666c35d-6ac3-4b39-9324-12ae32ce64a7` you will need it later&#x20;
+Take note of the tunnel ID ->`<UUID>: e.g: 8666c35d-6ac3-4b39-9324-12ae32ce64a7` you will need it later
 {% endhint %}
 
 * Ensure that the tunnel has been created
@@ -210,7 +211,7 @@ $ cloudflared tunnel list
 
 <pre><code>You can obtain more detailed information for each tunnel with `cloudflared tunnel info &#x3C;name/uuid>`
 ID                                      NAME              CREATED               CONNECTIONS
-<a data-footnote-ref href="#user-content-fn-3">8666c35d-6ac3-4b39-9324-12ae32ce64a7</a>    miniboltunnel     2023-04-01T15:44:48Z
+<a data-footnote-ref href="#user-content-fn-2">8666c35d-6ac3-4b39-9324-12ae32ce64a7</a>    miniboltunnel     2023-04-01T15:44:48Z
 </code></pre>
 
 * You can obtain more detailed information about the tunnel with
@@ -270,11 +271,11 @@ credentials-file: /home/admin/.cloudflared/8666c35d-6ac3-4b39-9324-12ae32ce64a7.
 ingress:
 
 # BTCpay SServer
-  - hostname: <a data-footnote-ref href="#user-content-fn-4">btcpay</a>.&#x3C;domain.com>
+  - hostname: btcpay.&#x3C;domain.com>
     service: http://localhost:23000
 
 # BTC RPC Explorer
-  - hostname: <a data-footnote-ref href="#user-content-fn-5">explorer</a>.&#x3C;domain.com>
+  - hostname: <a data-footnote-ref href="#user-content-fn-3">explorer</a>.&#x3C;domain.com>
     service: http://localhost:3002
 
   - service: http_status:404
@@ -286,10 +287,11 @@ ingress:
 > 2. For security reasons, you shouldn't expose publically the administration access services using Cloudflared e.g SSH or Thunderhub, for these cases you should use [Wireguard VPN](../../bonus/system/wireguard-vpn.md)
 > 3.  If you want to expose only a service, you can delete for example this rule, always maintaining the "`- service: http_status:404"` line at the end of the rules:
 >
->     <pre><code># BTC RPC Explorer
->       - hostname: <a data-footnote-ref href="#user-content-fn-6">explorer</a>.&#x3C;domain.com>
+>     ```
+>     # BTC RPC Explorer
+>       - hostname: explorer.<domain.com>
 >         service: http://localhost:3002
->     </code></pre>
+>     ```
 {% endhint %}
 
 ## Configure Cloudflare DNS records
@@ -369,7 +371,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Start Cloudflared and run the tunnel <a href="#6-run-the-tunnel" id="6-run-the-tunnel"></a>
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered). Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.&#x20;
+To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered). Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
 
 ```bash
 $2 sudo systemctl start cloudflared
@@ -428,7 +430,7 @@ $ sudo systemctl start cloudflared
 ```
 
 {% hint style="info" %}
-Monitor logs with `$ journalctl -fu cloudflared` to ensure that all is still working well&#x20;
+Monitor logs with `$ journalctl -fu cloudflared` to ensure that all is still working well
 {% endhint %}
 
 ## Uninstall
@@ -449,12 +451,6 @@ $ sudo dpkg -r cloudflared
 
 [^1]: Is not needed to provide real information (phone number either)
 
-[^2]: Suggestion: miniboltunnel
+[^2]: \<UUID>
 
-[^3]: \<UUID>
-
-[^4]: Subdomain = "name" value of the CNAME registry in the DNS table
-
-[^5]: Subdomain = "name" value of the CNAME registry in the DNS table
-
-[^6]: Subdomain = "name" value of the CNAME registry in the DNS table
+[^3]: Subdomain = "name" value of the CNAME registry in the DNS table

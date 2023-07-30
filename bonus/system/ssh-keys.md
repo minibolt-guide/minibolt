@@ -57,7 +57,7 @@ Status: Tested MiniBolt
     ```
 
     When you're prompted to "Enter a file in which to save the key", press Enter to use the default file location. Optionally, for maximum security, enter a key passphrase to protect your key, and use `password [A]`
-*   The public key now needs to be copied to the PC.
+*   The public key now needs to be copied to the PC
 
     Use the command `ssh-copy-id`, which stores your public key on the remote machine (and creates files and directories, if needed). You will be prompted for your SSH login password once. If fails you can try `admin@192.168.x.xxx` instead
 
@@ -75,7 +75,7 @@ $ brew install ssh-copy-id
 
 ### **From your regular Windows PC**
 
-* Login with "admin" user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step.
+* Login with the `admin` user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step
 
 ```sh
 $ mkdir .ssh
@@ -106,7 +106,7 @@ ssh-rsa AAAAB3N........
 
 ### **From your regular Linux PC**
 
-* Login with "admin" user on MiniBolt and create a new folder at home called `".ssh"`. If already exists, skip the next step.
+* Login with "admin" user on MiniBolt and create a new folder at home called `".ssh"`. If already exists, skip the next step
 
 ```sh
 $ mkdir .ssh
@@ -139,7 +139,7 @@ ssh-rsa AAAAB3N........
 
 * On your regular computer, access to "GPG and SSH keys" section of your [GitHub account](https://github.com/settings/keys), if you don't have an account [create one](https://github.com/signup)
 * Click on the "new SSH key" button, type a title e.g SSH\_keys\_MiniBolt, select Key type "Authentication key", and paste on the "Key" section the SSH pub key generated in the preparations [section](ssh-keys.md#preparations) depending on the regular computer OS
-*   Login with the "admin" user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step.
+*   Login with the "admin" user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step
 
     ```sh
     $ mkdir .ssh

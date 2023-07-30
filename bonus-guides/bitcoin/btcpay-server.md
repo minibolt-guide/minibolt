@@ -799,7 +799,7 @@ You can now create the first account to access the dashboard using a real (recom
 
 You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCPay Server with the Tor browser from any device.
 
-* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin` and add the following lines in the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
 
 ```bash
 $ sudo nano /etc/tor/torrc
@@ -859,7 +859,7 @@ $ openssl x509 -noout -fingerprint -sha256 -inform pem -in tls.cert
 ```
 
 {% hint style="warning" %}
-Take note of your **Fingerprint**
+Take note of your **Fingerprint=XX:YY:ZZ....**
 {% endhint %}
 
 > **Example:**
@@ -872,7 +872,7 @@ Take note of your **Fingerprint**
 $ exit
 ```
 
-* With user admin, copy-paste the `admin.macaroon` file to the `btcpay` home folder
+* With user `admin`, copy-paste the `admin.macaroon` file to the `btcpay` home folder
 
 {% code overflow="wrap" %}
 ```bash
@@ -935,7 +935,7 @@ Updating to a new release of [BTCPay](https://github.com/btcpayserver/btcpayserv
 
 #### Upgrade NBXplorer
 
-* With user `admin`, stop NBXplorer & BTCPay Server
+* With user `admin`, stop BTCPay Server & NBXplorer
 
 ```bash
 $ sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
@@ -1102,7 +1102,7 @@ $ sudo systemctl reload tor
 
 #### Delete btcpay user
 
-* Ensure you are logged in with the user `admin`. Delete the btcpay user.\
+* Ensure you are logged in with the user `admin`. Delete the `btcpay` user.\
   Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash
