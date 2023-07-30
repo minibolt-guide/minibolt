@@ -765,7 +765,7 @@ Upgrading LND can lead to a number of issues. **Always** read the [LND release n
     ```sh
     $ lnd --version
     ```
-* Download, verify, and install the latest LND binaries as described in the [LND section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
+* Download, verify, and install the latest LND binaries as described in the [LND section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 *   Restart LND to apply the new version
 
     ```sh
