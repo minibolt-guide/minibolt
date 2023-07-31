@@ -270,7 +270,7 @@ credentials-file: /home/admin/.cloudflared/8666c35d-6ac3-4b39-9324-12ae32ce64a7.
 
 ingress:
 
-# BTCpay SServer
+# BTCpay Server
   - hostname: btcpay.&#x3C;domain.com>
     service: http://localhost:23000
 

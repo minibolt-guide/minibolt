@@ -299,7 +299,7 @@ $ ssh-keygen -t rsa -b 4096
   * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 5678efgh... lnd@minibolt`)
   * Tick the box "`Allow write access`" to enable this key to push changes to the repository
   * Click "Add key"
-* Set up global Git configuration values (the name and email are required but can be dummy values) When prompted "Are you sure you want to continue connecting", type `yes` and press "Enter"
+* Set up global Git configuration values (the name and email are required but can be dummy values)
 
 ```sh
 $ git config --global user.name "MiniBolt"

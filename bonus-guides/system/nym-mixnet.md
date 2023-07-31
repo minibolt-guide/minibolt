@@ -210,7 +210,7 @@ Take note of your network requester address **\<requesteraddress>**
 $ exit
 ```
 
-### **Autostart on boot**
+### **Create Requester systemd service**
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
@@ -240,7 +240,7 @@ RestartSec=30
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot
+* Enable autoboot (optional)
 
 ```bash
 $ sudo systemctl enable nym-network-requester
@@ -373,7 +373,7 @@ Address of this client: GwFEXSpQP1VFZwDdYRkuRTUpQ28v3zvZbq3mtQnNELwr.EeAiN8mySPw
 $ exit
 ```
 
-### **Autostart on boot**
+### **Create socks5 client systemd service**&#x20;
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
@@ -405,7 +405,7 @@ RestartSec=30
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot
+* Enable autoboot (optional)
 
 ```bash
 $ sudo systemctl enable nym-network-requester
