@@ -40,7 +40,7 @@ Difficulty: Medium
 *   Set a temporary version environment variable to the installation
 
     ```sh
-    $ VERSION=1.7.7
+    $ VERSION=1.7.8
     ```
 * Download the application, checksums, and signature
 
