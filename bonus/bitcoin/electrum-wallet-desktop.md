@@ -25,10 +25,6 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/electrum\_wallet\_logo.png)
 
 ### Installation

@@ -25,10 +25,6 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/nodejs-logo.png) ![](../../images/npm-logo.png)
 
 ### Install Node.js + NPM

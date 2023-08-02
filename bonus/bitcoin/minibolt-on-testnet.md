@@ -20,10 +20,6 @@ You can run your MiniBolt node on testnet to develop and experiment with new app
 Difficulty: Medium
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 <figure><img src="../../.gitbook/assets/bitcoin-testnet.PNG" alt=""><figcaption></figcaption></figure>
 
 ## Introduction

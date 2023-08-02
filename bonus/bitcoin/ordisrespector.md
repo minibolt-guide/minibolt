@@ -26,10 +26,6 @@ layout:
 Difficulty: Medium
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/ordisrespector-thread.png)
 
 ## Context

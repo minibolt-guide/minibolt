@@ -26,10 +26,6 @@ We set up [Electrs](https://github.com/romanz/electrs/) to serve as a full Elect
 Difficulty: Medium
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/electrs-logo.png)
 
 ## Preparations
@@ -78,8 +74,6 @@ In the [Security section](broken-reference/), we already set up NGINX as a rever
     $ sudo nginx -t
     $ sudo systemctl reload nginx
     ```
-
-
 *   Configure the firewall to allow incoming requests
 
     ```sh
@@ -98,9 +92,9 @@ An easy and performant way to run an Electrum server is to use [Electrs](https:/
 
 ### **Build from source code**
 
-We get the latest release of the Electrs source code, verify it, compile it to an executable binary and install it.
+We get the latest release of the Electrs source code, verify it, compile it to an executable binary, and install it.
 
-*   Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration, though
+*   Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration
 
     ```sh
     $ cd /tmp
@@ -180,7 +174,7 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
 > 0.9.14
 ```
 
-*   Return to the home folder and delete folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
+*   Return to the home folder and delete the folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
 
     ```sh
     $ cd

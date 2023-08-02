@@ -25,10 +25,6 @@ In this section, we are going to do instructions for changing the prompt "$" sym
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ### Command prompt
 
 You can prettify your command prompt for each user by enabling color output and setting a custom prompt

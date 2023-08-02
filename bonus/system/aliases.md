@@ -25,10 +25,6 @@ Aliases are shortcuts for commands that can save time and make it easier to exec
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/aliases-demo.PNG)
 
 ## Acknowledgments

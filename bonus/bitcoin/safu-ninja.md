@@ -26,10 +26,6 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/diy-steel-mnemonic-backup.png)
 
 ## Introduction

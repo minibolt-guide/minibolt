@@ -20,10 +20,6 @@ layout:
 Difficulty: Hard
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 <figure><img src="../../.gitbook/assets/btc-pay-banner.png" alt=""><figcaption></figcaption></figure>
 
 [BTCPay Server](https://btcpayserver.org/) is a self-hosted and automated invoicing system. At checkout, a customer is presented with an invoice that they pay from their wallet. BTCPay Server follows the status of the invoice through the blockchain and informs you when the payment has been settled so that you can fulfill the order. It also takes care of payment refunding and bitcoin management alongside plenty of other features.

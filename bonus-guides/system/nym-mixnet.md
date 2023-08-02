@@ -20,10 +20,6 @@ The NYM mixnet technology ensures enhanced privacy and anonymity for online comm
 Difficulty: Intermediate
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 <div data-full-width="false">
 
 <figure><img src="../../.gitbook/assets/nym-build-structure.png" alt=""><figcaption></figcaption></figure>

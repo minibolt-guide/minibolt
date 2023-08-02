@@ -26,10 +26,6 @@ Download the Bitcoin white paper PDF directly from the blockchain data on your o
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/paper-pink.png)
 
 ## Introduction

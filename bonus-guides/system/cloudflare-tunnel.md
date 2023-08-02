@@ -24,10 +24,6 @@ Cost: Paid service
 Difficulty: Medium
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 <figure><img src="../../.gitbook/assets/network-diagram-cloudflared.png" alt=""><figcaption></figcaption></figure>
 
 With Cloudflare Tunnel, you gain low latency access to your server on clearnet, without the need for complex firewall or router configurations, dynamic DNS, or relying on an internet service provider.

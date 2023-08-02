@@ -8,10 +8,6 @@ description: >-
 
 ![GitHub forks](https://img.shields.io/github/forks/minibolt-guide/minibolt) ![GitHub Org's stars](https://img.shields.io/github/stars/minibolt-guide) [![](https://img.shields.io/github/license/minibolt-guide/minibolt?color=blue)](LICENSE/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/minibolt-guide/minibolt?label=latest%20release)](https://github.com/minibolt-guide/minibolt/releases) ![GitHub contributors](https://img.shields.io/github/contributors/minibolt-guide/minibolt) ![GitHub followers](https://img.shields.io/github/followers/minibolt-guide) [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/minibolt?style=social)](https://www.reddit.com/r/minibolt/)
 
-{% hint style="danger" %}
-<mark style="color:red;">**Attention! This project is a fork under construction, some chapters could not be attached to the reference use case. Pay special attention to the "Status: Not tested MiniBolt" tag at the beginning of the guides. Be careful and act at your own risk.**</mark>
-{% endhint %}
-
 <figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
 
 
@@ -109,16 +105,6 @@ Difficulty: Medium
 
 {% hint style="danger" %}
 Difficulty: Hard
-{% endhint %}
-
-* Tested: indicates if the guide has been updated and tested on the MiniBolt. If this is not the case, you might have to modify part of the guide to make it work on MiniBolt.
-
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
-{% hint style="warning" %}
-Status: Not tested MiniBolt
 {% endhint %}
 
 * Paid service: indicates if the service used in the guide is free or paid.

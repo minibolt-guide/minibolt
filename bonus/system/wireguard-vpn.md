@@ -27,10 +27,6 @@ The following guide was derived from contributions by [Pantamis](https://github.
 Difficulty: Hard
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/wireguard.png)
 
 ## Acknowledgments

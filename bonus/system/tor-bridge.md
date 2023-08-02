@@ -29,10 +29,6 @@ _USE WITH CAUTION - For this guide to work properly, you will need to open ports
 Difficulty: Medium
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 <div data-full-width="false">
 
 <img src="../../images/tor-bridge.png" alt="">

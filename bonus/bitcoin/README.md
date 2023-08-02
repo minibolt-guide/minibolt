@@ -24,22 +24,16 @@ layout:
 ### Electrum servers
 
 * [**Electrs**](electrs.md) - an efficient re-implementation of Electrum Server in Rust
-* [**Electrum Personal Server**](electrum-personal-server.md) - maximally lightweight electrum server for a single user
 
 ### Wallets
 
 #### Desktop wallets
 
-* [**BitBoxApp**](bitboxapp.md) - a beginner-friendly desktop wallet that pioneered hardware wallets support
 * [**Electrum Wallet Desktop**](electrum-wallet-desktop.md) - a feature-rich desktop wallet for power-users
 
 #### CLI
 
 * [**Sparrow Server**](sparrow-server.md) - a stripped down version of Sparrow that can be run on systems without displays
-
-### Privacy
-
-* [**JoinMarket**](joinmarket.md) - a CoinJoin software, which allows you to increase privacy and fungibility of on-chain Bitcoin transactions and also get a little passive income from your bitcoins
 
 ### Decentralized exchange
 

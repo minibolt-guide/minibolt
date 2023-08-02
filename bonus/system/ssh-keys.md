@@ -25,10 +25,6 @@ One of the best options to secure the sensitive SSH login is to disable password
 Difficulty: Medium
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/SSH-keys.png)
 
 ## Preparations

@@ -26,10 +26,6 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/bisq.png)
 
 ## Requirements

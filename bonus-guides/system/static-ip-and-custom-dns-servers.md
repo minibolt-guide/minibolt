@@ -20,10 +20,6 @@ Set a static IP address and custom DNS nameservers for your MiniBolt.
 Difficulty: Easy
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 <figure><img src="../../.gitbook/assets/static-ip-custom-dns.PNG" alt=""><figcaption></figcaption></figure>
 
 The router reserves the IP address of the device for a time after going out, but if the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node.

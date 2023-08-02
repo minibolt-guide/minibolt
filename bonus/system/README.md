@@ -23,9 +23,7 @@ layout:
 
 ### Dashboards & Appearance
 
-* [**System overview**](system-overview.md) - your RaspiBolt will greet you with a quick system summary on login
 * [**Pimp the command line**](command-line.md) - make your command line prompt shine with a golden ฿ and use more colors overall
-* [**Homer**](homer.md) - a homepage for all your web services
 
 ### System administration
 
@@ -40,13 +38,11 @@ layout:
 ### Security
 
 * [**SSH Keys**](ssh-keys.md) - a safe way to SSH authentification in your system
-* [**Hardware-based (Trezor) SSH authentification**](trezor-agent.md) - a safer way to SSH to your device using your hardware wallet
 * [**WireGuard VPN**](wireguard-vpn.md) - set up a WireGuard Virtual Private Network to securely log into your node remotely
 * [**Cloudflare Tunnel**](../../bonus-guides/system/cloudflare-tunnel.md) - provides you with a secure way to connect your resources to Cloudflare without a publicly routable IP address
 
 ### Resilience
 
-* [**UPS NUT**](ups-nut.md) - have your RaspiBolt automatically and safely shutdown when a connected UPS reaches a critical power level
 * [**Tor Obfs4 Bridge**](tor-bridge.md) - run an obfs4 bridge to help censored users connect to the Tor network
 * [**NYM mixnet**](../../bonus-guides/system/nym-mixnet.md) - proxying the clearnet connections using the NYM Mixnet
 

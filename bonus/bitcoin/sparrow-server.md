@@ -26,10 +26,6 @@ Sparrow Server is a stripped down version of Sparrow that can be run on systems 
 Difficulty: Medium
 {% endhint %}
 
-{% hint style="success" %}
-Status: Tested MiniBolt
-{% endhint %}
-
 ![](../../images/sparrow-server-logo.png)
 
 ### Installation
