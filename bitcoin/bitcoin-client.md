@@ -373,7 +373,7 @@ $ exit
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-*   Create the configuration file in the nano text editor and copy the following paragraph. Save and exit.
+*   With the user `admin`, create the configuration file in the nano text editor and copy the following paragraph. Save and exit
 
     ```sh
     $ sudo nano /etc/systemd/system/bitcoind.service

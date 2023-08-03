@@ -104,7 +104,7 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
     ```
     $ sudo systemctl reload nginx
     ```
-*   Configure the firewall to allow incoming HTTP requests from anywhere to the web server.
+*   Configure the firewall to allow incoming HTTP requests from anywhere to the web server
 
     ```sh
     $ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
@@ -116,7 +116,7 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
-*   Create a new `thunderhub` user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`, so we add him to the "lnd" group
+*   Create a new `thunderhub` user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`
 
     ```sh
     $ sudo adduser --disabled-password --gecos "" thunderhub
@@ -158,7 +158,7 @@ $ VERSION=0.13.20
 $ curl https://github.com/apotdevin.gpg | gpg --import
 ```
 
-*   Download the source code directly from GitHub and install all dependencies using NPM
+*   Download the source code directly from GitHub, selecting the latest release brach associated
 
     ```sh
     $ git clone --branch v$VERSION https://github.com/apotdevin/thunderhub.git
@@ -185,7 +185,7 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 ```
 
-* Install all the necessary modules. Not run `$ npm audit fix`, which could break the original code
+* Install all dependencies and the necessary modules using NPM. Not run `$ npm audit fix`, which could break the original code
 
 ```sh
 $ npm install
@@ -369,7 +369,7 @@ accounts:
 Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
 {% endhint %}
 
-* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines at the end of the file (without indentation)
+* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (without indentation)
 
 Enable auto-backups:
 
