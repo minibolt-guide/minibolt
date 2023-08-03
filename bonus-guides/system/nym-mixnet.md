@@ -46,21 +46,19 @@ Together, these components and service providers create a decentralized infrastr
 $ sudo apt install pkg-config build-essential libssl-dev jq
 ```
 
-* Install Rustup & Cargo
+* Check if you already have Rustc
 
 ```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ rustc --version
 ```
 
-{% hint style="info" %}
-When the prompt asks you to choose an option, type "`1`" and press enter to "Proceed with installation"
-{% endhint %}
+**Example** of expected output:
 
-```bash
-$ source "$HOME/.cargo/env"
+```
+> rustc 1.71.0 (8ede3aae2 2023-07-12)
 ```
 
-* Check the correct installation
+* &#x20;And cargo installed
 
 ```bash
 $ cargo -V
@@ -72,15 +70,9 @@ $ cargo -V
 > cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
-```bash
-$ rustc --version
-```
-
-**Example** of expected output:
-
-```
-> rustc 1.71.0 (8ede3aae2 2023-07-12)
-```
+{% hint style="info" %}
+If you obtain "command not found" outputs, you need to follow the [Rustup + Cargo bonus section](rustup-+-cargo.md) to install it and then come back to continue with the guide
+{% endhint %}
 
 #### **Compile NYM binaries from the source code**
 

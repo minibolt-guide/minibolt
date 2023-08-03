@@ -469,7 +469,7 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
 
 Monitor the log file for a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
 
-*   Stay logged in with the user `admin`, link the Bitcoin data directory from the "admin" user home directory as well. This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
+*   Stay logged in with the user `admin`, link the Bitcoin data directory from the "admin" user home directory as well. This allows the `admin` user to work with bitcoind directly, for example using the command `bitcoin-cli`
 
     ```sh
     $2 ln -s /data/bitcoin /home/admin/.bitcoin
@@ -479,7 +479,7 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
     ```sh
     $ exit
     ```
-* Log in as user `admin` again --> `ssh admin@minibolt.local`
+* Log in as the user `admin` again --> `ssh admin@minibolt.local`
 * Check symbolic link has been created correctly
 
 ```bash

@@ -17,7 +17,7 @@ layout:
     visible: true
 ---
 
-# Tor Obfs4 Bridge
+# Tor obfs4 bridge
 
 The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called obfs4, a special kind of bridge, to address this by adding a layer of obfuscation.
 
@@ -316,10 +316,23 @@ One of the most important things to keep your relay secure is to install securit
     ```sh
     $ sudo apt install nyx
     ```
+* Add the user admin to the `debian-tor` group
+
+```bash
+$ sudo adduser admin debian-tor
+```
+
+* The assigned group becomes active only in a new user session. Log out from SSH
+
+```bash
+$ exit
+```
+
+* Log in as the user `admin` again --> `ssh admin@minibolt.local`
 *   Execute with and press the right navigation key to navigate to page 2/5 to show the traffic of your Tor instance
 
     ```sh
-    $ sudo nyx
+    $ nyx
     ```
 
 ![](../../images/nyx-tor-bridge.png)
@@ -336,7 +349,7 @@ Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), a
 
 ![](../../images/get-bridge.PNG)
 
-* On the MiniBolt node, with user **`admin`**, install the ofbs4 proxy
+* On the MiniBolt node, with the user **`admin`**, install the ofbs4 proxy
 
 ```bash
 $ sudo apt install obfs4proxy
