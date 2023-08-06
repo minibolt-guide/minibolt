@@ -30,7 +30,7 @@ We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connect
     ```sh
     $ sudo nano /data/lnd/lnd.conf
     ```
-*   Add the next line under the `[Application Options]` section. Save and exit.
+*   Add the next line under the `[Application Options]` section. Save and exit
 
     ```
     [Application Options]

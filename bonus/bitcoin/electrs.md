@@ -36,16 +36,83 @@ Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), thes
 
 ### **Install dependencies**
 
-*   Update the packages and upgrade to keep up to date with the OS
+*   With user `admin`, update the packages and upgrade to keep up to date with the OS
 
     ```sh
     $ sudo apt update && sudo apt full-upgrade
     ```
-*   Install build tools needed to compile Electrs from the source code
+*   Make sure that all necessary software packages are installed
 
+    {% code overflow="wrap" %}
     ```sh
-    $ sudo apt install cargo clang cmake build-essential librocksdb-dev
+    $ sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev make g++ clang cmake build-essential
     ```
+    {% endcode %}
+
+
+* Install the `librocksdb v7.8.3` from the source code. Go to the temporary folder
+
+```bash
+$ cd /tmp
+```
+
+* Clone the `rocksdb` GitHub repository
+
+```bash
+$ git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb
+```
+
+* Enter to the `rocksdb` folder
+
+```bash
+$ cd rocksdb
+```
+
+* Compile it
+
+```bash
+$ make shared_lib -j $(nproc)
+```
+
+* Install it
+
+```bash
+$ sudo make install-shared
+```
+
+* Update the shared library cache
+
+```bash
+$ sudo ldconfig
+```
+
+* Check if you already have Rustc
+
+```bash
+$ rustc --version
+```
+
+Expected output:
+
+```
+> rustc 1.71.0 (8ede3aae2 2023-07-12)
+```
+
+* And cargo installed
+
+```bash
+$ cargo -V
+```
+
+Expected output:
+
+```
+> cargo 1.71.0 (cfd3bbd8f 2023-06-08)
+```
+
+{% hint style="info" %}
+If you obtain "command not found" outputs, you need to follow the [Rustup + Cargo bonus section](https://v2.minibolt.info/bonus-guides/system/rustup-+-cargo) to install it and then come back to continue with the guide
+{% endhint %}
 
 ### **Firewall & reverse proxy**
 
@@ -102,7 +169,7 @@ We get the latest release of the Electrs source code, verify it, compile it to a
 *   Set a temporary version environment variable to the installation
 
     ```sh
-    $ VERSION=0.9.14
+    $ VERSION=0.10.0
     ```
 
 
@@ -150,17 +217,62 @@ Expected output:
 > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
 ```
 
-* Now compile the source code into an executable binary and install it. The compilation process can take up to one hour
+* Now compile the source code into an executable binary
 
 {% code overflow="wrap" %}
 ```bash
-$ ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --locked --release
+$ ROCKSDB_INCLUDE_DIR=/usr/local/include ROCKSDB_LIB_DIR=/usr/local/lib cargo build --locked --release
 ```
 {% endcode %}
+
+* Install it
 
 ```bash
 $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
 ```
+
+<details>
+
+<summary>Example of expected output 🔽</summary>
+
+```
+info: syncing channel updates for '1.63.0-x86_64-unknown-linux-gnu'
+info: latest update on 2022-08-11, rust version 1.63.0 (4b91a6ea7 2022-08-08)
+info: downloading component 'cargo'
+info: downloading component 'clippy'
+info: downloading component 'rust-docs'
+info: downloading component 'rust-std'
+info: downloading component 'rustc'
+info: downloading component 'rustfmt'
+info: installing component 'cargo'
+info: installing component 'clippy'
+info: installing component 'rust-docs'
+info: installing component 'rust-std'
+info: installing component 'rustc'
+info: installing component 'rustfmt'
+    Updating crates.io index
+  Downloaded hex_lit v0.1.1
+  Downloaded humantime v2.1.0
+  Downloaded bitflags v1.3.2
+  Downloaded getrandom v0.2.10
+  Downloaded rand_chacha v0.3.1
+  Downloaded is-terminal v0.4.7
+  Downloaded lock_api v0.4.10
+  Downloaded libloading v0.7.4
+  Downloaded jsonrpc v0.14.1
+  Downloaded jobserver v0.1.26
+  Downloaded thiserror-impl v1.0.40
+  Downloaded autocfg v1.1.0
+  Downloaded dirs-sys-next v0.1.2
+  Downloaded dirs-next v2.0.0
+  Downloaded httpdate v1.0.2
+  Downloaded configure_me v0.4.0
+  Downloaded lazycell v1.3.0
+  Downloaded num_cpus v1.16.0
+[...]
+```
+
+</details>
 
 *   Check the correct installation
 
@@ -171,7 +283,7 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
 **Example** of expected output:
 
 ```
-> 0.9.14
+> v0.10.0
 ```
 
 *   Return to the home folder and delete the folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
