@@ -35,7 +35,7 @@ Node.js package includes NPM, follow the [Node.js + NPM bonus guide](../bonus/sy
 
 ### **Reverse proxy & Firewall**
 
-In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
+In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
 
 *   Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
@@ -281,7 +281,7 @@ Now we'll make sure our blockchain explorer starts as a service on the PC so tha
 
 ## Run BTC RPC Explorer
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 *   Start the service
 

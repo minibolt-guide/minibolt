@@ -64,10 +64,10 @@ The GIF above is a recreation of a scenario made with a virtual machine **-->** 
 ### Continue with the guide
 
 {% hint style="success" %}
-That's it: when you finish the [Operating system](../../system/operating-system.md) section, your PC will boot the system from the primary disk while the data directory **`(/data)`** will be located on the secondary disk.
+That's it: when you finish the [Operating system](../../index-1/operating-system.md) section, your PC will boot the system from the primary disk while the data directory **`(/data)`** will be located on the secondary disk.
 {% endhint %}
 
-**-->** Now you can continue with **step 10** of the [Ubuntu Server installation](../../system/operating-system.md#ubuntu-server-installation)
+**-->** Now you can continue with **step 10** of the [Ubuntu Server installation](../../index-1/operating-system.md#ubuntu-server-installation)
 
 ## **Case 2: build it after system installation (by command line)**
 
@@ -206,4 +206,4 @@ UUID=<yourUUID> /data ext4 defaults 0 2
 If the measured speeds are more than 100 MB/s, you're good
 {% endhint %}
 
-**-->** Now you can continue with the Security section of the guide, press [here](../../system/security.md)
+**-->** Now you can continue with the Security section of the guide, press [here](../../index-1/security.md)

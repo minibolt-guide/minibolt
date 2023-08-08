@@ -30,7 +30,7 @@ Difficulty: Medium
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](../../bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
+Make sure that you have [reduced the database cache of Bitcoin Core](../../index-2/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
 
 Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
@@ -412,7 +412,7 @@ Electrs need to start automatically on system boot.
 
 ## Run Electrs
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 *   Start the service. It will immediately start with the initial indexing of the Bitcoin blocks
 

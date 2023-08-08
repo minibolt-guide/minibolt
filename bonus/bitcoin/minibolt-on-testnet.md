@@ -38,9 +38,9 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ## Bitcoin
 
-### [**Bitcoin client: Bitcoin Core**](../../bitcoin/bitcoin-client.md)
+### [**Bitcoin client: Bitcoin Core**](../../index-2/bitcoin-client.md)
 
-*   Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
+*   Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../index-2/bitcoin-client.md), when you arrive at the ["Configuration section"](../../index-2/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
 
     ```sh
     $ nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -53,14 +53,14 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
 testnet=1
 ```
 
-* When you finish the [Running Bitcoin](../../bitcoin/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
+* When you finish the [Running Bitcoin](../../index-2/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
 
 ```bash
 $ sudo chmod g+rx /data/bitcoin/testnet3
 ```
 
 {% hint style="success" %}
-The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../bitcoin/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
+The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../index-2/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
 {% endhint %}
 
 ### [**Electrum server: Fulcrum**](../../bitcoin/electrum-server.md)

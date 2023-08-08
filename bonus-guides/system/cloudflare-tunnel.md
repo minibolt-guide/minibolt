@@ -367,7 +367,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Start Cloudflared and run the tunnel <a href="#6-run-the-tunnel" id="6-run-the-tunnel"></a>
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered). Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered). Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
 
 ```bash
 $2 sudo systemctl start cloudflared

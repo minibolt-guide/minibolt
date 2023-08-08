@@ -38,7 +38,7 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
+Make sure that you have [reduced the database cache of Bitcoin Core](../index-2/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
 
 ### **Install dependencies**
 
@@ -372,7 +372,7 @@ Fulcrum needs to start automatically on system boot.
 
 ## Run Fulcrum
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 ```sh
 $2 sudo systemctl start fulcrum

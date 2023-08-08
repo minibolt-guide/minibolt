@@ -138,7 +138,7 @@ Keep **this dashboard open,** you'll need to come back here later.
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yoursubdomain.dedyn.io>"`** from the deSEC registration step.
 
-*   As `admin` user, [log in](../../system/remote-access.md#access-with-secure-shell) to MiniBolt, and create the following script
+*   As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to MiniBolt, and create the following script
 
     ```sh
     $ sudo nano /opt/dynamic-ip-refresh.sh

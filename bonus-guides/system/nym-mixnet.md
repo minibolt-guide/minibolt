@@ -192,6 +192,18 @@ Take note of your network requester address **\<requesteraddress>**
 **Important!** It is strongly advised **not to share** the address of your NYM service provider with anyone. Sharing this information could potentially involve you in illicit activities carried out by others using your network requester as a router. Please bear in mind that we operate in **open proxy mode** to avoid centralizing connections to concrete nodes of Bitcoin and servers of the other services. Safeguarding the confidentiality of your service provider address is essential to protect yourself and prevent any legal implications
 {% endhint %}
 
+* Check the correct installation
+
+```bash
+$ ./nym-network-requester -V
+```
+
+**Example** of expected output:
+
+```
+> nym-network-requester 1.1.24
+```
+
 * Exit from the nym user session
 
 ```bash
@@ -242,7 +254,7 @@ $ sudo journalctl -f -u nym-network-requester
 
 ### Running NYM network requester
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the nym network requester service
 
@@ -355,6 +367,18 @@ Address of this client: GwFEXSpQP1VFZwDdYRkuRTUpQ28v3zvZbq3mtQnNELwr.EeAiN8mySPw
 
 </details>
 
+* Check the correct installation
+
+```bash
+$ ./nym-socks5-client -V
+```
+
+**Example** of expected output:
+
+```
+> nym-socks5-client 1.1.24
+```
+
 * Exit from the nym user session
 
 ```bash
@@ -407,7 +431,7 @@ $ sudo journalctl -f -u nym-socks5-client
 
 ### Running NYM socks5 client
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the nym socks5 client service
 
@@ -508,24 +532,11 @@ $ ./nym-network-requester init --id bitcoin --latency-based-selection
 $ ./nym-network-requester -V
 ```
 
-<details>
-
-<summary>Example of expected output ⬇️</summary>
+**Example** of expected output:
 
 ```
-      _ __  _   _ _ __ ___
-     | '_ \| | | | '_ \ _ \
-     | | | | |_| | | | | | |
-     |_| |_|\__, |_| |_| |_|
-            |___/
-
-             (nym-network-requester - version 1.1.21)
-
-
-nym-network-requester 1.1.21
+> nym-network-requester 1.1.24
 ```
-
-</details>
 
 * Exit from the nym user session
 
@@ -567,24 +578,11 @@ $ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <re
 $ ./nym-socks5-client -V
 ```
 
-<details>
-
-<summary>Example of expected output ⬇️</summary>
+**Example** of expected output:
 
 ```
-      _ __  _   _ _ __ ___
-     | '_ \| | | | '_ \ _ \
-     | | | | |_| | | | | | |
-     |_| |_|\__, |_| |_| |_|
-            |___/
-
-             (nym-socks5-client - version 1.1.21)
-
-
-nym-socks5-client 1.1.21
+>  nym-socks5-client 1.1.24
 ```
-
-</details>
 
 * Exit from the nym user
 

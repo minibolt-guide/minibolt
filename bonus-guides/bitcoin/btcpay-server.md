@@ -39,7 +39,7 @@ To run the BTCPay Server you will need to install .NET Core SDK, PostgreSQL, and
 
 ### **Reverse proxy & Firewall**
 
-In the security [section](../../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTCPay Server configuration.
+In the security [section](../../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTCPay Server configuration.
 
 * With user `admin`, enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTCPay Server. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
@@ -475,7 +475,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 #### Running nbxplorer
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
 * With user `admin`, start the `nbxplorer` service
 
@@ -725,7 +725,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 #### Running BTCPay Server
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "`admin`". Commands for the **second session** start with the prompt `$2` (which must not be entered)
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "`admin`". Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
 ```bash
 $ sudo systemctl start btcpay

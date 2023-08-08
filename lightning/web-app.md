@@ -57,7 +57,7 @@ If the version is v14.15 or above, you can move to the next section. If Node.js 
 
 ### **Reverse proxy & Firewall**
 
-In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
+In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
 
 *   Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
@@ -436,7 +436,7 @@ Now we'll make sure ThunderHub starts as a service on the PC so it's always runn
 
 ## Run Thunderhub
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 *   Start the service
 
