@@ -18,7 +18,7 @@ We make sure that your MiniBolt is secured against unauthorized remote access.
 
 The MiniBolt needs to be secured against online attacks using various methods.
 
-<figure><img src="../.gitbook/assets/20221107_004117.jpg" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/security.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
 ### Enabling the Uncomplicated Firewall
 

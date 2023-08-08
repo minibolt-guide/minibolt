@@ -291,7 +291,7 @@ The following output is just an **example** of one of the versions:
 ```
 
 {% hint style="info" %}
-Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../index-2/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps.
+Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps.
 {% endhint %}
 
 *   Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
