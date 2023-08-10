@@ -34,7 +34,7 @@ layout:
 
 * [**Go**](go.md) - Install / Update / Uninstall Go
 * [**Node.js + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node.js + NPM
-* Rustup + Cargo - Install / Update / Uninstall Rustup Cargo
+* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install / Update / Uninstall Rustup Cargo
 
 ### Security
 

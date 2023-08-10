@@ -1,10 +1,8 @@
 # Table of contents
 
-* [Bonus guides](README.md)
-
 ## Home
 
-* [Home](<README (1).md>)
+* [Home](README.md)
 
 ## System
 
@@ -19,7 +17,7 @@
 ## Bitcoin
 
 * [2. Bitcoin](bitcoin/README.md)
-  * [2.1 Bitcoin client: Bitcoin Core](bitcoin/bitcoin-client.md)
+  * [2.1 Bitcoin client: Bitcoin Core](index-2/bitcoin-client.md)
   * [2.2 Electrum Server: Fulcrum](bitcoin/electrum-server.md)
   * [2.3 Blockchain explorer: BTC RPC Explorer](bitcoin/blockchain-explorer.md)
   * [2.4 Desktop wallet: Sparrow Wallet](bitcoin/desktop-wallet.md)

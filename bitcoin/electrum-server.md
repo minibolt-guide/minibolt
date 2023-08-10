@@ -38,7 +38,7 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
+Make sure that you have [reduced the database cache of Bitcoin Core](../index-2/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
 
 ### **Install dependencies**
 
