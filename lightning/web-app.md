@@ -672,7 +672,7 @@ $ sudo systemctl start thunderhub
 ```
 
 {% hint style="warning" %}
-If the update fails, you probably will have to stop Thunderhub, follow the "[Uninstall ThunderHub section](web-app.md#uninstall-thunderhub)" to delete `thunderhub` user, and repeat the installation process starting from the "[Preparation section](web-app.md#preparation)"
+If the update fails, you probably will have to stop Thunderhub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation)
 {% endhint %}
 
 ## Uninstall

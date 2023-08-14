@@ -611,7 +611,7 @@ When we installed Bitcoin Core, we verified the timestamp of the checksum file u
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide.
 
-*   Login as "admin" and change to the temporary directory.
+*   Login as `admin` user and change to the temporary directory.
 
     ```sh
     $ cd /tmp
@@ -621,23 +621,37 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoin/
     ```sh
     $ VERSION=25.0
     ```
-*   Download binary, checksum, signature files and timestamp file
+*   Download binary, checksum, signature files, and timestamp file
 
+    {% code overflow="wrap" %}
     ```sh
     $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
     ```
+    {% endcode %}
 
+
+
+    {% code overflow="wrap" %}
     ```sh
     $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
     ```
+    {% endcode %}
 
+
+
+    {% code overflow="wrap" %}
     ```sh
     $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
     ```
+    {% endcode %}
 
+
+
+    {% code overflow="wrap" %}
     ```sh
     $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
     ```
+    {% endcode %}
 *   Verify the new version against its checksums
 
     ```sh
@@ -652,9 +666,11 @@ Expected output:
 
 *   The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
+    {% code overflow="wrap" %}
     ```sh
     $ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
     ```
+    {% endcode %}
 
 Expected output:
 
@@ -697,7 +713,7 @@ The following output is just an **example** of one of the versions:
 
 Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing.
 
-*   If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries, install them and check the version.
+*   If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries, install them, and check the version
 
     ```sh
     $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
@@ -705,9 +721,11 @@ Now, just check that the timestamp date is close to the [release](https://github
 
 
 
+    {% code overflow="wrap" %}
     ```sh
     $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/*
     ```
+    {% endcode %}
 *   Check the new version
 
     ```sh

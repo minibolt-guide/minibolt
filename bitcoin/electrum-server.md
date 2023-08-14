@@ -89,7 +89,7 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 
 We have our Bitcoin Core configuration file set up and can now move on to the next part of the Fulcrum installation.
 
-*   Login as "admin" and change to a temporary directory which is cleared on reboot
+*   Login as `admin` user and change to a temporary directory which is cleared on reboot
 
     ```sh
     $ cd /tmp
@@ -280,7 +280,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 
 MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
-*   Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware.
+*   Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware
 
     ```sh
     $ nano /data/fulcrum/fulcrum.conf
@@ -328,7 +328,7 @@ Remember, if you have a slow-performance device, follow the [slow device section
 
 Fulcrum needs to start automatically on system boot.
 
-*   As user "admin", create the Fulcrum systemd unit and copy/paste the following configuration. Save and exit
+*   As user `admin`, create the Fulcrum systemd unit, and copy/paste the following configuration. Save and exit
 
     ```sh
     $ sudo nano /etc/systemd/system/fulcrum.service
@@ -429,9 +429,11 @@ Follow the complete [Download and set up Fulcrum](electrum-server.md#download-an
     $ sudo journalctl -f -u fulcrum
     ```
 
+**Example** of expected output:&#x20;
+
 {% code overflow="wrap" %}
 ```
-Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum $VERSION (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
+Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.1 (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
 [...]
 ```
 {% endcode %}
