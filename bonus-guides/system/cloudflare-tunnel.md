@@ -109,7 +109,7 @@ $ VERSION=2023.7.3
 
 {% code overflow="wrap" %}
 ```bash
-$ echo "94ed7215d13f2cfa917329097eb2dfb26beef49f93a153f229a0e4ca6eea80fbcloudflared-linux-amd64.deb" | sha256sum --check
+$ echo "94ed7215d13f2cfa917329097eb2dfb26beef49f93a153f229a0e4ca6eea80fb cloudflared-linux-amd64.deb" | sha256sum --check
 ```
 {% endcode %}
 
@@ -256,13 +256,13 @@ We will create a configuration file in your `.cloudflared` directory. This file 
 $ nano /home/admin/.cloudflared/config.yml
 ```
 
-* Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace "`btcpay`" or "`explorer`" with your own name (subdomain) chosen for the service, and "`<domain.com>`" with the domain you purchased previously
+* Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your own name (subdomain) chosen for the service, and `<domain.com>` with the domain, you purchased previously. Ensure to replace `<UUID>` with your obtained before
 
 <pre><code># MiniBolt: cloudflared configuration
 # /home/admin/.cloudflared/config.yml
 
-tunnel: 8666c35d-6ac3-4b39-9324-12ae32ce64a7
-credentials-file: /home/admin/.cloudflared/8666c35d-6ac3-4b39-9324-12ae32ce64a7.json
+tunnel: &#x3C;UUID>
+credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 
 ingress:
 
@@ -426,7 +426,7 @@ $ sudo systemctl start cloudflared
 ```
 
 {% hint style="info" %}
-Monitor logs with `$ journalctl -fu cloudflared` to ensure that all is still working well
+Monitor logs with **`$ journalctl -fu cloudflared`** to ensure that all is still working well
 {% endhint %}
 
 ## Uninstall

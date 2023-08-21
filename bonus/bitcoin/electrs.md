@@ -36,19 +36,19 @@ Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), thes
 
 ### **Install dependencies**
 
-*   With user `admin`, update the packages and upgrade to keep up to date with the OS
+* With user `admin`, update the packages and upgrade to keep up to date with the OS
 
-    ```sh
-    $ sudo apt update && sudo apt full-upgrade
-    ```
-*   Make sure that all necessary software packages are installed
+```sh
+$ sudo apt update && sudo apt full-upgrade
+```
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev make g++ clang cmake build-essential
-    ```
-    {% endcode %}
+* Make sure that all necessary software packages are installed
 
+{% code overflow="wrap" %}
+```sh
+$ sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev make g++ clang cmake build-essential
+```
+{% endcode %}
 
 * Install the `librocksdb v7.8.3` from the source code. Go to the temporary folder
 
@@ -118,23 +118,22 @@ If you obtain "command not found" outputs, you need to follow the [Rustup + Carg
 
 In the [Security section](broken-reference/), we already set up NGINX as a reverse proxy. Now we can add the Electrs configuration.
 
-*   Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication. Create the configuration file and paste the following content
+* Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication. Create the configuration file and paste the following content
 
-    ```sh
-    $ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
-    ```
+```sh
+$ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
+```
 
+```nginx
+upstream electrs {
+  server 127.0.0.1:50001;
+}
+server {
+  listen 50002 ssl;
+  proxy_pass electrs;
+}
+```
 
-
-    ```nginx
-    upstream electrs {
-      server 127.0.0.1:50001;
-    }
-    server {
-      listen 50002 ssl;
-      proxy_pass electrs;
-    }
-    ```
 * Test and reload NGINX configuration
 
 ```bash
@@ -145,17 +144,15 @@ $ sudo nginx -t
 $ sudo systemctl reload nginx
 ```
 
-*   Configure the firewall to allow incoming requests
+* Configure the firewall to allow incoming requests
 
-    ```sh
-    $ sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
-    ```
+```sh
+$ sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
+```
 
-
-
-    ```sh
-    $ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
-    ```
+```sh
+$ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
+```
 
 ## Electrs
 
@@ -165,33 +162,31 @@ An easy and performant way to run an Electrum server is to use [Electrs](https:/
 
 We get the latest release of the Electrs source code, verify it, compile it to an executable binary, and install it.
 
-*   Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration
+* Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration
 
-    ```sh
-    $ cd /tmp
-    ```
-*   Set a temporary version environment variable to the installation
+```sh
+$ cd /tmp
+```
 
-    ```sh
-    $ VERSION=0.10.0
-    ```
+* Set a temporary version environment variable to the installation
 
+```sh
+$ VERSION=0.10.0
+```
 
+```sh
+$ git clone --branch v$VERSION https://github.com/romanz/electrs.git
+```
 
-    ```sh
-    $ git clone --branch v$VERSION https://github.com/romanz/electrs.git
-    ```
+```sh
+$ cd electrs
+```
 
+* To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz)
 
-
-    ```sh
-    $ cd electrs
-    ```
-*   To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz)
-
-    ```sh
-    $ curl https://romanzey.de/pgp.txt | gpg --import
-    ```
+```sh
+$ curl https://romanzey.de/pgp.txt | gpg --import
+```
 
 Expected output:
 
@@ -280,11 +275,11 @@ info: installing component 'rustfmt'
 
 </details>
 
-*   Check the correct installation
+* Check the correct installation
 
-    ```sh
-    $ electrs --version
-    ```
+```sh
+$ electrs --version
+```
 
 **Example** of expected output:
 
@@ -292,17 +287,15 @@ info: installing component 'rustfmt'
 > v0.10.0
 ```
 
-*   Return to the home folder and delete the folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
+* Return to the home folder and delete the folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
 
-    ```sh
-    $ cd
-    ```
+```sh
+$ cd
+```
 
-
-
-    ```sh
-    $ rm -r /tmp/electrs
-    ```
+```sh
+$ rm -r /tmp/electrs
+```
 
 {% hint style="info" %}
 If you come to update this is the final step
@@ -310,125 +303,120 @@ If you come to update this is the final step
 
 ### **Configuration**
 
-*   Create the `electrs` user, and make it a member of the "bitcoin" group
+* Create the `electrs` user, and make it a member of the "bitcoin" group
 
-    ```sh
-    $ sudo adduser --disabled-password --gecos "" electrs
-    ```
+```sh
+$ sudo adduser --disabled-password --gecos "" electrs
+```
 
+```sh
+$ sudo adduser electrs bitcoin
+```
 
+* Create the Electrs data directory
 
-    ```sh
-    $ sudo adduser electrs bitcoin
-    ```
-*   Create the Electrs data directory
+```sh
+$ sudo mkdir /data/electrs
+```
 
-    ```sh
-    $ sudo mkdir /data/electrs
-    ```
+```sh
+$ sudo chown -R electrs:electrs /data/electrs
+```
 
+* Switch to the `electrs` user and create the config file with the following content
 
+```sh
+$ sudo su - electrs
+```
 
-    ```sh
-    $ sudo chown -R electrs:electrs /data/electrs
-    ```
-*   Switch to the `electrs` user and create the config file with the following content
+```sh
+$ nano /data/electrs/electrs.conf
+```
 
-    ```sh
-    $ sudo su - electrs
-    ```
+```
+# MiniBolt: electrs configuration
+# /data/electrs/electrs.conf
 
+# Bitcoin Core settings
+network = "bitcoin"
+cookie_file= "/data/bitcoin/.cookie"
+daemon_rpc_addr = "127.0.0.1:8332"
+daemon_p2p_addr = "127.0.0.1:8333"
 
+# Electrs settings
+electrum_rpc_addr = "0.0.0.0:50001"
+db_dir = "/data/electrs/db"
+server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
 
-    ```sh
-    $ nano /data/electrs/electrs.conf
-    ```
+# Logging
+log_filters = "INFO"
+timestamp = true
+```
 
+* Exit `electrs` user session to return to the "admin" user session
 
-
-    ```
-    # MiniBolt: electrs configuration
-    # /data/electrs/electrs.conf
-
-    # Bitcoin Core settings
-    network = "bitcoin"
-    cookie_file= "/data/bitcoin/.cookie"
-    daemon_rpc_addr = "127.0.0.1:8332"
-    daemon_p2p_addr = "127.0.0.1:8333"
-
-    # Electrs settings
-    electrum_rpc_addr = "0.0.0.0:50001"
-    db_dir = "/data/electrs/db"
-    server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
-
-    # Logging
-    log_filters = "INFO"
-    timestamp = true
-    ```
-*   Exit `electrs` user session to return to the "admin" user session
-
-    ```sh
-    $ exit
-    ```
+```sh
+$ exit
+```
 
 ### **Create systemd service**
 
 Electrs need to start automatically on system boot.
 
-*   As user `admin`, create the Electrs systemd unit, and copy/paste the following configuration. Save and exit
+* As user `admin`, create the Electrs systemd unit, and copy/paste the following configuration. Save and exit
 
-    ```sh
-    $ sudo nano /etc/systemd/system/electrs.service
-    ```
+```sh
+$ sudo nano /etc/systemd/system/electrs.service
+```
 
+```
+# MiniBolt: systemd unit for electrs
+# /etc/systemd/system/electrs.service
 
+[Unit]
+Description=Electrs
+Wants=bitcoind.service
+After=bitcoind.service
 
-    ```
-    # MiniBolt: systemd unit for electrs
-    # /etc/systemd/system/electrs.service
+[Service]
+ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
+Type=simple
+TimeoutSec=300
+KillMode=process
+User=electrs
+RuntimeDirectory=electrs
+RuntimeDirectoryMode=0710
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
 
-    [Unit]
-    Description=Electrs
-    Wants=bitcoind.service
-    After=bitcoind.service
+[Install]
+WantedBy=multi-user.target
+```
 
-    [Service]
-    ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
-    Type=simple
-    TimeoutSec=300
-    KillMode=process
-    User=electrs
-    RuntimeDirectory=electrs
-    RuntimeDirectoryMode=0710
-    PrivateTmp=true
-    ProtectSystem=full
-    ProtectHome=true
-    PrivateDevices=true
-    MemoryDenyWriteExecute=true
+* Enable autoboot **(optional)**
 
-    [Install]
-    WantedBy=multi-user.target
-    ```
-*   Enable autoboot **(optional)**
+```sh
+$ sudo systemctl enable electrs
+```
 
-    ```sh
-    $ sudo systemctl enable electrs
-    ```
-*   Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+* Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
-    ```sh
-    $ sudo journalctl -f -u electrs
-    ```
+```sh
+$ sudo journalctl -f -u electrs
+```
 
 ## Run Electrs
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
-*   Start the service. It will immediately start with the initial indexing of the Bitcoin blocks
+* Start the service. It will immediately start with the initial indexing of the Bitcoin blocks
 
-    ```sh
-    $2 sudo systemctl start electrs
-    ```
+```sh
+$2 sudo systemctl start electrs
+```
 
 Monitor the systemd journal at the first session created to check if everything works fine
 
@@ -499,32 +487,29 @@ Electrs must first fully index the blockchain and compact its database before yo
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-*   Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
 
+```
+# Hidden Service Electrs TCP & SSL
+HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
+HiddenServiceVersion 3
+HiddenServicePort 50001 127.0.0.1:50001
+HiddenServicePort 50002 127.0.0.1:50002
+```
 
+* Reload the Tor configuration, get your connection addresses, and take note of these, later you will need them
 
-    ```
-    # Hidden Service Electrs TCP & SSL
-    HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
-    HiddenServiceVersion 3
-    HiddenServicePort 50001 127.0.0.1:50001
-    HiddenServicePort 50002 127.0.0.1:50002
-    ```
-*   Reload the Tor configuration, get your connection addresses, and take note of these, later you will need them
+```sh
+$ sudo systemctl reload tor
+```
 
-    ```sh
-    $ sudo systemctl reload tor
-    ```
-
-
-
-    ```sh
-    $ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
-    ```
+```sh
+$ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
+```
 
 Expected output:
 
@@ -538,21 +523,23 @@ Expected output:
 
 To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
 
-*   As user `admin`, open the `btcrpcexplorer` service
+* As user `admin`, open the `btcrpcexplorer` service
 
-    ```sh
-    $ sudo nano /etc/systemd/system/btcrpcexplorer.service
-    ```
-*   Replace the `"After=fulcrum.service"` with the `"After=electrs.service"` parameter. Save and exit
+```sh
+$ sudo nano /etc/systemd/system/btcrpcexplorer.service
+```
 
-    ```sh
-    After=electrs.service
-    ```
-*   Restart the BTC RPC Explorer service to apply the changes
+* Replace the `"After=fulcrum.service"` with the `"After=electrs.service"` parameter. Save and exit
 
-    ```sh
-    $ sudo systemctl restart btcrpcexplorer
-    ```
+```sh
+After=electrs.service
+```
+
+* Restart the BTC RPC Explorer service to apply the changes
+
+```sh
+$ sudo systemctl restart btcrpcexplorer
+```
 
 ## For the future: Electrs upgrade
 
@@ -562,12 +549,11 @@ Updating Electrs is straightforward. You can display the current version with th
 
 > If not, follow only the complete [Build from the source code](electrs.md#build-from-the-source-code) section
 
-*   When you finish the section or both sections, restart Electrs to apply the new version
+* When you finish the section or both sections, restart Electrs to apply the new version
 
-    ```sh
-    $ sudo systemctl restart electrs
-    ```
-
+```sh
+$ sudo systemctl restart electrs
+```
 
 * Check logs and pay attention to the next log if that attends to the new version installed
 

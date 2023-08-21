@@ -138,42 +138,46 @@ Keep **this dashboard open,** you'll need to come back here later.
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yoursubdomain.dedyn.io>"`** from the deSEC registration step.
 
-*   As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to MiniBolt, and create the following script
+* As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to MiniBolt, and create the following script
 
-    ```sh
-    $ sudo nano /opt/dynamic-ip-refresh.sh
-    ```
-*   Replace **`"<yoursubdomain.dedyn.io>"`** and **`"<YOUR_SECRET_TOKEN>"`** for the before created. Save and exit
+```sh
+$ sudo nano /opt/dynamic-ip-refresh.sh
+```
 
-    ```
-    #!/usr/bin/env bash
+* Replace **`"<yoursubdomain.dedyn.io>"`** and **`"<YOUR_SECRET_TOKEN>"`** for the before created. Save and exit
 
-    set -euo pipefail
+```
+#!/usr/bin/env bash
 
-    DEDYN_DOMAIN=<yoursubdomain.dedyn.io>
-    DEDYN_TOKEN=<YOUR_SECRET_TOKEN>
+set -euo pipefail
 
-    CURRENT_IP=$(curl -s https://api.ipify.org/)
+DEDYN_DOMAIN=<yoursubdomain.dedyn.io>
+DEDYN_TOKEN=<YOUR_SECRET_TOKEN>
 
-    curl -i -s \
-      -H "Authorization: Token ${DEDYN_TOKEN}" \
-      -X GET "https://update.dedyn.io/?hostname=${DEDYN_DOMAIN}&ip=${CURRENT_IP}"
-    ```
-*   After creating the script, make it executable and restrict access to it (because it contains sensitive data)
+CURRENT_IP=$(curl -s https://api.ipify.org/)
 
-    ```sh
-    $ sudo chmod 700 /opt/dynamic-ip-refresh.sh
-    ```
-*   Create a crontab entry for root to run it every 2 minutes. Type `"1"` and press enter to choose the "nano" editor
+curl -i -s \
+  -H "Authorization: Token ${DEDYN_TOKEN}" \
+  -X GET "https://update.dedyn.io/?hostname=${DEDYN_DOMAIN}&ip=${CURRENT_IP}"
+```
 
-    ```sh
-    $ sudo crontab -e
-    ```
-*   Add the next line at the end of the file. Save and exit
+* After creating the script, make it executable and restrict access to it (because it contains sensitive data)
 
-    ```
-    */2 * * * *     /opt/dynamic-ip-refresh.sh
-    ```
+```sh
+$ sudo chmod 700 /opt/dynamic-ip-refresh.sh
+```
+
+* Create a crontab entry for root to run it every 2 minutes. Type `"1"` and press enter to choose the "nano" editor
+
+```sh
+$ sudo crontab -e
+```
+
+* Add the next line at the end of the file. Save and exit
+
+```
+*/2 * * * *     /opt/dynamic-ip-refresh.sh
+```
 
 {% hint style="info" %}
 Keep the MiniBolt SSH session on the terminal opened to go back later, return to [deSEC web page](https://desec.io/domains), ensure you are on the **"DOMAIN MANAGEMENT"** tab, and **click on your domain**
@@ -191,11 +195,11 @@ You now have a free domain that always points to your existing public IP address
 
 ### **Configure Firewall**
 
-*   Return to the MiniBolt SSH session to continue configuring it. Allow incoming Wireguard requests from outside the Firewall
+* Return to the MiniBolt SSH session to continue configuring it. Allow incoming Wireguard requests from outside the Firewall
 
-    ```sh
-    $ sudo ufw allow 51820/udp comment 'allow WireGuard VPN from anywhere'
-    ```
+```sh
+$ sudo ufw allow 51820/udp comment 'allow WireGuard VPN from anywhere'
+```
 
 {% hint style="danger" %}
 Remember to have forwarded the **`"51820"`** port and the **`"UDP"`** protocol of your router to the local IP of your MiniBolt, previously indicated in the [prerequisites](wireguard-vpn.md#prerequisites) section and following the [Port Forwarding](wireguard-vpn.md#port-forwarding) extra section
@@ -203,24 +207,25 @@ Remember to have forwarded the **`"51820"`** port and the **`"UDP"`** protocol o
 
 ### **Install WireGuard VPN on server**
 
-*   Update the packages and upgrade to keep up to date with the OS
+* Update the packages and upgrade to keep up to date with the OS
 
-    ```sh
-    $ sudo apt update && sudo apt full-upgrade
-    ```
-*   Install the WireGuard VPN package
+```sh
+$ sudo apt update && sudo apt full-upgrade
+```
 
-    ```sh
-    $ sudo apt install wireguard
-    ```
+* Install the WireGuard VPN package
+
+```sh
+$ sudo apt install wireguard
+```
 
 ### **Generate server key pair**
 
-*   Now we are going to generate our server key pair. The following command is to generate a private key
+* Now we are going to generate our server key pair. The following command is to generate a private key
 
-    ```sh
-    $ wg genkey | tee private_key
-    ```
+```sh
+$ wg genkey | tee private_key
+```
 
 Private key _**example expected output**_, we'll call **`"<Your_Server_Private_Key>"`** from now on
 
@@ -230,11 +235,11 @@ e.g: mJFGKxeQqxafyDdLDEDHRml6rDJUs7JZte3uqfJBQ0Q=
 
 📝 Take note and **securely backup** this private key in your preferred password manager (Bitwarden, Lastpass, Keypass...)
 
-*   Now obtain the public key related to the private key
+* Now obtain the public key related to the private key
 
-    ```sh
-    $ sudo cat private_key | wg pubkey | tee public_key
-    ```
+```sh
+$ sudo cat private_key | wg pubkey | tee public_key
+```
 
 Public key _**example**_ expected output, we'll call **`"<Your_Server_Public_Key>"`** from now on
 
@@ -244,48 +249,49 @@ e.g: GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
 
 📝 Take note and backup this public key in your preferred password manager (Bitwarden, Lastpass, Keypass...)
 
-*   Edit `wg0.conf` file
+* Create `wg0.conf` file
 
-    ```sh
-    $ sudo nano /etc/wireguard/wg0.conf
-    ```
-*   Write the following content and replace only **`"<Your_Server_Private_Key>"`** with the data previously obtained. `"`**`<Your_Client_Public_Key>`**`"` will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](wireguard-vpn.md#server-configuration-part-2)
+```sh
+$ sudo nano /etc/wireguard/wg0.conf
+```
 
-    ```
-    # MiniBolt: Wireguard configuration
-    # /etc/wireguard/wg0.conf
+* Write the following content and replace only **`"<Your_Server_Private_Key>"`** with the data previously obtained. `"`**`<Your_Client_Public_Key>`**`"` will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](wireguard-vpn.md#server-configuration-part-2)
 
-    ## Server configuration (Minibolt node)
-    [Interface]
-    PrivateKey = <Your_Server_Private_Key>
-    Address = 10.0.0.1/24
-    ListenPort = 51820
+```
+# MiniBolt: Wireguard configuration
+# /etc/wireguard/wg0.conf
 
-    ## Client configuration
-    [Peer]
-    PublicKey = <Your_Client_Public_Key>
-    AllowedIPs = 10.0.0.2/32
-    ```
+## Server configuration (Minibolt node)
+[Interface]
+PrivateKey = <Your_Server_Private_Key>
+Address = 10.0.0.1/24
+ListenPort = 51820
+
+## Client configuration
+[Peer]
+PublicKey = <Your_Client_Public_Key>
+AllowedIPs = 10.0.0.2/32
+```
 
 {% hint style="info" %}
 Replace **`"<Your_Server_Private_Key>"`**
 {% endhint %}
 
-*   Enable autoboot on startup
+* Enable autoboot on startup
 
-    ```sh
-    $ sudo systemctl enable wg-quick@wg0.service
-    ```
+```sh
+$ sudo systemctl enable wg-quick@wg0.service
+```
 
 {% hint style="info" %}
 This will **turn it on permanently**, and also **start it automatically** when MiniBolt reboots. We won't do this on the client because we want it to be able to connect to the VPN selectively.
 {% endhint %}
 
-*   Delete the `private_key` and `public_key` files, but ensure before you take note of the server's keys in your preferred password manager
+* Delete the `private_key` and `public_key` files, but ensure before you take note of the server's keys in your preferred password manager
 
-    ```sh
-    $ sudo rm /home/admin/private_key && rm /home/admin/public_key
-    ```
+```sh
+$ sudo rm /home/admin/private_key && rm /home/admin/public_key
+```
 
 {% hint style="info" %}
 Keep the MiniBolt SSH session open in the terminal to come back later
@@ -295,19 +301,19 @@ Keep the MiniBolt SSH session open in the terminal to come back later
 
 Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS. Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see [Windows](wireguard-vpn.md#install--configure-wireguard-vpn-client-on-windows) or [Mobile](wireguard-vpn.md#install--configure-the-wireguard-vpn-client-on-a-mobile-phone) configurations in the extra section.
 
-*   On your Linux regular computer, for instance, you do this by simply installing the **`"Wireguard VPN"`** package
+* On your Linux regular computer, for instance, you do this by simply installing the **`"Wireguard VPN"`** package
 
-    ```sh
-    $ sudo apt install wireguard
-    ```
+```sh
+$ sudo apt install wireguard
+```
 
 ### **Generate client key pair**
 
-*   Now we are going to generate our client key pair. The following command is to generate a private key
+* Now we are going to generate our client key pair. The following command is to generate a private key
 
-    ```sh
-    $ wg genkey | tee private_key
-    ```
+```sh
+$ wg genkey | tee private_key
+```
 
 Private key _**example**_ expected output, we'll call **`"<Your_Client_Private_Key>"`** from now on
 
@@ -317,11 +323,11 @@ e.g: GGH/UCK3K9qzd48u8m872azvsdeyaSjs9cVs0pl4fko=
 
 📝 Take note and **securely backup** this private key in your preferred password manager (Bitwarden, Lastpass, Keypass...)
 
-*   Now obtain the public key related to the private key
+* Now obtain the public key related to the private key
 
-    ```sh
-    $ cat private_key | wg pubkey | tee public_key
-    ```
+```sh
+$ cat private_key | wg pubkey | tee public_key
+```
 
 Public key _**example**_ expected output, we'll call **`"<Your_Client_Public_Key>"`** from now on
 
@@ -333,25 +339,26 @@ e.g: pNfWyNJ9WnbMqlLzHxwhvGnZ0/alT18MGy6K0iOxHCI=
 
 ### **Client configuration (part 1)**
 
-*   Edit `wg0.conf` file
+* Create `wg0.conf` file
 
-    ```sh
-    $ sudo nano /etc/wireguard/wg0.conf
-    ```
-*   Write the following contents to the `wg0.conf` file
+```sh
+$ sudo nano /etc/wireguard/wg0.conf
+```
 
-    ```
-    ## Client configuration
-    [Interface]
-    PrivateKey = <Your_Client_Private_Key>
-    Address = 10.0.0.2/32
+* Write the following contents to the `wg0.conf` file
 
-    ## Server configuration (MiniBolt node)
-    [Peer]
-    PublicKey = <Your_Server_Public_Key>
-    AllowedIPs = 10.0.0.1/32
-    Endpoint = <yoursubdomain.dedyn.io>:51820
-    ```
+```
+## Client configuration
+[Interface]
+PrivateKey = <Your_Client_Private_Key>
+Address = 10.0.0.2/32
+
+## Server configuration (MiniBolt node)
+[Peer]
+PublicKey = <Your_Server_Public_Key>
+AllowedIPs = 10.0.0.1/32
+Endpoint = <yoursubdomain.dedyn.io>:51820
+```
 
 📝 A few things to note here:
 
@@ -361,49 +368,51 @@ e.g: pNfWyNJ9WnbMqlLzHxwhvGnZ0/alT18MGy6K0iOxHCI=
 
 > Replace `"Endpoint"` parameter designed as **`"yoursubdomain.dedyn.io"**`** by created in [Desec registration](wireguard-vpn.md#desec-registration) section.
 
-*   Now you can delete the `private_key` and `public_key` files from the disk, but make sure you have noted this previously
+* Now you can delete the `private_key` and `public_key` files from the disk, but make sure you have noted this previously
 
-    ```sh
-    $ sudo rm /home/<yourusername>/private_key && rm /home/<yourusername>/public_key
-    ```
+```sh
+$ sudo rm /home/<yourusername>/private_key && rm /home/<yourusername>/public_key
+```
 
 {% hint style="info" %}
-Keep this terminal open to come back later.
+Keep this terminal open to come back later
 {% endhint %}
 
 ## Server configuration (part 2)
 
 Now return to the MiniBolt node to allow access to the newly created Wireguard VPN client.
 
-*   Ensure are you logged in as `admin` user, and edit the `"wg0.conf"` file
+* Ensure are you logged in as `admin` user, and edit the `"wg0.conf"` file
 
-    ```sh
-    $ sudo nano /etc/wireguard/wg0.conf
-    ```
+```sh
+$ sudo nano /etc/wireguard/wg0.conf
+```
 
 Now we are going to complete the previous parameter **`"<Your_Client_Public_Key>"`** that we left pending to complete before with the created in the [**"generate client key pair"**](wireguard-vpn.md#generate-client-key-pair) section
 
-*   Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one
+* Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one
 
-    ```
-    # MiniBolt: Wireguard configuration
-    # /etc/wireguard/wg0.conf
+```
+# MiniBolt: Wireguard configuration
+# /etc/wireguard/wg0.conf
 
-    ## Client configuration
-    [Peer]
-    PublicKey = <Your_Client_Public_Key>
-    AllowedIPs = 10.0.0.2/32
-    ```
-*   Start Wireguard VPN on MiniBolt
+## Client configuration
+[Peer]
+PublicKey = <Your_Client_Public_Key>
+AllowedIPs = 10.0.0.2/32
+```
 
-    ```bash
-    $ sudo systemctl start wg-quick@wg0.service
-    ```
-*   Check the VPN server status using
+* Start Wireguard VPN on MiniBolt
 
-    ```sh
-    $ sudo wg show
-    ```
+```bash
+$ sudo systemctl start wg-quick@wg0.service
+```
+
+* Check the VPN server status using
+
+```sh
+$ sudo wg show
+```
 
 **Example** of expected output:
 
@@ -445,11 +454,11 @@ Now the server is ready to allow connection from the Wireguard VPN client.
 
 ## Client configuration (part 2)
 
-*   Return to the Linux client to finally test the VPN MiniBolt connection running this command
+* Return to the Linux client to finally test the VPN MiniBolt connection running this command
 
-    ```sh
-    $ wg-quick up wg0
-    ```
+```sh
+$ wg-quick up wg0
+```
 
 Expected output:
 
@@ -473,11 +482,11 @@ $ ssh admin@10.0.0.1
 Try to navigate to web services such as BTC RPC Explorer, and open your favorite browser, using this time the VPN IP instead of the local IP address: `https://10.0.0.1:4000`
 {% endhint %}
 
-*   Check the VPN client status using
+* Check the VPN client status using
 
-    ```sh
-    $ sudo wg show
-    ```
+```sh
+$ sudo wg show
+```
 
 Expected output:
 
@@ -522,21 +531,23 @@ $ sudo apt install qrencode
 Now, you can convert the `"wg0.conf"` file to a QR code like so
 {% endhint %}
 
-*   Change to root user to create a temporary root session
+* Change to root user to create a temporary root session
 
-    ```sh
-    $ sudo su
-    ```
-*   Generate the QR code related to the same Wireguard VPN client `"wg0.conf"` configurated on the [client configuration](wireguard-vpn.md#client-configuration-part-1) section
+```sh
+$ sudo su
+```
 
-    ```sh
-    $ qrencode -t ansiutf8 < /etc/wireguard/wg0.conf
-    ```
-*   Exit root user session
+* Generate the QR code related to the same Wireguard VPN client `"wg0.conf"` configurated on the [client configuration](wireguard-vpn.md#client-configuration-part-1) section
 
-    ```sh
-    $ exit
-    ```
+```sh
+$ qrencode -t ansiutf8 < /etc/wireguard/wg0.conf
+```
+
+* Exit root user session
+
+```sh
+$ exit
+```
 
 {% hint style="info" %}
 Keep the MiniBolt SSH session open in the terminal to come back later and scan the Qr code.

@@ -17,7 +17,7 @@ layout:
     visible: true
 ---
 
-# Install / Update / Uninstall Node.js + NPM
+# Node.js + NPM
 
 [Node.js](https://nodejs.org) is an open-source, cross-platform JavaScript runtime environment. Node.js includes NPM in the installation package as well.
 
@@ -29,32 +29,35 @@ Difficulty: Easy
 
 ### Install Node.js + NPM
 
-*   With user `admin`, set the environment variable
+* With user `admin`, set the environment variable
 
-    ```sh
-    $ VERSION=18
-    ```
+```sh
+$ VERSION=18
+```
+
 * Update the packages and upgrade to keep up to date with the OS
 
 ```bash
 $ sudo apt update && sudo apt full-upgrade
 ```
 
-*   Add the Node.js package repository
+* Add the Node.js package repository
 
-    ```sh
-    $ curl -fsSL https://deb.nodesource.com/setup_$VERSION.x | sudo -E bash -
-    ```
-*   Install Node.js using the apt package manager
+```sh
+$ curl -fsSL https://deb.nodesource.com/setup_$VERSION.x | sudo -E bash -
+```
 
-    ```sh
-    $ sudo apt install nodejs
-    ```
-*   Check the correct installation of nodejs
+* Install Node.js using the apt package manager
 
-    ```sh
-    $ node -v
-    ```
+```sh
+$ sudo apt install nodejs
+```
+
+* Check the correct installation of nodejs
+
+```sh
+$ node -v
+```
 
 **Example** of expected output:
 
@@ -76,16 +79,16 @@ $ sudo apt update && sudo apt full-upgrade
 
 ### Update
 
-*   To upgrade simply type this command
+* To upgrade simply type this command
 
-    ```sh
-    $ sudo apt update && sudo apt upgrade
-    ```
+```sh
+$ sudo apt update && sudo apt upgrade
+```
 
 ### Uninstall
 
-*   To uninstall type this command
+* To uninstall type this command
 
-    ```sh
-    $ Sudo apt purge nodejs && rm -r /etc/apt/sources.list.d/nodesource.list
-    ```
+```sh
+$ Sudo apt purge nodejs && rm -r /etc/apt/sources.list.d/nodesource.list
+```

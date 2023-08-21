@@ -48,46 +48,46 @@ To preserve privacy, we will constrain Electrum to only connect to a single serv
 
 If you plan to use Electrum from only within your own secured local area network, you can use the local connection details.
 
-*   **Linux**
+* **Linux**
+  * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
 
-    * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
+```sh
+./electrum -1 -s minibolt.local:50002:s
+```
 
-    ```sh
-    ./electrum -1 -s minibolt.local:50002:s
-    ```
-*   **Windows**
+* **Windows**
+  * Find the new Electrum desktop shortcut, right-click it, and go to "Properties", and click shortcut tab at the top bar, in the box named target, put "-1 -s minibolt.local:50002:s" after "electrum.exe" (replace minibolt.local with your node IP if necessary)
 
-    * Find the new Electrum desktop shortcut, right-click it, and go to "Properties", and click shortcut tab at the top bar, in the box named target, put "-1 -s minibolt.local:50002:s" after "electrum.exe" (replace minibolt.local with your node IP if necessary)
+```sh
+"C:\Program Files (x86)\Electrum\electrum.exe" -1 -s minibolt.local:50002:s
+```
 
-    ```sh
-    "C:\Program Files (x86)\Electrum\electrum.exe" -1 -s minibolt.local:50002:s
-    ```
-* Apply, accept and execute by double-clicking on the new shortcut.
+* Apply, accept, and execute by double-clicking on the new shortcut
 
 ![](../../images/electrum-win-shortcut-local.PNG)
 
-*   **macOS**
+* **macOS**
+  * Execute this command in the Terminal application to -1 (connect to single server only) -s (server address)
 
-    * Execute this command in the Terminal application to -1 (connect to single server only) -s (server address)
+{% code overflow="wrap" %}
+```sh
+/Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s minibolt.local:50002:s
+```
+{% endcode %}
 
-    {% code overflow="wrap" %}
-    ```sh
-    /Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s minibolt.local:50002:s
-    ```
-    {% endcode %}
-*   After using this command for the first run, close Electrum, and open the Electrum config file with the following customized command:
+* After using this command for the first run, close Electrum, and open the Electrum config file with the following customized command
 
-    ```sh
-    nano /Users/<YOUR_PERSONAL_COMPUTER_USERNAME>/.electrum/config
-    ```
+```sh
+nano /Users/<YOUR_PERSONAL_COMPUTER_USERNAME>/.electrum/config
+```
 
-    * and modify the file to include the following lines:
+* Modify the file to include the following lines
 
-    ```sh
-    "auto_connect": false,
-    "oneserver": true,
-    "server": "minibolt.local:50002:s",
-    ```
+```sh
+"auto_connect": false,
+"oneserver": true,
+"server": "minibolt.local:50002:s",
+```
 
 After opening a wallet or creating a new one, Electrum will indicate an active connection to a local server with a green dot in the bottom right corner of the screen.
 
@@ -102,11 +102,11 @@ By OS:
 * **Windows**: download, install and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
   * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
-*   **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
+* **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
 
-    ```sh
-    $ sudo ss -tulpn | grep tor | grep LISTEN
-    ```
+```sh
+$ sudo ss -tulpn | grep tor | grep LISTEN
+```
 
 Expected output:
 
@@ -123,54 +123,55 @@ Now we need to specify the Tor address for Electrum Server and the local Tor pro
 
 First, get the onion address of your Electrum server directly on the MiniBolt, depending on whether you chose the Electrs or Fulcrum service
 
-*   For Electrs:
+* For Electrs:
 
-    ```sh
-    $ sudo cat /var/lib/tor/hidden_service_electrs/hostname
-    > ab...yz.onion
-    ```
-*   For Fulcrum:
+```sh
+$ sudo cat /var/lib/tor/hidden_service_electrs/hostname
+> ab...yz.onion
+```
 
-    ```sh
-    $ sudo cat /var/lib/tor/hidden_service_fulcrum/hostname
-    > ab...yz.onion.onion
-    ```
+* For Fulcrum:
+
+```sh
+$ sudo cat /var/lib/tor/hidden_service_fulcrum/hostname
+> ab...yz.onion.onion
+```
 
 Now, execute Electrum Wallet choosing the correct way depending on your OS (replace "9050" with "9150" if you choose to run the Tor Browser)
 
-*   **Linux**
+* **Linux**
+  * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
 
-    * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address).
+```sh
+./electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
+```
 
-    ```sh
-    ./electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
-    ```
-*   **Windows**
+* **Windows**
+  * With your new shortcut created after installation in Desktop, right-click it and go to properties, click shortcut tab at the top bar, in the box named target put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept and execute doing double-click on our new shortcut
 
-    * With your new shortcut created after installation in Desktop, right-click it and go to properties, click shortcut tab at the top bar, in the box named target put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept and execute doing double-click on our new shortcut
-
-    ```sh
-     C:\Program Files (x86)\Electrum\electrum.exe -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
-    ```
+{% code overflow="wrap" %}
+```sh
+ C:\Program Files (x86)\Electrum\electrum.exe -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
+```
+{% endcode %}
 
 ![](../../images/electrum-win-shortcut-tor.PNG)
 
-*   **macOS**
+* **macOS**
+  * Open the Tor browser
+  * In the Terminal application, run the following command
 
-    * Open the Tor browser
-    * In the Terminal application, run the following command
-
-    {% code overflow="wrap" %}
-    ```sh
-    /Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
-    ```
-    {% endcode %}
+{% code overflow="wrap" %}
+```sh
+/Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
+```
+{% endcode %}
 
 After opening a wallet or creating a new one, Electrum will indicate an active connection to a Tor server with a blue dot in the bottom right corner of the screen.
 
 ![](../../images/electrum-wallet-tor.png)
 
-🚨 Try to put check `"Use Tor proxy at port 9050"` or `"Use Tor proxy at port 9150"` in `"Proxy"` settings tab if not connected for you
+🚨 Try to check `"Use Tor proxy at port 9050"` or `"Use Tor proxy at port 9150"` in `"Proxy"` settings tab if not connected for you
 
 ![](../../images/electrum-wallet-tor-check.PNG)
 

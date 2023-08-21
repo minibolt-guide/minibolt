@@ -26,35 +26,27 @@ A firewall controls what kind of outside traffic your machine accepts and which 
 
 For now, only SSH should be reachable from the outside. Bitcoin Core and LND are using Tor and don't need incoming ports. We'll open the port for Electrs and web applications later if needed.
 
-*   With user `admin`, configure and enable the firewall rules, when the prompt asks you `Command may disrupt existing ssh connections. Proceed with operation (y|n)?` type `y` key and enter
+* With user `admin`, configure and enable the firewall rules, when the prompt asks you `Command may disrupt existing ssh connections. Proceed with operation (y|n)?` type `y` key and enter
 
-    ```sh
-    $ sudo ufw default deny incoming
-    ```
+```sh
+$ sudo ufw default deny incoming
+```
 
+```sh
+$ sudo ufw default allow outgoing
+```
 
+```sh
+$ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
+```
 
-    ```sh
-    $ sudo ufw default allow outgoing
-    ```
+```sh
+$ sudo ufw logging off
+```
 
-
-
-    ```sh
-    $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
-    ```
-
-
-
-    ```sh
-    $ sudo ufw logging off
-    ```
-
-
-
-    ```sh
-    $ sudo ufw enable
-    ```
+```sh
+$ sudo ufw enable
+```
 
 Expected output:
 
@@ -62,11 +54,11 @@ Expected output:
 > Firewall is active and enabled on system startup
 ```
 
-*   Check if the UFW is properly configured and active
+* Check if the UFW is properly configured and active
 
-    ```sh
-    $ sudo ufw status verbose
-    ```
+```sh
+$ sudo ufw status verbose
+```
 
 <details>
 
@@ -94,66 +86,62 @@ If you find yourself locked out by mistake, you can connect a keyboard and scree
 
 If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the "can't accept connection: too many open files" error. This is due to the limit of open files (representing individual TCP connections) being set too low.
 
-*   Create the file `/etc/security/limits.d/90-limits.conf`, and copy these lines into it. Save and exit
+* Create the file `90-limits.conf`, and copy these lines into it. Save and exit
 
-    ```sh
-    $ sudo nano /etc/security/limits.d/90-limits.conf
-    ```
+```sh
+$ sudo nano /etc/security/limits.d/90-limits.conf
+```
 
+```
+*    soft nofile 128000
+*    hard nofile 128000
+root soft nofile 128000
+root hard nofile 128000
+```
 
+* Edit both of the following two files and add the additional line(s) right before the end comment. Save and exit
 
-    ```
-    *    soft nofile 128000
-    *    hard nofile 128000
-    root soft nofile 128000
-    root hard nofile 128000
-    ```
-*   Edit both of the following two files and add the additional line(s) right before the end comment. Save and exit
+```sh
+$ sudo nano /etc/pam.d/common-session
+```
 
-    ```sh
-    $ sudo nano /etc/pam.d/common-session
-    ```
+```
+session required                        pam_limits.so
+```
 
+```sh
+$ sudo nano /etc/pam.d/common-session-noninteractive
+```
 
-
-    ```
-    session required                        pam_limits.so
-    ```
-
-
-
-    ```sh
-    $ sudo nano /etc/pam.d/common-session-noninteractive
-    ```
-
-
-
-    ```
-    session required                        pam_limits.so
-    ```
+```
+session required                        pam_limits.so
+```
 
 ### Monitoring SSH authentication logs
 
-*   You can monitor authentication general logs in your system in real-time
+* You can monitor authentication general logs in your system in real-time
 
-    ```sh
-    $ sudo tail -f /var/log/auth.log
-    ```
-*   Or filtering only by ssh authentication logs in the last 500 lines
+```sh
+$ sudo tail -f /var/log/auth.log
+```
 
-    ```sh
-    $ sudo tail --lines 500 /var/log/auth.log | grep sshd
-    ```
-*   Discarding your connections from your regular computer in the local network
+* Or filtering only by ssh authentication logs in the last 500 lines
 
-    ```sh
-    $ sudo tail --lines 500 /var/log/auth.log | grep sshd | grep -v 192.168.X.XXX
-    ```
-*   With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to whatever you want
+```sh
+$ sudo tail --lines 500 /var/log/auth.log | grep sshd
+```
 
-    ```sh
-    $ last -s -7days -t today
-    ```
+* Discarding your connections from your regular computer in the local network
+
+```sh
+$ sudo tail --lines 500 /var/log/auth.log | grep sshd | grep -v 192.168.X.XXX
+```
+
+* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to whatever you want
+
+```sh
+$ last -s -7days -t today
+```
 
 In this way, you can detect a possible brute-force attack and take appropriate mitigation measures.
 
@@ -167,11 +155,12 @@ Several components of this guide will expose a communication port, for example, 
 
 We use NGINX to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": NGINX provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 
-*   Install NGINX
+* Install NGINX
 
-    ```sh
-    $ sudo apt install nginx
-    ```
+```sh
+$ sudo apt install nginx
+```
+
 * Create a self-signed SSL/TLS certificate (valid for 10 years)
 
 {% code overflow="wrap" %}
@@ -227,16 +216,17 @@ stream {
 $ sudo mkdir /etc/nginx/streams-enabled
 ```
 
-*   Disable NGINX's default site
+* Disable NGINX's default site
 
-    ```sh
-    $ sudo rm /etc/nginx/sites-enabled/default
-    ```
-*   Test this barebone Nginx configuration
+```sh
+$ sudo rm /etc/nginx/sites-enabled/default
+```
 
-    ```sh
-    $ sudo nginx -t
-    ```
+* Test this barebone Nginx configuration
+
+```sh
+$ sudo nginx -t
+```
 
 <details>
 
@@ -249,8 +239,8 @@ $ sudo mkdir /etc/nginx/streams-enabled
 
 </details>
 
-*   Reload Nginx to apply the configuration
+* Reload Nginx to apply the configuration
 
-    ```sh
-    $ sudo systemctl reload nginx
-    ```
+```sh
+$ sudo systemctl reload nginx
+```

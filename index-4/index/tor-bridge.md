@@ -40,19 +40,19 @@ Difficulty: Medium
 
 obfs4 makes Tor traffic look random and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configure all.
 
-*   Ensure you are logged in with the user `admin` and install obfs4 proxy
+* Ensure you are logged in with the user `admin` and install obfs4 proxy
 
-    ```sh
-    $ sudo apt install obfs4proxy
-    ```
+```sh
+$ sudo apt install obfs4proxy
+```
 
 ### **Installation**
 
-*   Ensure you have Tor daemon installed in your system
+* Ensure you have Tor daemon installed in your system
 
-    ```sh
-    $ tor --version
-    ```
+```sh
+$ tor --version
+```
 
 **Example** of expected output:
 
@@ -67,25 +67,23 @@ If not obtain results, follow the [Privacy section](../../index-1/privacy.md#tor
 
 ## Configuration
 
-*   Edit your Tor config file adding the next lines **at the end of the file**. We will use 2 ports: <**TODO1>** and <**TODO2>, m**ake sure you replace them
+* Edit your Tor config file adding the next lines **at the end of the file**. We will use 2 ports: <**TODO1>** and <**TODO2>, m**ake sure you replace them
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
 
+```
+BridgeRelay 1
+ExtORPort auto
+ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
 
+ORPort <TODO1> IPv4Only
+ServerTransportListenAddr obfs4 0.0.0.0:<TODO2>
 
-    ```
-    BridgeRelay 1
-    ExtORPort auto
-    ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-
-    ORPort <TODO1> IPv4Only
-    ServerTransportListenAddr obfs4 0.0.0.0:<TODO2>
-
-    ContactInfo <address@email.com>
-    Nickname <PickANickname>
-    ```
+ContactInfo <address@email.com>
+Nickname <PickANickname>
+```
 
 <details>
 
@@ -167,85 +165,90 @@ Note that both Tor's OR port and its obfs4 port must be reachable. If your bridg
 
 ### **Systemd hardening**
 
-*   To work around systemd hardening, you will also need to set Tor services, edit the next files
+* To work around systemd hardening, you will also need to set Tor services, edit the next files
 
-    ```sh
-    $ sudo nano /lib/systemd/system/tor@default.service
-    ```
-*   Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
+```sh
+$ sudo nano /lib/systemd/system/tor@default.service
+```
 
-    ```
-    # Hardening
-    NoNewPrivileges=no
-    ```
-*   Same for `"tor@.service"` file, change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
+* Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
 
-    ```sh
-    $ sudo nano /lib/systemd/system/tor@.service
-    ```
+```
+# Hardening
+NoNewPrivileges=no
+```
 
+* Same for `"tor@.service"` file, change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
 
+```sh
+$ sudo nano /lib/systemd/system/tor@.service
+```
 
-    ```
-    # Hardening
-    NoNewPrivileges=no
-    ```
-*   Reload systemd manager configuration to apply changes
+```
+# Hardening
+NoNewPrivileges=no
+```
 
-    ```sh
-    $ sudo systemctl daemon-reload
-    ```
-*   Enable autoboot
+* Reload systemd manager configuration to apply changes
 
-    ```sh
-    $ sudo systemctl enable --now tor
-    ```
-*   Restart Tor to apply changes
+```sh
+$ sudo systemctl daemon-reload
+```
 
-    ```sh
-    $ sudo systemctl restart tor
-    ```
+* Enable autoboot
+
+```sh
+$ sudo systemctl enable --now tor
+```
+
+* Restart Tor to apply changes
+
+```sh
+$ sudo systemctl restart tor
+```
 
 ## Testing
 
-*   Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit
+* Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit
 
-    ```sh
-    $ sudo journalctl -f -u tor@default --since '1 hour ago'
-    ```
-*   Verify that your relay works, if your logfile (syslog) contains the following entry after starting your tor daemon your relay should be up and running as expected
+```sh
+$ sudo journalctl -f -u tor@default --since '1 hour ago'
+```
 
-    ```
-    [...]
-    Your Tor server's identity key fingerprint is '<YourNickname> <FINGERPRINT>'
-    Your Tor bridge's hashed identity key fingerprint is '<YourNickname> <HASHED FINGERPRINT>'
-    Your Tor server's identity key ed25519 fingerprint is '<YourNickname> <KEY ED25519 FINGERPRINT>'
-    You can check the status of your bridge relay at https://bridges.torproject.org/status?id=<HASHED FINGERPRINT>
-    [...]
-    ```
+* Verify that your relay works, if your logfile (syslog) contains the following entry after starting your tor daemon your relay should be up and running as expected
 
-    ```
-    [...]
-    > Now checking whether IPv4 ORPort <IP ADDRES:<TODO1>> is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
-    > Self-testing indicates your ORPort <IP ADDRES:<TODO1>> is reachable from the outside. > Excellent. Publishing server descriptor.
-    > Performing bandwidth self-test...done
-    [...]
-    ```
+```
+[...]
+Your Tor server's identity key fingerprint is '<YourNickname> <FINGERPRINT>'
+Your Tor bridge's hashed identity key fingerprint is '<YourNickname> <HASHED FINGERPRINT>'
+Your Tor server's identity key ed25519 fingerprint is '<YourNickname> <KEY ED25519 FINGERPRINT>'
+You can check the status of your bridge relay at https://bridges.torproject.org/status?id=<HASHED FINGERPRINT>
+[...]
+```
+
+```
+[...]
+> Now checking whether IPv4 ORPort <IP ADDRES:<TODO1>> is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
+> Self-testing indicates your ORPort <IP ADDRES:<TODO1>> is reachable from the outside. > Excellent. Publishing server descriptor.
+> Performing bandwidth self-test...done
+[...]
+```
 
 {% hint style="info" %}
-About **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname or IP address and can monitor your obfs4 bridge's usage on Relay Search. Just enter your bridge's **"HASHED FINGERPRINT"** in the form and click on "Search".
+About **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname or IP address and can monitor your obfs4 bridge's usage on Relay Search. Just enter your bridge's **"HASHED FINGERPRINT"** in the form and click on "Search"
 {% endhint %}
 
-*   If you want to connect to your bridge manually, you will need to know the bridge's obfs4 certificate. Open the file **"obfs4\_bridgeline.txt"** to obtain your bridge info
+* If you want to connect to your bridge manually, you will need to know the bridge's obfs4 certificate. Open the file **"obfs4\_bridgeline.txt"** to obtain your bridge info
 
-    ```sh
-    $ sudo cat /var/lib/tor/pt_state/obfs4_bridgeline.txt | grep Bridge
-    ```
-*   Paste the next entire bridge line into your Tor browser
+```sh
+$ sudo cat /var/lib/tor/pt_state/obfs4_bridgeline.txt | grep Bridge
+```
 
-    ```
-    Bridge obfs4 <IP ADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
-    ```
+* Paste the next entire bridge line into your Tor browser
+
+```
+Bridge obfs4 <IP ADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
+```
 
 {% hint style="info" %}
 Remember to exclude the "Bridge" word to avoid incompatibility with the Tor Browser Android version
@@ -265,52 +268,55 @@ More info to connect the Tor browser to your own Tor bridge on this [website](ht
 
 One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so you can not forget about them. Follow the instructions to enable automatic software updates for your operating system.
 
-*   Install dependencies
+* Install dependencies
 
-    ```sh
-    $ sudo apt install unattended-upgrades apt-listchanges
-    ```
-*   Edit the next file and enter the next lines at the end of the file. save and exit
+```sh
+$ sudo apt install unattended-upgrades apt-listchanges
+```
 
-    ```sh
-    $ sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
-    ```
+* Edit the next file and enter the next lines at the end of the file. Save and exit
 
+```sh
+$ sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
+```
 
+```
+Unattended-Upgrade::Origins-Pattern {
+    "origin=Debian,codename=${distro_codename},label=Debian-Security";
+    "origin=TorProject";
+};
+Unattended-Upgrade::Package-Blacklist {
+};
+```
 
-    ```
-    Unattended-Upgrade::Origins-Pattern {
-        "origin=Debian,codename=${distro_codename},label=Debian-Security";
-        "origin=TorProject";
-    };
-    Unattended-Upgrade::Package-Blacklist {
-    };
-    ```
-*   If you want to automatically reboot add also the following at the end of the file (optional)
+* If you want to automatically reboot add also the following at the end of the file (optional)
 
-    ```
-    Unattended-Upgrade::Automatic-Reboot "true";
-    ```
-*   You can test your unattended-upgrades setup with the following command
+```
+Unattended-Upgrade::Automatic-Reboot "true";
+```
 
-    ```sh
-    $ unattended-upgrade --debug
-    ```
-*   If you just want to see the debug output but don't change anything use
+* You can test your unattended-upgrades setup with the following command
 
-    ```sh
-    $ unattended-upgrade --debug --dry-run
-    ```
+```sh
+$ unattended-upgrade --debug
+```
+
+* If you just want to see the debug output but don't change anything use
+
+```sh
+$ unattended-upgrade --debug --dry-run
+```
 
 ### **Install Nyx**
 
 [Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relays such as bandwidth usage, connections, logs, and much more.
 
-*   With user `admin`, install the package
+* With user `admin`, install the package
 
-    ```sh
-    $ sudo apt install nyx
-    ```
+```sh
+$ sudo apt install nyx
+```
+
 * Add the user admin to the `debian-tor` group
 
 ```bash
@@ -324,11 +330,11 @@ $ exit
 ```
 
 * Log in as the user `admin` again --> `ssh admin@minibolt.local`
-*   Execute with and press the right navigation key to navigate to page 2/5 to show the traffic of your Tor instance
+* Execute with and press the right navigation key to navigate to page 2/5 to show the traffic of your Tor instance
 
-    ```sh
-    $ nyx
-    ```
+```sh
+$ nyx
+```
 
 ![](../../images/nyx-tor-bridge.png)
 
@@ -356,23 +362,23 @@ $ sudo apt install obfs4proxy
 $ sudo nano /etc/tor/torrc
 ```
 
-*   Add the next lines at the end of the **"torrc"** file
+* Add the next lines at the end of the **"torrc"** file
 
-    ```
-    ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-    UseBridges 1
-    Bridge obfs4 IP_ADDRESS:PORT FINGERPRINT cert=CERTIFICATE iat-mode=0
-    ```
+```
+ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+UseBridges 1
+Bridge obfs4 IP_ADDRESS:PORT FINGERPRINT cert=CERTIFICATE iat-mode=0
+```
 
 {% hint style="info" %}
 Add the needed lines with the number of bridges that you wish, replacing **"IP\_ADDRESS"**, **"PORT"**, **"FINGERPRINT"**, and **"CERTIFICATE"** with those obtained before.
 {% endhint %}
 
-*   Restart Tor to apply changes
+* Restart Tor to apply changes
 
-    ```sh
-    $ sudo systemctl restart tor
-    ```
+```sh
+$ sudo systemctl restart tor
+```
 
 **Example** output:
 
@@ -382,36 +388,36 @@ Add the needed lines with the number of bridges that you wish, replacing **"IP\_
 
 ### **Uninstall obfs4 proxy**
 
-*   Uninstall obfs4proxy software
+* Uninstall obfs4proxy software
 
-    ```sh
-    $ sudo apt autoremove obfs4proxy --purge
-    ```
+```sh
+$ sudo apt autoremove obfs4proxy --purge
+```
 
 ### **Uninstall Tor configuration**
 
-*   Reverts "torrc" file configuration commenting previously configured lines. Save and exit
+* Reverts "torrc" file configuration commenting previously configured lines. Save and exit
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
 
-    ```
-    #BridgeRelay 1
-    #ContactInfo <address@email.com>
-    #Nickname PickANickname
-    #ExtORPort auto
-    #ServerTransportListenAddr obfs4 0.0.0.0:TODO2
-    #ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-    ```
+```
+#BridgeRelay 1
+#ContactInfo <address@email.com>
+#Nickname PickANickname
+#ExtORPort auto
+#ServerTransportListenAddr obfs4 0.0.0.0:TODO2
+#ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+```
 
 ### **Uninstall FW configuration and router NAT**
 
-*   Display the UFW firewall rules and notes the numbers of the rules for Tor bridge (e.g. W, Z, Y, and Z below)
+* Display the UFW firewall rules and notes the numbers of the rules for Tor bridge (e.g. W, Z, Y, and Z below)
 
-    ```sh
-    $ sudo ufw status numbered
-    ```
+```sh
+$ sudo ufw status numbered
+```
 
 Expected output:
 
@@ -441,31 +447,32 @@ Reverts router NAT configuration following the same [Configure Firewall and NAT]
 
 ### **Uninstall systemd hardening**
 
-*   Reverts "systemd hardening" in service files configuration changing the next files
+* Reverts "systemd hardening" in service files configuration changing the next files
 
-    ```sh
-    $ sudo nano /lib/systemd/system/tor@default.service
-    ```
-*   Change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
+```sh
+$ sudo nano /lib/systemd/system/tor@default.service
+```
 
-    ```sh
-    # Hardening
-    NoNewPrivileges=yes
-    ```
-*   Same for `"tor@.service"` file, change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
+* Change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
 
-    ```sh
-    $ sudo nano /lib/systemd/system/tor@.service
-    ```
+```sh
+# Hardening
+NoNewPrivileges=yes
+```
 
+* Same for `"tor@.service"` file, change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
 
+```sh
+$ sudo nano /lib/systemd/system/tor@.service
+```
 
-    ```sh
-    # Hardening
-    NoNewPrivileges=yes
-    ```
-*   Reload systemd manager configuration to apply changes
+```sh
+# Hardening
+NoNewPrivileges=yes
+```
 
-    ```sh
-    $ sudo systemctl daemon-reload
-    ```
+* Reload systemd manager configuration to apply changes
+
+```sh
+$ sudo systemctl daemon-reload
+```

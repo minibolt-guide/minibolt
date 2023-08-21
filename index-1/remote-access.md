@@ -25,11 +25,11 @@ Your Personal Computer is starting and gets a new address from your home network
 * On your regular computer, open the Terminal (also known as "command line")
   * On Linux/macOS with a graphical interface, search on the application list, "Terminal" or press the keyboard shortcut `Ctrl + Alt + T`
   * On Windows, search on the application list `cmd`
-*   Try to ping using the IP assigned to your MiniBolt in the before step
+* Try to ping using the IP assigned to your MiniBolt in the before step
 
-    ```sh
-    $ ping 192.168.x.xxx
-    ```
+```sh
+$ ping 192.168.x.xxx
+```
 
 **Example** of expected output:
 

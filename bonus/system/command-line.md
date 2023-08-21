@@ -29,41 +29,44 @@ Difficulty: Easy
 
 You can prettify your command prompt for each user by enabling color output and setting a custom prompt
 
-*   Open and edit `.bashrc` as shown below, save and exit
+* With user `admin`, open and edit `.bashrc` as shown below, save and exit
 
-    ```sh
-    $ nano /home/admin/.bashrc --linenumbers
-    ```
-*   Uncomment line 46
+```sh
+$ nano /home/admin/.bashrc --linenumbers
+```
 
-    ```
-    force_color_prompt=yes
-    ```
-*   Comment existing line 60 (backup) and add the next line (in line 61)
+* Uncomment line 46
 
-    ```
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u \[\033[01;34m\]\w\[\e[33m\] ₿\[\e[m\] "
-    ```
-*   Insert the following at the end of the file (line 121)
+```
+force_color_prompt=yes
+```
 
-    ```
-    alias ls='ls -la --color=always'
-    ```
+* Comment the existing line 60 (backup) and add the next line (in line 61)
+
+```
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u \[\033[01;34m\]\w\[\e[33m\] ₿\[\e[m\] "
+```
+
+* Insert the following at the end of the file (line 121)
+
+```
+alias ls='ls -la --color=always'
+```
 
 ![](../../images/60\_pimp\_prompt\_update.png)
 
-*   Apply changes
+* Apply changes
 
-    ```sh
-    $ source /home/admin/.bashrc
-    ```
+```sh
+$ source /home/admin/.bashrc
+```
 
 ![](../../images/60\_pimp\_prompt\_result.png)
 
 ### Bash completion
 
-As user “admin”, install bash completion scripts for Bitcoin Core and all Lightning projects. You then can complete partial commands by pressing the Tab key (e.g. bitcoin-cli getblockch \[Tab] → bitcoin-cli getblockchaininfo )
+* As user `admin`, install bash completion scripts for Bitcoin Core and all Lightning projects. You then can complete partial commands by pressing the Tab key (e.g. bitcoin-cli getblockch \[Tab] → bitcoin-cli getblockchaininfo )
 
 ```bash
 $ cd /tmp/

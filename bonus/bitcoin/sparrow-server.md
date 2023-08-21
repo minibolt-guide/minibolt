@@ -32,16 +32,18 @@ Difficulty: Medium
 
 #### Download Sparrow Server
 
-*   Login as `admin` and change to a temporary directory which is cleared on reboot
+* Login as `admin` and change to a temporary directory which is cleared on reboot
 
-    ```sh
-    $ cd /tmp
-    ```
-*   Set a temporary version environment variable to the installation
+```sh
+$ cd /tmp
+```
 
-    ```sh
-    $ VERSION=1.7.8
-    ```
+* Set a temporary version environment variable to the installation
+
+```sh
+$ VERSION=1.7.8
+```
+
 * Download the application, checksums, and signature
 
 {% code overflow="wrap" %}
@@ -62,16 +64,17 @@ $ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparr
 ```
 {% endcode %}
 
-*   Import keys that signed the release
+* Import keys that signed the release
 
-    ```sh
-    $ curl https://keybase.io/craigraw/pgp_keys.asc | gpg --import
-    ```
-*   Verify the release
+```sh
+$ curl https://keybase.io/craigraw/pgp_keys.asc | gpg --import
+```
 
-    ```sh
-    $ gpg --verify sparrow-$VERSION-manifest.txt.asc
-    ```
+* Verify the release
+
+```sh
+$ gpg --verify sparrow-$VERSION-manifest.txt.asc
+```
 
 **Example** of expected output:
 
@@ -95,36 +98,39 @@ Expected output:
 > sparrow-server-$VERSION-x86_64.tar.gz: OK
 ```
 
-*   If everything is correct, unpack Sparrow
+* If everything is correct, unpack Sparrow
 
-    ```sh
-    $ tar -xvf sparrow-server-$VERSION-x86_64.tar.gz
-    ```
-*   Move data files to the home `admin` user
+```sh
+$ tar -xvf sparrow-server-$VERSION-x86_64.tar.gz
+```
 
-    ```sh
-    $ sudo cp -r Sparrow /home/admin/
-    ```
-*   Clean the remaining installation files from the `tmp` folder to avoid problems for the next update
+* Move data files to the home `admin` user
 
-    ```sh
-    $ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
-    ```
+```sh
+$ sudo cp -r Sparrow /home/admin/
+```
+
+* Clean the remaining installation files from the `tmp` folder to avoid problems for the next update
+
+```sh
+$ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
+```
 
 {% hint style="info" %}
 If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command and skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run-sparrow) section to start Sparrow server again with the new version
 {% endhint %}
 
-*   Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH
+* Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH
 
-    ```sh
-    $ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
-    ```
-*   Check the correct installation by reclaiming the version output
+```sh
+$ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
+```
 
-    ```sh
-    $ Sparrow --version
-    ```
+* Check the correct installation by reclaiming the version output
+
+```sh
+$ Sparrow --version
+```
 
 **Example** of expected output:
 
@@ -134,11 +140,11 @@ If you come to update this is the final step, check the correct update by enteri
 
 ### Run Sparrow
 
-*   You can run Sparrow with the following command
+* You can run Sparrow with the following command
 
-    ```sh
-    $ Sparrow
-    ```
+```sh
+$ Sparrow
+```
 
 ![](../../images/sparrow-server.png)
 
@@ -150,23 +156,25 @@ Sparrow Server doesn't work on MobaXterm with X11-Forwarding enabled in the SSH 
 
 #### Connect Sparrow to your backend (optional)
 
-*   Open Sparrow Wallet
+* Open Sparrow Wallet
 
-    ```sh
-    $ Sparrow
-    ```
+```sh
+$ Sparrow
+```
+
 * Go to `Preferences > Server > Private Electrum > Continue`
-*   Set values according to your Electrum Server protocol implementation and test connection
+* Set values according to your Electrum Server protocol implementation and test connection
 
-    ```
-    # For Fulcrum (TCP)
-    URL: 127.0.0.1:50001
-    Use SSL?: No
+```
+# For Fulcrum (TCP)
+URL: 127.0.0.1:50001
+Use SSL?: No
 
-    # For Fulcrum (SSL)
-    URL: 127.0.0.1:50002
-    Use SSL?: Yes
-    ```
+# For Fulcrum (SSL)
+URL: 127.0.0.1:50002
+Use SSL?: Yes
+```
+
 * You are now connected to your own Electrum Server
 
 ![](../../images/sparrow-server-terminal.png)
@@ -175,16 +183,18 @@ Sparrow Server doesn't work on MobaXterm with X11-Forwarding enabled in the SSH 
 
 #### Launch Sparrow using tmux
 
-*   Start a new tmux session called "Sparrow"
+* Start a new tmux session called "Sparrow"
 
-    ```sh
-    $ tmux new -s sparrowserver
-    ```
-*   Launch Sparrow Terminal
+```sh
+$ tmux new -s sparrowserver
+```
 
-    ```sh
-    $ Sparrow
-    ```
+* Launch Sparrow Terminal
+
+```sh
+$ Sparrow
+```
+
 * Connect Sparrow Terminal to your own Electrum Server implementation according to the steps above if not already done
 
 #### Create/import wallet
@@ -208,26 +218,29 @@ Sparrow Server doesn't work on MobaXterm with X11-Forwarding enabled in the SSH 
 #### Detaching a session
 
 * Detach tmux session to run ST in the background
-  1. Press `Ctrl + b` once
-  2. Press `d` once
+
+1. Press `Ctrl + b` once
+2. Press `d` once
 
 Closing or logging out from your node without detaching would cause mixing to stop. ST now runs as a separate process regardless of your disconnecting from the node
 
-*   You can view tmux sessions using the following command
+* You can view tmux sessions using the following command
 
-    ```sh
-    $ tmux ls
-    ```
-*   You can get back in sessions using
+```sh
+$ tmux ls
+```
 
-    ```sh
-    $ tmux a
-    ```
-*   Or use this if you have other sessions opened
+* You can get back in sessions using
 
-    ```sh
-    $ tmux a -t sparrowserver
-    ```
+```sh
+$ tmux a
+```
+
+* Or use this if you have other sessions opened
+
+```sh
+$ tmux a -t sparrowserver
+```
 
 ### For the Future: Sparrow Server update
 

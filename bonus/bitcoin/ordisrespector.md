@@ -60,16 +60,18 @@ You enter commands and the PC answers by printing the results below your command
 {% endhint %}
 
 * Login as `admin` user (for a MiniBolt environment), or your assigned user with `sudo` permissions
-*   Update and upgrade your OS
+* Update and upgrade your OS
 
-    ```sh
-    $ sudo apt update && sudo apt full-upgrade
-    ```
-*   Set the next environment variable
+```sh
+$ sudo apt update && sudo apt full-upgrade
+```
 
-    ```sh
-    $ VERSION=25.0
-    ```
+* Set the next environment variable
+
+```sh
+$ VERSION=25.0
+```
+
 * Install the next dependencies packages
 
 {% code overflow="wrap" %}
@@ -80,39 +82,41 @@ $ sudo apt-get install autoconf automake build-essential libboost-filesystem-dev
 
 ## Installation
 
-*   Change to the temporary directory which is cleared on reboot
+* Change to the temporary directory which is cleared on reboot
 
-    ```sh
-    $ cd /tmp
-    ```
-*   Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
+```sh
+$ cd /tmp
+```
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION.tar.gz
-    ```
+* Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
-    ```
+```sh
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION.tar.gz
+```
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
-    ```
+```sh
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
+```
+
+```sh
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
+```
 
 {% hint style="info" %}
 If you already had Bitcoin Core installed and OTS client with the IBD completed, you could do the timestamp check verification
 {% endhint %}
 
-*   Download the timestamp file
+* Download the timestamp file
 
-    ```sh
-    $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
-    ```
-*   Execute the OTS verification command
+```sh
+$ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
+```
 
-    ```sh
-    $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
-    ```
+* Execute the OTS verification command
+
+```sh
+$ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
+```
 
 The following output is just an **example** of one of the versions:
 
@@ -128,11 +132,11 @@ Now, just check that the timestamp date is close to the [release](https://github
 
 ### **Checksum check**
 
-*   Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
+* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
 
-    ```sh
-    $ sha256sum --ignore-missing --check SHA256SUMS
-    ```
+```sh
+$ sha256sum --ignore-missing --check SHA256SUMS
+```
 
 Expected output:
 
@@ -180,11 +184,11 @@ Expected output:
 [...]
 ```
 
-*   If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
+* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
 
-    ```sh
-    $ tar -xvf bitcoin-$VERSION.tar.gz
-    ```
+```sh
+$ tar -xvf bitcoin-$VERSION.tar.gz
+```
 
 ### **Build it from the source code**
 
@@ -210,11 +214,12 @@ $ ./bdb.sh bitcoin-$VERSION
 $ cd bitcoin-$VERSION
 ```
 
-*   Execute the next command
+* Execute the next command
 
-    ```sh
-    $ ./autogen.sh
-    ```
+```sh
+$ ./autogen.sh
+```
+
 *   The next command will pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
     ```sh
@@ -232,7 +237,7 @@ $ cd bitcoin-$VERSION
       --with-utils=yes
     ```
 
-### **Apply the patch "Ordisrespector"**
+### **Apply the "Ordisrespector" patch**
 
 {% hint style="info" %}
 Skip this step if you want only to build Bitcoin Core from the source code but not apply the Ordisrespector patch
@@ -246,24 +251,25 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 ```
 {% endcode %}
 
-*   Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
+* Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
 
-    ```sh
-    $ nano ordisrespector.patch
-    ```
-*   Apply the patch
+```sh
+$ nano ordisrespector.patch
+```
 
-    ```sh
-    $ git apply ordisrespector.patch
-    ```
+* Apply the patch
+
+```sh
+$ git apply ordisrespector.patch
+```
 
 ### **Build**
 
-*   Enter the command to compile
+* Enter the command to compile
 
-    ```sh
-    $ make -j$(nproc)
-    ```
+```sh
+$ make -j$(nproc)
+```
 
 {% hint style="info" %}
 This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
@@ -271,16 +277,17 @@ This process can take quite a long time, 10-15 minutes or more, depending on the
 
 ### **Install**
 
-*   Enter the next command to install the new binaries precompiled for yourself on the OS
+* Enter the next command to install the new binaries precompiled for yourself on the OS
 
-    ```sh
-    $ sudo make install
-    ```
-*   Check the correct installation requesting the output of the version
+```sh
+$ sudo make install
+```
 
-    ```sh
-    $ bitcoind --version
-    ```
+* Check the correct installation requesting the output of the version
+
+```sh
+$ bitcoind --version
+```
 
 The following output is just an **example** of one of the versions:
 
@@ -294,16 +301,17 @@ The following output is just an **example** of one of the versions:
 Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../index-2/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps.
 {% endhint %}
 
-*   Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
+* Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
 
-    ```sh
-    $ sudo systemctl restart bitcoind
-    ```
-*   Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+```sh
+$ sudo systemctl restart bitcoind
+```
 
-    ```sh
-    $ sudo journalctl -f -u bitcoind
-    ```
+* Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+
+```sh
+$ sudo journalctl -f -u bitcoind
+```
 
 ### **How to detect Ordinals transactions**
 
@@ -361,11 +369,11 @@ The before information indicates that the filter is working properly
 
 Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/Nodo-Bitcoin-Barcelona-b275aaed964149a3ae2c9b1d16d6b78f) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
 
-*   Edit and add on `"bitcoin.conf"` file the next line/s at the end of the file
+* Edit and add on `"bitcoin.conf"` file the next line/s at the end of the file
 
-    ```sh
-    $ sudo nano /data/bitcoin/bitcoin.conf
-    ```
+```sh
+$ sudo nano /data/bitcoin/bitcoin.conf
+```
 
 If you have enabled the Tor network
 

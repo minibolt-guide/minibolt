@@ -46,57 +46,58 @@ Log in to your MiniBolt via SSH as user `admin` and install Tor.
 $ sudo apt update && sudo apt full-upgrade
 ```
 
-*   Install dependency
+* Install dependency
 
-    ```sh
-    $ sudo apt install apt-transport-https
-    ```
-*   Create a new file called `tor.list`
+```sh
+$ sudo apt install apt-transport-https
+```
 
-    ```sh
-    $ sudo nano /etc/apt/sources.list.d/tor.list
-    ```
-*   Add the following entries. Save and exit
+* Create a new file called `tor.list`
 
-    ```
-    deb     [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
-    deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
-    ```
-*   Then up to `"root"` user temporarily adds the gpg key used to sign the packages by running the following command at your command prompt
+```sh
+$ sudo nano /etc/apt/sources.list.d/tor.list
+```
 
-    ```sh
-    $ sudo su
-    ```
+* Add the following entries. Save and exit
 
+```
+deb     [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
+deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
+```
 
+* Then up to `"root"` user temporarily adds the gpg key used to sign the packages by running the following command at your command prompt
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
-    ```
-    {% endcode %}
+```sh
+$ sudo su
+```
+
+{% code overflow="wrap" %}
+```sh
+$ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
+```
+{% endcode %}
+
 * Return to `admin` using `exit` command
 
 ```bash
 $ exit
 ```
 
-*   Install tor and tor Debian keyring
+* Install Tor and Tor Debian keyring
 
-    ```sh
-    $ sudo apt update
-    ```
+```sh
+$ sudo apt update
+```
 
+```sh
+$ sudo apt install tor deb.torproject.org-keyring
+```
 
+* Check Tor has been correctly installed
 
-    ```sh
-    $ sudo apt install tor deb.torproject.org-keyring
-    ```
-*   Check Tor has been correctly installed
-
-    ```sh
-    $ tor --version
-    ```
+```sh
+$ tor --version
+```
 
 **Example** of expected output:
 
@@ -113,34 +114,34 @@ Please note that the before version number might change in your case, this is ju
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network. We need to enable Tor to accept instructions through its control port, with the proper authentication.
 
-*   Modify the Tor configuration by uncommenting (removing the `#`) or adding the following lines. Save and exit
+* Modify the Tor configuration by uncommenting (removing the `#`) or adding the following lines. Save and exit
 
-    ```sh
-    $ sudo nano /etc/tor/torrc --linenumbers
-    ```
+```sh
+$ sudo nano /etc/tor/torrc --linenumbers
+```
 
+```
+# uncomment line 56:
+ControlPort 9051
 
+# uncomment line 60
+CookieAuthentication 1
 
-    ```
-    # uncomment line 56:
-    ControlPort 9051
+# add under line 60:
+CookieAuthFileGroupReadable 1
+```
 
-    # uncomment line 60
-    CookieAuthentication 1
+* Reload the Tor configuration to activate the modifications
 
-    # add under line 60:
-    CookieAuthFileGroupReadable 1
-    ```
-*   Reload the Tor configuration to activate the modifications
+```sh
+$ sudo systemctl restart tor
+```
 
-    ```sh
-    $ sudo systemctl restart tor
-    ```
-*   Ensure that the Tor service is working and listening at the default ports `9050` and `9051`
+* Ensure that the Tor service is working and listening at the default ports `9050` and `9051`
 
-    ```sh
-    $ sudo ss -tulpn | grep LISTEN | grep tor
-    ```
+```sh
+$ sudo ss -tulpn | grep LISTEN | grep tor
+```
 
 <details>
 
@@ -153,11 +154,11 @@ tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795
 
 </details>
 
-*   Check the systemd journal to see Tor in real time updates output logs
+* Check the systemd journal to see Tor in real time updates output logs
 
-    ```sh
-    $ sudo journalctl -f -u tor@default
-    ```
+```sh
+$ sudo journalctl -f -u tor@default
+```
 
 <details>
 
@@ -201,27 +202,27 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
 #### **I2P installation**
 
-*   Ensure that you are logged in with user "admin" and add the i2pd repository
+* Ensure that you are logged in with the user `admin` and add the i2pd repository
 
-    ```sh
-    $ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
-    ```
-*   Install i2pd as any other software package
+```sh
+$ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
+```
 
-    ```sh
-    $ sudo apt update
-    ```
+* Install i2pd as any other software package
 
+```sh
+$ sudo apt update
+```
 
+```sh
+$ sudo apt install i2pd
+```
 
-    ```sh
-    $ sudo apt install i2pd
-    ```
-*   Check i2pd has been correctly installed
+* Check i2pd has been correctly installed
 
-    ```sh
-    $ i2pd --version
-    ```
+```sh
+$ i2pd --version
+```
 
 **Example** of expected output:
 
@@ -229,11 +230,11 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 </strong>[...]
 </code></pre>
 
-*   Ensure that the i2pd service is working and listening at the default ports
+* Ensure that the i2pd service is working and listening at the default ports
 
-    ```sh
-    $ sudo ss -tulpn | grep LISTEN | grep i2pd
-    ```
+```sh
+$ sudo ss -tulpn | grep LISTEN | grep i2pd
+```
 
 <details>
 
@@ -250,11 +251,11 @@ tcp   LISTEN 0      4096       127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",
 
 </details>
 
-*   See “i2p” in action by monitoring its log file. Exit with Ctrl-C
+* See “i2p” in action by monitoring its log file. Exit with Ctrl-C
 
-    ```sh
-    $ sudo tail -f /var/log/i2pd/i2pd.log
-    ```
+```sh
+$ sudo tail -f /var/log/i2pd/i2pd.log
+```
 
 <details>
 
@@ -321,17 +322,15 @@ HiddenServiceVersion 3
 HiddenServicePort 22 127.0.0.1:22
 ```
 
-*   Reload the Tor configuration and look up your Tor connection address
+* Reload the Tor configuration and look up your Tor connection address
 
-    ```sh
-    $ sudo systemctl reload tor
-    ```
+```sh
+$ sudo systemctl reload tor
+```
 
-
-
-    ```sh
-    $ sudo cat /var/lib/tor/hidden_service_sshd/hostname
-    ```
+```sh
+$ sudo cat /var/lib/tor/hidden_service_sshd/hostname
+```
 
 **Example** of expected output:
 
@@ -360,18 +359,19 @@ To enable Tor in the background follow the same instructions for the [preparatio
 
 📝 If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
 
-* **Linux**:
-  *   Use `torify` or `torsocks`, both work similarly; just use whatever you have available
+*   **Linux**:
 
-      ```sh
-      $ torify ssh admin@abcdefg..............xyz.onion
-      ```
+    * Use `torify` or `torsocks`, both work similarly; just use whatever you have available
+
+    ```sh
+    $ torify ssh admin@abcdefg..............xyz.onion
+    ```
 
 
 
-      ```sh
-      $ torsocks ssh admin@abcdefg..............xyz.onion
-      ```
+    ```sh
+    $ torsocks ssh admin@abcdefg..............xyz.onion
+    ```
 
 📝 When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER.
 
@@ -424,21 +424,23 @@ ssh HOSTNICKNAME
 
 If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...) is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
 
-*   Stop Tor
+* Stop Tor
 
-    ```sh
-    $ sudo systemctl stop tor
-    ```
-*   Delete the file called "state" in your Tor directory
+```sh
+$ sudo systemctl stop tor
+```
 
-    ```sh
-    $ sudo rm /var/lib/tor/state
-    ```
-*   Start Tor again
+* Delete the file called "state" in your Tor directory
 
-    ```sh
-    $ sudo systemctl start tor
-    ```
+```sh
+$ sudo rm /var/lib/tor/state
+```
+
+* Start Tor again
+
+```sh
+$ sudo systemctl start tor
+```
 
 If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to.&#x20;
 
@@ -456,9 +458,10 @@ If you see these output logs on Bitcoin Core, normally could be that I2P is fail
 
 If this happens, usually this fix only with restarting the i2pd service
 
-*   With user admin, restart the service
+* With user admin, restart the service
 
-    ```sh
-    $ sudo systemctl restart i2pd
-    ```
+```sh
+$ sudo systemctl restart i2pd
+```
+
 * Check again Bitcoin Core logs to ensure that the errors don't appear anymore

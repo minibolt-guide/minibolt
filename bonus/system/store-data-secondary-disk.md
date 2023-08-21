@@ -75,11 +75,11 @@ Attach the secondary disk to the MiniBolt node
 
 ### **Format secondary disk**
 
-*   List all block devices with additional information
+* List all block devices with additional information
 
-    ```sh
-    $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
-    ```
+```sh
+$ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+```
 
 **Example** of expected output without existing partitions:
 
@@ -102,13 +102,14 @@ Here we will see if the new disk has been detected by the system and what unit n
 
 ### **Delete the existing partition & create a new one**
 
-*   Type this command to use the `"fdisk"` utility and manage the secondary disk
+* Type this command to use the `"fdisk"` utility and manage the secondary disk
 
-    ```sh
-    $ sudo fdisk /dev/sdb
-    ```
-* Now we select the option wished pressing the option letter and enter.
-  * Press **`"n"`** to create a new partition and then enter. Press enter until the prompt show "**(Command (m for help))"** again.
+```sh
+$ sudo fdisk /dev/sdb
+```
+
+* Now we select the option wished pressing the option letter and enter
+  * Press **`"n"`** to create a new partition and then enter. Press enter until the prompt show "**(Command (m for help))"** again
 
 > **Case 1:** if you had existing partition/s, the prompt will show you **"All space for primary partitions is in use"**, you will need to type **`d`** and press enter until the prompt shows you **"Partition X has been deleted",** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
 
@@ -120,13 +121,13 @@ Here we will see if the new disk has been detected by the system and what unit n
 This will create a new partition called probably **`"sdb1"`**
 {% endhint %}
 
-*   Finally, format the new partition to `"Ext4"` and obtain the **UUID**
+* Finally, format the new partition to `"Ext4"` and obtain the **UUID**
 
-    ```sh
-    $ sudo mkfs.ext4 /dev/[NAME_P]
-    ```
+```sh
+$ sudo mkfs.ext4 /dev/[NAME_P]
+```
 
-**Example** of expected output
+**Example** of expected output:
 
 ```
 mke2fs 1.46.5 (30-Dec-2021)
@@ -144,11 +145,11 @@ Take note of your **UUID** e.g dafc3c67-c6e5-4eaa-8840-adaf604c85db and the part
 
 The secondary disk is then attached to the file system and becomes available as a regular folder (this is called “mounting”).
 
-*   List the block devices once more and copy the new partitions `UUID` into a text editor on your main machine
+* List the block devices once more and copy the new partitions `UUID` into a text editor on your main machine
 
-    ```sh
-    $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
-    ```
+```sh
+$ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+```
 
 **Example** of expected output:
 
@@ -158,36 +159,39 @@ The secondary disk is then attached to the file system and becomes available as 
 > └─sdb1                 3aab0952-3ed4-4652-b203-d994c4fdff20 ext4   931.5G
 ```
 
-*   Edit the `"fstab"` file and add the following as a new line **at the end**, replacing `<yourUUID>` with your own `UUID`
+* Edit the `"fstab"` file and add the following as a new line **at the end**, replacing `<yourUUID>` with your own `UUID`
 
-    ```sh
-    $ sudo nano /etc/fstab
-    ```
+```sh
+$ sudo nano /etc/fstab
+```
 
 ```
 UUID=<yourUUID> /data ext4 defaults 0 2
 ```
 
-*   Create the data directory as a mount point
+* Create the data directory as a mount point
 
-    ```sh
-    $ sudo mkdir /data
-    ```
-*   Assign as the owner to the `admin` user
+```sh
+$ sudo mkdir /data
+```
 
-    ```sh
-    $ sudo chown admin:admin /data
-    ```
-*   Mount all disks and check the file system
+* Assign as the owner to the `admin` user
 
-    ```sh
-    $ sudo mount -a
-    ```
-*   Is “/data” listed?
+```sh
+$ sudo chown admin:admin /data
+```
 
-    ```sh
-    $ df -h /data
-    ```
+* Mount all disks and check the file system
+
+```sh
+$ sudo mount -a
+```
+
+* Is “/data” listed?
+
+```sh
+$ df -h /data
+```
 
 **Example** expected output:
 
@@ -196,11 +200,11 @@ UUID=<yourUUID> /data ext4 defaults 0 2
 > /dev/sdb1       938G   77M  891G   1% /data
 ```
 
-*   Check measure the speed of your secondary drive with
+* Check measure the speed of your secondary drive with
 
-    ```sh
-    $ sudo hdparm -t --direct /dev/sdb
-    ```
+```sh
+$ sudo hdparm -t --direct /dev/sdb
+```
 
 {% hint style="success" %}
 If the measured speeds are more than 100 MB/s, you're good
