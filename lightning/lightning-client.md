@@ -848,9 +848,3 @@ $ lnd --version
 ```sh
 $ sudo systemctl restart lnd
 ```
-
-1. Symbolic link
-
-[^1]: Symbolic link
-
-[^2]: Symbolic link
