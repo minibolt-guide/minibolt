@@ -445,9 +445,3 @@ $ sudo dpkg -r cloudflared
 > Removing cloudflared (2023.7.2) ...
 > Processing triggers for man-db (2.10.2-1) ...
 ```
-
-1. \<UUID>
-
-[^1]: Is not needed to provide real information (phone number either)
-
-[^2]: Subdomain = "name" value of the CNAME registry in the DNS table
