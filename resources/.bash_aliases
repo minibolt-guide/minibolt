@@ -135,14 +135,14 @@ alias disableallmain='sudo systemctl disable bitcoind fulcrum btcrpcexplorer lnd
 # MAIN SERVICES LOGS #
 ######################
 
-alias torlogs='sudo journalctl -f -u tor@default'
+alias torlogs='journalctl -f -u tor@default'
 alias i2plogs='sudo tail -f /var/log/i2pd/i2pd.log'
-alias bitcoindlogs='sudo journalctl -f -u bitcoind.service'
-alias fulcrumlogs='sudo journalctl -f -u fulcrum'
-alias btcrpcexplorerlogs='sudo journalctl -f -u btcrpcexplorer'
-alias lndlogs='sudo journalctl -f -u lnd'
-alias thunderhublogs='sudo journalctl -f -u thunderhub'
-alias scbackuplogs='sudo journalctl -f -u scb-backup'
+alias bitcoindlogs='journalctl -f -u bitcoind.service'
+alias fulcrumlogs='journalctl -f -u fulcrum'
+alias btcrpcexplorerlogs='journalctl -f -u btcrpcexplorer'
+alias lndlogs='journalctl -f -u lnd'
+alias thunderhublogs='journalctl -f -u thunderhub'
+alias scbackuplogs='journalctl -f -u scb-backup'
 
 ##################
 #       LND      #
@@ -285,21 +285,21 @@ alias disableallbonus='sudo systemctl disable homer mempool circuitbreaker lnbit
 # BONUS SERVICES LOGS #
 #######################
 
-alias homerlogs='sudo journalctl -f -u homer'
-alias mempoollogs='sudo journalctl -f -u mempool'
-alias circuitbreakerlogs='sudo journalctl -f -u circuitbreaker'
-alias lnbitslogs='sudo journalctl -f -u lnbits'
-alias rtlogs='sudo journalctl -f -u rtl'
-alias litdlogs='sudo journalctl -f -u litd'
-alias clnlogs='sudo journalctl -f -u cln'
-alias electrslogs='sudo journalctl -f -u electrs'
-alias wireguardlogs='sudo journalctl -f -u wg-quick@wg0'
-alias nymrequesterlogs='sudo journalctl -f -u nym-network-requester'
-alias nymsocks5logs='sudo journalctl -f -u nym-socks5-client'
-alias nbxlogs='sudo journalctl -f -u nbxplorer'
-alias btcpaylogs='sudo journalctl -f -u btcpay'
-alias cloudflaredlogs='sudo journalctl -f -u cloudflared'
-alias nostrelaylogs='sudo journalctl -f -u nostr-relay'
+alias homerlogs='journalctl -f -u homer'
+alias mempoollogs='journalctl -f -u mempool'
+alias circuitbreakerlogs='journalctl -f -u circuitbreaker'
+alias lnbitslogs='journalctl -f -u lnbits'
+alias rtlogs='journalctl -f -u rtl'
+alias litdlogs='journalctl -f -u litd'
+alias clnlogs='journalctl -f -u cln'
+alias electrslogs='journalctl -f -u electrs'
+alias wireguardlogs='journalctl -f -u wg-quick@wg0'
+alias nymrequesterlogs='journalctl -f -u nym-network-requester'
+alias nymsocks5logs='journalctl -f -u nym-socks5-client'
+alias nbxlogs='journalctl -f -u nbxplorer'
+alias btcpaylogs='journalctl -f -u btcpay'
+alias cloudflaredlogs='journalctl -f -u cloudflared'
+alias nostrelaylogs='journalctl -f -u nostr-relay'
 
 #################
 #  LND TESTNET  #
