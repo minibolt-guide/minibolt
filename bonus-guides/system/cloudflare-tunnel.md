@@ -257,13 +257,13 @@ We will create a configuration file in your `.cloudflared` directory. This file 
 $ nano /home/admin/.cloudflared/config.yml
 ```
 
-* Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace "`btcpay`" or "`explorer`" with your own name (subdomain) chosen for the service, and "`<domain.com>`" with the domain you purchased previously
+* Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your own name (subdomain) chosen for the service, and `<domain.com>` with the domain, you purchased previously. Ensure to replace `<UUID>` with your obtained before
 
 <pre><code># MiniBolt: cloudflared configuration
 # /home/admin/.cloudflared/config.yml
 
-tunnel: 8666c35d-6ac3-4b39-9324-12ae32ce64a7
-credentials-file: /home/admin/.cloudflared/8666c35d-6ac3-4b39-9324-12ae32ce64a7.json
+tunnel: &#x3C;UUID>
+credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 
 ingress:
 
@@ -359,7 +359,7 @@ $ sudo systemctl enable cloudflared
 * Prepare `cloudflared` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u cloudflared
+$ journalctl -f -u cloudflared
 ```
 
 {% hint style="info" %}
@@ -368,7 +368,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Start Cloudflared and run the tunnel <a href="#6-run-the-tunnel" id="6-run-the-tunnel"></a>
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered). Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered). Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
 
 ```bash
 $2 sudo systemctl start cloudflared
@@ -376,7 +376,7 @@ $2 sudo systemctl start cloudflared
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u cloudflared</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u cloudflared</code> ⬇️</summary>
 
 ```
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Starting tunnel tunnelID=8666c35d-6ac3-4b39-9324-12ae32ce64a7
@@ -427,7 +427,7 @@ $ sudo systemctl start cloudflared
 ```
 
 {% hint style="info" %}
-Monitor logs with `$ journalctl -fu cloudflared` to ensure that all is still working well
+Monitor logs with **`$ journalctl -fu cloudflared`** to ensure that all is still working well
 {% endhint %}
 
 ## Uninstall

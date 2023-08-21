@@ -163,11 +163,11 @@ By OS:
 * **Windows**: download, install and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
   * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
-*   **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
+* **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
 
-    ```sh
-    $ sudo ss -tulpn | grep LISTEN | grep tor
-    ```
+```sh
+$ sudo ss -tulpn | grep LISTEN | grep tor
+```
 
 Expected output:
 
@@ -186,12 +186,12 @@ Expected output:
 * Click on the "Private Electrum" tab. If you already have an existing clearnet connection, click on "Edit Existing Connection".
 * Enable the Tor proxy by clicking on the "Use proxy" slider
 * On the "Proxy URL" line, paste `127.0.0.1` in the first box and either `9150` or `9050` in the second box depending if you run the Tor Browser or Tor as a background service.
-*   Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
+* Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output
 
-    ```
-    > Connected to Fulcrum x.x.x on protocol version ...
-    > [...]
-    ```
+```
+> Connected to Fulcrum x.x.x on protocol version ...
+> [...]
+```
 
 ![](../images/sparrow-tor-proxy.png)
 

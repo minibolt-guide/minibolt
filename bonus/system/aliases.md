@@ -53,26 +53,27 @@ If you want, inspect the list of aliases to make sure it does not do bad things,
 $ nano .bash_aliases
 ```
 
-*   Execute a `source` command to register changes of the `.bash_aliases` file in the `.bashrc` file
+* Execute a `source` command to register changes of the `.bash_aliases` file in the `.bashrc` file
 
-    ```sh
-    $ source /home/admin/.bashrc
-    ```
+```sh
+$ source /home/admin/.bashrc
+```
 
 ## Aliases in action
 
-*   Simply type "alias" to display all available aliases
+* Simply type "alias" to display all available aliases
 
-    ```sh
-    [...]
-    alias enableallmain='sudo systemctl enable bitcoind electrs btcrpcexplorer lnd rtl scb-backup'
-    alias enablebitcoind='sudo systemctl enable bitcoind'
-    alias enablebtcrpcexplorer='sudo systemctl enable btcrpcexplorer'
-    alias enablecircuitbreaker='sudo systemctl enable circuitbreaker'
-    alias enablecln='sudo systemctl enable cln'
-    alias enablefulcrum='sudo systemctl enable fulcrum'
-    [...]
-    ```
+```sh
+[...]
+alias enableallmain='sudo systemctl enable bitcoind electrs btcrpcexplorer lnd rtl scb-backup'
+alias enablebitcoind='sudo systemctl enable bitcoind'
+alias enablebtcrpcexplorer='sudo systemctl enable btcrpcexplorer'
+alias enablecircuitbreaker='sudo systemctl enable circuitbreaker'
+alias enablecln='sudo systemctl enable cln'
+alias enablefulcrum='sudo systemctl enable fulcrum'
+[...]
+```
+
 * Test some of the aliases to see if it has been installed properly
 
 ```sh
@@ -109,13 +110,14 @@ You can see if the aliases have a recent update by entering [here](https://githu
 
 ## Uninstall
 
-*   To remove these special aliases, with the user "admin", simply delete the `.bash_aliases` and execute a source command to register changes. The aliases will be gone with the next login.
+* To remove these special aliases, with the user `admin`, simply delete the `.bash_aliases` and execute a source command to register changes. The aliases will be gone with the next login
 
-    ```sh
-    $ rm ~/.bash_aliases
-    ```
-*   Execute a source command to register changes to the .bashrc file:
+```sh
+$ rm ~/.bash_aliases
+```
 
-    ```sh
-    $ source /home/admin/.bashrc
-    ```
+* Execute a source command to register changes to the .bashrc file
+
+```sh
+$ source /home/admin/.bashrc
+```

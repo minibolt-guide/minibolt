@@ -49,11 +49,11 @@ The guide will show you how to:
 
 ### Configure Firewall
 
-*   Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
+* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
 
-    ```sh
-    $ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
-    ```
+```sh
+$ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
+```
 
 ### Obtain your Bitcoin Core `onion` address
 
@@ -61,6 +61,11 @@ Still with user admin, run the following command and make a copy of the .onion a
 
 ```sh
 $ bitcoin-cli getnetworkinfo | grep address.*onion
+```
+
+**Example** of expected output:
+
+```
 > "address": "123...abc.onion:8333"
 ```
 
@@ -92,16 +97,18 @@ $ /opt/bisq/bin/Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
 **For MacOS:**
 
 * Open a command line terminal, we will start Bisq with two flags that will force it to connect to our own node only
-*   From the local network connection, replace `192.168.X.X:8333` with your own node IP address
+* From the local network connection, replace `192.168.X.X:8333` with your own node IP address
 
-    ```sh
-    $ Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
-    ```
-*   From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above
+```sh
+$ Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
+```
 
-    ```sh
-    $ Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
-    ```
+* From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above
+
+```sh
+$ Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
+```
+
 * Wait a few minutes until Bisq is up to date with the current state of the blockchain and go back to "Settings" > "Network info" to check that only your own node local IP address or onion address is listed in the first table
 * Check that the "Bitcoin network peers" counter at the bottom right of the window is equal to 1
 
@@ -173,22 +180,21 @@ Bisq will let you know when a new update is available. Simply follow the instruc
 
 ### Uninstall FW configuration
 
-*   Delete the firewall rules with the comment 'allow BTC Core from anywhere' identifying the number of the rule
+* Delete the firewall rules with the comment 'allow BTC Core from anywhere' identifying the number of the rule
 
-    ```sh
-    $ sudo ufw status numbered
-    ```
+```sh
+$ sudo ufw status numbered
+```
 
+```sh
+Status: active
+   To                      Action      From
+   --                      ------      ----
+[X] 8333                   ALLOW IN    Anywhere   # allow BTC Core from anywhere
+```
 
+* Delete the rule with the correct number and confirm with "yes"
 
-    ```sh
-    Status: active
-       To                      Action      From
-       --                      ------      ----
-    [X] 8333                   ALLOW IN    Anywhere   # allow BTC Core from anywhere
-    ```
-*   Delete the rule with the correct number and confirm with "yes"
-
-    ```sh
-    $ sudo ufw delete X
-    ```
+```sh
+$ sudo ufw delete X
+```

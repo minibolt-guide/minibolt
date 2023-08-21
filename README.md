@@ -1,22 +1,14 @@
----
-description: >-
-  Build your own “DIY” Bitcoin & Lightning full node on a personal computer. No
-  need to trust anyone else.
----
+# Home
 
-# MiniBolt
+## MiniBolt
 
 ![GitHub forks](https://img.shields.io/github/forks/minibolt-guide/minibolt) ![GitHub Org's stars](https://img.shields.io/github/stars/minibolt-guide) [![](https://img.shields.io/github/license/minibolt-guide/minibolt?color=blue)](LICENSE/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/minibolt-guide/minibolt?label=latest%20release)](https://github.com/minibolt-guide/minibolt/releases) ![GitHub contributors](https://img.shields.io/github/contributors/minibolt-guide/minibolt) ![GitHub followers](https://img.shields.io/github/followers/minibolt-guide) [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/minibolt?style=social)](https://www.reddit.com/r/minibolt/)
 
 <figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
 
-
-
 Build your own "do-everything-yourself" Bitcoin full node on a personal computer, that will make you a sovereign peer in the Bitcoin and Lightning network.
 
 No need to trust anyone else. Don't trust, verify!
-
-
 
 ### What is the MiniBolt?
 

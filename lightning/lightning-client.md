@@ -33,22 +33,25 @@ The installation of LND is straightforward, but the application is quite powerfu
 
 Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
-*   Login as user `admin`, edit the `bitcoin.conf` file, and add the following lines. Save and exit
+* Login as user `admin`, edit the `bitcoin.conf` file, and add the following lines. Save and exit
 
-    ```sh
-    $ sudo nano /data/bitcoin/bitcoin.conf
-    ```
-
-    ```
-    # LND RPC connection
-    zmqpubrawblock=tcp://127.0.0.1:28332
-    zmqpubrawtx=tcp://127.0.0.1:28333
-    ```
 *   Restart Bitcoin Core to apply changes
 
-    ```sh
-    $ sudo systemctl restart bitcoind
-    ```
+```sh
+$ sudo nano /data/bitcoin/bitcoin.conf
+```
+
+```
+# LND RPC connection
+zmqpubrawblock=tcp://127.0.0.1:28332
+zmqpubrawtx=tcp://127.0.0.1:28333
+```
+
+* Restart Bitcoin Core to apply changes
+
+```sh
+$ sudo systemctl restart bitcoind
+```
 
 ## Installation
 
@@ -56,23 +59,25 @@ Before running LND, we need to set up settings in the Bitcoin Core configuration
 
 We'll download, verify and install LND.
 
-*   Navigate to the temporary directory which is cleared on reboot
+* Navigate to the temporary directory which is cleared on reboot
 
-    ```sh
-    $ cd /tmp
-    ```
-*   Set a temporary version environment variable to the installation
+```sh
+$ cd /tmp
+```
 
-    ```sh
-    $ VERSION=0.16.4
-    ```
-*   Download the application, checksums and signature
+* Set a temporary version environment variable to the installation
 
-    {% code overflow="wrap" %}
-    ```sh
-    $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/lnd-linux-amd64-v$VERSION-beta.tar.gz
-    ```
-    {% endcode %}
+```sh
+$ VERSION=0.16.4
+```
+
+* Download the application, checksums, and signature
+
+{% code overflow="wrap" %}
+```sh
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/lnd-linux-amd64-v$VERSION-beta.tar.gz
+```
+{% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
@@ -94,11 +99,11 @@ $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/
 
 ### **Checksum check**
 
-*   Verify the signed checksum against the actual checksum of your download
+* Verify the signed checksum against the actual checksum of your download
 
-    ```sh
-    $ sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
-    ```
+```sh
+$ sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
+```
 
 **Example** of expected output:
 
@@ -128,11 +133,11 @@ $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/key
 ```
 {% endcode %}
 
-*   Verify the signature of the text file containing the checksums for the application
+* Verify the signature of the text file containing the checksums for the application
 
-    ```sh
-    $ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
-    ```
+```sh
+$ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
+```
 
 Expected output:
 
@@ -203,43 +208,48 @@ If you come to update this is the final step
 
 Now that LND is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
 
-*   Create the **`lnd`** service user, and add it to the groups "bitcoin" and "debian-tor"
+* Create the **`lnd`** service user, and add it to the groups "bitcoin" and "debian-tor"
 
-    ```sh
-    $ sudo adduser --disabled-password --gecos "" lnd
-    ```
+```sh
+$ sudo adduser --disabled-password --gecos "" lnd
+```
 
-    ```sh
-    $ sudo usermod -a -G bitcoin,debian-tor lnd
-    ```
-*   Add the user `admin` to the group "lnd"
+```sh
+$ sudo usermod -a -G bitcoin,debian-tor lnd
+```
 
-    ```sh
-    $ sudo adduser admin lnd
-    ```
-*   Create the LND data directory
+* Add the user `admin` to the group "lnd"
 
-    ```sh
-    $ sudo mkdir /data/lnd
-    ```
+```sh
+$ sudo adduser admin lnd
+```
 
-    ```sh
-    $ sudo chown -R lnd:lnd /data/lnd
-    ```
-*   Open a `lnd` user session
+* Create the LND data directory
 
-    ```sh
-    $ sudo su - lnd
-    ```
-*   Create symbolic links pointing to the LND and bitcoin data directories
+```sh
+$ sudo mkdir /data/lnd
+```
 
-    ```sh
-    $ ln -s /data/lnd /home/lnd/.lnd
-    ```
+```sh
+$ sudo chown -R lnd:lnd /data/lnd
+```
 
-    ```sh
-    $ ln -s /data/bitcoin /home/lnd/.bitcoin
-    ```
+* Open a `lnd` user session
+
+```sh
+$ sudo su - lnd
+```
+
+* Create symbolic links pointing to the LND and bitcoin data directories
+
+```sh
+$ ln -s /data/lnd /home/lnd/.lnd
+```
+
+```sh
+$ ln -s /data/bitcoin /home/lnd/.bitcoin
+```
+
 * Check symbolic links have been created correctly
 
 ```bash
@@ -264,16 +274,17 @@ LND includes a Bitcoin wallet that manages your on-chain and Lightning coins. It
 
 For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically. This is not the most secure setup, but you can improve it later if you want, with the bonus guides linked below. To give some perspective: other Lightning implementations like c-lightning or Eclair don't even have a password.
 
-*   Still as user `lnd`, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
+* Still as user `lnd`, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
 
-    ```sh
-    $ nano /data/lnd/password.txt
-    ```
-*   Tighten access privileges and make the file readable only for user `lnd`
+```sh
+$ nano /data/lnd/password.txt
+```
 
-    ```sh
-    $ chmod 600 /data/lnd/password.txt
-    ```
+* Tighten access privileges and make the file readable only for user `lnd`
+
+```sh
+$ chmod 600 /data/lnd/password.txt
+```
 
 ## Configuration
 
@@ -367,63 +378,65 @@ tor.streamisolation=true
 This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf) with all possible options
 {% endhint %}
 
-*   Exit of the `lnd` user session to return to the **"admin"** user session
+* Exit of the `lnd` user session to return to the **admin** user session
 
-    ```sh
-    $ exit
-    ```
+```sh
+$ exit
+```
 
 ## Create systemd service
 
 Now, let's set up LND to start automatically on system startup.
 
-*   As user `admin`, create LND systemd unit with the following content. Save and exit.
+* As user `admin`, create LND systemd unit with the following content. Save and exit
 
-    ```sh
-    $ sudo nano /etc/systemd/system/lnd.service
-    ```
+```sh
+$ sudo nano /etc/systemd/system/lnd.service
+```
 
-    ```
-    # MiniBolt: systemd unit for lnd
-    # /etc/systemd/system/lnd.service
+```
+# MiniBolt: systemd unit for lnd
+# /etc/systemd/system/lnd.service
 
-    [Unit]
-    Description=LND
-    Wants=bitcoind.service
-    After=bitcoind.service
+[Unit]
+Description=LND
+Wants=bitcoind.service
+After=bitcoind.service
 
-    [Service]
-    ExecStart=/usr/local/bin/lnd
-    ExecStop=/usr/local/bin/lncli stop
-    Type=simple
-    TimeoutSec=240
-    LimitNOFILE=128000
-    User=lnd
-    RuntimeDirectory=lightningd
-    RuntimeDirectoryMode=0710
-    PrivateTmp=true
-    ProtectSystem=full
-    NoNewPrivileges=true
-    PrivateDevices=true
-    MemoryDenyWriteExecute=true
+[Service]
+ExecStart=/usr/local/bin/lnd
+ExecStop=/usr/local/bin/lncli stop
+Type=simple
+TimeoutSec=240
+LimitNOFILE=128000
+User=lnd
+RuntimeDirectory=lightningd
+RuntimeDirectoryMode=0710
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
 
-    [Install]
-    WantedBy=multi-user.target
-    ```
-*   Enable autoboot **(optional)**
+[Install]
+WantedBy=multi-user.target
+```
 
-    ```sh
-    $ sudo systemctl enable lnd
-    ```
-*   Now, the daemon information is no longer displayed on the command line but is written into the system journal. You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
+* Enable autoboot **(optional)**
 
-    ```sh
-    $ sudo journalctl -f -u lnd
-    ```
+```sh
+$ sudo systemctl enable lnd
+```
+
+* Now, the daemon information is no longer displayed on the command line but is written into the system journal. You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
+
+```sh
+$ journalctl -f -u lnd
+```
 
 ## Run LND
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start LND
 
@@ -433,7 +446,7 @@ $2 sudo systemctl start lnd
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u lnd</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u lnd</code> ⬇️</summary>
 
 ```
 > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
@@ -454,17 +467,19 @@ $2 sudo systemctl start lnd
 
 Once LND is started, the process waits for us to create the integrated Bitcoin onchain wallet.
 
-*   Change to the `lnd` user
+* Change to the `lnd` user
 
-    ```sh
-    $2 sudo su - lnd
-    ```
-*   Create the LND wallet
+```sh
+$2 sudo su - lnd
+```
 
-    ```sh
-    $2 lncli create
-    ```
-* Enter your `password [C]` as wallet password (it must be exactly the same one you stored in `password.txt`). To create a new wallet, select `n` when asked if you have an existing cipher seed. Just press enter if asked about an additional seed passphrase unless you know what you're doing. A new cipher seed consisting of 24 words is created.
+* Create the LND wallet
+
+```sh
+$2 lncli create
+```
+
+* Enter your `password [C]` as wallet password (it must be exactly the same one you stored in `password.txt`). To create a new wallet, select `n` when asked if you have an existing cipher seed. Just press enter if asked about an additional seed passphrase unless you know what you're doing. A new cipher seed consisting of 24 words is created
 
 {% code fullWidth="false" %}
 ```
@@ -489,36 +504,37 @@ These 24 words are all that you need to restore the Bitcoin on-chain wallet.
 
 * **Write these 24 words down manually on a piece of paper and store it in a safe place**
 
-You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
+You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
 
 {% hint style="danger" %}
 This piece of paper is all an attacker needs to completely empty your on-chain wallet! 🚫 Do not store it on a computer. 🚫 Do not take a picture with your mobile phone. 🚫 **This information should never be stored anywhere in digital form**
 {% endhint %}
 
-The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. Exist a dedicated [guide](channel-backup.md) to automatic backup.
+The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. Exist a dedicated [guide](channel-backup.md) to automatic backup
 
 {% hint style="danger" %}
-This information must be kept secret at all times.
+This information must be kept secret at all times
 {% endhint %}
 
 ### **Allow user "admin" to work with LND**
 
 We interact with LND using the application `lncli`. At the moment, only the user "lnd" has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
-*   Type "exit" to return to the admin user
+* Type "exit" to return to the admin user
 
-    ```sh
-    $2 exit
-    ```
-*   As user `admin`, link the LND data directory in the user "admin" home. As a member of the group "lnd", the "admin" user has read-only access to certain files. We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
+```sh
+$2 exit
+```
 
-    ```sh
-    $2 ln -s /data/lnd /home/admin/.lnd
-    ```
+* As user `admin`, link the LND data directory in the user "admin" home. As a member of the group "lnd", the "admin" user has read-only access to certain files. We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
 
-    ```sh
-    $2 sudo chmod -R g+X /data/lnd/data/
-    ```
+```sh
+$2 ln -s /data/lnd /home/admin/.lnd
+```
+
+```sh
+$2 sudo chmod -R g+X /data/lnd/data/
+```
 
 {% code overflow="wrap" %}
 ```bash
@@ -526,11 +542,12 @@ $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 ```
 {% endcode %}
 
-*   Newly added links and permissions become active only in a new user session. Log out from SSH
+* Newly added links and permissions become active only in a new user session. Log out from SSH
 
-    ```sh
-    $2 exit
-    ```
+```sh
+$2 exit
+```
+
 * Log in as user **`admin`** again (`ssh admin@minibolt.local)`
 * Check symbolic link has been created correctly
 
@@ -568,11 +585,11 @@ drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
 
 </details>
 
-*   Check if you can use `lncli` by querying LND for information
+* Check if you can use `lncli` by querying LND for information
 
-    ```sh
-    $2 lncli getinfo
-    ```
+```sh
+$2 lncli getinfo
+```
 
 ## LND in action
 
@@ -606,11 +623,11 @@ $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde6
 ```
 {% endcode %}
 
-*   If you want to list your towers and active watchtowers
+* If you want to list your towers and active watchtowers
 
-    ```sh
-    $ lncli wtclient towers
-    ```
+```sh
+$ lncli wtclient towers
+```
 
 Expected output:
 
@@ -631,11 +648,11 @@ Expected output:
 }
 ```
 
-*   If you want to deactivate an active tower
+* If you want to deactivate an active tower
 
-    ```sh
-    $ lncli wtclient remove <pubkey>
-    ```
+```sh
+$ lncli wtclient remove <pubkey>
+```
 
 ### **Watchtower server**
 
@@ -670,11 +687,11 @@ Almost all of the following steps could be run with the [mobile](mobile-app.md) 
 
 ### **Funding your Lightning node**
 
-*   Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
+* Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
 
-    ```sh
-    $ lncli newaddress p2tr
-    ```
+```sh
+$ lncli newaddress p2tr
+```
 
 Expected output:
 
@@ -682,13 +699,13 @@ Expected output:
 > "address": "bc1p..."
 ```
 
-*   Check your LND wallet balance. (The output is only an example)
+* Check your LND wallet balance
 
-    ```sh
-    $ lncli walletbalance
-    ```
+```sh
+$ lncli walletbalance
+```
 
-Expected output:
+**Example** of expected output:
 
 ```
 {
@@ -717,7 +734,7 @@ To connect to a remote node, you need its URI that looks like `<pubkey>@host`:
 
 Just grab the whole URI above the big QR code and use it as follows (we will use the `⚡2FakTor⚡` node as an example):
 
-* **Connect** to the remote node, with the full URI.
+* **Connect** to the remote node, with the full URI
 
 {% code overflow="wrap" %}
 ```bash
@@ -767,21 +784,24 @@ $ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e
 
 A quick reference with special commands to play around with:
 
-*   Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
+* Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
-    ```sh
-    $ lncli payinvoice --amt <amount> <amp invoice>
-    ```
-*   Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
+```sh
+$ lncli payinvoice --amt <amount> <amp invoice>
+```
 
-    ```sh
-    $ lncli sendpayment --dest <destination public key> --amt <amount> --amp
-    ```
-*   Send payment to a node without an invoice using Keysend (both sender and receiver nodes have to have Keysend enabled)
+* Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
-    ```sh
-    $ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
-    ```
+```sh
+$ lncli sendpayment --dest <destination public key> --amt <amount> --amp
+```
+
+* Send payment to a node without an invoice using Keysend (both sender and receiver nodes have to have Keysend enabled)
+
+```sh
+$ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
+```
+
 * Create your own Re-Usable Static AMP invoice
 
 {% code overflow="wrap" %}
@@ -796,16 +816,17 @@ The default flags "--memo" "--amt" and "--expiry" are optional. The default expi
 
 Copy the output \[lnbc...] of the "payment\_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website, or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools.
 
-*   List all invoices
+* List all invoices
 
-    ```sh
-    $ lncli listinvoices
-    ```
-*   Close all channels in cooperative mode
+```sh
+$ lncli listinvoices
+```
 
-    ```sh
-    $ lncli closeallchannels --sat_per_byte <sat/byte>
-    ```
+* Close all channels in cooperative mode
+
+```sh
+$ lncli closeallchannels --sat_per_byte <sat/byte>
+```
 
 {% hint style="info" %}
 More: full [LND API reference](https://api.lightning.community/)
@@ -815,17 +836,18 @@ More: full [LND API reference](https://api.lightning.community/)
 
 Upgrading LND can lead to a number of issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases) completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
 
-*   Check your current LND version
+* Check your current LND version
 
-    ```sh
-    $ lnd --version
-    ```
+```sh
+$ lnd --version
+```
+
 * Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
-*   Restart LND to apply the new version
+* Restart LND to apply the new version
 
-    ```sh
-    $ sudo systemctl restart lnd
-    ```
+```sh
+$ sudo systemctl restart lnd
+```
 
 1. Symbolic link
 

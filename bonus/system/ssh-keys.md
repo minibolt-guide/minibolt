@@ -40,28 +40,30 @@ Difficulty: Medium
 
 ### **Generate SSH keys on Linux or macOS**
 
-*   In the terminal on your regular computer, first, check if the keys already exist
+* In the terminal on your regular computer, first, check if the keys already exist
 
-    ```sh
-    $ ls -la ~/.ssh/*.pub
-    ```
+```sh
+$ ls -la ~/.ssh/*.pub
+```
+
 * If files are listed, your public key should be named something like `id_rsa.pub`. If one of these files already exists, skip the next step
-*   If none of those files exist, or you get a "No such file or directory" error, create a new public/private key pair
+* If none of those files exist, or you get a "No such file or directory" error, create a new public/private key pair
 
-    ```sh
-    $ ssh-keygen -t rsa -b 2048
-    ```
+```sh
+$ ssh-keygen -t rsa -b 2048
+```
 
-    When you're prompted to "Enter a file in which to save the key", press Enter to use the default file location. Optionally, for maximum security, enter a key passphrase to protect your key, and use `password [A]`
+When you're prompted to "Enter a file in which to save the key", press Enter to use the default file location. Optionally, for maximum security, enter a key passphrase to protect your key, and use `password [A]`
+
 *   The public key now needs to be copied to the PC
 
     Use the command `ssh-copy-id`, which stores your public key on the remote machine (and creates files and directories, if needed). You will be prompted for your SSH login password once. If fails you can try `admin@192.168.x.xxx` instead
 
-    ```sh
-    $ ssh-copy-id admin@minibolt
-    ```
+```sh
+$ ssh-copy-id admin@minibolt
+```
 
-💡 If you are on macOS and encounter an error, you might need to install `ssh-copy-id` first by running the following command on your Mac's command line:
+💡 If you are on macOS and encounter an error, you might need to install `ssh-copy-id` first by running the following command on your Mac's command line
 
 ```sh
 $ brew install ssh-copy-id
@@ -77,16 +79,17 @@ $ brew install ssh-copy-id
 $ mkdir .ssh
 ```
 
-*   Limit permissions for reading, writing, and executing only to the user admin
+* Limit permissions for reading, writing, and executing only to the user admin
 
-    ```sh
-    $ chmod 700 .ssh
-    ```
-*   Create a file called "authorized\_keys" and paste the content information of the "minibolt\_SSH\_pubkey.txt" file generated in the [Windows step before](ssh-keys.md#generate-ssh-keys-on-windows)
+```sh
+$ chmod 700 .ssh
+```
 
-    ```sh
-    $ nano .ssh/authorized_keys
-    ```
+* Create a file called "authorized\_keys" and paste the content information of the "minibolt\_SSH\_pubkey.txt" file generated in the [Windows step before](ssh-keys.md#generate-ssh-keys-on-windows)
+
+```sh
+$ nano .ssh/authorized_keys
+```
 
 e.g:
 
@@ -94,30 +97,31 @@ e.g:
 ssh-rsa AAAAB3N........
 ```
 
-*   Limit permissions for reading and writing only to the user admin
+* Limit permissions for reading and writing only to the user admin
 
-    ```sh
-    $ chmod 600 authorized_keys
-    ```
+```sh
+$ chmod 600 authorized_keys
+```
 
 ### **From your regular Linux PC**
 
-* Login with "admin" user on MiniBolt and create a new folder at home called `".ssh"`. If already exists, skip the next step
+* Login with the user `admin`and create a new folder at home called `".ssh"`. If already exists, skip the next step
 
 ```sh
 $ mkdir .ssh
 ```
 
-*   Limit permissions for reading, writing, and executing only to the user admin
+* Limit permissions for reading, writing, and executing only to the user admin
 
-    ```sh
-    $ chmod 700 .ssh
-    ```
-*   Create a file called "authorized\_keys" on it and paste the content information of the "id\_rsa.pub" file generated in the [Linux or macOS step before](ssh-keys.md#generate-ssh-keys-on-linux-or-macos)
+```sh
+$ chmod 700 .ssh
+```
 
-    ```sh
-    $ nano .ssh/authorized_keys
-    ```
+* Create a file called "authorized\_keys" on it and paste the content information of the "id\_rsa.pub" file generated in the [Linux or macOS step before](ssh-keys.md#generate-ssh-keys-on-linux-or-macos)
+
+```sh
+$ nano .ssh/authorized_keys
+```
 
 e.g:
 
@@ -125,56 +129,61 @@ e.g:
 ssh-rsa AAAAB3N........
 ```
 
-*   Limit permissions for reading and writing only to the user admin
+* Limit permissions for reading and writing only to the user admin
 
-    ```sh
-    $ chmod 600 .ssh/authorized_keys
-    ```
+```sh
+$ chmod 600 .ssh/authorized_keys
+```
 
 ### **From GitHub keyserver**
 
 * On your regular computer, access to "GPG and SSH keys" section of your [GitHub account](https://github.com/settings/keys), if you don't have an account [create one](https://github.com/signup)
 * Click on the "new SSH key" button, type a title e.g SSH\_keys\_MiniBolt, select Key type "Authentication key", and paste on the "Key" section the SSH pub key generated in the preparations [section](ssh-keys.md#preparations) depending on the regular computer OS
-*   Login with the "admin" user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step
+* Login with the `admin` user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step
 
-    ```sh
-    $ mkdir .ssh
-    ```
-*   Limit permissions for reading, writing, and executing only to the user admin
+```sh
+$ mkdir .ssh
+```
 
-    ```sh
-    $ chmod 700 .ssh
-    ```
-*   Enter the ".ssh" folder
+* Limit permissions for reading, writing, and executing only to the user admin
 
-    ```sh
-    $ cd .ssh
-    ```
-*   Import your SSH GitHub keys replacing `<username>` with the GitHub username (that appears in your profile section)
+```sh
+$ chmod 700 .ssh
+```
 
-    ```sh
-    $ curl https://github.com/<username>.keys >> authorized_keys
-    ```
-*   Ensure that your SSH keys have been imported correctly in "authorized\_keys" file, and press `Ctrl-X` to exit
+* Enter the ".ssh" folder
 
-    ```sh
-    $ nano authorized_keys
-    ```
-*   Limit permissions for read and write only to the user admin
+```sh
+$ cd .ssh
+```
 
-    ```sh
-    $ chmod 600 authorized_keys
-    ```
+* Import your SSH GitHub keys replacing `<username>` with the GitHub username (that appears in your profile section)
+
+```sh
+$ curl https://github.com/<username>.keys >> authorized_keys
+```
+
+* Ensure that your SSH keys have been imported correctly in "authorized\_keys" file, and press `Ctrl-X` to exit
+
+```sh
+$ nano authorized_keys
+```
+
+* Limit permissions for read and write only to the user admin
+
+```sh
+$ chmod 600 authorized_keys
+```
 
 ## Connect to MiniBolt through SSH keys
 
 ### **Linux or macOS command line**
 
-*   From the Terminal, use the native command
+* From the Terminal, use the native command
 
-    ```sh
-    $ ssh -i /home/<user>/.ssh/id_rsa admin@minibolt.local
-    ```
+```sh
+$ ssh -i /home/<user>/.ssh/id_rsa admin@minibolt.local
+```
 
 {% hint style="warning" %}
 Attention: This command only works if you generated the SSH keys [on Linux or macOS](ssh-keys.md#generate-ssh-keys-on-linux-or-macos) with the OpenSSH terminal method, not Putty or MobaXterm generation methods
@@ -197,32 +206,33 @@ Attention: This command only works if you generated the SSH keys [on Linux or ma
 ### **Disable password login (optional)**
 
 * Log in to the MiniBolt as `admin` using SSH with your SSH key. You shouldn't be prompted for the admin's password anymore
-*   Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following options and setting their value to `no`
+* Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following options and setting their value to `no`
 
-    ```sh
-    $ sudo nano /etc/ssh/sshd_config
-    ```
+```sh
+$ sudo nano /etc/ssh/sshd_config
+```
 
+```
+# uncomment and change the line to "no"
+PermitRootLogin no
+# change the line to "no"
+UsePAM no
+# change the line to "no"
+PasswordAuthentication no
+```
 
+* Test this barebone SSH configuration. If you see no output to the next command, that is OK. If you see something like `/etc/ssh/sshd_config line XX: unsupported option "XXX"` that means something is incorrect
 
-    ```
-    # uncomment and change the line to "no"
-    PermitRootLogin no
-    # change the line to "no"
-    UsePAM no
-    # change the line to "no"
-    PasswordAuthentication no
-    ```
-*   Test this barebone SSH configuration. If you see no output to the next command, that is OK. If you see something like `/etc/ssh/sshd_config line XX: unsupported option "XXX"` that means something is incorrect
+```sh
+$ sudo sshd -t
+```
 
-    ```sh
-    $ sudo sshd -t
-    ```
-*   Restart the SSH daemon
+* Restart the SSH daemon
 
-    ```sh
-    $ sudo systemctl restart sshd
-    ```
+```sh
+$ sudo systemctl restart sshd
+```
+
 * Type `exit` or `logout` to finish the session
 * Log in again with the user `admin`
 
@@ -240,13 +250,14 @@ You will need to attach a screen and keyboard to your PC if you lose them
 **Attention:** This could be a security risk, is not recommended to disable the admin password to avoid a possible and hypothetical attacker could gain complete control of the node in case of intrusion, if you do it, act at your own risk.
 {% endhint %}
 
-*   Ensure you are logged in with user admin, edit the next file
+* Ensure you are logged in with user admin, edit the next file
 
-    ```sh
-    $ sudo visudo
-    ```
-*   Add the next line at the end of the file. Save and exit
+```sh
+$ sudo visudo
+```
 
-    ```
-    admin ALL=(ALL) NOPASSWD:ALL
-    ```
+* Add the next line at the end of the file. Save and exit
+
+```
+admin ALL=(ALL) NOPASSWD:ALL
+```

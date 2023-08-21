@@ -33,8 +33,8 @@ layout:
 ### Install / Update / Uninstall common languages
 
 * [**Go**](go.md) - Install / Update / Uninstall Go
-* [**Node.js + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node.js + NPM
-* Rustup + Cargo - Install / Update / Uninstall Rustup Cargo
+* [**Node + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node + NPM
+* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install / Update / Uninstall Rustup Cargo
 
 ### Security
 
@@ -44,7 +44,7 @@ layout:
 
 ### Resilience
 
-* [**Tor Obfs4 Bridge**](tor-bridge.md) - run an obfs4 bridge to help censored users connect to the Tor network
+* [**Tor Obfs4 Bridge**](../../index-4/index/tor-bridge.md) - run an obfs4 bridge to help censored users connect to the Tor network
 * [**NYM mixnet**](../../bonus-guides/system/nym-mixnet.md) - proxying the clearnet connections using the NYM Mixnet
 
 ### Hardware

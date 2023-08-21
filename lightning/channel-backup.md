@@ -65,21 +65,22 @@ Installing [`inotify-tools`](https://github.com/inotify-tools/inotify-tools) all
 
 We will use it to monitor the `channel.backup` file and detect updates by LND each time a channel is opened or closed.
 
-*   With user `admin`, install `inotify-tools`
+* With user `admin`, install `inotify-tools`
 
-    ```sh
-    $ sudo apt install inotify-tools
-    ```
+```sh
+$ sudo apt install inotify-tools
+```
 
 ### Create script
 
 We create a shell script to monitor `channel.backup` and make a copy o our backup locations if it changes.
 
-*   Create a new shell script file
+* Create a new shell script file
 
-    ```sh
-    $ sudo nano /usr/local/bin/scb-backup
-    ```
+```sh
+$ sudo nano /usr/local/bin/scb-backup
+```
+
 * Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit
 
 ```
@@ -154,11 +155,11 @@ run () {
 run
 ```
 
-*   Make the script executable
+* Make the script executable
 
-    ```sh
-    $ sudo chmod +x /usr/local/bin/scb-backup
-    ```
+```sh
+$ sudo chmod +x /usr/local/bin/scb-backup
+```
 
 ## Option 1: Local backup
 
@@ -170,47 +171,45 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
 ### Formatting
 
-* To ensure that the storage device does not contain malicious code, we will format it on our local computer (select a name easy to recognize like "SCB backup" and choose the FAT filesystem). The following external guides explain how to format your USB thumbdrive or microSD card on [Windows](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-in-windows-12893), [macOS](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-on-a-mac-12899), or [Linux](https://phoenixnap.com/kb/linux-format-usb).
-* Once formatted, plug the storage device into your PC. If using a thumbdrive, use one of the black USB2 ports.
+* To ensure that the storage device does not contain malicious code, we will format it on our local computer (select a name easy to recognize like "SCB backup" and choose the FAT filesystem). The following external guides explain how to format your USB thumbdrive or microSD card on [Windows](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-in-windows-12893), [macOS](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-on-a-mac-12899), or [Linux](https://phoenixnap.com/kb/linux-format-usb)
+* Once formatted, plug the storage device into your PC. If using a thumbdrive, use one of the black USB2 ports
 
 ### Set up a mounting point for the storage device
 
-*   Create the mounting directory and make it immutable
+* Create the mounting directory and make it immutable
 
-    ```sh
-    $ sudo mkdir /mnt/static-channel-backup-external
-    ```
+```sh
+$ sudo mkdir /mnt/static-channel-backup-external
+```
 
 ```bash
 $ sudo chattr +i /mnt/static-channel-backup-external
 ```
 
-*   List active block devices and copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`)
+* List active block devices and copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`)
 
-    ```sh
-    $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
-    ```
+```sh
+$ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+```
 
+```
+> NAME   MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL      MODEL
+> sda                                                           931.5G            SSD_PLUS_1000GB
+> |-sda1 /boot      DBF3-0E3A                            vfat     256M boot
+> `-sda2 /          b73b1dc9-6e12-4e68-9d06-1a1892663226 ext4   931.3G rootfs
+> sdb               123456                               vfat     1.9G SCB backup UDisk
+```
 
+* Get the "lnd" user identifier (UID) and the "lnd" group identifier (GID) from the `/etc/passwd` database of all user accounts. Copy these values into a text editor on your local computer (e.g. here GID `XXXX` and UID `YYYY`)
 
-    ```
-    > NAME   MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL      MODEL
-    > sda                                                           931.5G            SSD_PLUS_1000GB
-    > |-sda1 /boot      DBF3-0E3A                            vfat     256M boot
-    > `-sda2 /          b73b1dc9-6e12-4e68-9d06-1a1892663226 ext4   931.3G rootfs
-    > sdb               123456                               vfat     1.9G SCB backup UDisk
-    ```
-*   Get the "lnd" user identifier (UID) and the "lnd" group identifier (GID) from the `/etc/passwd` database of all user accounts. Copy these values into a text editor on your local computer (e.g. here GID `XXXX` and UID `YYYY`)
+```sh
+$ awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
+```
 
-    ```sh
-    $ awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
-    ```
+```
+> GID: XXXX / UID: YYYY
+```
 
-
-
-    ```
-    > GID: XXXX / UID: YYYY
-    ```
 * Edit your Filesystem Table configuration file and add the following as a new line at the end, replacing `123456`, `XXXX` and `YYYY` with your own `UUID`, `GID` and `UID`
 
 ```sh
@@ -221,11 +220,12 @@ $ sudo nano /etc/fstab
 UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,nosuid,nodev,noatime,nodiratime,nofail,umask=022,gid=XXXX,uid=YYYY 0 0
 ```
 
-*   Mount the drive and check the file system
+* Mount the drive and check the file system
 
-    ```sh
-    $ sudo mount -a
-    ```
+```sh
+$ sudo mount -a
+```
+
 * &#x20;Is “`/mnt/static-channel-backup-external`” listed?
 
 ```bash
@@ -239,17 +239,15 @@ $ df -h /mnt/static-channel-backup-external
 
 ### Enable the local backup function in the script
 
-*   Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit
+* Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit
 
-    ```sh
-    $ sudo nano /usr/local/bin/scb-backup --linenumbers
-    ```
+```sh
+$ sudo nano /usr/local/bin/scb-backup --linenumbers
+```
 
-
-
-    ```
-    LOCAL_BACKUP_ENABLED=true
-    ```
+```
+LOCAL_BACKUP_ENABLED=true
+```
 
 ## Option 2: Remote backup preparations
 
@@ -265,34 +263,35 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 ### Clone the repository to your node
 
-*   Using the `lnd` user
+* Using the `lnd` user
 
-    ```sh
-    $ sudo su - lnd
-    ```
+```sh
+$ sudo su - lnd
+```
+
 * Create a pair of SSH keys
 
 ```bash
 $ ssh-keygen -t rsa -b 4096
 ```
 
-*   When prompted, press "Enter" to confirm the default SSH directory and press "Enter" again to not set up a password
+* When prompted, press "Enter" to confirm the default SSH directory and press "Enter" again to not set up a password
 
-    ```
-    > Generating public/private rsa key pair.
-    > [...]
-    ```
-*   Display the public key and take note
+```
+> Generating public/private rsa key pair.
+> [...]
+```
 
-    ```sh
-    $ cat ~/.ssh/id_rsa.pub
-    ```
+* Display the public key and take note
 
+```sh
+$ cat ~/.ssh/id_rsa.pub
+```
 
+```
+> ssh-rsa 1234abcd... lnd@minibolt
+```
 
-    ```
-    > ssh-rsa 1234abcd... lnd@minibolt
-    ```
 * Go back to the GitHub repository webpage
   * Click on "Settings", then "Deploy keys", then "Add deploy key"
   * Type a title (e.g. "SCB")
@@ -347,60 +346,61 @@ $ exit
 
 ### Enable the remote backup function in the script
 
-*   Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` line 15 to `true`. Save and exit
+* Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` line 15 to `true`. Save and exit
 
-    ```sh
-    $ sudo nano /usr/local/bin/scb-backup --linenumbers
-    ```
+```sh
+$ sudo nano /usr/local/bin/scb-backup --linenumbers
+```
 
-
-
-    ```
-    REMOTE_BACKUP_ENABLED=true
-    ```
+```
+REMOTE_BACKUP_ENABLED=true
+```
 
 ## Create systemd service
 
 We set up the backup script as a systemd service to run in the background and optionally start automatically on system startup.
 
-*   Still as user `admin`, create a new service file
+* Still as user `admin`, create a new service file
 
-    ```sh
-    $ sudo nano /etc/systemd/system/scb-backup.service
-    ```
-*   Paste the following lines. Save and exit
+```sh
+$ sudo nano /etc/systemd/system/scb-backup.service
+```
 
-    ```sh
-    # MiniBolt: systemd unit for automatic SCB backup
-    # /etc/systemd/system/scb-backup.service
+* Paste the following lines. Save and exit
 
-    [Unit]
-    Description=SCB Backup
-    After=lnd.service
+```sh
+# MiniBolt: systemd unit for automatic SCB backup
+# /etc/systemd/system/scb-backup.service
 
-    [Service]
-    ExecStart=/usr/local/bin/scb-backup
-    Restart=always
-    RestartSec=1
-    User=lnd
+[Unit]
+Description=SCB Backup
+After=lnd.service
 
-    [Install]
-    WantedBy=multi-user.target
-    ```
-*   Enable autoboot **(optional)**
+[Service]
+ExecStart=/usr/local/bin/scb-backup
+Restart=always
+RestartSec=1
+User=lnd
 
-    ```sh
-    $ sudo systemctl enable scb-backup
-    ```
+[Install]
+WantedBy=multi-user.target
+```
+
+* Enable autoboot **(optional)**
+
+```sh
+$ sudo systemctl enable scb-backup
+```
+
 * Prepare “scb-backup” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u scb-backup
+$ journalctl -f -u scb-backup
 ```
 
 ## Run SCB-Backup
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the service
 
@@ -408,23 +408,24 @@ To keep an eye on the software movements, [start your SSH program](../system/rem
 $2 sudo systemctl start scb-backup
 ```
 
-**Example** of expected output on the  first SSH session with `$ sudo journalctl -f -u btcrpcexplorer` ⬇️
+**Example** of expected output on the  first SSH session with `$ journalctl -f -u btcrpcexplorer` ⬇️
 
 ```
 Jul 25 17:31:54 minibolt systemd[1]: Started SCB Backup.
 Jul 25 17:31:54 minibolt scb-backup[401705]: Watches established.
 ```
 
-*   The automated backup is now up and running. To test if everything works, we now cause the default `channel.backup` file to change. Then we check if a copy gets stored at the intended backup location(s). Simulate a `channel.backup` file change with the `touch` command (don't worry! It simply updates the timestamp of the file but not its content)
+* The automated backup is now up and running. To test if everything works, we now cause the default `channel.backup` file to change. Then we check if a copy gets stored at the intended backup location(s). Simulate a `channel.backup` file change with the `touch` command (don't worry! It simply updates the timestamp of the file but not its content)
 
-    ```sh
-    $2 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
-    ```
+```sh
+$2 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
+```
+
 * Switch back again to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled)
 
 <details>
 
-<summary><strong>Example</strong> of expected output  with <code>$ sudo journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
+<summary><strong>Example</strong> of the expected output  with <code>$ journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
 
 ```
 Jul 25 17:32:32 minibolt scb-backup[401705]: /data/lnd/data/chain/bitcoin/mainnet/channel.backup OPEN
@@ -448,11 +449,11 @@ Jul 25 17:32:34 minibolt scb-backup[401749]: Watches established.
 
 </details>
 
-*   **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above
+* **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above
 
-    ```sh
-    $ ls -la /mnt/static-channel-backup-external
-    ```
+```sh
+$ ls -la /mnt/static-channel-backup-external
+```
 
 **Example** of expected output:
 

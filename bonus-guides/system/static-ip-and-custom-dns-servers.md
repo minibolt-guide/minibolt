@@ -36,7 +36,7 @@ In addition, you can customize your DNS servers to improve your privacy, normall
 
 ### Option 1: At the beginning, during the Ubuntu Server installation GUI
 
-When you arrive at **step 5** of the [Ubuntu Server installation](../../system/operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS name server/s.
+When you arrive at **step 5** of the [Ubuntu Server installation](../../index-1/operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS name server/s.
 
 Wait for the router automatically assign the IP address to your MiniBolt node to find out what IP range the node is in, you will be able to assign the same or a different IP in the next step.
 

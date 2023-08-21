@@ -1,7 +1,4 @@
 ---
-title: Bitcoin client
-nav_order: 10
-parent: Bitcoin
 layout:
   title:
     visible: true
@@ -373,7 +370,7 @@ $ exit
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-*   Create the configuration file in the nano text editor and copy the following paragraph. Save and exit.
+*   With the user `admin`, create the configuration file in the nano text editor and copy the following paragraph. Save and exit
 
     ```sh
     $ sudo nano /etc/systemd/system/bitcoind.service
@@ -426,7 +423,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Running bitcoind
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 *   Start the service
 

@@ -2,22 +2,22 @@
 
 ## Home
 
-* [MiniBolt](README.md)
+* [Home](README.md)
 
 ## System
 
 * [1. System](system/README.md)
-  * [1.1 Preparations](system/preparations.md)
-  * [1.2 Operating system](system/operating-system.md)
-  * [1.3 Remote access](system/remote-access.md)
-  * [1.4 Configuration](system/configuration.md)
-  * [1.5 Security](system/security.md)
-  * [1.6 Privacy](system/privacy.md)
+  * [1.1 Preparations](index-1/preparations.md)
+  * [1.2 Operating system](index-1/operating-system.md)
+  * [1.3 Remote access](index-1/remote-access.md)
+  * [1.4 Configuration](index-1/configuration.md)
+  * [1.5 Security](index-1/security.md)
+  * [1.6 Privacy](index-1/privacy.md)
 
 ## Bitcoin
 
 * [2. Bitcoin](bitcoin/README.md)
-  * [2.1 Bitcoin client: Bitcoin Core](bitcoin/bitcoin-client.md)
+  * [2.1 Bitcoin client: Bitcoin Core](index-2/bitcoin-client.md)
   * [2.2 Electrum Server: Fulcrum](bitcoin/electrum-server.md)
   * [2.3 Blockchain explorer: BTC RPC Explorer](bitcoin/blockchain-explorer.md)
   * [2.4 Desktop wallet: Sparrow Wallet](bitcoin/desktop-wallet.md)
@@ -37,12 +37,12 @@
   * [Aliases](bonus/system/aliases.md)
   * [Static IP & custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
   * [Go](bonus/system/go.md)
-  * [Node.js + NPM](bonus/system/nodejs-npm.md)
+  * [Node + NPM](bonus/system/nodejs-npm.md)
   * [Rustup + Cargo](bonus-guides/system/rustup-+-cargo.md)
   * [Login with SSH keys](bonus/system/ssh-keys.md)
   * [WireGuard: a simple yet fast VPN](bonus/system/wireguard-vpn.md)
   * [Cloudflare Tunnel](bonus-guides/system/cloudflare-tunnel.md)
-  * [Tor obfs4 bridge](bonus/system/tor-bridge.md)
+  * [Tor obfs4 bridge](index-4/index/tor-bridge.md)
   * [NYM mixnet](bonus-guides/system/nym-mixnet.md)
   * [Store data in a secondary disk](bonus/system/store-data-secondary-disk.md)
 * [Bitcoin](bonus/bitcoin/README.md)

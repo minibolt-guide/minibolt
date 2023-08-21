@@ -38,13 +38,13 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ## Bitcoin
 
-### [**Bitcoin client: Bitcoin Core**](../../bitcoin/bitcoin-client.md)
+### [**Bitcoin client: Bitcoin Core**](../../index-2/bitcoin-client.md)
 
-*   Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
+* Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../index-2/bitcoin-client.md), when you arrive at the ["Configuration section"](../../index-2/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
 
-    ```sh
-    $ nano /home/bitcoin/.bitcoin/bitcoin.conf
-    ```
+```sh
+$ nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
 
 ```
 ## Replace the parameter
@@ -53,14 +53,14 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
 testnet=1
 ```
 
-* When you finish the [Running Bitcoin](../../bitcoin/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
+* When you finish the [Running Bitcoin](../../index-2/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
 
 ```bash
 $ sudo chmod g+rx /data/bitcoin/testnet3
 ```
 
 {% hint style="success" %}
-The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../bitcoin/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
+The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../index-2/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
 {% endhint %}
 
 ### [**Electrum server: Fulcrum**](../../bitcoin/electrum-server.md)
@@ -69,17 +69,16 @@ Follow the complete Electrum server guide from the beginning, when you arrive at
 
 [**Configure Firewall**](../../bitcoin/electrum-server.md#configure-firewall)
 
-*   Replace the next lines to 60001/60002 ports, to match with the Testnet mode
+* Replace the next lines to 60001/60002 ports, to match with the Testnet mode
 
-    ```sh
-    $ sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
-    ```
+```sh
+$ sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
+```
 
+```sh
+$ sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
+```
 
-
-    ```sh
-    $ sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
-    ```
 * When you arrive at the ["Data directory"](../../bitcoin/electrum-server.md#data-directory) section on the _"Download the custom Fulcrum banner based on MiniBolt..." step_. Download the Fulcrum testnet banner instead of the mainnet banner
 
 {% code overflow="wrap" %}
@@ -90,11 +89,11 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 
 [**Configuration**](../../bitcoin/electrum-server.md#configuration)
 
-*   In the next ["Configuration"](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `"fulcrum.conf"` file, to match with the testnet mode
+* In the next [Configuration](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `"fulcrum.conf"` file, to match with the testnet mode
 
-    ```sh
-    $ nano /data/fulcrum/fulcrum.conf
-    ```
+```sh
+$ nano /data/fulcrum/fulcrum.conf
+```
 
 ```
 # Bitcoin Core settings
@@ -111,11 +110,12 @@ banner = /data/fulcrum/fulcrum-banner-testnet.txt
 
 [**Remote access over Tor**](../../bitcoin/electrum-server.md#remote-access-over-tor)
 
-*   When you arrive at the[ remote access over the Tor section](../../bitcoin/electrum-server.md#remote-access-over-tor), edit torrc file
+* When you arrive at the[ remote access over the Tor section](../../bitcoin/electrum-server.md#remote-access-over-tor), edit torrc file
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
 * Replace ports to 60001/60002 to match with testnet mode
 
 ```
@@ -127,15 +127,15 @@ HiddenServicePort 60001 127.0.0.1:60001
 HiddenServicePort 60002 127.0.0.1:60002
 ```
 
-*   Reload the Tor configuration and get your connection addresses
+* Reload the Tor configuration and get your connection addresses
 
-    ```sh
-    $ sudo systemctl reload tor
-    ```
+```sh
+$ sudo systemctl reload tor
+```
 
-    ```sh
-    $ sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
-    ```
+```sh
+$ sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
+```
 
 **Example** of expected output:
 
@@ -153,11 +153,11 @@ The rest of the **Fulcrum** guide is exactly the same as the mainnet mode
 
 ### [**Blockchain Explorer: BTC RPC Explorer**](../../bitcoin/blockchain-explorer.md)
 
-*   Follow the complete guide from the beginning, when you arrive at the ["Configuration section"](../../bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
+* Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
 
-    ```sh
-    $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-    ```
+```sh
+$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
 
 ```
 BTCEXP_BITCOIND_PORT=18332
@@ -186,11 +186,11 @@ $ nano /data/lnd/lnd.conf
 bitcoin.testnet=true
 ```
 
-*   On the ["Allow user "admin" to work with LND"](../../lightning/lightning-client.md#allow-user-admin-to-work-with-lnd) section, replace the following command with the correct testnet path
+* On the [Allow user "admin" to work with LND](../../lightning/lightning-client.md#allow-user-admin-to-work-with-lnd) section, replace the following command with the correct testnet path
 
-    ```sh
-    $ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
-    ```
+```sh
+$ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
+```
 
 {% hint style="info" %}
 When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet, same with LND mainnet peer suggested to open the channel and send a payment
@@ -198,11 +198,11 @@ When you arrive at the [Watchtower client](../../lightning/lightning-client.md#w
 
 **Interacting with the LND daemon**
 
-*   Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag
+* Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag
 
-    ```sh
-    $ lncli --network testnet walletbalance
-    ```
+```sh
+$ lncli --network testnet walletbalance
+```
 
 {% hint style="info" %}
 Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt-gitbook/main/resources/.bash\_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it.
@@ -214,11 +214,12 @@ The rest of the **Lightning Clien**t guide is exactly the same as the mainnet mo
 
 ### [**Channel backup**](../../lightning/channel-backup.md)
 
-*   Follow the complete guide from the beginning, when you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
+* Follow the complete guide from the beginning, when you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
 
-    ```sh
-    $ sudo nano /usr/local/bin/scb-backup --linenumbers
-    ```
+```sh
+$ sudo nano /usr/local/bin/scb-backup --linenumbers
+```
+
 * Replace the `line 18` in the script to match with the testnet path
 
 ```
@@ -264,7 +265,7 @@ The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode
 
 ### [**Mobile app: Zeus**](../../lightning/mobile-app.md)
 
-* Follow the complete guide from the beginning, when you arrive at the ["**Create a lndconnect QR code"**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, add to the "lndconnect" command the next flags
+* Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, add to the "lndconnect" command the next flags
 
 {% code overflow="wrap" %}
 ```bash
@@ -288,22 +289,22 @@ Follow the complete guide from the beginning, when you arrive at the ["Firewall 
 
 [**Firewall & reverse proxy**](electrs.md#firewall-and-reverse-proxy)
 
-*   Configure the Firewall to allow incoming requests
+* Configure the Firewall to allow incoming requests
 
-    ```sh
-    $ sudo ufw allow 60002/tcp comment 'allow Electrs SSL from anywhere'
-    ```
+```sh
+$ sudo ufw allow 60002/tcp comment 'allow Electrs SSL from anywhere'
+```
 
+```sh
+$ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
+```
 
+* Create the `electrs-reverse-proxy.conf` file
 
-    ```sh
-    $ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
-    ```
-*   Create the `electrs-reverse-proxy.conf` file
+```sh
+$ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
+```
 
-    ```sh
-    $ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
-    ```
 * Replace mainnet ports with the 60001/60001 testnet ports
 
 ```nginx
@@ -316,20 +317,20 @@ server {
 }
 ```
 
-*   Test and reload NGINX configuration
+* Test and reload NGINX configuration
 
-    ```sh
-    $ sudo nginx -t
-    $ sudo systemctl reload nginx
-    ```
+```sh
+$ sudo nginx -t
+$ sudo systemctl reload nginx
+```
 
 [**Configuration**](electrs.md#configuration)
 
-*   When you arrive at the ["Configuration"](electrs.md#configuration) section, replace it with the next lines
+* When you arrive at the [Configuration](electrs.md#configuration) section, replace it with the next lines
 
-    ```sh
-    $ nano /data/electrs/electrs.conf
-    ```
+```sh
+$ nano /data/electrs/electrs.conf
+```
 
 ```
 network = "testnet"
@@ -343,11 +344,12 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 
 [**Remote access over Tor**](electrs.md#remote-access-over-tor-optional)
 
-*   When you arrive at the ["Remote access over Tor"](electrs.md#remote-access-over-tor-optional) section
+* When you arrive at the [Remote access over Tor](electrs.md#remote-access-over-tor-optional) section
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
 * Edit torrc and replace ports to 60001/60002 to match with testnet mode
 
 ```
@@ -358,15 +360,15 @@ HiddenServicePort 60001 127.0.0.1:60001
 HiddenServicePort 60002 127.0.0.1:60002
 ```
 
-*   Reload the Tor configuration and get your connection addresses
+* Reload the Tor configuration and get your connection addresses
 
-    ```sh
-    $ sudo systemctl reload tor
-    ```
+```sh
+$ sudo systemctl reload tor
+```
 
-    ```sh
-    $ sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
-    ```
+```sh
+$ sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
+```
 
 **Example** of expected output:
 

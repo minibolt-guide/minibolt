@@ -27,11 +27,11 @@ layout:
 
 Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md).
 
-*   With the user `admin`, check the Node version
+* With the user `admin`, check the Node version
 
-    ```sh
-    $ node -v
-    ```
+```sh
+$ node -v
+```
 
 **Example** of expected output:
 
@@ -39,11 +39,11 @@ Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/b
 > v16.14.2
 ```
 
-*   Check NPM version
+* Check NPM version
 
-    ```sh
-    $ npm -v
-    ```
+```sh
+$ npm -v
+```
 
 **Example** of expected output:
 
@@ -57,31 +57,30 @@ If the version is v14.15 or above, you can move to the next section. If Node.js 
 
 ### **Reverse proxy & Firewall**
 
-In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
+In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
 
-*   Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
+* Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
-    ```sh
-    $ sudo nano /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
-    ```
+```sh
+$ sudo nano /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
+```
 
+```nginx
+server {
+  listen 4002 ssl;
+  error_page 497 =301 https://$host:$server_port$request_uri;
 
+  location / {
+    proxy_pass http://127.0.0.1:3000;
+  }
+}
+```
 
-    ```nginx
-    server {
-      listen 4002 ssl;
-      error_page 497 =301 https://$host:$server_port$request_uri;
+* Test Nginx configuration
 
-      location / {
-        proxy_pass http://127.0.0.1:3000;
-      }
-    }
-    ```
-*   Test Nginx configuration
-
-    ```sh
-    $ sudo nginx -t
-    ```
+```sh
+$ sudo nginx -t
+```
 
 <details>
 
@@ -99,16 +98,17 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
 > nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-*   Reload NGINX configuration
+* Reload NGINX configuration
 
-    ```
-    $ sudo systemctl reload nginx
-    ```
-*   Configure the firewall to allow incoming HTTP requests from anywhere to the web server.
+```
+$ sudo systemctl reload nginx
+```
 
-    ```sh
-    $ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
-    ```
+* Configure the firewall to allow incoming HTTP requests from anywhere to the web server
+
+```sh
+$ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
+```
 
 ## ThunderHub
 
@@ -116,17 +116,15 @@ In the security [section](../system/security.md#prepare-nginx-reverse-proxy), we
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
-*   Create a new `thunderhub` user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`, so we add him to the "lnd" group
+* Create a new `thunderhub` user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`
 
-    ```sh
-    $ sudo adduser --disabled-password --gecos "" thunderhub
-    ```
+```sh
+$ sudo adduser --disabled-password --gecos "" thunderhub
+```
 
-
-
-    ```sh
-    $ sudo adduser thunderhub lnd
-    ```
+```sh
+$ sudo adduser thunderhub lnd
+```
 
 {% code overflow="wrap" %}
 ```bash
@@ -158,11 +156,11 @@ $ VERSION=0.13.20
 $ curl https://github.com/apotdevin.gpg | gpg --import
 ```
 
-*   Download the source code directly from GitHub and install all dependencies using NPM
+* Download the source code directly from GitHub, selecting the latest release branch associated
 
-    ```sh
-    $ git clone --branch v$VERSION https://github.com/apotdevin/thunderhub.git
-    ```
+```sh
+$ git clone --branch v$VERSION https://github.com/apotdevin/thunderhub.git
+```
 
 ```sh
 $ cd thunderhub
@@ -185,7 +183,7 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 ```
 
-* Install all the necessary modules. Not run `$ npm audit fix`, which could break the original code
+* Install all dependencies and the necessary modules using NPM. Not run `$ npm audit fix`, which could break the original code
 
 ```sh
 $ npm install
@@ -329,24 +327,25 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
     ```sh
     $ nano .env.local
     ```
-*   Add or edit the following lines, save, and exit
+* Add or edit the following lines, save and exit
 
-    ```
-    # -----------
-    # Server Configs
-    # -----------
-    NODE_ENV=production
+```
+# -----------
+# Server Configs
+# -----------
+NODE_ENV=production
 
-    # -----------
-    # Optional (more privacy)
-    TOR_PROXY_SERVER=socks://127.0.0.1:9050
-    # -----------
+# -----------
+# Optional (more privacy)
+TOR_PROXY_SERVER=socks://127.0.0.1:9050
+# -----------
 
-    # -----------
-    # Account Configs
-    # -----------
-    ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
-    ```
+# -----------
+# Account Configs
+# -----------
+ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
+```
+
 * Create a new`thubConfig.yaml` file
 
 ```sh
@@ -369,7 +368,7 @@ accounts:
 Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
 {% endhint %}
 
-* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines at the end of the file (without indentation)
+* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (without indentation)
 
 Enable auto-backups:
 
@@ -389,64 +388,67 @@ healthCheckPingEnabled: true
 > Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
 {% endhint %}
 
-*   Exit `thunderhub` user session to return to the `admin` user session
+* Exit `thunderhub` user session to return to the `admin` user session
 
-    ```sh
-    $ exit
-    ```
+```sh
+$ exit
+```
 
 ## Create systemd service
 
 Now we'll make sure ThunderHub starts as a service on the PC so it's always running. In order to do that we create a systemd unit that starts the service on boot directly after LND.
 
-*   As user `admin`, create the service file
+* As user `admin`, create the service file
 
-    ```sh
-    $ sudo nano /etc/systemd/system/thunderhub.service
-    ```
-*   Paste the following configuration. Save and exit.
+```sh
+$ sudo nano /etc/systemd/system/thunderhub.service
+```
 
-    <pre><code># MiniBolt: systemd unit for Thunderhub
-    # /etc/systemd/system/thunderhub.service
+* Paste the following configuration. Save and exit
 
-    [Unit]
-    Description=Thunderhub
-    <strong>Wants=lnd.service
-    </strong>After=lnd.service
+<pre><code># MiniBolt: systemd unit for Thunderhub
+# /etc/systemd/system/thunderhub.service
 
-    [Service]
-    WorkingDirectory=/home/thunderhub/thunderhub
-    ExecStart=/usr/bin/npm run start:prod
-    User=thunderhub
-    TimeoutSec=300
+[Unit]
+Description=Thunderhub
+<strong>Wants=lnd.service
+</strong>After=lnd.service
 
-    [Install]
-    WantedBy=multi-user.target
-    </code></pre>
-*   Enable autoboot **(optional)**
+[Service]
+WorkingDirectory=/home/thunderhub/thunderhub
+ExecStart=/usr/bin/npm run start:prod
+User=thunderhub
+TimeoutSec=300
 
-    ```sh
-    $ sudo systemctl enable thunderhub
-    ```
-*   Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+[Install]
+WantedBy=multi-user.target
+</code></pre>
 
-    ```bash
-    $ sudo journalctl -f -u thunderhub
-    ```
+* Enable autoboot **(optional)**
+
+```sh
+$ sudo systemctl enable thunderhub
+```
+
+* Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+
+```bash
+$ journalctl -f -u thunderhub
+```
 
 ## Run Thunderhub
 
-To keep an eye on the software movements, [start your SSH program](../system/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
-*   Start the service
+* Start the service
 
-    ```sh
-    $2 sudo systemctl start thunderhub
-    ```
+```sh
+$2 sudo systemctl start thunderhub
+```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u thunderhub</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u thunderhub</code> ⬇️</summary>
 
 ```
 Jun 28 23:35:43 minibolt npm[513274]: > thunderhub@0.13.15 start
@@ -577,31 +579,28 @@ tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd
 
 Do you want to access ThunderHub remotely? You can easily do so by adding a Tor hidden service on the RaspiBolt and accessing ThunderHub with the Tor browser from any device.
 
-*   Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
 
+```
+# Hidden Service Thunderhub
+HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
+HiddenServiceVersion 3
+HiddenServicePort 80 127.0.0.1:3000
+```
 
+* Restart Tor and get your connection address
 
-    ```
-    # Hidden Service Thunderhub
-    HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
-    HiddenServiceVersion 3
-    HiddenServicePort 80 127.0.0.1:3000
-    ```
-*   Restart Tor and get your connection address.
+```sh
+$ sudo systemctl reload tor
+```
 
-    ```sh
-    $ sudo systemctl reload tor
-    ```
-
-
-
-    ```sh
-    $ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
-    ```
+```sh
+$ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
+```
 
 Expected output:
 
@@ -615,22 +614,22 @@ Expected output:
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
 
-*   From user `admin`, stop the service, and open a "thunderhub" user session
+* From user `admin`, stop the service, and open a "thunderhub" user session
 
-    ```sh
-    $ sudo systemctl stop thunderhub
-    ```
+```sh
+$ sudo systemctl stop thunderhub
+```
 
+```sh
+$ sudo su - thunderhub
+```
 
+* Go to the thunderhub folder
 
-    ```sh
-    $ sudo su - thunderhub
-    ```
-*   Go to the thunderhub folder
+```sh
+$ cd thunderhub
+```
 
-    ```sh
-    $ cd thunderhub
-    ```
 * Pull the changes from GitHub
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ git pull https://github.com/apotdevin/thunderhub.git master
@@ -672,38 +671,34 @@ $ sudo systemctl start thunderhub
 ```
 
 {% hint style="warning" %}
-If the update fails, you probably will have to stop Thunderhub, follow the "[Uninstall ThunderHub section](web-app.md#uninstall-thunderhub)" to delete `thunderhub` user, and repeat the installation process starting from the "[Preparation section](web-app.md#preparation)"
+If the update fails, you probably will have to stop Thunderhub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation)
 {% endhint %}
 
 ## Uninstall
 
 ### **Uninstall service**
 
-*   Stop, disable, and delete the Thunderhub systemd service
+* Stop, disable, and delete the Thunderhub systemd service
 
-    ```sh
-    $ sudo systemctl stop thunderhub
-    ```
+```sh
+$ sudo systemctl stop thunderhub
+```
 
+```sh
+$ sudo systemctl disable thunderhub
+```
 
-
-    ```sh
-    $ sudo systemctl disable thunderhub
-    ```
-
-
-
-    ```sh
-    $ sudo rm /etc/systemd/system/thunderhub.service
-    ```
+```sh
+$ sudo rm /etc/systemd/system/thunderhub.service
+```
 
 ### **Uninstall FW configuration**
 
-*   Display the UFW firewall rules and notes the numbers of the rules for Thunderhub (e.g., X and Y below)
+* Display the UFW firewall rules and notes the numbers of the rules for Thunderhub (e.g., X and Y below)
 
-    ```sh
-    $ sudo ufw status numbered
-    ```
+```sh
+$ sudo ufw status numbered
+```
 
 Expected output:
 
@@ -712,11 +707,11 @@ Expected output:
 > [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
 ```
 
-*   Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
+* Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
 
-    ```sh
-    $ sudo ufw delete X
-    ```
+```sh
+$ sudo ufw delete X
+```
 
 ### **Uninstall Thunderhub**
 
@@ -734,25 +729,24 @@ Expected output:
 
 ### **Uninstall Tor hidden service**
 
-*   Comment or remove the fulcrum hidden service lines in torrc. Save and exit
+* Comment or remove the fulcrum hidden service lines in torrc. Save and exit
 
-    ```sh
-    $ sudo nano /etc/tor/torrc
-    ```
+```sh
+$ sudo nano /etc/tor/torrc
+```
 
+```
+# Hidden Service Thunderhub
+#HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
+#HiddenServiceVersion 3
+#HiddenServicePort 80 127.0.0.1:3000
+```
 
+* Reload torrc config
 
-    ```
-    # Hidden Service Thunderhub
-    #HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
-    #HiddenServiceVersion 3
-    #HiddenServicePort 80 127.0.0.1:3000
-    ```
-*   Reload torrc config
-
-    ```sh
-    $ sudo systemctl reload tor
-    ```
+```sh
+$ sudo systemctl reload tor
+```
 
 ## Extras
 

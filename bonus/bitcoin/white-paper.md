@@ -41,7 +41,7 @@ This guide explains how to reconstruct the Bitcoin white paper PDF using your ow
 * Install `jq`, a JSON processor that will be used to parse the transaction data
 
 ```sh
-$ sudo apt update
+$ sudo apt update && sudo apt full-upgrade
 ```
 
 ```bash
@@ -50,15 +50,17 @@ $ sudo apt install jq
 
 ## Extract the whitepaper directly from Bitcoin Core
 
-*   With the `admin` user, go to the temporary folder
+* With the `admin` user, go to the temporary folder
 
-    ```sh
-    $ cd /tmp
-    ```
-*   Use `bitcoin-cli` to download and create the PDF
+```sh
+$ cd /tmp
+```
 
-    <pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>$ bitcoin-cli getrawtransaction 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 true | jq -r '.vout[].scriptPubKey.asm' | cut -c3- | xxd -p -r | tail +9c | head -c 184292 > bitcoin.pdf
-    </strong></code></pre>
+* Use `bitcoin-cli` to download and create the PDF
+
+<pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>$ bitcoin-cli getrawtransaction 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 true | jq -r '.vout[].scriptPubKey.asm' | cut -c3- | xxd -p -r | tail +9c | head -c 184292 > bitcoin.pdf
+</strong></code></pre>
+
 * Check PDF was correctly created
 
 ```bash
