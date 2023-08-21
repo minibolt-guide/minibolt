@@ -249,7 +249,7 @@ $ sudo systemctl enable nym-network-requester
 * Prepare “nym-network-requester” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u nym-network-requester
+$ journalctl -f -u nym-network-requester
 ```
 
 ### Running NYM network requester
@@ -264,7 +264,7 @@ $2 sudo systemctl start nym-network-requester
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nym-network-requester</code> ⬇️</summary>
 
 ```
 Jun 25 20:43:00 minibolt systemd[1]: Started Nym Network Requester.
@@ -426,7 +426,7 @@ $ sudo systemctl enable nym-network-requester
 * Prepare “nym-socks5-client” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u nym-socks5-client
+$ journalctl -f -u nym-socks5-client
 ```
 
 ### Running NYM socks5 client
@@ -441,7 +441,7 @@ $2 sudo systemctl start nym-socks5-client
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nym-socks5-client</code> ⬇️</summary>
 
 ```
 Jun 25 21:19:30 minibolt systemd[1]: Started Nym Socks5 client.

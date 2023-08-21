@@ -29,7 +29,7 @@ Difficulty: Easy
 
 You can prettify your command prompt for each user by enabling color output and setting a custom prompt
 
-* With user `admin`, open and edit `.bashrc` as shown below, save and exit
+* With user `admin`, open and edit `.bashrc` as shown below. Save and exit
 
 ```sh
 $ nano /home/admin/.bashrc --linenumbers

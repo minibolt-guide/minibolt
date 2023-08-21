@@ -37,7 +37,7 @@
   * [Aliases](bonus/system/aliases.md)
   * [Static IP & custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
   * [Go](bonus/system/go.md)
-  * [Node.js + NPM](bonus/system/nodejs-npm.md)
+  * [Node + NPM](bonus/system/nodejs-npm.md)
   * [Rustup + Cargo](bonus-guides/system/rustup-+-cargo.md)
   * [Login with SSH keys](bonus/system/ssh-keys.md)
   * [WireGuard: a simple yet fast VPN](bonus/system/wireguard-vpn.md)

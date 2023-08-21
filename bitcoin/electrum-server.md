@@ -365,7 +365,7 @@ $ sudo systemctl enable fulcrum
 * Prepare "fulcrum" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
-$ sudo journalctl -f -u fulcrum
+$ journalctl -f -u fulcrum
 ```
 
 ## Run Fulcrum
@@ -378,7 +378,7 @@ $2 sudo systemctl start fulcrum
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u fulcrum</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u fulcrum</code> ⬇️</summary>
 
 ```
 Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.063] simdjson: version 0.6.0
@@ -425,7 +425,7 @@ $ sudo systemctl restart fulcrum
 * Check logs and pay attention to the next log if that attends to the new version installed
 
 ```sh
-$ sudo journalctl -f -u fulcrum
+$ journalctl -f -u fulcrum
 ```
 
 **Example** of expected output:&#x20;

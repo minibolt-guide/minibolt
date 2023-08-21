@@ -149,7 +149,7 @@ By default, Tor will advertise your bridge to users through various [mechanisms]
 
 ### **Configure Firewall and router NAT**
 
-* Configure the firewall to allow incoming requests replacing `<TODO1>` and `<TODO2>` previously configured in the section before
+* Configure the firewall to allow incoming requests to be replace `<TODO1>` and `<TODO2>` previously configured in the section before
 
 ```sh
 $ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge from anywhere'
@@ -160,7 +160,7 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
 {% hint style="warning" %}
-Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to \[icanhazip.com] in your personal computer inside of the same local network, and put your `"<TODO2>"` port.
+Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to \[icanhazip.com] on your personal computer inside of the same local network, and put your `"<TODO2>"` port.
 {% endhint %}
 
 ### **Systemd hardening**
@@ -212,7 +212,7 @@ $ sudo systemctl restart tor
 * Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit
 
 ```sh
-$ sudo journalctl -f -u tor@default --since '1 hour ago'
+$ journalctl -f -u tor@default --since '1 hour ago'
 ```
 
 * Verify that your relay works, if your logfile (syslog) contains the following entry after starting your tor daemon your relay should be up and running as expected

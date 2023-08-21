@@ -466,7 +466,7 @@ $ sudo systemctl enable nbxplorer
 * Prepare “`nbxplorer`” monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u nbxplorer
+$ journalctl -f -u nbxplorer
 ```
 
 {% hint style="info" %}
@@ -485,7 +485,7 @@ $ sudo systemctl start nbxplorer
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u</code> nbxplorer ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nbxplorer</code> ⬇️</summary>
 
 ```
 Jul 05 17:50:20 bbonode systemd[1]: Started NBXplorer daemon.
@@ -713,10 +713,10 @@ WantedBy=multi-user.target
 $ sudo systemctl enable btcpay
 ```
 
-* Prepare “`btcpay`” monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare `btcpay` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u btcpay
+$ journalctl -f -u btcpay
 ```
 
 {% hint style="info" %}
@@ -725,7 +725,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 #### Running BTCPay Server
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "`admin`". Commands for the **second session** start with the prompt `$2` (which must not be entered)
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
 ```bash
 $ sudo systemctl start btcpay
@@ -733,7 +733,7 @@ $ sudo systemctl start btcpay
 
 <details>
 
-<summary>Expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u btcpay</code> ⬇️</summary>
 
 ```
 Jul 05 18:01:08 bbonode run.sh[2810276]: info: Configuration:  Data Directory: /home/btcpay/.btcpayserver/Main
@@ -966,7 +966,7 @@ $ ./build.sh
 $ exit
 ```
 
-* Start the NBXplorer & BTCpay server again. Monitor logs with `$ sudo journalctl -f -u nbxplorer` to ensure that all is running well
+* Start the NBXplorer & BTCpay server again. Monitor logs with `$ journalctl -f -u nbxplorer` & `$ journalctl -f -u btcpay` to ensure that all is running well
 
 ```bash
 $ sudo systemctl start nbxplorer && sudo systemctl start btcpay
@@ -1009,7 +1009,7 @@ $ ./build.sh
 $ exit
 ```
 
-* Start the BTCpay server again. Monitor logs with `$ sudo journalctl -f -u btcpay` to ensure that all is running well
+* Start the BTCpay server again. Monitor logs with `$ journalctl -f -u btcpay` to ensure that all is running well
 
 ```bash
 $ sudo systemctl start btcpay
@@ -1077,7 +1077,7 @@ $ sudo systemctl reload nginx
 
 **Uninstall Tor hidden service**
 
-* Ensure you are logged in with user "`admin`", comment or remove btcpay hidden service in the torrc. Save and exit
+* Ensure you are logged in with user `admin`, comment or remove btcpay hidden service in the torrc. Save and exit
 
 ```bash
 $ sudo nano /etc/tor/torrc

@@ -154,25 +154,25 @@ $ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
 
 lndconnect generates a URI and displays it as a QR code that Zeus can read.
 
-*   Still with the `admin` user, and use the following command
+* Still with the `admin` user, and use the following command
+  * If you want to use the Tor connection, make sure to replace the `".onion"` address with the one you generated above
 
-    * If you want to use the Tor connection, make sure to replace the `".onion"` address with the one you generated above
+```sh
+$ lndconnect --host=abcdefg......xyz.onion --port=8080
+```
 
-    ```sh
-    $ lndconnect --host=abcdefg......xyz.onion --port=8080
-    ```
+* If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `".onion"` address with the private Wireguard VPN IP address (recommended)
 
-    * If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `".onion"` address with the private Wireguard VPN IP address (recommended)
+```sh
+$ lndconnect --host=10.0.0.1 --port=8080
+```
 
-    ```sh
-    $ lndconnect --host=10.0.0.1 --port=8080
-    ```
+* If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
 
-    * If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
+```sh
+$ lndconnect --host=192.168.X.XXX --port=8080
+```
 
-    ```sh
-    $ lndconnect --host=192.168.X.XXX --port=8080
-    ```
 * It will be a big QR code, so maximize your terminal window and use `CTRL`+`-` / `"Terminal unzoom"` / `"Zoom out"` options of your terminal, to shrink the code further to fit the screen
 
 ⌛ Keep the SSH session with the QR code open, it will be necessary later to scan the obtained QR code
@@ -215,7 +215,7 @@ Anyone using Zeus on your phone has control over your node and all its funds. It
 In order to preserve your privacy, you can choose your private blockchain explorer when making inquiries related to on-chain transactions.
 
 * In the app, tap on the Zeus icon in the top-left corner
-* Click on `Privacy` and change `Default Block explorer`, by selecting `Custom`, on the `Custom block explorer` box, enter your preferred Block Explorer URL, `.onion`, the local IP address of BTC RPC explorer: `https://192.168.X.XXX:4000`, or Wireguard VPN IP address: `https://10.0.0.1:4000`, depending on the situation.
+* Click on `Privacy` and change `Default Block explorer`, by selecting `Custom`, on the `Custom block explorer` box, enter your preferred Block Explorer URL, `.onion`, the local IP address of BTC RPC explorer: `https://192.168.X.XXX:4000`, or Wireguard VPN IP address: `https://10.0.0.1:4000`, depending on the situation
 
 ## For the future: upgrade Zeus
 
@@ -223,7 +223,7 @@ To update Zeus, update the app using the same app store or the app source you ch
 
 ## Uninstall
 
-To uninstall, you need to uninstall the app on your phone and deactivate the LND REST API Tor hidden service
+To uninstall, you need to uninstall the app on your phone and deactivate the LND REST API Tor hidden service.
 
 * Uninstall the app on your phone
 * To deactivate the LND REST API Tor hidden service, comment out the hidden service lines in `torrc` and reload Tor

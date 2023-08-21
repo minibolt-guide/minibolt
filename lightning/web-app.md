@@ -433,7 +433,7 @@ $ sudo systemctl enable thunderhub
 * Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
 ```bash
-$ sudo journalctl -f -u thunderhub
+$ journalctl -f -u thunderhub
 ```
 
 ## Run Thunderhub
@@ -448,7 +448,7 @@ $2 sudo systemctl start thunderhub
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u thunderhub</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u thunderhub</code> ⬇️</summary>
 
 ```
 Jun 28 23:35:43 minibolt npm[513274]: > thunderhub@0.13.15 start

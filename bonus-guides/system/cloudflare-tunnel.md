@@ -358,7 +358,7 @@ $ sudo systemctl enable cloudflared
 * Prepare `cloudflared` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u cloudflared
+$ journalctl -f -u cloudflared
 ```
 
 {% hint style="info" %}
@@ -375,7 +375,7 @@ $2 sudo systemctl start cloudflared
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u cloudflared</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u cloudflared</code> ⬇️</summary>
 
 ```
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Starting tunnel tunnelID=8666c35d-6ac3-4b39-9324-12ae32ce64a7

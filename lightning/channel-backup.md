@@ -395,7 +395,7 @@ $ sudo systemctl enable scb-backup
 * Prepare “scb-backup” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -f -u scb-backup
+$ journalctl -f -u scb-backup
 ```
 
 ## Run SCB-Backup
@@ -408,7 +408,7 @@ To keep an eye on the software movements, [start your SSH program](../index-1/re
 $2 sudo systemctl start scb-backup
 ```
 
-**Example** of expected output on the  first SSH session with `$ sudo journalctl -f -u btcrpcexplorer` ⬇️
+**Example** of expected output on the  first SSH session with `$ journalctl -f -u btcrpcexplorer` ⬇️
 
 ```
 Jul 25 17:31:54 minibolt systemd[1]: Started SCB Backup.
@@ -425,7 +425,7 @@ $2 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
 
 <details>
 
-<summary><strong>Example</strong> of expected output  with <code>$ sudo journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
+<summary><strong>Example</strong> of the expected output  with <code>$ journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
 
 ```
 Jul 25 17:32:32 minibolt scb-backup[401705]: /data/lnd/data/chain/bitcoin/mainnet/channel.backup OPEN

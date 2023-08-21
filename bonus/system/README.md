@@ -33,7 +33,7 @@ layout:
 ### Install / Update / Uninstall common languages
 
 * [**Go**](go.md) - Install / Update / Uninstall Go
-* [**Node.js + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node.js + NPM
+* [**Node + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node + NPM
 * [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install / Update / Uninstall Rustup Cargo
 
 ### Security

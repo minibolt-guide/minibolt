@@ -429,11 +429,11 @@ latest handshake: 1 minute, 4 seconds ago
 transfer: 655.58 KiB received, 39.35 KiB sent
 ```
 
-*   Ensure that service is working and listening at the default 51820 ports
+* Ensure that service is working and listening at the default 51820 ports
 
-    ```sh
-    $ sudo ss -tulpn | grep 51820
-    ```
+```sh
+$ sudo ss -tulpn | grep 51820
+```
 
 Expected output:
 
@@ -442,11 +442,11 @@ udp   UNCONN 0      0                0.0.0.0:51820      0.0.0.0:*
 udp   UNCONN 0      0                   [::]:51820         [::]:*
 ```
 
-*   Check the systemd journal to see Wireguard VPN real-time updates output logs
+* Check the systemd journal to see Wireguard VPN real-time updates output logs
 
-    ```sh
-    $ sudo journalctl -f -u wg-quick@wg0.service
-    ```
+```sh
+$ sudo journalctl -f -u wg-quick@wg0.service
+```
 
 {% hint style="success" %}
 Now the server is ready to allow connection from the Wireguard VPN client.

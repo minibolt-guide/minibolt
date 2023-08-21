@@ -429,7 +429,7 @@ $ sudo systemctl enable lnd
 * Now, the daemon information is no longer displayed on the command line but is written into the system journal. You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
-$ sudo journalctl -f -u lnd
+$ journalctl -f -u lnd
 ```
 
 ## Run LND
@@ -444,7 +444,7 @@ $2 sudo systemctl start lnd
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u lnd</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u lnd</code> ⬇️</summary>
 
 ```
 > Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.

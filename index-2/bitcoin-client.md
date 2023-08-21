@@ -366,7 +366,7 @@ $ sudo systemctl enable bitcoind
 * Prepare “bitcoind” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```sh
-$ sudo journalctl -f -u bitcoind
+$ journalctl -f -u bitcoind
 ```
 
 💡 Keep **this terminal open,** you'll need to come back here on the next step to monitor logs.

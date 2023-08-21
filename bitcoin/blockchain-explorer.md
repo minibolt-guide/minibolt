@@ -275,7 +275,7 @@ $ sudo systemctl enable btcrpcexplorer
 * Prepare "btcrpcexplorer" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
-$ sudo journalctl -f -u btcrpcexplorer
+$ journalctl -f -u btcrpcexplorer
 ```
 
 ## Run BTC RPC Explorer
@@ -290,7 +290,7 @@ $2 sudo systemctl start btcrpcexplorer
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
 
 ```
 Jul 18 11:08:29 minibolt systemd[1]: Started BTC RPC Explorer.

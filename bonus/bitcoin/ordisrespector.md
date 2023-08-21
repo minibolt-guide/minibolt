@@ -310,7 +310,7 @@ $ sudo systemctl restart bitcoind
 * Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```sh
-$ sudo journalctl -f -u bitcoind
+$ journalctl -f -u bitcoind
 ```
 
 ### **How to detect Ordinals transactions**

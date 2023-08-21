@@ -405,7 +405,7 @@ $ sudo systemctl enable electrs
 * Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
 
 ```sh
-$ sudo journalctl -f -u electrs
+$ journalctl -f -u electrs
 ```
 
 ## Run Electrs
@@ -422,7 +422,7 @@ Monitor the systemd journal at the first session created to check if everything 
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ sudo journalctl -f -u electrs</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u electrs</code> ⬇️</summary>
 
 <pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-1">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
 [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
@@ -558,7 +558,7 @@ $ sudo systemctl restart electrs
 * Check logs and pay attention to the next log if that attends to the new version installed
 
 ```bash
-$ sudo journalctl -fu electrs
+$ journalctl -fu electrs
 ```
 
 <details>

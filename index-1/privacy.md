@@ -157,7 +157,7 @@ tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795
 * Check the systemd journal to see Tor in real time updates output logs
 
 ```sh
-$ sudo journalctl -f -u tor@default
+$ journalctl -f -u tor@default
 ```
 
 <details>
