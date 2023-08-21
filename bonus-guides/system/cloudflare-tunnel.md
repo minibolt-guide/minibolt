@@ -109,7 +109,7 @@ $ VERSION=2023.7.3
 
 {% code overflow="wrap" %}
 ```bash
-$ echo "94ed7215d13f2cfa917329097eb2dfb26beef49f93a153f229a0e4ca6eea80fbcloudflared-linux-amd64.deb" | sha256sum --check
+$ echo "94ed7215d13f2cfa917329097eb2dfb26beef49f93a153f229a0e4ca6eea80fb cloudflared-linux-amd64.deb" | sha256sum --check
 ```
 {% endcode %}
 

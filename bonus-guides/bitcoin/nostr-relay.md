@@ -30,7 +30,7 @@ A nostr relay written in Rust with support for the entire relay protocol and dat
 
 {% code overflow="wrap" %}
 ```bash
-& sudo apt install build-essential cmake protobuf-compiler pkg-config libssl-dev build-essential sqlite3 libsqlite3-dev
+$ sudo apt install build-essential cmake protobuf-compiler pkg-config libssl-dev build-essential sqlite3 libsqlite3-dev
 ```
 {% endcode %}
 
@@ -59,7 +59,7 @@ $ cargo -V
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](rustup-+-cargo.md) to install it and then come back to continue with the guide
+If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
 ## Installation
@@ -70,7 +70,7 @@ If you obtain "**command not found**" outputs, you need to follow the [Rustup + 
 $ cd /tmp
 ```
 
-* Clone the source code directly from GitHub repository, and then build a release version of the relay
+* Clone the source code directly from the GitHub repository, and then build a release version of the relay
 
 ```bash
 $ git clone https://github.com/scsibug/nostr-rs-relay.git
@@ -88,9 +88,56 @@ $ cd nostr-rs-relay
 $ cargo build --release
 ```
 
+<details>
+
+<summary>Expected output</summary>
+
+```
+    Updating crates.io index
+  Downloaded pathdiff v0.2.1
+  Downloaded num_cpus v1.16.0
+  Downloaded indexmap v2.0.0
+  Downloaded parking_lot_core v0.9.8
+  Downloaded want v0.3.1
+  Downloaded pest v2.7.2
+  Downloaded percent-encoding v2.3.0
+  Downloaded parse_duration v2.1.1
+  Downloaded prost-build v0.11.9
+  Downloaded clap_lex v0.5.0
+  Downloaded autocfg v0.1.8
+  Downloaded fastrand v2.0.0
+  Downloaded is-terminal v0.4.9
+  Downloaded json5 v0.4.1
+  Downloaded num v0.2.1
+  Downloaded paste v1.0.14
+  Downloaded pin-project-internal v1.1.3
+  Downloaded num-iter v0.1.43
+  Downloaded fallible-streaming-iterator v0.1.9
+  Downloaded md-5 v0.10.5
+  Downloaded linked-hash-map v0.5.6
+  Downloaded number_prefix v0.4.0
+  Downloaded itoa v1.0.9
+  Downloaded openssl-sys v0.9.91
+  Downloaded async-lock v2.7.0
+  Downloaded pest_derive v2.7.2
+  Downloaded async-channel v1.9.0
+  Downloaded tokio-io-timeout v1.2.0
+  Downloaded async-global-executor v2.3.1
+  Downloaded sync_wrapper v0.1.2
+  Downloaded matchers v0.1.0
+  Downloaded no-std-compat v0.4.1
+  Downloaded block-padding v0.3.3
+  Downloaded pest_generator v2.7.2
+  Downloaded atomic-waker v1.1.1
+  Downloaded pin-project-lite v0.2.12
+  [...]
+```
+
+</details>
+
 * Install it
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>&#x26; sudo install -m 0755 -o root -g root -t /usr/local/bin /tmp/nostr-rs-relay/target/release/nostr-rs-relay
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ sudo install -m 0755 -o root -g root -t /usr/local/bin /tmp/nostr-rs-relay/target/release/nostr-rs-relay
 </strong></code></pre>
 
 * Check the correct installation
@@ -125,6 +172,20 @@ $ sudo su - nostr
 $ mkdir -p relay/db
 ```
 
+* (Optional) If you want to use the MiniBolt `favicon.ico` file, download by entering this command
+
+{% code overflow="wrap" %}
+```bash
+$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico
+```
+{% endcode %}
+
+* Delete the `nostr-rs-relay` folder to be ready for the next update
+
+```bash
+$ sudo rm -r /tmp/nostr-rs-relay
+```
+
 * Exit to the `admin` user
 
 ```bash
@@ -136,21 +197,27 @@ $ exit
 * With user `admin`, copy-paste the configuration file
 
 ```bash
-$ cp /tmp/nostr-rs-relay/config.toml /home/nostr/relay/
+$ sudo cp /tmp/nostr-rs-relay/config.toml /home/nostr/relay/
 ```
 
 * Assign as the owner to the `nostr` user
 
 ```bash
-$ sudo chown nostr:nostr /home/nostr/relay/config.toml 
+$ sudo chown nostr:nostr /home/nostr/relay/config.toml
 ```
 
-* Edit the config file
+* Edit the config file, uncomment, and replace the needed information on the parameters
 
 ```bash
 $ sudo nano /home/nostr/relay/config.toml
 ```
 
+**Mandatory same as next:**
+
+favicon = "favicon.ico"
+
+> > favicon = "favicon.ico"
+>
 > > data\_directory = "/home/nostr/relay/db"
 >
 > > address = "127.0.0.1"
@@ -158,10 +225,29 @@ $ sudo nano /home/nostr/relay/config.toml
 > > port = 8880
 >
 > > remote\_ip\_header = "cf-connecting-ip"
+>
+> **Optional (customize):**\
+> Edit the **\[info]** section, using your nostr information as owner and differente data of you wish for your Nostr relay.
+>
+> (Optional) If you want, use the same `favicon.ico` file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter or replace with your own.&#x20;
+>
+> **Customize this with your own info:**
+>
+> > relay\_url = "wss://relay.example.com/"
+>
+> > name = "\<nametotherelay>"
+>
+> > description = "A newly created MiniBolt Nostr relay <-- Customize this with your own info."
+>
+> > pubkey = "\<yournostrhexpubkey>"
+>
+> > contact = "contact@example.com"
+>
+> > relay\_icon = "https://cdn.nostr.build/i/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png"
 
 ## **Create systemd service**
 
-The system needs to run the nostr relay daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
+The system needs to run the nostr relay daemon automatically in the background, even when nobody is logged in. We use `systemd`, a daemon that controls the startup process using configuration files.
 
 * With the user `admin`, Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
 
@@ -199,12 +285,12 @@ $ sudo systemctl enable nostr-relay
 * Prepare “nostr-relay” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ sudo journalctl -fu nostr-relay
+$ journalctl -fu nostr-relay
 ```
 
 ## Running nostr relay
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the nostr relay
 
@@ -214,7 +300,7 @@ $2 sudo systemctl start nostr-relay
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nostr-relay</code> ⬇️</summary>
 
 ```
 Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.232103Z  INFO nostr_rs_relay: Starting up from main
@@ -247,6 +333,93 @@ Expected output:
 > tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=138820,fd=24))
 ```
 
+### Cloudflare tunnel
+
+Follow the [Cloudflare Tunnel bonus guide](nostr-relay.md#cloudflare-tunnel), when you arrive at the [Configuration file section](../system/cloudflare-tunnel.md#create-a-configuration-file), add the next `# Nostr relay` lines associated
+
+```bash
+$ nano /home/admin/.cloudflared/config.yml
+```
+
+```
+# MiniBolt: cloudflared configuration
+# /home/admin/.cloudflared/config.yml
+
+tunnel: <UUID>
+credentials-file: /home/admin/.cloudflared/<UUID>.json
+
+ingress:
+
+# Nostr relay
+  - hostname: relay.<domain.com>
+    service: ws://localhost:8880
+
+  - service: http_status:404
+```
+
+* Restart the Cloudflared service
+
+```bash
+$ sudo systemctl restart cloudflared
+```
+
+* Check the Cloudflared logs
+
+```bash
+$ journalctl -fu cloudflared
+```
+
+## For the future: Nostr Relay Upgrade
+
+* With user `admin`, stop `nostr-rs-relay` service
+
+```bash
+$ sudo systemctl stop nostr-relay
+```
+
+* Follow the complete [Installation](nostr-relay.md#installation) section **without deleting the nostr-rs-relay folder of the temporary folder**
+* Replace the `config.toml` file with the new one of the new version
+
+{% hint style="warning" %}
+This step is only necessary if you see changes on the config file template since your current version until the current release, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml)
+{% endhint %}
+
+* Backup the `config.toml` file
+
+```bash
+$ sudo cp /home/nostr/relay/config.toml /home/nostr/relay/config.toml.backup
+```
+
+* Assign as the owner to the `nostr` user
+
+```bash
+$ sudo chown nostr:nostr /home/nostr/relay/config.toml.backup
+```
+
+* Replace the new `config.toml` file of the new release
+
+```bash
+$ sudo cp /tmp/nostr-rs-relay/config.toml /home/nostr/relay/
+```
+
+* Edit the config file and replace it with the same old information of the file. Save and exit
+
+```bash
+$ sudo nano /home/nostr/relay/config.toml
+```
+
+* Start `nostr-rs-relay` service again
+
+```bash
+$ sudo systemctl start nostr-relay
+```
+
+* Delete the `nostr-rs-relay` folder to be ready for the next update
+
+```bash
+$ sudo rm -r /tmp/nostr-rs-relay
+```
+
 ## Extras
 
-### Cloudflare tunnel
+Check
