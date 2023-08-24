@@ -331,11 +331,6 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 
 ```
 # -----------
-# Server Configs
-# -----------
-NODE_ENV=production
-
-# -----------
 # Optional (more privacy)
 TOR_PROXY_SERVER=socks://127.0.0.1:9050
 # -----------
