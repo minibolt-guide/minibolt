@@ -147,7 +147,7 @@ $ sudo su - thunderhub
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=0.13.20
+$ VERSION=0.13.21
 ```
 
 * Import the GPG key of the developer
@@ -203,7 +203,7 @@ npm WARN deprecated apollo-reporting-protobuf@3.4.0: The `apollo-reporting-proto
 npm WARN deprecated apollo-server-core@3.12.0: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
 (#################⠂) ⠧ reify:value-or-promise: timing reifyNode:node_modules/foreground-child/node_modules/signal-exit Completed in 39393ms
 [...]
-> thunderhub@0.13.19 prepare
+> thunderhub@0.13.21 prepare
 > husky install
 
 husky - Git hooks installed
@@ -239,19 +239,19 @@ $ npm run build
 <summary>Example of expected output ⬇️</summary>
 
 ```
-> thunderhub@0.13.19 prebuild
+> thunderhub@0.13.21 prebuild
 > rimraf dist && rimraf .next
 
 
-> thunderhub@0.13.19 build
+> thunderhub@0.13.21 build
 > npm run build:nest && npm run build:next
 
 
-> thunderhub@0.13.19 build:nest
+> thunderhub@0.13.21 build:nest
 > nest build
 
 
-> thunderhub@0.13.19 build:next
+> thunderhub@0.13.21 build:next
 > cd src/client && next build
 
 Attention: Next.js now collects completely anonymous telemetry regarding usage.
@@ -309,7 +309,7 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 **Example** of expected output:
 
 ```
-> "version": "0.13.19",
+> "version": "0.13.21",
 ```
 
 ### **Configuration**
@@ -655,7 +655,7 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 **Example** of expected output:
 
 ```
-> "version": "0.13.20",
+> "version": "0.13.21",
 ```
 
 * Exit to go back to the `admin` user
