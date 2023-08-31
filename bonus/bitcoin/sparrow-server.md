@@ -41,7 +41,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.7.8
+$ VERSION=1.7.9
 ```
 
 * Download the application, checksums, and signature
@@ -117,10 +117,10 @@ $ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
 ```
 
 {% hint style="info" %}
-If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command and skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run-sparrow) section to start Sparrow server again with the new version
+If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run-sparrow) section to start the Sparrow server again with the new version
 {% endhint %}
 
-* Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of PATH
+* Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of the PATH
 
 ```sh
 $ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow

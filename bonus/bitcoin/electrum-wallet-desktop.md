@@ -27,7 +27,7 @@ Difficulty: Easy
 
 ![](../../images/electrum\_wallet\_logo.png)
 
-### Installation
+## Installation
 
 On your local computer, download, verify, and install Electrum Wallet.
 
@@ -38,9 +38,9 @@ Using the instructions on [this page](https://electrum.org/#download):
 * Verify the signature following the instructions on the page depending on your OS
 * Install Electrum Wallet Desktop
 
-### Configuration
+## Configuration
 
-#### Force single server Electrum connection to only your node
+### Force single server Electrum connection to only your node
 
 To preserve privacy, we will constrain Electrum to only connect to a single server (your MiniBolt). How to do this depends on whether you are connecting via Local Area Network or via Tor and the operating system that you use on your regular computer.
 
@@ -93,7 +93,7 @@ After opening a wallet or creating a new one, Electrum will indicate an active c
 
 ![](../../images/electrum-wallet-local.PNG)
 
-#### Remote connection over Tor
+### Remote connection over Tor
 
 To connect over Tor, you will need to have Tor installed on the client computer running Electrum.
 

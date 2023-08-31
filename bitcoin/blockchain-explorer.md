@@ -404,6 +404,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service BTC RPC Explorer
 HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:3002
 ```
 

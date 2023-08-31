@@ -123,6 +123,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service Fulcrum Testnet TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 60001 127.0.0.1:60001
 HiddenServicePort 60002 127.0.0.1:60002
 ```
@@ -356,6 +357,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service Electrs Testnet TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 60001 127.0.0.1:60001
 HiddenServicePort 60002 127.0.0.1:60002
 ```

@@ -39,7 +39,7 @@ $ node -v
 > v16.14.2
 ```
 
-* Check NPM version
+* Check the NPM version
 
 ```sh
 $ npm -v
@@ -309,19 +309,16 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 
 ### **Configuration**
 
-*   Copy and open the configuration file
+* Copy and open the configuration file
 
+```sh
+$ cp .env .env.local
+```
 
+```sh
+$ nano .env.local
+```
 
-    ```sh
-    $ cp .env .env.local
-    ```
-
-
-
-    ```sh
-    $ nano .env.local
-    ```
 * Add or edit the following lines, save and exit
 
 ```
@@ -383,6 +380,10 @@ healthCheckPingEnabled: true
 > Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
 {% endhint %}
 
+{% hint style="info" %}
+These features are not available for a testnet node
+{% endhint %}
+
 * Exit `thunderhub` user session to return to the `admin` user session
 
 ```sh
@@ -425,7 +426,7 @@ WantedBy=multi-user.target
 $ sudo systemctl enable thunderhub
 ```
 
-* Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+* Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
 $ journalctl -f -u thunderhub
@@ -551,7 +552,7 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 {% hint style="info" %}
 > Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface
 
-> Now point your browser to `https://minibolt.local:4002`  or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
+> Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
 {% endhint %}
 
 * Ensure the service is working and listening at the default `3000` port
@@ -584,6 +585,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service Thunderhub
 HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:3000
 ```
 
@@ -734,6 +736,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service Thunderhub
 #HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
 #HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 80 127.0.0.1:3000
 ```
 
@@ -760,7 +763,7 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 #### Enable automatic backups to Amboss
 
 1. In ThunderHub, from the left sidebar, click on 🌍**Amboss.**
-2. In the **Backups section**, push on the **Push** button to test and push the first backup to Amboss. If all was good, you could enable automatic backups to Amboss, by pushing on **Enable** just above, now the backup file encrypted will be updated automatically on Amboss for every channel opening and closing.&#x20;
+2. In the **Backups section**, push on the **Push** button to test and push the first backup to Amboss. If all is good, you could enable automatic backups to Amboss, by pushing on **Enable** just above, now the backup file encrypted will be updated automatically on Amboss for every channel opening and closing.
 3. Go to the Amboss website, [backups section](https://amboss.space/settings?page=backups).
 4. Ensure that the last date of the backup is the same as before.
 
@@ -787,7 +790,7 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 
 ### Recovering channels using the ThunderHub method
 
-After possible data corruption of your LND node, ensure that this old node is completely off before starting the recovery.&#x20;
+After possible data corruption of your LND node, ensure that this old node is completely off before starting the recovery.
 
 Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete, and Thunderhub installed and running, go to the Thunderhub dashboard.
 

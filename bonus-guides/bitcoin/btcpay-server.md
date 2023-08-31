@@ -805,6 +805,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service BTCPay
 HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:23000
 ```
 
@@ -1083,12 +1084,12 @@ $ sudo systemctl reload nginx
 $ sudo nano /etc/tor/torrc
 ```
 
-```
-# Hidden Service BTCPay
+<pre><code># Hidden Service BTCPay
 #HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
 #HiddenServiceVersion 3
-#HiddenServicePort 80 127.0.0.1:23000
-```
+<strong>#HiddenServicePoWDefensesEnabled 1
+</strong>#HiddenServicePort 80 127.0.0.1:23000
+</code></pre>
 
 * Reload the torrc config
 

@@ -97,27 +97,13 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=2023.7.3
+$ VERSION=2023.8.2
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ wget https://github.com/cloudflare/cloudflared/releases/download/$VERSION/cloudflared-linux-amd64.deb
 </strong></code></pre>
-
-* Check on the download page what is the SHA256 checksum of the file, e.g. for the above: `94ed7215d13f2cfa917329097eb2dfb26beef49f93a153f229a0e4ca6eea80fb`. Calculate the SHA256 hash of the downloaded file. It should give an `OK` as an output
-
-{% code overflow="wrap" %}
-```bash
-$ echo "94ed7215d13f2cfa917329097eb2dfb26beef49f93a153f229a0e4ca6eea80fb cloudflared-linux-amd64.deb" | sha256sum --check
-```
-{% endcode %}
-
-Expected output:
-
-```
-> cloudflared-linux-amd64.deb: OK
-```
 
 * Use the deb package manager to install it
 

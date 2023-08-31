@@ -301,13 +301,13 @@ The default action is to keep your current version.
 *** i2pd.conf (Y/I/N/O/D/Z) [default=N] ?
 ```
 
-### Extras
+## Extras
 
-#### **SSH remote access through Tor (optional)**
+### **SSH remote access through Tor (optional)**
 
 If you want to log into your MiniBolt with SSH when you're away, you can easily do so by adding a Tor hidden service. This makes "calling home" very easy, without the need to configure anything on your internet router.
 
-**SSH server**
+#### **SSH server**
 
 * Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -319,6 +319,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service SSH server
 HiddenServiceDir /var/lib/tor/hidden_service_sshd/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 22 127.0.0.1:22
 ```
 
@@ -340,7 +341,7 @@ $ sudo cat /var/lib/tor/hidden_service_sshd/hostname
 
 * Save the Tor address in a secure location, e.g., your password manager.
 
-**SSH client**
+#### **SSH client**
 
 You also need to have Tor installed on your regular computer where you start the SSH connection. Usage of SSH over Tor differs by client and operating system.
 
@@ -418,9 +419,9 @@ brew services restart tor
 ssh HOSTNICKNAME
 ```
 
-### **Troubleshooting**
+## **Troubleshooting**
 
-#### **Tor troubleshooting**
+### **Tor troubleshooting**
 
 If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...) is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
 
@@ -450,7 +451,7 @@ If not, try using [obfs bridges](../index-4/index/tor-bridge.md#add-bridge-to-to
 
 ![](../images/tor-censorship.png)
 
-**I2P troubleshooting**
+### **I2P troubleshooting**
 
 If you see these output logs on Bitcoin Core, normally could be that I2P is failing:
 
@@ -458,7 +459,7 @@ If you see these output logs on Bitcoin Core, normally could be that I2P is fail
 
 If this happens, usually this fix only with restarting the i2pd service
 
-* With user admin, restart the service
+* With user `admin`, restart the service
 
 ```sh
 $ sudo systemctl restart i2pd

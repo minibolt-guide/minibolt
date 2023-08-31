@@ -24,7 +24,7 @@ layout:
 ## Requirements
 
 * Bitcoin Core
-* Little over 100GB of free storage for the database (external backup recommended)
+* Little over 130GB of free storage for the database (external backup recommended)
 
 Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs`.
 
@@ -455,6 +455,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service Fulcrum TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp_ssl/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 50001 127.0.0.1:50001
 HiddenServicePort 50002 127.0.0.1:50002
 ```
@@ -632,6 +633,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service Fulcrum TCP & SSL
 #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
 #HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 50001 127.0.0.1:50001
 #HiddenServicePort 50002 127.0.0.1:50002
 ```

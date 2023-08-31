@@ -129,6 +129,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service LND REST
 HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 8080 127.0.0.1:8080
 ```
 
@@ -236,6 +237,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service LND REST
 #HiddenServiceDir /var/lib/tor/hidden_service_lnd_rest/
 #HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 8080 127.0.0.1:8080
 ```
 

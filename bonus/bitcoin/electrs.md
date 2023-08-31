@@ -483,7 +483,7 @@ Expected output:
 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
-### **Remote access over Tor (optional)**
+## **Remote access over Tor (optional)**
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
@@ -497,6 +497,7 @@ $ sudo nano /etc/tor/torrc
 # Hidden Service Electrs TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
 HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 50001 127.0.0.1:50001
 HiddenServicePort 50002 127.0.0.1:50002
 ```
