@@ -224,14 +224,6 @@ $ ROCKSDB_INCLUDE_DIR=/usr/local/include ROCKSDB_LIB_DIR=/usr/local/lib cargo bu
 ```
 {% endcode %}
 
-* Install it
-
-{% code overflow="wrap" %}
-```bash
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
-```
-{% endcode %}
-
 <details>
 
 <summary>Example of expected output 🔽</summary>
@@ -274,6 +266,14 @@ info: installing component 'rustfmt'
 ```
 
 </details>
+
+* Install it
+
+{% code overflow="wrap" %}
+```bash
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
+```
+{% endcode %}
 
 * Check the correct installation
 

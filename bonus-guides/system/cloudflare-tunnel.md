@@ -296,14 +296,23 @@ If you wanted to expose 2 services or more, that is to say, you ingressed more t
 
 Experiments have shown that QUIC transfers on high-bandwidth connections can be limited by the size of the UDP receive and send buffer.
 
-* With user `admin`, increase the maximum buffer size by running
+* With user `admin`, increase the maximum buffer size by editing the next file to add kernel parameters
 
 ```bash
-$ sudo sysctl -w net.core.rmem_max=2500000
+$ sudo nano /etc/sysctl.conf
 ```
 
+* Here are the lines you’ll want to add at the end of the file. Save and exit
+
+```
+net.core.rmem_max=2500000
+net.core.wmem_max=2500000
+```
+
+* Then apply the changes with
+
 ```bash
-$ sudo sysctl -w net.core.wmem_max=2500000
+$ sudo sysctl --system
 ```
 
 {% hint style="info" %}
@@ -335,7 +344,7 @@ ExecStart=/usr/bin/cloudflared --no-autoupdate --config /home/admin/.cloudflared
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot (optional)
+* Enable autoboot **(optional)**
 
 ```bash
 $ sudo systemctl enable cloudflared
@@ -417,7 +426,13 @@ Monitor logs with **`$ journalctl -fu cloudflared`** to ensure that all is still
 
 ## Uninstall
 
-* With user `admin`, use the deb package manager to uninstall Cloudflared
+* With user `admin`, stop the Cloudflared
+
+```bash
+$ sudo systemctl stop cloudflared
+```
+
+* Use the deb package manager to uninstall Cloudflared
 
 ```bash
 $ sudo dpkg -r cloudflared
