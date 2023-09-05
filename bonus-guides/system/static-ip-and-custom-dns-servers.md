@@ -134,13 +134,13 @@ Current DNS Server: 192.168.1.1
 
 In the case of before:
 
-> > ```
-> > <nameserver1> = 192.168.1.1 ( = <gateway>, the DNS servers of your ISP)
-> > ```
+> ```
+> <nameserver1> = 192.168.1.1 ( = <gateway>, the DNS servers of your ISP)
+> ```
 >
-> > ```
-> > <nameserver2> = (secondary DNS server, not setted in this case)
-> > ```
+> ```
+> <nameserver2> = (secondary DNS server, not setted in this case)
+> ```
 
 #### Configuration
 
@@ -208,7 +208,7 @@ $ sudo netplan apply
 ```
 
 {% hint style="success" %}
-Now you are set your static IP address and custom DNS servers
+Now you have set your static IP address and custom DNS servers
 {% endhint %}
 
 {% hint style="warning" %}

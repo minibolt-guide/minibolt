@@ -287,14 +287,14 @@ $ electrs --version
 > v0.10.0
 ```
 
-* Return to the home folder and delete the folder `/electrs` to be ready for the next update, if the prompt asks you `rm: remove write-protected regular file...` type `yes` and press `enter`
+* Return to the home folder and delete the folder `/electrs` to be ready for the next update
 
 ```sh
 $ cd
 ```
 
 ```sh
-$ rm -r /tmp/electrs
+$ sudo rm -r /tmp/electrs
 ```
 
 {% hint style="info" %}
@@ -455,7 +455,7 @@ Monitor the systemd journal at the first session created to check if everything 
 Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
 {% endhint %}
 
-* Ensure electrs service is working and listening at the default `50001` port
+* Ensure electrs service is working and listening at the default TCP `50001` port
 
 ```sh
 $2 sudo ss -tulpn | grep LISTEN | grep electrs 

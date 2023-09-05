@@ -774,7 +774,7 @@ $ sudo ss -tulpn | grep LISTEN | grep 23000
 Expected output:
 
 ```
-> tcp   LISTEN 0      512        127.0.0.1:23000      0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
+> tcp   LISTEN 0   512   127.0.0.1:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
 ```
 
 Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:23001"` (or your node IP address) like `"https://192.168.0.20:23001"`.
