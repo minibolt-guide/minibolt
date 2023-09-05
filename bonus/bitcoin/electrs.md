@@ -223,6 +223,9 @@ Expected output:
 $ ROCKSDB_INCLUDE_DIR=/usr/local/include ROCKSDB_LIB_DIR=/usr/local/lib cargo build --locked --release
 ```
 {% endcode %}
+<details>
+
+<summary>Example of expected output 🔽</summary>
 
 * Install it
 
@@ -232,9 +235,6 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electr
 ```
 {% endcode %}
 
-<details>
-
-<summary>Example of expected output 🔽</summary>
 
 ```
 info: syncing channel updates for '1.63.0-x86_64-unknown-linux-gnu'
