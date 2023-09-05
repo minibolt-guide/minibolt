@@ -296,9 +296,11 @@ $ cd
 ```sh
 $ rm -r /tmp/electrs
 ```
-
 {% hint style="info" %}
-If you come to update this is the final step
+If prompted to confirm the removal of a write protected file when deleting tmp/electrs directory, type "y".  
+{% endhint %}
+{% hint style="info" %}
+If you come to update this is the final step.  
 {% endhint %}
 
 ### **Configuration**
