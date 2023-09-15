@@ -402,7 +402,7 @@ WantedBy=multi-user.target
 $ sudo systemctl enable electrs
 ```
 
-* Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time by with `Ctrl-C`
+* Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
 $ journalctl -f -u electrs
@@ -418,7 +418,7 @@ To keep an eye on the software movements, [start your SSH program](../../index-1
 $2 sudo systemctl start electrs
 ```
 
-Monitor the systemd journal at the first session created to check if everything works fine
+* Monitor the systemd journal at the first session created to check if everything works fine
 
 <details>
 

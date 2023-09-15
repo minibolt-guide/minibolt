@@ -102,8 +102,16 @@ $ cargo build --release
 This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
+{% hint style="info" %}
+If the prompt shows you this error:&#x20;
+
+`error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
+
+You need to type `"$ rustup default stable"` and wait for the process to finish, then try again
+{% endhint %}
+
 {% hint style="success" %}
-If you come to update, this is the final step, now go back to the [Upgrade section](nym-mixnet.md#for-the-future-upgrade-nym-binaries) to continue
+If you come to update, this is the final step, go back to the [Upgrade section](nym-mixnet.md#for-the-future-upgrade-nym-binaries) to continue
 {% endhint %}
 
 ## Installation
@@ -145,7 +153,7 @@ $ ./nym-network-requester init --id bitcoin --latency-based-selection
 ```
 
 {% hint style="info" %}
-If you want to select the gateway that your network requester will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and deleting the `--latency-based-selection flag`
+If you want to select the gateway that your network requester will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection flag`
 {% endhint %}
 
 <details>

@@ -166,7 +166,7 @@ $ cargo -V
 > cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
-## For the future: upgrade Rustup & Cargo
+## For the future: upgrade Rustup + Cargo
 
 * With user `admin` type the appropriate command to get that&#x20;
 
@@ -182,7 +182,7 @@ info: checking for self-update
 [...]
 ```
 
-## Uninstall Rustup & Cargo
+## Uninstall
 
 * With user `admin` type the appropriate command to get that&#x20;
 

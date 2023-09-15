@@ -167,7 +167,7 @@ BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:60001
 ```
 
 {% hint style="success" %}
-The rest of the **BTC RPC Explorer** guide is exactly the same as the mainnet mode.
+The rest of the **BTC RPC Explorer** guide is exactly the same as the mainnet mode
 {% endhint %}
 
 ## Lightning
@@ -206,7 +206,7 @@ $ lncli --network testnet walletbalance
 ```
 
 {% hint style="info" %}
-Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt-gitbook/main/resources/.bash\_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it.
+Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt-gitbook/main/resources/.bash\_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
 {% endhint %}
 
 {% hint style="success" %}
@@ -237,7 +237,7 @@ SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the **Channel Backup guide** is exactly the same as the mainnet mode.
+The rest of the **Channel Backup guide** is exactly the same as the mainnet mode
 {% endhint %}
 
 ### [**Web app: ThunderHub**](../../lightning/web-app.md)
@@ -379,5 +379,5 @@ $ sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
 ```
 
 {% hint style="success" %}
-The rest of the **Channel Backup guide** is exactly the same as the mainnet mode.
+The rest of the **Channel Backup guide** is exactly the same as the mainnet mode
 {% endhint %}

@@ -17,7 +17,7 @@ layout:
     visible: true
 ---
 
-# Node.js + NPM
+# Node + NPM
 
 [Node.js](https://nodejs.org) is an open-source, cross-platform JavaScript runtime environment. Node.js includes NPM in the installation package as well.
 
@@ -77,7 +77,7 @@ $ node -v
 > 9.5.1
 ```
 
-### Update
+## For the future: upgrade Node + NPM
 
 * To upgrade simply type this command
 

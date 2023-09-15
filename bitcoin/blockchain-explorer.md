@@ -151,7 +151,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 
 * Check the correct installation
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
 </strong></code></pre>
 
 **Example** of expected output:

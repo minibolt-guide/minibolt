@@ -21,12 +21,6 @@ There are many reasons why you should run your own Bitcoin node:
 * **Improve your privacy.** Connect your wallets to your node so that you no longer need to reveal their whole financial history to external servers.
 * **Be part of Lightning.** Run your own Lightning node for everyday payments and help build a robust, decentralized Bitcoin Lightning network.
 
-<div align="center" data-full-width="false">
-
-<img src="images/bitcoin-network-small.png" alt="">
-
-</div>
-
 ### MiniBolt overview
 
 This guide explains how to set up your own Bitcoin node on a Personal Computer. But it works on most hardware platforms because it only uses standard Debian Linux commands.

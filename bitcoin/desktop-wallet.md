@@ -65,12 +65,12 @@ We now configure Sparrow to connect to your node within your local network.
 * Click on the "Private Electrum" tab
 * On the "URL" line, paste `minibolt.local` or your node IP (e.g., `192.168.X.XXX`) in the first box and `50002` in the second box
 * Enable SSL by clicking on the slider
-*   Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
+* Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
-    ```
-    > Connected to Fulcrum x.x.x on protocol version...
-    > [...]
-    ```
+```
+> Connected to Fulcrum x.x.x on protocol version...
+> [...]
+```
 
 ![](../images/sparrow-electrum-no-proxy.png)
 
@@ -135,12 +135,12 @@ Expected output:
 * Click on the "Private Electrum" tab. If you've already had an existing clearnet connection, click on "Edit Existing Connection".
 * On the "URL" line, paste your Tor hidden service connection address (e.g. "abcd...1234.onion") in the first box and `50002` in the second box
 * Enable SSL by clicking on the slider
-*   Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
+* Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
 
-    ```
-    > Connected to Fulcrum x.x.x on protocol version ...
-    > [...]
-    ```
+```
+> Connected to Fulcrum x.x.x on protocol version ...
+> [...]
+```
 
 ![](../images/sparrow-electrum-tor-no-proxy.png)
 
@@ -160,7 +160,7 @@ For Sparrow Wallet to connect to the external services via Tor, Tor has to be ru
 
 By OS:
 
-* **Windows**: download, install and run [Tor Browser](https://www.torproject.org)
+* **Windows**: download, install, and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
   * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 * **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
