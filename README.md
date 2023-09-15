@@ -17,7 +17,7 @@
 [stars-shield]: https://img.shields.io/github/stars/minibolt-guide/minibolt.svg?style=for-the-badge
 [stars-url]: https://github.com/minibolt-guide/minibolt/stargazers
 [license-shield]: https://img.shields.io/github/license/minibolt-guide/minibolt.svg?style=for-the-badge
-[license-url]: https://github.com/minibolt-guide/minibolt/blob/main/LICENSE
+[license-url]: https://raw.githubusercontent.com/minibolt-guide/minibolt/main/LICENSE
 [contributors-shield]: https://img.shields.io/github/contributors/minibolt-guide/minibolt.svg?style=for-the-badge
 [contributors-url]: https://github.com/minibolt-guide/minibolt/graphs/contributors
 [issues-shield]: https://img.shields.io/github/issues/minibolt-guide/minibolt.svg?style=for-the-badge
