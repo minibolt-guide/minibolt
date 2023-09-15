@@ -14,7 +14,7 @@ layout:
 
 # Nostr relay
 
-A nostr relay written in Rust with support for the entire relay protocol and data persistence using SQLite
+A [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with support for the entire relay protocol and data persistence using SQLite
 
 <figure><img src="../../.gitbook/assets/nostr-relay-gif.gif" alt=""><figcaption></figcaption></figure>
 
@@ -46,7 +46,7 @@ $ rustc --version
 > rustc 1.71.0 (8ede3aae2 2023-07-12)
 ```
 
-* And Cargo too
+* Also Cargo
 
 ```bash
 $ cargo -V
@@ -90,7 +90,7 @@ $ cargo build --release
 
 <details>
 
-<summary>Expected output</summary>
+<summary>Expected output ⬇️</summary>
 
 ```
     Updating crates.io index
@@ -212,9 +212,7 @@ $ sudo chown nostr:nostr /home/nostr/relay/config.toml
 $ sudo nano /home/nostr/relay/config.toml
 ```
 
-**Mandatory same as next:**
-
-favicon = "favicon.ico"
+**Required same as next:**
 
 > > favicon = "favicon.ico"
 >
@@ -227,23 +225,23 @@ favicon = "favicon.ico"
 > > remote\_ip\_header = "cf-connecting-ip"
 >
 > **Optional (customize):**\
-> Edit the **\[info]** section, using your nostr information as owner and differente data of you wish for your Nostr relay.
+> Edit the **\[info]** section, using your nostr information as owner and different data of you wish for your Nostr relay.
 >
-> (Optional) If you want, use the same `favicon.ico` file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter or replace with your own.&#x20;
+> (Optional) If you want, use the same `favicon.ico` file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter, or replace with your own.&#x20;
 >
 > **Customize this with your own info:**
 >
-> > relay\_url = "wss://relay.example.com/"
+> > relay\_url = "[`<yourelayurl>`](#user-content-fn-1)[^1]"
 >
-> > name = "\<nametotherelay>"
+> > name = "[`<nametotherelay>`](#user-content-fn-2)[^2]"
 >
-> > description = "A newly created MiniBolt Nostr relay <-- Customize this with your own info."
+> > description = "[`<descriptionrelay>`](#user-content-fn-3)[^3]"
 >
-> > pubkey = "\<yournostrhexpubkey>"
+> > pubkey = "[`<yournostrhexpubkey>`](#user-content-fn-4)[^4]"
 >
-> > contact = "contact@example.com"
+> > contact = "[`<yourcontact>`](#user-content-fn-5)[^5]"
 >
-> > relay\_icon = "https://cdn.nostr.build/i/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png"
+> > relay\_icon = "[`<yourelayiconURL>`](#user-content-fn-6)[^6]"
 
 ## **Create systemd service**
 
@@ -290,7 +288,7 @@ $ journalctl -fu nostr-relay
 
 ## Running nostr relay
 
-To keep an eye on the software movements, [start your SSH program](../../system/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the nostr relay
 
@@ -335,27 +333,26 @@ Expected output:
 
 ### Cloudflare tunnel
 
-Follow the [Cloudflare Tunnel bonus guide](nostr-relay.md#cloudflare-tunnel), when you arrive at the [Configuration file section](../system/cloudflare-tunnel.md#create-a-configuration-file), add the next `# Nostr relay` lines associated
+Follow the [Cloudflare Tunnel bonus guide](nostr-relay.md#cloudflare-tunnel), when you arrive at the [Configuration file section](../system/cloudflare-tunnel.md#create-a-configuration-file), add the next `# Nostr relay` lines
 
 ```bash
 $ nano /home/admin/.cloudflared/config.yml
 ```
 
-```
-# MiniBolt: cloudflared configuration
+<pre><code># MiniBolt: cloudflared configuration
 # /home/admin/.cloudflared/config.yml
 
-tunnel: <UUID>
-credentials-file: /home/admin/.cloudflared/<UUID>.json
+tunnel: &#x3C;UUID>
+credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 
 ingress:
 
 # Nostr relay
-  - hostname: relay.<domain.com>
+  - hostname: <a data-footnote-ref href="#user-content-fn-7">relay</a>.<a data-footnote-ref href="#user-content-fn-8">&#x3C;domain.com></a>
     service: ws://localhost:8880
 
   - service: http_status:404
-```
+</code></pre>
 
 * Restart the Cloudflared service
 
@@ -369,7 +366,35 @@ $ sudo systemctl restart cloudflared
 $ journalctl -fu cloudflared
 ```
 
-## For the future: Nostr Relay Upgrade
+#### Check relay connection
+
+3 different methods:
+
+1. Go to the [nostr.watch](https://nostr.watch) website to check and test the relay connection
+
+Access to the URL, replacing `<relay.domain.com>` with your Nostr relay URL: `https://nostr.watch/relay/relay.domain.com,` example: [https://nostr.watch/relay/relay.damus.io](https://nostr.watch/relay/relay.damus.io)
+
+Expected output:
+
+<figure><img src="../../.gitbook/assets/relay-connection.PNG" alt=""><figcaption></figcaption></figure>
+
+2. Go to the [websocketking.com](https://websocketking.com/) website, type in the WebSocket URL box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button
+
+**Example** of expected output:
+
+<figure><img src="../../.gitbook/assets/relay-test-connected.PNG" alt=""><figcaption></figcaption></figure>
+
+3. Use a client to check the connection to the relay
+
+#### Mobile:
+
+Amethyst
+
+**Desktop:**
+
+**Web:**
+
+## For the future: Nostr Relay upgrade
 
 * With user `admin`, stop `nostr-rs-relay` service
 
@@ -422,4 +447,79 @@ $ sudo rm -r /tmp/nostr-rs-relay
 
 ## Extras
 
-Check
+### Broadcast the past events to your new relay (optional)
+
+If you want all your past events to be accessible through your new relay, you can back them up by following these instructions:
+
+* Go to [metadata.nostr.com](https://metadata.nostr.com) website, log in **\[Load My Profile]**, and click on **\[Relays]**
+* Add your new Nostr relay **`[wss://relay.domain.com]`** address to the list of preferred relays in your profile (in the empty box below), select the **read+write** option, and click the **\[Update]** button
+* Go to [nostryfied.amethyst.social](https://nostryfied.amethyst.social) webpage and log in **\[Get from extension]**, or manually enter the \[npub... of your Nostr profile
+* Click the **\[Backup & Broadcast]** button...
+
+<figure><img src="../../.gitbook/assets/broadcast-relay.png" alt="" width="319"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+Please wait patiently until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr. Optionally, you can also save a copy of all your events locally as you'll have the download option
+{% endhint %}
+
+### Other interesting Nostr clients
+
+{% tabs %}
+{% tab title="Coracle" %}
+Coracle is a web client for the Nostr protocol focused on pushing the boundaries of what's unique about Nostr, including relay selection and management, web-of-trust based moderation and content recommendations, and privacy protection.
+
+[Web](https://coracle.social/) | [GitHub](https://github.com/coracle-social/coracle)
+{% endtab %}
+
+{% tab title="Snort" %}
+A nostr UI built with React aiming for speed and efficiency.
+
+[Web](https://snort.social) | [Git](https://git.v0l.io/Kieran/snort)
+{% endtab %}
+
+{% tab title="Zap stream" %}
+Nostr live streaming
+
+[Web](https://zap.stream/) | [GitHub](https://github.com/v0l/zap.stream)
+{% endtab %}
+
+{% tab title="Rana" %}
+Nostr public key mining tool
+
+[GitHub](https://github.com/grunch/rana)
+{% endtab %}
+
+{% tab title="URL Shortener" %}
+A free URL shortener service enabled by the NOSTR protocol, that is fast and fuss-free, stripped of all bells and whistles, no gimmicks—it just works!
+
+[Web](https://w3.do/) | [GitHub](https://github.com/jinglescode/nostr-url-shortener)
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Nostree" %}
+A Nostr-based application to create, manage and discover link lists, show notes and other stuff.
+
+[Web](https://nostree.me/) | [GitHub](https://github.com/gzuuus/linktr-nostr)
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
+
+[^1]: Example: "wss://relay.minibolt/"
+
+[^2]: Example: "MiniBolt Relay"
+
+[^3]: Example: "The Nostr relay of the MiniBolt project"
+
+[^4]: Example: "b17fccdf07ba2387f038b34426720cd68d112df923bca2bed8f8c309b7211155"
+
+[^5]: Example: "hello@minibolt.info"
+
+[^6]: Example: "https://cdn.nostr.build/i/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png"
+
+[^7]: This is only an example of a subdomain related for a nostr relay
+
+[^8]: Here your personal domain
