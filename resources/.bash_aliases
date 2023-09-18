@@ -31,7 +31,7 @@ alias showmainversion='echo The installed versions of the main services are as f
 
 alias showbonusversion='echo The installed versions of the bonus services are as follows: ; \
   echo Electrs: `electrs --version` ; \
-  lntop --version ; \
+  Sparrow --version; \
   sudo -u nym /home/nym/nym-socks5-client -V | grep nym ; \
   sudo -u nym /home/nym/nym-network-requester -V | grep nym ; \
   cloudflared --version ; \
