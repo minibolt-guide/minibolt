@@ -2,7 +2,7 @@
 
 ## Home
 
-* [Home](README.md)
+* [MiniBolt](README.md)
 
 ## System
 
@@ -41,7 +41,7 @@
   * [Rustup + Cargo](bonus-guides/system/rustup-+-cargo.md)
   * [Login with SSH keys](bonus/system/ssh-keys.md)
   * [WireGuard: a simple yet fast VPN](bonus/system/wireguard-vpn.md)
-  * [Cloudflare Tunnel](bonus-guides/system/cloudflare-tunnel.md)
+  * [Cloudflare tunnel](bonus-guides/system/cloudflare-tunnel.md)
   * [Tor obfs4 bridge](index-4/index/tor-bridge.md)
   * [NYM mixnet](bonus-guides/system/nym-mixnet.md)
   * [Store data in a secondary disk](bonus/system/store-data-secondary-disk.md)

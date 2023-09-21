@@ -17,7 +17,7 @@ layout:
 The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called obfs4, a special kind of bridge, to address this by adding a layer of obfuscation.
 
 {% hint style="danger" %}
-_USE WITH CAUTION - For this guide to work properly, you will need to open ports too are reachable from outside._
+_USE WITH CAUTION - For this guide to work properly, you will need to open ports too are reachable from outside_
 {% endhint %}
 
 {% hint style="warning" %}
@@ -62,7 +62,7 @@ $ tor --version
 ```
 
 {% hint style="info" %}
-If not obtain results, follow the [Privacy section](../../index-1/privacy.md#tor-installation) to install it.
+If not obtain results, follow the [Privacy section](../../index-1/privacy.md#tor-installation) to install it
 {% endhint %}
 
 ## Configuration
@@ -160,7 +160,7 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
 {% hint style="warning" %}
-Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port `"<TODO2>"` is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with `"$ curl icanhazip.com"` or navigate directly with your regular browser to \[icanhazip.com] on your personal computer inside of the same local network, and put your `"<TODO2>"` port.
+Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with **`$ curl icanhazip.com`** or navigate directly with your regular browser to \[icanhazip.com] on your personal computer inside of the same local network, and put your **`<TODO2>`** port
 {% endhint %}
 
 ### **Systemd hardening**
@@ -228,7 +228,7 @@ You can check the status of your bridge relay at https://bridges.torproject.org/
 
 ```
 [...]
-> Now checking whether IPv4 ORPort <IP ADDRES:<TODO1>> is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
+> Now checking whether IPv4 ORPort <IP ADDRESS:<TODO1>> is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
 > Self-testing indicates your ORPort <IP ADDRES:<TODO1>> is reachable from the outside. > Excellent. Publishing server descriptor.
 > Performing bandwidth self-test...done
 [...]
@@ -289,7 +289,7 @@ Unattended-Upgrade::Package-Blacklist {
 };
 ```
 
-* If you want to automatically reboot add also the following at the end of the file (optional)
+* If you want to automatically reboot add the following at the end of the file (optional)
 
 ```
 Unattended-Upgrade::Automatic-Reboot "true";
@@ -356,13 +356,13 @@ Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), a
 $ sudo apt install obfs4proxy
 ```
 
-* Edit the "torrc" file
+* Edit the **torrc** file
 
 ```sh
 $ sudo nano /etc/tor/torrc
 ```
 
-* Add the next lines at the end of the **"torrc"** file
+* Add the next lines at the end of the **torrc** file
 
 ```
 ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
@@ -371,7 +371,7 @@ Bridge obfs4 IP_ADDRESS:PORT FINGERPRINT cert=CERTIFICATE iat-mode=0
 ```
 
 {% hint style="info" %}
-Add the needed lines with the number of bridges that you wish, replacing **"IP\_ADDRESS"**, **"PORT"**, **"FINGERPRINT"**, and **"CERTIFICATE"** with those obtained before.
+Add the needed lines with the number of bridges that you wish, replacing **"IP\_ADDRESS"**, **"PORT"**, **"FINGERPRINT"**, and **"CERTIFICATE"** with those obtained before
 {% endhint %}
 
 * Restart Tor to apply changes
@@ -413,7 +413,7 @@ $ sudo nano /etc/tor/torrc
 
 ### **Uninstall FW configuration and router NAT**
 
-* Display the UFW firewall rules and notes the numbers of the rules for Tor bridge (e.g. W, Z, Y, and Z below)
+* Display the UFW firewall rules and note the numbers of the rules for Tor bridge (e.g. W, Z, Y, and Z below)
 
 ```sh
 $ sudo ufw status numbered

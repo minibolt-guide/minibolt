@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Cloudflare Tunnel
+# Cloudflare tunnel
 
 Exposing your local server on the internet (clearnet) has various solutions, but the Cloudflare Tunnel stands out as the easiest and most cost-effective option. Traditionally, configuring firewalls, using Tor, or setting up an SSH reverse tunnel to a public VPS were common approaches, each with its challenges and costs. Cloudflare Tunnel offers an alternative, though it acts as a middleman and can access or modify your traffic.
 
@@ -144,7 +144,7 @@ $ cloudflared tunnel login
 <figure><img src="../../.gitbook/assets/cloudflared-tunnel-login.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Leave Cloudflared running to download the cert automatically with you complete the authentication on the Cloudflare account
+Leave Cloudflared running to download the cert automatically while you complete the authentication on the Cloudflare account
 {% endhint %}
 
 * In the same browser session with the Cloudflare account already open, enter the URL of the prompt provided earlier. Then, select your pre-configured site on Cloudflare to authorize the tunnel for that site
@@ -316,7 +316,7 @@ $ sudo sysctl --system
 ```
 
 {% hint style="info" %}
-These commands would increase the maximum send and receive buffer size to roughly 2.5 MB
+These parameters would increase the maximum send and receive buffer size to roughly 2.5 MB
 {% endhint %}
 
 ## Create systemd service

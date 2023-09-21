@@ -53,9 +53,9 @@ A VPN is an encrypted tunnel between two computers over the internet. In our cas
 
 Before starting with the installation proper, you need to:
 
-1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat). If that's the case **you have no way of doing port forwarding**, and you'll need to contact them asking to **put you out of CG-NAT** (this means giving your router a dedicated public IP). Most ISP simply does this on request or charge a small fee to allocate a public IP just for you.
-2. Figure out the public IP of your home network. If you have a **static public IP** it'll simplify the setup, but it's not mandatory. There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
-3. Forward the `"51820"` port and `"UDP"` protocol of your router to the local IP of your MiniBolt. This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](wireguard-vpn.md#port-forwarding), you can show a few instructions to do this for the most common cases.
+1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat). If that's the case **you have no way of doing port forwarding**, and you'll need to contact them asking to **put you out of CG-NAT** (this means giving your router a dedicated public IP). Most ISPs simply do this on request or charge a small fee to allocate a public IP just for you
+2. Figure out the public IP of your home network. If you have a **static public IP** it'll simplify the setup, but it's not mandatory. There are plenty of websites that show you your public IP. One such site is [https://whatismyipaddress.com](https://whatismyipaddress.com/)
+3. Forward the `"51820"` port and `"UDP"` protocol of your router to the local IP of your MiniBolt. This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](wireguard-vpn.md#port-forwarding), you can show a few instructions to do this for the most common cases
 
 📝 In the next steps, we will create different keys, IDs, passwords, and others, remember to take note of all of those in your preferred password manager (Bitwarden, Keypass) or an offline document paper:
 
@@ -87,7 +87,7 @@ To fix this, we can maintain a DNS record that always points to your latest IP, 
 Now we are going to execute a universal way of configuring our IP by updating it to the dynamic DNS provider using the MiniBolt node via a script, but this job can be done by your router, especially if we are not sure that we are going to have MiniBolt running 24/7. Go to the [Use your router’s DDNS preconfigured provider](wireguard-vpn.md#use-your-routers-ddns-preconfigured-provider) extra section.
 
 {% hint style="info" %}
-If you have a contracted static IP on your ISP, you can log in to the MiniBolt directly, go to the [configure firewall](wireguard-vpn.md#configure-firewall) section and continue with the guide from there.
+If you have a contracted static IP on your ISP, you can log in to the MiniBolt directly, go to the [configure firewall](wireguard-vpn.md#configure-firewall) section, and continue with the guide from there.
 {% endhint %}
 
 ### **Desec registration**
@@ -106,7 +106,7 @@ If you have a contracted static IP on your ISP, you can log in to the MiniBolt d
 
 ![](../../images/desec\_io1.png)
 
-* Ensure to keep selecting the second option **Register a new domain under dedyn.io (dynDNS)**
+* Ensure to keep selecting the second option **Register a new domain under dedyn.io (dynDNS).**
 * For this demo, I've typed **`yoursubdomain`**, but _**you can use anything memorable**_ to you as long as no one has already taken that name. We'll it call **`"<yoursubdomain.dedyn.io>"`** from now on.
 * Complete the **"CAPTCHA"** and check the box **"Yes, I agree to the..."** option, and click on the **"SIGN UP"** button.
 

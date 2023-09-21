@@ -107,7 +107,7 @@ If the prompt shows you this error:&#x20;
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
-You need to type `"$ rustup default stable"` and wait for the process to finish, then try again
+You need to type "**`$ rustup default stable"`** and wait for the process to finish, then try again the command before
 {% endhint %}
 
 {% hint style="success" %}
@@ -298,7 +298,7 @@ Jun 25 20:43:01 minibolt nym-network-requester[1774351]:  2023-06-25T18:43:01.58
 </details>
 
 {% hint style="info" %}
-All network requester specific configurations can be found in `/home/nym/.nym/service-providers/network-requester/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service.
+All network requester specific configurations can be found in `/home/nym/.nym/service-providers/network-requester/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service
 {% endhint %}
 
 ### Install NYM socks5 client
@@ -930,7 +930,9 @@ A Nostr client connected to a Nostr-NYM Proxy\
 \
 [Link](https://nostrnym.pnproxy.org/) | [GitHub](https://github.com/Pineapple-Proxy-DAO/iris-messenger)
 {% endtab %}
+{% endtabs %}
 
+{% tabs %}
 {% tab title="NYM Swap" %}
 \[Unofficial] Swap different tokens <-> NYM token
 
