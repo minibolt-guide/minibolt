@@ -84,7 +84,7 @@ If you find yourself locked out by mistake, you can connect a keyboard and scree
 
 ### Increase your open files limit
 
-If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the "can't accept connection: too many open files" error. This is due to the limit of open files (representing individual TCP connections) being set too low.
+If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the `can't accept connection: too many open files` error. This is due to the limit of open files (representing individual TCP connections) being set too low.
 
 * Create the file `90-limits.conf`, and copy these lines into it. Save and exit
 
@@ -99,24 +99,6 @@ root soft nofile 128000
 root hard nofile 128000
 ```
 
-* Edit both of the following two files and add the additional line(s) right before the end comment. Save and exit
-
-```sh
-$ sudo nano /etc/pam.d/common-session
-```
-
-```
-session required                        pam_limits.so
-```
-
-```sh
-$ sudo nano /etc/pam.d/common-session-noninteractive
-```
-
-```
-session required                        pam_limits.so
-```
-
 ### Monitoring SSH authentication logs
 
 * You can monitor authentication general logs in your system in real-time
@@ -125,7 +107,7 @@ session required                        pam_limits.so
 $ sudo tail -f /var/log/auth.log
 ```
 
-* Or filtering only by ssh authentication logs in the last 500 lines
+* Or filtering only by SSH authentication logs in the last 500 lines
 
 ```sh
 $ sudo tail --lines 500 /var/log/auth.log | grep sshd

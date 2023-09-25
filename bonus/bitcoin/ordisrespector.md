@@ -220,22 +220,22 @@ $ cd bitcoin-$VERSION
 $ ./autogen.sh
 ```
 
-*   The next command will pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
+* The next command will pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
-    ```sh
-    export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
-    ./configure \
-       BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" \
-      --disable-bench \
-      --disable-gui-tests \
-      --disable-maintainer-mode \
-      --disable-man \
-      --disable-tests \
-      --with-daemon=yes \
-      --with-gui=no \
-      --with-qrencode=no \
-      --with-utils=yes
-    ```
+```sh
+export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
+./configure \
+   BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" \
+  --disable-bench \
+  --disable-gui-tests \
+  --disable-maintainer-mode \
+  --disable-man \
+  --disable-tests \
+  --with-daemon=yes \
+  --with-gui=no \
+  --with-qrencode=no \
+  --with-utils=yes
+```
 
 ### **Apply the "Ordisrespector" patch**
 
@@ -298,8 +298,16 @@ The following output is just an **example** of one of the versions:
 ```
 
 {% hint style="info" %}
-Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../index-2/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps.
+Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../index-2/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps
 {% endhint %}
+
+* Clean the installation files to be ready for the next update
+
+{% code overflow="wrap" %}
+```bash
+$ sudo rm -r bitcoin-25.0 && rm bdb.sh && rm bitcoin-25.0.tar.gz && rm db-4.8.30.NC.tar.gz & rm SHA256SUMS && rm SHA256SUMS.asc && rm SHA256SUMS.ots
+```
+{% endcode %}
 
 * Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
 

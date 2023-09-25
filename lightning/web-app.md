@@ -142,7 +142,7 @@ $ sudo su - thunderhub
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=0.13.20
+$ VERSION=0.13.23
 ```
 
 * Import the GPG key of the developer
