@@ -43,6 +43,7 @@ layout:
 
 * [**Safu Ninja**](safu-ninja.md) - create resilient DIY metal backups of your seed phrases
 * [**Ordirespector**](ordisrespector.md) - an Ordinals NFTs spam filter for mempool politics of Bitcoin Core
+* [**Nostr Relay**](../../bonus-guides/bitcoin/nostr-relay.md) - a nostr relay written in Rust with support for the entire relay protocol and data persistence using SQLite
 
 ### Fun
 

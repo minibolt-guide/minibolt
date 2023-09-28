@@ -30,16 +30,12 @@ alias showmainversion='echo The installed versions of the main services are as f
   nginx -v'
 
 alias showbonusversion='echo The installed versions of the bonus services are as follows: ; \
-  circuitbreaker --version ; \
-  echo RTL: `sudo head -n 3 /home/rtl/RTL/package.json | grep version` ; \
-  bos -V ; \
-  litd --lnd.version ; \
-  lightning-cli --version ; \
   echo Electrs: `electrs --version` ; \
-  lntop --version ; \
+  Sparrow --version; \
   sudo -u nym /home/nym/nym-socks5-client -V | grep nym ; \
   sudo -u nym /home/nym/nym-network-requester -V | grep nym ; \
-  cloudflared --version'
+  cloudflared --version ; \
+  nostr-rs-relay -V'
 
 alias manualscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
 alias manualtestnetbackup='sudo touch /data/lnd/data/chain/bitcoin/testnet/channel.backup'
@@ -134,18 +130,18 @@ alias disableallmain='sudo systemctl disable bitcoind fulcrum btcrpcexplorer lnd
 # MAIN SERVICES LOGS #
 ######################
 
-alias torlogs='sudo journalctl -f -u tor@default'
+alias torlogs='journalctl -f -u tor@default'
 alias i2plogs='sudo tail -f /var/log/i2pd/i2pd.log'
-alias bitcoindlogs='sudo journalctl -f -u bitcoind.service'
-alias fulcrumlogs='sudo journalctl -f -u fulcrum'
-alias btcrpcexplorerlogs='sudo journalctl -f -u btcrpcexplorer'
-alias lndlogs='sudo journalctl -f -u lnd'
-alias thunderhublogs='sudo journalctl -f -u thunderhub'
-alias scbackuplogs='sudo journalctl -f -u scb-backup'
+alias bitcoindlogs='journalctl -f -u bitcoind.service'
+alias fulcrumlogs='journalctl -f -u fulcrum'
+alias btcrpcexplorerlogs='journalctl -f -u btcrpcexplorer'
+alias lndlogs='journalctl -f -u lnd'
+alias thunderhublogs='journalctl -f -u thunderhub'
+alias scbackuplogs='journalctl -f -u scb-backup'
 
-##################
-#       LND      #
-##################
+##########################
+#       LND Mainnet      #
+##########################
 
 alias unlock='lncli unlock'
 alias newaddress='lncli newaddress p2tr'
@@ -164,9 +160,9 @@ alias payinvoice='lncli payinvoice'
 alias addinvoice='lncli addinvoice'
 alias addAMPinvoice30d='lncli addinvoice --amp'
 
-##################
-# LND Watchtower #
-##################
+##########################
+# LND Mainnet Watchtower #
+##########################
 
 alias wtclientinfo='lncli wtclient towers'
 alias wtserverinfo='lncli tower info'
@@ -179,124 +175,88 @@ alias wtserverinfo='lncli tower info'
 # ENABLE BONUS SERVICES #
 #########################
 
-alias enablehomer='sudo systemctl enable homer'
-alias enablemempool='sudo systemctl enable mempool'
-alias enablecircuitbreaker='sudo systemctl enable circuitbreaker'
-alias enablelnbits='sudo systemctl enable lnbits'
-alias enablertl='sudo systemctl enable rtl'
-alias enablelitd='sudo systemctl enable litd'
-alias enablecln='sudo systemctl enable cln'
 alias enablelectrs='sudo systemctl enable electrs'
 alias enablewireguard='sudo systemctl enable wg-quick@wg0'
 alias enablenymrequester='sudo systemctl enable nym-network-requester'
 alias enablenymsocks5='sudo systemctl enable nym-socks5-client'
-alias enablebtcpay='sudo systemctl enable btcpay'
 alias enablenbx='sudo systemctl enable nbxplorer'
+alias enablebtcpay='sudo systemctl enable btcpay'
 alias enablecloudflared='sudo systemctl enable cloudflared'
-alias enableallbonus='sudo systemctl enable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared'
+alias enablenostrelay='sudo systemctl enable nostr-relay'
+alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay'
 
 ########################
 # START BONUS SERVICES #
 ########################
 
-alias starthomer='sudo systemctl start homer'
-alias startmempool='sudo systemctl start mempool'
-alias startcircuitbreaker='sudo systemctl start circuitbreaker'
-alias startlnbits='sudo systemctl start lnbits'
-alias startrtl='sudo systemctl start rtl'
-alias startlitd='sudo systemctl start litd'
-alias startcln='sudo systemctl start cln'
 alias startelectrs='sudo systemctl start electrs'
 alias startwireguard='sudo systemctl start wg-quick@wg0'
 alias startnymrequester='sudo systemctl start nym-network-requester'
 alias startnymsocks5='sudo systemctl start nym-socks5-client'
+alias startnbx='sudo systemctl start nbxplorer'
 alias startbtcpay='sudo systemctl start btcpay'
 alias startcloudflared='sudo systemctl start cloudflared'
-alias startnbx='sudo systemctl start nbxplorer'
+alias startnostrelay='sudo systemctl start nostr-relay'
 
 #########################
 # STATUS BONUS SERVICES #
 #########################
 
-alias statushomer='sudo systemctl status homer'
-alias statusmempool='sudo systemctl status mempool'
-alias statuscircuitbreaker='sudo systemctl status circuitbreaker'
-alias statuslnbits='sudo systemctl status lnbits'
-alias statusrtl='sudo systemctl status rtl'
-alias statuslitd='sudo systemctl status litd'
-alias statuscln='sudo systemctl status cln'
 alias statuselectrs='sudo systemctl status electrs'
 alias statuswireguard='sudo systemctl status wg-quick@wg0'
 alias statusnymrequester='sudo systemctl status nym-network-requester'
 alias statusnymsocks5='sudo systemctl status nym-socks5-client'
-alias statusbtcpay='sudo systemctl status btcpay'
 alias statusnbx='sudo systemctl status nbxplorer'
+alias statusbtcpay='sudo systemctl status btcpay'
 alias statuscloudflared='sudo systemctl status cloudflared'
+alias statusnostrelay='sudo systemctl status nostr-relay'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
-  sudo systemctl status homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared'
+  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay'
 
 #######################
 # STOP BONUS SERVICES #
 #######################
 
-alias stophomer='sudo systemctl stop homer'
-alias stopmempool='sudo systemctl stop mempool'
-alias stopcircuitbreaker='sudo systemctl stop circuitbreaker'
-alias stoplnbits='sudo systemctl stop lnbits'
-alias stoprtl='sudo systemctl stop rtl'
-alias stoplitd='sudo systemctl stop litd'
-alias stopcln='sudo systemctl stop cln'
 alias stopelectrs='sudo systemctl stop electrs'
 alias stopwireguard='sudo systemctl stop wg-quick@wg0'
 alias stopnymrequester='sudo systemctl stop nym-network-requester'
 alias stopnymsocks5='sudo systemctl stop nym-socks5-client'
-alias stopbtcpay='sudo systemctl stop btcpay'
 alias stopnbx='sudo systemctl stop nbxplorer'
+alias stopbtcpay='sudo systemctl stop btcpay'
 alias stopcloudflared='sudo systemctl stop cloudflared'
-alias stopallbonus='sudo systemctl stop homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared'
+alias stopnostrelay='sudo systemctl stop nostr-relay'
+alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-reay'
 
 ##########################
 # DISABLE BONUS SERVICES #
 ##########################
 
-alias disablehomer='sudo systemctl disable homer'
-alias disablemempool='sudo systemctl disable mempool'
-alias disablecircuitbreaker='sudo systemctl disable circuitbreaker'
-alias disablelnbits='sudo systemctl disable lnbits'
-alias disablertl='sudo systemctl disable rtl'
-alias disablelitd='sudo systemctl disable litd'
-alias disablecln='sudo systemctl disable cln'
-alias disablelectrs='sudo systemctl disable electrs'
 alias disablewireguard='sudo systemctl disable wg-quick@wg0'
 alias disablenymrequester='sudo systemctl disable nym-network-requester'
 alias disablenymsocks5='sudo systemctl disable nym-socks5-client'
-alias disablebtcpay='sudo systemctl disable btcpay'
 alias disablenbx='sudo systemctl disable nbxplorer'
+alias disablebtcpay='sudo systemctl disable btcpay'
 alias disablecloudflared='sudo systemctl disable cloudflared'
-alias disableallbonus='sudo systemctl disable homer mempool circuitbreaker lnbits rtl litd cln electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared'
+alias disablenostrelay='sudo systemctl disable nostr-relay'
+alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay'
 
 #######################
 # BONUS SERVICES LOGS #
 #######################
 
-alias homerlogs='sudo journalctl -f -u homer'
-alias mempoollogs='sudo journalctl -f -u mempool'
-alias circuitbreakerlogs='sudo journalctl -f -u circuitbreaker'
-alias lnbitslogs='sudo journalctl -f -u lnbits'
-alias rtlogs='sudo journalctl -f -u rtl'
-alias litdlogs='sudo journalctl -f -u litd'
-alias clnlogs='sudo journalctl -f -u cln'
-alias electrslogs='sudo journalctl -f -u electrs'
-alias wireguardlogs='sudo journalctl -f -u wg-quick@wg0'
-alias nymrequesterlogs='sudo journalctl -f -u nym-network-requester'
-alias nymsocks5logs='sudo journalctl -f -u nym-socks5-client'
-alias btcpaylogs='sudo journalctl -f -u btcpay'
-alias cloudflaredlogs='sudo journalctl -f -u cloudflared'
-alias nbxlogs='sudo journalctl -f -u nbxplorer'
+alias electrslogs='journalctl -f -u electrs'
+alias wireguardlogs='journalctl -f -u wg-quick@wg0'
+alias nymrequesterlogs='journalctl -f -u nym-network-requester'
+alias nymsocks5logs='journalctl -f -u nym-socks5-client'
+alias nbxlogs='journalctl -f -u nbxplorer'
+alias btcpaylogs='journalctl -f -u btcpay'
+alias cloudflaredlogs='journalctl -f -u cloudflared'
+alias nostrelaylogs='journalctl -f -u nostr-relay'
 
 #################
-#  LND TESTNET  #
+#  LND Testnet  #
 #################
+
 alias lntestunlock='lncli --network testnet unlock'
 alias lntestnewaddress='lncli --network testnet newaddress p2tr'
 alias lntesttxns='lncli --network testnet listchaintxns'

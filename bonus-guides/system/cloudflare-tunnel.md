@@ -191,10 +191,11 @@ $ cloudflared tunnel list
 
 **Example** of expected output:
 
-<pre><code>You can obtain more detailed information for each tunnel with `cloudflared tunnel info &#x3C;name/uuid>`
+```
+You can obtain more detailed information for each tunnel with `cloudflared tunnel info <name/uuid>`
 ID                                      NAME              CREATED               CONNECTIONS
-<a data-footnote-ref href="#user-content-fn-2">8666c35d-6ac3-4b39-9324-12ae32ce64a7</a>    miniboltunnel     2023-04-01T15:44:48Z
-</code></pre>
+8666c35d-6ac3-4b39-9324-12ae32ce64a7    miniboltunnel     2023-04-01T15:44:48Z
+```
 
 * You can obtain more detailed information about the tunnel with
 
@@ -257,7 +258,7 @@ ingress:
     service: http://localhost:23000
 
 # BTC RPC Explorer
-  - hostname: <a data-footnote-ref href="#user-content-fn-3">explorer</a>.&#x3C;domain.com>
+  - hostname: <a data-footnote-ref href="#user-content-fn-2">explorer</a>.&#x3C;domain.com>
     service: http://localhost:3002
 
   - service: http_status:404
@@ -445,9 +446,3 @@ $ sudo dpkg -r cloudflared
 > Removing cloudflared (2023.7.2) ...
 > Processing triggers for man-db (2.10.2-1) ...
 ```
-
-[^1]: Is not needed to provide real information (phone number either)
-
-[^2]: \<UUID>
-
-[^3]: Subdomain = "name" value of the CNAME registry in the DNS table

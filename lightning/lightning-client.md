@@ -35,6 +35,8 @@ Before running LND, we need to set up settings in the Bitcoin Core configuration
 
 * Login as user `admin`, edit the `bitcoin.conf` file, and add the following lines. Save and exit
 
+*   Restart Bitcoin Core to apply changes
+
 ```sh
 $ sudo nano /data/bitcoin/bitcoin.conf
 ```
@@ -262,7 +264,7 @@ drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
 -rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
 -rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
 lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
-lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
+lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 .lnd -> /data/lnd
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
 </code></pre>
 
@@ -570,7 +572,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-3">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -846,9 +848,3 @@ $ lnd --version
 ```sh
 $ sudo systemctl restart lnd
 ```
-
-[^1]: Symbolic link
-
-[^2]: Symbolic link
-
-[^3]: Symbolic link
