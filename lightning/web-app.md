@@ -573,8 +573,6 @@ tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd
 
 ## Remote access over Tor (optional)
 
-Do you want to access ThunderHub remotely? You can easily do so by adding a Tor hidden service on the RaspiBolt and accessing ThunderHub with the Tor browser from any device.
-
 * Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```sh

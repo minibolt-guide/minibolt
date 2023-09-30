@@ -44,7 +44,7 @@ But paper is easily destroyed by water, fire, or even a pet that loves chewing t
 
 While great, most of these techniques have one major downside... they require you to buy from a company a ready-made item whose sole use case is as a bitcoin mnemonics backup. This means that the seller will know that you probably have some bitcoin... and worst, if their customer database gets hacked, anyone could quickly know that you probably have some bitcoins.
 
-Instead, it is more private and ultimately secure to build this steel mnemonics backup from off-the-shelf components that have not been designed for Bitcoin usage. Like you did with the RaspiBolt node vs buying a plug-and-play node!
+Instead, it is more private and ultimately secure to build this steel mnemonics backup from off-the-shelf components that have not been designed for Bitcoin usage. Like you did with the MiniBolt node vs buying a plug-and-play node!
 
 For example, a popular DIY method relies on standard steel washers stacked and locked on a bolt. The mnemonic words and ordering numbers are punched on the washers using a metal stamp set. All the components can be found easily in a hardware shop or online and none are associated with Bitcoin usage. Simple and private.
 
@@ -62,7 +62,7 @@ You will need the following hardware components:
 
 * Stainless steel fender washers (e.g. M8)
 * Stainless steel bolts and wingnuts (e.g. M8)
-* Letter and number metal stamp set (e.g. 3 mm heigth)
+* Letter and number metal stamp set (e.g. 3 mm height)
 * Hammer
 
 Quantities are dependent on how many backups you plan to make and how many words there are in each backup (12 or 24 usually). One backup of 24 mnemonic words will require only one bolt and wingnut and 24 washers. Although, a few more would be useful for practice or if you make mistakes while stamping.
@@ -71,7 +71,7 @@ The key thing is to make sure that all the sizes are compatible with each other:
 
 * The washers must have the same inner diameter as the bolt
 * The length of the bolt must be longer than the length of the stacked washers
-* The metal stamps width must be smaller than the width of the washer metallic band
+* The metal stamp width must be smaller than the width of the washer metallic band
 
 Also, if you want to punch more than one backup, make sure you get a stamp set that is hard enough to punch repeatedly into metal.
 
@@ -88,7 +88,7 @@ Note: Punching into the washers can be quite difficult at times. Because of this
 * Stack all the washers on the bolt
 * Screw and tighten the wingnut
 
-You're set! You now have a DIY steel metal backup that will be resistant to fire, flood, shocks and other kinds of environmental damage.
+You're set! You now have a DIY steel metal backup that will be resistant to fire, flood, shocks, and other kinds of environmental damage.
 
 ## Recovery
 

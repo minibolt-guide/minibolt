@@ -53,6 +53,6 @@
   * [Safu Ninja, a DIY steel mnemonic backup](bonus/bitcoin/safu-ninja.md)
   * [Ordisrespector spam filter](bonus/bitcoin/ordisrespector.md)
   * [Nostr relay](bonus-guides/bitcoin/nostr-relay.md)
-  * [Download the bitcoin whitepaper directly from your own blockchain](bonus/bitcoin/white-paper.md)
+  * [Download the bitcoin whitepaper](bonus/bitcoin/white-paper.md)
   * [MiniBolt on Testnet](bonus/bitcoin/minibolt-on-testnet.md)
   * [BTCPay Server](bonus-guides/bitcoin/btcpay-server.md)
