@@ -95,7 +95,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.1
+$ VERSION=1.9.2
 ```
 
 * Download the application, checksums, and signature
@@ -175,6 +175,15 @@ $ sha256sum --check Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
 $ tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
 ```
 
+{% hint style="info" %}
+**Ignore the next line output**, this happens because the dev uses macOS with an xattr-capable filesystem:
+
+```
+tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.system.posix_acl_access'
+tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.docker.grpcfuse.ownership'
+```
+{% endhint %}
+
 {% code overflow="wrap" %}
 ```bash
 $ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-$VERSION-x86_64-linux/Fulcrum Fulcrum-$VERSION-x86_64-linux/FulcrumAdmin
@@ -194,6 +203,10 @@ $ Fulcrum --version
 > compiled: gcc 8.4.0
 [...]
 ```
+
+{% hint style="info" %}
+If you come to update, this is the final step, go back to the [Upgrade section](electrum-server.md#for-the-future-fulcrum-upgrade) to continue
+{% endhint %}
 
 ### **Data directory**
 
