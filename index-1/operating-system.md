@@ -26,9 +26,9 @@ We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interf
 
 ### Balena Etcher and Ubuntu Server
 
-To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application. Go to the website and download the correct binary accordingly to your OS.
+To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application. Go to the website and download the correct binary according to your OS.
 
-* Direct download Ubuntu Server LTS doing click [here](https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-live-server-amd64.iso) or going to the official Ubuntu Server [website](https://ubuntu.com/download/server) and clicking on the **"Download Ubuntu Server xx.xx LTS"** button
+* Direct download Ubuntu Server LTS by going to the official Ubuntu Server [website](https://ubuntu.com/download/server) and clicking on the \[**Download Ubuntu Server xx.xx LTS]** button
 * **Start** the **Balena Etcher**
 * Select **"Flash from file"** --> Select Ubuntu Server LTS **.iso** file previously downloaded
 
@@ -49,11 +49,11 @@ It should display a **"Flash Complete!"** message after
 
 * **Safely eject** the pen drive from your regular computer
 * **Connect to your selected PC** for the MiniBolt node
-* **Attach a screen**, a **keyboard,** and the **Ethernet** wire of the Internet (not the case for Wifi connection) to the **PC** and start it
-*   Press the key fastly to **enter to BIOS setup** or directly to the **boot menu** to select the **pen drive as the 1st boot priority device** (normally, F9, Esc, F12, or Supr keys)
+* **Attach a screen**, a **keyboard,** and the **Ethernet** wire of the Internet (not the case for Wi-Fi connection) to the **PC** and start it
+*   Press the key quickly to **enter to BIOS setup** or directly to the **boot menu** to select the **pen drive as the 1st boot priority device** (normally, F9, Esc, F12, or Supr keys)
 
     💡 In this step, you might want to take advantage of activating the **"Restore on AC"** or similar in the BIOS setup. Normally found in **Advanced** -> **ACPI Configuration**, switching to **"Power ON"** or similar. With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
-* If you configured boot options in BIOS, **save changes and exit**. This start automatically with the Ubuntu Server guided installation. You will keep selecting **"Try or Install Ubuntu Server"** and press **enter**, or wait 20 seconds for it to start automatically.
+* If you configured boot options in BIOS, **save changes and exit**. This starts automatically with the Ubuntu Server guided installation. You will keep selecting **"Try or Install Ubuntu Server"** and press **enter**, or wait 20 seconds for it to start automatically.
 
 ### Ubuntu Server installation
 
@@ -65,12 +65,12 @@ Use the **UP**, **Down,** and **ENTER** keys of your keyboard to navigate to the
 
 **3.** Select your keyboard layout and variant **(Spanish recommended to Spanish native speakers)** and press \[**done]**
 
-**4.** Keep selecting **"Ubuntu Server"** as the base for the installation, down to **done,** and press **enter**
+**4.** Keep selecting **"Ubuntu Server"** as the base for the installation, down to \[**done],** and press **enter**
 
 **5.** Select the interface network connection that you choose to use **(Ethernet recommended)** and **take note of your IP** obtained automatically through DHCP. (Normally 192.168.x.xx). Press \[**done]**
 
 {% hint style="info" %}
-The router reserves the IP address of the device for a time after going out, but If the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Static IP & custom DNS servers](../bonus-guides/system/static-ip-and-custom-dns-servers.md) bonus guide to get more instructions to do this.
+The router reserves the IP address of the device for a time after going out, but If the device goes out some time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Static IP & custom DNS servers](../bonus-guides/system/static-ip-and-custom-dns-servers.md) bonus guide to get more instructions to do this.
 
 \
 🚨 <mark style="color:red;">Be careful by setting this!</mark> If you change the router could be **the new router doesn't work in the same IP address range as the old router**, the MiniBolt won't be registered and will be completely out of the connection. To avoid this, follow the [Set the DCHP (automatic) configuration](../bonus-guides/system/static-ip-and-custom-dns-servers.md#set-the-automatic-dhcp-mode-configuration-by-command-line) section of the bonus guide to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want after the change of the router, reconfigure the static IP address again following the [Option 2](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-after-ubuntu-server-installation-by-command-line) section.
