@@ -464,7 +464,7 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 
 ## Uninstall
 
-#### **Uninstall Fulcrum**
+### **Uninstall Fulcrum**
 
 * Ensure you are logged in with the user `admin`, stop, disable, and delete the service
 
@@ -480,7 +480,7 @@ $ sudo systemctl disable fulcrum
 $ sudo rm /etc/systemd/system/fulcrum.service
 ```
 
-* Ensure you are logged in with the user `admin`. Delete the fulcum user.\
+* Ensure you are logged in with the user `admin`. Delete the fulcrum user.\
   Don't worry about `userdel: fulcrum mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```sh
@@ -493,9 +493,9 @@ $ sudo userdel -rf fulcrum
 $ sudo rm -rf /data/fulcrum/
 ```
 
-#### **Uninstall Tor hidden service**
+### **Uninstall Tor hidden service**
 
-* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```sh
 $ sudo nano /etc/tor/torrc
@@ -516,7 +516,7 @@ $ sudo nano /etc/tor/torrc
 $ sudo systemctl reload tor
 ```
 
-#### **Uninstall FW configuration**
+### **Uninstall FW configuration**
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
 
@@ -537,7 +537,7 @@ Expected output:
 $ sudo ufw delete X
 ```
 
-#### **Uninstall the Zram**
+### **Uninstall the Zram**
 
 * Ensure you are logged in with the user `admin`, navigate to the zram-swap folder, and uninstall
 

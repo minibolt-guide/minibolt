@@ -507,7 +507,8 @@ $ journalctl -fu electrs
 
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
-<pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-2">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+```
+Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
 [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
 [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50001
 [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
@@ -530,19 +531,67 @@ $ journalctl -fu electrs
 [2021-11-09T07:09:47.581Z INFO  electrs::db] starting funding compaction
 [2021-11-09T07:09:47.581Z INFO  electrs::db] starting spending compaction
 [...]
-</code></pre>
+```
 
 </details>
 
-[^1]: Current version installed
+## Uninstall
 
-[^2]: Current version installed
+### Uninstall Electrs
+
+* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
+
+```bash
+$ sudo systemctl stop electrs
+```
+
+```bash
+$ sudo systemctl disable electrs
+```
+
+```bash
+$ sudo rm /etc/systemd/system/electrs.service
+```
+
+* Ensure you are logged in with the user `admin`. Delete the electrs user.\
+  Don't worry about `userdel: electrs mail spool (/var/mail/electrs) not found` output, the uninstall has been successful
+
+```bash
+$ sudo userdel -rf electrs
+```
+
+* Delete electrs directory
+
+```bash
+$ sudo rm -rf /data/electrs/
+```
+
+### **Uninstall Tor hidden service**
+
+* Ensure that you are logged in with the user `admin` and delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```bash
+$ sudo nano /etc/tor/torrc
+```
+
+<pre><code># Hidden Service BTC RPC Explorer
+<strong>#HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
+</strong>#HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 80 127.0.0.1:3002
+</code></pre>
+
+* Reload the Tor configuration
+
+```bash
+$ sudo systemctl reload tor
+```
 
 ## Extras
 
 ### **Remote access over Tor (optional)**
 
-To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
+To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
 * Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -598,3 +647,5 @@ After=electrs.service
 ```sh
 $ sudo systemctl restart btcrpcexplorer
 ```
+
+[^1]: Current version installed

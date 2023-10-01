@@ -419,6 +419,73 @@ $ exit
 $ sudo systemctl start btcrpcexplorer
 ```
 
+## Uninstall
+
+### Uninstall BTC RPC Explorer
+
+* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
+
+```bash
+$ sudo systemctl stop btcrpcexplorer
+```
+
+```bash
+$ sudo systemctl disable btcrpcexplorer
+```
+
+```bash
+$ sudo rm /etc/systemd/system/btcrpcexplorer.service
+```
+
+Ensure you are logged in with the user `admin`. Delete the btcrpcexplorer user.\
+Don't worry about `userdel: btcrpcexplorer mail spool (/var/mail/btcrpcexplorer) not found` output, the uninstall has been successful
+
+```bash
+$ sudo userdel -rf btcrpcexplorer
+```
+
+### **Uninstall Tor hidden service**
+
+* Ensure that you are logged in with the user `admin` and delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```bash
+$ sudo nano /etc/tor/torrc
+```
+
+```
+# Hidden Service BTC RPC Explorer
+#HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
+#HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 80 127.0.0.1:3002
+```
+
+* Reload the torrc config
+
+```bash
+$ sudo systemctl reload tor
+```
+
+### **Uninstall FW configuration**
+
+* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
+
+```bash
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 4000       ALLOW IN    Anywhere      # allow BTC RPC Explorer SSL from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```bash
+$ sudo ufw delete X
+```
+
 ## Extras
 
 ### **Slow device mode (resource-intensive features are disabled)**

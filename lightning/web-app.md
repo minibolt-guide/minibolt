@@ -712,7 +712,7 @@ $ sudo systemctl reload tor
 
 ## Extras
 
-## Remote access over Tor
+### Remote access over Tor
 
 * Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
