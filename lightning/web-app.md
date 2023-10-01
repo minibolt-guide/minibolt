@@ -571,40 +571,6 @@ tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd
 **Congratulations!** You now have Thunderhub up and running
 {% endhint %}
 
-## Remote access over Tor (optional)
-
-* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
-
-```sh
-$ sudo nano /etc/tor/torrc
-```
-
-```
-# Hidden Service Thunderhub
-HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:3000
-```
-
-* Restart Tor and get your connection address
-
-```sh
-$ sudo systemctl reload tor
-```
-
-```sh
-$ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
-```
-
-Expected output:
-
-```
-> abcdefg..............xyz.onion
-```
-
-* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
-
 ## For the future: upgrade Thunderhub
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
@@ -745,6 +711,40 @@ $ sudo systemctl reload tor
 ```
 
 ## Extras
+
+## Remote access over Tor
+
+* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
+```
+# Hidden Service Thunderhub
+HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
+HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
+HiddenServicePort 80 127.0.0.1:3000
+```
+
+* Restart Tor and get your connection address
+
+```sh
+$ sudo systemctl reload tor
+```
+
+```sh
+$ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
+```
+
+Expected output:
+
+```
+> abcdefg..............xyz.onion
+```
+
+* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
 ### Access to your Amboss node account
 
