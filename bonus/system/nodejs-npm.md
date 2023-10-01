@@ -29,25 +29,41 @@ Difficulty: Easy
 
 ### Install Node.js + NPM
 
-* With user `admin`, set the environment variable
-
-```sh
-$ VERSION=18
-```
-
-* Update the packages and upgrade to keep up to date with the OS
+* With user `admin`, update the packages and upgrade to keep up to date with the OS and press "**y**" and enter when needed
 
 ```bash
 $ sudo apt update && sudo apt full-upgrade
 ```
 
-* Add the Node.js package repository
+* Download and import the Nodesource GPG key
 
+{% code overflow="wrap" %}
 ```sh
-$ curl -fsSL https://deb.nodesource.com/setup_$VERSION.x | sudo -E bash -
+$ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+```
+{% endcode %}
+
+* Set the environment variable of the version
+
+```bash
+$ VERSION=18
 ```
 
-* Install Node.js using the apt package manager
+* Create deb repository
+
+{% code overflow="wrap" %}
+```bash
+$ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$VERSION.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+```
+{% endcode %}
+
+* Run update
+
+```sh
+$ sudo apt update
+```
+
+* Install Node.js using the apt package manager and press "**y**" and enter when needed
 
 ```sh
 $ sudo apt install nodejs
@@ -65,11 +81,11 @@ $ node -v
 > v18.16.0
 ```
 
-*   Check the correct installation of NPM
+* Check the correct installation of NPM
 
-    ```sh
-    $ npm -v
-    ```
+```sh
+$ npm -v
+```
 
 **Example** of expected output:
 
@@ -82,13 +98,15 @@ $ node -v
 * To upgrade simply type this command
 
 ```sh
-$ sudo apt update && sudo apt upgrade
+$ sudo apt update && sudo apt full-upgrade
 ```
 
 ### Uninstall
 
-* To uninstall type this command
+* To uninstall type this command and press "**y**" and enter when needed
 
+{% code overflow="wrap" %}
 ```sh
-$ Sudo apt purge nodejs && rm -r /etc/apt/sources.list.d/nodesource.list
+$ sudo apt purge nodejs && sudo rm -r /etc/apt/sources.list.d/nodesource.list && sudo rm -r /etc/apt/keyrings/nodesource.gpg
 ```
+{% endcode %}
