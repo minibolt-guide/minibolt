@@ -448,7 +448,7 @@ BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 #BTCEXP_SLOW_DEVICE_MODE=false
 ```
 
-### **Remote access over Tor (optional)**
+### **Remote access over Tor**
 
 Do you want to access your personal blockchain explorer remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
 

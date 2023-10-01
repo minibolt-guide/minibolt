@@ -453,7 +453,7 @@ $ sudo systemctl restart fulcrum
 $ journalctl -f -u fulcrum
 ```
 
-**Example** of expected output:&#x20;
+**Example** of expected output:
 
 {% code overflow="wrap" %}
 ```
@@ -570,9 +570,7 @@ Filename            Type                Size           Used    Priority
 /var/swap           file                 102396         0       -2
 ```
 
-[^1]: Symbolic link
-
-## Extras (optional)
+## Extras
 
 ### **Remote access over Tor**
 
@@ -726,3 +724,5 @@ Filename               Type            Size            Used            Priority
 ### **Backup the database**
 
 If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
+
+[^1]: Symbolic link
