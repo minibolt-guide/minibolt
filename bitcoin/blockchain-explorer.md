@@ -363,7 +363,65 @@ tcp   LISTEN 0   511   127.0.0.1:3002   0.0.0.0:*   users:(("node",pid=140461,fd
 **Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node
 {% endhint %}
 
+## For the future: BTC RPC Explorer update
+
+Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
+
+* From user `admin`, stop the service and open a `btcrpcexplorer` user session
+
+```sh
+$ sudo systemctl stop btcrpcexplorer
+```
+
+```sh
+$ sudo su - btcrpcexplorer
+```
+
+* Set a temporary version environment variable to the installation
+
+```
+$ VERSION=3.4.0
+```
+
+* Fetch the latest GitHub repository information, display the release tags (use the latest in this example), and update
+
+```sh
+$ cd /home/btcrpcexplorer/btc-rpc-explorer
+```
+
+```sh
+$ git fetch
+```
+
+```sh
+$ git reset --hard HEAD
+```
+
+```sh
+$ git tag
+```
+
+```sh
+$ git checkout v$VERSION
+```
+
+```sh
+$ npm install
+```
+
+```sh
+$ exit
+```
+
+* Start the service again
+
+```sh
+$ sudo systemctl start btcrpcexplorer
+```
+
 ## Extras
+
+### **Slow device mode (resource-intensive features are disabled)**
 
 * With user `admin`, change to the `btcrpcexplorer` user
 
@@ -377,7 +435,7 @@ $ sudo su - btcrpcexplorer
 $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
-* Extend the timeout period due to the limited resources of your possible PC
+* Extend the timeout period due to the limited resources
 
 ```
 # uncomment and change the value of this line
@@ -452,86 +510,3 @@ BTCEXP_DEMO=true
 {% hint style="info" %}
 Remember to give them the **`password [D]`** if you added password protection in the reference step
 {% endhint %}
-
-### **Slow device mode (resource-intensive features are disabled)**
-
-* With user `admin`, change to the `btcrpcexplorer` user
-
-```sh
-$ sudo su - btcrpcexplorer
-```
-
-* Edit the `.env` configuration file
-
-```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-```
-
-* Extend the timeout period due to the limited resources
-
-```
-# uncomment and change the value of this line
-BTCEXP_BITCOIND_RPC_TIMEOUT=10000
-```
-
-* Comment this line if it is uncommented (default value is **true**)
-
-```
-#BTCEXP_SLOW_DEVICE_MODE=false
-```
-
-## For the future: BTC RPC Explorer update
-
-Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
-
-* From user `admin`, stop the service and open a `btcrpcexplorer` user session
-
-```sh
-$ sudo systemctl stop btcrpcexplorer
-```
-
-```sh
-$ sudo su - btcrpcexplorer
-```
-
-* Set a temporary version environment variable to the installation
-
-```
-$ VERSION=3.4.0
-```
-
-* Fetch the latest GitHub repository information, display the release tags (use the latest in this example), and update
-
-```sh
-$ cd /home/btcrpcexplorer/btc-rpc-explorer
-```
-
-```sh
-$ git fetch
-```
-
-```sh
-$ git reset --hard HEAD
-```
-
-```sh
-$ git tag
-```
-
-```sh
-$ git checkout v$VERSION
-```
-
-```sh
-$ npm install
-```
-
-```sh
-$ exit
-```
-
-* Start the service again
-
-```sh
-$ sudo systemctl start btcrpcexplorer
-```

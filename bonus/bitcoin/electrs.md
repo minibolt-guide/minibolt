@@ -458,7 +458,7 @@ Electrs will now index the whole Bitcoin blockchain so that it can provide all n
 * Ensure electrs service is working and listening at the default TCP `50001` port
 
 ```sh
-$2 sudo ss -tulpn | grep LISTEN | grep electrs 
+$2 sudo ss -tulpn | grep LISTEN | grep electrs
 ```
 
 Expected output:
@@ -483,7 +483,64 @@ Expected output:
 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
-## **Remote access over Tor (optional)**
+## For the future: Electrs upgrade
+
+Updating Electrs is straightforward. You can display the current version with the command below and check the Electrs [release page](https://github.com/romanz/electrs/releases) to see if a newer version is available. Depending if you come from a version prior to `0.10.0` or not, you will need to follow an installation process or other:
+
+> If you come from a version prior to `0.10.0`, follow the entire [Install dependencies](electrs.md#install-dependencies) to install the neccesary `librocksdb v7.8.3` dependency, and [Build from the source code](electrs.md#build-from-the-source-code) sections
+
+> If not, follow only the complete [Build from the source code](electrs.md#build-from-the-source-code) section
+
+* When you finish the section or both sections, restart Electrs to apply the new version
+
+```sh
+$ sudo systemctl restart electrs
+```
+
+* Check logs and pay attention to the next log if that attends to the new version installed
+
+```bash
+$ journalctl -fu electrs
+```
+
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
+<pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-2">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+[2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
+[2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50001
+[2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
+[2021-11-09T07:09:43.174Z INFO  electrs::index] indexing 2000 blocks: [1..2000]
+[2021-11-09T07:09:44.665Z INFO  electrs::chain] chain updated: tip=00000000dfd5d65c9d8561b4b8f60a63018fe3933ecb131fb37f905f87da951a, height=2000
+[2021-11-09T07:09:44.986Z INFO  electrs::index] indexing 2000 blocks: [2001..4000]
+[2021-11-09T07:09:46.191Z INFO  electrs::chain] chain updated: tip=00000000922e2aa9e84a474350a3555f49f06061fd49df50a9352f156692a842, height=4000
+[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [4001..6000]
+[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a5, height=6000
+[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [6001..8000]
+[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a6, height=8000
+[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [8001..10000]
+[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a7, height=10000
+[...]
+[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 65 blocks: [756001..756065]
+[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c510, height=756065
+[2021-11-09T07:09:47.581Z INFO  electrs::db] starting config compaction
+[2021-11-09T07:09:47.581Z INFO  electrs::db] starting headers compaction
+[2021-11-09T07:09:47.581Z INFO  electrs::db] starting txid compaction
+[2021-11-09T07:09:47.581Z INFO  electrs::db] starting funding compaction
+[2021-11-09T07:09:47.581Z INFO  electrs::db] starting spending compaction
+[...]
+</code></pre>
+
+</details>
+
+[^1]: Current version installed
+
+[^2]: Current version installed
+
+## Extras
+
+### **Remote access over Tor (optional)**
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
@@ -541,58 +598,3 @@ After=electrs.service
 ```sh
 $ sudo systemctl restart btcrpcexplorer
 ```
-
-## For the future: Electrs upgrade
-
-Updating Electrs is straightforward. You can display the current version with the command below and check the Electrs [release page](https://github.com/romanz/electrs/releases) to see if a newer version is available. Depending if you come from a version prior to `0.10.0` or not, you will need to follow an installation process or other:
-
-> If you come from a version prior to `0.10.0`, follow the entire [Install dependencies](electrs.md#install-dependencies) to install the neccesary `librocksdb v7.8.3` dependency, and [Build from the source code](electrs.md#build-from-the-source-code) sections
-
-> If not, follow only the complete [Build from the source code](electrs.md#build-from-the-source-code) section
-
-* When you finish the section or both sections, restart Electrs to apply the new version
-
-```sh
-$ sudo systemctl restart electrs
-```
-
-* Check logs and pay attention to the next log if that attends to the new version installed
-
-```bash
-$ journalctl -fu electrs
-```
-
-<details>
-
-<summary><strong>Example</strong> of expected output ⬇️</summary>
-
-<pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-2">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
-[2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
-[2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50001
-[2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
-[2021-11-09T07:09:43.174Z INFO  electrs::index] indexing 2000 blocks: [1..2000]
-[2021-11-09T07:09:44.665Z INFO  electrs::chain] chain updated: tip=00000000dfd5d65c9d8561b4b8f60a63018fe3933ecb131fb37f905f87da951a, height=2000
-[2021-11-09T07:09:44.986Z INFO  electrs::index] indexing 2000 blocks: [2001..4000]
-[2021-11-09T07:09:46.191Z INFO  electrs::chain] chain updated: tip=00000000922e2aa9e84a474350a3555f49f06061fd49df50a9352f156692a842, height=4000
-[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [4001..6000]
-[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a5, height=6000
-[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [6001..8000]
-[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a6, height=8000
-[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 2000 blocks: [8001..10000]
-[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c5a7, height=10000
-[...]
-[2021-11-09T07:09:46.481Z INFO  electrs::index] indexing 65 blocks: [756001..756065]
-[2021-11-09T07:09:47.581Z INFO  electrs::chain] chain updated: tip=00000000dbbb79792303bdd1c6c4d7ab9c21bba0667213c2eca955e11230c510, height=756065
-[2021-11-09T07:09:47.581Z INFO  electrs::db] starting config compaction
-[2021-11-09T07:09:47.581Z INFO  electrs::db] starting headers compaction
-[2021-11-09T07:09:47.581Z INFO  electrs::db] starting txid compaction
-[2021-11-09T07:09:47.581Z INFO  electrs::db] starting funding compaction
-[2021-11-09T07:09:47.581Z INFO  electrs::db] starting spending compaction
-[...]
-</code></pre>
-
-</details>
-
-[^1]: Current version installed
-
-[^2]: Current version installed

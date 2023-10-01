@@ -462,6 +462,116 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 ```
 {% endcode %}
 
+## Uninstall
+
+#### **Uninstall Fulcrum**
+
+* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
+
+```sh
+$ sudo systemctl stop fulcrum
+```
+
+```sh
+$ sudo systemctl disable fulcrum
+```
+
+```sh
+$ sudo rm /etc/systemd/system/fulcrum.service
+```
+
+* Ensure you are logged in with the user `admin`. Delete the fulcum user.\
+  Don't worry about `userdel: fulcrum mail spool (/var/mail/nym) not found` output, the uninstall has been successful
+
+```sh
+$ sudo userdel -rf fulcrum
+```
+
+* Delete fulcrum directory
+
+```sh
+$ sudo rm -rf /data/fulcrum/
+```
+
+#### **Uninstall Tor hidden service**
+
+* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
+```
+# Hidden Service Fulcrum TCP & SSL
+#HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
+#HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 50001 127.0.0.1:50001
+#HiddenServicePort 50002 127.0.0.1:50002
+```
+
+* Reload the torrc config
+
+```sh
+$ sudo systemctl reload tor
+```
+
+#### **Uninstall FW configuration**
+
+* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
+
+```sh
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 50001       ALLOW IN    Anywhere          # allow Fulcrum TCP from anywhere
+> [X] 50002       ALLOW IN    Anywhere          # allow Fulcrum SSL from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```sh
+$ sudo ufw delete X
+```
+
+#### **Uninstall the Zram**
+
+* Ensure you are logged in with the user `admin`, navigate to the zram-swap folder, and uninstall
+
+```sh
+$ cd /home/admin/zram-swap
+```
+
+```sh
+$ sudo ./install.sh --uninstall
+```
+
+```sh
+$ sudo rm /etc/default/zram-swap
+```
+
+```sh
+$ sudo rm -rf /home/admin/zram-swap
+```
+
+* Make sure that the change was done
+
+```sh
+$ sudo cat /proc/swaps
+```
+
+Expected output:
+
+```
+Filename            Type                Size           Used    Priority
+/var/swap           file                 102396         0       -2
+```
+
+[^1]: Symbolic link
+
 ## Extras (optional)
 
 ### **Remote access over Tor**
@@ -616,113 +726,3 @@ Filename               Type            Size            Used            Priority
 ### **Backup the database**
 
 If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
-
-## Uninstall
-
-#### **Uninstall Fulcrum**
-
-* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
-
-```sh
-$ sudo systemctl stop fulcrum
-```
-
-```sh
-$ sudo systemctl disable fulcrum
-```
-
-```sh
-$ sudo rm /etc/systemd/system/fulcrum.service
-```
-
-* Ensure you are logged in with the user `admin`. Delete the fulcum user.\
-  Don't worry about `userdel: fulcrum mail spool (/var/mail/nym) not found` output, the uninstall has been successful
-
-```sh
-$ sudo userdel -rf fulcrum
-```
-
-* Delete fulcrum directory
-
-```sh
-$ sudo rm -rf /data/fulcrum/
-```
-
-#### **Uninstall Tor hidden service**
-
-* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
-
-```sh
-$ sudo nano /etc/tor/torrc
-```
-
-```
-# Hidden Service Fulcrum TCP & SSL
-#HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
-#HiddenServiceVersion 3
-#HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 50001 127.0.0.1:50001
-#HiddenServicePort 50002 127.0.0.1:50002
-```
-
-* Reload the torrc config
-
-```sh
-$ sudo systemctl reload tor
-```
-
-#### **Uninstall FW configuration**
-
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
-
-```sh
-$ sudo ufw status numbered
-```
-
-Expected output:
-
-```
-> [Y] 50001       ALLOW IN    Anywhere          # allow Fulcrum TCP from anywhere
-> [X] 50002       ALLOW IN    Anywhere          # allow Fulcrum SSL from anywhere
-```
-
-* Delete the rule with the correct number and confirm with "`yes`"
-
-```sh
-$ sudo ufw delete X
-```
-
-#### **Uninstall the Zram**
-
-* Ensure you are logged in with the user `admin`, navigate to the zram-swap folder, and uninstall
-
-```sh
-$ cd /home/admin/zram-swap
-```
-
-```sh
-$ sudo ./install.sh --uninstall
-```
-
-```sh
-$ sudo rm /etc/default/zram-swap
-```
-
-```sh
-$ sudo rm -rf /home/admin/zram-swap
-```
-
-* Make sure that the change was done
-
-```sh
-$ sudo cat /proc/swaps
-```
-
-Expected output:
-
-```
-Filename            Type                Size           Used    Priority
-/var/swap           file                 102396         0       -2
-```
-
-[^1]: Symbolic link
