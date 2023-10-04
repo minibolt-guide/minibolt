@@ -34,8 +34,7 @@ The installation of LND is straightforward, but the application is quite powerfu
 Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
 * Login as user `admin`, edit the `bitcoin.conf` file, and add the following lines. Save and exit
-
-*   Restart Bitcoin Core to apply changes
+* Restart Bitcoin Core to apply changes
 
 ```sh
 $ sudo nano /data/bitcoin/bitcoin.conf
@@ -68,7 +67,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.16.4
+$ VERSION=0.17.0
 ```
 
 * Download the application, checksums, and signature
@@ -164,13 +163,12 @@ $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roa
 
 **Example** of expected output:
 
-```
-> Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+<pre><code>> Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
 > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
 > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
 > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-> Success! Bitcoin block 765521 attests existence as of 2022-12-01 UTC
-```
+> Success! Bitcoin block <a data-footnote-ref href="#user-content-fn-1">765521 attests existence as of 2022-12-01 UTC</a>
+</code></pre>
 
 {% hint style="info" %}
 Check that the date of the timestamp is close to the [release date](https://github.com/lightningnetwork/lnd/releases) of the LND binary.
@@ -258,15 +256,16 @@ $ ls -la
 
 Expected output:
 
-<pre><code>total 20
+```
+total 20
 drwxr-x--- 2 lnd  lnd  4096 Jul 15 20:57 .
 drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
 -rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
 -rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
-lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 .bitcoin -> /data/bitcoin
 lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 .lnd -> /data/lnd
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
-</code></pre>
+```
 
 ### **Wallet password**
 
@@ -290,19 +289,18 @@ $ chmod 600 /data/lnd/password.txt
 
 ### **Configure LND**
 
-* Create the LND configuration file and paste the following content _**(adjust to your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` , and fees)**_. Save and exit
+* Create the LND configuration file and paste the following content _**(set your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` , and fees)**_. Save and exit
 
 ```sh
 $ nano /data/lnd/lnd.conf
 ```
 
-```
-# MiniBolt: lnd configuration
+<pre><code># MiniBolt: lnd configuration
 # /data/lnd/lnd.conf
 
 [Application Options]
 # Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-alias=<YOUR_FANCY_ALIAS>
+alias=<a data-footnote-ref href="#user-content-fn-2">&#x3C;YOUR_FANCY_ALIAS></a>
 # You can choose the color you want at https://www.color-hex.com/
 color=#ff9900
 listen=localhost
@@ -324,23 +322,26 @@ tlsdisableautofill=true
 # Fee settings - default LND base fee = 1000 (mSat), 
 # default LND fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0)
-#bitcoin.basefee=0
-#bitcoin.feerate=0
+<a data-footnote-ref href="#user-content-fn-3">#bitcoin.basefee=0</a>
+<a data-footnote-ref href="#user-content-fn-4">#bitcoin.feerate=0</a>
 
-# Minimum channel size (in satoshis, default and minimun 
+# Minimum channel size (in satoshis, default, and minimal 
 # from source code is 20,000 sats). You can choose whatever you want
-#minchansize=20000
+<a data-footnote-ref href="#user-content-fn-5">#minchansize=20000</a>
 maxpendingchannels=5
 accept-keysend=true
 accept-amp=true
 protocol.wumbo-channels=true
 coop-close-target-confs=24
 
+# Set to enable support for the experimental taproot channel type
+protocol.simple-taproot-chans=true
+
 # Watchtower client
 wtclient.active=true
 # Specify the fee rate with which justice transactions will be signed. 
 # The default is 10 sat/byte.
-#wtclient.sweep-fee-rate=10
+<a data-footnote-ref href="#user-content-fn-6">#wtclient.sweep-fee-rate=10</a>
 
 # Watchtower server
 watchtower.active=true
@@ -359,9 +360,9 @@ db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
 #db.bolt.auto-compact-min-age=0h
 
-# Optional (uncomment the next 2 lines)
+# Optional (uncomment the next 2 lines (default: CONSERVATIVE))
 #[Bitcoind]
-#bitcoind.estimatemode=ECONOMICAL
+<a data-footnote-ref href="#user-content-fn-7">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
 bitcoin.active=true
@@ -372,7 +373,7 @@ bitcoin.node=bitcoind
 tor.active=true
 tor.v3=true
 tor.streamisolation=true
-```
+</code></pre>
 
 {% hint style="info" %}
 This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf) with all possible options
@@ -559,7 +560,8 @@ $ ls -la /home/admin
 
 <summary>Expected output ⬇️</summary>
 
-<pre><code>total 96
+```
+total 96
 drwxr-x--- 10 admin admin  4096 Jul 18 07:10 .
 drwxr-xr-x  8 root  root   4096 Jul 16 09:28 ..
 -rw-rw-r--  1 admin admin 13901 Jul 12 15:54 .bash_aliases
@@ -572,7 +574,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-2">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 .lnd -> /data/lnd
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -581,7 +583,7 @@ drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
 -rw-r--r--  1 admin admin     0 Jul 11 20:27 .sudo_as_admin_successful
 -rw-rw-r--  1 admin admin   293 Jul 15 20:53 .wget-hsts
 -rw-------  1 admin admin   228 Jul 18 07:04 .Xauthority
-</code></pre>
+```
 
 </details>
 
@@ -848,3 +850,17 @@ $ lnd --version
 ```sh
 $ sudo systemctl restart lnd
 ```
+
+[^1]: (**Example)**
+
+[^2]: (Customize)
+
+[^3]: (Uncomment and customize the value)
+
+[^4]: (Uncomment and customize the value)
+
+[^5]: (Uncomment and customize the value)
+
+[^6]: (Uncomment and customize the value)
+
+[^7]: (Uncomment and customize the value)

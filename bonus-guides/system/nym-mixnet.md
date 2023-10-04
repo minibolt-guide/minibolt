@@ -239,7 +239,7 @@ StartLimitBurst=10
 [Service]
 User=nym
 LimitNOFILE=65536
-ExecStart=/home/nym/nym-network-requester run --id bitcoin --open-proxy
+ExecStart=/home/nym/nym-network-requester run --id bitcoin --open-proxy true
 KillSignal=SIGINT
 Restart=on-failure
 RestartSec=30
