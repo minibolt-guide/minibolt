@@ -237,6 +237,8 @@ Now we'll make sure our blockchain explorer starts as a service on the PC so tha
     User=btcrpcexplorer
     WorkingDirectory=/home/btcrpcexplorer/btc-rpc-explorer
     ExecStart=/usr/bin/npm start
+    Restart=always
+    RestartSec=30
 
     [Install]
     WantedBy=multi-user.target
