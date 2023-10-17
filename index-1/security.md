@@ -141,6 +141,7 @@ We use NGINX to encrypt the communication with SSL/TLS (Transport Layer Security
 
 ```sh
 $ sudo apt install nginx
+$ sudo apt install libnginx-mod-stream 
 ```
 
 * Create a self-signed SSL/TLS certificate (valid for 10 years)
