@@ -56,7 +56,7 @@ $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
 
 [lndconnect](https://github.com/LN-Zap/lndconnect), created by Zap, is a utility that generates QR Code or URI to connect applications to LND instances.
 
-* Navigate to the `"tmp"` folder
+* &#x20;As `admin` user, navigate to the `"tmp"` folder
 
 ```sh
 $ cd /tmp
@@ -180,7 +180,7 @@ $ lndconnect --host=192.168.X.XXX --port=8080
 
 ## Install the Zeus app
 
-On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus), or directly from the [GitHub repository](https://github.com/ZeusLN/zeus/releases), if you can’t or do not want to use Google Play. Tap it, download, and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, simply follow the on-screen instructions to do so.
+On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus), or directly from the [GitHub repository](https://github.com/ZeusLN/zeus/releases), if you can’t or do not want to use Google Play. Tap it, download it, and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, simply follow the on-screen instructions to do so.
 
 ### **Connect Zeus to LND**
 
@@ -193,7 +193,7 @@ If you will use the Tor connection hit on the switch **"Use Tor"**
 {% endhint %}
 
 * Click on **"SAVE NODE CONFIG"**
-* Will appear a "Warning" banner, push on **"I understand, save node config"**
+* A "Warning" banner will appear, push on **"I understand, save node config"**
 
 {% hint style="success" %}
 Zeus is now connecting to your node, and it might take a while the first time depending on the selected connection ⏰

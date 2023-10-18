@@ -51,12 +51,11 @@ If you plan to use Electrum from only within your own secured local area network
 * **Linux**
   * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
 
-```sh
-./electrum -1 -s minibolt.local:50002:s
-```
+<pre class="language-sh"><code class="lang-sh"><strong>$ ./electrum -1 -s minibolt.local:50002:s
+</strong></code></pre>
 
 * **Windows**
-  * Find the new Electrum desktop shortcut, right-click it, and go to "Properties", and click shortcut tab at the top bar, in the box named target, put "-1 -s minibolt.local:50002:s" after "electrum.exe" (replace minibolt.local with your node IP if necessary)
+  * Find the new Electrum desktop shortcut, right-click it, go to "Properties", and click the shortcut tab at the top bar, in the box named target, put "`-1 -s minibolt.local:50002:s`" after "electrum.exe" (replace minibolt.local with your node IP if necessary)
 
 ```sh
 "C:\Program Files (x86)\Electrum\electrum.exe" -1 -s minibolt.local:50002:s
@@ -99,7 +98,7 @@ To connect over Tor, you will need to have Tor installed on the client computer 
 
 By OS:
 
-* **Windows**: download, install and run [Tor Browser](https://www.torproject.org)
+* **Windows**: download, install, and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
   * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 * **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
@@ -111,15 +110,15 @@ $ sudo ss -tulpn | grep tor | grep LISTEN
 Expected output:
 
 ```sh
-tcp   LISTEN 0      4096           127.0.0.1:9050       0.0.0.0:*    users:(("tor",pid=1847,fd=6))
-tcp   LISTEN 0      4096           127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=1847,fd=7))
+tcp   LISTEN 0  4096   127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=1847,fd=6))
+tcp   LISTEN 0  4096   127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=1847,fd=7))
 ```
 
 * **macOS**: download, verify, install, and run [Tor Browser](https://www.torproject.org/)
   * The application must be started manually when you want to connect over Tor
   * By default, when you have Tor Browser running, Tor proxy is available on port 9150, use this port instead of `9050` port
 
-Now we need to specify the Tor address for Electrum Server and the local Tor proxy port in the Electrum Wallet configuration.
+Now we need to specify the Tor address for the Electrum Server and the local Tor proxy port in the Electrum Wallet configuration.
 
 First, get the onion address of your Electrum server directly on the MiniBolt, depending on whether you chose the Electrs or Fulcrum service
 
@@ -127,6 +126,11 @@ First, get the onion address of your Electrum server directly on the MiniBolt, d
 
 ```sh
 $ sudo cat /var/lib/tor/hidden_service_electrs/hostname
+```
+
+**Example** of expected output:
+
+```
 > ab...yz.onion
 ```
 
@@ -134,6 +138,11 @@ $ sudo cat /var/lib/tor/hidden_service_electrs/hostname
 
 ```sh
 $ sudo cat /var/lib/tor/hidden_service_fulcrum/hostname
+```
+
+**Example** of expected output:
+
+```
 > ab...yz.onion.onion
 ```
 
@@ -143,11 +152,11 @@ Now, execute Electrum Wallet choosing the correct way depending on your OS (repl
   * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
 
 ```sh
-./electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
+$ ./electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
 ```
 
 * **Windows**
-  * With your new shortcut created after installation in Desktop, right-click it and go to properties, click shortcut tab at the top bar, in the box named target put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept and execute doing double-click on our new shortcut
+  * With your new shortcut created after installation in Desktop, right-click it and go to properties, click the shortcut tab at the top bar, and in the box named target put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept, and execute doing double-clicking on our new shortcut
 
 {% code overflow="wrap" %}
 ```sh

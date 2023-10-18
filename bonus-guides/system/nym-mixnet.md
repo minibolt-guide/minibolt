@@ -222,7 +222,7 @@ $ exit
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-* With the user `admin`, create the configuration file in the nano text editor and copy the following paragraph. Save and exit
+* With the user `admin`, create the configuration file in the nano text editor, and copy the following paragraph. Save and exit
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/systemd/system/nym-network-requester.service
 </strong></code></pre>
@@ -248,7 +248,7 @@ RestartSec=30
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot (optional)
+* Enable autoboot **(optional)**
 
 ```bash
 $ sudo systemctl enable nym-network-requester
@@ -420,12 +420,19 @@ KillSignal=SIGINT
 Restart=on-failure
 RestartSec=30
 
-
 [Install]
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot (optional)
+{% hint style="info" %}
+You can add `--fastmode` attribute to the `ExecStart` parameter to enable this feature, this means the connection will not mixed up as much, but you will still be covered by the same privacy standard/minimum that NYM provides:
+
+```bash
+ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode
+```
+{% endhint %}
+
+* Enable autoboot **(optional)**
 
 ```bash
 $ sudo systemctl enable nym-network-requester
@@ -681,7 +688,7 @@ Expected output:
 
 ## Proxying wallets
 
-#### Electrum
+### Electrum
 
 Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md). You have 2 options:
 
@@ -719,7 +726,7 @@ $ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localho
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 
-#### Sparrow desktop
+### Sparrow desktop
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
 
@@ -741,7 +748,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
-#### Sparrow server
+### Sparrow server
 
 Follow the [Sparrow server bonus guide](../../bonus/bitcoin/sparrow-server.md), which could be used for these 2 cases of uses:
 
@@ -777,9 +784,9 @@ Go to **Preferences --> Server --> Public Electrum**
 You have Sparrow server configured to proxy public Electrum servers and third parties servers connection using NYM mixnet
 {% endhint %}
 
-#### Blockstream Green
+### Blockstream Green
 
-Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS
+Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS and install it.
 
 Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through a proxy**"
 
@@ -789,9 +796,9 @@ Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through
 
 <figure><img src="../../.gitbook/assets/green-wallet-nym-proxy.PNG" alt=""><figcaption><p>Screenshot showing a proxy connection using NYM mixnet</p></figcaption></figure>
 
-#### Bitbox app
+### Bitbox app
 
-Download the [Bitbox app](https://bitbox.swiss/download/?source=bitboxapp) for your OS
+Download the [Bitbox app](https://bitbox.swiss/download/?source=bitboxapp) for your OS and install it.
 
 Go to **Settings** --> **Advanced settings --> Enable Tor proxy,** check **"Enable Tor proxy"** and type `127.0.0.1:1080` --> **Set proxy address**
 
@@ -803,6 +810,22 @@ Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bit
 4. Finally, click on the "**Add**" button and click again on the "**Check**" button, and "**OK**"
 
 <figure><img src="../../.gitbook/assets/bitbox-app-nym-proxy-check.PNG" alt="" width="563"><figcaption></figcaption></figure>
+
+### Nunchuk desktop
+
+[Download](https://github.com/nunchuk-io/nunchuk-desktop/releases) the Nunchuk wallet desktop version for your OS and install it.
+
+Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"Enable Tor proxy"** and type in the "Proxy address" box:`127.0.0.1` and in the "Port" box: `1080`. Above, enable "Connect to Electrum server", select "Mainnet server", keep the public Nunchuk address server by default, or click on the "Reset" button. Leave the rest of the boxes blank and finally click on "Save network settings".
+
+<div>
+
+<figure><img src="../../.gitbook/assets/nunckuk_nym_settings.PNG" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../../.gitbook/assets/nunckuk_nym.PNG" alt="" width="375"><figcaption></figcaption></figure>
+
+</div>
 
 ## NYM connect
 
@@ -838,7 +861,7 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 **Save proxy Settings**
 {% endhint %}
 
-#### Telegram Desktop
+### Telegram Desktop
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
 
@@ -850,7 +873,7 @@ Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically
 Save and close all banners to go back to the running app
 {% endhint %}
 
-#### Browser (Firefox-based browsers)
+### Browser (Firefox-based browsers)
 
 Download [Firefox](https://www.mozilla.org/es-ES/firefox/all/#product-desktop-release) | [Librewolf](https://librewolf.net/installation/) | [Mullvad](https://mullvad.net/es/download/browser/linux) or any Firefox-based browser for your OS\
 \
@@ -910,11 +933,11 @@ An adaptation of pastebin.com, using NYM mixnet, to protect users and their data
 \
 [Link](https://pastenym.ch) | [GitHub](https://github.com/notrustverify/pastenym)\
 \
-Paste NYM-CLI --> [GitHub](https://github.com/notrustverify/pastenym-cli)[https://nostrnym.pnproxy.org/](https://nostrnym.pnproxy.org/)
+Paste NYM-CLI --> [GitHub](https://github.com/notrustverify/pastenym-cli)
 {% endtab %}
 
 {% tab title="NYM chat" %}
-A simple chat client which sends its traffic through the NYM mixnet
+A simple chat client that sends its traffic through the NYM mixnet
 
 [Link](https://chat-demo.nymtech.net/) | [GitHub](https://github.com/nymtech/demo-mixnet-chat-client)
 {% endtab %}

@@ -20,7 +20,7 @@ A [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with 
 
 ## What is Nostr?
 
-Nostr is a straightforward and open protocol for global, decentralized, and censorship-resistant social media. It offers numerous advantages for users and is completely free, requiring no ID or third-party verification to begin connecting with like-minded individuals and expanding your community. While nostr is sometimes confused as just another social media platform, it goes beyond that. Explore the resources provided here to discover its significant potential.&#x20;
+Nostr is a straightforward and open protocol for global, decentralized, and censorship-resistant social media. It offers numerous advantages for users and is completely free, requiring no ID or third-party verification to begin connecting with like-minded individuals and expanding your community. While nostr is sometimes confused as just another social media platform, it goes beyond that. Explore the resources provided here to discover its significant potential.
 
 This protocol is based on relays. Relays are servers that can be operated by anyone. By opening a persistent connection with the server, clients (or apps) can push and pull events in real-time.
 
@@ -269,18 +269,18 @@ $ sudo nano /data/nostr/rs-relay/config.toml
 > >
 > > > relay\_url = "[`<yourelayurl>`](#user-content-fn-1)[^1]"
 > >
-> > > name = "[`<nametotherelay>`](#user-content-fn-2)[^2]"
+> > > name = "`<nametotherelay>`"
 > >
-> > > description = "[`<descriptionrelay>`](#user-content-fn-3)[^3]"
+> > > description = "[`<descriptionrelay>`](#user-content-fn-2)[^2]"
 > >
-> > > pubkey = "[`<yournostrhexpubkey>`](#user-content-fn-4)[^4]"
+> > > pubkey = "`<yournostrhexpubkey>`"
 > >
-> > > contact = "[`<yourcontact>`](#user-content-fn-5)[^5]"
+> > > contact = "[`<yourcontact>`](#user-content-fn-3)[^3]"
 > >
-> > > relay\_icon = "[`<yourelayiconURL>`](#user-content-fn-6)[^6]"
+> > > relay\_icon = "`<yourelayiconURL>`"
 
 {% hint style="info" %}
-If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this.&#x20;
+If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this.
 
 You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub" pubkey to hexadecimal format
 {% endhint %}
@@ -289,15 +289,15 @@ You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub
 > >
 > > **(\*)** click on the parameter to get action to do (\<Edit> or \<Uncomment>)
 > >
-> > [favicon = "favicon.ico"](#user-content-fn-7)[^7]
+> > [favicon = "favicon.ico"](#user-content-fn-4)[^4]
 >
-> > [data\_directory = "/data/nostr/rs-relay/db"](#user-content-fn-8)[^8]
+> > data\_directory = "/data/nostr/rs-relay/db"
 >
-> > [address = "127.0.0.1"](#user-content-fn-9)[^9]
+> > [address = "127.0.0.1"](#user-content-fn-5)[^5]
 >
-> > [port = 8880](#user-content-fn-10)[^10]
+> > port = 8880
 >
-> > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-11)[^11]
+> > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-6)[^6]
 
 {% hint style="info" %}
 If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL), or replace it with your own, downloading it instead
@@ -408,7 +408,7 @@ credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 ingress:
 
 # Nostr relay
-  - hostname: <a data-footnote-ref href="#user-content-fn-12">relay</a>.<a data-footnote-ref href="#user-content-fn-13">&#x3C;domain.com></a>
+  - hostname: relay.<a data-footnote-ref href="#user-content-fn-7">&#x3C;domain.com></a>
     service: ws://localhost:8880
 
   - service: http_status:404
@@ -444,7 +444,7 @@ Expected output:
 
 <figure><img src="../../.gitbook/assets/relay-test-connected.PNG" alt=""><figcaption></figcaption></figure>
 
-3. Go to the [https://nostrdebug.com/relay](https://nostrdebug.com/relay) website, type in the  box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button. You should see the status "✅ Connected" on the history
+3. Go to the [https://nostrdebug.com/relay](https://nostrdebug.com/relay) website, type in the box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button. You should see the status "✅ Connected" on the history
 
 <figure><img src="../../.gitbook/assets/relay-connected-nostr-debug.PNG" alt="" width="478"><figcaption></figcaption></figure>
 
@@ -460,7 +460,7 @@ $ sudo systemctl stop nostr-relay
 * Replace the `config.toml` file with the new one of the new version **(if needed)**
 
 {% hint style="warning" %}
-**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If no changes, jump directly to the next **"Start `nostr-rs-relay` service again"  ->**`$ sudo systemctl start nostr-relay`
+**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If no changes, jump directly to the next **"Start `nostr-rs-relay` service again" ->**`$ sudo systemctl start nostr-relay`
 {% endhint %}
 
 * Backup the `config.toml` file to keep a copy of your old configuration
@@ -547,7 +547,7 @@ Select a strong password for the Alby extension (this password is for encrypting
 
 <figure><img src="../../.gitbook/assets/create-import-nostr-alby.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
-* If you selected to **create a new one**, remember backup the seed shown on the screen, check the verification box, and click on the **\[Save Master Key]** box&#x20;
+* If you selected to **create a new one**, remember backup the seed shown on the screen, check the verification box, and click on the **\[Save Master Key]** box
 
 <figure><img src="../../.gitbook/assets/seeds-nostr-keys-alby.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -617,7 +617,7 @@ If you want all your past events to be accessible through your new relay, you ca
 <figure><img src="../../.gitbook/assets/broadcast-relay.png" alt="" width="319"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr.&#x20;
+Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr.
 
 Optionally, you can also save a copy of all your events locally as you'll have the download option.
 {% endhint %}
@@ -828,36 +828,24 @@ $ sudo rm /usr/local/bin/nostr-rs-relay
 $ sudo rm -r /data/nostr/relay
 ```
 
-[^1]: **Example:** `"wss://relay.bitcoin.org/"`
+1. **Example:** `"Bitcoin Relay"`
+2.  The pubkey of the relay owner in [**hexadecimal format**](https://nostr.pro/convert)
 
-[^2]: **Example:** `"Bitcoin Relay"`
-
-[^3]: **Example:** `"The official nostr relay of the Bitcoin community"`
-
-[^4]: The pubkey of the relay owner in [**hexadecimal format**](https://nostr.pro/convert)
-
-
-
-    &#x20;      \
     \
-
+    \\
 
     **Example:** `"b17fccdf66ba2387f038b34426720cd68d112df923bca2bed8f8c309b7211144"`
 
-[^5]: **Example:** `"hello@bitcoin.org"`
+[^1]: **Example:** `"wss://relay.bitcoin.org/"`
 
-[^6]: **Example:** `"https://cdn.nostr.build/i/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png"`
+[^2]: **Example:** `"The official nostr relay of the Bitcoin community"`
 
-[^7]: \<Uncomment>
+[^3]: **Example:** `"hello@bitcoin.org"`
 
-[^8]: \<Edit> to `/data/nostr/rs-relay/db`&#x20;
+[^4]: \<Uncomment>
 
-[^9]: \<Edit> to `127.0.0.1`   &#x20;
+[^5]: \<Edit> to `127.0.0.1`
 
-[^10]: \<Edit> to `8880` &#x20;
+[^6]: \<Uncomment>
 
-[^11]: \<Uncomment>
-
-[^12]: This is only an example of a subdomain related to a nostr relay     &#x20;
-
-[^13]: Here your personal domain
+[^7]: Here your personal domain

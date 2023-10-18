@@ -29,7 +29,7 @@ Difficulty: Easy
 
 ## Acknowledgments
 
-The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor)
+The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor).
 
 ## Set up aliases
 
