@@ -69,7 +69,7 @@ $ sudo apt update && sudo apt full-upgrade
 * Set the next environment variable
 
 ```sh
-$ VERSION=25.0
+$ VERSION=25.1
 ```
 
 * Install the next dependencies packages
@@ -148,7 +148,7 @@ Expected output:
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
 {% code overflow="wrap" %}
 ```bash
@@ -200,11 +200,11 @@ $ wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4
 ```
 {% endcode %}
 
-```
+```bash
 $ chmod +x bdb.sh
 ```
 
-```
+```bash
 $ ./bdb.sh bitcoin-$VERSION
 ```
 
@@ -301,11 +301,17 @@ The following output is just an **example** of one of the versions:
 Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../index-2/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps
 {% endhint %}
 
+* Return to the `tmp` folder
+
+```bash
+$ cd ..
+```
+
 * Clean the installation files to be ready for the next update
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo rm -r bitcoin-25.0 && rm bdb.sh && rm bitcoin-25.0.tar.gz && rm db-4.8.30.NC.tar.gz & rm SHA256SUMS && rm SHA256SUMS.asc && rm SHA256SUMS.ots
+$ sudo rm -r bitcoin-$VERSION && rm bdb.sh && rm bitcoin-$VERSION.tar.gz && rm db-4.8.30.NC.tar.gz & rm SHA256SUMS && rm SHA256SUMS.asc && rm SHA256SUMS.ots
 ```
 {% endcode %}
 
@@ -375,7 +381,7 @@ The before information indicates that the filter is working properly
 
 ### **Add Ordisrespector node peers (optional)**
 
-Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/Nodo-Bitcoin-Barcelona-b275aaed964149a3ae2c9b1d16d6b78f) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
+Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/servicios\_bbo) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
 
 * Edit and add on `"bitcoin.conf"` file the next line/s at the end of the file
 

@@ -720,9 +720,11 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 Use this **example** of a shortcut for Linux to select your private server (your MiniBolt Electrum server), proxying through NYM mixnet:
 
+{% code overflow="wrap" %}
 ```bash
 $ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localhost:1080
 ```
+{% endcode %}
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 

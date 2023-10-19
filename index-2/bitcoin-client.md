@@ -20,15 +20,15 @@ We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/), the reference c
 
 ## This may take some time
 
-Bitcoin Core will download the full Bitcoin blockchain, and validate all transactions since 2009. We're talking more than 700'000 blocks with a size of over 465 GB, so this is not an easy task.
+Bitcoin Core will download the full Bitcoin blockchain, and validate all transactions since 2009. We're talking more than 800'000 blocks with a size of over 465 GB, so this is not an easy task.
 
 ## Installation
 
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-💡 If you want to install Ordisrespector patch to reject Ordinals of your mempool, follow [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
+💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
 
-💡 If you want to install Bitcoin Core from source code but without Ordisrespector patch, follow [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) skipping [Apply the patch “Ordisrespector”](../bonus/bitcoin/ordisrespector.md#apply-the-patch-ordisrespector) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
+💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) skipping [Apply the patch “Ordisrespector”](../bonus/bitcoin/ordisrespector.md#apply-the-patch-ordisrespector) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
 
 ### **Preparations**
 
@@ -41,7 +41,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=25.0
+$ VERSION=25.1
 ```
 
 * Get the latest binaries and signatures
@@ -113,21 +113,21 @@ $ gpg --verify SHA256SUMS.asc
 
 ### **Timestamp check**
 
-* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/){:target="\_blank"}, proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots)
-  * [https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS)
-* In your browser, open the [OpenTimestamps website](https://opentimestamps.org/){:target="\_blank"}
+* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
+  * [https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots)
+  * [https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS)
+* In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
 * In the next box, drop or upload the SHA256SUMS file
-* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v25.0){:target="\_blank"} of Bitcoin Core v25.0
+* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v25.0) of the latest Bitcoin Core version
 
 The following screenshot is just an **example** of one of the versions:
 
-![Bitcoin timestamp check](../images/bitcoin-ots-check.PNG)
+![](../images/bitcoin-ots-check.PNG)
 
 ### **Binaries installation**
 
-* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries
+* ,If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries
 
 ```sh
 $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
@@ -153,7 +153,7 @@ The following output is just an **example** of one of the versions:
 > [...]
 ```
 
-💡 Now, if you want to install manual page for bitcoin-cli, follow the [manual page for bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
+💡 Now, if you want to install the manual page for bitcoin-cli, follow the [manual page for bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
 
 ### **Create the bitcoin user**
 
@@ -205,9 +205,9 @@ $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
 
 ### **Generate access credentials**
 
-For other programs to query Bitcoin Core they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Core to accept a password, hash it and compare it to the stored hash, while it is not possible to retrieve the original password.
+For other programs to query Bitcoin Core they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Core to accept a password, hash it, and compare it to the stored hash, while it is not possible to retrieve the original password.
 
-Another option to get access credentials is through the `.cookie` file in the Bitcoin data directory. This is created automatically and can be read by all users that are members of the "bitcoin" group.
+Another option to get access credentials is through the `.cookie` file in the Bitcoin data directory. This is created automatically and can be read by all users who are members of the "bitcoin" group.
 
 Bitcoin Core provides a simple Python program to generate the configuration line for the config file.
 
@@ -223,7 +223,7 @@ $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rp
 ```
 {% endcode %}
 
-* Run the script with the Python3 interpreter, providing username (`minibolt`) and your `"password [B]"` arguments
+* Run the script with the Python3 interpreter, providing the username (`minibolt`) and your `"password [B]"` arguments
 
 🚨 All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space ( ) in front of the command shown below
 
@@ -242,9 +242,9 @@ Expected **example** output:
 
 ### **Configuration**
 
-Now, the configuration file for `bitcoind` needs to be created. We'll also set the proper access permissions.
+Now, the configuration file  `bitcoind` needs to be created. We'll also set the proper access permissions.
 
-* Still as user `"bitcoin"`, open it with Nano and paste the configuration below. Replace the whole line starting with `"rpcauth=..."` with the connection string you just generated. Save and exit
+* Still as user `"bitcoin"`, open it with Nano and paste the configuration below. Replace the whole line starting with `"rpcauth=..."` the connection string you just generated. Save and exit
 
 ```bash
 $ nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -373,7 +373,7 @@ $ journalctl -f -u bitcoind
 
 ## Running bitcoind
 
-To keep an eye on the software movements, [Start your SSH program](broken-reference) (eg. PuTTY) a second time, connect to the MiniBolt node and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [Start your SSH program](broken-reference) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the service
 
@@ -429,7 +429,7 @@ $ exit
 ```
 
 * Log in as user `admin` again `("ssh admin@minibolt.local")`
-* Wait a few minutes until Bitcoin Core started, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
+* Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
 
 {% code overflow="wrap" %}
 ```sh
@@ -525,7 +525,7 @@ $ ots --version
 
 ### **Reject non-private networks**
 
-* As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes. You can add more seed nodes are of this list: [seed nodes](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt)
+* As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes. You can add more seed nodes to this list: [seed nodes](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt)
 
 ```sh
 $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -678,7 +678,7 @@ Expected output:
 > bitcoin-$VERSION-x86_64-linux-gnu.tar.gz: OK
 ```
 
-* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
 {% code overflow="wrap" %}
 ```sh
