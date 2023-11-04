@@ -38,7 +38,7 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ## Bitcoin
 
-### [**Bitcoin client: Bitcoin Core**](../../index-2/bitcoin-client.md)
+### [Bitcoin client: Bitcoin Core](../../index-2/bitcoin-client.md)
 
 * Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../index-2/bitcoin-client.md), when you arrive at the ["Configuration section"](../../index-2/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
 
@@ -63,11 +63,11 @@ $ sudo chmod g+rx /data/bitcoin/testnet3
 The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../index-2/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
 {% endhint %}
 
-### [**Electrum server: Fulcrum**](../../bitcoin/electrum-server.md)
+### [Electrum server: Fulcrum](../../bitcoin/electrum-server.md)
 
 Follow the complete Electrum server guide from the beginning, when you arrive at the ["Configure Firewall"](../../bitcoin/electrum-server.md#configure-firewall) section:
 
-[**Configure Firewall**](../../bitcoin/electrum-server.md#configure-firewall)
+[Configure Firewall](../../bitcoin/electrum-server.md#configure-firewall)
 
 * Replace the next lines to 60001/60002 ports, to match with the Testnet mode
 
@@ -87,7 +87,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 ```
 {% endcode %}
 
-[**Configuration**](../../bitcoin/electrum-server.md#configuration)
+[Configuration](../../bitcoin/electrum-server.md#configuration)
 
 * In the next [Configuration](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `"fulcrum.conf"` file, to match with the testnet mode
 
@@ -108,7 +108,7 @@ tcp = 0.0.0.0:60001
 banner = /data/fulcrum/fulcrum-banner-testnet.txt
 ```
 
-[**Remote access over Tor**](../../bitcoin/electrum-server.md#remote-access-over-tor)
+[Remote access over Tor](../../bitcoin/electrum-server.md#remote-access-over-tor)
 
 * When you arrive at the[ remote access over the Tor section](../../bitcoin/electrum-server.md#remote-access-over-tor), edit torrc file
 
@@ -152,7 +152,7 @@ You should now be able to connect to your Fulcrum server remotely via Tor using 
 The rest of the **Fulcrum** guide is exactly the same as the mainnet mode
 {% endhint %}
 
-### [**Blockchain Explorer: BTC RPC Explorer**](../../bitcoin/blockchain-explorer.md)
+### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/blockchain-explorer.md)
 
 * Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
 
@@ -172,7 +172,7 @@ The rest of the **BTC RPC Explorer** guide is exactly the same as the mainnet mo
 
 ## Lightning
 
-### [**Lightning client: LND**](../../lightning/lightning-client.md)
+### [Lightning client: LND](../../lightning/lightning-client.md)
 
 * Follow the complete guide from the beginning, when you arrive at the ["Configure LND"](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
@@ -213,7 +213,7 @@ Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/m
 The rest of the **Lightning Clien**t guide is exactly the same as the mainnet mode
 {% endhint %}
 
-### [**Channel backup**](../../lightning/channel-backup.md)
+### [Channel backup](../../lightning/channel-backup.md)
 
 * Follow the complete guide from the beginning, when you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
 
@@ -240,7 +240,7 @@ SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
 The rest of the **Channel Backup guide** is exactly the same as the mainnet mode
 {% endhint %}
 
-### [**Web app: ThunderHub**](../../lightning/web-app.md)
+### [Web app: ThunderHub](../../lightning/web-app.md)
 
 * Follow the complete guide from the beginning, when you arrive at the ["Installation"](../../lightning/web-app.md#installation) section, replace the next command to match with the testnet mode LND path
 
@@ -264,7 +264,7 @@ MEMPOOL_URL='https://mempool.space/testnet'
 The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode
 {% endhint %}
 
-### [**Mobile app: Zeus**](../../lightning/mobile-app.md)
+### [Mobile app: Zeus](../../lightning/mobile-app.md)
 
 * Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, add to the "lndconnect" command the next flags
 
@@ -284,11 +284,11 @@ $ lndconnect --host=10.0.0.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/
 
 ## Bonus section
 
-### [**Electrs**](electrs.md)
+### [Electrs](electrs.md)
 
 Follow the complete guide from the beginning, when you arrive at the ["Firewall & reverse proxy section"](electrs.md#firewall-and-reverse-proxy):
 
-[**Firewall & reverse proxy**](electrs.md#firewall-and-reverse-proxy)
+[Firewall & reverse proxy](electrs.md#firewall-and-reverse-proxy)
 
 * Configure the Firewall to allow incoming requests
 
@@ -328,7 +328,7 @@ $ sudo nginx -t
 $ sudo systemctl reload nginx
 ```
 
-[**Configuration**](electrs.md#configuration)
+[Configuration](electrs.md#configuration)
 
 * When you arrive at the [Configuration](electrs.md#configuration) section, replace it with the next lines
 
@@ -346,7 +346,7 @@ electrum_rpc_addr = "127.0.0.1:60001"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node testnet!"
 ```
 
-[**Remote access over Tor**](electrs.md#remote-access-over-tor-optional)
+[Remote access over Tor](electrs.md#remote-access-over-tor-optional)
 
 * When you arrive at the [Remote access over Tor](electrs.md#remote-access-over-tor-optional) section
 
