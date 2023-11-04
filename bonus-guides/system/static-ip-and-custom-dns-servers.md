@@ -215,7 +215,7 @@ Now you have set your static IP address and custom DNS servers
 If you chose a different IP address than the router assigned you at first and has currently, this step could break the current SSH connection, reconnect using the new and chosen IP address
 {% endhint %}
 
-#### **Check changes**
+#### Check changes
 
 * To check the successful IP address change, type the next command
 
@@ -282,7 +282,7 @@ Check changes are applied correctly following the [same step](static-ip-and-cust
 {% endhint %}
 
 {% hint style="success" %}
-You have gone back to the a**utomatic (DHCP) mode** configuration successfully
+You have gone back to the **automatic (DHCP) mode** configuration successfully
 {% endhint %}
 
 [^1]: \<interface>

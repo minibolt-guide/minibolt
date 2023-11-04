@@ -29,11 +29,11 @@ After the MiniBolt runs your own fully validated node, and even acts as a backen
 
 ## Preparations
 
-### **Install Node + NPM**
+### Install Node + NPM
 
 Node.js package includes NPM, follow the [Node + NPM bonus guide](../bonus/system/nodejs-npm.md)
 
-### **Reverse proxy & Firewall**
+### Reverse proxy & Firewall
 
 In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
 
@@ -69,7 +69,7 @@ $ sudo systemctl reload nginx
 $ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
 ```
 
-## **Installation**
+## Installation
 
 For improved security, we create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
 
@@ -158,7 +158,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 > "version": "3.4.0",
 ```
 
-## **Configuration**
+## Configuration
 
 * Copy and edit the configuration template (skip this step when updating). Activate any setting by removing the `#` at the beginning of the line
 
@@ -194,7 +194,7 @@ BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
 BTCEXP_SLOW_DEVICE_MODE=false
 ```
 
-#### **Optional**
+#### Optional
 
 You can decide whether you want to optimize for more information or more privacy:
 
@@ -361,6 +361,98 @@ tcp   LISTEN 0   511   127.0.0.1:3002   0.0.0.0:*   users:(("node",pid=140461,fd
 **Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node
 {% endhint %}
 
+## Extras
+
+### Slow device mode (resource-intensive features are disabled)
+
+* With user `admin`, change to the `btcrpcexplorer` user
+
+```sh
+$ sudo su - btcrpcexplorer
+```
+
+* Edit the `.env` configuration file
+
+```sh
+$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+* Extend the timeout period due to the limited resources
+
+```
+# uncomment and change the value of this line
+BTCEXP_BITCOIND_RPC_TIMEOUT=10000
+```
+
+* Comment this line if it is uncommented (default value is **true**)
+
+```
+#BTCEXP_SLOW_DEVICE_MODE=false
+```
+
+### Remote access over Tor
+
+Do you want to access your personal blockchain explorer remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
+
+* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
+```
+# Hidden Service BTC RPC Explorer
+HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
+HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
+HiddenServicePort 80 127.0.0.1:3002
+```
+
+* Reload the Tor configuration
+
+```sh
+$ sudo systemctl reload tor
+```
+
+* Get your connection address
+
+```sh
+$ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
+```
+
+**Example** of expected output:
+
+```
+> abcdefg..............xyz.onion
+```
+
+* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
+
+### Sharing your explorer
+
+You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "`DEMO`" mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
+
+* With user `admin`, change to the `btcrpcexplorer` user
+
+```sh
+$ sudo su - btcrpcexplorer
+```
+
+* Edit the `.env` configuration file
+
+```sh
+$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+```
+# uncomment this line
+BTCEXP_DEMO=true
+```
+
+{% hint style="info" %}
+Remember to give them the **`password [D]`** if you added password protection in the reference step
+{% endhint %}
+
 ## Upgrade
 
 Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
@@ -442,7 +534,7 @@ Don't worry about `userdel: btcrpcexplorer mail spool (/var/mail/btcrpcexplorer)
 $ sudo userdel -rf btcrpcexplorer
 ```
 
-### **Uninstall Tor hidden service**
+### Uninstall Tor hidden service
 
 * Ensure that you are logged in with the user `admin` and delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -483,95 +575,3 @@ Expected output:
 ```bash
 $ sudo ufw delete X
 ```
-
-## Extras
-
-### **Slow device mode (resource-intensive features are disabled)**
-
-* With user `admin`, change to the `btcrpcexplorer` user
-
-```sh
-$ sudo su - btcrpcexplorer
-```
-
-* Edit the `.env` configuration file
-
-```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-```
-
-* Extend the timeout period due to the limited resources
-
-```
-# uncomment and change the value of this line
-BTCEXP_BITCOIND_RPC_TIMEOUT=10000
-```
-
-* Comment this line if it is uncommented (default value is **true**)
-
-```
-#BTCEXP_SLOW_DEVICE_MODE=false
-```
-
-### **Remote access over Tor**
-
-Do you want to access your personal blockchain explorer remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
-
-* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
-
-```sh
-$ sudo nano /etc/tor/torrc
-```
-
-```
-# Hidden Service BTC RPC Explorer
-HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:3002
-```
-
-* Reload the Tor configuration
-
-```sh
-$ sudo systemctl reload tor
-```
-
-* Get your connection address
-
-```sh
-$ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
-```
-
-**Example** of expected output:
-
-```
-> abcdefg..............xyz.onion
-```
-
-* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
-
-### **Sharing your Explorer**
-
-You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "`DEMO`" mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
-
-* With user `admin`, change to the `btcrpcexplorer` user
-
-```sh
-$ sudo su - btcrpcexplorer
-```
-
-* Edit the `.env` configuration file
-
-```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-```
-
-```
-# uncomment this line
-BTCEXP_DEMO=true
-```
-
-{% hint style="info" %}
-Remember to give them the **`password [D]`** if you added password protection in the reference step
-{% endhint %}

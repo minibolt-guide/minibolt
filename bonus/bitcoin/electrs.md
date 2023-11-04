@@ -34,7 +34,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../../index
 
 Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
-### **Install dependencies**
+### Install dependencies
 
 * With user `admin`, update the packages and upgrade to keep up to date with the OS
 
@@ -194,7 +194,7 @@ Expected output:
 If you obtain "command not found" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
-### **Firewall & reverse proxy**
+### Reverse proxy & Firewall
 
 In the [Security section](broken-reference/), we already set up NGINX as a reverse proxy. Now we can add the Electrs configuration.
 
@@ -245,7 +245,7 @@ $ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
 
 An easy and performant way to run an Electrum server is to use [Electrs](https://github.com/romanz/electrs), the Electrum Server in Rust. There are no binaries available, so we will compile the application ourselves.
 
-### **Build from the source code**
+### Build from the source code
 
 We get the latest release of the Electrs source code, verify it, compile it to an executable binary, and install it.
 
@@ -390,7 +390,7 @@ $ sudo rm -r /tmp/electrs
 If you come to update this is the final step
 {% endhint %}
 
-## **Configuration**
+## Configuration
 
 * Create the `electrs` user, and make it a member of the "bitcoin" group
 
@@ -448,7 +448,7 @@ timestamp = true
 $ exit
 ```
 
-## **Create systemd service**
+## Create systemd service
 
 Electrs need to start automatically on system boot.
 
@@ -572,6 +572,67 @@ Expected output:
 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
+## Extras
+
+### Remote access over Tor
+
+To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
+
+* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
+```
+# Hidden Service Electrs TCP & SSL
+HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
+HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
+HiddenServicePort 50001 127.0.0.1:50001
+HiddenServicePort 50002 127.0.0.1:50002
+```
+
+* Reload the Tor configuration, get your connection addresses, and take note of these, later you will need them
+
+```sh
+$ sudo systemctl reload tor
+```
+
+```sh
+$ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
+```
+
+Expected output:
+
+```
+> abcdefg..............xyz.onion
+```
+
+* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (SSL) or 50001 (TCP)
+
+### Migrate BTC RPC Explorer to Electrs API connection
+
+To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
+
+* As user `admin`, open the `btcrpcexplorer` service
+
+```sh
+$ sudo nano /etc/systemd/system/btcrpcexplorer.service
+```
+
+* Replace the `"After=fulcrum.service"` with the `"After=electrs.service"` parameter. Save and exit
+
+```sh
+After=electrs.service
+```
+
+* Restart the BTC RPC Explorer service to apply the changes
+
+```sh
+$ sudo systemctl restart btcrpcexplorer
+```
+
 ## Upgrade
 
 Updating Electrs is straightforward. You can display the current version with the command below and check the Electrs [release page](https://github.com/romanz/electrs/releases) to see if a newer version is available. Depending if you come from a version prior to `0.10.0` or not, you will need to follow an installation process or other:
@@ -655,7 +716,7 @@ $ sudo userdel -rf electrs
 $ sudo rm -rf /data/electrs/
 ```
 
-### **Uninstall Tor hidden service**
+### Uninstall Tor hidden service
 
 * Ensure that you are logged in with the user `admin` and delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -674,67 +735,6 @@ $ sudo nano /etc/tor/torrc
 
 ```bash
 $ sudo systemctl reload tor
-```
-
-## Extras
-
-### **Remote access over Tor**
-
-To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
-
-* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
-
-```sh
-$ sudo nano /etc/tor/torrc
-```
-
-```
-# Hidden Service Electrs TCP & SSL
-HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 50001 127.0.0.1:50001
-HiddenServicePort 50002 127.0.0.1:50002
-```
-
-* Reload the Tor configuration, get your connection addresses, and take note of these, later you will need them
-
-```sh
-$ sudo systemctl reload tor
-```
-
-```sh
-$ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
-```
-
-Expected output:
-
-```
-> abcdefg..............xyz.onion
-```
-
-* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (SSL) or 50001 (TCP)
-
-### **Migrate BTC RPC Explorer to Electrs API connection**
-
-To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
-
-* As user `admin`, open the `btcrpcexplorer` service
-
-```sh
-$ sudo nano /etc/systemd/system/btcrpcexplorer.service
-```
-
-* Replace the `"After=fulcrum.service"` with the `"After=electrs.service"` parameter. Save and exit
-
-```sh
-After=electrs.service
-```
-
-* Restart the BTC RPC Explorer service to apply the changes
-
-```sh
-$ sudo systemctl restart btcrpcexplorer
 ```
 
 [^1]: Current version installed

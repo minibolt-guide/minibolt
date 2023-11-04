@@ -27,11 +27,11 @@ Difficulty: Easy
 
 ![](../../images/aliases-demo.PNG)
 
-## Acknowledgments
+## Introduction
 
 The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor).
 
-## Set up aliases
+## COnfiguration
 
 * With user `admin`, access to `home` folder and download the aliases list provided for a MiniBolt environment
 
@@ -59,7 +59,7 @@ $ nano .bash_aliases
 $ source /home/admin/.bashrc
 ```
 
-## Aliases in action
+## Run
 
 * Simply type "alias" to display all available aliases
 
@@ -100,7 +100,7 @@ $ showmainversion
 
 </details>
 
-## For the future: upgrade Aliases
+## Upgrade
 
 Follow again the [Set up Aliases](aliases.md#set-up-aliases) section again to overwrite aliases.
 

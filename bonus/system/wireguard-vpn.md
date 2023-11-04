@@ -90,7 +90,7 @@ Now we are going to execute a universal way of configuring our IP by updating it
 If you have a contracted static IP on your ISP, you can log in to the MiniBolt directly, go to the [configure firewall](wireguard-vpn.md#configure-firewall) section, and continue with the guide from there.
 {% endhint %}
 
-### **Desec registration**
+### Desec registration
 
 *   Go to Desec [official webpage](https://desec.io) and fill out the first form with this:
 
@@ -134,7 +134,7 @@ Keep **this dashboard open,** you'll need to come back here later.
 
 ## Server configuration (part 1)
 
-### **Dynamic IP script**
+### Dynamic IP script
 
 Now we'll write a Bash script for MiniBolt that will periodically poll its own IP and send it to deSEC. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yoursubdomain.dedyn.io>"`** from the deSEC registration step.
 
@@ -193,7 +193,7 @@ Keep the MiniBolt SSH session on the terminal opened to go back later, return to
 You now have a free domain that always points to your existing public IP address. Now you can log out of the Desec webpage by clicking on the `"LOG OUT"` button on the top right, we won't need it anymore
 {% endhint %}
 
-### **Configure Firewall**
+### Configure Firewall
 
 * Return to the MiniBolt SSH session to continue configuring it. Allow incoming Wireguard requests from outside the Firewall
 
@@ -205,7 +205,7 @@ $ sudo ufw allow 51820/udp comment 'allow WireGuard VPN from anywhere'
 Remember to have forwarded the **`"51820"`** port and the **`"UDP"`** protocol of your router to the local IP of your MiniBolt, previously indicated in the [prerequisites](wireguard-vpn.md#prerequisites) section and following the [Port Forwarding](wireguard-vpn.md#port-forwarding) extra section
 {% endhint %}
 
-### **Install WireGuard VPN on server**
+### Install WireGuard VPN on server
 
 * Update the packages and upgrade to keep up to date with the OS
 
@@ -219,7 +219,7 @@ $ sudo apt update && sudo apt full-upgrade
 $ sudo apt install wireguard
 ```
 
-### **Generate server key pair**
+### Generate server key pair
 
 * Now we are going to generate our server key pair. The following command is to generate a private key
 
@@ -307,7 +307,7 @@ Now, on your client (on a regular computer, regular mobile, tablet, etc...), sta
 $ sudo apt install wireguard
 ```
 
-### **Generate client key pair**
+### Generate client key pair
 
 * Now we are going to generate our client key pair. The following command is to generate a private key
 
@@ -337,7 +337,7 @@ e.g: pNfWyNJ9WnbMqlLzHxwhvGnZ0/alT18MGy6K0iOxHCI=
 
 📝 Take note and **securely backup** this private key in your preferred password manager (Bitwarden, Lastpass, Keypass...)
 
-### **Client configuration (part 1)**
+### Client configuration (part 1)
 
 * Create `wg0.conf` file
 
@@ -517,7 +517,7 @@ Expected output:
 
 ## Extras
 
-### **Install & configure the WireGuard VPN Client on a mobile phone**
+### Install & configure the WireGuard VPN Client on a mobile phone
 
 Entering all information about the Wireguard VPN Client into a mobile phone is particularly cumbersome. A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel through a QR code format.
 
@@ -571,7 +571,7 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) | Link to [A
 You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of `"wg0.conf"` configured on the [client configuration](wireguard-vpn.md#client-configuration-part-1) section. Select **"CREATE FROM SCRATCH"** instead of **"SCAN FROM QR CODE"** on the second step, fill out the form, and hit on the diskette icon on the top right to save and follow the same steps from **4**
 {% endhint %}
 
-### **Install & configure WireGuard VPN Client on Windows**
+### Install & configure WireGuard VPN Client on Windows
 
 * Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
 * Hit on the little arrow down on the bottom left and select **"Add empty tunnel"**
@@ -582,18 +582,18 @@ You could create a Wireguard VPN client connection manually from scratch filling
 * Click on the **"Activate"** button to enable the VPN connection
 * Test it creating a [new SSH connection](broken-reference/) to MiniBolt for example, this time with the VPN IP address
 
-### **Configure additional clients**
+### Configure additional clients
 
 For each additional client, you must install the WireGuard software in each of them and you could reuse the client's key pair previously created on the [generate client key pair](wireguard-vpn.md#generate-client-key-pair) section and all [client configuration](wireguard-vpn.md#client-configuration-part-1) sections.
 
-### **Configure additional servers**
+### Configure additional servers
 
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`. You could use any other [private IP range](https://en.wikipedia.org/wiki/Private\_network#Private\_IPv4\_addresses).
 
 * Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server and `10.0.1.2` for the clients in this case
 * If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port on the endpoint configuration: **`Endpoint = <yoursubdomain.dedyn.io>:51821`**
 
-### **Use your router’s DDNS preconfigured provider**
+### Use your router’s DDNS preconfigured provider
 
 Some routers have support for Dynamic DNS providers like NO-IP or deSEC, out of the box, and you just need to select the right option (deSEC, desec.io, dedyn, NoIP, dynDNS, or similar). It would be a great idea if your MiniBolt server won't be running 24/7, but it's probably your router yes.
 
@@ -610,7 +610,7 @@ If your router does not have your DDNS provider preconfigured, the configuration
 Save and apply changes
 {% endhint %}
 
-### **Port forwarding**
+### Port forwarding
 
 Port forwarding, allows you to direct incoming traffic from the WAN side (identified by Protocol and External port) to the Internal server with the private IP address on the LAN side.
 

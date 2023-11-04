@@ -42,7 +42,7 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 
 Make sure that you have [reduced the database cache of Bitcoin Core](../index-2/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
 
-### **Install dependencies**
+### Install dependencies
 
 * With user `admin`, make sure that all necessary software packages are installed
 
@@ -50,7 +50,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../index-2/
 $ sudo apt install libssl-dev
 ```
 
-### **Configure Firewall**
+### Configure Firewall
 
 * Configure the firewall to allow incoming requests
 
@@ -62,7 +62,7 @@ $ sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
 $ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
 ```
 
-### **Configure Bitcoin Core**
+### Configure Bitcoin Core
 
 We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
 
@@ -84,7 +84,7 @@ $ sudo systemctl restart bitcoind
 
 ## Installation
 
-### **Download and set up Fulcrum**
+### Download and set up Fulcrum
 
 We have our Bitcoin Core configuration file set up and can now move on to the next part of the Fulcrum installation.
 
@@ -210,7 +210,7 @@ $ Fulcrum --version
 If you come to update, this is the final step, go back to the [Upgrade section](electrum-server.md#for-the-future-fulcrum-upgrade) to continue
 {% endhint %}
 
-### **Data directory**
+### Data directory
 
 Now that Fulcrum is installed, we need to configure it to run automatically on startup.
 
@@ -288,7 +288,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 ```
 {% endcode %}
 
-## **Configuration**
+## Configuration
 
 MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
@@ -439,7 +439,7 @@ tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",
 tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=206))
 ```
 
-### Disable fast-sync parameter after full index
+## Disable fast-sync parameter after full index
 
 Once Fulcrum is fully indexed, we will disable the fast-sync parameter to avoid the error "`fast-sync: Specified value (4096000000 bytes) is too large to fit in available system memory (limit is: 3903692800 bytes)"` the next time we will start Fulcrum after the full index
 
@@ -458,145 +458,12 @@ $ sudo nano /data/fulcrum/fulcrum.conf
 * Restart Fulcrum to apply changes
 
 ```bash
-$ sudo systemctl restart fulcrum 
-```
-
-## Upgrade
-
-Follow the complete [Download and set up Fulcrum](electrum-server.md#download-and-set-up-fulcrum) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
-
-* Restart the service to apply the changes
-
-```sh
 $ sudo systemctl restart fulcrum
-```
-
-* Check logs and pay attention to the next log if that attends to the new version installed
-
-```sh
-$ journalctl -f -u fulcrum
-```
-
-**Example** of expected output:
-
-{% code overflow="wrap" %}
-```
-Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.1 (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
-[...]
-```
-{% endcode %}
-
-## Uninstall
-
-### **Uninstall service & user**
-
-* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
-
-```sh
-$ sudo systemctl stop fulcrum
-```
-
-```sh
-$ sudo systemctl disable fulcrum
-```
-
-```sh
-$ sudo rm /etc/systemd/system/fulcrum.service
-```
-
-* Ensure you are logged in with the user `admin`. Delete the fulcrum user.\
-  Don't worry about `userdel: fulcrum mail spool (/var/mail/nym) not found` output, the uninstall has been successful
-
-```sh
-$ sudo userdel -rf fulcrum
-```
-
-* Delete fulcrum directory
-
-```sh
-$ sudo rm -rf /data/fulcrum/
-```
-
-### **Uninstall Tor hidden service**
-
-* Ensure that you are logged in with the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
-
-```sh
-$ sudo nano /etc/tor/torrc
-```
-
-```
-# Hidden Service Fulcrum TCP & SSL
-#HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
-#HiddenServiceVersion 3
-#HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 50001 127.0.0.1:50001
-#HiddenServicePort 50002 127.0.0.1:50002
-```
-
-* Reload the torrc config
-
-```sh
-$ sudo systemctl reload tor
-```
-
-### **Uninstall FW configuration**
-
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
-
-```sh
-$ sudo ufw status numbered
-```
-
-Expected output:
-
-```
-> [Y] 50001       ALLOW IN    Anywhere          # allow Fulcrum TCP from anywhere
-> [X] 50002       ALLOW IN    Anywhere          # allow Fulcrum SSL from anywhere
-```
-
-* Delete the rule with the correct number and confirm with "`yes`"
-
-```sh
-$ sudo ufw delete X
-```
-
-### **Uninstall the Zram**
-
-* Ensure you are logged in with the user `admin`, navigate to the zram-swap folder, and uninstall
-
-```sh
-$ cd /home/admin/zram-swap
-```
-
-```sh
-$ sudo ./install.sh --uninstall
-```
-
-```sh
-$ sudo rm /etc/default/zram-swap
-```
-
-```sh
-$ sudo rm -rf /home/admin/zram-swap
-```
-
-* Make sure that the change was done
-
-```sh
-$ sudo cat /proc/swaps
-```
-
-Expected output:
-
-```
-Filename            Type                Size           Used    Priority
-/var/swap           file                 102396         0       -2
 ```
 
 ## Extras
 
-### **Remote access over Tor**
+### Remote access over Tor
 
 To use your Fulcrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
@@ -635,7 +502,7 @@ $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
 
 * You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port `50001` (TCP) or `50002` (SSL)
 
-### **Admin Script: FulcrumAdmin**
+### Admin Script: FulcrumAdmin
 
 Fulcrum comes with an admin script. The admin service is used for sending special control commands to the server, such as stopping the server. You may send commands to Fulcrum using this script.
 
@@ -663,9 +530,9 @@ usage: FulcrumAdmin [-h] -p port [-j] [-H [host]]
 Get more information about this command in the official documentation [section](https://github.com/cculianu/Fulcrum#admin-script-fulcrumadmin)
 {% endhint %}
 
-### **Slow devices mode**
+### Slow devices mode
 
-#### **Fulcrum configuration**
+#### Fulcrum configuration
 
 * As the `admin` user, add these lines at the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware
 
@@ -686,7 +553,7 @@ db_mem = 1024.0
 #db_max_open_files = 400
 ```
 
-#### **Install zram-swap**
+#### Install zram-swap
 
 zram-swap is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
 
@@ -745,8 +612,141 @@ Filename               Type            Size            Used            Priority
 /dev/zram0             partition       10055452        368896          15
 ```
 
-### **Backup the database**
+### Backup the database
 
 If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
+
+## Upgrade
+
+Follow the complete [Download and set up Fulcrum](electrum-server.md#download-and-set-up-fulcrum) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
+
+* Restart the service to apply the changes
+
+```sh
+$ sudo systemctl restart fulcrum
+```
+
+* Check logs and pay attention to the next log if that attends to the new version installed
+
+```sh
+$ journalctl -f -u fulcrum
+```
+
+**Example** of expected output:
+
+{% code overflow="wrap" %}
+```
+Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.1 (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
+[...]
+```
+{% endcode %}
+
+## Uninstall
+
+### Uninstall service & user
+
+* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
+
+```sh
+$ sudo systemctl stop fulcrum
+```
+
+```sh
+$ sudo systemctl disable fulcrum
+```
+
+```sh
+$ sudo rm /etc/systemd/system/fulcrum.service
+```
+
+* Ensure you are logged in with the user `admin`. Delete the fulcrum user.\
+  Don't worry about `userdel: fulcrum mail spool (/var/mail/nym) not found` output, the uninstall has been successful
+
+```sh
+$ sudo userdel -rf fulcrum
+```
+
+* Delete fulcrum directory
+
+```sh
+$ sudo rm -rf /data/fulcrum/
+```
+
+### Uninstall Tor hidden service
+
+* Ensure that you are logged in with the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
+```
+# Hidden Service Fulcrum TCP & SSL
+#HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
+#HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 50001 127.0.0.1:50001
+#HiddenServicePort 50002 127.0.0.1:50002
+```
+
+* Reload the torrc config
+
+```sh
+$ sudo systemctl reload tor
+```
+
+### Uninstall FW configuration
+
+* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
+
+```sh
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 50001       ALLOW IN    Anywhere          # allow Fulcrum TCP from anywhere
+> [X] 50002       ALLOW IN    Anywhere          # allow Fulcrum SSL from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```sh
+$ sudo ufw delete X
+```
+
+### Uninstall the Zram
+
+* Ensure you are logged in with the user `admin`, navigate to the zram-swap folder, and uninstall
+
+```sh
+$ cd /home/admin/zram-swap
+```
+
+```sh
+$ sudo ./install.sh --uninstall
+```
+
+```sh
+$ sudo rm /etc/default/zram-swap
+```
+
+```sh
+$ sudo rm -rf /home/admin/zram-swap
+```
+
+* Make sure that the change was done
+
+```sh
+$ sudo cat /proc/swaps
+```
+
+Expected output:
+
+```
+Filename            Type                Size           Used    Priority
+/var/swap           file                 102396         0       -2
+```
 
 [^1]: Symbolic link

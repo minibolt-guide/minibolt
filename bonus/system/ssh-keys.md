@@ -29,7 +29,7 @@ Difficulty: Medium
 
 ## Preparations
 
-### **Generate SSH keys on Windows**
+### Generate SSH keys on Windows
 
 * On your regular computer, download Puttygen [64-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w64/puttygen.exe) or [32-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w32/puttygen.exe) version depending on your OS architecture, and start it. Also, you can download [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html) start it, and use the "MobaKeyGen (SSH key generator)" integrated tool in the "Tools" submenu
 * Click on the "Generate" button and move the mouse over the window until the progress is finished
@@ -38,7 +38,7 @@ Difficulty: Medium
   * "Save public key", and give it a name, eg. `minibolt_SSH_pubkey.txt`
   * "Save private key", and give it a name, eg. `minibolt_SSH_privkey` (Keep this safe!)
 
-### **Generate SSH keys on Linux or macOS**
+### Generate SSH keys on Linux or macOS
 
 * In the terminal on your regular computer, first, check if the keys already exist
 
@@ -71,7 +71,7 @@ $ brew install ssh-copy-id
 
 ## Import SSH pubkey to MiniBolt node
 
-### **From your regular Windows PC**
+### From your regular Windows PC
 
 * Login with the `admin` user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step
 
@@ -103,7 +103,7 @@ ssh-rsa AAAAB3N........
 $ chmod 600 authorized_keys
 ```
 
-### **From your regular Linux PC**
+### From your regular Linux PC
 
 * Login with the user `admin`and create a new folder at home called `".ssh"`. If already exists, skip the next step
 
@@ -135,7 +135,7 @@ ssh-rsa AAAAB3N........
 $ chmod 600 .ssh/authorized_keys
 ```
 
-### **From GitHub keyserver**
+### From GitHub keyserver
 
 * On your regular computer, access to "GPG and SSH keys" section of your [GitHub account](https://github.com/settings/keys), if you don't have an account [create one](https://github.com/signup)
 * Click on the "new SSH key" button, type a title e.g SSH\_keys\_MiniBolt, select Key type "Authentication key", and paste on the "Key" section the SSH pub key generated in the preparations [section](ssh-keys.md#preparations) depending on the regular computer OS
@@ -177,7 +177,7 @@ $ chmod 600 authorized_keys
 
 ## Connect to MiniBolt through SSH keys
 
-### **Linux or macOS command line**
+### Linux or macOS command line
 
 * From the Terminal, use the native command
 
@@ -189,13 +189,13 @@ $ ssh -i /home/<user>/.ssh/id_rsa admin@minibolt.local
 Attention: This command only works if you generated the SSH keys [on Linux or macOS](ssh-keys.md#generate-ssh-keys-on-linux-or-macos) with the OpenSSH terminal method, not Putty or MobaXterm generation methods
 {% endhint %}
 
-### **Putty Linux/Windows**
+### Putty Linux/Windows
 
 * On your regular computer, download Putty [64-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture, and start it
 * To automatically connect and log in to your server you need to add the Private Key to the Putty client. Then go to the left Category menu, select SSH –> Auth -> Credentials, on "Private key file for authentication" hit the "Browse" button, search and add your Private Key file
 * To the left tree, select "session", in the "Hostname (or IP address)" box, and type `admin@minibolt.local` or `admin@192.168.x.xx`, left port `22` to the right box. Click on `Open`. If you selected a key passphrase in the [preparations](ssh-keys.md#preparations) section, enter it. That’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords
 
-### **MobaXterm Windows**
+### MobaXterm Windows
 
 * On your regular computer, download MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm\_Portable\_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm\_Installer\_v22.3.zip) version depending of you want to install it permanently or not
 * Start MobaXterm, on the top menu, click on Session -> New session -> Select SSH
@@ -203,7 +203,7 @@ Attention: This command only works if you generated the SSH keys [on Linux or ma
 * To automatically connect and login to your server you need to add the Private Key to the MobaXterm client, select the "Advanced SSH settings" tab, check "Use private key" and click on the icon to the right form shaped like a document and select your Private Key file
 * Click on the "OK" button and that’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the "Open" button without the need to enter passwords
 
-### **Disable password login (optional)**
+## Disable password login (optional)
 
 * Log in to the MiniBolt as `admin` using SSH with your SSH key. You shouldn't be prompted for the admin's password anymore
 * Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following options and setting their value to `no`
@@ -244,7 +244,7 @@ You can no longer log in with a password. User "admin" is the only user that has
 You will need to attach a screen and keyboard to your PC if you lose them
 {% endhint %}
 
-### **Disable admin password request (optional -caution!)**
+## Disable admin password request (optional -caution!)
 
 {% hint style="danger" %}
 **Attention:** This could be a security risk, is not recommended to disable the admin password to avoid a possible and hypothetical attacker could gain complete control of the node in case of intrusion, if you do it, act at your own risk.

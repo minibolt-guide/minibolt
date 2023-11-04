@@ -23,7 +23,7 @@ layout:
 
 ## Preparations
 
-### **Check Node + NPM**
+### Check Node + NPM
 
 Node + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md).
 
@@ -55,7 +55,7 @@ $ npm -v
 If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
-### **Reverse proxy & Firewall**
+### Reverse proxy & Firewall
 
 In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
 
@@ -303,7 +303,7 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 > "version": "0.13.19",
 ```
 
-## **Configuration**
+## Configuration
 
 * Copy and open the configuration file
 
@@ -567,143 +567,6 @@ tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd
 **Congratulations!** You now have Thunderhub up and running
 {% endhint %}
 
-## Upgrade
-
-Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
-
-* From user `admin`, stop the service, and open a "thunderhub" user session
-
-```sh
-$ sudo systemctl stop thunderhub
-```
-
-```sh
-$ sudo su - thunderhub
-```
-
-* Go to the thunderhub folder
-
-```sh
-$ cd thunderhub
-```
-
-* Pull the changes from GitHub
-
-<pre class="language-bash"><code class="lang-bash"><strong>$ git pull https://github.com/apotdevin/thunderhub.git master
-</strong></code></pre>
-
-* Install all the necessary modules. Not run `$ npm audit fix`, which could break the original code
-
-```bash
-$ npm install
-```
-
-* Build it
-
-<pre class="language-bash"><code class="lang-bash"><strong>$ npm run build
-</strong></code></pre>
-
-* Check the correct update
-
-```bash
-$ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
-```
-
-**Example** of expected output:
-
-```
-> "version": "0.13.20",
-```
-
-* Exit to go back to the `admin` user
-
-```bash
-$ exit
-```
-
-* Start the service again
-
-```sh
-$ sudo systemctl start thunderhub
-```
-
-{% hint style="warning" %}
-If the update fails, you probably will have to stop Thunderhub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation)
-{% endhint %}
-
-## Uninstall
-
-### **Uninstall service & user**
-
-* Stop, disable, and delete the Thunderhub systemd service
-
-```sh
-$ sudo systemctl stop thunderhub
-```
-
-```sh
-$ sudo systemctl disable thunderhub
-```
-
-```sh
-$ sudo rm /etc/systemd/system/thunderhub.service
-```
-
-* Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
-
-```sh
-$ sudo userdel -rf thunderhub
-```
-
-Expected output:
-
-```
-> userdel: thunderhub mail spool (/var/mail/thunderhub) not found
-```
-
-### **Uninstall FW configuration**
-
-* Display the UFW firewall rules and note the numbers of the rules for Thunderhub (e.g., X and Y below)
-
-```sh
-$ sudo ufw status numbered
-```
-
-Expected output:
-
-```
-> [...]
-> [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
-```
-
-* Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
-
-```sh
-$ sudo ufw delete X
-```
-
-### **Uninstall Tor hidden service**
-
-* Comment or remove the fulcrum hidden service lines in torrc. Save and exit
-
-```sh
-$ sudo nano /etc/tor/torrc
-```
-
-```
-# Hidden Service Thunderhub
-#HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
-#HiddenServiceVersion 3
-#HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 80 127.0.0.1:3000
-```
-
-* Reload torrc config
-
-```sh
-$ sudo systemctl reload tor
-```
-
 ## Extras
 
 ### Remote access over Tor
@@ -796,3 +659,140 @@ All of the channels that you had opened in your old node will be forced closed a
 {% hint style="danger" %}
 Use this guide as a last resort if you have lost access to your node or are unable to start LND due to a fatal error. This guide will close all your channels. Your funds will become available on-chain at varying speeds
 {% endhint %}
+
+## Upgrade
+
+Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
+
+* From user `admin`, stop the service, and open a "thunderhub" user session
+
+```sh
+$ sudo systemctl stop thunderhub
+```
+
+```sh
+$ sudo su - thunderhub
+```
+
+* Go to the thunderhub folder
+
+```sh
+$ cd thunderhub
+```
+
+* Pull the changes from GitHub
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ git pull https://github.com/apotdevin/thunderhub.git master
+</strong></code></pre>
+
+* Install all the necessary modules. Not run `$ npm audit fix`, which could break the original code
+
+```bash
+$ npm install
+```
+
+* Build it
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ npm run build
+</strong></code></pre>
+
+* Check the correct update
+
+```bash
+$ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
+```
+
+**Example** of expected output:
+
+```
+> "version": "0.13.20",
+```
+
+* Exit to go back to the `admin` user
+
+```bash
+$ exit
+```
+
+* Start the service again
+
+```sh
+$ sudo systemctl start thunderhub
+```
+
+{% hint style="warning" %}
+If the update fails, you probably will have to stop Thunderhub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation)
+{% endhint %}
+
+## Uninstall
+
+### Uninstall service & user
+
+* Stop, disable, and delete the Thunderhub systemd service
+
+```sh
+$ sudo systemctl stop thunderhub
+```
+
+```sh
+$ sudo systemctl disable thunderhub
+```
+
+```sh
+$ sudo rm /etc/systemd/system/thunderhub.service
+```
+
+* Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
+
+```sh
+$ sudo userdel -rf thunderhub
+```
+
+Expected output:
+
+```
+> userdel: thunderhub mail spool (/var/mail/thunderhub) not found
+```
+
+### Uninstall FW configuration
+
+* Display the UFW firewall rules and note the numbers of the rules for Thunderhub (e.g., X and Y below)
+
+```sh
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [...]
+> [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
+```
+
+* Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
+
+```sh
+$ sudo ufw delete X
+```
+
+### Uninstall Tor hidden service
+
+* Comment or remove the fulcrum hidden service lines in torrc. Save and exit
+
+```sh
+$ sudo nano /etc/tor/torrc
+```
+
+```
+# Hidden Service Thunderhub
+#HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
+#HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 80 127.0.0.1:3000
+```
+
+* Reload torrc config
+
+```sh
+$ sudo systemctl reload tor
+```

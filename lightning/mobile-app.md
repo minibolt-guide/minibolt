@@ -23,7 +23,7 @@ We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connect
 
 ## Preparations
 
-### **Configure LND**
+### Configure LND
 
 * Login as `admin` user, and configure LND to allow LND REST from anywhere. Edit `lnd.conf`
 
@@ -44,7 +44,7 @@ restlisten=0.0.0.0:8080
 $ sudo systemctl restart lnd
 ```
 
-### **Configure Firewall**
+### Configure Firewall
 
 * Configure the Firewall to allow LND REST incoming requests
 
@@ -52,7 +52,7 @@ $ sudo systemctl restart lnd
 $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
 ```
 
-## **Install lndconnect**
+## Install lndconnect
 
 [lndconnect](https://github.com/LN-Zap/lndconnect), created by Zap, is a utility that generates QR Code or URI to connect applications to LND instances.
 
@@ -151,7 +151,7 @@ $ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
 
 * Save the onion address in a safe place (e.g., password manager)
 
-## **Create a lndconnect QR code**
+## Create a lndconnect QR code
 
 lndconnect generates a URI and displays it as a QR code that Zeus can read.
 
@@ -182,7 +182,7 @@ $ lndconnect --host=192.168.X.XXX --port=8080
 
 On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus), or directly from the [GitHub repository](https://github.com/ZeusLN/zeus/releases), if you can’t or do not want to use Google Play. Tap it, download it, and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, simply follow the on-screen instructions to do so.
 
-### **Connect Zeus to LND**
+### Connect Zeus to LND
 
 * Open Zeus and tap on **"SCAN LNDCONNECT CONFIG"** and, if prompted, allow Zeus to use the camera
 * Scan the QR code generated earlier
@@ -203,7 +203,7 @@ Zeus is now connecting to your node, and it might take a while the first time de
 Once you verify that the connection has been made correctly with your Lightning Node, you can close the SSH session by pressing `Ctrl` + `D`
 {% endhint %}
 
-### **Security**
+### Security
 
 Anyone using Zeus on your phone has control over your node and all its funds. It is strongly recommended to set up a password or biometrics identification for the app.
 
@@ -211,7 +211,7 @@ Anyone using Zeus on your phone has control over your node and all its funds. It
 * Click on `Security` and `Set/Change Password` to enter a Password/PIN or enable the Biometrics feature
 * Save your password or PIN somewhere safe, e.g., in your password manager
 
-### **Privacy**
+### Privacy
 
 In order to preserve your privacy, you can choose your private blockchain explorer when making inquiries related to on-chain transactions.
 

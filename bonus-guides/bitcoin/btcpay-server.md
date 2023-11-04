@@ -37,7 +37,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 To run the BTCPay Server you will need to install .NET Core SDK, PostgreSQL, and NBXplorer
 
-### **Reverse proxy & Firewall**
+### Reverse proxy & Firewall
 
 In the security [section](../../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTCPay Server configuration.
 
@@ -84,7 +84,7 @@ $ sudo systemctl reload nginx
 $ sudo ufw allow 23001/tcp comment 'allow BTCpay SSL from anywhere'
 ```
 
-### **Configure Bitcoin Core**
+### Configure Bitcoin Core
 
 We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
 
@@ -277,7 +277,7 @@ $ createdb -O admin nbxplorer
 $ exit
 ```
 
-## Installation
+## Installation, Configuration & Run
 
 ### Install NBXplorer
 
@@ -435,7 +435,7 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplore
 $ exit
 ```
 
-### **Create systemd service**
+### Create NBX systemd service
 
 * Create the configuration file in the nano text editor and copy the entire following paragraph. Save and exit
 
@@ -699,7 +699,7 @@ If you want to connect your Lightning LND node to BTCpay too, go to the [Connect
 $ exit
 ```
 
-### **Create systemd service**
+### Create BTCPay Server systemd service
 
 * Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
 

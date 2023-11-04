@@ -29,7 +29,7 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 The installation of LND is straightforward, but the application is quite powerful and capable of things not explained here. Check out their [GitHub repository](https://github.com/lightningnetwork/lnd/) for a wealth of information about their open-source project and Lightning in general.
 
-### **Configure Bitcoin Core**
+### Configure Bitcoin Core
 
 Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
@@ -54,7 +54,7 @@ $ sudo systemctl restart bitcoind
 
 ## Installation
 
-### **Download**
+### Download binaries
 
 We'll download, verify and install LND.
 
@@ -96,7 +96,7 @@ $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/
 ```
 {% endcode %}
 
-### **Checksum check**
+### Checksum check
 
 * Verify the signed checksum against the actual checksum of your download
 
@@ -110,7 +110,7 @@ $ sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
 > lnd-linux-amd64-v0.16.3-beta.tar.gz: OK
 ```
 
-### **Signature check**
+### Signature check
 
 Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
 
@@ -149,7 +149,7 @@ Expected output:
 [...]
 ```
 
-### **Timestamp check**
+### Timestamp check
 
 We can also check that the manifest file was in existence around the time of the release using its timestamp.
 
@@ -202,7 +202,7 @@ $ lnd --version
 If you come to update this is the final step
 {% endhint %}
 
-### **Data directory**
+### Data directory
 
 Now that LND is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
 
@@ -267,7 +267,7 @@ lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 .lnd -> /data/lnd
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
 ```
 
-### **Wallet password**
+### Wallet password
 
 LND includes a Bitcoin wallet that manages your on-chain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your PC, or store the password somewhere on the node.
 
@@ -307,7 +307,7 @@ wallet-unlock-password-file=/data/lnd/password.txt
 wallet-unlock-allow-create=true
 
 # The TLS private key will be encrypted to the node's seed
-tlsencryptkey=true
+#tlsencryptkey=true
 
 # Automatically regenerate certificate when near expiration
 tlsautorefresh=true
@@ -316,7 +316,7 @@ tlsautorefresh=true
 tlsdisableautofill=true
 
 # Channel settings
-# Fee settings - default LND base fee = 1000 (mSat), 
+# Fee settings - default LND base fee = 1000 (mSat),
 # default LND fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
 <a data-footnote-ref href="#user-content-fn-3">#bitcoin.basefee=0</a>
@@ -352,7 +352,7 @@ stagger-initial-reconnect=true
 
 # Database
 [bolt]
-# Set the next value to false to disable auto-compact DB 
+# Set the next value to false to disable auto-compact DB
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
@@ -462,7 +462,7 @@ $2 sudo systemctl start lnd
 
 </details>
 
-### **Wallet setup**
+### Wallet setup
 
 Once LND is started, the process waits for us to create the integrated Bitcoin onchain wallet.
 
@@ -515,7 +515,7 @@ The current state of your channels, however, cannot be recreated from this seed.
 This information must be kept secret at all times
 {% endhint %}
 
-### **Allow user "admin" to work with LND**
+### Allow user "admin" to work with LND
 
 We interact with LND using the application `lncli`. At the moment, only the user "lnd" has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
@@ -599,7 +599,7 @@ $2 lncli getinfo
 The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping this just in case any log could give extra information about the command you just entered
 {% endhint %}
 
-### **Watchtower client**
+### Watchtower client
 
 Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer period of time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
@@ -654,7 +654,7 @@ Expected output:
 $ lncli wtclient remove <pubkey>
 ```
 
-### **Watchtower server**
+### Watchtower server
 
 Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
@@ -685,7 +685,7 @@ This watchtower server service is not recommended to activate if you have a slow
 Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line
 {% endhint %}
 
-### **Funding your Lightning node**
+### Funding your Lightning node
 
 * Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
 
@@ -721,7 +721,7 @@ As soon as your funding transaction is mined (1 confirmation), LND will show its
 If you want to open a few channels, you might want to send a few transactions. If you have only one UTXO, you need to wait for the change to return to your wallet after every new channel opening
 {% endhint %}
 
-### **Opening channels**
+### Opening channels
 
 Although LND features an optional "autopilot", we manually open some channels.
 
@@ -778,7 +778,7 @@ $ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e
 ```
 {% endcode %}
 
-### **Some useful commands**
+### Some useful commands
 
 A quick reference with special commands to play around with:
 

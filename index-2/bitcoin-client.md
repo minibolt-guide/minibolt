@@ -60,7 +60,7 @@ $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
 $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 ```
 
-### **Checksum check**
+### Checksum check
 
 * Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
 
@@ -74,7 +74,7 @@ Expected output:
 > bitcoin-$VERSION-x86_64-linux-gnu.tar.gz: OK
 ```
 
-### **Signature check**
+### Signature check
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
@@ -111,7 +111,7 @@ $ gpg --verify SHA256SUMS.asc
 > Primary key fingerprint: ...
 ```
 
-### **Timestamp check**
+### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
   * [https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots)
@@ -125,7 +125,7 @@ The following screenshot is just an **example** of one of the versions:
 
 ![](../images/bitcoin-ots-check.PNG)
 
-### **Binaries installation**
+### Binaries installation
 
 * If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries
 
@@ -155,7 +155,7 @@ The following output is just an **example** of one of the versions:
 
 💡 Now, if you want to install the manual page for bitcoin-cli, follow the [manual page for bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
 
-### **Create the bitcoin user**
+### Create the bitcoin user
 
 The Bitcoin Core application will run in the background as a daemon and use the separate user “bitcoin” for security reasons. This user does not have admin rights and cannot change the system configuration.
 
@@ -177,7 +177,7 @@ $ sudo adduser admin bitcoin
 $ sudo adduser bitcoin debian-tor
 ```
 
-### **Create data folder**
+### Create data folder
 
 Bitcoin Core uses by default the folder `.bitcoin` in the user's home. Instead of creating this directory, we create a data directory in the general data location `/data` and link to it.
 
@@ -203,7 +203,7 @@ $ sudo su - bitcoin
 $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
 ```
 
-### **Generate access credentials**
+### Generate access credentials
 
 For other programs to query Bitcoin Core they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Core to accept a password, hash it, and compare it to the stored hash, while it is not possible to retrieve the original password.
 
@@ -240,7 +240,7 @@ Expected **example** output:
 
 * Copy the `rpcauth` line, we'll need to paste it into the Bitcoin config file
 
-## **Configuration**
+## Configuration
 
 Now, the configuration file  `bitcoind` needs to be created. We'll also set the proper access permissions.
 
@@ -318,7 +318,7 @@ $ exit
 ```
 {% endcode %}
 
-### **Create systemd service**
+### Create systemd service
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
@@ -461,7 +461,7 @@ total       7       0      27     3      37
 
 This can take between one day and a week, depending mostly on your PC performance. It's best to wait until the synchronization is complete before going ahead.
 
-### **Explore bitcoin-cli**
+### Explore bitcoin-cli
 
 If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Core, and play around with `bitcoin-cli` until the blockchain is up-to-date.
 
@@ -477,7 +477,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 * [**Learning Bitcoin from the Command Line**](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
 * Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original\_Bitcoin\_client/API\_calls\_list)
 
-### **Activate mempool & reduce 'dbcache' after a full sync**
+## Activate mempool & reduce 'dbcache' after a full sync
 
 Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
@@ -523,7 +523,7 @@ $ ots --version
 
 ## Extras
 
-### **Reject non-private networks**
+### Reject non-private networks
 
 * As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes. You can add more seed nodes to this list: [seed nodes](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt)
 
@@ -571,7 +571,7 @@ seednode=e55k6wu46rzp4pg5pk5npgbr3zz45bc3ihtzu2xcye5vwnzdy7pq.b32.i2p:0
 seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
 ```
 
-### **Slow device mode**
+### Slow device mode
 
 * As user `admin` add these lines to the end of the existing `bitcoin.conf` file
 
@@ -598,7 +598,7 @@ rpcworkqueue=256
 #assumevalid=0
 ```
 
-### **Manual page for bitcoin-cli**
+### Manual page for bitcoin-cli
 
 * For convenience it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, they can be installed from the directory&#x20;
 

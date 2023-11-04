@@ -448,57 +448,6 @@ Expected output:
 
 <figure><img src="../../.gitbook/assets/relay-connected-nostr-debug.PNG" alt="" width="478"><figcaption></figcaption></figure>
 
-## Upgrade
-
-* With user `admin`, stop `nostr-rs-relay` service
-
-```bash
-$ sudo systemctl stop nostr-relay
-```
-
-* Follow the complete [Installation](nostr-relay.md#installation) section
-* Replace the `config.toml` file with the new one of the new version **(if needed)**
-
-{% hint style="warning" %}
-**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If no changes, jump directly to the next **"Start `nostr-rs-relay` service again" ->**`$ sudo systemctl start nostr-relay`
-{% endhint %}
-
-* Backup the `config.toml` file to keep a copy of your old configuration
-
-```bash
-$ sudo cp /data/nostr/rs-relay/config.toml /data/nostr/rs-relay/config.toml.backup
-```
-
-* Assign the owner of the backup file to the `nostr` user
-
-```bash
-$ sudo chown nostr:nostr /data/nostr/rs-relay/config.toml.backup
-```
-
-* Replace the new `config.toml` file of the new release
-
-```bash
-$ sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/
-```
-
-* Edit the config file and replace it with the same old information as the file you had. Save and exit
-
-```bash
-$ sudo nano /data/nostr/rs-relay/config.toml
-```
-
-* Start `nostr-rs-relay` service again
-
-```bash
-$ sudo systemctl start nostr-relay
-```
-
-* Delete the `nostr-rs-relay` folder to be ready for the next update
-
-```bash
-$ sudo rm -r /tmp/nostr-rs-relay
-```
-
 ## Extras
 
 ### Create your nostr key pair
@@ -749,6 +698,57 @@ Find the top relays of those who follow you or you follow
 [Web](https://nosy.tigerville.no/)
 {% endtab %}
 {% endtabs %}
+
+## Upgrade
+
+* With user `admin`, stop `nostr-rs-relay` service
+
+```bash
+$ sudo systemctl stop nostr-relay
+```
+
+* Follow the complete [Installation](nostr-relay.md#installation) section
+* Replace the `config.toml` file with the new one of the new version **(if needed)**
+
+{% hint style="warning" %}
+**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If no changes, jump directly to the next **"Start `nostr-rs-relay` service again" ->**`$ sudo systemctl start nostr-relay`
+{% endhint %}
+
+* Backup the `config.toml` file to keep a copy of your old configuration
+
+```bash
+$ sudo cp /data/nostr/rs-relay/config.toml /data/nostr/rs-relay/config.toml.backup
+```
+
+* Assign the owner of the backup file to the `nostr` user
+
+```bash
+$ sudo chown nostr:nostr /data/nostr/rs-relay/config.toml.backup
+```
+
+* Replace the new `config.toml` file of the new release
+
+```bash
+$ sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/
+```
+
+* Edit the config file and replace it with the same old information as the file you had. Save and exit
+
+```bash
+$ sudo nano /data/nostr/rs-relay/config.toml
+```
+
+* Start `nostr-rs-relay` service again
+
+```bash
+$ sudo systemctl start nostr-relay
+```
+
+* Delete the `nostr-rs-relay` folder to be ready for the next update
+
+```bash
+$ sudo rm -r /tmp/nostr-rs-relay
+```
 
 ## Uninstall
 
