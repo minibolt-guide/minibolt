@@ -30,7 +30,7 @@ We download the latest Bitcoin Core binary (the application) and compare this fi
 
 💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) skipping [Apply the patch “Ordisrespector”](../bonus/bitcoin/ordisrespector.md#apply-the-patch-ordisrespector) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
 
-### **Preparations**
+### Download binaries
 
 * Login as `admin` and change to a temporary directory which is cleared on reboot
 
