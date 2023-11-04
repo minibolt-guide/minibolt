@@ -52,11 +52,13 @@ $ sudo systemctl restart lnd
 $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
 ```
 
-## Install lndconnect
+## Installation
+
+### Install lndconnect
 
 [lndconnect](https://github.com/LN-Zap/lndconnect), created by Zap, is a utility that generates QR Code or URI to connect applications to LND instances.
 
-* &#x20;As `admin` user, navigate to the `"tmp"` folder
+* As `admin` user, navigate to the `"tmp"` folder
 
 ```sh
 $ cd /tmp
@@ -117,7 +119,7 @@ Application Options:
 
 </details>
 
-## Remote access over Tor (optional)
+### Remote access over Tor (optional)
 
 * Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -151,7 +153,7 @@ $ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
 
 * Save the onion address in a safe place (e.g., password manager)
 
-## Create a lndconnect QR code
+### Create a lndconnect QR code
 
 lndconnect generates a URI and displays it as a QR code that Zeus can read.
 

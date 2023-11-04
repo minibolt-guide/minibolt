@@ -68,7 +68,7 @@ $ git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb
 $ cd rocksdb
 ```
 
-* Compile it. This could take a time depending of your system performance, be patient&#x20;
+* Compile it. This could take a time depending of your system performance, be patient
 
 ```bash
 $ make shared_lib -j $(nproc)
@@ -448,7 +448,7 @@ timestamp = true
 $ exit
 ```
 
-## Create systemd service
+### Create systemd service
 
 Electrs need to start automatically on system boot.
 

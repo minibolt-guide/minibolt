@@ -303,7 +303,7 @@ You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub
 If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL), or replace it with your own, downloading it instead
 {% endhint %}
 
-## **Create systemd service**
+### **Create systemd service**
 
 The system needs to run the nostr relay daemon automatically in the background, even when nobody is logged in. We use `systemd`, a daemon that controls the startup process using configuration files.
 
