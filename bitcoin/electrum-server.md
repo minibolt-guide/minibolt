@@ -24,11 +24,13 @@ layout:
 ## Requirements
 
 * Bitcoin Core
-* Little over 130GB of free storage for the database (external backup recommended)
+* Little over 130GB of free storage for the database
 
 Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs`.
 
-## Bitcoin with hardware wallets
+## Introduction
+
+#### Bitcoin with hardware wallets
 
 The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://shiftcrypto.ch/bitbox02), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
 
@@ -95,7 +97,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.2
+$ VERSION=1.9.3
 ```
 
 * Download the application, checksums, and signature
@@ -176,7 +178,7 @@ $ tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
 ```
 
 {% hint style="info" %}
-**Ignore the next line output**, this happens because the dev uses macOS with an xattr-capable filesystem:
+**Ignore the next line output if it appears to you**, this happens because the dev uses macOS with an xattr-capable filesystem:
 
 ```
 tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.system.posix_acl_access'
@@ -286,7 +288,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 ```
 {% endcode %}
 
-### **Configuration**
+## **Configuration**
 
 MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
@@ -317,7 +319,7 @@ ssl = 0.0.0.0:50002
 tcp = 0.0.0.0:50001
 peering = false
 
-# Set fast-sync according with your device,
+# Set fast-sync according to your device,
 # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
 fast-sync = 2048
 
@@ -335,7 +337,7 @@ Remember, if you have a slow-performance device, follow the [slow device section
 $ exit
 ```
 
-## Create systemd service
+### Create systemd service
 
 Fulcrum needs to start automatically on system boot.
 
@@ -381,7 +383,7 @@ $ sudo systemctl enable fulcrum
 $ journalctl -f -u fulcrum
 ```
 
-## Run Fulcrum
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
@@ -437,7 +439,29 @@ tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",
 tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=206))
 ```
 
-## For the future: Fulcrum upgrade
+### Disable fast-sync parameter after full index
+
+Once Fulcrum is fully indexed, we will disable the fast-sync parameter to avoid the error "`fast-sync: Specified value (4096000000 bytes) is too large to fit in available system memory (limit is: 3903692800 bytes)"` the next time we will start Fulcrum after the full index
+
+* With user admin, edit the `fulcrum.conf` file and comment the fast-sync line parameter&#x20;
+
+```bash
+$ sudo nano /data/fulcrum/fulcrum.conf
+```
+
+```
+# Set fast-sync according to your device,
+# recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
+#fast-sync = 2048
+```
+
+* Restart Fulcrum to apply changes
+
+```bash
+$ sudo systemctl restart fulcrum 
+```
+
+## Upgrade
 
 Follow the complete [Download and set up Fulcrum](electrum-server.md#download-and-set-up-fulcrum) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
@@ -464,7 +488,7 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 
 ## Uninstall
 
-### **Uninstall Fulcrum**
+### **Uninstall service & user**
 
 * Ensure you are logged in with the user `admin`, stop, disable, and delete the service
 

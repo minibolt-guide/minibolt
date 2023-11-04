@@ -38,7 +38,7 @@ Together, these components and service providers create a decentralized infrastr
 
 ## Preparations
 
-#### Install dependencies
+### Install dependencies
 
 * With user `admin`, make sure that all necessary software packages are installed
 
@@ -73,6 +73,16 @@ $ cargo -V
 {% hint style="info" %}
 If you obtain "command not found" outputs, you need to follow the [Rustup + Cargo bonus section](rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
+
+### Configure Firewall
+
+* Stay login with user `admin`, configure the firewall to allow incoming requests to the nym-socks5-client
+
+```bash
+$ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
+```
+
+## Installation
 
 #### **Compile NYM binaries from the source code**
 
@@ -113,8 +123,6 @@ You need to type "**`$ rustup default stable"`** and wait for the process to fin
 {% hint style="success" %}
 If you come to update, this is the final step, go back to the [Upgrade section](nym-mixnet.md#for-the-future-upgrade-nym-binaries) to continue
 {% endhint %}
-
-## Installation
 
 ### Install NYM network Requester
 
@@ -415,7 +423,7 @@ StartLimitBurst=10
 [Service]
 User=nym
 LimitNOFILE=65536
-ExecStart=/home/nym/nym-socks5-client run --id bitcoin
+ExecStart=/home/nym/nym-socks5-client run --id bitcoin --host 0.0.0.0
 KillSignal=SIGINT
 Restart=on-failure
 RestartSec=30
@@ -425,7 +433,7 @@ WantedBy=multi-user.target
 ```
 
 {% hint style="info" %}
-You can add `--fastmode` attribute to the `ExecStart` parameter to enable this feature, this means the connection will not mixed up as much, but you will still be covered by the same privacy standard/minimum that NYM provides:
+(Optional) You can add `--fastmode` attribute to the `ExecStart` parameter to enable this feature, this means the connection will not mixed up as much, but you will still be covered by the same privacy standard/minimum that NYM provides:
 
 ```bash
 ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode
@@ -507,7 +515,7 @@ All socks5-client-specific configurations can be found in `/home/nym/.nym/socks5
 You can get more information about the complete documentation [here](https://nymtech.net/docs/)
 {% endhint %}
 
-## For the future: upgrade NYM binaries
+## Upgrade
 
 Follow again the entire [**Compile NYM binaries from the source code**](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below
 
@@ -645,7 +653,9 @@ $ sudo rm /etc/systemd/system/nym-socks5-client.service
 $ sudo userdel -rf nym
 ```
 
-## Proxying Bitcoin Core
+## Extras
+
+### Proxying Bitcoin Core
 
 So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. By doing this, we can reduce the volume of traffic on the Tor network.
 
@@ -686,9 +696,9 @@ Expected output:
       "proxy": "127.0.0.1:1080",
 ```
 
-## Proxying wallets
+### Proxying wallets
 
-### Electrum
+#### Electrum
 
 Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md). You have 2 options:
 
@@ -728,7 +738,7 @@ $ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localho
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 
-### Sparrow desktop
+#### Sparrow desktop
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
 
@@ -750,7 +760,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
-### Sparrow server
+#### Sparrow server
 
 Follow the [Sparrow server bonus guide](../../bonus/bitcoin/sparrow-server.md), which could be used for these 2 cases of uses:
 
@@ -786,7 +796,7 @@ Go to **Preferences --> Server --> Public Electrum**
 You have Sparrow server configured to proxy public Electrum servers and third parties servers connection using NYM mixnet
 {% endhint %}
 
-### Blockstream Green
+#### Blockstream Green
 
 Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS and install it.
 
@@ -798,7 +808,7 @@ Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through
 
 <figure><img src="../../.gitbook/assets/green-wallet-nym-proxy.PNG" alt=""><figcaption><p>Screenshot showing a proxy connection using NYM mixnet</p></figcaption></figure>
 
-### Bitbox app
+#### Bitbox app
 
 Download the [Bitbox app](https://bitbox.swiss/download/?source=bitboxapp) for your OS and install it.
 
@@ -813,7 +823,7 @@ Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bit
 
 <figure><img src="../../.gitbook/assets/bitbox-app-nym-proxy-check.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
-### Nunchuk desktop
+#### Nunchuk desktop
 
 [Download](https://github.com/nunchuk-io/nunchuk-desktop/releases) the Nunchuk wallet desktop version for your OS and install it.
 
@@ -829,7 +839,7 @@ Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"E
 
 </div>
 
-## NYM connect
+#### NYM connect
 
 NymConnect is an easy-to-use interface that enables you to connect other applications to the NYM mixnet for enhanced privacy. This desktop application allows you to effortlessly run the NYM SOCKS5 client without the need for manual commands.
 
@@ -845,7 +855,7 @@ The previously configured Nym SOCKS5 client can run in the background as a daemo
 If you wish to choose your own gateway from the provided [list](https://explorer.nymtech.net/network-components/gateways) or configure your own service provider, you can do so by accessing the settings menu. Simply click on the **hamburger** icon located in the top-left corner --> **Settings --> Select your gateway** / **Select your service provider** using **\<requesteraddress>** before configured
 {% endhint %}
 
-## Proxying other services
+### Proxying other services
 
 #### Keybase
 
@@ -863,7 +873,7 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 **Save proxy Settings**
 {% endhint %}
 
-### Telegram Desktop
+#### Telegram Desktop
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
 
@@ -875,7 +885,7 @@ Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically
 Save and close all banners to go back to the running app
 {% endhint %}
 
-### Browser (Firefox-based browsers)
+#### Browser (Firefox-based browsers)
 
 Download [Firefox](https://www.mozilla.org/es-ES/firefox/all/#product-desktop-release) | [Librewolf](https://librewolf.net/installation/) | [Mullvad](https://mullvad.net/es/download/browser/linux) or any Firefox-based browser for your OS\
 \
@@ -889,7 +899,7 @@ Fill the form with the next data:
 Press OK and start the navigation
 {% endhint %}
 
-## NYM Android
+### NYM Android
 
 At the moment, the Android app is undergoing constant development, and the download link on the GitHub repository is being regularly updated, with some updates being non-functional. The following link is not available on GitHub, but it is a static and functional link, although it is also a pre-alpha version and may have bugs on certain occasions.
 
@@ -927,7 +937,7 @@ Save, switch "Use proxy" again
 **Notice**: This app **consumes significant data and battery** when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app
 {% endhint %}
 
-## Other NYM tools
+### Other NYM tools
 
 {% tabs %}
 {% tab title="Paste NYM" %}
@@ -1000,7 +1010,7 @@ $ sudo su - nym
 {% endhint %}
 
 {% hint style="warning" %}
-Take note of the new "`Address of this network-requester:"` to refresh it on socks5 clients are using this network requester (`--provider` flag)
+Take note of the new "`Address of this network-requester:..."` to refresh it on socks5 clients are using this network requester ("`--provider"` flag)
 {% endhint %}
 
 * Exit the nym user session to go back to the admin user

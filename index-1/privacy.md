@@ -14,7 +14,7 @@ layout:
 
 # 1.6 Privacy
 
-addsWe configure Tor and I2P to run your node anonymously.
+We configure Tor and I2P to run your node anonymously.
 
 <figure><img src="../.gitbook/assets/privacy.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -24,7 +24,7 @@ We'll also make it easy to connect to your node from outside your home network a
 
 True, it's only your IP address that is revealed, but using services like [iplocation.net](https://www.iplocation.net), your physical address can be determined quite accurately. Especially with Lightning, your IP address would be widely used. We need to make sure that you keep your privacy.
 
-### Tor Project
+## Tor Project
 
 <div align="left">
 
@@ -36,13 +36,13 @@ We use Tor, a free software built by the [Tor Project](https://www.torproject.or
 
 It is called "Tor" for "The Onion Router": information is routed through many hops and encrypted multiple times. Each node decrypts only the layer of information addressed to it, learning only the previous and the next hop of the whole route. The data package is peeled like an onion until it reaches the final destination.
 
-#### **Tor installation**
+### **Tor installation**
 
-Log in to your MiniBolt via SSH as user `admin` and install Tor.
+Log in to your MiniBolt via SSH as the user `admin` and install Tor.
 
 * Update the packages and upgrade to keep up to date with the OS
 
-```
+```bash
 $ sudo apt update && sudo apt full-upgrade
 ```
 
@@ -110,7 +110,7 @@ $ tor --version
 Please note that the before version number might change in your case, this is just an example of when the guide was made.
 {% endhint %}
 
-#### **Tor configuration**
+### **Tor configuration**
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network. We need to enable Tor to accept instructions through its control port, with the proper authentication.
 
@@ -186,7 +186,7 @@ Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 100% (done): Done
 
 Not all network traffic is routed over the Tor network. But we now have the base to configure sensitive applications to use it.
 
-### I2P Project
+## I2P Project
 
 <div align="left">
 
@@ -200,7 +200,7 @@ I2P client is software used for building and using anonymous I2P networks. Such 
 
 We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client, as a Tor network complement.
 
-#### **I2P installation**
+### **I2P installation**
 
 * Ensure that you are logged in with the user `admin` and add the i2pd repository
 
@@ -276,7 +276,7 @@ $ sudo tail -f /var/log/i2pd/i2pd.log
 
 </details>
 
-### For the future: upgrade Tor and I2P
+## Upgrade Tor and I2P
 
 The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or on the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
 

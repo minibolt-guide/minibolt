@@ -18,13 +18,13 @@ We configure the PC and install the Linux operating system.
 
 <figure><img src="../.gitbook/assets/operating-system (1).gif" alt="" width="295"><figcaption></figcaption></figure>
 
-### Which operating system to use?
+## Which operating system to use?
 
 We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interface. This provides the best stability for the PC and makes the initial setup a breeze.
 
 [Ubuntu Server](https://ubuntu.com/server/docs) is based on the [Debian](https://www.debian.org/) Linux distribution, which is available for most hardware platforms. To make this guide as universal as possible, it uses only standard Debian commands. As a result, it should work smoothly with a personal computer while still being compatible with most other hardware platforms running Debian.
 
-### Balena Etcher and Ubuntu Server
+## Balena Etcher and Ubuntu Server
 
 To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application. Go to the website and download the correct binary according to your OS.
 
@@ -32,7 +32,7 @@ To flash the operating system **.iso** to the pen drive, we will use the [Balena
 * **Start** the **Balena Etcher**
 * Select **"Flash from file"** --> Select Ubuntu Server LTS **.iso** file previously downloaded
 
-### Write the operating system to the pen drive
+## Write the operating system to the pen drive
 
 * Connect the pen drive to your regular computer
 * Click on **"Select target"**
@@ -45,7 +45,7 @@ Balena Etcher will now flash the operating system to your drive and validate it.
 It should display a **"Flash Complete!"** message after
 {% endhint %}
 
-### Start your PC
+## Start your PC
 
 * **Safely eject** the pen drive from your regular computer
 * **Connect to your selected PC** for the MiniBolt node
@@ -55,7 +55,7 @@ It should display a **"Flash Complete!"** message after
     💡 In this step, you might want to take advantage of activating the **"Restore on AC"** or similar in the BIOS setup. Normally found in **Advanced** -> **ACPI Configuration**, switching to **"Power ON"** or similar. With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
 * If you configured boot options in BIOS, **save changes and exit**. This starts automatically with the Ubuntu Server guided installation. You will keep selecting **"Try or Install Ubuntu Server"** and press **enter**, or wait 20 seconds for it to start automatically.
 
-### Ubuntu Server installation
+## Ubuntu Server installation
 
 Use the **UP**, **Down,** and **ENTER** keys of your keyboard to navigate to the options. Follow the next instructions:
 

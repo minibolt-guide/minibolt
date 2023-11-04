@@ -38,7 +38,7 @@ Difficulty: Medium
 
 ### **Install dependencies**
 
-obfs4 makes Tor traffic look random and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we are to configure all.
+obfs4 makes Tor traffic look random and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we can configure all.
 
 * Ensure you are logged in with the user `admin` and install obfs4 proxy
 
@@ -46,7 +46,7 @@ obfs4 makes Tor traffic look random and also prevents censors from finding bridg
 $ sudo apt install obfs4proxy
 ```
 
-### **Installation**
+## **Installation**
 
 * Ensure you have Tor daemon installed in your system
 
@@ -149,7 +149,7 @@ By default, Tor will advertise your bridge to users through various [mechanisms]
 
 ### **Configure Firewall and router NAT**
 
-* Configure the firewall to allow incoming requests to be replace `<TODO1>` and `<TODO2>` previously configured in the section before
+* Configure the firewall to allow incoming requests to be replaced `<TODO1>` and `<TODO2>` previously configured in the section before
 
 ```sh
 $ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge from anywhere'
@@ -262,7 +262,7 @@ You'll need to replace **"IP ADDRESS"**, **"PORT"**, and **"FINGERPRINT"** with 
 More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section
 {% endhint %}
 
-## Extras (optional)
+## Extras
 
 ### **Enable automatic software updates**
 
@@ -330,13 +330,15 @@ $ exit
 ```
 
 * Log in as the user `admin` again --> `ssh admin@minibolt.local`
-* Execute with and press the right navigation key to navigate to page 2/5 to show the traffic of your Tor instance
+* Execute nyx
 
 ```sh
 $ nyx
 ```
 
-![](../../images/nyx-tor-bridge.png)
+* Press the right --> navigation key to navigate to page 2/5 to show the traffic of your Tor instance
+
+![Example of an obsf4 bridge running ](../../images/nyx-tor-bridge.png)
 
 * Press `"q"` key **2 times** to exit
 
@@ -367,7 +369,7 @@ $ sudo nano /etc/tor/torrc
 ```
 ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
 UseBridges 1
-Bridge obfs4 IP_ADDRESS:PORT FINGERPRINT cert=CERTIFICATE iat-mode=0
+Bridge obfs4 <IP ADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
 ```
 
 {% hint style="info" %}
@@ -378,6 +380,12 @@ Add the needed lines with the number of bridges that you wish, replacing **"IP\_
 
 ```sh
 $ sudo systemctl restart tor
+```
+
+* Monitor tor logs to ensure all is correct
+
+```bash
+$ journalctl -fu tor@default
 ```
 
 **Example** output:

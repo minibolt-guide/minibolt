@@ -23,9 +23,9 @@ layout:
 
 ## Preparations
 
-### **Check Node.js + NPM**
+### **Check Node + NPM**
 
-Node.js + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md).
+Node + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/blockchain-explorer.md).
 
 * With the user `admin`, check the Node version
 
@@ -52,7 +52,7 @@ $ npm -v
 ```
 
 {% hint style="info" %}
-If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 ### **Reverse proxy & Firewall**
@@ -105,9 +105,7 @@ $ sudo systemctl reload nginx
 $ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
 ```
 
-## ThunderHub
-
-### **Preparation**
+## Installation
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
@@ -130,8 +128,6 @@ $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/a
 ```bash
 $ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
 ```
-
-### Installation
 
 * Change to the thunderhub user
 
@@ -307,7 +303,7 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 > "version": "0.13.19",
 ```
 
-### **Configuration**
+## **Configuration**
 
 * Copy and open the configuration file
 
@@ -390,7 +386,7 @@ These features are not available for a testnet node
 $ exit
 ```
 
-## Create systemd service
+### Create systemd service
 
 Now we'll make sure ThunderHub starts as a service on the PC so it's always running. In order to do that we create a systemd unit that starts the service on boot directly after LND.
 
@@ -432,7 +428,7 @@ $ sudo systemctl enable thunderhub
 $ journalctl -f -u thunderhub
 ```
 
-## Run Thunderhub
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -571,7 +567,7 @@ tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd
 **Congratulations!** You now have Thunderhub up and running
 {% endhint %}
 
-## For the future: upgrade Thunderhub
+## Upgrade
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
 
@@ -637,7 +633,7 @@ If the update fails, you probably will have to stop Thunderhub, follow the [Unin
 
 ## Uninstall
 
-### **Uninstall service**
+### **Uninstall service & user**
 
 * Stop, disable, and delete the Thunderhub systemd service
 
@@ -653,9 +649,21 @@ $ sudo systemctl disable thunderhub
 $ sudo rm /etc/systemd/system/thunderhub.service
 ```
 
+* Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
+
+```sh
+$ sudo userdel -rf thunderhub
+```
+
+Expected output:
+
+```
+> userdel: thunderhub mail spool (/var/mail/thunderhub) not found
+```
+
 ### **Uninstall FW configuration**
 
-* Display the UFW firewall rules and notes the numbers of the rules for Thunderhub (e.g., X and Y below)
+* Display the UFW firewall rules and note the numbers of the rules for Thunderhub (e.g., X and Y below)
 
 ```sh
 $ sudo ufw status numbered
@@ -672,20 +680,6 @@ Expected output:
 
 ```sh
 $ sudo ufw delete X
-```
-
-### **Uninstall Thunderhub**
-
-* Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
-
-```sh
-$ sudo userdel -rf thunderhub
-```
-
-Expected output:
-
-```
-> userdel: thunderhub mail spool (/var/mail/thunderhub) not found
 ```
 
 ### **Uninstall Tor hidden service**

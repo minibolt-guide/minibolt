@@ -18,7 +18,7 @@ We connect to your personal computer by using the Secure Shell.
 
 <figure><img src="../.gitbook/assets/remote-access (1).png" alt="" width="375"><figcaption></figcaption></figure>
 
-### Find your PC
+## Find your PC
 
 Your Personal Computer is starting and gets a new address from your home network. Give it a few minutes to come to life.
 
@@ -44,7 +44,7 @@ PING 192.168.1.147 (192.168.1.147) 56(84) bytes of data.
 * If the `ping` command fails or does not return anything, you need to manually look for your PC
 * You should now be able to reach your PC, with the IP address like `192.168.x.xxx`
 
-### Access with Secure Shell
+## Access with Secure Shell
 
 Now it’s time to connect to the MiniBolt via Secure Shell (SSH) and get to work. For that, we need an SSH client.
 
@@ -75,7 +75,7 @@ Note, connection details:
 ```
 {% endhint %}
 
-### The command line
+## The command line
 
 We will work on the command line of the PC, which may be new to you. Find some basic information below. It will help you navigate and interact with your PC.
 

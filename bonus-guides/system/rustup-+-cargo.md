@@ -36,8 +36,7 @@ $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 <summary>Expected output 🔽</summary>
 
-```
-info: downloading installer
+<pre><code>info: downloading installer
 
 Welcome to Rust!
 
@@ -82,8 +81,8 @@ Current installation options:
 1) Proceed with installation (default)
 2) Customize installation
 3) Cancel installation
->
-```
+><a data-footnote-ref href="#user-content-fn-1">1</a>
+</code></pre>
 
 </details>
 
@@ -166,7 +165,7 @@ $ cargo -V
 > cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
-## For the future: upgrade Rustup + Cargo
+## Upgrade
 
 * With user `admin` type the appropriate command to get that&#x20;
 
@@ -212,3 +211,5 @@ info: removing cargo home
 info: removing rustup binaries
 info: rustup is uninstalled
 ```
+
+[^1]: &#x20;Type "`1`" and press enter

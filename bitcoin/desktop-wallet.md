@@ -212,6 +212,6 @@ You're set! Sparrow Wallet is now configured to use the Tor proxy when fetching 
 3. Delete the certificate that corresponds to your node IP address
 4. Start Sparrow again
 
-## For the future: Sparrow update
+## Upgrade
 
 Sparrow will automatically notify you when an update is available. Simply install the updates using the usual method for your OS.

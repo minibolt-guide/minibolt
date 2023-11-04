@@ -47,7 +47,7 @@ You can obtain more info about nostr on these additional resources:
 
 ## Preparations
 
-#### Install dependencies
+### Install dependencies
 
 * With user `admin`, make sure that all necessary software packages are installed (pending to concrete)
 
@@ -231,7 +231,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/
 $ exit
 ```
 
-### Configuration
+## Configuration
 
 * With user `admin`, copy-paste the configuration file
 
@@ -346,7 +346,7 @@ $ sudo systemctl enable nostr-relay
 $ journalctl -fu nostr-relay
 ```
 
-## Running nostr relay
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -448,7 +448,7 @@ Expected output:
 
 <figure><img src="../../.gitbook/assets/relay-connected-nostr-debug.PNG" alt="" width="478"><figcaption></figcaption></figure>
 
-## For the future: Nostr Relay upgrade
+## Upgrade
 
 * With user `admin`, stop `nostr-rs-relay` service
 

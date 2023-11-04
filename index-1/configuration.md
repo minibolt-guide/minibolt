@@ -18,7 +18,7 @@ You are now on the command line of your own Bitcoin node. Let's start with the c
 
 <figure><img src="../.gitbook/assets/configuration (1).jpg" alt="" width="375"><figcaption></figcaption></figure>
 
-### Add the admin user (and log in with it)
+## Add the admin user (and log in with it)
 
 We will use the primary user `admin` instead of `temp` to make this guide more universal.
 
@@ -57,13 +57,13 @@ Expected output:
 To change the system configuration and files that don't belong to the user "admin", you have to prefix commands with `sudo`. You will be prompted to enter your admin `password [A]` from time to time for increased security
 {% endhint %}
 
-### Login with SSH keys (optional)
+## Login with SSH keys (optional)
 
 {% hint style="info" %}
 Now, you can start to access it without a password by following the [SSH keys bonus guide](../bonus/system/ssh-keys.md)
 {% endhint %}
 
-### System update
+## System update
 
 * Update the operating system and all installed software packages
 
@@ -87,7 +87,7 @@ It is recommended to keep the default selection and restart all marked items. Ho
 $ sudo apt install avahi-daemon
 ```
 
-### Check drive performance
+## Check drive performance
 
 Performant unit storage is essential for your node.
 
@@ -131,7 +131,7 @@ $ sudo hdparm -t --direct /dev/sdb
 If the measured speeds are more than 100 MB/s, you're good but is recommended more for a better experience
 {% endhint %}
 
-### Data directory
+## Data directory
 
 We'll store all application data in the dedicated directory `/data`. This allows for better security because it's not inside any user's home directory. Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
 

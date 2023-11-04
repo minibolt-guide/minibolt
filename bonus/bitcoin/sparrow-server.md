@@ -28,7 +28,7 @@ Difficulty: Medium
 
 ![](../../images/sparrow-server-logo.png)
 
-### Installation
+## Installation
 
 #### Download Sparrow Server
 
@@ -138,7 +138,7 @@ $ Sparrow --version
 > Sparrow Wallet 1.7.6
 ```
 
-### Run Sparrow
+## Run
 
 * You can run Sparrow with the following command
 
@@ -242,11 +242,11 @@ $ tmux a
 $ tmux a -t sparrowserver
 ```
 
-### For the Future: Sparrow Server update
+## Upgrade
 
 Follow the complete [Installation](sparrow-server.md#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
-### Uninstall
+## Uninstall
 
 #### Delete Sparrow
 

@@ -32,14 +32,14 @@ With Cloudflare Tunnel, you gain low latency access to your server on clearnet, 
 
 Cloudflare Tunnel ensures secure connectivity without exposing your server's publicly routable IP address. Instead, a lightweight daemon, cloudflared, creates outbound-only connections to Cloudflare's global network. This establishes persistent tunnels that route traffic to DNS records. You can run multiple cloudflared processes within a tunnel, connecting your resources securely to Cloudflare's nearest data center.
 
-## Prerequisites <a href="#prerequisites" id="prerequisites"></a>
+## Requirements
 
 Before you start, make sure you:
 
 ### Buy a domain name
 
 * **Buy a domain or use an existing one**, there are different options to buy a domain, to this example, we will use Namecheap
-  * Go to the [Namecheap](https://www.namecheap.com/), search your wish domain between available, and follow the registration[^1] and buying process (you can pay using Bitcoin onchain), the price depends on the domain extensions chosen, a common extension like .com or .net generally has an annual cost between 10€ and 20€, but some less common extensions may have higher prices. In general, the most common extensions like .com, .net, and .org usually have low costs due to their popularity and availability. However, other less common extensions, such as .xyz or .online, are often offered at lower prices to attract more users.
+  * Go to the [Namecheap](https://www.namecheap.com/), search your wish domain between available, and follow the registration\[^1] and buying process (you can pay using Bitcoin onchain), the price depends on the domain extensions chosen, a common extension like .com or .net generally has an annual cost between 10€ and 20€, but some less common extensions may have higher prices. In general, the most common extensions like .com, .net, and .org usually have low costs due to their popularity and availability. However, other less common extensions, such as .xyz or .online, are often offered at lower prices to attract more users.
 
 ### Create an account on Cloudflare
 
@@ -97,7 +97,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=2023.8.2
+$ VERSION=2023.10.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -126,14 +126,14 @@ $ cloudflared --version
 * Remove the package installation file
 
 ```bash
-$ rm cloudflared-linux-amd64.deb
+$ sudo rm cloudflared-linux-amd64.deb
 ```
 
 {% hint style="info" %}
 If you come to update this is the final step
 {% endhint %}
 
-## Authenticate on Cloudflare and authorize <a href="#2-authenticate-cloudflared" id="2-authenticate-cloudflared"></a>
+### Authenticate on Cloudflare and authorize <a href="#2-authenticate-cloudflared" id="2-authenticate-cloudflared"></a>
 
 * With user `admin`, authenticate Cloudflared with your Cloudflare account
 
@@ -161,7 +161,7 @@ Expected output:
 > /home/admin/.cloudflared/cert.pem
 ```
 
-## Create a tunnel and give it a name <a href="#3-create-a-tunnel-and-give-it-a-name" id="3-create-a-tunnel-and-give-it-a-name"></a>
+### Create a tunnel and give it a name <a href="#3-create-a-tunnel-and-give-it-a-name" id="3-create-a-tunnel-and-give-it-a-name"></a>
 
 ```bash
 $ cloudflared tunnel create <NAME>
@@ -233,7 +233,7 @@ CONNECTOR ID                         CREATED              ARCHITECTURE VERSION  
 > 2023-07-09T18:01:07Z INF Added CNAME explorer.domain.com which will route to this tunnel tunnelID=8666c35d-6ac3-4b39-9324-12ae32ce64a7
 ```
 
-## Create a configuration file
+## Configuration
 
 We will create a configuration file in your `.cloudflared` directory. This file will configure the tunnel to route traffic from a given origin to the hostname of your choice. We will use ingress rules to let you specify which local services traffic should be proxied to.
 
@@ -245,24 +245,25 @@ $ nano /home/admin/.cloudflared/config.yml
 
 * Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your own name (subdomain) chosen for the service, and `<domain.com>` with the domain, you purchased previously. Ensure to replace `<UUID>` with your obtained before
 
-<pre><code># MiniBolt: cloudflared configuration
+```
+# MiniBolt: cloudflared configuration
 # /home/admin/.cloudflared/config.yml
 
-tunnel: &#x3C;UUID>
-credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
+tunnel: <UUID>
+credentials-file: /home/admin/.cloudflared/<UUID>.json
 
 ingress:
 
-# BTCpay Server
-  - hostname: btcpay.&#x3C;domain.com>
+# BTCPay Server
+  - hostname: btcpay.<domain.com>
     service: http://localhost:23000
 
 # BTC RPC Explorer
-  - hostname: <a data-footnote-ref href="#user-content-fn-2">explorer</a>.&#x3C;domain.com>
+  - hostname: explorer.<domain.com>
     service: http://localhost:3002
 
   - service: http_status:404
-</code></pre>
+```
 
 {% hint style="info" %}
 > 1. Electrum server are not supported using Cloudflared
@@ -277,7 +278,7 @@ ingress:
 >     ```
 {% endhint %}
 
-## Configure Cloudflare DNS records
+### Configure Cloudflare DNS records
 
 * Now, we go back to the Cloudflare DNS records table to do modifications.
 
@@ -293,7 +294,7 @@ If you wanted to expose 2 services or more, that is to say, you ingressed more t
 
 <figure><img src="../../.gitbook/assets/dns-records-uuid.png" alt=""><figcaption></figcaption></figure>
 
-## Increase the maximum UDP Buffer Sizes
+### Increase the maximum UDP Buffer Sizes
 
 Experiments have shown that QUIC transfers on high-bandwidth connections can be limited by the size of the UDP receive and send buffer.
 
@@ -320,7 +321,7 @@ $ sudo sysctl --system
 These parameters would increase the maximum send and receive buffer size to roughly 2.5 MB
 {% endhint %}
 
-## Create systemd service
+### Create systemd service
 
 * Create the configuration file in the nano text editor and copy the following content. Save and exit
 
@@ -361,7 +362,7 @@ $ journalctl -f -u cloudflared
 Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
-## Start Cloudflared and run the tunnel <a href="#6-run-the-tunnel" id="6-run-the-tunnel"></a>
+## Run <a href="#6-run-the-tunnel" id="6-run-the-tunnel"></a>
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered). Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
 
@@ -400,7 +401,7 @@ Jul 10 18:20:43 minibolt cloudflared[3405663]: 2023-07-10T16:20:43Z INF Register
 You should see the service properly running as if it were a local connection
 {% endhint %}
 
-## For the future: upgrade Cloudflared
+## Upgrade
 
 * With user `admin`, stop Cloudflared
 

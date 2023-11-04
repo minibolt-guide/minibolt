@@ -27,9 +27,9 @@ Difficulty: Easy
 
 ![](../../images/nodejs-logo.png) ![](../../images/npm-logo.png)
 
-### Install Node.js + NPM
+## Installation
 
-* With user `admin`, update the packages and upgrade to keep up to date with the OS and press "**y**" and enter when needed
+* With user `admin`, update the packages and upgrade to keep up to date with the OS and press "**y**" and "**enter**" when needed
 
 ```bash
 $ sudo apt update && sudo apt full-upgrade
@@ -46,7 +46,7 @@ $ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gp
 * Set the environment variable of the version
 
 ```bash
-$ VERSION=18
+$ VERSION=20
 ```
 
 * Create deb repository
@@ -63,7 +63,7 @@ $ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.
 $ sudo apt update
 ```
 
-* Install Node.js using the apt package manager and press "**y**" and enter when needed
+* Install Node.js using the apt package manager, press "**y**" and "enter" when needed
 
 ```sh
 $ sudo apt install nodejs
@@ -93,7 +93,13 @@ $ npm -v
 > 9.5.1
 ```
 
-## For the future: upgrade Node + NPM
+## Upgrade
+
+* With user `admin`, stop the current dependencies services of the Node + NPM. Actually BTC RPC Explorer + Thunderhub
+
+```bash
+$ sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
+```
 
 * To upgrade simply type this command
 
@@ -101,9 +107,51 @@ $ npm -v
 $ sudo apt update && sudo apt full-upgrade
 ```
 
-### Uninstall
+{% hint style="info" %}
+If you want to update to the upper version LTS release ([see here](https://nodejs.org/en/download)), e.g 18.x to 20.x you need to follow the next steps:
+{% endhint %}
 
-* To uninstall type this command and press "**y**" and enter when needed
+* Check the current version installed of the nodejs
+
+```bash
+$ node -v
+```
+
+* If you have 18.x version, set the environment variable to the new number of versions, for example to the latest 20.x
+
+```bash
+$ VERSION=20
+```
+
+* Update the current deb repository
+
+{% code overflow="wrap" %}
+```bash
+$ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$VERSION.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+```
+{% endcode %}
+
+* Run the update and upgrade command to update the nodejs to the latest version. Press "**y**" and "**enter**" when needed
+
+```bash
+$ sudo apt update & sudo apt full-upgrade
+```
+
+* Check the correct installation to the latest release
+
+```bash
+$ node -v
+```
+
+* Start BTC RPC Explorer & Thunderhub again
+
+```bash
+$ sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
+```
+
+## Uninstall
+
+* To uninstall type this command and press "**y**" and "**enter**" when needed
 
 {% code overflow="wrap" %}
 ```sh

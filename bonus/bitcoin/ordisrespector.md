@@ -49,10 +49,6 @@ There is no mention of data storage on the chain and only financial transactions
 
 {% embed url="https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831" %}
 
-{% hint style="info" %}
-More info and original text on: [https://ordisrespector.com](https://ordisrespector.com) by [Semisol](https://twitter.com/semisol\_public)
-{% endhint %}
-
 ## Preparations
 
 {% hint style="info" %}
@@ -327,6 +323,8 @@ $ sudo systemctl restart bitcoind
 $ journalctl -f -u bitcoind
 ```
 
+## Extras
+
 ### **How to detect Ordinals transactions**
 
 {% hint style="info" %}
@@ -376,8 +374,6 @@ Transaction not in mempool
 {% hint style="info" %}
 The before information indicates that the filter is working properly
 {% endhint %}
-
-## Extras
 
 ### **Add Ordisrespector node peers (optional)**
 

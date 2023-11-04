@@ -21,7 +21,7 @@ Run your own private blockchain explorer with [BTC RPC Explorer](https://github.
 
 ![](../images/btcrpcexplorer-homepage.png)
 
-## Run your own blockchain explorer
+## Introduction
 
 After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with Fulcrum, the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
 
@@ -29,9 +29,9 @@ After the MiniBolt runs your own fully validated node, and even acts as a backen
 
 ## Preparations
 
-### **Install Node.js + NPM**
+### **Install Node + NPM**
 
-Node.js package includes NPM, follow the [Node.js + NPM bonus guide](../bonus/system/nodejs-npm.md)
+Node.js package includes NPM, follow the [Node + NPM bonus guide](../bonus/system/nodejs-npm.md)
 
 ### **Reverse proxy & Firewall**
 
@@ -69,11 +69,9 @@ $ sudo systemctl reload nginx
 $ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
 ```
 
-## BTC RPC Explorer
+## **Installation**
 
-### **Installation**
-
-For improved security, we create the new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
+For improved security, we create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
 
 * Create a new user, assign it to the "bitcoin" group, and open a new session
 
@@ -160,7 +158,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 > "version": "3.4.0",
 ```
 
-### **Configuration**
+## **Configuration**
 
 * Copy and edit the configuration template (skip this step when updating). Activate any setting by removing the `#` at the beginning of the line
 
@@ -237,7 +235,7 @@ BTCEXP_UI_THEME=dark
 $ exit
 ```
 
-## Create systemd service
+### Create systemd service
 
 Now we'll make sure our blockchain explorer starts as a service on the PC so that it's always running.
 
@@ -278,7 +276,7 @@ $ sudo systemctl enable btcrpcexplorer
 $ journalctl -f -u btcrpcexplorer
 ```
 
-## Run BTC RPC Explorer
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -363,7 +361,7 @@ tcp   LISTEN 0   511   127.0.0.1:3002   0.0.0.0:*   users:(("node",pid=140461,fd
 **Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node
 {% endhint %}
 
-## For the future: BTC RPC Explorer update
+## Upgrade
 
 Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
 
@@ -421,7 +419,7 @@ $ sudo systemctl start btcrpcexplorer
 
 ## Uninstall
 
-### Uninstall BTC RPC Explorer
+### Uninstall service & user
 
 * Ensure you are logged in with the user `admin`, stop, disable, and delete the service
 

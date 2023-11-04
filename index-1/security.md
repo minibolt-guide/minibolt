@@ -20,7 +20,7 @@ The MiniBolt needs to be secured against online attacks using various methods.
 
 <figure><img src="../.gitbook/assets/security.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
-### Enabling the Uncomplicated Firewall
+## Enabling the Uncomplicated Firewall
 
 A firewall controls what kind of outside traffic your machine accepts and which applications can send data out. By default, many network ports are open and listening for incoming connections. Closing unnecessary ports can mitigate many potential system vulnerabilities.
 
@@ -43,6 +43,8 @@ $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
 ```sh
 $ sudo ufw logging off
 ```
+
+* Enable ufw, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press "y" and enter
 
 ```sh
 $ sudo ufw enable
@@ -82,7 +84,7 @@ $ sudo ufw status verbose
 If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). More: [_UFW Essentials_](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
 
-### Increase your open files limit
+## Increase your open files limit
 
 If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the `can't accept connection: too many open files` error. This is due to the limit of open files (representing individual TCP connections) being set too low.
 
@@ -99,7 +101,7 @@ root soft nofile 128000
 root hard nofile 128000
 ```
 
-### Monitoring SSH authentication logs
+## Monitoring SSH authentication logs
 
 * You can monitor authentication general logs in your system in real-time
 
@@ -131,7 +133,7 @@ In this way, you can detect a possible brute-force attack and take appropriate m
 Do this regularly to get security-related incidents
 {% endhint %}
 
-### Prepare NGINX reverse proxy
+## Prepare NGINX reverse proxy
 
 Several components of this guide will expose a communication port, for example, the Electrum server, the Block Explorer, or the "Ride The Lightning" web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
@@ -151,11 +153,23 @@ $ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-
 ```
 {% endcode %}
 
-\* NGINX is also a full web server. To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the \`nginx.conf\` file. Save and exit.
+Expected output:
+
+```
+Generating a RSA private key
+..............................................................................++++
+................++++
+writing new private key to '/etc/ssl/private/nginx-selfsigned.key'
+-----
+```
+
+* NGINX is also a full web server. To use it only as a reverse proxy, remove the default configuration
 
 ```bash
 $ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 ```
+
+* &#x20;Paste the following configuration into the `nginx.conf` file. Save and exit
 
 ```bash
 $ sudo nano /etc/nginx/nginx.conf

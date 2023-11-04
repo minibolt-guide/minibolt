@@ -34,7 +34,7 @@ $ sudo nano /data/lnd/lnd.conf
 * Add the next line under the `[Application Options]` section. Save and exit
 
 ```
-[Application Options]
+# Specify all ipv4 interfaces to listen on for REST connections
 restlisten=0.0.0.0:8080
 ```
 
@@ -52,7 +52,7 @@ $ sudo systemctl restart lnd
 $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
 ```
 
-### **Install lndconnect**
+## **Install lndconnect**
 
 [lndconnect](https://github.com/LN-Zap/lndconnect), created by Zap, is a utility that generates QR Code or URI to connect applications to LND instances.
 
@@ -218,7 +218,7 @@ In order to preserve your privacy, you can choose your private blockchain explor
 * In the app, tap on the Zeus icon in the top-left corner
 * Click on `Privacy` and change `Default Block explorer`, by selecting `Custom`, on the `Custom block explorer` box, enter your preferred Block Explorer URL, `.onion`, the local IP address of BTC RPC explorer: `https://192.168.X.XXX:4000`, or Wireguard VPN IP address: `https://10.0.0.1:4000`, depending on the situation
 
-## For the future: upgrade Zeus
+## Upgrade
 
 To update Zeus, update the app using the same app store or the app source you chose to install it.
 

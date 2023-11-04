@@ -68,11 +68,39 @@ $ git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb
 $ cd rocksdb
 ```
 
-* Compile it
+* Compile it. This could take a time depending of your system performance, be patient&#x20;
 
 ```bash
 $ make shared_lib -j $(nproc)
 ```
+
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+```
+$DEBUG_LEVEL is 0
+$DEBUG_LEVEL is 0
+  CC       cache/cache.o
+  CC       cache/cache_entry_roles.o
+  CC       cache/cache_key.o
+  CC       cache/cache_reservation_manager.o
+  CC       cache/charged_cache.o
+  CC       cache/clock_cache.o
+  CC       cache/fast_lru_cache.o
+  CC       cache/lru_cache.o
+  CC       cache/compressed_secondary_cache.o
+  CC       cache/sharded_cache.o
+  CC       db/arena_wrapped_db_iter.o
+  CC       db/blob/blob_contents.o
+  CC       db/blob/blob_fetcher.o
+  CC       db/blob/blob_file_addition.o
+  CC       db/blob/blob_file_builder.o
+  CC       db/blob/blob_file_cache.o
+  CC       db/blob/blob_file_garbage.o
+```
+
+</details>
 
 * Install it
 
@@ -80,10 +108,62 @@ $ make shared_lib -j $(nproc)
 $ sudo make install-shared
 ```
 
-* Update the shared library cache
+<details>
+
+<summary>Expected output ⬇️</summary>
+
+```
+$DEBUG_LEVEL is 0
+echo 'prefix=/usr/local' > rocksdb.pc
+echo 'exec_prefix=${prefix}' >> rocksdb.pc
+echo 'includedir=${prefix}/include' >> rocksdb.pc
+echo 'libdir=/usr/local/lib' >> rocksdb.pc
+echo '' >> rocksdb.pc
+echo 'Name: rocksdb' >> rocksdb.pc
+echo 'Description: An embeddable persistent key-value store for fast storage' >> rocksdb.pc
+echo Version: 7.8.3 >> rocksdb.pc
+echo 'Libs: -L${libdir}  -ldl -Wl,-rpath -Wl,'$ORIGIN' -lrocksdb' >> rocksdb.pc
+echo 'Libs.private: -lpthread -lrt -ldl -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd ' >> rocksdb.pc
+echo 'Cflags: -I${includedir} -std=c++17  -faligned-new -DHAVE_ALIGNED_NEW -DROCKSDB_PLATFORM_POSIX -DROCKSDB_LIB_IO_POSIX  -DOS_LINUX -fno-builtin-memcmp -DROCKSDB_FALLOCATE_PRESENT -DSNAPPY -DGFLAGS=1 -DZLIB -DBZIP2 -DLZ4 -DZSTD -DROCKSDB_MALLOC_USABLE_SIZE -DROCKSDB_PTHREAD_ADAPTIVE_MUTEX -DROCKSDB_BACKTRACE -DROCKSDB_RANGESYNC_PRESENT -DROCKSDB_SCHED_GETCPU_PRESENT -DROCKSDB_AUXV_GETAUXVAL_PRESENT -DHAVE_UINT128_EXTENSION  -isystem third-party/gtest-1.8.1/fused-src' >> rocksdb.pc
+echo 'Requires: ' >> rocksdb.pc
+install -d /usr/local/lib
+install -d /usr/local/lib/pkgconfig
+for header_dir in `find "include/rocksdb" -type d`; do \
+        install -d //usr/local/$header_dir; \
+done
+for header in `find "include/rocksdb" -type f -name *.h`; do \
+        install -C -m 644 $header //usr/local/$header; \
+done
+for header in ; do \
+        install -d //usr/local/include/rocksdb/`dirname $header`; \
+        install -C -m 644 $header //usr/local/include/rocksdb/$header; \
+done
+install -C -m 644 rocksdb.pc /usr/local/lib/pkgconfig/rocksdb.pc
+install -d /usr/local/lib
+install -C -m 755 librocksdb.so.7.8.3 /usr/local/lib
+ln -fs librocksdb.so.7.8.3 /usr/local/lib/librocksdb.so.7.8
+ln -fs librocksdb.so.7.8.3 /usr/local/lib/librocksdb.so.7
+ln -fs librocksdb.so.7.8.3 /usr/local/lib/librocksdb.so
+```
+
+</details>
+
+* Update the shared library cache. Wait until the prompt comes back to show
 
 ```bash
 $ sudo ldconfig
+```
+
+* Come back to the `/tmp` folder
+
+```bash
+$ cd ..
+```
+
+* Delete `rocksdb` folder
+
+```bash
+$ sudo rm -r rocksdb
 ```
 
 * Check if you already have `Rustc` installed
@@ -111,7 +191,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-If you obtain "command not found" outputs, you need to follow the [Rustup + Cargo bonus section](https://v2.minibolt.info/bonus-guides/system/rustup-+-cargo) to install it and then come back to continue with the guide
+If you obtain "command not found" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
 ### **Firewall & reverse proxy**
@@ -140,6 +220,13 @@ server {
 $ sudo nginx -t
 ```
 
+Expected output:
+
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
 ```sh
 $ sudo systemctl reload nginx
 ```
@@ -154,7 +241,7 @@ $ sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
 $ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
 ```
 
-## Electrs
+## Installation
 
 An easy and performant way to run an Electrum server is to use [Electrs](https://github.com/romanz/electrs), the Electrum Server in Rust. There are no binaries available, so we will compile the application ourselves.
 
@@ -171,7 +258,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.10.0
+$ VERSION=0.10.1
 ```
 
 ```sh
@@ -198,6 +285,8 @@ Expected output:
 > gpg: Total number processed: 1
 > gpg:               imported: 1
 ```
+
+* Verify the release
 
 ```sh
 $ git verify-tag v$VERSION
@@ -226,7 +315,7 @@ $ ROCKSDB_INCLUDE_DIR=/usr/local/include ROCKSDB_LIB_DIR=/usr/local/lib cargo bu
 
 <details>
 
-<summary>Example of expected output 🔽</summary>
+<summary><strong>Example</strong> of expected output 🔽</summary>
 
 ```
 info: syncing channel updates for '1.63.0-x86_64-unknown-linux-gnu'
@@ -301,7 +390,7 @@ $ sudo rm -r /tmp/electrs
 If you come to update this is the final step
 {% endhint %}
 
-### **Configuration**
+## **Configuration**
 
 * Create the `electrs` user, and make it a member of the "bitcoin" group
 
@@ -320,7 +409,7 @@ $ sudo mkdir /data/electrs
 ```
 
 ```sh
-$ sudo chown -R electrs:electrs /data/electrs
+$ sudo chown electrs:electrs /data/electrs
 ```
 
 * Switch to the `electrs` user and create the config file with the following content
@@ -359,7 +448,7 @@ timestamp = true
 $ exit
 ```
 
-### **Create systemd service**
+## **Create systemd service**
 
 Electrs need to start automatically on system boot.
 
@@ -408,7 +497,7 @@ $ sudo systemctl enable electrs
 $ journalctl -f -u electrs
 ```
 
-## Run Electrs
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -483,7 +572,7 @@ Expected output:
 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
-## For the future: Electrs upgrade
+## Upgrade
 
 Updating Electrs is straightforward. You can display the current version with the command below and check the Electrs [release page](https://github.com/romanz/electrs/releases) to see if a newer version is available. Depending if you come from a version prior to `0.10.0` or not, you will need to follow an installation process or other:
 
@@ -589,7 +678,7 @@ $ sudo systemctl reload tor
 
 ## Extras
 
-### **Remote access over Tor (optional)**
+### **Remote access over Tor**
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 

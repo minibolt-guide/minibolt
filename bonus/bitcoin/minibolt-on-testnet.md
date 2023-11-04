@@ -322,6 +322,9 @@ server {
 
 ```sh
 $ sudo nginx -t
+```
+
+```bash
 $ sudo systemctl reload nginx
 ```
 

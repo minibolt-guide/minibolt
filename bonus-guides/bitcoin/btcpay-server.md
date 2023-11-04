@@ -63,10 +63,6 @@ server {
 $ sudo nginx -t
 ```
 
-```bash
-$ sudo systemctl reload nginx
-```
-
 <details>
 
 <summary>Expected output ⬇️</summary>
@@ -77,6 +73,10 @@ $ sudo systemctl reload nginx
 ```
 
 </details>
+
+```bash
+$ sudo systemctl reload nginx
+```
 
 * Configure the firewall to allow incoming HTTPS requests
 
@@ -97,6 +97,12 @@ $ sudo nano /data/bitcoin/bitcoin.conf
 <pre><code><strong># NBXplorer dependency
 </strong><strong>whitelist=127.0.0.1
 </strong></code></pre>
+
+* Restart Bitcoin Core to apply changes
+
+```bash
+$ sudo systemctl restart bitcoind
+```
 
 ### Create a new btcpay user
 
@@ -317,15 +323,17 @@ $ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)'
 $ nano run.sh
 ```
 
-* Comment the existing line and add the next line below. Save and exit
+* Comment the existing line
 
-{% code overflow="wrap" %}
 ```
 #dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
+```
 
+* Add the next line below. Save and exit
+
+```
 /home/btcpay/.dotnet/dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
 ```
-{% endcode %}
 
 * Modify NBXplorer build script
 
@@ -333,11 +341,15 @@ $ nano run.sh
 $ nano build.sh
 ```
 
-* Comment the existing line and add the next line below. Save and exit
+* Comment the existing line
 
 ```
 #dotnet build -c Release NBXplorer/NBXplorer.csproj
+```
 
+* Add the next line below. Save and exit
+
+```
 /home/btcpay/.dotnet/dotnet build -c Release NBXplorer/NBXplorer.csproj
 ```
 
@@ -383,7 +395,6 @@ MSBuild version 17.3.2+561848881 for .NET
 Build succeeded.
     0 Warning(s)
     0 Error(s)
-
 ```
 
 </details>
@@ -403,9 +414,9 @@ $ cd ~/.nbxplorer/Main
 $ nano settings.config
 ```
 
-#### NBXplorer configuration
+### NBXplorer configuration
 
-* Add the complete next lines
+* Add the entire next lines. Save and exit
 
 ```
 # MiniBolt: nbxplorer configuration
@@ -424,9 +435,9 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplore
 $ exit
 ```
 
-#### Autostart NBXplorer on boot
+### **Create systemd service**
 
-* Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
+* Create the configuration file in the nano text editor and copy the entire following paragraph. Save and exit
 
 ```bash
 $ sudo nano /etc/systemd/system/nbxplorer.service
@@ -473,7 +484,7 @@ $ journalctl -f -u nbxplorer
 Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
-#### Running nbxplorer
+### Running NBXplorer
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
@@ -541,7 +552,7 @@ $ sudo ss -tulpn | grep LISTEN | grep NBXplorer
 Expected output:
 
 ```
-tcp   LISTEN 0      512        127.0.0.1:24444      0.0.0.0:*    users:(("NBXplorer",pid=2808966,fd=176))
+tcp   LISTEN 0   512    127.0.0.1:24444    0.0.0.0:*    users:(("NBXplorer",pid=2808966,fd=176))
 ```
 
 {% hint style="success" %}
@@ -584,11 +595,15 @@ $ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)'
 $ nano run.sh
 ```
 
-* Comment the next line and add the bellow
+* Comment the next line and add the below
 
 ```
 #dotnet "BTCPayServer.dll" $@
+```
 
+* Add the next line below. Save and exit
+
+```
 /home/btcpay/.dotnet/dotnet "BTCPayServer.dll" $@
 ```
 
@@ -600,10 +615,15 @@ $ nano build.sh
 
 * Comment the next line and add the bellow
 
-<pre><code>#dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
+```
+#dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
+```
 
-<strong>/home/btcpay/.dotnet/dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
-</strong></code></pre>
+* Add the next line below. Save and exit
+
+```
+/home/btcpay/.dotnet/dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
+```
 
 * Build BTCPay Server
 
@@ -645,7 +665,7 @@ $ mkdir -p ~/.btcpayserver/Main
 $ cd ~/.btcpayserver/Main
 ```
 
-#### BTCPay Server configuration
+### BTCPay Server configuration
 
 * Create a new config file
 
@@ -679,7 +699,7 @@ If you want to connect your Lightning LND node to BTCpay too, go to the [Connect
 $ exit
 ```
 
-#### Autostart BTCPay Server on boot
+### **Create systemd service**
 
 * Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
 
@@ -707,7 +727,7 @@ TimeoutSec=120
 WantedBy=multi-user.target
 </code></pre>
 
-* Enable autoboot (optional)
+* Enable autoboot **(optional)**
 
 ```bash
 $ sudo systemctl enable btcpay
@@ -723,7 +743,7 @@ $ journalctl -f -u btcpay
 Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
-#### Running BTCPay Server
+### Running BTCPay Server
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered)
 
@@ -789,20 +809,20 @@ You can now create the first account to access the dashboard using a real (recom
 **Congratulations!** You now have the amazing BTCPay Server payment processor running
 {% endhint %}
 
-## Extras (optional)
+## Extras
 
 ### Remote access over Tor
 
 You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCPay Server with the Tor browser from any device.
 
-* Ensure that you are logged in with the user `admin` and add the following lines in the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin` and add the following lines to the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
 
 ```bash
 $ sudo nano /etc/tor/torrc
 ```
 
 ```
-# Hidden Service BTCPay
+# Hidden Service BTCPay Server
 HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
@@ -926,11 +946,11 @@ $ exit
 $ sudo systemctl start btcpay
 ```
 
-## For the future: BTCPay Server & NBXplorer upgrade
+## Upgrade
 
 Updating to a new release of [BTCPay](https://github.com/btcpayserver/btcpayserver/releases)[ Server](https://github.com/btcpayserver/btcpayserver/releases) or [NBXplorer](https://github.com/dgarage/NBXplorer/tags) should be straightforward.
 
-#### Upgrade NBXplorer
+### Upgrade NBXplorer
 
 * With user `admin`, stop BTCPay Server & NBXplorer
 
@@ -973,7 +993,7 @@ $ exit
 $ sudo systemctl start nbxplorer && sudo systemctl start btcpay
 ```
 
-#### Upgrade BTCPay Server
+### Upgrade BTCPay Server
 
 * With user `admin`, stop BTCPay Server
 
@@ -1018,7 +1038,7 @@ $ sudo systemctl start btcpay
 
 ## Uninstall
 
-#### Uninstall services
+### Uninstall services
 
 * Ensure you are logged in with the user `admin`, stop `btcpay` and `nbxplorer` services
 
@@ -1040,7 +1060,7 @@ $ sudo rm /etc/systemd/system/btcpay.service
 $ sudo rm /etc/systemd/system/nbxplorer.service
 ```
 
-#### Uninstall Firewall **configuration** & Reverse proxy
+### Uninstall Firewall **configuration** & Reverse proxy
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCpay (e.g., X and Y below)
 
@@ -1076,7 +1096,7 @@ $ sudo nginx -t
 $ sudo systemctl reload nginx
 ```
 
-**Uninstall Tor hidden service**
+### **Uninstall Tor hidden service**
 
 * Ensure you are logged in with user `admin`, comment or remove btcpay hidden service in the torrc. Save and exit
 
@@ -1097,7 +1117,7 @@ $ sudo nano /etc/tor/torrc
 $ sudo systemctl reload tor
 ```
 
-#### Delete btcpay user
+### Delete btcpay user
 
 * Ensure you are logged in with the user `admin`. Delete the `btcpay` user.\
   Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful

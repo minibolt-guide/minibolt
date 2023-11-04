@@ -174,13 +174,13 @@ $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roa
 Check that the date of the timestamp is close to the [release date](https://github.com/lightningnetwork/lnd/releases) of the LND binary.
 {% endhint %}
 
-### **Installation**
-
-Having verified the integrity and authenticity of the release binary, we can safely proceed to install it
+* Having verified the integrity and authenticity of the release binary, we can safely
 
 ```sh
 $ tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
 ```
+
+* Proceed to install it
 
 {% code overflow="wrap" %}
 ```sh
@@ -287,8 +287,6 @@ $ chmod 600 /data/lnd/password.txt
 
 ## Configuration
 
-### **Configure LND**
-
 * Create the LND configuration file and paste the following content _**(set your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size `"minchansize"` , and fees)**_. Save and exit
 
 ```sh
@@ -303,31 +301,30 @@ $ nano /data/lnd/lnd.conf
 alias=<a data-footnote-ref href="#user-content-fn-2">&#x3C;YOUR_FANCY_ALIAS></a>
 # You can choose the color you want at https://www.color-hex.com/
 color=#ff9900
-listen=localhost
-nat=false
-debuglevel=info
 
-# Password: automatically unlock wallet with the password in this file
-# -- comment out to manually unlock wallet, and see MiniBolt guide for 
-# more secure options
+# Automatically unlock wallet with the password in this file
 wallet-unlock-password-file=/data/lnd/password.txt
 wallet-unlock-allow-create=true
 
+# The TLS private key will be encrypted to the node's seed
+tlsencryptkey=true
+
 # Automatically regenerate certificate when near expiration
 tlsautorefresh=true
-# Do not include the interface IPs or the system hostname in TLS certificate.
+
+# Do not include the interface IPs or the system hostname in TLS certificate
 tlsdisableautofill=true
 
 # Channel settings
 # Fee settings - default LND base fee = 1000 (mSat), 
 # default LND fee rate = 1 (ppm)
-# You can choose whatever you want e.g ZeroFeeRouting (0,0)
+# You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
 <a data-footnote-ref href="#user-content-fn-3">#bitcoin.basefee=0</a>
 <a data-footnote-ref href="#user-content-fn-4">#bitcoin.feerate=0</a>
 
-# Minimum channel size (in satoshis, default, and minimal 
-# from source code is 20,000 sats). You can choose whatever you want
+# Minimum channel size (default: 20000 sats). You can choose whatever you want
 <a data-footnote-ref href="#user-content-fn-5">#minchansize=20000</a>
+
 maxpendingchannels=5
 accept-keysend=true
 accept-amp=true
@@ -339,8 +336,9 @@ protocol.simple-taproot-chans=true
 
 # Watchtower client
 wtclient.active=true
-# Specify the fee rate with which justice transactions will be signed. 
-# The default is 10 sat/byte.
+
+# Specify the fee rate with which justice transactions will be signed
+# (default: 10 sat/byte)
 <a data-footnote-ref href="#user-content-fn-6">#wtclient.sweep-fee-rate=10</a>
 
 # Watchtower server
@@ -358,11 +356,11 @@ stagger-initial-reconnect=true
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
-#db.bolt.auto-compact-min-age=0h
+<a data-footnote-ref href="#user-content-fn-7">#db.bolt.auto-compact-min-age=0h</a>
 
 # Optional (uncomment the next 2 lines (default: CONSERVATIVE))
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-7">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-8">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
 bitcoin.active=true
@@ -385,7 +383,7 @@ This is a standard configuration. Check the official LND [sample-lnd.conf](https
 $ exit
 ```
 
-## Create systemd service
+### Create systemd service
 
 Now, let's set up LND to start automatically on system startup.
 
@@ -435,7 +433,7 @@ $ sudo systemctl enable lnd
 $ journalctl -f -u lnd
 ```
 
-## Run LND
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -511,7 +509,7 @@ You can use a simple piece of paper, write them on the custom themed [Shiftcrypt
 This piece of paper is all an attacker needs to completely empty your on-chain wallet! 🚫 Do not store it on a computer. 🚫 Do not take a picture with your mobile phone. 🚫 **This information should never be stored anywhere in digital form**
 {% endhint %}
 
-The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. Exist a dedicated [guide](channel-backup.md) to automatic backup
+The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. There is a dedicated [guide](channel-backup.md) to automatic backup
 
 {% hint style="danger" %}
 This information must be kept secret at all times
@@ -598,7 +596,7 @@ $2 lncli getinfo
 💊 Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real Bitcoin to your MiniBolt, you have "skin in the game"
 
 {% hint style="info" %}
-The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping to do this just in case any log could give extra information about the command you just entered
+The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping this just in case any log could give extra information about the command you just entered
 {% endhint %}
 
 ### **Watchtower client**
@@ -666,7 +664,7 @@ $ lncli tower info
 
 Expected output:
 
-```sh
+```
 {
   "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
   "listeners": [
@@ -680,10 +678,10 @@ Expected output:
 ```
 
 {% hint style="info" %}
-This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes considered to disable it
+This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes consider disabling it commenting, or deleting the line `watchtower.active=true` of the `lnd.conf` file
 {% endhint %}
 
-{% hint style="info" %}
+{% hint style="warning" %}
 Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line
 {% endhint %}
 
@@ -734,7 +732,7 @@ To connect to a remote node, you need its URI that looks like `<pubkey>@host`:
 * the `<pubkey>` is just a long hexadecimal number, like `02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128`
 * the `host` can be a domain name, a clearnet IP address, or a Tor onion address, followed by the port number (usually `:9735`)
 
-Just grab the whole URI above the big QR code and use it as follows (we will use the `⚡2FakTor⚡` node as an example):
+Just grab the whole URI above the big QR code and use it as follows (we will use the `⚡2FakTor⚡` LN node **as an example**):
 
 * **Connect** to the remote node, with the full URI
 
@@ -745,8 +743,6 @@ $ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a21
 {% endcode %}
 
 *   **Open a channel** using the `<pubkey>` only (_i.e._, the part of the URI before the `@`) and the channel capacity in satoshis.
-
-    One Bitcoin equals 100 million satoshis, so at $10'000/BTC, $10 amount to 0.001 BTC or 100'000 satoshis. To avoid mistakes, you can just use an [online converter](https://www.buybitcoinworldwide.com/satoshi/to-usd/).
 
     The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/))
 
@@ -774,11 +770,11 @@ $ lncli listchannels
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
 
-To try, why not send me satoshis! You simply need to input my node pubkey [`⚡2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128), the amount in satoshis and add the "`–keysend`" flag
+To try, why not send me satoshis! You simply need to input my node pubkey [`⚡2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128), the amount in satoshis and add the "`–keysend`" flag. Replace `<amount in sats>` parameter with what you want
 
 {% code overflow="wrap" %}
 ```sh
-$ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats whatever you want> --keysend
+$ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats> --keysend
 ```
 {% endcode %}
 
@@ -834,7 +830,7 @@ $ lncli closeallchannels --sat_per_byte <sat/byte>
 More: full [LND API reference](https://api.lightning.community/)
 {% endhint %}
 
-## For the future: upgrade LND
+## Upgrade
 
 Upgrading LND can lead to a number of issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases) completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
 
@@ -863,4 +859,6 @@ $ sudo systemctl restart lnd
 
 [^6]: (Uncomment and customize the value)
 
-[^7]: (Uncomment and customize the value)
+[^7]: (Uncomment and customize the value or keep commented to left default)
+
+[^8]: (Uncomment and customize the value)

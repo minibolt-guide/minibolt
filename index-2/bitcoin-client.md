@@ -127,7 +127,7 @@ The following screenshot is just an **example** of one of the versions:
 
 ### **Binaries installation**
 
-* ,If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries
+* If you're satisfied with the checksum, signature and timestamp checks, extract the Bitcoin Core binaries
 
 ```sh
 $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
@@ -240,7 +240,7 @@ Expected **example** output:
 
 * Copy the `rpcauth` line, we'll need to paste it into the Bitcoin config file
 
-### **Configuration**
+## **Configuration**
 
 Now, the configuration file  `bitcoind` needs to be created. We'll also set the proper access permissions.
 
@@ -318,7 +318,7 @@ $ exit
 ```
 {% endcode %}
 
-### **Autostart on boot**
+### **Create systemd service**
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
@@ -357,7 +357,7 @@ MemoryDenyWriteExecute=true
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot
+* Enable autoboot **(optional)**
 
 ```sh
 $ sudo systemctl enable bitcoind
@@ -371,7 +371,7 @@ $ journalctl -f -u bitcoind
 
 💡 Keep **this terminal open,** you'll need to come back here on the next step to monitor logs.
 
-## Running bitcoind
+## Run
 
 To keep an eye on the software movements, [Start your SSH program](broken-reference) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
@@ -479,7 +479,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 ### **Activate mempool & reduce 'dbcache' after a full sync**
 
-Once Bitcoin Core is fully synced, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
+Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
 * As user `admin`, comment the following lines out (add a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit
 
@@ -521,7 +521,7 @@ $ sudo pip3 install opentimestamps-client
 $ ots --version
 ```
 
-## Extras (optional)
+## Extras
 
 ### **Reject non-private networks**
 
@@ -624,7 +624,7 @@ $ man bitcoin-cli
 
 ⬆️ Now come back to the next section [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user) to continue with the Bitcoin Core installation process.
 
-## For the future: upgrade Bitcoin Core
+## Upgrade
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the RELEASE NOTES first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide.
 

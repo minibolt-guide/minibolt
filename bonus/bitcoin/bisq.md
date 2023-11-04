@@ -129,7 +129,7 @@ $ Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
 Congrats! Bisq is now connected to your node
 {% endhint %}
 
-## Bisq configuration
+## Configuration
 
 This section will highlight key configuration options focusing on privacy and security only.
 
@@ -170,7 +170,7 @@ For the national currency account and trading configuration options, please refe
 Congrats! You're now ready to start buying and selling Bitcoin on Bisq securely and privately
 {% endhint %}
 
-## Update
+## Upgrade
 
 Bisq will let you know when a new update is available. Simply follow the instructions on their announcement to download, verify and install the update.
 
