@@ -31,7 +31,7 @@ Difficulty: Easy
 
 The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor).
 
-## COnfiguration
+## Configuration
 
 * With user `admin`, access to `home` folder and download the aliases list provided for a MiniBolt environment
 

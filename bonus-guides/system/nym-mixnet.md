@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Introduction
+# NYM mixnet
 
 The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity.
 
@@ -58,7 +58,7 @@ $ rustc --version
 > rustc 1.71.0 (8ede3aae2 2023-07-12)
 ```
 
-* &#x20;And cargo installed
+* And cargo installed
 
 ```bash
 $ cargo -V
@@ -82,7 +82,7 @@ If you obtain "command not found" outputs, you need to follow the [Rustup + Carg
 $ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
 ```
 
-## Installation
+## Installation, Configuration & Run
 
 #### Compile NYM binaries from the source code
 
@@ -113,7 +113,7 @@ This process can take quite a long time, 10-15 minutes or more, depending on the
 {% endhint %}
 
 {% hint style="info" %}
-If the prompt shows you this error:&#x20;
+If the prompt shows you this error:
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
@@ -582,7 +582,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure>
 
@@ -695,7 +695,7 @@ Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"E
 
 <figure><img src="../../.gitbook/assets/nunckuk_nym_settings.PNG" alt=""><figcaption></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/nunckuk_nym.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -789,7 +789,7 @@ Save, switch "Use proxy" again
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure>
 
