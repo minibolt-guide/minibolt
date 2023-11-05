@@ -46,7 +46,7 @@ $ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gp
 * Set the environment variable of the version
 
 ```bash
-$ VERSION=20
+$ VERSION=18
 ```
 
 * Create deb repository

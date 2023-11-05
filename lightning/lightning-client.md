@@ -307,7 +307,7 @@ wallet-unlock-password-file=/data/lnd/password.txt
 wallet-unlock-allow-create=true
 
 # The TLS private key will be encrypted to the node's seed
-#tlsencryptkey=true
+<a data-footnote-ref href="#user-content-fn-3">#tlsencryptkey=true</a>
 
 # Automatically regenerate certificate when near expiration
 tlsautorefresh=true
@@ -319,11 +319,11 @@ tlsdisableautofill=true
 # Fee settings - default LND base fee = 1000 (mSat),
 # default LND fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
-<a data-footnote-ref href="#user-content-fn-3">#bitcoin.basefee=0</a>
-<a data-footnote-ref href="#user-content-fn-4">#bitcoin.feerate=0</a>
+<a data-footnote-ref href="#user-content-fn-4">#bitcoin.basefee=0</a>
+<a data-footnote-ref href="#user-content-fn-5">#bitcoin.feerate=0</a>
 
 # Minimum channel size (default: 20000 sats). You can choose whatever you want
-<a data-footnote-ref href="#user-content-fn-5">#minchansize=20000</a>
+<a data-footnote-ref href="#user-content-fn-6">#minchansize=20000</a>
 
 maxpendingchannels=5
 accept-keysend=true
@@ -339,7 +339,7 @@ wtclient.active=true
 
 # Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-6">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-7">#wtclient.sweep-fee-rate=10</a>
 
 # Watchtower server
 watchtower.active=true
@@ -356,11 +356,11 @@ stagger-initial-reconnect=true
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
-<a data-footnote-ref href="#user-content-fn-7">#db.bolt.auto-compact-min-age=0h</a>
+<a data-footnote-ref href="#user-content-fn-8">#db.bolt.auto-compact-min-age=0h</a>
 
 # Optional (uncomment the next 2 lines (default: CONSERVATIVE))
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-8">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-9">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
 bitcoin.active=true
@@ -515,15 +515,43 @@ The current state of your channels, however, cannot be recreated from this seed.
 This information must be kept secret at all times
 {% endhint %}
 
-### Allow user "admin" to work with LND
+### Encrypt TLS key
 
-We interact with LND using the application `lncli`. At the moment, only the user "lnd" has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
+The TLS private key will be encrypted to the node's seed
 
 * Type "exit" to return to the admin user
 
 ```sh
 $2 exit
 ```
+
+* Stop LND
+
+```bash
+$ sudo systemctl stop lnd
+```
+
+* Edit `lnd.conf` file
+
+```bash
+$ sudo nano /data/lnd/lnd.conf
+```
+
+* Uncomment the `#tlsencryptkey=true` line (delete `#` symbol). Save and exit
+
+```
+tlsencryptkey=true
+```
+
+* Start LND again
+
+```bash
+$ sudo systemctl start lnd
+```
+
+### Allow user "admin" to work with LND
+
+We interact with LND using the application `lncli`. At the moment, only the user "lnd" has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
 * As user `admin`, link the LND data directory in the user "admin" home. As a member of the group "lnd", the "admin" user has read-only access to certain files. We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
 
@@ -851,7 +879,7 @@ $ sudo systemctl restart lnd
 
 [^2]: (Customize)
 
-[^3]: (Uncomment and customize the value)
+[^3]: Uncomment in the step ["Encrypt TLS key"](lightning-client.md#encrypt-tls-key), not before
 
 [^4]: (Uncomment and customize the value)
 
@@ -859,6 +887,8 @@ $ sudo systemctl restart lnd
 
 [^6]: (Uncomment and customize the value)
 
-[^7]: (Uncomment and customize the value or keep commented to left default)
+[^7]: (Uncomment and customize the value)
 
-[^8]: (Uncomment and customize the value)
+[^8]: (Uncomment and customize the value or keep commented to left default)
+
+[^9]: (Uncomment and customize the value)
