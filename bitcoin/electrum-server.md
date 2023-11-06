@@ -97,7 +97,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.3
+$ VERSION=1.9.4
 ```
 
 * Download the application, checksums, and signature
@@ -110,13 +110,13 @@ $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
+$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-sha256sums.txt.asc
 ```
 {% endcode %}
 
 {% code overflow="wrap" fullWidth="false" %}
 ```bash
-$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
+$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-sha256sums.txt
 ```
 {% endcode %}
 
@@ -143,7 +143,7 @@ Expected output:
 * Verify the signature of the text file containing the checksums for the application
 
 ```sh
-$ gpg --verify Fulcrum-$VERSION-x86_64-linux.tar.gz.asc
+$ gpg --verify Fulcrum-$VERSION-sha256sums.txt.asc
 ```
 
 Expected output:
@@ -162,14 +162,24 @@ Expected output:
 * Verify the signed checksum against the actual checksum of your download
 
 ```sh
-$ sha256sum --check Fulcrum-$VERSION-x86_64-linux.tar.gz.sha256sum
+$ sha256sum --check Fulcrum-$VERSION-sha256sums.txt
 ```
 
 **Example** of expected output:
 
-```
-> Fulcrum-1.9.1-x86_64-linux.tar.gz: OK
-```
+<pre><code>sha256sum: Fulcrum-1.9.4-arm64-linux.tar.gz: No such file or directory
+Fulcrum-1.9.4-arm64-linux.tar.gz: FAILED open or read
+sha256sum: Fulcrum-1.9.4-x86_64-linux-ub16.tar.gz: No such file or directory
+Fulcrum-1.9.4-x86_64-linux-ub16.tar.gz: FAILED open or read
+<strong><a data-footnote-ref href="#user-content-fn-1">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
+</strong>sha256sum: Fulcrum-1.9.4-win64.zip: No such file or directory
+Fulcrum-1.9.4-win64.zip: FAILED open or read
+sha256sum: WARNING: 3 listed files could not be read
+</code></pre>
+
+{% hint style="info" %}
+Search for the "`Fulcrum-$VERSION-x86_64-linux.tar.gz:`` `**`OK`**" phrase
+{% endhint %}
 
 * Extract and install Fulcrum
 
@@ -260,7 +270,7 @@ drwxr-xr-x 6 root    root    4096 Jul 15 07:56 ..
 -rw------- 1 fulcrum fulcrum   24 Jul 15 07:59 .bash_history
 -rw-r--r-- 1 fulcrum fulcrum  220 Jul 15 07:56 .bash_logout
 -rw-r--r-- 1 fulcrum fulcrum 3771 Jul 15 07:56 .bashrc
-lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-1">.fulcrum -> /data/fulcrum</a>
+lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-2">.fulcrum -> /data/fulcrum</a>
 -rw-r--r-- 1 fulcrum fulcrum  807 Jul 15 07:56 .profile
 </code></pre>
 
@@ -443,7 +453,7 @@ tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",
 
 Once Fulcrum is fully indexed, we will disable the fast-sync parameter to avoid the error "`fast-sync: Specified value (4096000000 bytes) is too large to fit in available system memory (limit is: 3903692800 bytes)"` the next time we will start Fulcrum after the full index
 
-* With user admin, edit the `fulcrum.conf` file and comment the fast-sync line parameter&#x20;
+* With user admin, edit the `fulcrum.conf` file and comment the fast-sync line parameter
 
 ```bash
 $ sudo nano /data/fulcrum/fulcrum.conf
@@ -749,4 +759,6 @@ Filename            Type                Size           Used    Priority
 /var/swap           file                 102396         0       -2
 ```
 
-[^1]: Symbolic link
+[^1]: That's it!
+
+[^2]: Symbolic link

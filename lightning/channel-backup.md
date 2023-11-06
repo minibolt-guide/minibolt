@@ -275,7 +275,7 @@ $ sudo su - lnd
 $ ssh-keygen -t rsa -b 4096
 ```
 
-* When prompted, press "Enter" to confirm the default SSH directory and press "Enter" again to not set up a password
+* When prompted, press "Enter" to confirm the default SSH directory and press "Enter" again to not set up a passphrase
 
 ```
 > Generating public/private rsa key pair.
@@ -448,6 +448,18 @@ Jul 25 17:32:34 minibolt scb-backup[401749]: Watches established.
 ```
 
 </details>
+
+{% hint style="warning" %}
+If you get the next error:
+
+```
+Nov 05 23:18:43 minibolt scb-backup[1710686]: Pushing changes to remote repository...
+Nov 05 23:18:43 minibolt scb-backup[1711268]: error: src refspec main does not match any
+Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to 'github.com:twofaktor/remote-lnd-testnet-backup.git'
+```
+
+\--> Replace the line `git push "--set-upstream origin`` `**`main"`** to "`git push --set-upstream origin`` `**`master"`** [in the script](channel-backup.md#create-script) and try again
+{% endhint %}
 
 * **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above
 

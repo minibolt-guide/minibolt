@@ -108,7 +108,7 @@ $ sudo apt update && sudo apt full-upgrade
 ```
 
 {% hint style="info" %}
-If you want to update to the upper version LTS release ([see here](https://nodejs.org/en/download)), e.g 18.x to 20.x you need to follow the next steps:
+If you want to update to the upper version LTS release ([see here](https://nodejs.org/en/download)), e.g. 16.x to 18.x you need to follow the next steps:
 {% endhint %}
 
 * Check the current version installed of the nodejs
@@ -117,10 +117,10 @@ If you want to update to the upper version LTS release ([see here](https://nodej
 $ node -v
 ```
 
-* If you have 18.x version, set the environment variable to the new number of versions, for example to the latest 20.x
+* If you have 16.x version, set the environment variable to the new number of versions, for example to 18.x
 
 ```bash
-$ VERSION=20
+$ VERSION=18
 ```
 
 * Update the current deb repository
