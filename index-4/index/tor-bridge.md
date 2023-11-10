@@ -32,7 +32,7 @@ Difficulty: Medium
 
 ## Requirements
 
-* Tor
+* [Tor](../../index-1/privacy.md#tor-installation)
 
 ## Preparations
 

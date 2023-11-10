@@ -26,7 +26,7 @@ We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interf
 
 ## Balena Etcher and Ubuntu Server
 
-To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application. Go to the website and download the correct binary according to your OS.
+To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application. Go to the website and [download](https://etcher.balena.io/#download-etcher) the correct binary according to your OS.
 
 * Direct download Ubuntu Server LTS by going to the official Ubuntu Server [website](https://ubuntu.com/download/server) and clicking on the \[**Download Ubuntu Server xx.xx LTS]** button
 * **Start** the **Balena Etcher**

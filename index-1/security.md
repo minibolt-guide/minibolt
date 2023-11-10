@@ -44,7 +44,7 @@ $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
 $ sudo ufw logging off
 ```
 
-* Enable ufw, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press "y" and enter
+* Enable ufw, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press `"y"` and enter
 
 ```sh
 $ sudo ufw enable

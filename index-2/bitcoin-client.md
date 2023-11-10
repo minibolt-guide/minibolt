@@ -113,9 +113,9 @@ $ gpg --verify SHA256SUMS.asc
 
 ### Timestamp check
 
-* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://opentimestamps.org/), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS.ots](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS.ots)
-  * [https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS](https://bitcoincore.org/bin/bitcoin-core-25.0/SHA256SUMS)
+* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time\_stamp\_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS.ots) the checksum file
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS) its timestamp proof
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
 * In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
 * In the next box, drop or upload the SHA256SUMS file
@@ -171,7 +171,7 @@ $ sudo adduser --gecos "" --disabled-password bitcoin
 $ sudo adduser admin bitcoin
 ```
 
-* Allow the user `bitcoin` to configure Tor directly by adding it to the "debian-tor" group
+* Allow the user `bitcoin` to use the control port and configure Tor directly by adding it to the "debian-tor" group
 
 ```sh
 $ sudo adduser bitcoin debian-tor
@@ -202,6 +202,26 @@ $ sudo su - bitcoin
 ```sh
 $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
 ```
+
+* Check symbolic link have been created correctly
+
+```bash
+$ ls -la
+```
+
+Expected output:
+
+<pre><code>total 32
+drwxr-xr-x 3 bitcoin bitcoin 4096 Nov  7 19:33 .
+drwxr-xr-x 4 root    root    4096 Nov  7 19:32 ..
+-rw------- 1 bitcoin bitcoin  135 Nov  7 19:33 .bash_history
+-rw-r--r-- 1 bitcoin bitcoin  220 Nov  7 19:32 .bash_logout
+-rw-r--r-- 1 bitcoin bitcoin 3523 Nov  7 19:32 .bashrc
+lrwxrwxrwx 1 bitcoin bitcoin   13 Nov  7 19:32 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
+drwxr-xr-x 3 bitcoin bitcoin 4096 Nov  7 19:33 .local
+-rw-r--r-- 1 bitcoin bitcoin 1670 Nov  7 19:32 .mkshrc
+-rw-r--r-- 1 bitcoin bitcoin  807 Nov  7 19:32 .profile
+</code></pre>
 
 ### Generate access credentials
 
@@ -242,7 +262,7 @@ Expected **example** output:
 
 ## Configuration
 
-Now, the configuration file  `bitcoind` needs to be created. We'll also set the proper access permissions.
+Now, the configuration file `bitcoind` needs to be created. We'll also set the proper access permissions.
 
 * Still as user `"bitcoin"`, open it with Nano and paste the configuration below. Replace the whole line starting with `"rpcauth=..."` the connection string you just generated. Save and exit
 
@@ -304,7 +324,7 @@ blocksonly=1
 
 🔍 This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92) with all possible options
 
-* Set permissions: only the user `bitcoin` and members of the  `bitcoin`  group can read it
+* Set permissions: only the user `bitcoin` and members of the `bitcoin` group can read it
 
 ```sh
 $ chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
@@ -373,7 +393,7 @@ $ journalctl -f -u bitcoind
 
 ## Run
 
-To keep an eye on the software movements, [Start your SSH program](broken-reference) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [Start your SSH program](broken-reference/) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
 
 * Start the service
 
@@ -429,6 +449,26 @@ $ exit
 ```
 
 * Log in as user `admin` again `("ssh admin@minibolt.local")`
+* Check symbolic link have been created correctly
+
+```bash
+$2 ls -la
+```
+
+Expected output:
+
+<pre><code>drwxr-xr-x 11 root  root   4096 Oct 26 19:19 ..
+<strong>-rw-rw-r-- 1 admin admin 12020 Nov  7 09:51 .bash_aliases
+</strong>-rw------- 1 admin admin 51959 Nov  7 12:19 .bash_history
+-rw-r--r-- 1 admin admin   220 Nov  7 20:25 .bash_logout
+-rw-r--r-- 1 admin admin  3792 Nov  7 07:56 .bashrc
+lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-2">.bitcoin -> /data/bitcoin</a>
+-rw-r--r-- 1 admin admin   807 Nov  7  2023 .profile
+drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
+-rw-r--r-- 1 admin admin   208 Nov  7 19:32 .wget-hsts
+-rw------- 1 admin admin   116 Nov  7 19:41 .Xauthority
+</code></pre>
+
 * Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
 
 {% code overflow="wrap" %}
@@ -470,8 +510,6 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
     * you definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
     * read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
-
-
 
     <figure><img src="../images/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
 * [**Learning Bitcoin from the Command Line**](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
@@ -600,7 +638,7 @@ rpcworkqueue=256
 
 ### Manual page for bitcoin-cli
 
-* For convenience it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, they can be installed from the directory&#x20;
+* For convenience it might be useful to have the manual page for bitcoin-cli in the same machine so that they can be consulted offline, they can be installed from the directory
 
 ⚠️ This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md)
 
@@ -760,3 +798,7 @@ The following output is just an **example** of one of the versions:
 ```sh
 $ sudo systemctl restart bitcoind
 ```
+
+[^1]: Symbolic link
+
+[^2]: Symbolic link

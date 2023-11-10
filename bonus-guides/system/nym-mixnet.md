@@ -76,7 +76,7 @@ If you obtain "command not found" outputs, you need to follow the [Rustup + Carg
 
 ### Configure Firewall
 
-* Stay login with user `admin`, configure the firewall to allow incoming requests to the nym-socks5-client
+* Stay login with the user `admin`, configure the firewall to allow incoming requests to the nym-socks5-client
 
 ```bash
 $ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
@@ -558,6 +558,10 @@ Expected output:
       "proxy": "127.0.0.1:1080",
 ```
 
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
+
 ### Proxying wallets
 
 #### Electrum
@@ -600,6 +604,10 @@ $ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localho
 
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
+
 #### Sparrow desktop
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
@@ -621,6 +629,10 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 2. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
 
 #### Sparrow server
 
@@ -658,6 +670,10 @@ Go to **Preferences --> Server --> Public Electrum**
 You have Sparrow server configured to proxy public Electrum servers and third parties servers connection using NYM mixnet
 {% endhint %}
 
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
+
 #### Blockstream Green
 
 Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS and install it.
@@ -685,6 +701,10 @@ Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bit
 
 <figure><img src="../../.gitbook/assets/bitbox-app-nym-proxy-check.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
+
 #### Nunchuk desktop
 
 [Download](https://github.com/nunchuk-io/nunchuk-desktop/releases) the Nunchuk wallet desktop version for your OS and install it.
@@ -700,6 +720,10 @@ Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"E
 <figure><img src="../../.gitbook/assets/nunckuk_nym.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
+
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
 
 #### NYM connect
 
@@ -735,6 +759,10 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 **Save proxy Settings**
 {% endhint %}
 
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
+
 #### Telegram Desktop
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
@@ -743,8 +771,12 @@ Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically
 
 <figure><img src="../../.gitbook/assets/telegram-nym-proxy.PNG" alt="" width="275"><figcaption></figcaption></figure>
 
-{% hint style="info" %}
+{% hint style="success" %}
 Save and close all banners to go back to the running app
+{% endhint %}
+
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
 {% endhint %}
 
 #### Browser (Firefox-based browsers)
@@ -759,6 +791,10 @@ Fill the form with the next data:
 
 {% hint style="success" %}
 Press OK and start the navigation
+{% endhint %}
+
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
 {% endhint %}
 
 ### NYM Android
@@ -799,10 +835,14 @@ Save, switch "Use proxy" again
 **Notice**: This app **consumes significant data and battery** when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app
 {% endhint %}
 
+{% hint style="info" %}
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+{% endhint %}
+
 ### Other NYM tools
 
 {% tabs %}
-{% tab title="Paste NYM" %}
+{% tab title="Paste NYM (UC)" %}
 An adaptation of pastebin.com, using NYM mixnet, to protect users and their data but especially their metadata\
 \
 [Link](https://pastenym.ch) | [GitHub](https://github.com/notrustverify/pastenym)\

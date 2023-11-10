@@ -233,7 +233,7 @@ $ psql -V
 > psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
-### Create a PostgreSQL database for NBXplorer
+### Create databases
 
 * With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
 
@@ -585,7 +585,7 @@ $ cd btcpayserver
 
 {% code overflow="wrap" %}
 ```bash
-$ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1)
+$ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\.[0-9]+\.[0-9]+$/)' | head -n 1)
 ```
 {% endcode %}
 
@@ -1015,7 +1015,7 @@ $ cd src/btcpayserver
 
 * Fetch the latest tag
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ git fetch --tags &#x26;&#x26; git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)' | head -n 1)
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ $ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\.[0-9]+\.[0-9]+$/)' | head -n 1)
 </strong></code></pre>
 
 * Build it

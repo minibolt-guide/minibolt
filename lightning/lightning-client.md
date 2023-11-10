@@ -256,16 +256,15 @@ $ ls -la
 
 Expected output:
 
-```
-total 20
+<pre><code>total 20
 drwxr-x--- 2 lnd  lnd  4096 Jul 15 20:57 .
 drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
 -rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
 -rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
-lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 .bitcoin -> /data/bitcoin
-lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 .lnd -> /data/lnd
+lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-2">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-3">.lnd -> /data/lnd</a>
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
-```
+</code></pre>
 
 ### Wallet password
 
@@ -298,7 +297,7 @@ $ nano /data/lnd/lnd.conf
 
 [Application Options]
 # Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-alias=<a data-footnote-ref href="#user-content-fn-2">&#x3C;YOUR_FANCY_ALIAS></a>
+alias=<a data-footnote-ref href="#user-content-fn-4">&#x3C;YOUR_FANCY_ALIAS></a>
 # You can choose the color you want at https://www.color-hex.com/
 color=#ff9900
 
@@ -307,7 +306,7 @@ wallet-unlock-password-file=/data/lnd/password.txt
 wallet-unlock-allow-create=true
 
 # The TLS private key will be encrypted to the node's seed
-<a data-footnote-ref href="#user-content-fn-3">#tlsencryptkey=true</a>
+<a data-footnote-ref href="#user-content-fn-5">#tlsencryptkey=true</a>
 
 # Automatically regenerate certificate when near expiration
 tlsautorefresh=true
@@ -319,11 +318,11 @@ tlsdisableautofill=true
 # Fee settings - default LND base fee = 1000 (mSat),
 # default LND fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
-<a data-footnote-ref href="#user-content-fn-4">#bitcoin.basefee=0</a>
-<a data-footnote-ref href="#user-content-fn-5">#bitcoin.feerate=0</a>
+<a data-footnote-ref href="#user-content-fn-6">#bitcoin.basefee=0</a>
+<a data-footnote-ref href="#user-content-fn-7">#bitcoin.feerate=0</a>
 
 # Minimum channel size (default: 20000 sats). You can choose whatever you want
-<a data-footnote-ref href="#user-content-fn-6">#minchansize=20000</a>
+<a data-footnote-ref href="#user-content-fn-8">#minchansize=20000</a>
 
 maxpendingchannels=5
 accept-keysend=true
@@ -339,7 +338,7 @@ wtclient.active=true
 
 # Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-7">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-9">#wtclient.sweep-fee-rate=10</a>
 
 # Watchtower server
 watchtower.active=true
@@ -356,11 +355,11 @@ stagger-initial-reconnect=true
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
-<a data-footnote-ref href="#user-content-fn-8">#db.bolt.auto-compact-min-age=0h</a>
+<a data-footnote-ref href="#user-content-fn-10">#db.bolt.auto-compact-min-age=0h</a>
 
 # Optional (uncomment the next 2 lines (default: CONSERVATIVE))
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-9">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-11">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
 bitcoin.active=true
@@ -503,7 +502,7 @@ These 24 words are all that you need to restore the Bitcoin on-chain wallet.
 
 * **Write these 24 words down manually on a piece of paper and store it in a safe place**
 
-You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
+You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
 
 {% hint style="danger" %}
 This piece of paper is all an attacker needs to completely empty your on-chain wallet! 🚫 Do not store it on a computer. 🚫 Do not take a picture with your mobile phone. 🚫 **This information should never be stored anywhere in digital form**
@@ -586,8 +585,7 @@ $ ls -la /home/admin
 
 <summary>Expected output ⬇️</summary>
 
-```
-total 96
+<pre><code>total 96
 drwxr-x--- 10 admin admin  4096 Jul 18 07:10 .
 drwxr-xr-x  8 root  root   4096 Jul 16 09:28 ..
 -rw-rw-r--  1 admin admin 13901 Jul 12 15:54 .bash_aliases
@@ -600,7 +598,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 .lnd -> /data/lnd
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-12">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -609,7 +607,7 @@ drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
 -rw-r--r--  1 admin admin     0 Jul 11 20:27 .sudo_as_admin_successful
 -rw-rw-r--  1 admin admin   293 Jul 15 20:53 .wget-hsts
 -rw-------  1 admin admin   228 Jul 18 07:04 .Xauthority
-```
+</code></pre>
 
 </details>
 
@@ -702,7 +700,6 @@ Expected output:
       "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
   ]
 }
-
 ```
 
 {% hint style="info" %}
@@ -712,6 +709,8 @@ This watchtower server service is not recommended to activate if you have a slow
 {% hint style="warning" %}
 Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line
 {% endhint %}
+
+## Extras
 
 ### Funding your Lightning node
 
@@ -877,18 +876,24 @@ $ sudo systemctl restart lnd
 
 [^1]: (**Example)**
 
-[^2]: (Customize)
+[^2]: Symbolic link
 
-[^3]: Uncomment in the step ["Encrypt TLS key"](lightning-client.md#encrypt-tls-key), not before
+[^3]: Symbolic link
 
-[^4]: (Uncomment and customize the value)
+[^4]: (Customize)
 
-[^5]: (Uncomment and customize the value)
+[^5]: Uncomment in the step ["Encrypt TLS key"](lightning-client.md#encrypt-tls-key), not before
 
 [^6]: (Uncomment and customize the value)
 
 [^7]: (Uncomment and customize the value)
 
-[^8]: (Uncomment and customize the value or keep commented to left default)
+[^8]: (Uncomment and customize the value)
 
 [^9]: (Uncomment and customize the value)
+
+[^10]: (Uncomment and customize the value or keep commented to left default)
+
+[^11]: (Uncomment and customize the value)
+
+[^12]: Symbolic link

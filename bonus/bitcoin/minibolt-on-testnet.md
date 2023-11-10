@@ -194,7 +194,7 @@ $ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
 ```
 
 {% hint style="info" %}
-When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet, same with LND mainnet peer suggested to open the channel and send a payment
+When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet, same with the LND mainnet peer suggested to open the channel and send a payment
 {% endhint %}
 
 **Interacting with the LND daemon**

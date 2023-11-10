@@ -134,7 +134,7 @@ CookieAuthFileGroupReadable 1
 * Reload the Tor configuration to activate the modifications
 
 ```sh
-$ sudo systemctl restart tor
+$ sudo systemctl reload tor
 ```
 
 * Ensure that the Tor service is working and listening at the default ports `9050` and `9051`
@@ -185,6 +185,18 @@ Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 100% (done): Done
 </details>
 
 Not all network traffic is routed over the Tor network. But we now have the base to configure sensitive applications to use it.
+
+{% hint style="info" %}
+**(Optional)** --> If you want, you can disable the autoboot option for Tor using "`$ sudo systemctl disable tor`" command
+
+**Expected output:**
+
+```
+Synchronizing state of tor.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable tor
+Removed /etc/systemd/system/multi-user.target.wants/tor.service.
+```
+{% endhint %}
 
 ## I2P Project
 
@@ -276,6 +288,18 @@ $ sudo tail -f /var/log/i2pd/i2pd.log
 
 </details>
 
+{% hint style="info" %}
+**(Optional)** --> If you want, you can disable the autoboot option for Tor using "`$ sudo systemctl disable i2pd`" command
+
+**Expected output:**
+
+```
+Synchronizing state of i2pd.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable i2pd
+Removed /etc/systemd/system/multi-user.target.wants/i2pd.service.
+```
+{% endhint %}
+
 ## Upgrade Tor and I2P
 
 The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or on the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
@@ -285,7 +309,7 @@ $ sudo apt update && sudo apt upgrade
 ```
 
 {% hint style="info" %}
-Note: in the I2P update process maybe appears you the next message if you modified the configuration file. Is recommended to select the `Y` option because the developer could have applied modifications in the config file and this could be useful for new features.
+Note: in the I2P update process maybe appears you the next message if you modified the configuration file. Is recommended to select the "`Y"` option because the developer could have applied modifications in the config file and this could be useful for new features.
 {% endhint %}
 
 ```
