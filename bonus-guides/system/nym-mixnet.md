@@ -559,7 +559,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 ### Proxying wallets
@@ -605,7 +605,7 @@ $ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localho
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 #### Sparrow desktop
@@ -631,7 +631,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 #### Sparrow server
@@ -671,7 +671,7 @@ You have Sparrow server configured to proxy public Electrum servers and third pa
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 #### Blockstream Green
@@ -702,7 +702,7 @@ Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bit
 <figure><img src="../../.gitbook/assets/bitbox-app-nym-proxy-check.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 #### Nunchuk desktop
@@ -722,10 +722,10 @@ Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"E
 </div>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
-#### NYM connect
+### NYM connect
 
 NymConnect is an easy-to-use interface that enables you to connect other applications to the NYM mixnet for enhanced privacy. This desktop application allows you to effortlessly run the NYM SOCKS5 client without the need for manual commands.
 
@@ -760,7 +760,7 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 #### Telegram Desktop
@@ -776,7 +776,7 @@ Save and close all banners to go back to the running app
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 #### Browser (Firefox-based browsers)
@@ -794,7 +794,7 @@ Press OK and start the navigation
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 ### NYM Android
@@ -836,7 +836,7 @@ Save, switch "Use proxy" again
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address instead of localhost (127.0.01), e.g. 192.168.1.94:1080 instead of 127.0.0.1:1080
+If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
 ### Other NYM tools

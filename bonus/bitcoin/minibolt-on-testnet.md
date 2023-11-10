@@ -59,6 +59,10 @@ testnet=1
 $ sudo chmod g+rx /data/bitcoin/testnet3
 ```
 
+{% hint style="warning" %}
+**Attention:** the step before is **important!** to allow LND to access to the `.cookie` file and startup without problems
+{% endhint %}
+
 {% hint style="success" %}
 The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../index-2/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
 {% endhint %}
