@@ -562,6 +562,22 @@ Expected output:
 If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
 {% endhint %}
 
+### NYM connect
+
+NymConnect is an easy-to-use interface that enables you to connect other applications to the NYM mixnet for enhanced privacy. This desktop application allows you to effortlessly run the NYM SOCKS5 client without the need for manual commands.
+
+Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).
+
+These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled.\
+\
+The previously configured Nym SOCKS5 client can run in the background as a daemon, commonly used in server operating systems without a desktop interface. Meanwhile, NYM Connect is typically utilized in desktop versions of operating systems.
+
+<figure><img src="../../.gitbook/assets/nym-connect.PNG" alt="" width="180"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+If you wish to choose your own gateway from the provided [list](https://explorer.nymtech.net/network-components/gateways) or configure your own service provider, you can do so by accessing the settings menu. Simply click on the **hamburger** icon located in the top-left corner --> **Settings --> Select your gateway** / **Select your service provider** using **\<requesteraddress>** before configured
+{% endhint %}
+
 ### Proxying wallets
 
 #### Electrum
@@ -586,7 +602,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure>
 
- 
+
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure>
 
@@ -715,7 +731,7 @@ Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"E
 
 <figure><img src="../../.gitbook/assets/nunckuk_nym_settings.PNG" alt=""><figcaption></figcaption></figure>
 
- 
+
 
 <figure><img src="../../.gitbook/assets/nunckuk_nym.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -723,22 +739,6 @@ Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"E
 
 {% hint style="info" %}
 If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
-{% endhint %}
-
-### NYM connect
-
-NymConnect is an easy-to-use interface that enables you to connect other applications to the NYM mixnet for enhanced privacy. This desktop application allows you to effortlessly run the NYM SOCKS5 client without the need for manual commands.
-
-Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).
-
-These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled.\
-\
-The previously configured Nym SOCKS5 client can run in the background as a daemon, commonly used in server operating systems without a desktop interface. Meanwhile, NYM Connect is typically utilized in desktop versions of operating systems.
-
-<figure><img src="../../.gitbook/assets/nym-connect.PNG" alt="" width="180"><figcaption></figcaption></figure>
-
-{% hint style="info" %}
-If you wish to choose your own gateway from the provided [list](https://explorer.nymtech.net/network-components/gateways) or configure your own service provider, you can do so by accessing the settings menu. Simply click on the **hamburger** icon located in the top-left corner --> **Settings --> Select your gateway** / **Select your service provider** using **\<requesteraddress>** before configured
 {% endhint %}
 
 ### Proxying other services
@@ -825,7 +825,7 @@ Save, switch "Use proxy" again
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure>
 
- 
+
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure>
 
