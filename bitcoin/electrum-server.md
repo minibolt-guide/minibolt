@@ -97,7 +97,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.5
+$ VERSION=1.9.6
 ```
 
 * Download the application, checksums, and signature
@@ -215,6 +215,14 @@ $ Fulcrum --version
 > compiled: gcc 8.4.0
 [...]
 ```
+
+* **(Optional)** Delete installation files of the `/tmp` folder
+
+{% code overflow="wrap" %}
+```bash
+$ sudo rm -r Fulcrum-$VERSION-x86_64-linux && sudo rm Fulcrum-$VERSION-x86_64-linux.tar.gz && sudo rm Fulcrum-$VERSION-sha256sums.txt && sudo rm Fulcrum-$VERSION-sha256sums.txt.asc
+```
+{% endcode %}
 
 {% hint style="info" %}
 If you come to update, this is the final step, go back to the [Upgrade section](electrum-server.md#for-the-future-fulcrum-upgrade) to continue
