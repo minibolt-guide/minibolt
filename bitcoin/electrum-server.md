@@ -432,11 +432,13 @@ Jul 28 12:20:21 minibolt Fulcrum[181811]: [2022-07-28 12:20:21.643] Checking tx 
 </details>
 
 {% hint style="info" %}
-> Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~3.5 - 4 days depending on the hardware. Only proceed with the [Desktop Wallet Section](desktop-wallet.md) once Fulcrum is ready
+> Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~1.5 - 4 days or more, depending on the hardware. Only proceed with the [Blockchain explorer: BTC RPC Explorer](blockchain-explorer.md) and [Desktop Wallet Section](desktop-wallet.md) once Fulcrum is ready.
 
-> Fulcrum will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
+> Fulcrum will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
+{% endhint %}
 
-> DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
+{% hint style="warning" %}
+DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
 {% endhint %}
 
 * When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed
@@ -455,28 +457,6 @@ Expected output:
 tcp   LISTEN 0      50        0.0.0.0:50001      0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=185))
 tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=204))
 tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=206))
-```
-
-## Disable fast-sync parameter after full index
-
-Once Fulcrum is fully indexed, we will disable the fast-sync parameter to avoid the error "`fast-sync: Specified value (4096000000 bytes) is too large to fit in available system memory (limit is: 3903692800 bytes)"` the next time we will start Fulcrum after the full index
-
-* With user admin, edit the `fulcrum.conf` file and comment the fast-sync line parameter
-
-```bash
-$ sudo nano /data/fulcrum/fulcrum.conf
-```
-
-```
-# Set fast-sync according to your device,
-# recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
-#fast-sync = 2048
-```
-
-* Restart Fulcrum to apply changes
-
-```bash
-$ sudo systemctl restart fulcrum
 ```
 
 ## Extras
@@ -512,7 +492,7 @@ $ sudo systemctl reload tor
 $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
 ```
 
-**Example** expected output:
+**Example** of expected output:
 
 ```
 > abcdefg..............xyz.onion
@@ -538,11 +518,11 @@ usage: FulcrumAdmin [-h] -p port [-j] [-H [host]]
 [...]
 ```
 
-*   Type the next command to get a complete server information
+* Type the next command to get complete server information
 
-    ```sh
-    $ FulcrumAdmin -p 8000 getinfo
-    ```
+```sh
+$ FulcrumAdmin -p 8000 getinfo
+```
 
 {% hint style="info" %}
 Get more information about this command in the official documentation [section](https://github.com/cculianu/Fulcrum#admin-script-fulcrumadmin)
@@ -629,10 +609,6 @@ Filename               Type            Size            Used            Priority
 /swap.img              file            4194300         0               -2
 /dev/zram0             partition       10055452        368896          15
 ```
-
-### Backup the database
-
-If the database gets corrupted and you don't have a backup, you will have to resync it from scratch, which takes several days. This is why we recommend making backups of the database once in a while, on an external drive. Like this, if something happens, you'll only have to resync since the date of your latest backup. Before doing the backup, remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
 ## Upgrade
 
