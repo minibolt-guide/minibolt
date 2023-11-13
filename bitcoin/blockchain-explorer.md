@@ -31,7 +31,39 @@ After the MiniBolt runs your own fully validated node, and even acts as a backen
 
 ### Install Node + NPM
 
-Node.js package includes NPM, follow the [Node + NPM bonus guide](../bonus/system/nodejs-npm.md)
+* With user admin, check if you have already installed Nodejs
+
+```bash
+$ node -v
+```
+
+**Example** of expected output:
+
+```
+> v18.16.0
+```
+
+* Check if you have already installed NPM
+
+```bash
+$ npm -v
+```
+
+**Example** of expected output:
+
+```
+> 9.5.1
+```
+
+{% hint style="info" %}
+If the version is v14.15 or above, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+{% endhint %}
+
+* Install the next dependency package. Press "**y**" and enter when the prompt asks you
+
+```bash
+$ sudo apt install build-essential
+```
 
 ### Reverse proxy & Firewall
 

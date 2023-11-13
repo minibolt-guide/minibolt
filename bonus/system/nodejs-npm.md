@@ -46,7 +46,7 @@ $ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gp
 * Set the environment variable of the version
 
 ```bash
-$ VERSION=18
+$ VERSION=20
 ```
 
 * Create deb repository
@@ -63,7 +63,7 @@ $ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.
 $ sudo apt update
 ```
 
-* Install Node.js using the apt package manager, press "**y**" and "enter" when needed
+* Install Node.js + NPM using the apt package manager, press "**y**" and "enter" when needed
 
 ```sh
 $ sudo apt install nodejs
@@ -120,7 +120,7 @@ $ node -v
 * If you have 16.x version, set the environment variable to the new number of versions, for example to 18.x
 
 ```bash
-$ VERSION=18
+$ VERSION=20
 ```
 
 * Update the current deb repository

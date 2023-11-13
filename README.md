@@ -18,6 +18,8 @@ No need to trust anyone else. Don't trust, verify!
 
 With this guide, you can set up a Bitcoin and Lightning node on a personal computer from scratch, doing everything yourself. You will learn about Linux, Bitcoin, and Lightning. As a result, you'll have your very own Bitcoin node, built by you and no one else.
 
+<figure><img src=".gitbook/assets/tgfoss-build-under-win.gif" alt=""><figcaption></figcaption></figure>
+
 There are many reasons why you should run your own Bitcoin node:
 
 * **Keep Bitcoin decentralized.** Use your node to help enforce your Bitcoin consensus rules.

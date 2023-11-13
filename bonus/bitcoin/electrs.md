@@ -56,7 +56,7 @@ $ sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev 
 $ cd /tmp
 ```
 
-* Clone the `rocksdb` GitHub repository
+* Clone the [`rocksdb`](https://github.com/facebook/rocksdb) GitHub repository
 
 ```bash
 $ git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb
