@@ -240,3 +240,9 @@ $ sudo nginx -t
 ```sh
 $ sudo systemctl reload nginx
 ```
+
+* You can see the Ngnix logs by entering this command
+
+```bash
+$ journalctl -f -u nginx
+```

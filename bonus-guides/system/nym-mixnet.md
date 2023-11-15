@@ -270,7 +270,7 @@ $ journalctl -f -u nym-network-requester
 
 ### Running network requester
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
 
 * Start the nym network requester service
 
@@ -454,7 +454,7 @@ $ journalctl -f -u nym-socks5-client
 
 ### Running socks5 client
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
 
 * Start the nym socks5 client service
 
@@ -528,7 +528,7 @@ $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
 ```
-# Proxy clearnet (ipv4) outbound connection using NYM SOCKS5 proxy
+# Connect to clearnet using NYM SOCKS5 proxy
 proxy=127.0.0.1:1080
 ```
 
@@ -559,7 +559,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 ### NYM connect
@@ -602,7 +602,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure>
 
@@ -621,7 +621,7 @@ $ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localho
 <figure><img src="../../.gitbook/assets/nym-one-server-proxy-nym.PNG" alt="" width="377"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 #### Sparrow desktop
@@ -647,7 +647,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 #### Sparrow server
@@ -687,7 +687,7 @@ You have Sparrow server configured to proxy public Electrum servers and third pa
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 #### Blockstream Green
@@ -718,7 +718,7 @@ Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bit
 <figure><img src="../../.gitbook/assets/bitbox-app-nym-proxy-check.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 #### Nunchuk desktop
@@ -731,14 +731,14 @@ Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"E
 
 <figure><img src="../../.gitbook/assets/nunckuk_nym_settings.PNG" alt=""><figcaption></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/nunckuk_nym.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 ### Proxying other services
@@ -760,7 +760,7 @@ Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and ch
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 #### Telegram Desktop
@@ -776,7 +776,7 @@ Save and close all banners to go back to the running app
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 #### Browser (Firefox-based browsers)
@@ -794,7 +794,7 @@ Press OK and start the navigation
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 ### NYM Android
@@ -825,7 +825,7 @@ Save, switch "Use proxy" again
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure>
 
-
+ 
 
 <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure>
 
@@ -836,7 +836,7 @@ Save, switch "Use proxy" again
 {% endhint %}
 
 {% hint style="info" %}
-If you have installed the NYM socks5 client in another machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. 192.168.1.94:1080
+If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
 ### Other NYM tools

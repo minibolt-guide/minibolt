@@ -288,7 +288,9 @@ $ lndconnect --host=10.0.0.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/
 
 ## Bonus section
 
-### [Electrs](electrs.md)
+### Bitcoin
+
+#### [Electrs](electrs.md)
 
 Follow the complete guide from the beginning, when you arrive at the ["Firewall & reverse proxy section"](electrs.md#firewall-and-reverse-proxy):
 
@@ -310,7 +312,7 @@ $ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
 $ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
 ```
 
-* Replace mainnet ports with the 60001/60001 testnet ports
+* Replace the mainnet ports `(50001/50002)` with the `60001/60001` testnet ports
 
 ```nginx
 upstream electrs {
@@ -340,15 +342,18 @@ $ sudo systemctl reload nginx
 $ nano /data/electrs/electrs.conf
 ```
 
-```
-network = "testnet"
-cookie_file = "/data/bitcoin/testnet3/.cookie"
-daemon_rpc_addr = "127.0.0.1:18332"
-daemon_p2p_addr = "127.0.0.1:18333"
-electrum_rpc_addr = "127.0.0.1:60001"
+<pre><code># MiniBolt: electrs testnet configuration
+# /data/electrs/electrs.conf
 
+# Bitcoin Core settings
+<strong>network = "testnet"
+</strong>cookie_file = "/data/bitcoin/testnet3/.cookie"
+skip_block_download_wait = true
+
+# Electrs settings
+electrum_rpc_addr = "0.0.0.0:60001"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node testnet!"
-```
+</code></pre>
 
 [Remote access over Tor](electrs.md#remote-access-over-tor-optional)
 
@@ -358,7 +363,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 $ sudo nano /etc/tor/torrc
 ```
 
-* Edit torrc and replace ports to 60001/60002 to match with testnet mode
+* Edit torrc and replace ports to `60001/60002` to match with testnet mode
 
 ```
 # Hidden Service Electrs Testnet TCP & SSL

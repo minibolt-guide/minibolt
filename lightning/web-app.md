@@ -373,7 +373,7 @@ healthCheckPingEnabled: true
 {% hint style="info" %}
 > Anyway is possible to enable this later using the ThunderHub interface that will be explained in the [Enable auto backups and healthcheck notifications](web-app.md#enable-auto-backups-and-healthcheck-notifications-to-the-amboss-account) extra section
 
-> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
+> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Amboss to send healthchecks pings
 {% endhint %}
 
 {% hint style="info" %}
@@ -430,7 +430,7 @@ $ journalctl -f -u thunderhub
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
 
 * Start the service
 
@@ -559,8 +559,19 @@ $ sudo ss -tulpn | grep LISTEN | grep node | grep 3000
 
 Expected output:
 
+<pre><code><strong>> tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd=25))
+</strong></code></pre>
+
+* And the HTTPS `4002` port
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep 4002
 ```
-tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd=25))
+
+Expected output:
+
+```
+> tcp   LISTEN 0      511          0.0.0.0:4002       0.0.0.0:*    users:(("nginx",pid=876,fd=8),("nginx",pid=875,fd=8),("nginx",pid=874,fd=8),("nginx",pid=873,fd=8),("nginx",pid=872,fd=8))
 ```
 
 {% hint style="success" %}
@@ -650,7 +661,7 @@ After possible data corruption of your LND node, ensure that this old node is co
 Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete, and Thunderhub installed and running, go to the Thunderhub dashboard.
 
 1. From the left sidebar, click on "**Tools"**, and go to the "Backups" section -> "**Recover Funds from Channels**" -> push the "**Recover**" button.
-2. In this box, enter the complete string text that contains your manually downloaded channels backup file in the step before, or use the string got using the content of the latest Amboss automatic backup (recommended) and push again the "**Recover**" button.
+2. In this box, enter the complete string text that contains your manually downloaded channels backup file in the step before, or use the string using the content of the latest Amboss automatic backup (recommended) and push again the "**Recover**" button.
 
 {% hint style="info" %}
 All of the channels that you had opened in your old node will be forced closed and they will appear in the "Pending" tab in the "Channels" section until closings are confirmed. Check logs of LND to see how the recovery process is executed and get more information about it

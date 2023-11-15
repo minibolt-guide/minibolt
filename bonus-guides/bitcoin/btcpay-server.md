@@ -94,7 +94,7 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 $ sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-<pre><code><strong># NBXplorer dependency
+<pre><code><strong># NBXplorer requeriment
 </strong><strong>whitelist=127.0.0.1
 </strong></code></pre>
 
@@ -794,8 +794,19 @@ $ sudo ss -tulpn | grep LISTEN | grep 23000
 Expected output:
 
 ```
-> tcp   LISTEN 0   512   127.0.0.1:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
+> tcp   LISTEN 0   512        127.0.0.1:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
 ```
+
+* And the `HTTP` Ngnix listening on the port `230001`
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep 23001
+```
+
+Expected output:
+
+<pre><code><strong>> tcp   LISTEN 0      511      0.0.0.0:23001      0.0.0.0:*    users:(("nginx",pid=876,fd=6),("nginx",pid=875,fd=6),("nginx",pid=874,fd=6),("nginx",pid=873,fd=6),("nginx",pid=872,fd=6))
+</strong></code></pre>
 
 Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:23001"` (or your node IP address) like `"https://192.168.0.20:23001"`.
 
@@ -851,22 +862,50 @@ $ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 
 ### Connect to your LND internal node
 
+#### Configure LND
+
+* Stay logged as `admin` user, and configure LND to allow LND REST from anywhere editing the `lnd.conf` file
+
+```bash
+$ sudo nano /data/lnd/lnd.conf
+```
+
+* Add the next line under the `[Application Options]` section. Save and exit
+
+```
+# Specify all ipv4 interfaces to listen on for REST connections
+restlisten=0.0.0.0:8080
+```
+
+* Restart LND to apply changes
+
+```bash
+$ sudo systemctl restart lnd
+```
+
+* Ensure the REST port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
+```
+
+Expected output:
+
+<pre><code><strong>> tcp   LISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+</strong></code></pre>
+
+#### Generate the `tls.cert` fingerprint of LND
+
 * With user `admin`, change to the `lnd` user
 
 ```bash
 $ sudo su - lnd
 ```
 
-* Go to the `lnd` folder
-
-```bash
-$ cd /data/lnd
-```
-
 * Get the LND's certificate fingerprint
 
 ```bash
-$ openssl x509 -noout -fingerprint -sha256 -inform pem -in tls.cert
+$ openssl x509 -noout -fingerprint -sha256 -inform pem -in /data/lnd/tls.cert
 ```
 
 **Example** of expected output:
@@ -903,7 +942,7 @@ $ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/btcpay/admin
 $ sudo chown btcpay:btcpay /home/btcpay/admin.macaroon
 ```
 
-* Stop BTCpay
+* Stop BTCPay Server before making changes
 
 ```bash
 $ sudo systemctl stop btcpay
@@ -915,22 +954,16 @@ $ sudo systemctl stop btcpay
 $ sudo su - btcpay
 ```
 
-* Go to the `.btcpayserver` folder
-
-```bash
-$ cd ~/.btcpayserver/Main
-```
-
 * Edit the `settings.config` file
 
 ```bash
-$ nano settings.config
+$ nano /.btcpayserver/Main/settings.config
 ```
 
 * Add the next content to the end of the file, replacing `<fingerprint>` with your own obtained earlier. Save and exit
 
 ```
-# Lightning
+# Lightning internal node connection
 BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/home/btcpay/admin.macaroon;certthumbprint=<fingerprint>
 ```
 
@@ -940,7 +973,7 @@ BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/hom
 $ exit
 ```
 
-* Start BTCpay again. Monitor logs with `$ sudo journalctl -f -u btcpay` to ensure that all is running well
+* Start BTCpay again. Monitor logs with `$ journalctl -f -u btcpay` to ensure that all is running well
 
 ```bash
 $ sudo systemctl start btcpay

@@ -44,6 +44,18 @@ restlisten=0.0.0.0:8080
 $ sudo systemctl restart lnd
 ```
 
+* Ensure the REST port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
+```
+
+Expected output:
+
+```
+> tcp   LISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+```
+
 ### Configure Firewall
 
 * Configure the Firewall to allow LND REST incoming requests
@@ -92,7 +104,7 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-
 ```
 {% endcode %}
 
-* Ensure lndconnect is correctly installed
+* Ensure `lndconnect` is correctly installed
 
 ```sh
 $ lndconnect -h

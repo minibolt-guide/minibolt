@@ -33,7 +33,7 @@ The following list of aliases was derived from contributions by [RobClark56](htt
 
 ## Configuration
 
-* With user `admin`, access to `home` folder and download the aliases list provided for a MiniBolt environment
+* With user `admin`, ensure you are on `home` folder and download the aliases list provided for a MiniBolt environment
 
 {% code overflow="wrap" %}
 ```bash
@@ -110,13 +110,13 @@ You can see if the aliases have a recent update by entering [here](https://githu
 
 ## Uninstall
 
-* To remove these special aliases, with the user `admin`, simply delete the `.bash_aliases` and execute a source command to register changes. The aliases will be gone with the next login
+* To remove these special aliases, with the user `admin`, simply deletes the `.bash_aliases` and executes a source command to register changes. The aliases will be gone with the next login
 
 ```sh
 $ rm ~/.bash_aliases
 ```
 
-* Execute a source command to register changes to the .bashrc file
+* Execute a source command to register changes to the `.bashrc` file
 
 ```sh
 $ source /home/admin/.bashrc

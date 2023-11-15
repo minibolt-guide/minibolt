@@ -82,6 +82,17 @@ zmqpubhashblock=tcp://127.0.0.1:8433
 $ sudo systemctl restart bitcoind
 ```
 
+* Check Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 8433
+```
+
+Expected output:
+
+<pre><code>> tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">8433</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=18))
+</code></pre>
+
 ## Installation
 
 ### Download and set up Fulcrum
@@ -171,7 +182,7 @@ $ sha256sum --check Fulcrum-$VERSION-sha256sums.txt
 Fulcrum-1.9.4-arm64-linux.tar.gz: FAILED open or read
 sha256sum: Fulcrum-1.9.4-x86_64-linux-ub16.tar.gz: No such file or directory
 Fulcrum-1.9.4-x86_64-linux-ub16.tar.gz: FAILED open or read
-<strong><a data-footnote-ref href="#user-content-fn-1">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
+<strong><a data-footnote-ref href="#user-content-fn-2">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
 </strong>sha256sum: Fulcrum-1.9.4-win64.zip: No such file or directory
 Fulcrum-1.9.4-win64.zip: FAILED open or read
 sha256sum: WARNING: 3 listed files could not be read
@@ -278,7 +289,7 @@ drwxr-xr-x 6 root    root    4096 Jul 15 07:56 ..
 -rw------- 1 fulcrum fulcrum   24 Jul 15 07:59 .bash_history
 -rw-r--r-- 1 fulcrum fulcrum  220 Jul 15 07:56 .bash_logout
 -rw-r--r-- 1 fulcrum fulcrum 3771 Jul 15 07:56 .bashrc
-lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-2">.fulcrum -> /data/fulcrum</a>
+lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-3">.fulcrum -> /data/fulcrum</a>
 -rw-r--r-- 1 fulcrum fulcrum  807 Jul 15 07:56 .profile
 </code></pre>
 
@@ -403,7 +414,9 @@ $ journalctl -f -u fulcrum
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+
+* Start the service
 
 ```sh
 $2 sudo systemctl start fulcrum
@@ -445,7 +458,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUP
 
 <figure><img src="../.gitbook/assets/fulcrum-index-finished.PNG" alt=""><figcaption></figcaption></figure>
 
-* Ensure the service is working and listening at the default `50002` & `50001` ports
+* Ensure the service is working and listening at the default `50002` & `50001` ports and the `8000` admin port
 
 ```sh
 $2 sudo ss -tulpn | grep LISTEN | grep Fulcrum
@@ -743,6 +756,8 @@ Filename            Type                Size           Used    Priority
 /var/swap           file                 102396         0       -2
 ```
 
-[^1]: That's it!
+[^1]: zmqpubhashblock port
 
-[^2]: Symbolic link
+[^2]: That's it!
+
+[^3]: Symbolic link

@@ -310,7 +310,7 @@ $ journalctl -f -u btcrpcexplorer
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
 
 * Start the service
 
@@ -385,8 +385,17 @@ $ sudo ss -tulpn | grep LISTEN | grep node | grep 3002
 
 Expected output:
 
+<pre><code><strong>> tcp   LISTEN 0   511   127.0.0.1:3002   0.0.0.0:*   users:(("node",pid=140461,fd=20))
+</strong></code></pre>
+
+* And the HTTPS `4000` port
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep node | grep 4000
 ```
-tcp   LISTEN 0   511   127.0.0.1:3002   0.0.0.0:*   users:(("node",pid=140461,fd=20))
+
+```
+> tcp   LISTEN 0      511          0.0.0.0:4000       0.0.0.0:*    users:(("nginx",pid=876,fd=7),("nginx",pid=875,fd=7),("nginx",pid=874,fd=7),("nginx",pid=873,fd=7),("nginx",pid=872,fd=7))
 ```
 
 {% hint style="success" %}

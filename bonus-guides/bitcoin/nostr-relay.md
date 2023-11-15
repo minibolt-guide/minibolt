@@ -379,7 +379,7 @@ Jul 31 19:11:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:11:59.275842Z  INF
 
 </details>
 
-* Ensure the service is working and listening at the default **8880** port
+* Ensure the service is working and listening at the default `8880` port
 
 ```bash
 $ sudo ss -tulpn | grep LISTEN | grep nostr-rs-relay

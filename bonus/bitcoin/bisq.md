@@ -36,28 +36,28 @@ Difficulty: Easy
 
 The guide will show you how to:
 
-1. Configure BTC Core allowing Bisq to run its SPV wallet and whitelisting the P2P connection
+1. Configure BTC Core allowing Bisq to run its SPV wallet
 2. Install Bisq on your personal computer
 3. Connect Bisq to your Bitcoin Core own node in your local network or via remote Tor and depending on your OS personal computer
 4. Securely set up Bisq
 
-## Installation
+## Preparations
 
-* [Download ](https://bisq.network/downloads/)Bisq on your personal computer using the appropriate binary for your OS
-* Verify the downloaded binary following [Bisq guidelines](https://bisq.wiki/Downloading\_and\_installing)
-* Once you've verified the integrity of the downloaded Bisq binary, install it on your personal computer but do NOT launch Bisq yet!
+### Configure Bitcoin Core
 
-### Configure Firewall
+* To connect Bisq from your personal computer in your local network, with the user `admin`, comment, or delete the `bind=127.0.0.1` line of the `bitcoin.conf` file. Save and exit
 
-* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
+```bash
+$ sudo nano /data/bitcoin/bitcoin.conf
+```
 
-```sh
-$ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
+```
+#bind=127.0.0.1
 ```
 
 ### Obtain your Bitcoin Core `onion` address
 
-Still with user admin, run the following command and make a copy of the .onion address and port (e.g. here, `123...abc.onion:8333`)
+* With the `admin` or `bitcoin` user, run the following command and make a copy of the .onion address and port (e.g. here, `123...abc.onion:8333`)
 
 ```sh
 $ bitcoin-cli getnetworkinfo | grep address.*onion
@@ -68,6 +68,20 @@ $ bitcoin-cli getnetworkinfo | grep address.*onion
 ```
 > "address": "123...abc.onion:8333"
 ```
+
+### Configure Firewall
+
+* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
+
+```sh
+$ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
+```
+
+## Installation
+
+* [Download ](https://bisq.network/downloads/)Bisq on your personal computer using the appropriate binary for your OS
+* Verify the downloaded binary following [Bisq guidelines](https://bisq.wiki/Downloading\_and\_installing)
+* Once you've verified the integrity of the downloaded Bisq binary, install it on your personal computer but do NOT launch Bisq yet!
 
 ## Connect Bisq to your own node
 

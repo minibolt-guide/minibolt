@@ -87,7 +87,7 @@ Current installation options:
 </details>
 
 {% hint style="info" %}
-When the prompt asks you to choose an option, type "`1`" and press enter to "Proceed with installation"
+When the prompt asks you to choose an option, type **"`1`"** and press **enter** to "Proceed with installation"
 {% endhint %}
 
 <details>

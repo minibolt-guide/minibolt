@@ -114,7 +114,7 @@ Please note that the before version number might change in your case, this is ju
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network. We need to enable Tor to accept instructions through its control port, with the proper authentication.
 
-* Modify the Tor configuration by uncommenting (removing the `#`) or adding the following lines. Save and exit
+* Modify the Tor configuration by uncommenting (removing the `#`) the following lines. Save and exit
 
 ```sh
 $ sudo nano /etc/tor/torrc --linenumbers
@@ -126,10 +126,12 @@ ControlPort 9051
 
 # uncomment line 60
 CookieAuthentication 1
-
-# add under line 60:
-CookieAuthFileGroupReadable 1
 ```
+
+* Add under line 60 (line 61) the next line
+
+<pre><code><strong>CookieAuthFileGroupReadable 1
+</strong></code></pre>
 
 * Reload the Tor configuration to activate the modifications
 
@@ -180,6 +182,14 @@ Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 89% (ap_handshake): Finishing h
 Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 90% (ap_handshake_done): Handshake finished with a relay to build circuits
 Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 95% (circuit_create): Establishing a Tor circuit
 Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 100% (done): Done
+Nov 13 23:19:20 minibolt systemd[1]: Reloading tor@default.service - Anonymizing overlay network for TCP...
+Nov 13 23:19:20 minibolt Tor[27155]: Received reload signal (hup). Reloading config and resetting internal state.
+Nov 13 23:19:20 minibolt Tor[27155]: Read configuration file "/usr/share/tor/tor-service-defaults-torrc".
+Nov 13 23:19:20 minibolt Tor[27155]: Read configuration file "/etc/tor/torrc".
+Nov 13 23:19:20 minibolt Tor[27155]: Opening Control listener on 127.0.0.1:9051
+Nov 13 23:19:20 minibolt Tor[27155]: Opened Control listener connection (ready) on 127.0.0.1:9051
+Nov 13 23:19:20 minibolt systemd[1]: Reloaded tor@default.service - Anonymizing overlay network for TCP.
+
 ```
 
 </details>
@@ -187,7 +197,10 @@ Dec 11 10:47:37 minibolt Tor[1065]: Bootstrapped 100% (done): Done
 Not all network traffic is routed over the Tor network. But we now have the base to configure sensitive applications to use it.
 
 {% hint style="info" %}
-**(Optional)** --> If you want, you can disable the autoboot option for Tor using "`$ sudo systemctl disable tor`" command
+**(Optional)** --> If you want, you can disable the autoboot option for Tor using:
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ sudo systemctl disable tor
+</strong></code></pre>
 
 **Expected output:**
 
@@ -220,17 +233,26 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 $ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
 ```
 
-* Install i2pd as any other software package
+Expected output:
+
+```
+Importing signing key
+Adding APT repository
+```
+
+* Update apt repository
 
 ```sh
 $ sudo apt update
 ```
 
+* Install i2pd as any other software package. Press "y" and "enter"
+
 ```sh
 $ sudo apt install i2pd
 ```
 
-* Check i2pd has been correctly installed
+* Check that i2pd has been correctly installed
 
 ```sh
 $ i2pd --version
@@ -289,7 +311,11 @@ $ sudo tail -f /var/log/i2pd/i2pd.log
 </details>
 
 {% hint style="info" %}
-**(Optional)** --> If you want, you can disable the autoboot option for Tor using "`$ sudo systemctl disable i2pd`" command
+**(Optional)** --> If you want, you can disable the autoboot option for Tor using
+
+```bash
+$ sudo systemctl disable i2pd
+```
 
 **Expected output:**
 

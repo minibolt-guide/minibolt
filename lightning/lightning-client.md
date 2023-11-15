@@ -33,12 +33,13 @@ The installation of LND is straightforward, but the application is quite powerfu
 
 Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
-* Login as user `admin`, edit the `bitcoin.conf` file, and add the following lines. Save and exit
-* Restart Bitcoin Core to apply changes
+* Login as user `admin`, edit the `bitcoin.conf` file
 
 ```sh
 $ sudo nano /data/bitcoin/bitcoin.conf
 ```
+
+* Add the following lines. Save and exit
 
 ```
 # LND RPC connection
@@ -50,6 +51,19 @@ zmqpubrawtx=tcp://127.0.0.1:28333
 
 ```sh
 $ sudo systemctl restart bitcoind
+```
+
+* Check Bitcoin Core is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 2833
+```
+
+Expected output:
+
+```
+> tcp   LISTEN 0      100        127.0.0.1:28332      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=20))
+> tcp   LISTEN 0      100        127.0.0.1:28333      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=22))
 ```
 
 ## Installation
@@ -171,7 +185,7 @@ $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roa
 </code></pre>
 
 {% hint style="info" %}
-Check that the date of the timestamp is close to the [release date](https://github.com/lightningnetwork/lnd/releases) of the LND binary.
+Check that the date of the timestamp is close to the [release date](https://github.com/lightningnetwork/lnd/releases) of the LND binary
 {% endhint %}
 
 * Having verified the integrity and authenticity of the release binary, we can safely
@@ -434,9 +448,9 @@ $ journalctl -f -u lnd
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
 
-* Start LND
+* Start the service
 
 ```sh
 $2 sudo systemctl start lnd
@@ -548,6 +562,20 @@ tlsencryptkey=true
 $ sudo systemctl start lnd
 ```
 
+* Check LND is running and related ports listening
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep lnd
+```
+
+Expected output:
+
+<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-12">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
+> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-13">127.0.0.1:8080</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-14">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
+> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-15">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
+</code></pre>
+
 ### Allow user "admin" to work with LND
 
 We interact with LND using the application `lncli`. At the moment, only the user "lnd" has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
@@ -598,7 +626,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-12">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-16">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -769,9 +797,9 @@ $ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a21
 ```
 {% endcode %}
 
-*   **Open a channel** using the `<pubkey>` only (_i.e._, the part of the URI before the `@`) and the channel capacity in satoshis.
+* **Open a channel** using the `<pubkey>` only (_i.e._, the part of the URI before the `@`) and the channel capacity in satoshis.
 
-    The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/))
+The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/))
 
 {% code overflow="wrap" %}
 ```bash
@@ -896,4 +924,12 @@ $ sudo systemctl restart lnd
 
 [^11]: (Uncomment and customize the value)
 
-[^12]: Symbolic link
+[^12]: LND P2P host:port
+
+[^13]: REST host:port
+
+[^14]: gRPC host:port
+
+[^15]: Watchtower server host:port
+
+[^16]: Symbolic link

@@ -29,7 +29,7 @@ The SCB contains all the necessary channel information used for the recovery pro
 
 This SCB-based recovery method has several consequences worth bearing in mind:
 
-* This method relies on the goodwill of the peer: a malicious peer could refuse to force-close the channel, and the funds would remain locked up.
+* This method relies on the goodwill of the peer: a malicious peer could refuse to force close the channel, and the funds would remain locked up.
 * Recovery only works with online peers: LND cannot send a request to force-close the channel if a peer is offline. Therefore, the funds in that channel will remain locked up until this peer comes back online, or possibly forever if that peer doesn't come back.
 * The backup needs to be up-to-date: Since LND needs to know about your peers and channels, the SCB needs to be updated every time you open a new channel.
 
@@ -38,7 +38,7 @@ You need to set up an automated SCB update mechanism that:
 1. Creates or updates your SCB file each time you open a channel (or close one, although this is less important).
 2. Stores the SCB file in a different backup location to ensure that it is available in case of a failing SSD.
 
-You can read more about SCBs in [this section of 'Mastering the Lighning Network'](https://github.com/lnbook/lnbook/blob/ec806916edd6f4d1b2f9da2fef08684f80acb671/05\_node\_operations.asciidoc#node-and-channel-backups).
+You can read more about SCBs in [this section of Mastering the Lightning Network](https://github.com/lnbook/lnbook/blob/ec806916edd6f4d1b2f9da2fef08684f80acb671/05\_node\_operations.asciidoc#node-and-channel-backups)
 
 ## Choose your preferred backup method(s)
 
@@ -400,7 +400,7 @@ $ journalctl -f -u scb-backup
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
 
 * Start the service
 

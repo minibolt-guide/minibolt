@@ -66,18 +66,18 @@ $ source /home/admin/.bashrc
 
 ### Bash completion
 
-* As user `admin`, install bash completion scripts for Bitcoin Core and all Lightning projects. You then can complete partial commands by pressing the Tab key (e.g. bitcoin-cli getblockch \[Tab] → bitcoin-cli getblockchaininfo )
+* As user `admin`, install bash completion scripts for Bitcoin Core and LND. You then can complete partial commands by pressing the Tab key (e.g. bitcoin-cli getblockch \[Tab] → bitcoin-cli getblockchaininfo)
 
 ```bash
 $ cd /tmp/
 ```
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoind.bash-completion
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoind.bash
 </strong></code></pre>
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoin-cli.bash-completion
+$ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoin-cli.bash
 ```
 {% endcode %}
 
@@ -87,9 +87,11 @@ $ wget https://raw.githubusercontent.com/lightningnetwork/lnd/master/contrib/lnc
 ```
 {% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
-$ sudo cp *.bash-completion /etc/bash_completion.d/
+$ sudo mv bitcoind.bash bitcoin-cli.bash lncli.bash-completion /etc/bash_completion.d/
 ```
+{% endcode %}
 
 {% hint style="info" %}
 Bash completion will be enabled after your next login

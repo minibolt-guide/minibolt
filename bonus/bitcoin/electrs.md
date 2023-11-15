@@ -32,7 +32,7 @@ Difficulty: Medium
 
 Make sure that you have [reduced the database cache of Bitcoin Core](../../index-2/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
 
-Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Fulcrum by doing `"sudo systemctl stop fulcrum"`.
+Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop or [uninstall](../../bitcoin/electrum-server.md#uninstall) Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
 ### Install dependencies
 
@@ -68,7 +68,7 @@ $ git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb
 $ cd rocksdb
 ```
 
-* Compile it. This could take a time depending of your system performance, be patient
+* Compile it. This could take time depending on your system performance, be patient
 
 ```bash
 $ make shared_lib -j $(nproc)
@@ -98,6 +98,7 @@ $DEBUG_LEVEL is 0
   CC       db/blob/blob_file_builder.o
   CC       db/blob/blob_file_cache.o
   CC       db/blob/blob_file_garbage.o
+  [...]
 ```
 
 </details>
@@ -294,16 +295,15 @@ $ git verify-tag v$VERSION
 
 Expected output:
 
-```
-> gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
+<pre><code>> gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
 > gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
 > gpg:                issuer "me@romanzey.de"
-> gpg: Good signature from "Roman Zeyde <me@romanzey.de>" [unknown]
-> gpg:                 aka "Roman Zeyde <roman.zeyde@gmail.com>" [unknown]
+> gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Roman Zeyde &#x3C;me@romanzey.de>" [unknown]
+> gpg:                 aka "Roman Zeyde &#x3C;roman.zeyde@gmail.com>" [unknown]
 > gpg: WARNING: This key is not certified with a trusted signature!
 > gpg:          There is no indication that the signature belongs to the owner.
 > Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
-```
+</code></pre>
 
 * Now compile the source code into an executable binary
 
@@ -429,13 +429,12 @@ $ nano /data/electrs/electrs.conf
 # Bitcoin Core settings
 network = "bitcoin"
 cookie_file= "/data/bitcoin/.cookie"
-daemon_rpc_addr = "127.0.0.1:8332"
-daemon_p2p_addr = "127.0.0.1:8333"
 
 # Electrs settings
 electrum_rpc_addr = "0.0.0.0:50001"
 db_dir = "/data/electrs/db"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
+skip_block_download_wait = true
 
 # Logging
 log_filters = "INFO"
@@ -449,8 +448,6 @@ $ exit
 ```
 
 ### Create systemd service
-
-Electrs need to start automatically on system boot.
 
 * As user `admin`, create the Electrs systemd unit, and copy/paste the following configuration. Save and exit
 
@@ -499,9 +496,9 @@ $ journalctl -f -u electrs
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
 
-* Start the service. It will immediately start with the initial indexing of the Bitcoin blocks
+* Start the service
 
 ```sh
 $2 sudo systemctl start electrs
@@ -513,7 +510,7 @@ $2 sudo systemctl start electrs
 
 <summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u electrs</code> ⬇️</summary>
 
-<pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-1">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+<pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-2">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
 [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
 [2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50001
 [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
@@ -544,7 +541,7 @@ $2 sudo systemctl start electrs
 Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
 {% endhint %}
 
-* Ensure electrs service is working and listening at the default TCP `50001` port
+* Ensure electrs service is working and listening at the default TCP `50001` port and the monitoring `14224` port (not used on MiniBolt)
 
 ```sh
 $2 sudo ss -tulpn | grep LISTEN | grep electrs
@@ -553,10 +550,11 @@ $2 sudo ss -tulpn | grep LISTEN | grep electrs
 Expected output:
 
 ```bash
-> tcp   LISTEN 0   128   0.0.0.0:50001   0.0.0.0:*    users:(("electrs",pid=158391,fd=4))
+tcp   LISTEN 0      128          0.0.0.0:50001      0.0.0.0:*    users:(("electrs",pid=54749,fd=4))
+tcp   LISTEN 0      128        127.0.0.1:14224      0.0.0.0:*    users:(("electrs",pid=54749,fd=3))
 ```
 
-* And the reverse proxy `50002` port
+* And the SSL `50002` port
 
 ```bash
 $2 sudo ss -tulpn | grep LISTEN | grep 50002
@@ -724,12 +722,14 @@ $ sudo rm -rf /data/electrs/
 $ sudo nano /etc/tor/torrc
 ```
 
-<pre><code># Hidden Service BTC RPC Explorer
-<strong>#HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
-</strong>#HiddenServiceVersion 3
+```
+# Hidden Service Electrs TCP & SSL
+#HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
+#HiddenServiceVersion 3
 #HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 80 127.0.0.1:3002
-</code></pre>
+#HiddenServicePort 50001 127.0.0.1:50001
+#HiddenServicePort 50002 127.0.0.1:50002
+```
 
 * Reload the Tor configuration
 
@@ -737,4 +737,6 @@ $ sudo nano /etc/tor/torrc
 $ sudo systemctl reload tor
 ```
 
-[^1]: Current version installed
+[^1]: Check this
+
+[^2]: Current version installed
