@@ -28,6 +28,11 @@ Difficulty: Medium
 
 ![](../../images/sparrow-server-logo.png)
 
+## Requirements
+
+* [Bitcoin Core](../../index-2/bitcoin-client.md)
+* Electrum server: [Fulcrum](../../bitcoin/electrum-server.md) or [Electrs](electrs.md)&#x20;
+
 ## Installation
 
 #### Download Sparrow Server

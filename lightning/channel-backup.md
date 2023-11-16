@@ -55,6 +55,11 @@ We recommend using both methods, but you can choose either one of them, dependin
 2. Follow the optional local or/and remote backup sections.
 3. Finally, follow the "Run SCB-Backup" section that works for whatever method you've chosen.
 
+## Requirements
+
+* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [LND](lightning-client.md)
+
 ## Preparations
 
 We prepare a shell script that automatically updates the LND SCB file on a change in your backup location(s).

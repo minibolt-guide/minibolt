@@ -21,11 +21,15 @@ Run your own private blockchain explorer with [BTC RPC Explorer](https://github.
 
 ![](../images/btcrpcexplorer-homepage.png)
 
+## Requirements
+
+* [Bitcoin Core](../index-2/bitcoin-client.md)
+
 ## Introduction
 
-After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with Fulcrum, the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
+After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with [Fulcrum](electrum-server.md), the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
 
-[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy to use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying Bitcoin Core and Fulcrum via RPC.
+[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy to use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying [Bitcoin Core](../index-2/bitcoin-client.md) and [Fulcrum](electrum-server.md) via RPC.
 
 ## Preparations
 
@@ -56,10 +60,10 @@ $ npm -v
 ```
 
 {% hint style="info" %}
-If the version is v14.15 or above, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+If the version is `v14.15` or above, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
-* Install the next dependency package. Press "**y**" and enter when the prompt asks you
+* Install the next dependency package. Press "**y**" and `enter` when the prompt asks you
 
 ```bash
 $ sudo apt install build-essential

@@ -21,6 +21,11 @@ We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connect
 
 ![](../images/zeus.png)
 
+## Requirements
+
+* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [LND](lightning-client.md)
+
 ## Preparations
 
 ### Configure LND
@@ -44,7 +49,7 @@ restlisten=0.0.0.0:8080
 $ sudo systemctl restart lnd
 ```
 
-* Ensure the REST port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
+* Ensure the gRPC proxy port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
 
 ```bash
 $ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080

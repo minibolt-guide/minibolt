@@ -133,9 +133,9 @@ In this way, you can detect a possible brute-force attack and take appropriate m
 Do this regularly to get security-related incidents
 {% endhint %}
 
-## Prepare NGINX reverse proxy
+## Install NGINX
 
-Several components of this guide will expose a communication port, for example, the Electrum server, the Block Explorer, or the "Ride The Lightning" web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
+Several components of this guide will expose a communication port, for example, the Block Explorer, or the ThunderHub web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
 We use NGINX to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": NGINX provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 
@@ -143,6 +143,18 @@ We use NGINX to encrypt the communication with SSL/TLS (Transport Layer Security
 
 ```sh
 $ sudo apt install nginx
+```
+
+* Check the correct installation
+
+```bash
+$ nginx -v
+```
+
+**Example** of expected output:
+
+```
+> nginx version: nginx/1.24.0
 ```
 
 * Create a self-signed SSL/TLS certificate (valid for 10 years)
@@ -241,8 +253,14 @@ $ sudo nginx -t
 $ sudo systemctl reload nginx
 ```
 
-* You can see the Ngnix logs by entering this command
+* You can monitor the Nginx logs by entering this command
 
 ```bash
 $ journalctl -f -u nginx
 ```
+
+Expected output:
+
+<pre><code><strong>> Nov 16 16:56:56 minibolt systemd[1]: Starting A high performance web server and a reverse proxy server...
+</strong>> Nov 16 16:56:56 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
+</code></pre>

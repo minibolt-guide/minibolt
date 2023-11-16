@@ -21,6 +21,11 @@ layout:
 
 ![](../images/thunderhub.png)
 
+## Requirements
+
+* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [LND](lightning-client.md)
+
 ## Preparations
 
 ### Check Node + NPM
@@ -95,7 +100,7 @@ $ sudo nginx -t
 
 * Reload NGINX configuration
 
-```
+```bash
 $ sudo systemctl reload nginx
 ```
 
@@ -356,7 +361,7 @@ accounts:
 Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
 {% endhint %}
 
-* (Optional) You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (without indentation)
+* **(Optional)** You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (without indentation)
 
 Enable auto-backups:
 
@@ -559,7 +564,7 @@ $ sudo ss -tulpn | grep LISTEN | grep node | grep 3000
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0      511        *:3000        *:*    users:(("node",pid=144520,fd=25))
+<pre><code><strong>> tcp   LISTEN 0      511        *:3000      *:*    users:(("node",pid=144520,fd=25))
 </strong></code></pre>
 
 * And the HTTPS `4002` port
@@ -571,7 +576,7 @@ $ sudo ss -tulpn | grep LISTEN | grep 4002
 Expected output:
 
 ```
-> tcp   LISTEN 0      511          0.0.0.0:4002       0.0.0.0:*    users:(("nginx",pid=876,fd=8),("nginx",pid=875,fd=8),("nginx",pid=874,fd=8),("nginx",pid=873,fd=8),("nginx",pid=872,fd=8))
+> tcp   LISTEN 0      511      0.0.0.0:4002       0.0.0.0:*    users:(("nginx",pid=876,fd=8),("nginx",pid=875,fd=8),("nginx",pid=874,fd=8),("nginx",pid=873,fd=8),("nginx",pid=872,fd=8))
 ```
 
 {% hint style="success" %}

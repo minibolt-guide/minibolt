@@ -41,7 +41,7 @@ You can obtain more info about nostr on these additional resources:
 * [gzuuus slideshow](https://www.canva.com/design/DAFcs32eM7k/1twoK\_IqInXQm5txlZBLCg/view)
 * [nostr.com](https://nostr.com/)
 
-## Requisites
+## Requirements
 
 * [Cloudflare tunnel](../system/cloudflare-tunnel.md)
 

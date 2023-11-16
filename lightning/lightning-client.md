@@ -25,6 +25,10 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 </div>
 
+## Requirements
+
+* [Bitcoin Core](../index-2/bitcoin-client.md)
+
 ## Preparations
 
 The installation of LND is straightforward, but the application is quite powerful and capable of things not explained here. Check out their [GitHub repository](https://github.com/lightningnetwork/lnd/) for a wealth of information about their open-source project and Lightning in general.
@@ -61,18 +65,17 @@ $ sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 2833
 
 Expected output:
 
-```
-> tcp   LISTEN 0      100        127.0.0.1:28332      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=20))
-> tcp   LISTEN 0      100        127.0.0.1:28333      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=22))
-```
+<pre><code>> tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">28332</a>      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=20))
+> tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-2">28333</a>      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=22))
+</code></pre>
 
 ## Installation
 
 ### Download binaries
 
-We'll download, verify and install LND.
+We'll download, verify, and install LND.
 
-* Navigate to the temporary directory which is cleared on reboot
+* Navigate to the temporary directory
 
 ```sh
 $ cd /tmp
@@ -81,7 +84,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.17.0
+$ VERSION=0.17.1
 ```
 
 * Download the application, checksums, and signature
@@ -128,7 +131,7 @@ $ sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
 
 Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
 
-* Get the public key from the LND developer, [Olaoluwa Osuntokun](https://keybase.io/roasbeef), who signed the manifest file; and add it to your GPG keyring
+* Get the public key from a LND developer, who signed the manifest file; and add it to your GPG keyring
 
 {% code overflow="wrap" %}
 ```bash
@@ -136,15 +139,15 @@ $ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/key
 ```
 {% endcode %}
 
-**Example** of expected output:
+Expected output:
 
-{% code fullWidth="false" %}
-```
-> [...]
-> gpg: key 372CBD7633C61696: public key "Olaoluwa Osuntokun <laolu32@gmail.com>" imported
-> [...]
-```
-{% endcode %}
+<pre data-full-width="false"><code><strong>>   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+</strong>>                                  Dload  Upload   Total   Spent    Left  Speed
+> 100  6900  100  6900    0     0  19676      0 --:--:-- --:--:-- --:--:-- 19714
+> gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" <a data-footnote-ref href="#user-content-fn-3">imported</a>
+> gpg: Total number processed: 1
+> gpg:              unchanged: 1
+</code></pre>
 
 * Verify the signature of the text file containing the checksums for the application
 
@@ -154,14 +157,14 @@ $ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 
 Expected output:
 
-```
-[...]
-> gpg: Signature made Thu Dec  1 19:20:10 2022 UTC
+<pre><code>> gpg: Signature made Mon 13 Nov 2023 11:45:38 PM UTC
 > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
-> gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
+> gpg: <a data-footnote-ref href="#user-content-fn-4">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
 > gpg: WARNING: This key is not certified with a trusted signature!
-[...]
-```
+> gpg:          There is no indication that the signature belongs to the owner.
+> Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
+>      Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
+</code></pre>
 
 ### Timestamp check
 
@@ -181,7 +184,7 @@ $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roa
 > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
 > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
 > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-> Success! Bitcoin block <a data-footnote-ref href="#user-content-fn-1">765521 attests existence as of 2022-12-01 UTC</a>
+> <a data-footnote-ref href="#user-content-fn-5">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-6">765521 attests existence as of 2022-12-01 UTC</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -192,6 +195,14 @@ Check that the date of the timestamp is close to the [release date](https://gith
 
 ```sh
 $ tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
+```
+
+**Example** of expected output:
+
+```
+> lnd-linux-amd64-v0.17.1-beta/lnd
+> lnd-linux-amd64-v0.17.1-beta/lncli
+> lnd-linux-amd64-v0.17.1-beta/
 ```
 
 * Proceed to install it
@@ -211,6 +222,14 @@ $ lnd --version
 ```
 > lnd version 0.16.3-beta commit=v0.16.3-beta
 ```
+
+* Clean the LND files of the `tmp` folder
+
+{% code overflow="wrap" %}
+```bash
+$ sudo rm -r lnd-linux-amd64-v$VERSION-beta && sudo rm lnd-linux-amd64-v$VERSION-beta.tar.gz && sudo rm manifest-roasbeef-v$VERSION-beta.sig && sudo rm manifest-roasbeef-v$VERSION-beta.sig.ots && sudo rm manifest-v$VERSION-beta.txt
+```
+{% endcode %}
 
 {% hint style="info" %}
 If you come to update this is the final step
@@ -275,8 +294,8 @@ drwxr-x--- 2 lnd  lnd  4096 Jul 15 20:57 .
 drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
 -rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
 -rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
-lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-2">.bitcoin -> /data/bitcoin</a>
-lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-3">.lnd -> /data/lnd</a>
+lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-7">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-8">.lnd -> /data/lnd</a>
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
 </code></pre>
 
@@ -311,7 +330,7 @@ $ nano /data/lnd/lnd.conf
 
 [Application Options]
 # Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-alias=<a data-footnote-ref href="#user-content-fn-4">&#x3C;YOUR_FANCY_ALIAS></a>
+alias=<a data-footnote-ref href="#user-content-fn-9">&#x3C;YOUR_FANCY_ALIAS></a>
 # You can choose the color you want at https://www.color-hex.com/
 color=#ff9900
 
@@ -320,7 +339,7 @@ wallet-unlock-password-file=/data/lnd/password.txt
 wallet-unlock-allow-create=true
 
 # The TLS private key will be encrypted to the node's seed
-<a data-footnote-ref href="#user-content-fn-5">#tlsencryptkey=true</a>
+<a data-footnote-ref href="#user-content-fn-10">#tlsencryptkey=true</a>
 
 # Automatically regenerate certificate when near expiration
 tlsautorefresh=true
@@ -332,11 +351,11 @@ tlsdisableautofill=true
 # Fee settings - default LND base fee = 1000 (mSat),
 # default LND fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
-<a data-footnote-ref href="#user-content-fn-6">#bitcoin.basefee=0</a>
-<a data-footnote-ref href="#user-content-fn-7">#bitcoin.feerate=0</a>
+<a data-footnote-ref href="#user-content-fn-11">#bitcoin.basefee=0</a>
+<a data-footnote-ref href="#user-content-fn-12">#bitcoin.feerate=0</a>
 
 # Minimum channel size (default: 20000 sats). You can choose whatever you want
-<a data-footnote-ref href="#user-content-fn-8">#minchansize=20000</a>
+<a data-footnote-ref href="#user-content-fn-13">#minchansize=20000</a>
 
 maxpendingchannels=5
 accept-keysend=true
@@ -352,7 +371,7 @@ wtclient.active=true
 
 # Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-9">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-14">#wtclient.sweep-fee-rate=10</a>
 
 # Watchtower server
 watchtower.active=true
@@ -369,11 +388,11 @@ stagger-initial-reconnect=true
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
-<a data-footnote-ref href="#user-content-fn-10">#db.bolt.auto-compact-min-age=0h</a>
+<a data-footnote-ref href="#user-content-fn-15">#db.bolt.auto-compact-min-age=0h</a>
 
 # Optional (uncomment the next 2 lines (default: CONSERVATIVE))
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-11">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-16">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
 bitcoin.active=true
@@ -522,7 +541,7 @@ You can use a simple piece of paper, write them on the custom themed [Shiftcrypt
 This piece of paper is all an attacker needs to completely empty your on-chain wallet! 🚫 Do not store it on a computer. 🚫 Do not take a picture with your mobile phone. 🚫 **This information should never be stored anywhere in digital form**
 {% endhint %}
 
-The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. There is a dedicated [guide](channel-backup.md) to automatic backup
+The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. There is a dedicated [guide](channel-backup.md) to making an automatic backup
 
 {% hint style="danger" %}
 This information must be kept secret at all times
@@ -570,10 +589,10 @@ $ sudo ss -tulpn | grep LISTEN | grep lnd
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-12">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
-> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-13">127.0.0.1:8080</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
-> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-14">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
-> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-15">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
+<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-17">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
+> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:8080</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-19">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
+> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-20">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
 </code></pre>
 
 ### Allow user "admin" to work with LND
@@ -602,7 +621,7 @@ $2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 $2 exit
 ```
 
-* Log in as user **`admin`** again (`ssh admin@minibolt.local)`
+* Log in as **`admin`** user again (`ssh admin@minibolt.local)`
 * Check symbolic link has been created correctly
 
 ```bash
@@ -626,7 +645,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-16">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-21">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -902,34 +921,44 @@ $ lnd --version
 $ sudo systemctl restart lnd
 ```
 
-[^1]: (**Example)**
+[^1]: zmqpubrawblock port
 
-[^2]: Symbolic link
+[^2]: zmqpubrawtx port
 
-[^3]: Symbolic link
+[^3]: Check this
 
-[^4]: (Customize)
+[^4]: Check this
 
-[^5]: Uncomment in the step ["Encrypt TLS key"](lightning-client.md#encrypt-tls-key), not before
+[^5]: Check this
 
-[^6]: (Uncomment and customize the value)
+[^6]: (**Example)**
 
-[^7]: (Uncomment and customize the value)
+[^7]: Symbolic link
 
-[^8]: (Uncomment and customize the value)
+[^8]: Symbolic link
 
-[^9]: (Uncomment and customize the value)
+[^9]: (Customize)
 
-[^10]: (Uncomment and customize the value or keep commented to left default)
+[^10]: Uncomment in the step ["Encrypt TLS key"](lightning-client.md#encrypt-tls-key), not before
 
 [^11]: (Uncomment and customize the value)
 
-[^12]: LND P2P host:port
+[^12]: (Uncomment and customize the value)
 
-[^13]: REST host:port
+[^13]: (Uncomment and customize the value)
 
-[^14]: gRPC host:port
+[^14]: (Uncomment and customize the value)
 
-[^15]: Watchtower server host:port
+[^15]: (Uncomment and customize the value or keep commented to left default)
 
-[^16]: Symbolic link
+[^16]: (Uncomment and customize the value)
+
+[^17]: LND P2P host:port
+
+[^18]: REST host:port
+
+[^19]: gRPC host:port
+
+[^20]: Watchtower server host:port
+
+[^21]: Symbolic link

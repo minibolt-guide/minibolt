@@ -21,6 +21,11 @@ We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) on a compu
 
 ![](../images/sparrow.png)
 
+## Requirements
+
+* [Bitcoin Core](../index-2/bitcoin-client.md)
+* Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../bonus/bitcoin/electrs.md)
+
 ## Introduction
 
 Sparrow Wallet is an excellent software wallet to use with your MiniBolt: it's reliable and transparently shows what it's doing under the hood.
@@ -108,7 +113,7 @@ With Sparrow, you can:
 
 For more information, tutorials, and support, visit the [Sparrow documentation webpage](https://sparrowwallet.com/docs/) and their [Telegram group](https://t.me/sparrowwallet).
 
-## (Optional) Remote connection over Tor
+### (Optional) Remote connection over Tor
 
 If you want to use Sparrow outside your home network, when you're on the go, you can use a connection over Tor.
 
@@ -146,7 +151,7 @@ Expected output:
 
 You're set! Sparrow is now configured to connect to your node over Tor and you can use it wherever you are.
 
-## (Optional) Set up a Tor proxy for external services
+### (Optional) Set up a Tor proxy for external services
 
 If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin etc - even transaction broadcasting is then done via an external service (like blockstream.info) over Tor for additional privacy. Where-ever possible, the onion URLs of these services are used.
 
@@ -163,7 +168,7 @@ By OS:
 * **Windows**: download, install, and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
   * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
-* **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
+* **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default port `9050`
 
 ```sh
 $ sudo ss -tulpn | grep LISTEN | grep tor
@@ -172,8 +177,7 @@ $ sudo ss -tulpn | grep LISTEN | grep tor
 Expected output:
 
 <pre><code><strong>> tcp   LISTEN 0  4096   127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=1847,fd=6))
-</strong>> tcp   LISTEN 0  4096   127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=1847,fd=7))
-</code></pre>
+</strong></code></pre>
 
 * **macOS**: download, verify, install, and run [Tor Browser](https://www.torproject.org/)
   * The application must be started manually when you want to connect over Tor

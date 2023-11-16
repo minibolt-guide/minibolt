@@ -27,6 +27,11 @@ Difficulty: Easy
 
 ![](../../images/electrum\_wallet\_logo.png)
 
+## Requirements
+
+* [Bitcoin Core](../../index-2/bitcoin-client.md)
+* Electrum server:[ Fulcrum](../../bitcoin/electrum-server.md) or [Electrs](electrs.md)
+
 ## Installation
 
 On your local computer, download, verify, and install Electrum Wallet.

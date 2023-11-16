@@ -28,14 +28,14 @@ Difficulty: Hard
 More information can be found in its [documentation](https://docs.btcpayserver.org/), and stay tuned for news on its [blog](https://blog.btcpayserver.org/)
 {% endhint %}
 
-## Requisites
+## Requirements
 
-* Bitcoin Core
-* LND (optional)
+* [Bitcoin Core](../../index-2/bitcoin-client.md)
+* [LND](../../lightning/lightning-client.md) (optional)
 
 ## Preparations
 
-To run the BTCPay Server you will need to install .NET Core SDK, PostgreSQL, and NBXplorer
+To run the BTCPay Server you will need to install `.NET Core SDK`, `PostgreSQL`, and `NBXplorer`
 
 ### Reverse proxy & Firewall
 
@@ -232,6 +232,18 @@ $ psql -V
 ```
 > psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
+
+* Ensure PostgreSQL is running and listening on the default port `5432`
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep postgres
+```
+
+Expected output:
+
+<pre><code><strong>> tcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=2532748,fd=7))
+</strong>> tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
+</code></pre>
 
 ### Create databases
 

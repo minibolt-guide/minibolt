@@ -23,10 +23,10 @@ layout:
 
 ## Requirements
 
-* Bitcoin Core
+* [Bitcoin Core](../index-2/bitcoin-client.md)
 * Little over 130GB of free storage for the database
 
-Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs`.
+Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `$ sudo systemctl stop electrs`.
 
 ## Introduction
 
@@ -141,11 +141,11 @@ $ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubk
 
 Expected output:
 
-<pre data-overflow="wrap"><code><strong>[...]
+<pre><code><strong>[...]
 </strong><strong>>     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 </strong>>                                 Dload  Upload   Total   Spent    Left  Speed
 > 100  2328  100  2328    0     0  16043      0 --:--:-- --:--:-- --:--:-- 15945
-> gpg: key 21810A542031C02C: "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" not changed
+> gpg: key 21810A542031C02C: "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" <a data-footnote-ref href="#user-content-fn-2">imported</a>
 > gpg: Total number processed: 1
 > gpg:              unchanged: 1
 [...]
@@ -159,34 +159,24 @@ $ gpg --verify Fulcrum-$VERSION-sha256sums.txt.asc
 
 Expected output:
 
-{% code overflow="wrap" %}
-```
-[...]
-> gpg: Good signature from "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" [unknown]
+<pre data-overflow="wrap"><code>[...]
+> gpg: <a data-footnote-ref href="#user-content-fn-3">Good signature</a> from "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" [unknown]
 > gpg: WARNING: This key is not certified with a trusted signature!
 > gpg: There is no indication that the signature belongs to the owner.
 > Primary key fingerprint: D465 135F 97D0 047E 18E9  9DC3 2181 0A54 2031 C02C
 [...]
-```
-{% endcode %}
+</code></pre>
 
 * Verify the signed checksum against the actual checksum of your download
 
 ```sh
-$ sha256sum --check Fulcrum-$VERSION-sha256sums.txt
+$ grep 'x86_64-linux.tar.gz' Fulcrum-1.9.6-sha256sums.txt | sha256sum --check
 ```
 
 **Example** of expected output:
 
-<pre><code>sha256sum: Fulcrum-1.9.4-arm64-linux.tar.gz: No such file or directory
-Fulcrum-1.9.4-arm64-linux.tar.gz: FAILED open or read
-sha256sum: Fulcrum-1.9.4-x86_64-linux-ub16.tar.gz: No such file or directory
-Fulcrum-1.9.4-x86_64-linux-ub16.tar.gz: FAILED open or read
-<strong><a data-footnote-ref href="#user-content-fn-2">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
-</strong>sha256sum: Fulcrum-1.9.4-win64.zip: No such file or directory
-Fulcrum-1.9.4-win64.zip: FAILED open or read
-sha256sum: WARNING: 3 listed files could not be read
-</code></pre>
+<pre><code><strong>> <a data-footnote-ref href="#user-content-fn-4">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
+</strong></code></pre>
 
 {% hint style="info" %}
 Search for the "`Fulcrum-$VERSION-x86_64-linux.tar.gz:`` `**`OK`**" phrase
@@ -289,7 +279,7 @@ drwxr-xr-x 6 root    root    4096 Jul 15 07:56 ..
 -rw------- 1 fulcrum fulcrum   24 Jul 15 07:59 .bash_history
 -rw-r--r-- 1 fulcrum fulcrum  220 Jul 15 07:56 .bash_logout
 -rw-r--r-- 1 fulcrum fulcrum 3771 Jul 15 07:56 .bashrc
-lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-3">.fulcrum -> /data/fulcrum</a>
+lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-5">.fulcrum -> /data/fulcrum</a>
 -rw-r--r-- 1 fulcrum fulcrum  807 Jul 15 07:56 .profile
 </code></pre>
 
@@ -758,6 +748,10 @@ Filename            Type                Size           Used    Priority
 
 [^1]: zmqpubhashblock port
 
-[^2]: That's it!
+[^2]: Check this
 
-[^3]: Symbolic link
+[^3]: Check this
+
+[^4]: That's it!
+
+[^5]: Symbolic link

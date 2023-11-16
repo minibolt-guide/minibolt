@@ -28,6 +28,10 @@ Difficulty: Medium
 
 ![](../../images/electrs-logo.png)
 
+## Requirements
+
+* [Bitcoin Core](../../index-2/bitcoin-client.md)
+
 ## Preparations
 
 Make sure that you have [reduced the database cache of Bitcoin Core](../../index-2/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
