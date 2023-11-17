@@ -515,7 +515,7 @@ All socks5-client-specific configurations can be found in `/home/nym/.nym/socks5
 You can get more information about the complete documentation [here](https://nymtech.net/docs/)
 {% endhint %}
 
-## Extras
+## Extras (optional)
 
 ### Proxying Bitcoin Core
 

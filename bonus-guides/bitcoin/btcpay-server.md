@@ -832,7 +832,7 @@ You can now create the first account to access the dashboard using a real (recom
 **Congratulations!** You now have the amazing BTCPay Server payment processor running
 {% endhint %}
 
-## Extras
+## Extras (optional)
 
 ### Remote access over Tor
 

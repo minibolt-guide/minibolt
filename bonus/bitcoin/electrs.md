@@ -574,7 +574,7 @@ Expected output:
 Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
-## Extras
+## Extras (optional)
 
 ### Remote access over Tor
 

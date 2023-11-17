@@ -757,7 +757,7 @@ This watchtower server service is not recommended to activate if you have a slow
 Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line
 {% endhint %}
 
-## Extras
+## Extras (optional)
 
 ### Funding your Lightning node
 

@@ -462,7 +462,7 @@ tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",
 tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=206))
 ```
 
-## Extras
+## Extras (optional)
 
 ### Remote access over Tor
 

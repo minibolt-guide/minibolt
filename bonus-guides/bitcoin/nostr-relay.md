@@ -448,7 +448,7 @@ Expected output:
 
 <figure><img src="../../.gitbook/assets/relay-connected-nostr-debug.PNG" alt="" width="478"><figcaption></figcaption></figure>
 
-## Extras
+## Extras (optional)
 
 ### Create your nostr key pair
 

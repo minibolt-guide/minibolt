@@ -154,7 +154,7 @@ $ nginx -v
 **Example** of expected output:
 
 ```
-> nginx version: nginx/1.24.0
+> nginx version: nginx/1.18.0 (Ubuntu)
 ```
 
 * Create a self-signed SSL/TLS certificate (valid for 10 years)
@@ -165,27 +165,25 @@ $ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-
 ```
 {% endcode %}
 
-Expected output:
+**Example** of expected output:
 
 ```
-Generating a RSA private key
-..............................................................................++++
-................++++
-writing new private key to '/etc/ssl/private/nginx-selfsigned.key'
------
+> .......+......+...+..+....+.....+......++++++........
 ```
 
-* NGINX is also a full web server. To use it only as a reverse proxy, remove the default configuration
+* NGINX is also a full web server. To use it only as a reverse proxy, backup the default configuration
 
 ```bash
 $ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 ```
 
-* &#x20;Paste the following configuration into the `nginx.conf` file. Save and exit
+* Create a new blank configuration file
 
 ```bash
 $ sudo nano /etc/nginx/nginx.conf
 ```
+
+* &#x20;Paste the following configuration into the `nginx.conf` file. Save and exit
 
 ```nginx
 user www-data;
@@ -236,16 +234,12 @@ $ sudo rm /etc/nginx/sites-enabled/default
 $ sudo nginx -t
 ```
 
-<details>
-
-<summary>Expected output ⬇️</summary>
+Expected output:
 
 ```
 > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 > nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
-
-</details>
 
 * Reload Nginx to apply the configuration
 
@@ -253,7 +247,7 @@ $ sudo nginx -t
 $ sudo systemctl reload nginx
 ```
 
-* You can monitor the Nginx logs by entering this command
+* &#x20;**(Optional)** You can monitor the Nginx logs by entering this command. Exit with Ctrl + C
 
 ```bash
 $ journalctl -f -u nginx

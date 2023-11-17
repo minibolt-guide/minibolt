@@ -515,7 +515,7 @@ Expected output:
 [#] ip link delete dev wg0
 ```
 
-## Extras
+## Extras (optional)
 
 ### Install & configure the WireGuard VPN Client on a mobile phone
 

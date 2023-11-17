@@ -583,7 +583,7 @@ Expected output:
 **Congratulations!** You now have Thunderhub up and running
 {% endhint %}
 
-## Extras
+## Extras (optional)
 
 ### Remote access over Tor
 

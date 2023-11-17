@@ -584,7 +584,7 @@ $ sudo pip3 install opentimestamps-client
 $ ots --version
 ```
 
-## Extras
+## Extras (optional)
 
 ### Reject non-private networks
 

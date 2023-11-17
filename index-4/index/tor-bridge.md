@@ -262,7 +262,7 @@ You'll need to replace **"IP ADDRESS"**, **"PORT"**, and **"FINGERPRINT"** with 
 More info to connect the Tor browser to your own Tor bridge on this [website](https://tb-manual.torproject.org/bridges/) in the `"ENTERING BRIDGE ADDRESSES"` section
 {% endhint %}
 
-## Extras
+## Extras (optional)
 
 ### **Enable automatic software updates**
 

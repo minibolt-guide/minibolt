@@ -323,7 +323,7 @@ $ sudo systemctl restart bitcoind
 $ journalctl -f -u bitcoind
 ```
 
-## Extras
+## Extras (optional)
 
 ### **How to detect Ordinals transactions**
 

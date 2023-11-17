@@ -230,8 +230,6 @@ BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
 BTCEXP_SLOW_DEVICE_MODE=false
 ```
 
-#### Optional
-
 You can decide whether you want to optimize for more information or more privacy:
 
 * More information mode, including Bitcoin exchange rates
@@ -250,18 +248,18 @@ BTCEXP_PRIVACY_MODE=true
 BTCEXP_NO_RATES=true
 ```
 
-* You can add password protection to the web interface. Simply add your password \[D] for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
-
-```
-# replace `mypassword` with 'YourPassword [D] in this line
-BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
-```
-
 * Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark (default dark)
 
 ```
 # uncomment and replace this line with your selection
 BTCEXP_UI_THEME=dark
+```
+
+* You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
+
+```
+# replace `mypassword` with 'YourPassword [D] in this line
+BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
 ```
 
 * Save and exit
@@ -406,7 +404,13 @@ $ sudo ss -tulpn | grep LISTEN | grep node | grep 4000
 **Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node
 {% endhint %}
 
-## Extras
+## Extras (optional)
+
+### Privacy
+
+### Security
+
+### Theme
 
 ### Slow device mode (resource-intensive features are disabled)
 
@@ -475,7 +479,7 @@ $ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
 
 ### Sharing your explorer
 
-You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling "`DEMO`" mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
+You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
 
 * With user `admin`, change to the `btcrpcexplorer` user
 
@@ -493,6 +497,10 @@ $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 # uncomment this line
 BTCEXP_DEMO=true
 ```
+
+{% hint style="warning" %}
+You will need to set password authentication following the [Security](blockchain-explorer.md#security) section
+{% endhint %}
 
 {% hint style="info" %}
 Remember to give them the **`password [D]`** if you added password protection in the reference step

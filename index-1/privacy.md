@@ -65,11 +65,13 @@ deb     [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https
 deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
 ```
 
-* Then up to `"root"` user temporarily adds the gpg key used to sign the packages by running the following command at your command prompt
+* Up to `"root"` user temporarily
 
 ```sh
 $ sudo su
 ```
+
+* Add the GPG key used to sign the packages by running the following command at your command prompt
 
 {% code overflow="wrap" %}
 ```sh
@@ -83,11 +85,13 @@ $ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE
 $ exit
 ```
 
-* Install Tor and Tor Debian keyring
+* Update apt repository
 
 ```sh
 $ sudo apt update
 ```
+
+* Install Tor and Tor Debian keyring
 
 ```sh
 $ sudo apt install tor deb.torproject.org-keyring
@@ -114,11 +118,13 @@ Please note that the before version number might change in your case, this is ju
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network. We need to enable Tor to accept instructions through its control port, with the proper authentication.
 
-* Modify the Tor configuration by uncommenting (removing the `#`) the following lines. Save and exit
+* Edit the Tor configuration
 
 ```sh
 $ sudo nano /etc/tor/torrc --linenumbers
 ```
+
+* Uncommenting (removing the `#`) the following lines
 
 ```
 # uncomment line 56:
@@ -128,7 +134,7 @@ ControlPort 9051
 CookieAuthentication 1
 ```
 
-* Add under line 60 (line 61) the next line
+* Add under line 60 (line 61) the next line. Save and exit
 
 <pre><code><strong>CookieAuthFileGroupReadable 1
 </strong></code></pre>
@@ -156,7 +162,7 @@ tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795
 
 </details>
 
-* Check the systemd journal to see Tor in real time updates output logs
+* **(Optional)** Check the systemd journal to see Tor in real time updates output logs. Ctrl + C to exit
 
 ```sh
 $ journalctl -f -u tor@default
@@ -197,7 +203,7 @@ Nov 13 23:19:20 minibolt systemd[1]: Reloaded tor@default.service - Anonymizing 
 Not all network traffic is routed over the Tor network. But we now have the base to configure sensitive applications to use it.
 
 {% hint style="info" %}
-**(Optional)** --> If you want, you can disable the autoboot option for Tor using:
+**(Optional)** --> If you want, you can **disable the autoboot** option for Tor using:
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ sudo systemctl disable tor
 </strong></code></pre>
@@ -205,9 +211,9 @@ Not all network traffic is routed over the Tor network. But we now have the base
 **Expected output:**
 
 ```
-Synchronizing state of tor.service with SysV service script with /lib/systemd/systemd-sysv-install.
-Executing: /lib/systemd/systemd-sysv-install disable tor
-Removed /etc/systemd/system/multi-user.target.wants/tor.service.
+> Synchronizing state of tor.service with SysV service script with /lib/systemd/systemd-sysv-install.
+> Executing: /lib/systemd/systemd-sysv-install disable tor
+> Removed /etc/systemd/system/multi-user.target.wants/tor.service.
 ```
 {% endhint %}
 
@@ -311,7 +317,7 @@ $ sudo tail -f /var/log/i2pd/i2pd.log
 </details>
 
 {% hint style="info" %}
-**(Optional)** --> If you want, you can disable the autoboot option for Tor using
+**(Optional)** --> If you want, you can disable the autoboot option for Tor using:
 
 ```bash
 $ sudo systemctl disable i2pd
@@ -320,9 +326,9 @@ $ sudo systemctl disable i2pd
 **Expected output:**
 
 ```
-Synchronizing state of i2pd.service with SysV service script with /lib/systemd/systemd-sysv-install.
-Executing: /lib/systemd/systemd-sysv-install disable i2pd
-Removed /etc/systemd/system/multi-user.target.wants/i2pd.service.
+> Synchronizing state of i2pd.service with SysV service script with /lib/systemd/systemd-sysv-install.
+> Executing: /lib/systemd/systemd-sysv-install disable i2pd
+> Removed /etc/systemd/system/multi-user.target.wants/i2pd.service.
 ```
 {% endhint %}
 
@@ -351,9 +357,9 @@ The default action is to keep your current version.
 *** i2pd.conf (Y/I/N/O/D/Z) [default=N] ?
 ```
 
-## Extras
+## Extras (optional)
 
-### **SSH remote access through Tor (optional)**
+### **SSH remote access through Tor**
 
 If you want to log into your MiniBolt with SSH when you're away, you can easily do so by adding a Tor hidden service. This makes "calling home" very easy, without the need to configure anything on your internet router.
 

@@ -141,7 +141,18 @@ If you come to update this is the final step
 $ cloudflared tunnel login
 ```
 
-<figure><img src="../../.gitbook/assets/cloudflared-tunnel-login.png" alt=""><figcaption></figcaption></figure>
+**Example** of expected output:
+
+```
+Please open the following URL and log in with your Cloudflare account:
+
+https://dash.cloudflare.com/argotunnel?aud=&callback=https%3A%2F%2Flogin.cloudflareaccess.org%2FCbH_YLs-WM2zIR5j4NahjstGErge5AE79YIBNiZsV1Y%4D
+
+Leave cloudflared running to download the cert automatically.
+You have successfully logged in.
+If you wish to copy your credentials to a server, they have been saved to:
+/home/admin/.cloudflared/cert.pem
+```
 
 {% hint style="info" %}
 Leave Cloudflared running to download the cert automatically while you complete the authentication on the Cloudflare account
@@ -149,9 +160,15 @@ Leave Cloudflared running to download the cert automatically while you complete 
 
 * In the same browser session with the Cloudflare account already open, enter the URL of the prompt provided earlier. Then, select your pre-configured site on Cloudflare to authorize the tunnel for that site
 
+<figure><img src="../../.gitbook/assets/cloudflared-auth-1.PNG" alt=""><figcaption></figcaption></figure>
+
+* Authorize its connection
+
 <figure><img src="../../.gitbook/assets/authorized-tunnel.png" alt=""><figcaption></figcaption></figure>
 
-* Go back to the MiniBolt terminal session, and you will see this
+<figure><img src="../../.gitbook/assets/cloudflared-auth-3.PNG" alt=""><figcaption></figcaption></figure>
+
+* Go back to the MiniBolt terminal session, and you will see this:
 
 Expected output:
 
