@@ -230,38 +230,6 @@ BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
 BTCEXP_SLOW_DEVICE_MODE=false
 ```
 
-You can decide whether you want to optimize for more information or more privacy:
-
-* More information mode, including Bitcoin exchange rates
-
-```
-# replace these lines
-BTCEXP_PRIVACY_MODE=false
-BTCEXP_NO_RATES=false
-```
-
-* More privacy mode, no external queries
-
-```
-# uncomment these lines
-BTCEXP_PRIVACY_MODE=true
-BTCEXP_NO_RATES=true
-```
-
-* Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark (default dark)
-
-```
-# uncomment and replace this line with your selection
-BTCEXP_UI_THEME=dark
-```
-
-* You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
-
-```
-# replace `mypassword` with 'YourPassword [D] in this line
-BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
-```
-
 * Save and exit
 * Exit the `btcrpcexplorer` user session to return to the "admin" user session
 
@@ -408,9 +376,41 @@ $ sudo ss -tulpn | grep LISTEN | grep node | grep 4000
 
 ### Privacy
 
+You can decide whether you want to optimize for more information or more privacy:
+
+* More information mode, including Bitcoin exchange rates
+
+```
+# replace these lines
+BTCEXP_PRIVACY_MODE=false
+BTCEXP_NO_RATES=false
+```
+
+* More privacy mode, no external queries
+
+```
+# uncomment these lines
+BTCEXP_PRIVACY_MODE=true
+BTCEXP_NO_RATES=true
+```
+
 ### Security
 
+* You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
+
+```
+# replace `mypassword` with 'YourPassword [D] in this line
+BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
+```
+
 ### Theme
+
+* Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark (default dark)
+
+```
+# uncomment and replace this line with your selection
+BTCEXP_UI_THEME=dark
+```
 
 ### Slow device mode (resource-intensive features are disabled)
 
