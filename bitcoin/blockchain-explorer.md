@@ -499,11 +499,21 @@ BTCEXP_DEMO=true
 ```
 
 {% hint style="warning" %}
-You will need to set password authentication following the [Security](blockchain-explorer.md#security) section
+You will need to set password authentication following the [Security](blockchain-explorer.md#security) section, if not, a banner shows you this:
+
+{% code overflow="wrap" %}
+```
+RPC Terminal / Browser require authentication. Set an authentication password via the 'BTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).
+```
+{% endcode %}
+
+\--> Remember to give them the **`password [D]`** if you added password protection in the reference step
 {% endhint %}
 
 {% hint style="info" %}
-Remember to give them the **`password [D]`** if you added password protection in the reference step
+With DEMO mode enabled, the user will see the next message:&#x20;
+
+`"Sorry, that RPC command is blacklisted. If this is your server, you may allow this command by removing it from the 'rpcBlacklist' setting in config.js."`
 {% endhint %}
 
 ## Upgrade
