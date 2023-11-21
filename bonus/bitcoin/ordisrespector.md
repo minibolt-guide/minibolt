@@ -62,12 +62,6 @@ You enter commands and the PC answers by printing the results below your command
 $ sudo apt update && sudo apt full-upgrade
 ```
 
-* Set the next environment variable
-
-```sh
-$ VERSION=25.1
-```
-
 * Install the next dependencies packages
 
 {% code overflow="wrap" %}
@@ -82,6 +76,12 @@ $ sudo apt install autoconf automake build-essential libboost-filesystem-dev lib
 
 ```sh
 $ cd /tmp
+```
+
+* Set the next environment variable
+
+```sh
+$ VERSION=25.1
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -108,7 +108,7 @@ If you already had Bitcoin Core installed and OTS client with the IBD completed,
 $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
 ```
 
-* Execute the OTS verification command
+* Execute the OTS verification command (skip this step if you stay building a new node)
 
 ```sh
 $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -124,7 +124,9 @@ The following output is just an **example** of one of the versions:
 > Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
 ```
 
-Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing.
+{% hint style="info" %}
+Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
+{% endhint %}
 
 ### **Checksum check**
 
@@ -247,7 +249,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 ```
 {% endcode %}
 
-* Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
+* **(Optional)** Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
 
 ```sh
 $ nano ordisrespector.patch
@@ -317,7 +319,7 @@ $ sudo rm -r bitcoin-$VERSION && rm bdb.sh && rm bitcoin-$VERSION.tar.gz && rm d
 $ sudo systemctl restart bitcoind
 ```
 
-* Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+* Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl+C and continue
 
 ```sh
 $ journalctl -f -u bitcoind

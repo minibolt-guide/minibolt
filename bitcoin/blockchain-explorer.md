@@ -73,10 +73,10 @@ $ sudo apt install build-essential
 
 In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
 
-* Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
+* Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
 ```sh
-$ sudo nano /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf
+$ sudo nano /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
 ```
 
 ```nginx
@@ -89,11 +89,28 @@ server {
 }
 ```
 
-* Test and reload Nginx configuration
+* Create the symbolic link that points to the directory `sites-enabled`
+
+{% code overflow="wrap" %}
+```bash
+$ sudo ln -s /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf /etc/nginx/sites-enabled/
+```
+{% endcode %}
+
+* Test Nginx configuration
 
 ```sh
 $ sudo nginx -t
 ```
+
+Expected output:
+
+```
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
 
 ```sh
 $ sudo systemctl reload nginx
@@ -196,17 +213,19 @@ Installation can take some time, be patient. There might be a lot of confusing o
 
 ## Configuration
 
-* Copy and edit the configuration template (skip this step when updating). Activate any setting by removing the `#` at the beginning of the line
+* Copy the configuration template
 
 ```sh
 $ cp .env-sample .env
 ```
 
+* Edit the `.env` file. Activate any setting by removing the `#` at the beginning of the line or editing directly
+
 ```sh
 $ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
-* Instruct BTC RPC Explorer to connect to local Bitcoin Core
+* Instruct the BTC RPC Explorer to connect to the local Bitcoin Core
 
 ```
 # uncomment these lines
@@ -229,6 +248,10 @@ BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
 ```
 BTCEXP_SLOW_DEVICE_MODE=false
 ```
+
+{% hint style="info" %}
+You can set additional features of [Privacy](blockchain-explorer.md#privacy) / [Security](blockchain-explorer.md#security) and customize the [Theme](blockchain-explorer.md#theme) at this moment by going to the [Extra](blockchain-explorer.md#extras-optional) section
+{% endhint %}
 
 * Save and exit
 * Exit the `btcrpcexplorer` user session to return to the "admin" user session
@@ -355,7 +378,7 @@ $ sudo ss -tulpn | grep LISTEN | grep node | grep 3002
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0   511   127.0.0.1:3002   0.0.0.0:*   users:(("node",pid=140461,fd=20))
+<pre><code><strong>> tcp   LISTEN 0       511       127.0.0.1:3002      0.0.0.0:*   users:(("node",pid=140461,fd=20))
 </strong></code></pre>
 
 * And the HTTPS `4000` port
@@ -414,18 +437,6 @@ BTCEXP_UI_THEME=dark
 
 ### Slow device mode (resource-intensive features are disabled)
 
-* With user `admin`, change to the `btcrpcexplorer` user
-
-```sh
-$ sudo su - btcrpcexplorer
-```
-
-* Edit the `.env` configuration file
-
-```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-```
-
 * Extend the timeout period due to the limited resources
 
 ```
@@ -438,6 +449,35 @@ BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 ```
 #BTCEXP_SLOW_DEVICE_MODE=false
 ```
+
+### Sharing your explorer
+
+You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
+
+```
+# uncomment this line
+BTCEXP_DEMO=true
+```
+
+{% hint style="warning" %}
+You will need to set password authentication following the [Security](blockchain-explorer.md#security) section, if not, a banner shows you this:
+
+{% code overflow="wrap" %}
+```
+RPC Terminal / Browser require authentication. Set an authentication password via the 'BTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).
+```
+{% endcode %}
+
+\--> Remember to give them the **`password [D]`** if you added password protection in the reference step
+{% endhint %}
+
+{% hint style="info" %}
+With DEMO mode enabled, the user will see the next message:&#x20;
+
+`"Sorry, that RPC command is blacklisted. If this is your server, you may allow this command by removing it from the 'rpcBlacklist' setting in config.js."`
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/btc-rpc-explorer-blacklisted.PNG" alt=""><figcaption></figcaption></figure>
 
 ### Remote access over Tor
 
@@ -476,45 +516,6 @@ $ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
 ```
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
-
-### Sharing your explorer
-
-You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
-
-* With user `admin`, change to the `btcrpcexplorer` user
-
-```sh
-$ sudo su - btcrpcexplorer
-```
-
-* Edit the `.env` configuration file
-
-```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
-```
-
-```
-# uncomment this line
-BTCEXP_DEMO=true
-```
-
-{% hint style="warning" %}
-You will need to set password authentication following the [Security](blockchain-explorer.md#security) section, if not, a banner shows you this:
-
-{% code overflow="wrap" %}
-```
-RPC Terminal / Browser require authentication. Set an authentication password via the 'BTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).
-```
-{% endcode %}
-
-\--> Remember to give them the **`password [D]`** if you added password protection in the reference step
-{% endhint %}
-
-{% hint style="info" %}
-With DEMO mode enabled, the user will see the next message:&#x20;
-
-`"Sorry, that RPC command is blacklisted. If this is your server, you may allow this command by removing it from the 'rpcBlacklist' setting in config.js."`
-{% endhint %}
 
 ## Upgrade
 

@@ -26,7 +26,7 @@ A firewall controls what kind of outside traffic your machine accepts and which 
 
 For now, only SSH should be reachable from the outside. Bitcoin Core and LND are using Tor and don't need incoming ports. We'll open the port for Electrs and web applications later if needed.
 
-* With user `admin`, configure and enable the firewall rules, when the prompt asks you `Command may disrupt existing ssh connections. Proceed with operation (y|n)?` type `y` key and enter
+* With user `admin`, configure and enable the firewall rules
 
 ```sh
 $ sudo ufw default deny incoming
@@ -35,6 +35,10 @@ $ sudo ufw default deny incoming
 ```sh
 $ sudo ufw default allow outgoing
 ```
+
+{% hint style="warning" %}
+Attention! Don't forget the next step!
+{% endhint %}
 
 ```sh
 $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
@@ -81,25 +85,8 @@ $ sudo ufw status verbose
 </details>
 
 {% hint style="info" %}
-If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). More: [_UFW Essentials_](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
+If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). More: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
-
-## Increase your open files limit
-
-If your MiniBolt is swamped with internet requests (honest or malicious due to a DoS attack), you will quickly encounter the `can't accept connection: too many open files` error. This is due to the limit of open files (representing individual TCP connections) being set too low.
-
-* Create the file `90-limits.conf`, and copy these lines into it. Save and exit
-
-```sh
-$ sudo nano /etc/security/limits.d/90-limits.conf
-```
-
-```
-*    soft nofile 128000
-*    hard nofile 128000
-root soft nofile 128000
-root hard nofile 128000
-```
 
 ## Monitoring SSH authentication logs
 
@@ -115,31 +102,25 @@ $ sudo tail -f /var/log/auth.log
 $ sudo tail --lines 500 /var/log/auth.log | grep sshd
 ```
 
-* Discarding your connections from your regular computer in the local network
-
-```sh
-$ sudo tail --lines 500 /var/log/auth.log | grep sshd | grep -v 192.168.X.XXX
-```
-
 * With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to whatever you want
 
 ```sh
 $ last -s -7days -t today
 ```
 
-In this way, you can detect a possible brute-force attack and take appropriate mitigation measures.
+In this way, you can detect a possible brute-force attack and take appropriate mitigation measures
 
 {% hint style="info" %}
 Do this regularly to get security-related incidents
 {% endhint %}
 
-## Install NGINX
+## Install Nginx
 
 Several components of this guide will expose a communication port, for example, the Block Explorer, or the ThunderHub web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
-We use NGINX to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": NGINX provides secure communication to the outside and routes the traffic back to the internal service without encryption.
+We use Ngnix to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": Nginx provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 
-* Install NGINX
+* Install Ngnix
 
 ```sh
 $ sudo apt install nginx
@@ -216,13 +197,21 @@ stream {
 }
 ```
 
-* Create a new directory for future configuration files
+* Create the `streams-available` and `streams-enabled` directories for future configuration files
+
+```bash
+$ sudo mkdir /etc/nginx/streams-available
+```
 
 ```sh
 $ sudo mkdir /etc/nginx/streams-enabled
 ```
 
-* Disable NGINX's default site
+* Remove the Nginx `site available` and `site enabled` default configuration files
+
+```bash
+$ sudo rm /etc/nginx/sites-available/default
+```
 
 ```sh
 $ sudo rm /etc/nginx/sites-enabled/default

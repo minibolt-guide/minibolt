@@ -291,13 +291,19 @@ $ cd /data/fulcrum
 
 {% code overflow="wrap" %}
 ```bash
-$ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+$ openssl req -newkey rsa:2048 -sha256 -nodes -x509 -days 3650 -subj "/O=Fulcrum" -keyout key.pem -out cert.pem
 ```
 {% endcode %}
 
-{% hint style="info" %}
-When it asks you to put some info, press `Enter`until the prompt is shown again is not necessary to put any info
-{% endhint %}
+Expected output:
+
+```
+> Generating a RSA private key
+> ....................+++++
+> ..................................+++++
+> writing new private key to 'key.pem'
+> -----
+```
 
 * Download the custom Fulcrum banner based on MiniBolt. Create your own if you want [here](https://patorjk.com/software/taag/#p=display\&f=Slant\&t=fulcrum)
 

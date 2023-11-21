@@ -599,15 +599,19 @@ Expected output:
 
 We interact with LND using the application `lncli`. At the moment, only the user "lnd" has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
-* As user `admin`, link the LND data directory in the user "admin" home. As a member of the group "lnd", the "admin" user has read-only access to certain files. We also need to make all directories browsable for the group (with `g+X`) and allow it to read the file `admin.macaroon`
+* As user `admin`, link the LND data directory in the user "admin" home. As a member of the group "lnd", the "admin" user has read-only access to certain files
 
 ```sh
 $2 ln -s /data/lnd /home/admin/.lnd
 ```
 
+* &#x20;Make all directories browsable for the group&#x20;
+
 ```sh
 $2 sudo chmod -R g+X /data/lnd/data/
 ```
+
+* Allow it to read the file `admin.macaroon`
 
 {% code overflow="wrap" %}
 ```bash
@@ -726,6 +730,12 @@ Expected output:
 ```sh
 $ lncli wtclient remove <pubkey>
 ```
+
+{% hint style="info" %}
+Monitor logs with `$ journalctl -f -u lnd` to check the watchtower client is working fine, it should show you after a while, the next logs ⬇️
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/lnd-watchtower_log.PNG" alt=""><figcaption></figcaption></figure>
 
 ### Watchtower server
 

@@ -201,12 +201,12 @@ If you obtain "command not found" outputs, you need to follow the [Rustup + Carg
 
 ### Reverse proxy & Firewall
 
-In the [Security section](broken-reference/), we already set up NGINX as a reverse proxy. Now we can add the Electrs configuration.
+In the [Security section](broken-reference/), we already set up Nginx as a reverse proxy. Now we can add the Electrs configuration.
 
-* Enable NGINX reverse proxy to add SSL/TLS encryption to the Electrs communication. Create the configuration file and paste the following content
+* Enable Nginx reverse proxy to add SSL/TLS encryption to the Electrs communication. Create the configuration file and paste the following content
 
 ```sh
-$ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
+$ sudo nano /etc/nginx/streams-available/electrs-reverse-proxy.conf
 ```
 
 ```nginx
@@ -219,7 +219,15 @@ server {
 }
 ```
 
-* Test and reload NGINX configuration
+* Create the symbolic link that points to the directory `streams-enabled`
+
+{% code overflow="wrap" %}
+```bash
+$ sudo ln -s /etc/nginx/streams-available/electrs-reverse-proxy.conf /etc/nginx/streams-enabled/
+```
+{% endcode %}
+
+* Test the Nginx configuration
 
 ```bash
 $ sudo nginx -t
@@ -228,15 +236,17 @@ $ sudo nginx -t
 Expected output:
 
 ```
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
+
+* Reload the Nginx configuration to apply changes
 
 ```sh
 $ sudo systemctl reload nginx
 ```
 
-* Configure the firewall to allow incoming requests
+* Configure the firewall to allow incoming requests to the SSL and TCP ports
 
 ```sh
 $ sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'

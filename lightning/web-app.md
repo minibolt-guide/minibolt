@@ -67,7 +67,7 @@ In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), w
 * Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
 
 ```sh
-$ sudo nano /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
+$ sudo nano /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
 ```
 
 ```nginx
@@ -81,24 +81,28 @@ server {
 }
 ```
 
+* Create the symbolic link that points to the directory `sites-enabled`
+
+{% code overflow="wrap" %}
+```bash
+$ sudo ln -s /etc/nginx/sites-available/thunderhub-reverse-proxy.conf /etc/nginx/sites-enabled/
+```
+{% endcode %}
+
 * Test Nginx configuration
 
 ```sh
 $ sudo nginx -t
 ```
 
-<details>
-
-<summary>Expected output ⬇️</summary>
+Expected output:
 
 ```
 > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 > nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-</details>
-
-* Reload NGINX configuration
+* Reload NGINX configuration to apply changes
 
 ```bash
 $ sudo systemctl reload nginx
