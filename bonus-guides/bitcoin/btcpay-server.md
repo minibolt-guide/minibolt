@@ -120,10 +120,10 @@ We do not want to run BTCPay Server and other related services alongside other s
 $ sudo adduser --disabled-password --gecos "" btcpay
 ```
 
-* Add it to the bitcoin group
+* Add it to the bitcoin and lnd groups
 
 ```bash
-$ sudo adduser btcpay bitcoin
+$ sudo adduser btcpay bitcoin lnd
 ```
 
 ### Install .NET Core SDK
@@ -912,54 +912,6 @@ Expected output:
 <pre><code><strong>> tcp   LISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
 </strong></code></pre>
 
-#### Generate the `tls.cert` fingerprint of LND
-
-* With user `admin`, change to the `lnd` user
-
-```bash
-$ sudo su - lnd
-```
-
-* Get the LND's certificate fingerprint
-
-```bash
-$ openssl x509 -noout -fingerprint -sha256 -inform pem -in /data/lnd/tls.cert
-```
-
-**Example** of expected output:
-
-```
-> sha256 Fingerprint=1D:8D:CC:44:A5:56:DF:D6:B8:26:CC:D2:EE:2E:4C:AE:5F:89:F2:FC:E4:0A:CC:32:E5:04:19:BA:10:CA:8D:98
-```
-
-{% hint style="warning" %}
-Take note of your **Fingerprint=XX:YY:ZZ....**
-{% endhint %}
-
-> **Example:**
->
-> `<fingerprint> = 1D:8D:CC:44:A5:56:DF:D6:B8:26:CC:D2:EE:2E:4C:AE:5F:89:F2:FC:E4:0A:CC:32:E5:04:19:BA:10:CA:8D:98`
-
-* Go back to the admin user
-
-```bash
-$ exit
-```
-
-* With user `admin`, copy-paste the `admin.macaroon` file to the `btcpay` home folder
-
-{% code overflow="wrap" %}
-```bash
-$ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/btcpay/admin.macaroon
-```
-{% endcode %}
-
-* Change the owner to the `btcpay` user
-
-```bash
-$ sudo chown btcpay:btcpay /home/btcpay/admin.macaroon
-```
-
 * Stop BTCPay Server before making changes
 
 ```bash
@@ -975,14 +927,14 @@ $ sudo su - btcpay
 * Edit the `settings.config` file
 
 ```bash
-$ nano /.btcpayserver/Main/settings.config
+$ nano .btcpayserver/Main/settings.config
 ```
 
-* Add the next content to the end of the file, replacing `<fingerprint>` with your own obtained earlier. Save and exit
+* Add the next content to the end of the file. Save and exit
 
 ```
 # Lightning internal node connection
-BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/home/btcpay/admin.macaroon;certthumbprint=<fingerprint>
+BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon;allowinsecure=true
 ```
 
 * Go back to the `admin` user
@@ -991,11 +943,15 @@ BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/hom
 $ exit
 ```
 
-* Start BTCpay again. Monitor logs with `$ journalctl -f -u btcpay` to ensure that all is running well
+* Start the BTCPay Server again
 
 ```bash
 $ sudo systemctl start btcpay
 ```
+
+{% hint style="info" %}
+Monitor logs with `$ journalctl -f -u btcpay` to ensure that all is running well
+{% endhint %}
 
 ## Upgrade
 

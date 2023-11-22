@@ -62,7 +62,7 @@ We aim to keep the core of this guide well maintained and up-to-date:
 
 * Bonus guides: the bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.
 
-### How build
+### How to build
 
 * YouTube list building MiniBolt in live with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms)
 
@@ -73,11 +73,11 @@ We aim to keep the core of this guide well maintained and up-to-date:
 * [GitHub discussions](https://github.com/orgs/minibolt-guide/discussions)
 * Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/)
 * Telegram Groups:
-  * [Spanish](https://t.me/minibolt\_es)
   * [English](https://t.me/minibolt)
+  * [Spanish](https://t.me/minibolt\_es)
 * Nostr channels:
-  * Spanish id: 3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015
-  * English id: aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249
+  * [English](https://www.nostrchat.io/channel/aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249)
+  * [Spanish](https://www.nostrchat.io/channel/3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015)
 
 Feel free to join the many other contributors if you see something that can be improved!
 
@@ -100,10 +100,6 @@ Difficulty: Hard
 {% endhint %}
 
 * Paid service: indicates if the service used in the guide is free or paid.
-
-{% hint style="success" %}
-Cost: Free service
-{% endhint %}
 
 {% hint style="warning" %}
 Cost: Paid service

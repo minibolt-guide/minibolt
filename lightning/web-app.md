@@ -118,24 +118,16 @@ $ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
 
-* Create a new `thunderhub` user. The new user needs read-only access to the `tls.cert` and our `admin.macaroon`
+* Create a new `thunderhub` user
 
 ```sh
 $ sudo adduser --disabled-password --gecos "" thunderhub
 ```
 
+* Add `thunderhub` user to the `lnd` group
+
 ```sh
 $ sudo adduser thunderhub lnd
-```
-
-{% code overflow="wrap" %}
-```bash
-$ sudo cp /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon /home/thunderhub/admin.macaroon
-```
-{% endcode %}
-
-```bash
-$ sudo chown thunderhub:thunderhub /home/thunderhub/admin.macaroon
 ```
 
 * Change to the thunderhub user
@@ -162,9 +154,10 @@ $ curl https://github.com/apotdevin.gpg | gpg --import
 $ git clone --branch v$VERSION https://github.com/apotdevin/thunderhub.git
 ```
 
-```sh
-$ cd thunderhub
-```
+* Enter the recently created `thunderhub` folder
+
+<pre class="language-sh"><code class="lang-sh"><strong>$ cd thunderhub
+</strong></code></pre>
 
 * Verify the release
 
@@ -183,7 +176,7 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 ```
 
-* Install all dependencies and the necessary modules using NPM. Not run `$ npm audit fix`, which could break the original code
+* Install all dependencies and the necessary modules using NPM. Not to run the `$ npm audit fix` command, which could break the original code
 
 ```sh
 $ npm install
@@ -314,11 +307,13 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 
 ## Configuration
 
-* Copy and open the configuration file
+* Copy the configuration file template
 
 ```sh
 $ cp .env .env.local
 ```
+
+* Edit the configuration file
 
 ```sh
 $ nano .env.local
@@ -355,8 +350,8 @@ $ nano thubConfig.yaml
 masterPassword: 'PASSWORD' # Default password unless defined in account
 accounts:
   - name: 'MiniBolt'
-    serverUrl: '127.0.0.1:10009'
-    macaroonPath: '/home/thunderhub/admin.macaroon'
+    serverUrl: '127.0.0.1:10009
+    macaroonPath: '/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon'
     certificatePath: '/data/lnd/tls.cert'
     password: '[E] ThunderHub password'
 ```

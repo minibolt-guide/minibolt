@@ -84,7 +84,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.17.1
+$ VERSION=0.17.2
 ```
 
 * Download the application, checksums, and signature
@@ -155,7 +155,7 @@ Expected output:
 $ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 ```
 
-Expected output:
+**Example** of expected output:
 
 <pre><code>> gpg: Signature made Mon 13 Nov 2023 11:45:38 PM UTC
 > gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
@@ -239,11 +239,13 @@ If you come to update this is the final step
 
 Now that LND is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
 
-* Create the **`lnd`** service user, and add it to the groups "bitcoin" and "debian-tor"
+* Create the `lnd` user&#x20;
 
 ```sh
 $ sudo adduser --disabled-password --gecos "" lnd
 ```
+
+* Add the `lnd` user to the groups "bitcoin" and "debian-tor"
 
 ```sh
 $ sudo usermod -a -G bitcoin,debian-tor lnd
@@ -339,7 +341,7 @@ wallet-unlock-password-file=/data/lnd/password.txt
 wallet-unlock-allow-create=true
 
 # The TLS private key will be encrypted to the node's seed
-<a data-footnote-ref href="#user-content-fn-10">#tlsencryptkey=true</a>
+tlsencryptkey=true
 
 # Automatically regenerate certificate when near expiration
 tlsautorefresh=true
@@ -351,11 +353,11 @@ tlsdisableautofill=true
 # Fee settings - default LND base fee = 1000 (mSat),
 # default LND fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
-<a data-footnote-ref href="#user-content-fn-11">#bitcoin.basefee=0</a>
-<a data-footnote-ref href="#user-content-fn-12">#bitcoin.feerate=0</a>
+<a data-footnote-ref href="#user-content-fn-10">#bitcoin.basefee=0</a>
+<a data-footnote-ref href="#user-content-fn-11">#bitcoin.feerate=0</a>
 
 # Minimum channel size (default: 20000 sats). You can choose whatever you want
-<a data-footnote-ref href="#user-content-fn-13">#minchansize=20000</a>
+<a data-footnote-ref href="#user-content-fn-12">#minchansize=20000</a>
 
 maxpendingchannels=5
 accept-keysend=true
@@ -371,7 +373,7 @@ wtclient.active=true
 
 # Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-14">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-13">#wtclient.sweep-fee-rate=10</a>
 
 # Watchtower server
 watchtower.active=true
@@ -388,11 +390,11 @@ stagger-initial-reconnect=true
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
-<a data-footnote-ref href="#user-content-fn-15">#db.bolt.auto-compact-min-age=0h</a>
+<a data-footnote-ref href="#user-content-fn-14">#db.bolt.auto-compact-min-age=0h</a>
 
 # Optional (uncomment the next 2 lines (default: CONSERVATIVE))
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-16">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-15">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
 bitcoin.active=true
@@ -507,7 +509,7 @@ $2 sudo su - lnd
 * Create the LND wallet
 
 ```sh
-$2 lncli create
+$2 lncli --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 * Enter your `password [C]` as wallet password (it must be exactly the same one you stored in `password.txt`). To create a new wallet, select `n` when asked if you have an existing cipher seed. Just press enter if asked about an additional seed passphrase unless you know what you're doing. A new cipher seed consisting of 24 words is created
@@ -535,10 +537,16 @@ These 24 words are all that you need to restore the Bitcoin on-chain wallet.
 
 * **Write these 24 words down manually on a piece of paper and store it in a safe place**
 
-You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md).
+You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
 
 {% hint style="danger" %}
-This piece of paper is all an attacker needs to completely empty your on-chain wallet! 🚫 Do not store it on a computer. 🚫 Do not take a picture with your mobile phone. 🚫 **This information should never be stored anywhere in digital form**
+This piece of paper is all an attacker needs to completely empty your on-chain wallet!&#x20;
+
+🚫 **Do not store it on a computer**
+
+🚫 **Do not take a picture with your mobile phone**
+
+🚫 **This information should never be stored anywhere in digital form**
 {% endhint %}
 
 The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. There is a dedicated [guide](channel-backup.md) to making an automatic backup
@@ -547,52 +555,24 @@ The current state of your channels, however, cannot be recreated from this seed.
 This information must be kept secret at all times
 {% endhint %}
 
-### Encrypt TLS key
-
-The TLS private key will be encrypted to the node's seed
-
-* Type "exit" to return to the admin user
+* Type "exit" to return to the `admin` user
 
 ```sh
 $2 exit
 ```
 
-* Stop LND
+* Check that LND is running and related ports listening
 
 ```bash
-$ sudo systemctl stop lnd
-```
-
-* Edit `lnd.conf` file
-
-```bash
-$ sudo nano /data/lnd/lnd.conf
-```
-
-* Uncomment the `#tlsencryptkey=true` line (delete `#` symbol). Save and exit
-
-```
-tlsencryptkey=true
-```
-
-* Start LND again
-
-```bash
-$ sudo systemctl start lnd
-```
-
-* Check LND is running and related ports listening
-
-```bash
-$ sudo ss -tulpn | grep LISTEN | grep lnd
+$2 sudo ss -tulpn | grep LISTEN | grep lnd
 ```
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-17">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
-> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:8080</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
-> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-19">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
-> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-20">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
+<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-16">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
+> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-17">127.0.0.1:8080</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
+> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-19">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
 </code></pre>
 
 ### Allow user "admin" to work with LND
@@ -605,31 +585,10 @@ We interact with LND using the application `lncli`. At the moment, only the user
 $2 ln -s /data/lnd /home/admin/.lnd
 ```
 
-* &#x20;Make all directories browsable for the group&#x20;
-
-```sh
-$2 sudo chmod -R g+X /data/lnd/data/
-```
-
-* Allow it to read the file `admin.macaroon`
-
-{% code overflow="wrap" %}
-```bash
-$2 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
-```
-{% endcode %}
-
-* Newly added links and permissions become active only in a new user session. Log out from SSH
-
-```sh
-$2 exit
-```
-
-* Log in as **`admin`** user again (`ssh admin@minibolt.local)`
 * Check symbolic link has been created correctly
 
 ```bash
-$ ls -la /home/admin
+$2 ls -la /home/admin
 ```
 
 <details>
@@ -649,7 +608,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-21">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-20">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -662,7 +621,13 @@ drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
 
 </details>
 
-* Check if you can use `lncli` by querying LND for information
+* &#x20;Make all directories browsable for the group&#x20;
+
+```sh
+$2 sudo chmod -R g+X /data/lnd/data/
+```
+
+* Check if you can use `lncli` with the `admin` user by querying LND for information
 
 ```sh
 $2 lncli getinfo
@@ -949,7 +914,7 @@ $ sudo systemctl restart lnd
 
 [^9]: (Customize)
 
-[^10]: Uncomment in the step ["Encrypt TLS key"](lightning-client.md#encrypt-tls-key), not before
+[^10]: (Uncomment and customize the value)
 
 [^11]: (Uncomment and customize the value)
 
@@ -957,18 +922,16 @@ $ sudo systemctl restart lnd
 
 [^13]: (Uncomment and customize the value)
 
-[^14]: (Uncomment and customize the value)
+[^14]: (Uncomment and customize the value or keep commented to left default)
 
-[^15]: (Uncomment and customize the value or keep commented to left default)
+[^15]: (Uncomment and customize the value)
 
-[^16]: (Uncomment and customize the value)
+[^16]: LND P2P host:port
 
-[^17]: LND P2P host:port
+[^17]: REST host:port
 
-[^18]: REST host:port
+[^18]: gRPC host:port
 
-[^19]: gRPC host:port
+[^19]: Watchtower server host:port
 
-[^20]: Watchtower server host:port
-
-[^21]: Symbolic link
+[^20]: Symbolic link

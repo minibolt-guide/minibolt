@@ -178,7 +178,7 @@ The rest of the **BTC RPC Explorer** guide is exactly the same as the mainnet mo
 
 ### [Lightning client: LND](../../lightning/lightning-client.md)
 
-* Follow the complete guide from the beginning, when you arrive at the ["Configure LND"](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
+* Follow the complete guide from the beginning, when you arrive at the [Configur](../../lightning/lightning-client.md#configuration)[ation](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
 ```bash
 $ nano /data/lnd/lnd.conf
@@ -191,10 +191,10 @@ $ nano /data/lnd/lnd.conf
 bitcoin.testnet=true
 ```
 
-* On the [Allow user "admin" to work with LND](../../lightning/lightning-client.md#allow-user-admin-to-work-with-lnd) section, replace the following command with the correct testnet path
+* When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace `ExecStop` parameter to this
 
-```sh
-$ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
+```
+ExecStop=/usr/local/bin/lncli --network=testnet stop
 ```
 
 {% hint style="info" %}
@@ -246,22 +246,16 @@ The rest of the **Channel Backup guide** is exactly the same as the mainnet mode
 
 ### [Web app: ThunderHub](../../lightning/web-app.md)
 
-* Follow the complete guide from the beginning, when you arrive at the ["Installation"](../../lightning/web-app.md#installation) section, replace the next command to match with the testnet mode LND path
-
-{% code overflow="wrap" %}
-```bash
-$ sudo cp /data/lnd/data/chain/bitcoin/testnet/admin.macaroon /home/thunderhub/admin.macaroon
-```
-{% endcode %}
-
-* When you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace this line
-
-```bash
-$ nano .env.local
-```
+* Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace the next parameter to match with the testnet mode on the `.env.local` file
 
 ```
 MEMPOOL_URL='https://mempool.space/testnet'
+```
+
+* And replace the next parameter on the `thubConfig.yaml` file
+
+```
+macaroonPath: /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
 ```
 
 {% hint style="success" %}
@@ -292,7 +286,7 @@ $ lndconnect --host=10.0.0.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/
 
 #### [Electrs](electrs.md)
 
-Follow the complete guide from the beginning, when you arrive at the ["Firewall & reverse proxy section"](electrs.md#firewall-and-reverse-proxy):
+Follow the complete guide from the beginning, when you arrive at the ["Firewall & reverse proxy section"](electrs.md#firewall-and-reverse-proxy), follow next steps
 
 [Firewall & reverse proxy](electrs.md#firewall-and-reverse-proxy)
 

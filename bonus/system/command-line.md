@@ -41,20 +41,25 @@ $ nano /home/admin/.bashrc --linenumbers
 force_color_prompt=yes
 ```
 
-* Comment the existing line 60 (backup) and add the next line (in line 61)
+* Comment the existing line 60 (backup)
 
 ```
 #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u \[\033[01;34m\]\w\[\e[33m\] ₿\[\e[m\] "
 ```
 
-* Insert the following at the end of the file (line 121)
+* Add the next line (in line 61)
+
+```
+PS1="${debian_chroot:+($debian_chroot)}\[\e[33m\]\u@\h\[\033[01;34m\]\w\[\e[33m\] ₿\[\e[m\] "
+```
+
+* Insert the following at the end of the file
 
 ```
 alias ls='ls -la --color=always'
 ```
 
-![](../../images/60\_pimp\_prompt\_update.png)
+<figure><img src="../../.gitbook/assets/pimp-command-line.PNG" alt=""><figcaption></figcaption></figure>
 
 * Apply changes
 
@@ -62,7 +67,7 @@ alias ls='ls -la --color=always'
 $ source /home/admin/.bashrc
 ```
 
-![](../../images/60\_pimp\_prompt\_result.png)
+<figure><img src="../../.gitbook/assets/pimp-command-line-2.PNG" alt=""><figcaption></figcaption></figure>
 
 ### Bash completion
 
