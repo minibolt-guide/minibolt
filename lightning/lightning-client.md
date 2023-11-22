@@ -509,7 +509,7 @@ $2 sudo su - lnd
 * Create the LND wallet
 
 ```sh
-$2 lncli create --tlscertpath /data/lnd/tls.cert.tmp
+$2 lncli --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 * Enter your `password [C]` as wallet password (it must be exactly the same one you stored in `password.txt`). To create a new wallet, select `n` when asked if you have an existing cipher seed. Just press enter if asked about an additional seed passphrase unless you know what you're doing. A new cipher seed consisting of 24 words is created
