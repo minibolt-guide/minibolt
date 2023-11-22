@@ -341,7 +341,7 @@ $ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\./)'
 $ nano run.sh
 ```
 
-* Comment the existing line
+* Comment existing line
 
 ```
 #dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
@@ -359,7 +359,7 @@ $ nano run.sh
 $ nano build.sh
 ```
 
-* Comment the existing line
+* Comment next line
 
 ```
 #dotnet build -c Release NBXplorer/NBXplorer.csproj
@@ -441,7 +441,7 @@ $ nano settings.config
 # /home/btcpay/.nbxplorer/Main/settings.config
 
 # Bitcoind connection
-btc.rpc.cookiefile=/home/bitcoin/.bitcoin/.cookie
+btc.rpc.cookiefile=/data/bitcoin/.cookie
 
 # Database
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
@@ -579,21 +579,25 @@ You have NBxplorer running and prepared for the BTCpay server to use it
 
 ### Install BTCPay Server
 
-* Switch to the `btcpay` user and go to the `src` folder
+* Switch to the `btcpay` user
 
 ```bash
 $ sudo su - btcpay
 ```
 
+* Go to the `src` folder
+
 ```bash
 $ cd src
 ```
 
-* Clone the BTCPay Server official GitHub repository and go to the `btcpayserver` folder
+* Clone the BTCPay Server official GitHub repository
 
 ```bash
 $ git clone https://github.com/btcpayserver/btcpayserver
 ```
+
+* Go to the `btcpayserver` folder
 
 ```bash
 $ cd btcpayserver
@@ -613,7 +617,7 @@ $ git checkout $(git tag --sort -version:refname | awk 'match($0, /^v[0-9]+\.[0-
 $ nano run.sh
 ```
 
-* Comment the next line and add the below
+* Comment next line
 
 ```
 #dotnet "BTCPayServer.dll" $@
@@ -631,7 +635,7 @@ $ nano run.sh
 $ nano build.sh
 ```
 
-* Comment the next line and add the bellow
+* Comment next line
 
 ```
 #dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj

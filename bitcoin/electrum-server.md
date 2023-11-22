@@ -108,7 +108,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.6
+$ VERSION=1.9.7
 ```
 
 * Download the application, checksums, and signature
@@ -170,17 +170,13 @@ Expected output:
 * Verify the signed checksum against the actual checksum of your download
 
 ```sh
-$ grep 'x86_64-linux.tar.gz' Fulcrum-1.9.6-sha256sums.txt | sha256sum --check
+$ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-sha256sums.txt | sha256sum --check
 ```
 
 **Example** of expected output:
 
 <pre><code><strong>> <a data-footnote-ref href="#user-content-fn-4">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
 </strong></code></pre>
-
-{% hint style="info" %}
-Search for the "`Fulcrum-$VERSION-x86_64-linux.tar.gz:`` `**`OK`**" phrase
-{% endhint %}
 
 * Extract and install Fulcrum
 
@@ -233,11 +229,13 @@ If you come to update, this is the final step, go back to the [Upgrade section](
 
 Now that Fulcrum is installed, we need to configure it to run automatically on startup.
 
-* Create the `fulcrum` user, and add it to the "bitcoin" group
+* Create the `fulcrum` user
 
 ```sh
 $ sudo adduser --disabled-password --gecos "" fulcrum
 ```
+
+* Add `fulcrum` user to the "bitcoin" group
 
 ```sh
 $ sudo adduser fulcrum bitcoin
