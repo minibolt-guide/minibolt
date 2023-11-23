@@ -34,13 +34,13 @@ $ sudo adduser --gecos "" admin
 $ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
 ```
 
-* Logout `temp` user
+* Logout the existing `temp` user
 
 ```sh
 $ logout
 ```
 
-* Repeat [access with the SSH section](remote-access.md#access-with-secure-shell) but this time login with `admin` and your `password [A]`
+* Repeat [Access with Secure Shell](remote-access.md#access-with-secure-shell) but this time login with `admin` and your `password [A]`
 * Delete the `temp` user. Do not worry about the `userdel: temp mail spool (/var/mail/temp) not found` message
 
 ```sh
@@ -81,7 +81,7 @@ Do this regularly every few months for security-related updates. If during the u
 It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press `ENTER` to confirm
 {% endhint %}
 
-* To be able to use the "minibolt" hostname instead of the IP address, we must install this necessary software packag
+* To be able to use the "minibolt" hostname instead of the IP address, we must install this necessary software package
 
 ```sh
 $ sudo apt install avahi-daemon
@@ -112,7 +112,7 @@ $ sudo hdparm -t --direct /dev/sda
 ```
 
 {% hint style="success" %}
-If the measured speeds are more than 100 MB/s, you're good
+If the measured speeds are more than 150 MB/s, you're good
 {% endhint %}
 
 * If you installed a **secondary disk**, check and measure the speed with the next command, if not, skip it

@@ -203,11 +203,13 @@ If you obtain "command not found" outputs, you need to follow the [Rustup + Carg
 
 In the [Security section](broken-reference/), we already set up Nginx as a reverse proxy. Now we can add the Electrs configuration.
 
-* Enable Nginx reverse proxy to add SSL/TLS encryption to the Electrs communication. Create the configuration file and paste the following content
+* With user `admin`, create the reverse proxy configuration
 
 ```sh
 $ sudo nano /etc/nginx/streams-available/electrs-reverse-proxy.conf
 ```
+
+* Paste the complete following configuration. Save and exit
 
 ```nginx
 upstream electrs {
@@ -264,7 +266,9 @@ An easy and performant way to run an Electrum server is to use [Electrs](https:/
 
 We get the latest release of the Electrs source code, verify it, compile it to an executable binary, and install it.
 
-* Download the source code for the latest Electrs release. You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration
+You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration
+
+* With user `admin`, go to the temporary folder
 
 ```sh
 $ cd /tmp
@@ -276,9 +280,13 @@ $ cd /tmp
 $ VERSION=0.10.1
 ```
 
+* Download the source code
+
 ```sh
 $ git clone --branch v$VERSION https://github.com/romanz/electrs.git
 ```
+
+* Go to the `electrs` folder
 
 ```sh
 $ cd electrs
@@ -396,6 +404,8 @@ $ electrs --version
 $ cd
 ```
 
+* Delete the temporal `electrs` folder
+
 ```sh
 $ sudo rm -r /tmp/electrs
 ```
@@ -406,11 +416,13 @@ If you come to update this is the final step
 
 ## Configuration
 
-* Create the `electrs` user, and make it a member of the "bitcoin" group
+* Create the `electrs` user
 
 ```sh
 $ sudo adduser --disabled-password --gecos "" electrs
 ```
+
+* Make to the `electrs` user a member of the "bitcoin" group
 
 ```sh
 $ sudo adduser electrs bitcoin
@@ -422,19 +434,25 @@ $ sudo adduser electrs bitcoin
 $ sudo mkdir /data/electrs
 ```
 
+* Assign as the owner to the `electrs` user
+
 ```sh
 $ sudo chown electrs:electrs /data/electrs
 ```
 
-* Switch to the `electrs` user and create the config file with the following content
+* Switch to the `electrs` user
 
 ```sh
 $ sudo su - electrs
 ```
 
+* Create the electrs config file
+
 ```sh
 $ nano /data/electrs/electrs.conf
 ```
+
+* Enter the complete next content
 
 ```
 # MiniBolt: electrs configuration
@@ -463,11 +481,13 @@ $ exit
 
 ### Create systemd service
 
-* As user `admin`, create the Electrs systemd unit, and copy/paste the following configuration. Save and exit
+* As user `admin`, create the Electrs systemd unit
 
 ```sh
 $ sudo nano /etc/systemd/system/electrs.service
 ```
+
+* Enter the complete following configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for electrs
@@ -590,11 +610,13 @@ Electrs must first fully index the blockchain and compact its database before yo
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin`, edit the `torrc` file &#x20;
 
 ```sh
 $ sudo nano /etc/tor/torrc
 ```
+
+* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```
 # Hidden Service Electrs TCP & SSL
@@ -605,11 +627,13 @@ HiddenServicePort 50001 127.0.0.1:50001
 HiddenServicePort 50002 127.0.0.1:50002
 ```
 
-* Reload the Tor configuration, get your connection addresses, and take note of these, later you will need them
+* Reload the Tor configuration to apply changes
 
 ```sh
 $ sudo systemctl reload tor
 ```
+
+* Get your Onion address
 
 ```sh
 $ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
@@ -621,7 +645,7 @@ Expected output:
 > abcdefg..............xyz.onion
 ```
 
-* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port 50002 (SSL) or 50001 (TCP)
+* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50002 (SSL)` or `50001 (TCP)`
 
 ### Migrate BTC RPC Explorer to Electrs API connection
 
@@ -730,11 +754,13 @@ $ sudo rm -rf /data/electrs/
 
 ### Uninstall Tor hidden service
 
-* Ensure that you are logged in with the user `admin` and delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin` , edit the `torrc` config file&#x20;
 
 ```bash
 $ sudo nano /etc/tor/torrc
 ```
+
+* Delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```
 # Hidden Service Electrs TCP & SSL
@@ -745,7 +771,7 @@ $ sudo nano /etc/tor/torrc
 #HiddenServicePort 50002 127.0.0.1:50002
 ```
 
-* Reload the Tor configuration
+* Reload the Tor configuration to apply changes
 
 ```bash
 $ sudo systemctl reload tor

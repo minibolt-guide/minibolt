@@ -66,17 +66,19 @@ $ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
 
 We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
 
-* In `bitcoin.conf`, add the following line in the `"# Connections"` section. Save and exit
+* Edit `bitcoin.conf` file
 
 ```sh
 $ sudo nano /data/bitcoin/bitcoin.conf
 ```
 
+* Add the following line to the `"# Connections"` section. Save and exit
+
 ```sh
 zmqpubhashblock=tcp://127.0.0.1:8433
 ```
 
-* Restart Bitcoin Core
+* Restart Bitcoin Core to apply changes
 
 ```sh
 $ sudo systemctl restart bitcoind
@@ -178,7 +180,7 @@ $ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-sha256sums.txt | sha256sum --check
 <pre><code><strong>> <a data-footnote-ref href="#user-content-fn-4">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
 </strong></code></pre>
 
-* Extract and install Fulcrum
+* Extract
 
 ```sh
 $ tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
@@ -192,6 +194,8 @@ tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.system.posix_acl
 tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.docker.grpcfuse.ownership'
 ```
 {% endhint %}
+
+* Install it
 
 {% code overflow="wrap" %}
 ```bash
@@ -241,17 +245,19 @@ $ sudo adduser --disabled-password --gecos "" fulcrum
 $ sudo adduser fulcrum bitcoin
 ```
 
-* Create the fulcrum data directory and assign the owner to the "fulcrum" user
+* Create the fulcrum data directory
 
 ```sh
 $ sudo mkdir -p /data/fulcrum/fulcrum_db
 ```
 
+* Assign as the owner to the `fulcrum` user
+
 ```sh
 $ sudo chown -R fulcrum:fulcrum /data/fulcrum/
 ```
 
-* Open a `fulcrum` user session
+* Change to the `fulcrum` user
 
 ```bash
 $ sudo su - fulcrum
@@ -266,7 +272,7 @@ $ ln -s /data/fulcrum /home/fulcrum/.fulcrum
 * Check symbolic link has been created correctly
 
 ```bash
-$ ls -la /home/fulcrum
+$ ls -la
 ```
 
 Expected output:
@@ -281,11 +287,13 @@ lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-
 -rw-r--r-- 1 fulcrum fulcrum  807 Jul 15 07:56 .profile
 </code></pre>
 
-* Change to the fulcrum data folder and generate cert and key files for SSL
+* Change to the fulcrum data folder
 
 ```sh
 $ cd /data/fulcrum
 ```
+
+* Generate cert and key files for SSL
 
 {% code overflow="wrap" %}
 ```bash
@@ -315,16 +323,19 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 
 MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
 
-* Next, we have to set up our Fulcrum configurations. Troubles could be found without optimizations for slow devices. Choose either one for 4GB or 8GB of RAM depending on your hardware
+* Create a Fulcrum configuration file
 
 ```sh
 $ nano /data/fulcrum/fulcrum.conf
 ```
 
-* Create the config file with the following content. Save and exit
+* Enter the following content. Save and exit
 
-```
-# MiniBolt: fulcrum configuration
+{% hint style="info" %}
+Remember to accommodate the `fast-sync` parameter depending on your hardware
+{% endhint %}
+
+<pre><code># MiniBolt: fulcrum configuration
 # /data/fulcrum/fulcrum.conf
 
 ## Bitcoin Core settings
@@ -344,11 +355,11 @@ peering = false
 
 # Set fast-sync according to your device,
 # recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
-fast-sync = 2048
+<a data-footnote-ref href="#user-content-fn-6">fast-sync</a> = 2048
 
 # Banner
 banner = /data/fulcrum/fulcrum-banner.txt
-```
+</code></pre>
 
 {% hint style="info" %}
 Remember, if you have a slow-performance device, follow the [slow device section](electrum-server.md#slow-devices-mode) to improve the experience of the first indexation
@@ -364,11 +375,13 @@ $ exit
 
 Fulcrum needs to start automatically on system boot.
 
-* As user `admin`, create the Fulcrum systemd unit, and copy/paste the following configuration. Save and exit
+* As user `admin`, create the Fulcrum systemd unit
 
 ```sh
 $ sudo nano /etc/systemd/system/fulcrum.service
 ```
+
+* Enter the complete following configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for Fulcrum
@@ -456,15 +469,13 @@ tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",
 
 ### Remote access over Tor
 
-To use your Fulcrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet also remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
-
-* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin` and edit the `torrc` file
 
 ```sh
 $ sudo nano /etc/tor/torrc
 ```
 
-* Edit torrc
+* add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```
 # Hidden Service Fulcrum TCP & SSL
@@ -475,11 +486,13 @@ HiddenServicePort 50001 127.0.0.1:50001
 HiddenServicePort 50002 127.0.0.1:50002
 ```
 
-* Reload the Tor configuration and get your connection addresses
+* Reload the Tor configuration to apply changes
 
 ```sh
 $ sudo systemctl reload tor
 ```
+
+* Get your Onion address
 
 ```sh
 $ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
@@ -525,11 +538,13 @@ Get more information about this command in the official documentation [section](
 
 #### Fulcrum configuration
 
-* As the `admin` user, add these lines at the end of the existing `fulcrum.conf` file. Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware
+* As the `admin` user, edit the existing `fulcrum.conf` file
 
 ```sh
  $ sudo nano /data/fulcrum/fulcrum.conf
 ```
+
+* Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware
 
 ```
 ## Slow device first-time start optimizations
@@ -548,18 +563,28 @@ db_mem = 1024.0
 
 zram-swap is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
 
-* Access to "admin" home folder, clone the repository of GitHub and install zram-swap
+* With user `admin`, access to "admin" home folder
 
 ```sh
 $ cd /home/admin/
 ```
 
+* Clone the repository of GitHub
+
 ```sh
 $ git clone https://github.com/foundObjects/zram-swap.git
 ```
 
+* Go to the `zram-swap` folder
+
+```bash
+$ cd zram-swap
 ```
-$ cd zram-swap && sudo ./install.sh
+
+* Install it
+
+```bash
+$ sudo ./install.sh
 ```
 
 * Add kernel parameters to make better use of zram
@@ -568,7 +593,7 @@ $ cd zram-swap && sudo ./install.sh
 $ sudo nano /etc/sysctl.conf
 ```
 
-* Here are the lines you’ll want to add **at the end** of your `/etc/sysctl.conf` file to make better use of zram. Save and exit
+* Add next lines at the end of the file. Save and exit
 
 ```
 vm.vfs_cache_pressure=500
@@ -589,7 +614,7 @@ $ sudo sysctl --system
 $ sudo systemctl restart zram-swap
 ```
 
-* Make sure zram was correctly installed and zram prioritized (+ Priority)
+* Make sure zram was correctly installed and prioritized (+ Priority than swap)
 
 ```sh
 $ sudo cat /proc/swaps
@@ -745,3 +770,5 @@ Filename            Type                Size           Used    Priority
 [^4]: That's it!
 
 [^5]: Symbolic link
+
+[^6]: Accommodate this

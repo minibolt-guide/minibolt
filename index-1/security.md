@@ -26,15 +26,19 @@ A firewall controls what kind of outside traffic your machine accepts and which 
 
 For now, only SSH should be reachable from the outside. Bitcoin Core and LND are using Tor and don't need incoming ports. We'll open the port for Electrs and web applications later if needed.
 
-* With user `admin`, configure and enable the firewall rules
+* With user `admin`, deny incoming connections (we are going to allow incoming connections on demand)
 
 ```sh
 $ sudo ufw default deny incoming
 ```
 
+* Allow outgoing connections
+
 ```sh
 $ sudo ufw default allow outgoing
 ```
+
+* Allow SSH incoming connection
 
 {% hint style="warning" %}
 Attention! Don't forget the next step!
@@ -43,6 +47,8 @@ Attention! Don't forget the next step!
 ```sh
 $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
 ```
+
+* Disable logging
 
 ```sh
 $ sudo ufw logging off

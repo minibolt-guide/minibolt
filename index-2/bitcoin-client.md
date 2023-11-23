@@ -152,7 +152,9 @@ The following output is just an **example** of one of the versions:
 > [...]
 ```
 
-💡 Now, if you want to install the manual page for `bitcoin-cli`, follow the [manual page for the bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section, and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
+{% hint style="info" %}
+Now, if you want to install the manual page for `bitcoin-cli`, follow the [manual page for the bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section, and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
+{% endhint %}
 
 ### Create the bitcoin user
 
@@ -186,6 +188,8 @@ Bitcoin Core uses by default the folder `.bitcoin` in the user's home. Instead o
 $ mkdir /data/bitcoin
 ```
 
+* Assign as the owner to the `bitcoin` user
+
 ```sh
 $ sudo chown bitcoin:bitcoin /data/bitcoin
 ```
@@ -202,7 +206,7 @@ $ sudo su - bitcoin
 $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
 ```
 
-* Check symbolic link have been created correctly
+* Check the symbolic link have been created correctly
 
 ```bash
 $ ls -la
@@ -230,11 +234,13 @@ Another option to get access credentials is through the `.cookie` file in the Bi
 
 Bitcoin Core provides a simple Python program to generate the configuration line for the config file.
 
-* In the Bitcoin folder, download the RPCAuth program
+* Enter to the bitcoin folder
 
 ```sh
 $ cd .bitcoin
 ```
+
+* Download the RPCAuth program
 
 {% code overflow="wrap" %}
 ```sh
@@ -244,13 +250,15 @@ $ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rp
 
 * Run the script with the Python3 interpreter, providing the username (`minibolt`) and your `"password [B]"` arguments
 
-🚨 All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space ( ) in front of the command shown below
+{% hint style="warning" %}
+All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space `( )` in front of the command shown below
+{% endhint %}
 
 ```sh
 $  python3 rpcauth.py minibolt YourPasswordB
 ```
 
-Expected **example** output:
+**Example** of expected output:
 
 ```
 > String to be appended to bitcoin.conf:
@@ -263,14 +271,16 @@ Expected **example** output:
 
 Now, the configuration file `bitcoind` needs to be created. We'll also set the proper access permissions.
 
-* Still as the user `"bitcoin"`, create the `bitcoin.conf` file and paste the configuration below
+* Still as the user `"bitcoin"`, creates the `bitcoin.conf` file
 
 ```bash
 $ nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
+* Enter the complete next configuration. Save and exit
+
 {% hint style="warning" %}
-Replace the whole line starting with `"rpcauth=..."` the connection string you just generated. Save and exit
+Replace the whole line starting with `"rpcauth=..."` the connection string you just generated
 {% endhint %}
 
 ```
@@ -348,11 +358,13 @@ $ exit
 
 The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-* Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
+* Create the systemd configuration
 
 ```bash
 $ sudo nano /etc/systemd/system/bitcoind.service
 ```
+
+* Enter the complete next configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for bitcoind
@@ -395,7 +407,9 @@ $ sudo systemctl enable bitcoind
 $ journalctl -f -u bitcoind
 ```
 
-💡 Keep **this terminal open,** you'll need to come back here on the next step to monitor logs.
+{% hint style="info" %}
+Keep **this terminal open,** you'll need to come back here on the next step to monitor logs
+{% endhint %}
 
 ## Run
 
@@ -440,9 +454,11 @@ $2 sudo systemctl start bitcoind
 
 </details>
 
-Monitor the log file for a few minutes to see if it works fine (it may stop at "dnsseed thread exit", that's ok).
+{% hint style="info" %}
+Monitor the log file for a few minutes to see if it works fine (it may stop at "`dnsseed thread exit`", that's ok)
+{% endhint %}
 
-* Link the Bitcoin data directory from the `admin` user home directory as well. This allows "admin" to work with bitcoind directly, for example using the command `bitcoin-cli`
+* Link the Bitcoin data directory from the `admin` user home directory as well. This allows `admin` user to work with bitcoind directly, for example using the command `bitcoin-cli`
 
 ```sh
 $2 ln -s /data/bitcoin /home/admin/.bitcoin
@@ -482,6 +498,13 @@ drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
 $2 bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo | grep address.*i2p
 ```
 {% endcode %}
+
+**Example** of expected output:
+
+```
+> "address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
+> "address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
+```
 
 * Check the correct enablement of the I2P and Tor networks
 
@@ -544,11 +567,17 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
-* As user `admin`, comment the following lines (adding a `#` at the beginning) in the Bitcoin settings file. Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit
+* As user `admin`, edit the `bitcoin.conf` file
+
+{% hint style="info" %}
+Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit
+{% endhint %}
 
 ```sh
 $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
+
+* Comment the following lines (adding a `#` at the beginning)
 
 ```
 #dbcache=2048
@@ -584,15 +613,26 @@ $ sudo pip3 install opentimestamps-client
 $ ots --version
 ```
 
+**Example** of expected output:
+
+<pre><code><strong>> v0.7.1
+</strong></code></pre>
+
+{% hint style="info" %}
+To update the OpenTimestamps client, simply exec `$ sudo pip3 install --upgrade opentimestamps-client`
+{% endhint %}
+
 ## Extras (optional)
 
 ### Reject non-private networks
 
-* As user `admin` add these lines to the end of `bitcoin.conf` file, remember to add seed nodes. You can add more seed nodes to this list: [seed nodes](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt)
+* As user `admin` edit `bitcoin.conf` file
 
 ```sh
 $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
+
+* Add these lines to the end of the file, remember to add seed nodes. You can add more seed nodes to this list: [seed nodes](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt). Save and exit
 
 ```
 # Reject non-private networks
@@ -636,11 +676,13 @@ seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
 
 ### Slow device mode
 
-* As user `admin` add these lines to the end of the existing `bitcoin.conf` file
+* As user `admin`  edit `bitcoin.conf` file
 
 ```sh
 $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
+
+* Add these lines to the end of the file
 
 ```
 # Slow devices optimizations
@@ -654,7 +696,7 @@ rpcthreads=128
 rpcworkqueue=256
 ```
 
-* Comment these lines to the existing `bitcoin.conf` file
+* Comment these lines
 
 ```
 #coinstatsindex=1
@@ -787,7 +829,7 @@ $ gpg --verify SHA256SUMS.asc
 > Primary key fingerprint: ...
 ```
 
-* If you completed the IBD, now you can verify the timestamp with your own node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing correctly OTS client in the [proper section](bitcoin-client.md#opentimestamps-client)
+* If you completed the IBD, now you can verify the timestamp with your own node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
 
 ```sh
 $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -805,11 +847,13 @@ The following output is just an **example** of one of the versions:
 
 Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing.
 
-* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries, install them, and check the version
+* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
 
 ```sh
 $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
+
+* Install them
 
 {% code overflow="wrap" %}
 ```sh

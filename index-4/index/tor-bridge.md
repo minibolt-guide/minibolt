@@ -147,7 +147,7 @@ By default, Tor will advertise your bridge to users through various [mechanisms]
 
 > Currently valid, recognised options are: `none` | `any` | `https` | `email` | `moat`
 
-### **Configure Firewall and router NAT**
+### **Configure Firewall & Router**
 
 * Configure the firewall to allow incoming requests to be replaced `<TODO1>` and `<TODO2>` previously configured in the section before
 
@@ -160,7 +160,9 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
 {% hint style="warning" %}
-Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device. You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with **`$ curl icanhazip.com`** or navigate directly with your regular browser to \[icanhazip.com] on your personal computer inside of the same local network, and put your **`<TODO2>`** port
+Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.&#x20;
+
+You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with **`$ curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port
 {% endhint %}
 
 ### **Systemd hardening**
@@ -193,12 +195,6 @@ NoNewPrivileges=no
 
 ```sh
 $ sudo systemctl daemon-reload
-```
-
-* Enable autoboot
-
-```sh
-$ sudo systemctl enable --now tor
 ```
 
 * Restart Tor to apply changes
@@ -317,7 +313,7 @@ $ unattended-upgrade --debug --dry-run
 $ sudo apt install nyx
 ```
 
-* Add the user admin to the `debian-tor` group
+* Add the user `admin` to the `debian-tor` group
 
 ```bash
 $ sudo adduser admin debian-tor

@@ -99,7 +99,7 @@ $ cd /tmp
 $ git clone https://github.com/scsibug/nostr-rs-relay.git
 ```
 
-* Go to the folder recently created
+* Go to the `nostr-rs-relay` recently created
 
 ```bash
 $ cd nostr-rs-relay
@@ -307,10 +307,12 @@ If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/mini
 
 The system needs to run the nostr relay daemon automatically in the background, even when nobody is logged in. We use `systemd`, a daemon that controls the startup process using configuration files.
 
-* With the user `admin`, create the configuration file in the nano text editor, and copy the following paragraph. Save and exit
+* As user `admin`, create the service file
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/systemd/system/nostr-relay.service
 </strong></code></pre>
+
+* Paste the following configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for nostr relay

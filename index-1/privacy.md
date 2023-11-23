@@ -340,23 +340,6 @@ The latest release can be found on the [official Tor web page](https://gitweb.to
 $ sudo apt update && sudo apt upgrade
 ```
 
-{% hint style="info" %}
-Note: in the I2P update process maybe appears you the next message if you modified the configuration file. Is recommended to select the "`Y"` option because the developer could have applied modifications in the config file and this could be useful for new features.
-{% endhint %}
-
-```
-  Configuration file '/etc/i2pd/i2pd.conf'
-==> Modified (by you or by a script) since installation.
-==> Package distributor has shipped an updated version.
-  What would you like to do about it ?  Your options are:
-    Y or I  : install the package maintainer's version
-    N or O  : keep your currently-installed version
-      D     : show the differences between the versions
-      Z     : start a shell to examine the situation
-The default action is to keep your current version.
-*** i2pd.conf (Y/I/N/O/D/Z) [default=N] ?
-```
-
 ## Extras (optional)
 
 ### **SSH remote access through Tor**
@@ -365,11 +348,13 @@ If you want to log into your MiniBolt with SSH when you're away, you can easily 
 
 #### **SSH server**
 
-* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin` , edit the `torrc` file
 
 ```sh
 $ sudo nano /etc/tor/torrc
 ```
+
+* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```
 # Hidden Service SSH server
@@ -379,11 +364,13 @@ HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 22 127.0.0.1:22
 ```
 
-* Reload the Tor configuration and look up your Tor connection address
+* Reload the Tor configuration to apply the configuration
 
 ```sh
 $ sudo systemctl reload tor
 ```
+
+* Get the SSH Onion address
 
 ```sh
 $ sudo cat /var/lib/tor/hidden_service_sshd/hostname
@@ -395,7 +382,7 @@ $ sudo cat /var/lib/tor/hidden_service_sshd/hostname
 > abcdefg..............xyz.onion
 ```
 
-* Save the Tor address in a secure location, e.g., your password manager.
+* Save the Tor address in a secure location, e.g. your password manager
 
 #### **SSH client**
 
@@ -408,39 +395,38 @@ To enable Tor in the background follow the same instructions for the [preparatio
 * PuTTy:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
     * Go to the "Connection" tab -> Proxy, select "Socks5" as proxy type, on Proxy hostname, type "localhost", port "9050".
-    * Press the button OPEN, when a "PuTTy security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
+    * Press the button OPEN, when a "PuTTy security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 * MobaXterm:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
   * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
-  * Press the button OK, when a "Connexion to..." banner appears press the "Accept" button, if the prompt asks you user/password, left empty and press ENTER directly, and finally type your `password [A]`.
+  * Press the button OK, when a "Connexion to..." banner appears press the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 
 📝 If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150.
 
-*   **Linux**:
+* **Linux**:
+  * Use `torify` or `torsocks`, both work similarly; just use whatever you have available
 
-    * Use `torify` or `torsocks`, both work similarly; just use whatever you have available
+```bash
+$ torify ssh admin@abcdefg..............xyz.onion
+```
 
-    ```sh
-    $ torify ssh admin@abcdefg..............xyz.onion
-    ```
+```bash
+$ torsocks ssh admin@abcdefg..............xyz.onion
+```
 
+{% hint style="info" %}
+When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER
+{% endhint %}
 
+* **macOS**: Using `torify` or `torsocks` may not work due to Apple's _System Integrity Protection (SIP)_ which will deny access to `/usr/bin/ssh`.
 
-    ```sh
-    $ torsocks ssh admin@abcdefg..............xyz.onion
-    ```
+To work around this, first, make sure Tor is installed and running on your Mac:
 
-📝 When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER.
+```sh
+$ brew install tor && brew services start tor
+```
 
-*   **macOS**: Using `torify` or `torsocks` may not work due to Apple's _System Integrity Protection (SIP)_ which will deny access to `/usr/bin/ssh`.
-
-    To work around this, first, make sure Tor is installed and running on your Mac:
-
-    ```sh
-    $ brew install tor && brew services start tor
-    ```
-
-    You can SSH to your PC "out of the box" with the following proxy command:
+You can SSH to your PC "out of the box" with the following proxy command:
 
 {% code overflow="wrap" %}
 ```bash
@@ -448,7 +434,7 @@ $ ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg...........
 ```
 {% endcode %}
 
-* For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save and exit
+* For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save, and exit
 
 ```bash
 $ sudo nano .ssh/config

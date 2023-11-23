@@ -230,10 +230,12 @@ $ exit
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-* With the user `admin`, create the configuration file in the nano text editor, and copy the following paragraph. Save and exit
+* As user `admin`, create the service file
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/systemd/system/nym-network-requester.service
 </strong></code></pre>
+
+* Paste the following configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for nym network requester
@@ -405,11 +407,13 @@ $ exit
 
 The system needs to run the network requester daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
 
-* Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
+* As user `admin`, create the service file
 
 ```bash
 $ sudo nano /etc/systemd/system/nym-socks5-client.service
 ```
+
+* Paste the following configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for nym socks5 client

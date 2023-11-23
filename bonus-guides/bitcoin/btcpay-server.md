@@ -41,11 +41,15 @@ To run the BTCPay Server you will need to install `.NET Core SDK`, `PostgreSQL`,
 
 In the security [section](../../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTCPay Server configuration.
 
-* With user `admin`, enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTCPay Server. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
+Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTCPay Server. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
+
+* With user `admin`, create the reverse proxy configuration
 
 ```bash
 $ sudo nano /etc/nginx/sites-available/btcpay-reverse-proxy.conf
 ```
+
+* Paste the complete following configuration. Save and exit
 
 ```nginx
 server {
@@ -94,11 +98,13 @@ $ sudo ufw allow 23001/tcp comment 'allow BTCpay SSL from anywhere'
 
 We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
 
-* With user `admin`, in `bitcoin.conf`, add the following line in the `"# Connections"` section. Save and exit
+* With user `admin`, edit `bitcoin.conf`
 
 ```bash
 $ sudo nano /data/bitcoin/bitcoin.conf
 ```
+
+* Add the following line to the `"# Connections"` section. Save and exit
 
 <pre><code><strong># NBXplorer requeriment
 </strong><strong>whitelist=127.0.0.1
@@ -114,13 +120,13 @@ $ sudo systemctl restart bitcoind
 
 We do not want to run BTCPay Server and other related services alongside other services due to security reasons. Therefore, we will create a separate user and run the code under the new user's account.
 
-* With user `admin`, create a new user called `btcpay`. We will need this user later
+* With user `admin`, create a new user called `btcpay`
 
 ```bash
 $ sudo adduser --disabled-password --gecos "" btcpay
 ```
 
-* Add it to the bitcoin and lnd groups
+* Add `btcpay` user to the bitcoin and lnd groups
 
 ```bash
 $ sudo adduser btcpay bitcoin lnd
@@ -128,7 +134,7 @@ $ sudo adduser btcpay bitcoin lnd
 
 ### Install .NET Core SDK
 
-* With user `admin`, change to the user btcpay
+* With user `admin`, change to the `btcpay` user
 
 ```bash
 $ sudo su - btcpay
@@ -455,11 +461,13 @@ $ exit
 
 ### Create NBX systemd service
 
-* Create the configuration file in the nano text editor and copy the entire following paragraph. Save and exit
+* As user `admin`, create the service file
 
 ```bash
 $ sudo nano /etc/systemd/system/nbxplorer.service
 ```
+
+* Paste the following configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for NBXplorer
@@ -723,11 +731,13 @@ $ exit
 
 ### Create BTCPay Server systemd service
 
-* Create the configuration file in the nano text editor and copy the following paragraph. Save and exit
+* As user `admin`, create the service file
 
 ```bash
 $ sudo nano /etc/systemd/system/btcpay.service
 ```
+
+* Paste the following configuration. Save and exit
 
 <pre><code># MiniBolt: systemd unit for BTCpay server
 # /etc/systemd/system/btcpay.service

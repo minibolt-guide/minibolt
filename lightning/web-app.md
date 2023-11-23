@@ -64,11 +64,15 @@ If the version is v14.15 or above, you can move to the next section. If Node.js 
 
 In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
 
-* Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
+Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+
+* With user `admin`, create the reverse proxy configuration
 
 ```sh
 $ sudo nano /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
 ```
+
+* Paste the complete following configuration. Save and exit
 
 ```nginx
 server {
@@ -139,7 +143,7 @@ $ sudo su - thunderhub
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=0.13.23
+$ VERSION=0.13.24
 ```
 
 * Import the GPG key of the developer
@@ -360,7 +364,7 @@ accounts:
 Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
 {% endhint %}
 
-* **(Optional)** You can pre-enable automatic healthchecks ping and/or channels backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (without indentation)
+* **(Optional)** You can pre-enable automatic healthchecks ping and/or channel backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (without indentation)
 
 Enable auto-backups:
 
@@ -391,8 +395,6 @@ $ exit
 ```
 
 ### Create systemd service
-
-Now we'll make sure ThunderHub starts as a service on the PC so it's always running. In order to do that we create a systemd unit that starts the service on boot directly after LND.
 
 * As user `admin`, create the service file
 
@@ -575,7 +577,7 @@ $ sudo ss -tulpn | grep LISTEN | grep 4002
 Expected output:
 
 ```
-> tcp   LISTEN 0      511      0.0.0.0:4002       0.0.0.0:*    users:(("nginx",pid=876,fd=8),("nginx",pid=875,fd=8),("nginx",pid=874,fd=8),("nginx",pid=873,fd=8),("nginx",pid=872,fd=8))
+> tcp   LISTEN 0      511      0.0.0.0:4002    0.0.0.0:*    users:(("nginx",pid=876,fd=8),("nginx",pid=875,fd=8),("nginx",pid=874,fd=8),("nginx",pid=873,fd=8),("nginx",pid=872,fd=8))
 ```
 
 {% hint style="success" %}
@@ -586,11 +588,13 @@ Expected output:
 
 ### Remote access over Tor
 
-* Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in with the user `admin` and edit the `torrc` file
 
 ```sh
 $ sudo nano /etc/tor/torrc
 ```
+
+* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`". Save and exit
 
 ```
 # Hidden Service Thunderhub
@@ -600,11 +604,13 @@ HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:3000
 ```
 
-* Restart Tor and get your connection address
+* Reload Tor to apply changes
 
 ```sh
 $ sudo systemctl reload tor
 ```
+
+* Get your Onion address
 
 ```sh
 $ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
@@ -679,11 +685,13 @@ Use this guide as a last resort if you have lost access to your node or are unab
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
 
-* From user `admin`, stop the service, and open a "thunderhub" user session
+* Stay logged in with the user `admin`, stop the service
 
 ```sh
 $ sudo systemctl stop thunderhub
 ```
+
+* Change to the `thunderhub` user
 
 ```sh
 $ sudo su - thunderhub
@@ -700,16 +708,164 @@ $ cd thunderhub
 <pre class="language-bash"><code class="lang-bash"><strong>$ git pull https://github.com/apotdevin/thunderhub.git master
 </strong></code></pre>
 
-* Install all the necessary modules. Not run `$ npm audit fix`, which could break the original code
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+remote: Enumerating objects: 392, done.
+remote: Counting objects: 100% (392/392), done.
+remote: Compressing objects: 100% (190/190), done.
+remote: Total 392 (delta 239), reused 309 (delta 198), pack-reused 0
+Receiving objects: 100% (392/392), 789.50 KiB | 1.08 MiB/s, done.
+Resolving deltas: 100% (239/239), completed with 34 local objects.
+From https://github.com/apotdevin/thunderhub
+ * branch              master     -> FETCH_HEAD
+Updating 570a097e..b436e2f7
+Fast-forward
+ .nvmrc                                                                             |     2 +-
+ CHANGELOG.md                                                                       |    12 +
+ Dockerfile                                                                         |     4 +-
+ package-lock.json                                                                  | 11711 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------
+ package.json                                                                       |   128 +-
+ schema.gql                                                                         |    55 +-
+ src/client/pages/forwards.tsx                                                      |   145 +-
+ src/client/src/components/chart/ChannelChart.tsx                                   |   247 +++
+ src/client/src/components/select/index.tsx                                         |    17 +-
+ src/client/src/components/table/index.tsx                                          |     4 +-
+ [...]
+```
+
+</details>
+
+* Install all the necessary modules
 
 ```bash
 $ npm install
 ```
 
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws    For general help using `graphql-ws`, see https://github.com/enisdenjo/graphql-ws/blob/master/README.md
+npm WARN deprecated apollo-server-plugin-base@3.7.2: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-types@3.8.0: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-express@3.12.0: The `apollo-server-express` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server@3.12.0: The `apollo-server` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-reporting-protobuf@3.4.0: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-core@3.12.0: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+(#################⠂) ⠧ reify:value-or-promise: timing reifyNode:node_modules/foreground-child/node_modules/signal-exit Completed in 39393ms
+[...]
+> thunderhub@0.13.19 prepare
+> husky install
+
+husky - Git hooks installed
+
+added 1879 packages, and audited 1880 packages in 1m
+
+201 packages are looking for funding
+  run `npm fund` for details
+
+16 vulnerabilities (1 low, 5 moderate, 10 high)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+npm notice
+npm notice New minor version of npm available! 9.5.1 -> 9.8.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v9.8.0
+npm notice Run npm install -g npm@9.8.0 to update!
+npm notice
+```
+
+</details>
+
 * Build it
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ npm run build
 </strong></code></pre>
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+
+> thunderhub@0.13.24 prebuild
+> rimraf dist && rimraf .next
+
+
+> thunderhub@0.13.24 build
+> npm run build:nest && npm run build:next
+
+
+> thunderhub@0.13.24 build:nest
+> nest build
+
+
+> thunderhub@0.13.24 build:next
+> cd src/client && next build
+
+
+./src/components/chart/BarChart.tsx
+61:6  Warning: React Hook useMemo has a missing dependency: 'dataKey'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/chart/HorizontalBarChart.tsx
+139:6  Warning: React Hook useMemo has a missing dependency: 'maxValue'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/table/DebouncedInput.tsx
+30:6  Warning: React Hook useEffect has missing dependencies: 'debounce' and 'onChange'. Either include them or remove the dependency array. If 'onChange' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+ ✓ Linting and checking validity of types
+   ▲ Next.js 14.0.1
+
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+ ✓ Creating an optimized production build
+ ✓ Compiled successfully
+ ✓ Collecting page data
+ ✓ Collecting build traces
+ ✓ Finalizing page optimization
+
+Route (pages)                              Size     First Load JS
+┌ λ /                                      23.8 kB         561 kB
+├   /_app                                  0 B             246 kB
+├ λ /404                                   344 B           246 kB
+├ λ /amboss                                3.31 kB         252 kB
+├ λ /chain                                 5.73 kB         268 kB
+├ λ /channels                              6.75 kB         312 kB
+├ λ /channels/[slug]                       4.47 kB         253 kB
+├ λ /chat                                  6.76 kB         259 kB
+├ λ /dashboard                             586 B           250 kB
+├ λ /forwards                              24.1 kB         550 kB
+├ λ /leaderboard                           3.62 kB         283 kB
+├ λ /lnmarkets                             5.22 kB         251 kB
+├ λ /login                                 5.6 kB          252 kB
+├ λ /peers                                 6.3 kB          269 kB
+├ λ /rebalance                             9.45 kB         289 kB
+├ λ /settings                              8.73 kB         260 kB
+├ λ /settings/dashboard                    458 B           250 kB
+├ λ /sso                                   2.79 kB         249 kB
+├ λ /stats                                 7.18 kB         256 kB
+├ λ /swap                                  11.4 kB         291 kB
+├ λ /tools                                 7.46 kB         253 kB
+└ λ /transactions                          5.09 kB         527 kB
++ First Load JS shared by all              250 kB
+  ├ chunks/framework-1ebad0ea60aef44d.js   45.7 kB
+  ├ chunks/main-f884d18fd3231f30.js        33.2 kB
+  ├ chunks/pages/_app-23ed15c0ff29868f.js  165 kB
+  ├ chunks/webpack-9d8d1d250efc304b.js     2.17 kB
+  └ css/ba8e388a301f6e52.css               3.78 kB
+
+λ  (Dynamic)  server-rendered on demand using Node.js
+```
+
+</details>
 
 * Check the correct update
 
@@ -806,7 +962,7 @@ $ sudo nano /etc/tor/torrc
 #HiddenServicePort 80 127.0.0.1:3000
 ```
 
-* Reload torrc config
+* Reload the tor config to apply changes
 
 ```sh
 $ sudo systemctl reload tor

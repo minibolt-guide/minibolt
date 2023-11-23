@@ -73,11 +73,15 @@ $ sudo apt install build-essential
 
 In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
 
-* Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+
+* With user `admin`, create the reverse proxy configuration
 
 ```sh
 $ sudo nano /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
 ```
+
+* Paste the complete following configuration. Save and exit
 
 ```nginx
 server {
@@ -124,17 +128,21 @@ $ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
 
 ## Installation
 
-For improved security, we create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
+For improved security, we will create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
 
-* Create a new user, assign it to the "bitcoin" group, and open a new session
+* Create a new one called `btcrpcexplorer` user
 
 ```sh
 $ sudo adduser --disabled-password --gecos "" btcrpcexplorer
 ```
 
+* Assign it to the "bitcoin" group
+
 ```sh
 $ sudo adduser btcrpcexplorer bitcoin
 ```
+
+* Change to the new `btcrpcexplorer` user
 
 ```sh
 $ sudo su - btcrpcexplorer
@@ -156,6 +164,8 @@ $ curl https://github.com/janoside.gpg | gpg --import
 ```sh
 $ git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git
 ```
+
+* Go to the `btc-rpc-explorer` folder&#x20;
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ cd btc-rpc-explorer
 </strong></code></pre>
@@ -222,15 +232,12 @@ $ cp .env-sample .env
 * Edit the `.env` file. Activate any setting by removing the `#` at the beginning of the line or editing directly
 
 ```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+$ nano .env
 ```
 
 * Instruct the BTC RPC Explorer to connect to the local Bitcoin Core
 
 ```
-# uncomment these lines
-BTCEXP_BITCOIND_HOST=127.0.0.1
-BTCEXP_BITCOIND_PORT=8332
 # replace this line
 BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
 ```
@@ -399,7 +406,13 @@ $ sudo ss -tulpn | grep LISTEN | grep node | grep 4000
 
 ### Privacy
 
-You can decide whether you want to optimize for more information or more privacy:
+You can decide whether you want to optimize for more information or more privacy.
+
+* With user `admin` user, edit the `.env` configuration file
+
+```bash
+$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
 
 * More information mode, including Bitcoin exchange rates
 
@@ -417,9 +430,19 @@ BTCEXP_PRIVACY_MODE=true
 BTCEXP_NO_RATES=true
 ```
 
+* Save and exit
+
 ### Security
 
-* You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
+You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked.
+
+* With user `admin` user, edit the `.env` configuration file
+
+```bash
+$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+* Replace the next line. Save and exit
 
 ```
 # replace `mypassword` with 'YourPassword [D] in this line
@@ -428,23 +451,37 @@ BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
 
 ### Theme
 
-* Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark (default dark)
+Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark **(default dark)**
+
+* With user `admin` user, edit the `.env` configuration file
+
+```bash
+$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+* Uncomment and replace this line with your selection. Save and exit
 
 ```
-# uncomment and replace this line with your selection
 BTCEXP_UI_THEME=dark
 ```
 
 ### Slow device mode (resource-intensive features are disabled)
 
-* Extend the timeout period due to the limited resources
+Extend the timeout period due to the limited resources
+
+* With user `admin` user, edit the `.env` configuration file
+
+```bash
+$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+* Uncomment and change the value of this line
 
 ```
-# uncomment and change the value of this line
 BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 ```
 
-* Comment this line if it is uncommented (default value is **true**)
+* Comment this line if it is uncommented (default value is **true**). Save and exit
 
 ```
 #BTCEXP_SLOW_DEVICE_MODE=false
@@ -452,10 +489,17 @@ BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 
 ### Sharing your explorer
 
-You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands).
+You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands)
+
+* With user `admin` user, edit the `.env` configuration file
+
+```bash
+$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+* Uncomment this line
 
 ```
-# uncomment this line
 BTCEXP_DEMO=true
 ```
 
@@ -483,11 +527,13 @@ With DEMO mode enabled, the user will see the next message:&#x20;
 
 Do you want to access your personal blockchain explorer remotely? You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTC RPC Explorer with the Tor browser from any device.
 
-* Ensure that you are logged in with the user `admin` and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* With the user `admin` , edit the `torrc` file
 
 ```sh
 $ sudo nano /etc/tor/torrc
 ```
+
+* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```
 # Hidden Service BTC RPC Explorer
@@ -503,7 +549,7 @@ HiddenServicePort 80 127.0.0.1:3002
 $ sudo systemctl reload tor
 ```
 
-* Get your connection address
+* Get your Onion address
 
 ```sh
 $ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
@@ -521,11 +567,13 @@ $ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
 
 Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
 
-* From user `admin`, stop the service and open a `btcrpcexplorer` user session
+* With `admin` user, stop the service
 
 ```sh
 $ sudo systemctl stop btcrpcexplorer
 ```
+
+* Change to the `btcrpcexplorer` user
 
 ```sh
 $ sudo su - btcrpcexplorer
@@ -533,15 +581,17 @@ $ sudo su - btcrpcexplorer
 
 * Set a temporary version environment variable to the installation
 
-```
+```bash
 $ VERSION=3.4.0
 ```
 
-* Fetch the latest GitHub repository information, display the release tags (use the latest in this example), and update
+* Go to the `btc-rpc-explorer` folder
 
 ```sh
-$ cd /home/btcrpcexplorer/btc-rpc-explorer
+$ cd btc-rpc-explorer
 ```
+
+* Fetch the latest GitHub repository information
 
 ```sh
 $ git fetch
@@ -551,6 +601,8 @@ $ git fetch
 $ git reset --hard HEAD
 ```
 
+* Display the release tags (use the latest in this example)
+
 ```sh
 $ git tag
 ```
@@ -559,9 +611,13 @@ $ git tag
 $ git checkout v$VERSION
 ```
 
+* Install dependencies
+
 ```sh
 $ npm install
 ```
+
+* Come back to the `admin` user
 
 ```sh
 $ exit
@@ -591,8 +647,8 @@ $ sudo systemctl disable btcrpcexplorer
 $ sudo rm /etc/systemd/system/btcrpcexplorer.service
 ```
 
-Ensure you are logged in with the user `admin`. Delete the btcrpcexplorer user.\
-Don't worry about `userdel: btcrpcexplorer mail spool (/var/mail/btcrpcexplorer) not found` output, the uninstall has been successful
+* Ensure you are logged in with the user `admin`. Delete the btcrpcexplorer user.\
+  Don't worry about `userdel: btcrpcexplorer mail spool (/var/mail/btcrpcexplorer) not found` output, the uninstall has been successful
 
 ```bash
 $ sudo userdel -rf btcrpcexplorer
@@ -614,7 +670,7 @@ $ sudo nano /etc/tor/torrc
 #HiddenServicePort 80 127.0.0.1:3002
 ```
 
-* Reload the torrc config
+* Reload the tor to apply changes
 
 ```bash
 $ sudo systemctl reload tor
