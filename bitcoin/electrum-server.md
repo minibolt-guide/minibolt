@@ -123,13 +123,13 @@ $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-sha256sums.txt.asc
+$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-shasums.txt.asc
 ```
 {% endcode %}
 
 {% code overflow="wrap" fullWidth="false" %}
 ```bash
-$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-sha256sums.txt
+$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-shasums.txt
 ```
 {% endcode %}
 
@@ -156,7 +156,7 @@ Expected output:
 * Verify the signature of the text file containing the checksums for the application
 
 ```sh
-$ gpg --verify Fulcrum-$VERSION-sha256sums.txt.asc
+$ gpg --verify Fulcrum-$VERSION-shasums.txt.asc
 ```
 
 Expected output:
@@ -172,7 +172,7 @@ Expected output:
 * Verify the signed checksum against the actual checksum of your download
 
 ```sh
-$ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-sha256sums.txt | sha256sum --check
+$ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 ```
 
 **Example** of expected output:
