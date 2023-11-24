@@ -84,7 +84,7 @@ $ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
 
 ## Installation, Configuration & Run
 
-#### Compile NYM binaries from the source code
+### Compile NYM binaries from the source code
 
 * Now we will go to the temporary folder to create the NYM binaries that we will need for the installation process
 
@@ -92,11 +92,13 @@ $ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
 $ cd /tmp
 ```
 
-* Clone the latest version of the source code from the GitHub repository and enter it in the nym folder
+* Clone the latest version of the source code from the GitHub repository
 
 ```bash
 $ git clone https://github.com/nymtech/nym.git
 ```
+
+* Enter to the nym folder
 
 ```bash
 $ cd nym
@@ -313,11 +315,13 @@ All network requester specific configurations can be found in `/home/nym/.nym/se
 
 ### Install socks5 client
 
-* Staying in the temporary folder, copy to the home nym user the "nym socks5 client" binary
+* Stay logged in with `admin`user, go to the temporary folder
 
 ```bash
 $ cd /tmp
 ```
+
+* Copy to the home nym user the "nym socks5 client" binary
 
 ```bash
 $ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
@@ -525,11 +529,13 @@ You can get more information about the complete documentation [here](https://nym
 
 So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. By doing this, we can reduce the volume of traffic on the Tor network.
 
-* With user `admin`, modify the following line. Save and exit
+* With user `admin`, edit the `bitcoin.conf` file
 
 ```bash
-$ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+$ sudo nano /data/bitcoin/bitcoin.conf
 ```
+
+* Modify the following line. Save and exit
 
 ```
 # Connect to clearnet using NYM SOCKS5 proxy
@@ -572,7 +578,7 @@ NymConnect is an easy-to-use interface that enables you to connect other applica
 
 Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).
 
-These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero wallet, and Blockstream Green wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled.\
+These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero Wallet, and Blockstream Green Wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled.\
 \
 The previously configured Nym SOCKS5 client can run in the background as a daemon, commonly used in server operating systems without a desktop interface. Meanwhile, NYM Connect is typically utilized in desktop versions of operating systems.
 
