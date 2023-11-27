@@ -55,7 +55,7 @@ This will select this storage as the boot disk and create automatically a new pa
 **This will delete all existing data on the disks, including existing partitions!**
 {% endhint %}
 
-![](../../resources/storage-secondary-disk.gif)
+<figure><img src="../../.gitbook/assets/storage-secondary-disk.gif" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 The GIF above is a recreation of a scenario made with a virtual machine **-->** **VBOX\_HARDDISK\_**_VB4_... would be the **primary disk**, and **-->** **VBOX\_HARDDISK\_**_VB5_... would be the **secondary disk**. In your case, this probably **will not match exactly**
