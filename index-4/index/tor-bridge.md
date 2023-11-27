@@ -162,9 +162,13 @@ $ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
 {% hint style="warning" %}
-Note that both Tor's OR port and its obfs4 port must be reachable. If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.&#x20;
+Note that both Tor's OR port and its obfs4 port must be reachable from outside.
 
-You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet. Enter the website your public **"IP ADDRESS"** obtained with **`$ curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port
+If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.&#x20;
+
+You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet.&#x20;
+
+Enter the website your public **"IP ADDRESS"** obtained with **`$ curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port.
 {% endhint %}
 
 ### **Systemd hardening**
@@ -182,7 +186,7 @@ $ sudo nano /lib/systemd/system/tor@default.service
 NoNewPrivileges=no
 ```
 
-* Same for `"tor@.service"` file
+* Same for `"tor@.service"` file, edit the service
 
 ```sh
 $ sudo nano /lib/systemd/system/tor@.service

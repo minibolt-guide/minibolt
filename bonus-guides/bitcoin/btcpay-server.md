@@ -39,62 +39,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 To run the BTCPay Server you will need to install `.NET Core SDK`, `PostgreSQL`, and `NBXplorer`
 
-### Reverse proxy & Firewall
-
-In the security [section](../../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTCPay Server configuration.
-
-Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTCPay Server. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS
-
-* With user `admin`, create the reverse proxy configuration
-
-```bash
-$ sudo nano /etc/nginx/sites-available/btcpay-reverse-proxy.conf
-```
-
-* Paste the complete following configuration. Save and exit
-
-```nginx
-server {
-  listen 23001 ssl;
-  error_page 497 =301 https://$host:$server_port$request_uri;
-  location / {
-    proxy_pass http://127.0.0.1:23000;
-  }
-}
-```
-
-* Create the symbolic link that points to the directory `sites-enabled`
-
-{% code overflow="wrap" %}
-```bash
-$ sudo ln -s /etc/nginx/sites-available/btcpay-reverse-proxy.conf /etc/nginx/sites-enabled/
-```
-{% endcode %}
-
-* Test Nginx configuration
-
-```bash
-$ sudo nginx -t
-```
-
-Expected output:
-
-```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
-
-* Reload the Nginx configuration to apply changes
-
-```bash
-$ sudo systemctl reload nginx
-```
-
-* Configure the firewall to allow incoming HTTPS requests
-
-```bash
-$ sudo ufw allow 23001/tcp comment 'allow BTCpay SSL from anywhere'
-```
+*
 
 ### Configure Bitcoin Core
 
@@ -116,6 +61,21 @@ $ sudo nano /data/bitcoin/bitcoin.conf
 
 ```bash
 $ sudo systemctl restart bitcoind
+```
+
+### Firewall
+
+* Configure the firewall to allow incoming HTTPS requests
+
+```bash
+$ sudo ufw allow 23000/tcp comment 'allow BTCPay Server from anywhere'
+```
+
+Expected output
+
+```
+Rule added
+Rule added (v6)
 ```
 
 ### Create a new btcpay user
@@ -307,7 +267,7 @@ $ exit
 
 ### Install NBXplorer
 
-[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, exploited by BTCPay Server
+[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, used by BTCPay Server
 
 * With user `admin`, switch to the `btcpay` user
 
@@ -707,19 +667,18 @@ $ nano settings.config
 
 * Add the complete following lines
 
-```
-# MiniBolt: btcpayserver configuration
+<pre><code># MiniBolt: btcpayserver configuration
 # /home/btcpay/.btcpayserver/Main/settings.config
 
 # Server settings
-socksendpoint=127.0.0.1:9050
-
+<strong>bind=0.0.0.0
+</strong>
 # Database
 ## NBXplorer
 explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
 ## BTCpay server
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
-```
+</code></pre>
 
 {% hint style="info" %}
 If you want to connect your Lightning LND node to BTCpay too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
@@ -831,20 +790,7 @@ Expected output:
 > tcp   LISTEN 0   512        127.0.0.1:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
 ```
 
-* And the `HTTP` Ngnix listening on the port `230001`
-
-```bash
-$ sudo ss -tulpn | grep LISTEN | grep 23001
-```
-
-Expected output:
-
-<pre><code><strong>> tcp   LISTEN 0      511      0.0.0.0:23001      0.0.0.0:*    users:(("nginx",pid=876,fd=6),("nginx",pid=875,fd=6),("nginx",pid=874,fd=6),("nginx",pid=873,fd=6),("nginx",pid=872,fd=6))
-</strong></code></pre>
-
-Now point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:23001"` (or your node IP address) like `"https://192.168.0.20:23001"`.
-
-Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the BTCPay Server web interface. On the login page, you should see the registration process.
+Now point your browser, `"http://minibolt.local:23000"` (or your node IP address) like `"http://192.168.0.20:23000"`.
 
 {% hint style="info" %}
 You can now create the first account to access the dashboard using a real (recommended) or a dummy email, and password
@@ -1094,7 +1040,7 @@ $ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 23001       ALLOW IN    Anywhere          # allow BTCpay SSL from anywhere
+> [Y] 23000       ALLOW IN    Anywhere          # allow BTCPay Server from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "`yes`"
@@ -1103,25 +1049,9 @@ Expected output:
 $ sudo ufw delete X
 ```
 
-* Delete the BTCpay Nginx reverse proxy configuration
-
-```bash
-$ sudo rm /etc/nginx/sites-enabled/btcpay-reverse-proxy.conf
-```
-
-* Test and reload Nginx configuration
-
-```bash
-$ sudo nginx -t
-```
-
-```bash
-$ sudo systemctl reload nginx
-```
-
 ### **Uninstall Tor hidden service**
 
-* Ensure you are logged in with user `admin`, comment or remove btcpay hidden service in the torrc. Save and exit
+* Ensure you are logged in with the user `admin`, comment or remove btcpay hidden service in the torrc. Save and exit
 
 ```bash
 $ sudo nano /etc/tor/torrc
