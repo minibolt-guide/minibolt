@@ -32,6 +32,8 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 * [Bitcoin Core](../../index-2/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md) (optional)
+* Others
+  * PostgreSQL
 
 ## Preparations
 
@@ -257,7 +259,7 @@ Expected output:
 </strong>> tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
 </code></pre>
 
-### Create databases
+### Create PostgreSQL databases
 
 * With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
 

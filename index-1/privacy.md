@@ -317,7 +317,7 @@ $ sudo tail -f /var/log/i2pd/i2pd.log
 </details>
 
 {% hint style="info" %}
-**(Optional)** --> If you want, you can disable the autoboot option for Tor using:
+**(Optional)** --> If you want, you can **disable the autoboot** option for I2P using:
 
 ```bash
 $ sudo systemctl disable i2pd
@@ -451,13 +451,13 @@ Host HOSTNICKNAME
 
 * Restart Tor
 
-```
+```bash
 brew services restart tor
 ```
 
 * You should now be able to SSH to your PC with
 
-```
+```bash
 ssh HOSTNICKNAME
 ```
 

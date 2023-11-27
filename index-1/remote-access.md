@@ -16,8 +16,6 @@ layout:
 
 We connect to your personal computer by using the Secure Shell.
 
-<figure><img src="../.gitbook/assets/remote-access (1).png" alt="" width="375"><figcaption></figcaption></figure>
-
 ## Find your PC
 
 Your Personal Computer is starting and gets a new address from your home network. Give it a few minutes to come to life.
@@ -41,7 +39,7 @@ PING 192.168.1.147 (192.168.1.147) 56(84) bytes of data.
 64 bytes from 192.168.1.147: icmp_seq=4 ttl=64 time=1.58 ms
 ```
 
-* If the `ping` command fails or does not return anything, you need to manually look for your PC
+* If `ping` command fails or does not return anything, you need to manually look for your PC
 * You should now be able to reach your PC, with the IP address like `192.168.x.xxx`
 
 ## Access with Secure Shell

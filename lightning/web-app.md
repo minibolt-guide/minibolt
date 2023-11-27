@@ -25,6 +25,8 @@ layout:
 
 * [Bitcoin Core](../index-2/bitcoin-client.md)
 * [LND](lightning-client.md)
+* Others
+  * [Node + NPM](../bonus/system/nodejs-npm.md)
 
 ## Preparations
 
@@ -57,7 +59,7 @@ $ npm -v
 ```
 
 {% hint style="info" %}
-If the version is v14.15 or above, you can move to the next section. If Node.js is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+If the version is `>=18`, you can move to the next section. If Node.js is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 ### Reverse proxy & Firewall
@@ -297,7 +299,7 @@ Route (pages)                              Size     First Load JS
 
 </details>
 
-* Check the correct installation
+* Check the correct installation by requesting the version
 
 ```bash
 $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version

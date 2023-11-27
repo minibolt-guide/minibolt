@@ -16,8 +16,6 @@ layout:
 
 You are now on the command line of your own Bitcoin node. Let's start with the configuration.
 
-<figure><img src="../.gitbook/assets/configuration (1).jpg" alt="" width="375"><figcaption></figcaption></figure>
-
 ## Add the admin user (and log in with it)
 
 We will use the primary user `admin` instead of `temp` to make this guide more universal.

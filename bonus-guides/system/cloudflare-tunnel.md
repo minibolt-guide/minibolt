@@ -14,7 +14,7 @@ layout:
 
 # Cloudflare tunnel
 
-Exposing your local server on the internet (clearnet) has various solutions, but the Cloudflare Tunnel stands out as the easiest and most cost-effective option. Traditionally, configuring firewalls, using Tor, or setting up an SSH reverse tunnel to a public VPS were common approaches, each with its challenges and costs. Cloudflare Tunnel offers an alternative, though it acts as a middleman and can access or modify your traffic.
+Exposing your local server on the Internet (clearnet) has various solutions, but the Cloudflare Tunnel stands out as the easiest and most cost-effective option. Traditionally, configuring firewalls, using Tor, or setting up an SSH reverse tunnel to a public VPS were common approaches, each with its challenges and costs. Cloudflare Tunnel offers an alternative, though it acts as a middleman and can access or modify your traffic.
 
 {% hint style="warning" %}
 Cost: Paid service
@@ -39,13 +39,13 @@ Before you start, make sure you:
 ### Buy a domain name
 
 * **Buy a domain or use an existing one**, there are different options to buy a domain, to this example, we will use Namecheap
-  * Go to the [Namecheap](https://www.namecheap.com/), search your wish domain between available, and follow the registration\[^1] and buying process (you can pay using Bitcoin onchain), the price depends on the domain extensions chosen, a common extension like .com or .net generally has an annual cost between 10€ and 20€, but some less common extensions may have higher prices. In general, the most common extensions like .com, .net, and .org usually have low costs due to their popularity and availability. However, other less common extensions, such as .xyz or .online, are often offered at lower prices to attract more users.
+  * Go to the [Namecheap](https://www.namecheap.com/), search your wish domain between available, and follow the registration and buying process (you can pay using Bitcoin onchain), the price depends on the domain extensions chosen, a common extension like .com or .net generally has an annual cost between 10€ and 20€, but some less common extensions may have higher prices. In general, the most common extensions like .com, .net, and .org usually have low costs due to their popularity and availability. However, other less common extensions, such as .xyz or .online, are often offered at lower prices to attract more users.
 
 ### Create an account on Cloudflare
 
 * [Create an account on Cloudflare](https://dash.cloudflare.com/sign-up) and add the recently created domain to it:
-  * In the top navigation bar, click **Add site**
-  * Enter your domain (`example.com`) and then click on the **Add site** button again
+  * In the top navigation bar, click **\[Add site]**
+  * Enter your domain (`example.com`) and then click on the **\[Add site]** button again
   * **Select your plan level**. The **free plan is enough** for this case of use. For more details on features and pricing of available plans, refer to the [Plans page](https://www.cloudflare.com/plans/#compare-features). Click **Continue**
   * Click **Done, take note of the nameservers** assigned to your account
   * On **Overview**, locate the nameserver names in **2**

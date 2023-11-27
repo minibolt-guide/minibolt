@@ -67,11 +67,13 @@ If not obtain results, follow the [Privacy section](../../index-1/privacy.md#tor
 
 ## Configuration
 
-* Edit your Tor config file adding the next lines **at the end of the file**. We will use 2 ports: <**TODO1>** and <**TODO2>, m**ake sure you replace them
+* Stay logged in with `admin` user, edit the torrc config file
 
 ```sh
 $ sudo nano /etc/tor/torrc
 ```
+
+* Add the next lines **at the end of the file**. We will use 2 ports: <**TODO1>** and <**TODO2>, m**ake sure you replace them. Save and exit
 
 ```
 BridgeRelay 1
@@ -143,9 +145,9 @@ By default, Tor will advertise your bridge to users through various [mechanisms]
 > ```
 > BridgeDistribution none
 > ```
-{% endhint %}
 
-> Currently valid, recognised options are: `none` | `any` | `https` | `email` | `moat`
+Currently valid, recognized options are: `none` | `any` | `https` | `email` | `moat`
+{% endhint %}
 
 ### **Configure Firewall & Router**
 
@@ -180,18 +182,20 @@ $ sudo nano /lib/systemd/system/tor@default.service
 NoNewPrivileges=no
 ```
 
-* Same for `"tor@.service"` file, change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
+* Same for `"tor@.service"` file
 
 ```sh
 $ sudo nano /lib/systemd/system/tor@.service
 ```
+
+* &#x20;Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
 
 ```
 # Hardening
 NoNewPrivileges=no
 ```
 
-* Reload systemd manager configuration to apply changes
+* Reload systemd manager configuration to apply services changes
 
 ```sh
 $ sudo systemctl daemon-reload
@@ -326,7 +330,7 @@ $ exit
 ```
 
 * Log in as the user `admin` again --> `ssh admin@minibolt.local`
-* Execute nyx
+* Execute Nyx
 
 ```sh
 $ nyx
@@ -360,7 +364,7 @@ $ sudo apt install obfs4proxy
 $ sudo nano /etc/tor/torrc
 ```
 
-* Add the next lines at the end of the **torrc** file
+* Add the next lines at the end of the file
 
 ```
 ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
@@ -475,7 +479,7 @@ $ sudo nano /lib/systemd/system/tor@.service
 NoNewPrivileges=yes
 ```
 
-* Reload systemd manager configuration to apply changes
+* Reload systemd manager configuration to apply services changes
 
 ```sh
 $ sudo systemctl daemon-reload

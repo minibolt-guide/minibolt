@@ -263,6 +263,8 @@ $ sudo adduser admin lnd
 $ sudo mkdir /data/lnd
 ```
 
+* Assign as owner the `lnd` user&#x20;
+
 ```sh
 $ sudo chown -R lnd:lnd /data/lnd
 ```
@@ -303,9 +305,9 @@ lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-conten
 
 ### Wallet password
 
-LND includes a Bitcoin wallet that manages your on-chain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your PC, or store the password somewhere on the node.
+LND includes a Bitcoin wallet that manages your onchain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your PC, or store the password somewhere on the node.
 
-For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically. This is not the most secure setup, but you can improve it later if you want, with the bonus guides linked below. To give some perspective: other Lightning implementations like c-lightning or Eclair don't even have a password.
+For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically.
 
 * Still as user `lnd`, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
 
@@ -321,11 +323,13 @@ $ chmod 600 /data/lnd/password.txt
 
 ## Configuration
 
-* Create the LND configuration file and paste the following content (set your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size **`"minchansize"`** , and fees). Save and exit
+* Create the LND configuration file
 
 ```sh
 $ nano /data/lnd/lnd.conf
 ```
+
+* Paste the following content (set your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size **`"minchansize"`** , and fees). Save and exit
 
 <pre><code># MiniBolt: lnd configuration
 # /data/lnd/lnd.conf
@@ -421,11 +425,13 @@ $ exit
 
 Now, let's set up LND to start automatically on system startup.
 
-* As user `admin`, create LND systemd unit with the following content. Save and exit
+* As user `admin`, create LND systemd unit
 
 ```sh
 $ sudo nano /etc/systemd/system/lnd.service
 ```
+
+* Enter the following complete content. Save and exit
 
 ```
 # MiniBolt: systemd unit for lnd
@@ -482,16 +488,23 @@ $2 sudo systemctl start lnd
 <summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u lnd</code> ⬇️</summary>
 
 ```
-> Dec 02 09:23:37 minibolt systemd[1]: Started LND Lightning Network Daemon.
-> Dec 02 09:23:37 minibolt lnd[2584156]: Attempting automatic RPC configuration to bitcoind
-> Dec 02 09:23:37 minibolt lnd[2584156]: Automatically obtained bitcoind's RPC credentials
-> Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Version: $VERSION-beta commit=$VERSION-beta, build=production, logging=default, debuglevel=info
-> Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.974 [INF] LTND: Active chain: Bitcoin (network=mainnet)
-> Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.975 [INF] RPCS: RPC server listening on 127.0.0.1:10009
-> Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] RPCS: gRPC proxy started at 0.0.0.0:8080
-> Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] LTND: Opening the main database, this might take a few minutes...
-> Dec 02 09:23:37 minibolt lnd[2584156]: 2022-12-02 09:23:37.976 [INF] LTND: Opening bbolt database, sync_freelist=false, auto_compact=true
-[...]
+Nov 26 18:57:25 minibolt systemd[1]: Started LND.
+Nov 26 18:57:27 minibolt lnd[1004]: Attempting automatic RPC configuration to bitcoind
+Nov 26 18:57:27 minibolt lnd[1004]: Automatically obtained bitcoind's RPC credentials
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.299 [INF] LTND: Version: 0.17.2-beta commit=v0.17.2-beta, build=production, logging=default, debuglevel=info
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.300 [INF] LTND: Active chain: Bitcoin (network=testnet)
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.300 [INF] RPCS: Generating ephemeral TLS certificates...
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.304 [INF] RPCS: Done generating ephemeral TLS certificates
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.321 [INF] RPCS: RPC server listening on 127.0.0.1:10009
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.408 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.408 [INF] LTND: Opening the main database, this might take a few minutes...
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.408 [INF] LTND: Opening bbolt database, sync_freelist=false, auto_compact=true
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.445 [INF] LTND: Creating local graph and channel state DB instances
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.473 [INF] CHDB: Checking for schema update: latest_version=31, db_version=31
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.474 [INF] CHDB: Checking for optional update: prune_revocation_log=false, db_version=empty
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.493 [INF] LTND: Database(s) now open (time_to_open=84.180567ms)!
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.493 [INF] LTND: We're not running within systemd or the service type is not 'notify'
+Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.493 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
 ```
 
 </details>
@@ -512,47 +525,177 @@ $2 sudo su - lnd
 $2 lncli --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
-* Enter your `password [C]` as wallet password (it must be exactly the same one you stored in `password.txt`). To create a new wallet, select `n` when asked if you have an existing cipher seed. Just press enter if asked about an additional seed passphrase unless you know what you're doing. A new cipher seed consisting of 24 words is created
+Expected output:
 
-{% code fullWidth="false" %}
+```
+Input wallet password:
+Confirm password:
+```
+
+{% hint style="info" %}
+Enter your `password [C]` as wallet password 2 times (it must be exactly the same one you stored in `password.txt` on the [Wallet password](lightning-client.md#wallet-password) step)
+{% endhint %}
+
+Expected output
+
 ```
 Do you have an existing cipher seed mnemonic or extended master root key you want to use?
 Enter 'y' to use an existing cipher seed mnemonic, 'x' to use an extended master root key
-or 'n' to create a new seed (Enter y/x/n): n
+or 'n' to create a new seed (Enter y/x/n):
+```
 
+**2 options:**
+
+1. If you are creating a **new node** and you wish to create a new seed, press `n` and enter
+
+If you choose this option, the next step will be choosing the passphrase **(optional)**
+
+Expected output:
+
+```
 Your cipher seed can optionally be encrypted.
 Input your passphrase if you wish to encrypt it (or press enter to proceed without a cipher seed passphrase):
+```
 
+Type the passphrase and press enter \[the prompt will request you to enter your `password [C]` one more time (`Confirm password:`)] or if you choose not to use the passphrase press enter simply
+
+**Example** of expected output:
+
+```
 Generating fresh cipher seed...
 
 !!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
 
 ---------------BEGIN LND CIPHER SEED---------------
-1. secret     2. secret    3. secret     4. secret
+ 1. ability   2. soap    3. album    4. resource
+ 5. plate     6. fiber   7. immune   8. fringe
 [...]
+
+!!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
+
+lnd successfully initialized!
 ```
-{% endcode %}
 
-These 24 words are all that you need to restore the Bitcoin on-chain wallet.
+These 24 words are all that you need (and the `channel.backup` file in case of disaster recovery) to restore the Bitcoin onchain wallet and possible UTXOs blocked
 
-* **Write these 24 words down manually on a piece of paper and store it in a safe place**
+**Write these 24 words down manually on a piece of paper and store it in a safe place**
 
 You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
 
 {% hint style="danger" %}
-This piece of paper is all an attacker needs to completely empty your on-chain wallet!&#x20;
+This piece of paper is all an attacker needs to completely empty your on-chain wallet!
+
+
 
 🚫 **Do not store it on a computer**
 
 🚫 **Do not take a picture with your mobile phone**
 
 🚫 **This information should never be stored anywhere in digital form**
+
+
+
+This information must be kept secret at all times
 {% endhint %}
 
-The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing. There is a dedicated [guide](channel-backup.md) to making an automatic backup
+<details>
 
-{% hint style="danger" %}
-This information must be kept secret at all times
+<summary>Return to the first terminal with <code>$ journalctl -f -u lnd</code>. Example of expected output ⬇️</summary>
+
+```
+Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.037 [INF] LNWL: Opened wallet
+Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.204 [INF] CHRE: Primary chain is set to: bitcoin
+Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind block notifications via ZMQ on 127.0.0.1:28332
+Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.245 [INF] CHRE: Initializing bitcoind backed fee estimator in CONSERVATIVE mode
+Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind transaction notifications via ZMQ on 127.0.0.1:28333
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.576 [INF] LNWL: The wallet has been unlocked without a time limit
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.712 [INF] CHRE: LightningWallet opened
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.722 [INF] SRVR: Proxying all network traffic via Tor (stream_isolation=true)! NOTE: Ensure the backend node is proxying over Tor as well
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.723 [INF] TORC: Starting tor controller
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Cleaning circuits from disk for closed channels
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Finished cleaning: no closed channels found, no actions taken.
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Restoring in-memory circuit state from disk
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Payment circuits loaded: num_pending=0, num_open=0
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.758 [INF] SWPR: Migrating UTXO nursery finalized TXIDs
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.763 [INF] LTND: Channel backup proxy channel notifier starting
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.764 [INF] ATPL: Instantiating autopilot with active=false, max_channels=5, allocation=0.600000, min_chan_size=20000, max_chan_size=16777215, private=false, min_confs=1, conf_target=3
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.764 [INF] RPCS: Generating TLS certificates...
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.776 [INF] RPCS: Done generating TLS certificates
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.781 [INF] WLKT: Baking macaroons for WalletKit RPC Server at: /home/lnd/.lnd/data/chain/bitcoin/testnet/walletkit.macaroon
+Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.786 [INF] NTFR: Baking macaroons for ChainNotifier RPC Server at: /home/lnd/.lnd/data/chain/bitcoin/testnet/chainnotifier.macaroon
+[...]
+```
+
+</details>
+
+2. If you had an old node and an existing cipher seed, press `y` and enter to recover it
+
+If you choose this option, the next step will be to enter the **seed words of your old node**
+
+Expected output:
+
+```
+Input your 24-word mnemonic separated by spaces:
+```
+
+Type your 24-word mnemonic separated by spaces and press enter
+
+Expected output:
+
+```
+Input your cipher seed passphrase (press enter if your seed doesn't have a passphrase):
+```
+
+If you used a passphrase, enter it, if not, press enter again directly
+
+If you were wrong with the passphrase, don't worry, LND shows you the next log and will not run: `[lncli] rpc error: code = Unknown desc = invalid passphrase`, recheck, and try again, if not, the prompt shows you the next
+
+Expected output:
+
+```
+Input an optional address look-ahead used to scan for used keys (default 2500):
+```
+
+Now the LND will enable the RECOVERY MODE, **press enter again** when the prompt above asks you, the default windows recovery is enought
+
+**Example** of expected output:
+
+```
+Generating fresh cipher seed...
+
+!!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
+
+---------------BEGIN LND CIPHER SEED---------------
+ 1. ability   2. soap    3. album    4. resource
+ 5. plate     6. fiber   7. immune   8. fringe
+[...]
+
+!!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
+
+lnd successfully initialized!
+```
+
+<details>
+
+<summary>Return to the first terminal with <code>$ journalctl -f -u lnd</code>. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this</summary>
+
+<pre><code>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.642 [INF] LNWL: <a data-footnote-ref href="#user-content-fn-16">RECOVERY MODE ENABLED</a> -- rescanning for used addresses with recovery_window=2500
+Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.685 [INF] LNWL: Seed birthday surpassed, starting recovery of wallet from height=2540246 hash=00000000000000178484e446a4fb5c966b5fd5db76121421bfa470c7c879ff05 with recovery-window=2500
+Nov 26 19:47:09 minibolt lnd[1321]: 2023-11-26 19:47:09.859 [INF] LNWL: Scanning 311 blocks for recoverable addresses
+Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.328 [INF] LNWL: Recovered addresses from blocks 2540246-2540556
+Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.338 [INF] LNWL: Started rescan from block 000000000000001e297a052a69708908dbe9769d834a07447d85e446b6b4b2a0 (height 2540556) for 0 addresses
+Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.360 [INF] LNWL: Catching up block hashes to height 2540557, this might take a while
+Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: Done catching up block hashes
+Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: <a data-footnote-ref href="#user-content-fn-17">Finished rescan</a> for 0 addresses (synced to block 00000000443337ee5135e26cc7611c570f0cfface2823516a59fee41fc9750b0, height 2540557)
+[...]
+</code></pre>
+
+</details>
+
+The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing
+
+{% hint style="info" %}
+There is a dedicated [guide](channel-backup.md) to making an automatic backup
 {% endhint %}
 
 * Type "exit" to return to the `admin` user
@@ -569,10 +712,10 @@ $2 sudo ss -tulpn | grep LISTEN | grep lnd
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-16">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
-> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-17">127.0.0.1:8080</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
-> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
-> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-19">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
+<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
+> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-19">127.0.0.1:8080</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-20">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
+> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-21">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
 </code></pre>
 
 ### Allow user "admin" to work with LND
@@ -608,7 +751,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-20">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-22">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -926,12 +1069,16 @@ $ sudo systemctl restart lnd
 
 [^15]: (Uncomment and customize the value)
 
-[^16]: LND P2P host:port
+[^16]: Check this
 
-[^17]: REST host:port
+[^17]: Check this
 
-[^18]: gRPC host:port
+[^18]: LND P2P host:port
 
-[^19]: Watchtower server host:port
+[^19]: REST host:port
 
-[^20]: Symbolic link
+[^20]: gRPC host:port
+
+[^21]: Watchtower server host:port
+
+[^22]: Symbolic link

@@ -16,8 +16,6 @@ layout:
 
 We configure the PC and install the Linux operating system.
 
-<figure><img src="../.gitbook/assets/operating-system (1).gif" alt="" width="295"><figcaption></figcaption></figure>
-
 ## Which operating system to use?
 
 We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interface. This provides the best stability for the PC and makes the initial setup a breeze.
@@ -29,8 +27,13 @@ We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interf
 To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application. Go to the website and [download](https://etcher.balena.io/#download-etcher) the correct binary according to your OS.
 
 * Direct download Ubuntu Server LTS by going to the official Ubuntu Server [website](https://ubuntu.com/download/server) and clicking on the \[**Download Ubuntu Server xx.xx LTS]** button
+
+{% hint style="info" %}
+MiniBolt has currently been tested using **Ubuntu Server 22.04.3 LTS**, it has not been tested on other distributions or versions and there is no guarantee that it will work well on them
+{% endhint %}
+
 * **Start** the **Balena Etcher**
-* Select **"Flash from file"** --> Select Ubuntu Server LTS **.iso** file previously downloaded
+* Select **"Flash from file"** -> Select Ubuntu Server LTS **.iso** file previously downloaded
 
 ## Write the operating system to the pen drive
 

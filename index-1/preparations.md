@@ -16,8 +16,6 @@ layout:
 
 Let's get all the necessary hardware parts and prepare some passwords.
 
-<figure><img src="../.gitbook/assets/preparations.jpg" alt="" width="375"><figcaption></figcaption></figure>
-
 ## Personal computer
 
 This guide builds on the readily available personal computer.

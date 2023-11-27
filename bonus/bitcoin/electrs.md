@@ -31,6 +31,8 @@ Difficulty: Medium
 ## Requirements
 
 * [Bitcoin Core](../../index-2/bitcoin-client.md)
+* Others
+  * [Rustup + Cargo](../../bonus-guides/system/rustup-+-cargo.md)
 
 ## Preparations
 

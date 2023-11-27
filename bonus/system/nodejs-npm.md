@@ -29,13 +29,13 @@ Difficulty: Easy
 
 ## Installation
 
-* With user `admin`, update the packages and upgrade to keep up to date with the OS and press "**y**" and "**enter**" when needed
+* With user `admin`, update the packages and upgrade to keep up to date with the OS, press "**y**" and "**enter**" when needed
 
 ```bash
 $ sudo apt update && sudo apt full-upgrade
 ```
 
-* Download and import the Nodesource GPG key
+* We will use the NodeSource Node.js Binary Distributions [repository](https://github.com/nodesource/distributions) instructions. Download and import the NodeSource GPG key
 
 {% code overflow="wrap" %}
 ```sh
@@ -63,7 +63,7 @@ $ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.
 $ sudo apt update
 ```
 
-* Install Node.js + NPM using the apt package manager, press "**y**" and "enter" when needed
+* Install Node.js + NPM using the apt package manager
 
 ```sh
 $ sudo apt install nodejs
@@ -95,7 +95,7 @@ $ npm -v
 
 ## Upgrade
 
-* With user `admin`, stop the current dependencies services of the Node + NPM. Actually BTC RPC Explorer + Thunderhub
+* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + Thunderhub
 
 ```bash
 $ sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
@@ -108,7 +108,7 @@ $ sudo apt update && sudo apt full-upgrade
 ```
 
 {% hint style="info" %}
-If you want to update to the upper version LTS release ([see here](https://nodejs.org/en/download)), e.g. 16.x to 18.x you need to follow the next steps:
+If you want to update to the upper version LTS release ([see here](https://nodejs.org/en/download)), e.g. 18.x to 20.x you need to follow the next steps:
 {% endhint %}
 
 * Check the current version installed of the nodejs
@@ -117,7 +117,7 @@ If you want to update to the upper version LTS release ([see here](https://nodej
 $ node -v
 ```
 
-* If you have 16.x version, set the environment variable to the new number of versions, for example to 18.x
+* If you have 18.x version, set the environment variable to the new number of versions, for example to 20.x
 
 ```bash
 $ VERSION=20

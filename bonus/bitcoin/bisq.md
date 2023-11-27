@@ -30,7 +30,7 @@ Difficulty: Easy
 
 ## Requirements
 
-* Bitcoin Core
+* [Bitcoin Core](../../index-2/bitcoin-client.md)
 
 ## Introduction
 

@@ -44,6 +44,8 @@ You can obtain more info about nostr on these additional resources:
 ## Requirements
 
 * [Cloudflare tunnel](../system/cloudflare-tunnel.md)
+* Others
+  * [Rustup + Cargo](../system/rustup-+-cargo.md)
 
 ## Preparations
 

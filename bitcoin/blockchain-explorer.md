@@ -24,6 +24,8 @@ Run your own private blockchain explorer with [BTC RPC Explorer](https://github.
 ## Requirements
 
 * [Bitcoin Core](../index-2/bitcoin-client.md)
+* Others
+  * [Node + NPM](../bonus/system/nodejs-npm.md)
 
 ## Introduction
 
@@ -60,7 +62,7 @@ $ npm -v
 ```
 
 {% hint style="info" %}
-If the version is `v14.15` or above, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+If the version is `>=18`, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 * Install the next dependency package. Press "**y**" and `enter` when the prompt asks you
@@ -210,7 +212,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 >   run `npm audit fix` to fix them, or `npm audit` for details
 ```
 
-* Check the correct installation
+* Check the correct installation by requesting the version
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
 </strong></code></pre>

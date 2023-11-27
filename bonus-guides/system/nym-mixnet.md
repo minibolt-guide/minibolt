@@ -36,6 +36,11 @@ Implementing these components empowers users to protect their **online activitie
 
 Together, these components and service providers create a decentralized infrastructure within the NYM network, safeguarding **user anonymity** and protecting **online activities**.
 
+## Requirements
+
+* Others
+  * [Rustup + Cargo](rustup-+-cargo.md)
+
 ## Preparations
 
 ### Install dependencies

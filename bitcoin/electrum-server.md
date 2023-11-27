@@ -24,7 +24,7 @@ layout:
 ## Requirements
 
 * [Bitcoin Core](../index-2/bitcoin-client.md)
-* Little over 130GB of free storage for the database
+* \~ 130GB of free storage for the database
 
 Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `$ sudo systemctl stop electrs`.
 
