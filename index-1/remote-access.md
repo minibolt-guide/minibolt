@@ -16,6 +16,8 @@ layout:
 
 We connect to your personal computer by using the Secure Shell.
 
+<figure><img src="../.gitbook/assets/remote-access.png" alt="" width="375"><figcaption></figcaption></figure>
+
 ## Find your PC
 
 Your Personal Computer is starting and gets a new address from your home network. Give it a few minutes to come to life.

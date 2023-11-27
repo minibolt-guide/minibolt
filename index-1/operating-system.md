@@ -14,7 +14,9 @@ layout:
 
 # 1.2 Operating system
 
-We configure the PC and install the Linux operating system.
+We configure the PC and install the Ubuntu Server operating system.
+
+<figure><img src="../.gitbook/assets/operating-system.gif" alt="" width="295"><figcaption></figcaption></figure>
 
 ## Which operating system to use?
 
@@ -130,7 +132,7 @@ Very IMPORTANT step!
 🥳 Now the PC should reboot and show you the prompt to log in. You can disconnect the keyboard and the screen of the MiniBolt node, and proceed to connect remotely from your regular computer to continue with the installation
 {% endhint %}
 
-![GIF showing an example of Ubuntu installation using automatic (DHCP)](../resources/demo-install-os.gif)
+<figure><img src="../.gitbook/assets/demo-install-os.gif" alt=""><figcaption><p>GIF showing an example of Ubuntu installation using automatic (DHCP)</p></figcaption></figure>
 
 {% hint style="info" %}
 The GIF before is only a recreation of a scenario made with a virtual machine, (**VBOX\_HARDDISK\_**...) is the **example name** for the name of the disk. In your case, this probably will not match exactly

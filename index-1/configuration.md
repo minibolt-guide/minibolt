@@ -16,6 +16,8 @@ layout:
 
 You are now on the command line of your own Bitcoin node. Let's start with the configuration.
 
+<figure><img src="../.gitbook/assets/configuration.jpg" alt="" width="375"><figcaption></figcaption></figure>
+
 ## Add the admin user (and log in with it)
 
 We will use the primary user `admin` instead of `temp` to make this guide more universal.
@@ -79,7 +81,7 @@ Do this regularly every few months for security-related updates. If during the u
 It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press `ENTER` to confirm
 {% endhint %}
 
-* To be able to use the "minibolt" hostname instead of the IP address, we must install this necessary software package
+* To be able to use the `minibolt` hostname instead of the IP address, we must install this necessary software package
 
 ```sh
 $ sudo apt install avahi-daemon
