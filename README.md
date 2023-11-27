@@ -6,8 +6,6 @@ description: >-
 
 # MiniBolt
 
-[![Forks](https://img.shields.io/github/forks/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/network/members) [![Stargazers](https://img.shields.io/github/stars/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/stargazers) [![MIT License](https://img.shields.io/github/license/minibolt-guide/minibolt.svg?style=for-the-badge)](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/LICENSE) [![Contributors](https://img.shields.io/github/contributors/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/graphs/contributors) [![Issues](https://img.shields.io/github/issues/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/issues) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/minibolt-guide/minibolt?label=latest%20release)](https://github.com/minibolt-guide/minibolt/releases) [![GitHub followers](https://img.shields.io/github/followers/minibolt-guide)](https://github.com/orgs/minibolt-guide/followers) [![Reddit](https://img.shields.io/badge/Reddit-%23FF4500.svg?logo=Reddit\&logoColor=white)](https://www.reddit.com/r/minibolt/) [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/minibolt?style=social)](https://www.reddit.com/r/minibolt/)
-
 <figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
 
 Build your own "do-everything-yourself" Bitcoin full node on a personal computer, that will make you a sovereign peer in the Bitcoin and Lightning network.
