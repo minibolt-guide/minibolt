@@ -23,7 +23,7 @@ alias showmainversion='echo The installed versions of the main services are as f
   echo BTC RPC Explorer: `sudo head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version` ; \
   lnd --version ; \
   echo Thunderhub: `sudo head -n 3 /home/thunderhub/thunderhub/package.json | grep version` ; \
-  echo NodeJS: `node -v`; \
+  echo NodeJS: `node -v` ; \
   echo NPM: v`npm --version` ; \
   htop --version ; \
   ots --version ; \
@@ -31,11 +31,11 @@ alias showmainversion='echo The installed versions of the main services are as f
 
 alias showbonusversion='echo The installed versions of the bonus services are as follows: ; \
   echo Electrs: `electrs --version` ; \
-  Sparrow --version; \
-  sudo -u nym /home/nym/nym-socks5-client -V | grep nym ; \
-  sudo -u nym /home/nym/nym-network-requester -V | grep nym ; \
+  Sparrow --version ; \
   cloudflared --version ; \
-  nostr-rs-relay -V'
+  nostr-rs-relay -V ; \
+  sudo -u nym /home/nym/nym-socks5-client -V | grep nym ; \
+  sudo -u nym /home/nym/nym-network-requester -V | grep nym'
 
 alias manualscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
 alias manualtestnetbackup='sudo touch /data/lnd/data/chain/bitcoin/testnet/channel.backup'
@@ -55,9 +55,9 @@ alias publicip='echo Your public real IP is: ; \
 # MAIN SECTION #
 ################
 
-########################
-# ENABLE MAIN SERVICES #
-########################
+#################################
+# ENABLE AUTOBOOT MAIN SERVICES #
+#################################
 
 alias enabletor='sudo systemctl enable tor'
 alias enablei2p='sudo systemctl enable i2pd'
@@ -112,9 +112,9 @@ alias stopthunderhub='sudo systemctl stop thunderhub'
 alias stopscbackup='sudo systemctl stop scb-backup'
 alias stopallmain='sudo systemctl stop btcrpcexplorer fulcrum scb-backup thunderhub bitcoind'
 
-#########################
-# DISABLE MAIN SERVICES #
-#########################
+##################################
+# DISABLE AUTOBOOT MAIN SERVICES #
+##################################
 
 alias disabletor='sudo systemctl disable tor'
 alias disablei2p='sudo systemctl disable i2pd'
@@ -171,9 +171,9 @@ alias wtserverinfo='lncli tower info'
 # BONUS SECTION #
 #################
 
-#########################
-# ENABLE BONUS SERVICES #
-#########################
+##################################
+# ENABLE AUTOBOOT BONUS SERVICES #
+##################################
 
 alias enablelectrs='sudo systemctl enable electrs'
 alias enablewireguard='sudo systemctl enable wg-quick@wg0'
@@ -227,9 +227,9 @@ alias stopcloudflared='sudo systemctl stop cloudflared'
 alias stopnostrelay='sudo systemctl stop nostr-relay'
 alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-reay'
 
-##########################
-# DISABLE BONUS SERVICES #
-##########################
+###################################
+# DISABLE AUTOBOOT BONUS SERVICES #
+###################################
 
 alias disablewireguard='sudo systemctl disable wg-quick@wg0'
 alias disablenymrequester='sudo systemctl disable nym-network-requester'
