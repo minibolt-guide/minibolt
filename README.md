@@ -6,6 +6,27 @@ description: >-
 
 # MiniBolt
 
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![MIT License][license-shield]][license-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![Issues][issues-shield]][issues-url]
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/minibolt-guide/minibolt?label=latest%20release)](https://github.com/minibolt-guide/minibolt/releases)
+[![GitHub followers](https://img.shields.io/github/followers/minibolt-guide)](https://github.com/orgs/minibolt-guide/followers)
+[![Reddit](https://img.shields.io/badge/Reddit-%23FF4500.svg?logo=Reddit&logoColor=white)](https://www.reddit.com/r/minibolt/)
+[![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/minibolt?style=social)](https://www.reddit.com/r/minibolt/)
+
+[forks-shield]: https://img.shields.io/github/forks/minibolt-guide/minibolt.svg?style=for-the-badge
+[forks-url]: https://github.com/minibolt-guide/minibolt/network/members
+[stars-shield]: https://img.shields.io/github/stars/minibolt-guide/minibolt.svg?style=for-the-badge
+[stars-url]: https://github.com/minibolt-guide/minibolt/stargazers
+[license-shield]: https://img.shields.io/github/license/minibolt-guide/minibolt.svg?style=for-the-badge
+[license-url]: https://github.com/minibolt-guide/minibolt/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/minibolt-guide/minibolt.svg?style=for-the-badge
+[contributors-url]: https://github.com/minibolt-guide/minibolt/graphs/contributors
+[issues-shield]: https://img.shields.io/github/issues/minibolt-guide/minibolt.svg?style=for-the-badge
+[issues-url]: https://github.com/minibolt-guide/minibolt/issues
+
 <figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
 
 Build your own "do-everything-yourself" Bitcoin full node on a personal computer, that will make you a sovereign peer in the Bitcoin and Lightning network.
