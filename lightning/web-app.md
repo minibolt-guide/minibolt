@@ -325,18 +325,13 @@ $ cp .env .env.local
 $ nano .env.local
 ```
 
-* Add or edit the following lines, save and exit
+* Add or edit the following lines to match with the next. Save and exit
 
 ```
 # -----------
 # Server Configs
 # -----------
 NODE_ENV=production
-
-# -----------
-# Optional (more privacy)
-TOR_PROXY_SERVER=socks://127.0.0.1:9050
-# -----------
 
 # -----------
 # Account Configs
