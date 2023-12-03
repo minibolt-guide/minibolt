@@ -85,7 +85,7 @@ $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 
 ```
 > NAME          MOUNTPOINT UUID       FSTYPE   SIZE    LABEL  MODEL
-> **sdb**                                      931.5G         Samsung SSD 870
+> sdb                                          931.5G         Samsung SSD 870
 ```
 
 _Example_ expected output with existing partitions:
@@ -97,7 +97,7 @@ _Example_ expected output with existing partitions:
 ```
 
 {% hint style="info" %}
-Here we will see if the new disk has been detected by the system and what unit name has been assigned to it. Normally `sda` is name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: "Samsung SSD 870".
+Here we will see if the new disk has been detected by the system and what unit name has been assigned to it. Normally `sda` is the name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: Samsung SSD 870"
 {% endhint %}
 
 ### **Delete the existing partition & create a new one**
@@ -109,7 +109,7 @@ $ sudo fdisk /dev/sdb
 ```
 
 * Now we select the option wished pressing the option letter and enter
-  * Press **`"n"`** to create a new partition and then enter. Press enter until the prompt show "**(Command (m for help))"** again
+  * Press **`"n"`** to create a new partition and then enter. Press `enter` until the prompt show **(Command (m for help))** again
 
 > **Case 1:** if you had existing partition/s, the prompt will show you **"All space for primary partitions is in use"**, you will need to type **`d`** and press enter until the prompt shows you **"Partition X has been deleted",** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
 
