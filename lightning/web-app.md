@@ -351,7 +351,7 @@ $ nano thubConfig.yaml
 masterPassword: 'PASSWORD' # Default password unless defined in account
 accounts:
   - name: 'MiniBolt'
-    serverUrl: '127.0.0.1:10009
+    serverUrl: '127.0.0.1:10009'
     macaroonPath: '/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon'
     certificatePath: '/data/lnd/tls.cert'
     password: '[E] ThunderHub password'
