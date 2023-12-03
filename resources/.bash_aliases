@@ -225,7 +225,7 @@ alias stopnbx='sudo systemctl stop nbxplorer'
 alias stopbtcpay='sudo systemctl stop btcpay'
 alias stopcloudflared='sudo systemctl stop cloudflared'
 alias stopnostrelay='sudo systemctl stop nostr-relay'
-alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-reay'
+alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay'
 
 ###################################
 # DISABLE AUTOBOOT BONUS SERVICES #
