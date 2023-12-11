@@ -81,7 +81,7 @@ $ cd /tmp
 * Set the next environment variable
 
 ```sh
-$ VERSION=25.1
+$ VERSION=26.0
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -99,7 +99,7 @@ $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 ```
 
 {% hint style="info" %}
-If you already had Bitcoin Core installed and OTS client with the IBD completed, you could do the timestamp check verification
+If you already had Bitcoin Core installed and the OTS client with the IBD completed, you could do the timestamp check verification
 {% endhint %}
 
 * Download the timestamp file
@@ -136,15 +136,15 @@ Now, just check that the timestamp date is close to the [release](https://github
 $ sha256sum --ignore-missing --check SHA256SUMS
 ```
 
-Expected output:
+**Example** of expected output:
 
 ```sh
-> bitcoin-$VERSION.tar.gz: OK
+> bitcoin-26.0.tar.gz: OK
 ```
 
 ### **Signature check**
 
-Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
@@ -198,21 +198,25 @@ $ wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4
 ```
 {% endcode %}
 
+* Assign execute permissions
+
 ```bash
 $ chmod +x bdb.sh
 ```
+
+* Execute the `bdb.sh` script
 
 ```bash
 $ ./bdb.sh bitcoin-$VERSION
 ```
 
-* Enter the Bitcoin Core source code folder
+* Enter to the Bitcoin Core source code folder
 
 ```sh
 $ cd bitcoin-$VERSION
 ```
 
-* Execute the next command
+* Execute the `autogen.sh` script
 
 ```sh
 $ ./autogen.sh
@@ -284,7 +288,7 @@ $ sudo make install
 * Check the correct installation requesting the output of the version
 
 ```sh
-$ bitcoind --version
+$ bitcoin-cli --version
 ```
 
 The following output is just an **example** of one of the versions:
@@ -330,7 +334,7 @@ $ journalctl -f -u bitcoind
 ### **How to detect Ordinals transactions**
 
 {% hint style="info" %}
-After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: _**"Imported mempool transactions from disk: ..."**_. It is possible that a rather high indicator of "failed" imported transactions has appeared, which is a good sign, it's the filter is taking effect and rejecting Ordinals transactions
+After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: _**"Imported mempool transactions from disk: ..."**_. A rather high indicator of "failed" imported transactions may have appeared, which is a good sign, it's the filter is taking effect and rejecting the Ordinals transactions after to apply the patch
 {% endhint %}
 
 * Go to the public mempool.space [clearnet](https://mempool.space) or [Tor](http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion) link official web page
@@ -381,7 +385,7 @@ The before information indicates that the filter is working properly
 
 Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/servicios\_bbo) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
 
-* Edit and add on `"bitcoin.conf"` file the next line/s at the end of the file
+* Edit and add to the `bitcoin.conf` file, the next line/s at the end of the file
 
 ```sh
 $ sudo nano /data/bitcoin/bitcoin.conf

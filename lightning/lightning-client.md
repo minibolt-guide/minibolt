@@ -84,7 +84,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.17.2
+$ VERSION=0.17.3
 ```
 
 * Download the application, checksums, and signature
@@ -212,6 +212,8 @@ $ tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
 $ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v$VERSION-beta/*
 ```
 {% endcode %}
+
+* Ensure you are installed by running version command
 
 ```sh
 $ lnd --version
@@ -438,17 +440,17 @@ $ sudo nano /etc/systemd/system/lnd.service
 # /etc/systemd/system/lnd.service
 
 [Unit]
-Description=LND
+Description=Lightning Network Daemon
 Wants=bitcoind.service
 After=bitcoind.service
 
 [Service]
 ExecStart=/usr/local/bin/lnd
 ExecStop=/usr/local/bin/lncli stop
-Type=simple
-TimeoutSec=240
-LimitNOFILE=128000
 User=lnd
+Type=notify
+TimeoutStartSec=1200
+TimeoutStopSec=3600
 RuntimeDirectory=lightningd
 RuntimeDirectoryMode=0710
 PrivateTmp=true
@@ -533,7 +535,7 @@ Confirm password:
 ```
 
 {% hint style="info" %}
-Enter your `password [C]` as wallet password 2 times (it must be exactly the same one you stored in `password.txt` on the [Wallet password](lightning-client.md#wallet-password) step)
+Enter your `password [C]` as wallet password 2 times (it must be the same one you stored in `password.txt` on the [Wallet password](lightning-client.md#wallet-password) step)
 {% endhint %}
 
 Expected output
@@ -544,7 +546,7 @@ Enter 'y' to use an existing cipher seed mnemonic, 'x' to use an extended master
 or 'n' to create a new seed (Enter y/x/n):
 ```
 
-**2 options:**
+2 options ⬇️
 
 1. If you are creating a **new node** and you wish to create a new seed, press `n` and enter
 
@@ -583,7 +585,7 @@ These 24 words are all that you need (and the `channel.backup` file in case of d
 You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
 
 {% hint style="danger" %}
-This piece of paper is all an attacker needs to completely empty your on-chain wallet!
+This piece of paper is all an attacker needs to empty your on-chain wallet!
 
 
 
@@ -656,7 +658,7 @@ Expected output:
 Input an optional address look-ahead used to scan for used keys (default 2500):
 ```
 
-Now the LND will enable the RECOVERY MODE, **press enter again** when the prompt above asks you, the default windows recovery is enought
+Now the LND will enable the RECOVERY MODE, **press enter again** when the prompt above asks you, the default windows recovery is enough
 
 **Example** of expected output:
 
@@ -786,7 +788,7 @@ The next commands can be entered in any new session without keeping a specific t
 
 ### Watchtower client
 
-Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer period of time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
+Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
 Watchtowers are other Lightning nodes that can monitor your channels for you. If they detect such bad behavior, they can react on your behalf, and send a punishing transaction to close this channel. In this case, all channel funds will be sent to your LND on-chain wallet.
 

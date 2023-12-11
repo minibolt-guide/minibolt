@@ -41,7 +41,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=25.1
+$ VERSION=26.0
 ```
 
 * Get the latest binaries and signatures
@@ -78,7 +78,7 @@ $ sha256sum --ignore-missing --check SHA256SUMS
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* The next command download and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
 {% code overflow="wrap" %}
 ```sh
@@ -300,6 +300,9 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
 
 # Disable debug.log
 nodebuglogfile=1
+
+# Activate v2 P2P
+v2transport=1
 
 # Avoid assuming that a block and its ancestors are valid,
 # and potentially skipping their script verification.
@@ -755,7 +758,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=25.1
+$ VERSION=26.0
 ```
 
 * Download binary, checksum, signature files, and timestamp file
@@ -864,7 +867,7 @@ $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/*
 * Check the new version
 
 ```sh
-$ bitcoind --version
+$ bitcoin-cli --version
 ```
 
 The following output is just an **example** of one of the versions:
