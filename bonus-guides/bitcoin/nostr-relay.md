@@ -321,15 +321,21 @@ The system needs to run the nostr relay daemon automatically in the background, 
 # /etc/systemd/system/nostr-relay.service
 
 [Unit]
-Description=Nostr Relay
-After=network.target
+Description=Nostr relay
+Wants=network-online.target
+After=network-online.target
 
 [Service]
-Type=simple
-User=nostr
 WorkingDirectory=/home/nostr
-Environment=RUST_LOG=info,nostr_rs_relay=info
 ExecStart=/usr/local/bin/nostr-rs-relay -c /data/nostr/rs-relay/config.toml
+Environment=RUST_LOG=info,nostr_rs_relay=info
+
+User=nostr
+Group=nostr
+
+# Process management
+####################
+Type=simple
 TimeoutStopSec=10
 Restart=on-failure
 RestartSec=5

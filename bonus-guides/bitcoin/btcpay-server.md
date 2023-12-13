@@ -421,7 +421,7 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplore
 $ exit
 ```
 
-### Create NBX systemd service
+### Create NBXplorer systemd service
 
 * As user `admin`, create the service file
 
@@ -436,21 +436,29 @@ $ sudo nano /etc/systemd/system/nbxplorer.service
 # /etc/systemd/system/nbxplorer.service
 
 [Unit]
-Description=NBXplorer daemon
+Description=NBXplorer
 Wants=bitcoind.service
 After=bitcoind.service
 
 [Service]
 WorkingDirectory=/home/btcpay/src/NBXplorer
 ExecStart=/home/btcpay/src/NBXplorer/run.sh
-User=btcpay
 
+User=btcpay
+Group=btcpay
+
+# Process management
+####################
 Type=simple
+TimeoutSec=120
+
+# Hardening Measures
+####################
 PrivateTmp=true
 ProtectSystem=full
 NoNewPrivileges=true
 PrivateDevices=true
-TimeoutSec=120
+
 
 [Install]
 WantedBy=multi-user.target
@@ -711,8 +719,12 @@ After=nbxplorer.service
 [Service]
 WorkingDirectory=/home/btcpay/src/btcpayserver
 ExecStart=/home/btcpay/src/btcpayserver/run.sh
-User=btcpay
 
+User=btcpay
+Group=btcpay
+
+# Process management
+####################
 Type=simple
 TimeoutSec=120
 

@@ -374,20 +374,34 @@ $ sudo nano /etc/systemd/system/bitcoind.service
 # /etc/systemd/system/bitcoind.service
 
 [Unit]
-Description=Bitcoin daemon
-After=network.target
+Description=Bitcoin Core Daemon
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind.pid \
                                   -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
                                   -datadir=/home/bitcoin/.bitcoin
+# Process management
+####################
 Type=exec
+NotifyAccess=all
 PIDFile=/run/bitcoind/bitcoind.pid
-TimeoutSec=3600
+
+Restart=on-failure
+TimeoutStartSec=infinity
+TimeoutStopSec=600
+
+# Directory creation and permissions
+####################################
 User=bitcoin
-UMask=0027
+Group=bitcoin
 RuntimeDirectory=bitcoind
 RuntimeDirectoryMode=0710
+UMask=0027
+
+# Hardening measures
+####################
 PrivateTmp=true
 ProtectSystem=full
 NoNewPrivileges=true
@@ -467,13 +481,13 @@ Monitor the log file for a few minutes to see if it works fine (it may stop at "
 $2 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-* This symbolic link becomes active only in a new user session. Log out from SSH
+* This symbolic link becomes active **only in a new user session**. Log out from SSH by entering the next command
 
 ```sh
 $ exit
 ```
 
-* Log in as user `admin` again `("ssh admin@minibolt.local")`
+* Log in again as user `admin`  [opening a new SSH session](../index-1/remote-access.md#access-with-secure-shell)
 * Check symbolic link have been created correctly
 
 ```bash
@@ -541,7 +555,6 @@ Expected output:
 > tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
 > tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
 > tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
-> tcp   LISTEN 0      4096            [::]:8333          [::]:*    users:(("bitcoind",pid=773834,fd=45))
 </code></pre>
 
 * Please note:
@@ -556,14 +569,14 @@ This can take between one day and a week, depending mostly on your PC performanc
 
 If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Core, and play around with `bitcoin-cli` until the blockchain is up-to-date.
 
-* [**The Little Bitcoin Book**](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how".
-*   [**Mastering Bitcoin**](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part how to compile from source code):
+* [The Little Bitcoin Book](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how".
+*   [Mastering Bitcoin](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part how to compile from source code):
 
     * you definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
     * read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
 
     <figure><img src="../images/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
-* [**Learning Bitcoin from the Command Line**](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
+* [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
 * Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original\_Bitcoin\_client/API\_calls\_list)
 
 ## Activate mempool & reduce 'dbcache' after a full sync

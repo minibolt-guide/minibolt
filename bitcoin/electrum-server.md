@@ -398,9 +398,14 @@ StartLimitIntervalSec=20
 [Service]
 ExecStart=/usr/local/bin/Fulcrum /data/fulcrum/fulcrum.conf
 ExecStop=/usr/local/bin/FulcrumAdmin -p 8000 stop
-KillSignal=SIGINT
+
 User=fulcrum
+Group=fulcrum
+
+# Process management
+####################
 Type=exec
+KillSignal=SIGINT
 TimeoutStopSec=300
 
 [Install]

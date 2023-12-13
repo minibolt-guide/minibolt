@@ -405,15 +405,27 @@ $ sudo nano /etc/systemd/system/thunderhub.service
 # /etc/systemd/system/thunderhub.service
 
 [Unit]
-Description=Thunderhub
+Description=ThunderHub
 <strong>Wants=lnd.service
 </strong>After=lnd.service
 
 [Service]
 WorkingDirectory=/home/thunderhub/thunderhub
 ExecStart=/usr/bin/npm run start:prod
+
 User=thunderhub
+Group=thunderhub
+
+# Process management
+####################
 TimeoutSec=300
+
+# Hardening Measures
+####################
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
 
 [Install]
 WantedBy=multi-user.target

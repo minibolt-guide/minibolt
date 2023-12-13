@@ -250,16 +250,27 @@ The system needs to run the network requester daemon automatically in the backgr
 
 [Unit]
 Description=Nym Network Requester
+Wants=network-online.target
+After=network-online.target
+
 StartLimitInterval=350
 StartLimitBurst=10
 
 [Service]
-User=nym
-LimitNOFILE=65536
 ExecStart=/home/nym/nym-network-requester run --id bitcoin --open-proxy true
-KillSignal=SIGINT
+
+User=nym
+Group=nym
+
+# Process management
+####################
 Restart=on-failure
 RestartSec=30
+KillSignal=SIGINT
+
+# Hardening Measures
+####################
+LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
@@ -430,16 +441,27 @@ $ sudo nano /etc/systemd/system/nym-socks5-client.service
 
 [Unit]
 Description=Nym Socks5 client
+Wants=network-online.target
+After=network-online.target
+
 StartLimitInterval=350
 StartLimitBurst=10
 
 [Service]
-User=nym
-LimitNOFILE=65536
 ExecStart=/home/nym/nym-socks5-client run --id bitcoin --host 0.0.0.0
-KillSignal=SIGINT
+
+User=nym
+Group=nym
+
+# Process management
+####################
 Restart=on-failure
 RestartSec=30
+KillSignal=SIGINT
+
+# Hardening Measures
+####################
+LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target

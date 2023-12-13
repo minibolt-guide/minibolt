@@ -346,22 +346,25 @@ These parameters would increase the maximum send and receive buffer size to roug
 $ sudo nano /etc/systemd/system/cloudflared.service
 ```
 
-```
-# MiniBolt: systemd unit for Cloudflared
+<pre><code># MiniBolt: systemd unit for Cloudflared
 # /etc/systemd/system/cloudflared.service
 
 [Unit]
 Description=Cloudflared
-After=network.target
+Wants=network-online.target
+After=network-online.target
 
 [Service]
-TimeoutStartSec=0
-Type=notify
 ExecStart=/usr/bin/cloudflared --no-autoupdate --config /home/admin/.cloudflared/config.yml tunnel run
-
+<strong>
+</strong># Process management
+####################
+Type=notify
+<strong>TimeoutStartSec=0
+</strong>
 [Install]
 WantedBy=multi-user.target
-```
+</code></pre>
 
 * Enable autoboot **(optional)**
 

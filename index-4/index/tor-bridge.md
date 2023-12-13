@@ -293,7 +293,7 @@ Unattended-Upgrade::Package-Blacklist {
 };
 ```
 
-* If you want to automatically reboot add the following at the end of the file (optional)
+* **(Optional)** If you want to automatically reboot add the following at the end of the file
 
 ```
 Unattended-Upgrade::Automatic-Reboot "true";
@@ -333,7 +333,7 @@ $ sudo adduser admin debian-tor
 $ exit
 ```
 
-* Log in as the user `admin` again --> `ssh admin@minibolt.local`
+* Log in as the user `admin` again -> `ssh admin@minibolt.local`
 * Execute Nyx
 
 ```sh
@@ -352,17 +352,17 @@ On some occasions, due to some circumstances, your ISP, the company's network, y
 
 ![](../../images/tor-failing.jpg)
 
-Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the content in the next torrc configuration
+Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the content in the next `torrc` configuration
 
 ![](../../images/get-bridge.PNG)
 
-* On the MiniBolt node, with the user **`admin`**, install the ofbs4 proxy
+* On the MiniBolt node, with the user **`admin`**, install the `ofbs4` proxy
 
 ```bash
 $ sudo apt install obfs4proxy
 ```
 
-* Edit the **torrc** file
+* Edit the `torrc` file
 
 ```sh
 $ sudo nano /etc/tor/torrc
@@ -377,7 +377,7 @@ Bridge obfs4 <IP ADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
 ```
 
 {% hint style="info" %}
-Add the needed lines with the number of bridges that you wish, replacing **"IP\_ADDRESS"**, **"PORT"**, **"FINGERPRINT"**, and **"CERTIFICATE"** with those obtained before
+Add the needed lines with the number of bridges that you wish, replacing <**IP\_ADDRESS>**, <**PORT>**, <**FINGERPRINT>**, and <**CERTIFICATE>** with those obtained before
 {% endhint %}
 
 * Restart Tor to apply changes
@@ -483,7 +483,7 @@ $ sudo nano /lib/systemd/system/tor@.service
 NoNewPrivileges=yes
 ```
 
-* Reload systemd manager configuration to apply services changes
+* Reload systemd manager configuration to apply the service changes
 
 ```sh
 $ sudo systemctl daemon-reload

@@ -290,9 +290,18 @@ Description=BTC RPC Explorer
 After=bitcoind.service fulcrum.service
 
 [Service]
-User=btcrpcexplorer
 WorkingDirectory=/home/btcrpcexplorer/btc-rpc-explorer
 ExecStart=/usr/bin/npm start
+
+User=btcrpcexplorer
+Group=btcrpcexplorer
+
+# Hardening Measures
+####################
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
 
 [Install]
 WantedBy=multi-user.target

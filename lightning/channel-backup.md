@@ -373,23 +373,27 @@ $ sudo nano /etc/systemd/system/scb-backup.service
 
 * Paste the following lines. Save and exit
 
-```sh
-# MiniBolt: systemd unit for automatic SCB backup
+<pre><code># MiniBolt: systemd unit for automatic SCB backup
 # /etc/systemd/system/scb-backup.service
 
 [Unit]
-Description=SCB Backup
+Description=SCB Automatic Backup
 After=lnd.service
 
 [Service]
 ExecStart=/usr/local/bin/scb-backup
+
+User=lnd
+Group=lnd
+
+<strong># Process management
+</strong>####################
 Restart=always
 RestartSec=1
-User=lnd
 
 [Install]
 WantedBy=multi-user.target
-```
+</code></pre>
 
 * Enable autoboot **(optional)**
 

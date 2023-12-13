@@ -447,12 +447,24 @@ After=bitcoind.service
 [Service]
 ExecStart=/usr/local/bin/lnd
 ExecStop=/usr/local/bin/lncli stop
-User=lnd
+
+# Process management
+####################
+Restart=on-failure
+RestartSec=60
 Type=notify
 TimeoutStartSec=1200
 TimeoutStopSec=3600
+
+# Directory creation and permissions
+####################################
 RuntimeDirectory=lightningd
 RuntimeDirectoryMode=0710
+User=lnd
+Group=lnd
+
+# Hardening Measures
+####################
 PrivateTmp=true
 ProtectSystem=full
 NoNewPrivileges=true

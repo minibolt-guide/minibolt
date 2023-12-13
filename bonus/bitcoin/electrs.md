@@ -502,12 +502,22 @@ After=bitcoind.service
 
 [Service]
 ExecStart=/usr/local/bin/electrs --conf /data/electrs/electrs.conf --skip-default-conf-files
+
+# Process management
+####################
 Type=simple
 TimeoutSec=300
 KillMode=process
-User=electrs
+
+# Directory creation and permissions
+####################################
 RuntimeDirectory=electrs
 RuntimeDirectoryMode=0710
+User=electrs
+Group=electrs
+
+# Hardening Measures
+####################
 PrivateTmp=true
 ProtectSystem=full
 ProtectHome=true
