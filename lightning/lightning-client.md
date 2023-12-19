@@ -237,11 +237,9 @@ $ sudo rm -r lnd-linux-amd64-v$VERSION-beta && sudo rm lnd-linux-amd64-v$VERSION
 If you come to update this is the final step
 {% endhint %}
 
-### Data directory
+### Create the lnd user & group
 
-Now that LND is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
-
-* Create the `lnd` user&#x20;
+* Create the `lnd` user and group
 
 ```sh
 $ sudo adduser --disabled-password --gecos "" lnd
@@ -259,7 +257,9 @@ $ sudo usermod -a -G bitcoin,debian-tor lnd
 $ sudo adduser admin lnd
 ```
 
-* Create the LND data directory
+### Create data folder
+
+* Create the LND data folder
 
 ```sh
 $ sudo mkdir /data/lnd

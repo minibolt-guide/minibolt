@@ -229,11 +229,9 @@ $ sudo rm -r Fulcrum-$VERSION-x86_64-linux && sudo rm Fulcrum-$VERSION-x86_64-li
 If you come to update, this is the final step, go back to the [Upgrade section](electrum-server.md#for-the-future-fulcrum-upgrade) to continue
 {% endhint %}
 
-### Data directory
+### Create the fulcrum user & group
 
-Now that Fulcrum is installed, we need to configure it to run automatically on startup.
-
-* Create the `fulcrum` user
+* Create the `fulcrum` user and group
 
 ```sh
 $ sudo adduser --disabled-password --gecos "" fulcrum
@@ -245,7 +243,9 @@ $ sudo adduser --disabled-password --gecos "" fulcrum
 $ sudo adduser fulcrum bitcoin
 ```
 
-* Create the fulcrum data directory
+### Create data folder
+
+* Create the fulcrum data folder
 
 ```sh
 $ sudo mkdir -p /data/fulcrum/fulcrum_db

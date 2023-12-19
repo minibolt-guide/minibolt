@@ -156,11 +156,11 @@ The following output is just an **example** of one of the versions:
 Now, if you want to install the manual page for `bitcoin-cli`, follow the [manual page for the bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section, and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
 {% endhint %}
 
-### Create the bitcoin user
+### Create the bitcoin user & group
 
 The Bitcoin Core application will run in the background as a daemon and use the separate user “bitcoin” for security reasons. This user does not have admin rights and cannot change the system configuration.
 
-* Create the user bitcoin
+* Create the `bitcoin` user and group
 
 ```sh
 $ sudo adduser --gecos "" --disabled-password bitcoin
@@ -886,7 +886,7 @@ $ bitcoin-cli --version
 The following output is just an **example** of one of the versions:
 
 ```
-> Bitcoin Core version v24.1.0
+> Bitcoin Core RPC client version v26.0.0
 > Copyright (C) 2009-2022 The Bitcoin Core developers
 > [...]
 ```

@@ -136,7 +136,7 @@ $ sudo adduser --disabled-password --gecos "" thunderhub
 $ sudo adduser thunderhub lnd
 ```
 
-* Change to the thunderhub user
+* Change to the `thunderhub` user
 
 ```bash
 $ sudo su - thunderhub
@@ -182,7 +182,11 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 ```
 
-* Install all dependencies and the necessary modules using NPM. Not to run the `$ npm audit fix` command, which could break the original code
+* Install all dependencies and the necessary modules using NPM
+
+{% hint style="warning" %}
+**Not to run** the `$ npm audit fix` command, which could break the original code!!
+{% endhint %}
 
 ```sh
 $ npm install
@@ -226,6 +230,24 @@ npm notice
 ```
 
 </details>
+
+**(Optional)** Improve your privacy by opt-out of Next.js [telemetry](https://nextjs.org/telemetry)
+
+```bash
+$ npx next telemetry disable
+```
+
+Expected output:
+
+```
+Your preference has been saved to /home/thunderhub/.config/nextjs-nodejs/config.json.
+
+Status: Disabled
+
+You have opted-out of Next.js' anonymous telemetry program.
+No data will be collected from your machine.
+Learn more: https://nextjs.org/telemetry
+```
 
 * Build it
 
@@ -325,17 +347,9 @@ $ cp .env .env.local
 $ nano .env.local
 ```
 
-* Add or edit the following lines to match with the next. Save and exit
+* Edit the following line to match with the next. Save and exit
 
 ```
-# -----------
-# Server Configs
-# -----------
-NODE_ENV=production
-
-# -----------
-# Account Configs
-# -----------
 ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
 ```
 
@@ -411,7 +425,7 @@ Description=ThunderHub
 
 [Service]
 WorkingDirectory=/home/thunderhub/thunderhub
-ExecStart=/usr/bin/npm run start:prod
+ExecStart=/usr/bin/npm run start
 
 User=thunderhub
 Group=thunderhub
@@ -712,37 +726,34 @@ $ sudo su - thunderhub
 $ cd thunderhub
 ```
 
+* Set the environment variable version
+
+```bash
+$ VERSION=0.13.27
+```
+
 * Pull the changes from GitHub
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ git pull https://github.com/apotdevin/thunderhub.git master
-</strong></code></pre>
+```bash
+$ git pull https://github.com/apotdevin/thunderhub.git v$VERSION
+```
 
 <details>
 
 <summary>Example of expected output ⬇️</summary>
 
 ```
-remote: Enumerating objects: 392, done.
-remote: Counting objects: 100% (392/392), done.
-remote: Compressing objects: 100% (190/190), done.
-remote: Total 392 (delta 239), reused 309 (delta 198), pack-reused 0
-Receiving objects: 100% (392/392), 789.50 KiB | 1.08 MiB/s, done.
-Resolving deltas: 100% (239/239), completed with 34 local objects.
 From https://github.com/apotdevin/thunderhub
- * branch              master     -> FETCH_HEAD
-Updating 570a097e..b436e2f7
+ * tag                 v0.13.28   -> FETCH_HEAD
+Updating 1d5a3fe5..5e9b3f68
 Fast-forward
- .nvmrc                                                                             |     2 +-
- CHANGELOG.md                                                                       |    12 +
- Dockerfile                                                                         |     4 +-
- package-lock.json                                                                  | 11711 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------
- package.json                                                                       |   128 +-
- schema.gql                                                                         |    55 +-
- src/client/pages/forwards.tsx                                                      |   145 +-
- src/client/src/components/chart/ChannelChart.tsx                                   |   247 +++
- src/client/src/components/select/index.tsx                                         |    17 +-
- src/client/src/components/table/index.tsx                                          |     4 +-
- [...]
+ CHANGELOG.md                                    |   7 +++++++
+ package-lock.json                               |   4 ++--
+ package.json                                    |   2 +-
+ src/server/modules/api/amboss/amboss.gql.ts     |   9 +++++++++
+ src/server/modules/api/amboss/amboss.service.ts |  16 ++++++++++++++++
+ src/server/modules/sub/sub.service.ts           | 113 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 148 insertions(+), 3 deletions(-)
 ```
 
 </details>

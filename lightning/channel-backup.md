@@ -306,14 +306,14 @@ $ cat ~/.ssh/id_rsa.pub
 * Set up global Git configuration values (the name and email are required but can be dummy values)
 
 ```sh
-$ git config --global user.name "MiniBolt"
+$ git config user.name "MiniBolt"
 ```
 
 ```bash
-$ git config --global user.email "minibolt@dummyemail.com"
+$ git config user.email "minibolt@dummyemail.com"
 ```
 
-* **(Optional)** Add this step if you want to preserve your privacy with GitHub servers if not, jump to the next step directly --> (`$ cd ~/.lnd`)
+* **(Optional)** Add this step if you want to preserve your privacy with GitHub servers if not, jump to the next step directly -> (`$ cd ~/.lnd`)
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ git config --global core.sshCommand "torsocks ssh"
 </strong></code></pre>
