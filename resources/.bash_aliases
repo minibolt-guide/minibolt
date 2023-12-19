@@ -35,7 +35,9 @@ alias showbonusversion='echo The installed versions of the bonus services are as
   cloudflared --version ; \
   nostr-rs-relay -V ; \
   sudo -u nym /home/nym/nym-socks5-client -V | grep nym ; \
-  sudo -u nym /home/nym/nym-network-requester -V | grep nym'
+  sudo -u nym /home/nym/nym-network-requester -V | grep nym ; \
+  echo NBXplorer: `sudo head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version` ; \
+  echo BTCPay Server: `sudo head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version`'
 
 alias manualscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
 alias manualtestnetbackup='sudo touch /data/lnd/data/chain/bitcoin/testnet/channel.backup'
