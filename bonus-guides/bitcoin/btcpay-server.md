@@ -641,7 +641,7 @@ $ cd src
 * Set variable environment version
 
 ```bash
-$ VERSION=1.12.0
+$ VERSION=1.12.1
 ```
 
 * Clone the BTCPay Server official GitHub repository
@@ -1247,7 +1247,7 @@ $ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-$ VERSION=1.12.0
+$ VERSION=1.12.1
 ```
 
 * Fetch the changes of the wish latest tag
@@ -1282,12 +1282,43 @@ $ git config user.name "MiniBolt"
 ```
 {% endhint %}
 
+{% hint style="info" %}
+If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
+
+```bash
+$ git config pull.rebase false
+```
+{% endhint %}
+
 * Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to no apply modifications
 * Build it
 
 ```bash
 $ ./build.sh
 ```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+  Determining projects to restore...
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj (in 965 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Client/BTCPayServer.Client.csproj (in 965 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Common/BTCPayServer.Common.csproj (in 978 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Data/BTCPayServer.Data.csproj (in 113 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Rating/BTCPayServer.Rating.csproj (in 178 ms).
+  Restored /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj (in 1.9 sec).
+  BTCPayServer.Client -> /home/btcpay/src/btcpayserver/BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
+  BTCPayServer.Common -> /home/btcpay/src/btcpayserver/BTCPayServer.Common/bin/Release/net8.0/BTCPayServer.Common.dll
+  BTCPayServer.Rating -> /home/btcpay/src/btcpayserver/BTCPayServer.Rating/bin/Release/net8.0/BTCPayServer.Rating.dll
+  BTCPayServer.Abstractions -> /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/bin/Release/net8.0/BTCPayServer.Abstractions.dll
+  BTCPayServer.Data -> /home/btcpay/src/btcpayserver/BTCPayServer.Data/bin/Release/net8.0/BTCPayServer.Data.dll
+  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/net8.0/BTCPayServer.dll
+  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/publish/
+```
+
+</details>
 
 * Check the correct installation update
 
