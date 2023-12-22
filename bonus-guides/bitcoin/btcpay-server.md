@@ -641,7 +641,7 @@ $ cd src
 * Set variable environment version
 
 ```bash
-$ VERSION=1.12.1
+$ VERSION=1.12.3
 ```
 
 * Clone the BTCPay Server official GitHub repository
@@ -1247,7 +1247,7 @@ $ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-$ VERSION=1.12.1
+$ VERSION=1.12.3
 ```
 
 * Fetch the changes of the wish latest tag
