@@ -587,7 +587,7 @@ $2 sudo systemctl start electrs
 Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
 {% endhint %}
 
-* Ensure electrs service is working and listening at the default TCP `50001` port and the monitoring `14224` port (not used on MiniBolt)
+* Ensure electrs service is working and listening at the default TCP `50001` port, the monitoring `14224` port (not used on MiniBolt) and
 
 ```sh
 $2 sudo ss -tulpn | grep LISTEN | grep electrs

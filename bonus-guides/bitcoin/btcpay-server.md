@@ -617,7 +617,7 @@ $ sudo ss -tulpn | grep LISTEN | grep NBXplorer
 Expected output:
 
 ```
-tcp   LISTEN 0   512    127.0.0.1:24444    0.0.0.0:*    users:(("NBXplorer",pid=2808966,fd=176))
+> tcp   LISTEN 0   512    127.0.0.1:24444    0.0.0.0:*    users:(("NBXplorer",pid=2808966,fd=176))
 ```
 
 {% hint style="success" %}

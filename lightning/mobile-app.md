@@ -57,9 +57,8 @@ $ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
 
 Expected output:
 
-```
-> tcp   LISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
-```
+<pre><code>> tcp   LISTEN 0      4096         0.0.0.0:<a data-footnote-ref href="#user-content-fn-1">8080</a>       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+</code></pre>
 
 ### Configure Firewall
 
@@ -75,7 +74,7 @@ $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
 
 [lndconnect](https://github.com/LN-Zap/lndconnect), created by Zap, is a utility that generates QR Code or URI to connect applications to LND instances.
 
-* As `admin` user, navigate to the `"tmp"` folder
+* As `admin` user, navigate to the `tmp` folder
 
 ```sh
 $ cd /tmp
@@ -265,3 +264,5 @@ HiddenServicePoWDefensesEnabled 1
 ```bash
 $ sudo systemctl reload tor
 ```
+
+[^1]: gRPC proxy port

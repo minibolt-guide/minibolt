@@ -388,25 +388,17 @@ Jul 18 11:08:35 minibolt npm[140461]: 2023-07-18T11:08:35.135Z btcexp:app Networ
 > If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer
 {% endhint %}
 
-* Ensure the service is working and listening at the default `3002` port
+* Ensure the service is working and listening at the default `3002` port and the HTTPS `4000` port
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep node | grep 3002
+$ sudo ss -tulpn | grep 'LISTEN.*\(4000\|3002\)'
 ```
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0       511       127.0.0.1:3002      0.0.0.0:*   users:(("node",pid=140461,fd=20))
-</strong></code></pre>
-
-* And the HTTPS `4000` port
-
-```bash
-$ sudo ss -tulpn | grep LISTEN | grep node | grep 4000
 ```
-
-```
-> tcp   LISTEN 0      511          0.0.0.0:4000       0.0.0.0:*    users:(("nginx",pid=876,fd=7),("nginx",pid=875,fd=7),("nginx",pid=874,fd=7),("nginx",pid=873,fd=7),("nginx",pid=872,fd=7))
+> tcp   LISTEN 0      511          0.0.0.0:4000       0.0.0.0:*    users:(("nginx",pid=992796,fd=6),("nginx",pid=992795,fd=6),("nginx",pid=992794,fd=6),("nginx",pid=992793,fd=6),("nginx",pid=992792,fd=6))
+> tcp   LISTEN 0      511        127.0.0.1:3002       0.0.0.0:*    users:(("node",pid=1241652,fd=26))
 ```
 
 {% hint style="success" %}

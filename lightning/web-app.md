@@ -580,28 +580,17 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 > Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
 {% endhint %}
 
-* Ensure the service is working and listening at the default `3000` port
+* Ensure the service is working and listening at the default `3000` port and the HTTPS `4002` port
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep node | grep 3000
+$ sudo ss -tulpn | grep -v 'dotnet' | grep 'LISTEN.*\(4002\|3000\)'
 ```
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0      511        *:3000      *:*    users:(("node",pid=144520,fd=25))
-</strong></code></pre>
-
-* And the HTTPS `4002` port
-
-```bash
-$ sudo ss -tulpn | grep LISTEN | grep 4002
-```
-
-Expected output:
-
-```
-> tcp   LISTEN 0      511      0.0.0.0:4002    0.0.0.0:*    users:(("nginx",pid=876,fd=8),("nginx",pid=875,fd=8),("nginx",pid=874,fd=8),("nginx",pid=873,fd=8),("nginx",pid=872,fd=8))
-```
+<pre><code><strong>> tcp   LISTEN 0      511          0.0.0.0:4002       0.0.0.0:*    users:(("nginx",pid=992796,fd=7),("nginx",pid=992795,fd=7),("nginx",pid=992794,fd=7),("nginx",pid=992793,fd=7),("nginx",pid=992792,fd=7))
+</strong>> tcp   LISTEN 0      511                *:3000             *:*    users:(("next-router-wor",pid=1405797,fd=32))
+</code></pre>
 
 {% hint style="success" %}
 **Congratulations!** You now have Thunderhub up and running
