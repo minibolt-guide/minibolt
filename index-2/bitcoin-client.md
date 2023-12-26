@@ -291,7 +291,7 @@ Replace the whole line starting with `"rpcauth=..."` the connection string you j
 server=1
 txindex=1
 
-# Aditional logs
+# Additional logs
 debug=tor
 debug=i2p
 
@@ -343,7 +343,7 @@ blocksonly=1
 This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92) with all possible options
 {% endhint %}
 
-* Set permissions: only the user `bitcoin` and members of the `bitcoin` group can read it (needed to LND can read the "`rpcauth`" line)
+* Set permissions: only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)
 
 ```sh
 $ chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
