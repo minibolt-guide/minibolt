@@ -732,7 +732,7 @@ For Bisq: whitelist=bloomfilter@192.168.0.0/16
 
 ### Manual page for bitcoin-cli
 
-* For convenience, it might be useful to have the manual page for `bitcoin-cl`i in the same machine so that they can be consulted offline, they can be installed from the directory
+* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine so that they can be consulted offline, they can be installed from the directory
 
 {% hint style="warning" %}
 This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md)
