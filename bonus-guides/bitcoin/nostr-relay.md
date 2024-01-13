@@ -219,11 +219,11 @@ $ mkdir -p /data/nostr/rs-relay/db
 $ sudo su - nostr
 ```
 
-* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step to not provide any
+* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step to not provide any
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico
+$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico
 ```
 {% endcode %}
 
