@@ -14,7 +14,7 @@ layout:
 
 # Cloudflare tunnel
 
-Exposing your local server on the Internet (clearnet) has various solutions, but the Cloudflare Tunnel stands out as the easiest and most cost-effective option. Traditionally, configuring firewalls, using Tor, or setting up an SSH reverse tunnel to a public VPS were common approaches, each with its challenges and costs. Cloudflare Tunnel offers an alternative, though it acts as a middleman and can access or modify your traffic.
+Exposing your local server on the Internet (clearnet) has various solutions, but the Cloudflare Tunnel stands out as the easiest and most cost-effective option. Traditionally, configuring Firewalls, using Tor, or setting up an SSH reverse tunnel to a public VPS were common approaches, each with its challenges and costs. Cloudflare Tunnel offers an alternative, though it acts as a middleman and can access or modify your traffic.
 
 {% hint style="warning" %}
 Cost: Paid service
@@ -97,7 +97,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=2023.10.0
+$ VERSION=2024.1.2
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -133,7 +133,7 @@ $ sudo rm cloudflared-linux-amd64.deb
 If you come to update this is the final step
 {% endhint %}
 
-### Authenticate on Cloudflare and authorize <a href="#2-authenticate-cloudflared" id="2-authenticate-cloudflared"></a>
+### Authenticate on Cloudflare and authorize <a href="#id-2-authenticate-cloudflared" id="id-2-authenticate-cloudflared"></a>
 
 * With user `admin`, authenticate Cloudflared with your Cloudflare account
 
@@ -178,7 +178,7 @@ Expected output:
 > /home/admin/.cloudflared/cert.pem
 ```
 
-### Create a tunnel and give it a name <a href="#3-create-a-tunnel-and-give-it-a-name" id="3-create-a-tunnel-and-give-it-a-name"></a>
+### Create a tunnel and give it a name <a href="#id-3-create-a-tunnel-and-give-it-a-name" id="id-3-create-a-tunnel-and-give-it-a-name"></a>
 
 ```bash
 $ cloudflared tunnel create <NAME>
@@ -231,7 +231,7 @@ CONNECTOR ID                         CREATED              ARCHITECTURE VERSION  
 8666c35d-6ac3-4b39-9324-12ae32ce64a7 2023-07-10T16:20:41Z linux_amd64  2023.6.1 <yourpublicip>
 ```
 
-### Start routing traffic <a href="#5-start-routing-traffic" id="5-start-routing-traffic"></a>
+### Start routing traffic <a href="#id-5-start-routing-traffic" id="id-5-start-routing-traffic"></a>
 
 * Now assign a CNAME record that points traffic to your tunnel subdomain
 
@@ -260,7 +260,7 @@ We will create a configuration file in your `.cloudflared` directory. This file 
 $ nano /home/admin/.cloudflared/config.yml
 ```
 
-* Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your own name (subdomain) chosen for the service, and `<domain.com>` with the domain, you purchased previously. Ensure to replace `<UUID>` with your obtained before
+* Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your name (subdomain) chosen for the service, and `<domain.com>` with the domain, you purchased previously. Ensure to replace `<UUID>` with your obtained before
 
 ```
 # MiniBolt: cloudflared configuration
@@ -286,12 +286,12 @@ ingress:
 > 1. Electrum server are not supported using Cloudflared
 
 > 2. For security reasons, you shouldn't expose publically the administration access services using Cloudflared e.g SSH or Thunderhub, for these cases you should use [Wireguard VPN](../../bonus/system/wireguard-vpn.md)
-> 3.  If you want to expose only a service, you can delete for example this rule, always maintaining the "`- service: http_status:404"` line at the end of the rules:
+> 3.  If you want to expose only a service, you can delete or comment the associated lines of other services, always maintaining the "`- service: http_status:404"` line at the end of the rules. Example, expose only BTCPay Server, the comment the associated lines for BTC RPC Explorer:&#x20;
 >
 >     ```
 >     # BTC RPC Explorer
->       - hostname: explorer.<domain.com>
->         service: http://localhost:3002
+>     #  - hostname: explorer.<domain.com>
+>     #    service: http://localhost:3002
 >     ```
 {% endhint %}
 
@@ -382,7 +382,7 @@ $ journalctl -f -u cloudflared
 Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
-## Run <a href="#6-run-the-tunnel" id="6-run-the-tunnel"></a>
+## Run <a href="#id-6-run-the-tunnel" id="id-6-run-the-tunnel"></a>
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt **`$2` (which must not be entered)**. Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
 

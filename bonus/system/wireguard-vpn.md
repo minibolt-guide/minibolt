@@ -19,7 +19,7 @@ layout:
 
 # WireGuard: a simple yet fast VPN
 
-The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis).
+The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis)
 
 [WireGuard](https://www.wireguard.com) is a VPN you can set up to access your MiniBolt from the outside. It makes it easier to run services on your node without exposing its ports to the public Internet. It has support on all major computer OS; and apps for Android and iOS. The only requirement is to forward a UDP port from your home router to the MiniBolt node.
 
