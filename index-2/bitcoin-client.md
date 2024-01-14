@@ -311,10 +311,10 @@ assumevalid=0
 
 # Enable all compact filters
 blockfilterindex=1
-# Support filtering of blocks and transactions with bloom filters
-peerbloomfilters=1
+
 # Serve compact block filters to peers per BIP 157
 peerblockfilters=1
+
 # Maintain coinstats index used by the gettxoutsetinfo RPC
 coinstatsindex=1
 
@@ -487,7 +487,7 @@ $2 ln -s /data/bitcoin /home/admin/.bitcoin
 $ exit
 ```
 
-* Log in again as user `admin`  [opening a new SSH session](../index-1/remote-access.md#access-with-secure-shell)
+* Log in again as user `admin` [opening a new SSH session](../index-1/remote-access.md#access-with-secure-shell)
 * Check symbolic link have been created correctly
 
 ```bash
@@ -692,7 +692,7 @@ seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
 
 ### Slow device mode
 
-* As user `admin`  edit `bitcoin.conf` file
+* As user `admin` edit `bitcoin.conf` file
 
 ```sh
 $ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -720,7 +720,7 @@ rpcworkqueue=256
 ```
 
 {% hint style="info" %}
-Realize that with `maxuploadtarget` parameter enabled you will need whitelist the connection to [Electrs](../bonus/bitcoin/electrs.md) and [Bisq](../bonus/bitcoin/bisq.md) by adding these parameter to `bitcoin.conf`:&#x20;
+Realize that with `maxuploadtarget` parameter enabled you will need whitelist the connection to [Electrs](../bonus/bitcoin/electrs.md) and [Bisq](../bonus/bitcoin/bisq.md) by adding these parameter to `bitcoin.conf`:
 
 <pre><code><strong>For Electrs: whitelist=download@127.0.0.1
 </strong></code></pre>

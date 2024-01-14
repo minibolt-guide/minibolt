@@ -51,8 +51,17 @@ The guide will show you how to:
 $ sudo nano /data/bitcoin/bitcoin.conf
 ```
 
+<pre><code><strong>#bind=127.0.0.1
+</strong></code></pre>
+
+* Add `peerbloomfilters=1` to activate bloom filters and whitelist our P2P connection
+
 ```
-#bind=127.0.0.1
+# Support filtering of blocks and transactions with bloom filters
+peerbloomfilters=1
+
+# Whitelist our P2P connection
+whitelist=bloomfilter@192.168.0.0/16
 ```
 
 ### Obtain your Bitcoin Core `onion` address
@@ -91,9 +100,9 @@ On your personal computer where you installed Bisq, depending on your OS
 
 **For Linux:**
 
-* Open a command line terminal, we will start Bisq with two flags that will force it to connect to our own node only. Bisq should connect to your node on the startup
+* Open a command line terminal, we will start Bisq with two flags that will force it to connect to our node only. Bisq should connect to your node on the startup
 
-From the local network connection, replace `192.168.X.X:8333` it with your own node IP address.
+From the local network connection, replace `192.168.X.X:8333` it with your node IP address.
 
 ```sh
 $ /opt/bisq/bin/Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
@@ -186,7 +195,7 @@ Congrats! You're now ready to start buying and selling Bitcoin on Bisq securely 
 
 ## Upgrade
 
-Bisq will let you know when a new update is available. Simply follow the instructions on their announcement to download, verify and install the update.
+Bisq will let you know when a new update is available. Simply follow the instructions on their announcement to download, verify, and install the update.
 
 ![](../../images/bisq-update.png)
 

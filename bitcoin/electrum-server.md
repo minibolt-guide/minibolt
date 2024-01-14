@@ -110,7 +110,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.7
+$ VERSION=1.9.8
 ```
 
 * Download the application, checksums, and signature
@@ -221,7 +221,7 @@ $ Fulcrum --version
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo rm -r Fulcrum-$VERSION-x86_64-linux && sudo rm Fulcrum-$VERSION-x86_64-linux.tar.gz && sudo rm Fulcrum-$VERSION-sha256sums.txt && sudo rm Fulcrum-$VERSION-sha256sums.txt.asc
+$ sudo rm -r Fulcrum-$VERSION-x86_64-linux && sudo rm Fulcrum-$VERSION-x86_64-linux.tar.gz && sudo rm Fulcrum-$VERSION-shasums.txt && sudo rm Fulcrum-$VERSION-shasums.txt.asc
 ```
 {% endcode %}
 
