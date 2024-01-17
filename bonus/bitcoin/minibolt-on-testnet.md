@@ -93,7 +93,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 
 [Configuration](../../bitcoin/electrum-server.md#configuration)
 
-* In the next [Configuration](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `"fulcrum.conf"` file, to match with the testnet mode
+* In the next [Configuration](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `fulcrum.conf` file, to match with the testnet mode
 
 ```sh
 $ nano /data/fulcrum/fulcrum.conf
@@ -306,7 +306,7 @@ $ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
 $ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
 ```
 
-* Replace the mainnet ports `(50001/50002)` with the `60001/60001` testnet ports
+* Replace the mainnet ports `50001/50002` with the `60001/60001` testnet ports
 
 ```nginx
 upstream electrs {
@@ -385,5 +385,17 @@ $ sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
 ```
 
 {% hint style="success" %}
-The rest of the **Channel Backup guide** is exactly the same as the mainnet mode
+The rest of the **Channel Backup guide** is the same as the mainnet mode
 {% endhint %}
+
+## Port reference
+
+Here we are going to describe only what ports differ from the mainnet mode:
+
+|  Port |  Protocol |                   Use                  |
+| :---: | :-------: | :------------------------------------: |
+| 18333 |    TCP    |            P2P testnet port            |
+| 18334 |    TCP    |       P2P testnet secondary port       |
+| 18332 |    TCP    |            RPC testnet port            |
+| 60001 |    TCP    |      Electrum server testnet port      |
+| 60002 | TCP (SSL) | Electrum server testnet encrypted port |

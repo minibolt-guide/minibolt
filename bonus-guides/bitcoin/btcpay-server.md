@@ -1370,7 +1370,7 @@ $ sudo rm /etc/systemd/system/nbxplorer.service
 
 ### Uninstall Firewall **configuration** & Reverse proxy
 
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCpay (e.g., X and Y below)
+* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCPay Server (e.g. X and Y below)
 
 ```bash
 $ sudo ufw status numbered
@@ -1382,7 +1382,7 @@ Expected output:
 > [Y] 23000       ALLOW IN    Anywhere          # allow BTCPay Server from anywhere
 ```
 
-* Delete the rule with the correct number and confirm with "`yes`"
+* Delete the rule with the correct number and confirm with `yes`
 
 ```bash
 $ sudo ufw delete X
@@ -1396,7 +1396,7 @@ $ sudo ufw delete X
 $ sudo nano /etc/tor/torrc
 ```
 
-<pre><code># Hidden Service BTCPay
+<pre><code># Hidden Service BTCPay Server
 #HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
 #HiddenServiceVersion 3
 <strong>#HiddenServicePoWDefensesEnabled 1
@@ -1412,8 +1412,16 @@ $ sudo systemctl reload tor
 ### Delete btcpay user
 
 * Ensure you are logged in with the user `admin`. Delete the `btcpay` user.\
-  Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
+  Don't worry about `userdel: btcpay mail spool (/var/mail/btcpay) not found` output, the uninstall has been successful
 
 ```bash
 $ sudo userdel -rf btcpay
 ```
+
+## Port reference
+
+|  Port | Protocol |             Use            |
+| :---: | :------: | :------------------------: |
+|  5432 |    TCP   |  PostgreSQL default port   |
+| 24444 |    TCP   |   NBXplorer default port   |
+| 23000 |    TCP   | BTCPay Server default port |

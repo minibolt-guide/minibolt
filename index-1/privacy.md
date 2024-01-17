@@ -508,3 +508,11 @@ $ sudo systemctl restart i2pd
 ```
 
 * Check again Bitcoin Core logs to ensure that the errors don't appear anymore
+
+## Port reference
+
+| Port | Protocol |         Use        |
+| :--: | :------: | :----------------: |
+| 9050 |    TCP   |    Default port    |
+| 9051 |    TCP   |    Control port    |
+| 7656 |    TCP   | I2P SAM proxy port |

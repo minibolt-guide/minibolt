@@ -37,7 +37,7 @@ After the MiniBolt runs your own fully validated node, and even acts as a backen
 
 ### Install Node + NPM
 
-* With user admin, check if you have already installed Nodejs
+* With user admin, check if you have already installed Node
 
 ```bash
 $ node -v
@@ -698,3 +698,10 @@ Expected output:
 ```bash
 $ sudo ufw delete X
 ```
+
+## Port reference
+
+| Port |  Protocol |       Use      |
+| :--: | :-------: | :------------: |
+| 3002 |    TCP    |  Default port  |
+| 4000 | TCP (SSL) | Encrypted port |

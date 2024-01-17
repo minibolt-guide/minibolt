@@ -762,7 +762,7 @@ $ sudo rm -r /tmp/nostr-rs-relay
 
 ## Uninstall
 
-#### Uninstall service
+### Uninstall service
 
 * Ensure you are logged in with the user `admin`, stop `nostr-relay` service
 
@@ -776,7 +776,7 @@ $ sudo systemctl stop nostr-relay
 $ sudo rm /etc/systemd/system/nostr-relay.service
 ```
 
-#### Uninstall the nostr relay of the Cloudflare tunnel
+### Uninstall the nostr relay of the Cloudflare tunnel
 
 * Staying with user `admin`, edit `config.yml`
 
@@ -808,7 +808,7 @@ ingress:
 $ sudo systemctl restart cloudflared
 ```
 
-#### Uninstall Nostr user
+### Uninstall nostr user
 
 * Staying with user `admin`, delete the nostr user. Don't worry about `userdel: nostr mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
@@ -822,7 +822,7 @@ Expected output:
 > userdel: nostr mail spool (/var/mail/nostr) not found
 ```
 
-#### Uninstall nostr relay binary
+### Uninstall nostr relay binary
 
 * Staying with user `admin,` delete the nostr-rs-relay binary of the system
 
@@ -830,21 +830,19 @@ Expected output:
 $ sudo rm /usr/local/bin/nostr-rs-relay
 ```
 
-#### Uninstall nostr relay data folder
+### Uninstall nostr relay data folder
 
-* Staying with user `admin,` delete the nostr relay data folder
+* Staying with user `admin`, delete the nostr relay data folder
 
 ```bash
 $ sudo rm -r /data/nostr/relay
 ```
 
-1. **Example:** `"Bitcoin Relay"`
-2.  The pubkey of the relay owner in [**hexadecimal format**](https://nostr.pro/convert)
+## Port reference
 
-    \
-    \\
-
-    **Example:** `"b17fccdf66ba2387f038b34426720cd68d112df923bca2bed8f8c309b7211144"`
+| Port | Protocol |      Use     |
+| :--: | :------: | :----------: |
+| 8880 |    TCP   | Default port |
 
 [^1]: **Example:** `"wss://relay.bitcoin.org/"`
 

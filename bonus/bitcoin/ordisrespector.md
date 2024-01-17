@@ -52,7 +52,7 @@ There is no mention of data storage on the chain and only financial transactions
 ## Preparations
 
 {% hint style="info" %}
-You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `"$"` sign. The system response is marked with the `">"` character.
+You enter commands and the PC answers by printing the results below your command. To clarify where a command begins, every command in this guide starts with the `"$"` sign. The system response is marked with the `">"` character
 {% endhint %}
 
 * Login as `admin` user (for a MiniBolt environment), or your assigned user with `sudo` permissions
@@ -144,7 +144,7 @@ $ sha256sum --ignore-missing --check SHA256SUMS
 
 ### **Signature check**
 
-Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
@@ -383,7 +383,7 @@ The before information indicates that the filter is working properly
 
 ### **Add Ordisrespector node peers (optional)**
 
-Add ["Bitcoin Barcelona node"](https://bitcoinbarcelona.xyz/servicios\_bbo) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
+Add [Bitcoin Barcelona node](https://bitcoinbarcelona.xyz/servicios\_bbo) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
 
 * Edit and add to the `bitcoin.conf` file, the next line/s at the end of the file
 
@@ -402,3 +402,7 @@ If you have enabled the I2P network, add this line as well
 ```
 addnode=.....3q5hw6625xyqekprljz6uasa.b32.i2p:0
 ```
+
+## Port reference
+
+Same as [Bitcoin Core section](../../index-2/bitcoin-client.md#port-reference)

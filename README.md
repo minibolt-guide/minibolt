@@ -62,7 +62,9 @@ We aim to keep the core of this guide well maintained and up-to-date:
 
 ### How to build
 
-* YouTube list building MiniBolt in live with Alberto de Laboratorio Virtual Bitcoin (Spanish): [LINK](https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms)
+* **YouTube list** building MiniBolt in live with [Alberto](https://twitter.com/Albercoin) of Laboratorio Virtual Bitcoin (Spanish)
+
+{% embed url="https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms" %}
 
 ### Community
 

@@ -97,7 +97,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=2024.1.2
+$ VERSION=2024.1.3
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -423,6 +423,16 @@ Jul 10 18:20:43 minibolt cloudflared[3405663]: 2023-07-10T16:20:43Z INF Register
 You should see the service properly running as if it were a local connection
 {% endhint %}
 
+Ensure Cloudflared is listening on the random port assigned:
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ sudo ss -tulpn | grep LISTEN | grep cloudflared
+</strong></code></pre>
+
+**Example** of expected output:
+
+<pre><code>> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">37599</a>      0.0.0.0:*    users:(("cloudflared",pid=311164,fd=3))
+</code></pre>
+
 ## Upgrade
 
 * With user `admin`, stop Cloudflared
@@ -469,3 +479,11 @@ $ sudo dpkg -r cloudflared
 > Removing cloudflared (2023.7.2) ...
 > Processing triggers for man-db (2.10.2-1) ...
 ```
+
+## Port reference
+
+|  Post  | Protocol |     Use     |
+| :----: | :------: | :---------: |
+| Random |    TCP   | Random port |
+
+[^1]: Random port

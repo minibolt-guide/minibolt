@@ -766,6 +766,14 @@ Filename            Type                Size           Used    Priority
 /var/swap           file                 102396         0       -2
 ```
 
+## Port reference
+
+|  Port |  Protocol |       Use      |
+| :---: | :-------: | :------------: |
+| 50001 |    TCP    |  Default port  |
+| 50002 | TCP (SSL) | Encrypted port |
+|  8000 |    TCP    |   Admin port   |
+
 [^1]: zmqpubhashblock port
 
 [^2]: Check this

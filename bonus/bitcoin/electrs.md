@@ -789,6 +789,13 @@ $ sudo nano /etc/tor/torrc
 $ sudo systemctl reload tor
 ```
 
+## Port reference
+
+|  Port |  Protocol |       Use      |
+| :---: | :-------: | :------------: |
+| 50001 |    TCP    |  Default port  |
+| 50002 | TCP (SSL) | Encrypted port |
+
 [^1]: Check this
 
 [^2]: Current version installed

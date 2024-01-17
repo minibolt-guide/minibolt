@@ -265,4 +265,10 @@ HiddenServicePoWDefensesEnabled 1
 $ sudo systemctl reload tor
 ```
 
+## Port reference
+
+| Port | Protocol |      Use      |
+| :--: | :------: | :-----------: |
+| 8080 |    TCP   | LND REST port |
+
 [^1]: gRPC proxy port

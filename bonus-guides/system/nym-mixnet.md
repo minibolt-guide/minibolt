@@ -1153,4 +1153,10 @@ $ exit
 $ sudo systemctl start nym-socks5-client
 ```
 
+## Port reference
+
+| Port | Protocol |             Use            |
+| :--: | :------: | :------------------------: |
+| 1080 |    TCP   | Socks5 client default port |
+
 [^1]: ID key of the gateway selected or assigned

@@ -488,3 +488,10 @@ NoNewPrivileges=yes
 ```sh
 $ sudo systemctl daemon-reload
 ```
+
+## Port reference
+
+|   Port   | Protocol |     Use    |
+| :------: | :------: | :--------: |
+| \<TODO1> |    TCP   |   OR port  |
+| \<TODO2> |    TCP   | obfs4 port |

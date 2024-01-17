@@ -92,7 +92,7 @@ $ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
 * Verify the downloaded binary following [Bisq guidelines](https://bisq.wiki/Downloading\_and\_installing)
 * Once you've verified the integrity of the downloaded Bisq binary, install it on your personal computer but do NOT launch Bisq yet!
 
-## Connect Bisq to your own node
+## Connect Bisq to your node
 
 For Linux and MacOS, we will start Bisq for the first time using the command line to force it to connect to your Bitcoin node only.
 

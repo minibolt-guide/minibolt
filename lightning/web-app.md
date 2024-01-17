@@ -976,3 +976,10 @@ $ sudo nano /etc/tor/torrc
 ```sh
 $ sudo systemctl reload tor
 ```
+
+## Port reference
+
+| Port |  Protocol |       Use      |
+| :--: | :-------: | :------------: |
+| 3000 |    TCP    |  Default port  |
+| 4002 | TCP (SSL) | Encrypted port |

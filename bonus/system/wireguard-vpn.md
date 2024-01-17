@@ -624,5 +624,11 @@ Port forwarding, allows you to direct incoming traffic from the WAN side (identi
 * **WAN interface** _**(some cases):**_ ppp0.1 or similar
 
 {% hint style="success" %}
-Save and apply changes.
+Save and apply changes
 {% endhint %}
+
+## Port reference
+
+|  Port | Protocol |      Use     |
+| :---: | :------: | :----------: |
+| 51820 |    UDP   | Default port |

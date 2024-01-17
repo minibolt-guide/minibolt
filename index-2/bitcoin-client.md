@@ -897,6 +897,14 @@ The following output is just an **example** of one of the versions:
 $ sudo systemctl restart bitcoind
 ```
 
+## Port reference
+
+| Port | Protocolo |         Use        |
+| :--: | :-------: | :----------------: |
+| 8333 |    TCP    |      P2P port      |
+| 8332 |    TCP    |      RPC port      |
+| 8334 |    TCP    | P2P secondary port |
+
 [^1]: Check this
 
 [^2]: Symbolic link
