@@ -226,30 +226,6 @@ drwxr-xr-x 3 bitcoin bitcoin 4096 Nov  7 19:33 .local
 -rw-r--r-- 1 bitcoin bitcoin  807 Nov  7 19:32 .profile
 </code></pre>
 
-{% hint style="warning" %}
-**Troubleshooting note:**\
-\
-If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-3)[^3]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
-
-1. Delete the failed created symbolic link:
-
-```bash
-$ sudo rm -r .bitcoin
-```
-
-2. Try to create the symbolic link again
-
-```bash
-$ ln -s /data/bitcoin /home/bitcoin/.bitcoin
-```
-
-3. Check the symbolic link has been created correctly this time and you have now the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-4)[^4]
-
-```bash
-$ ls -la
-```
-{% endhint %}
-
 ### Generate access credentials
 
 For other programs to query Bitcoin Core they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Core to accept a password, hash it, and compare it to the stored hash, while it is not possible to retrieve the original password.
@@ -525,12 +501,36 @@ Expected output:
 </strong>-rw------- 1 admin admin 51959 Nov  7 12:19 .bash_history
 -rw-r--r-- 1 admin admin   220 Nov  7 20:25 .bash_logout
 -rw-r--r-- 1 admin admin  3792 Nov  7 07:56 .bashrc
-lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-5">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-3">.bitcoin -> /data/bitcoin</a>
 -rw-r--r-- 1 admin admin   807 Nov  7  2023 .profile
 drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
 -rw-r--r-- 1 admin admin   208 Nov  7 19:32 .wget-hsts
 -rw------- 1 admin admin   116 Nov  7 19:41 .Xauthority
 </code></pre>
+
+{% hint style="warning" %}
+**Troubleshooting note:**\
+\
+If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-4)[^4]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+
+1. Delete the failed created symbolic link:
+
+```bash
+$ sudo rm -r .bitcoin
+```
+
+2. Try to create the symbolic link again
+
+```bash
+$ ln -s /data/bitcoin /home/bitcoin/.bitcoin
+```
+
+3. Check the symbolic link has been created correctly this time and you have now the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-5)[^5]
+
+```bash
+$ ls -la
+```
+{% endhint %}
 
 * Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
 
