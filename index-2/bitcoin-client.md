@@ -206,7 +206,7 @@ $ sudo su - bitcoin
 $ ln -s /data/bitcoin /home/bitcoin/.bitcoin
 ```
 
-* Check the symbolic link have been created correctly
+* Check the symbolic link has been created correctly
 
 ```bash
 $ ls -la
@@ -225,6 +225,30 @@ drwxr-xr-x 3 bitcoin bitcoin 4096 Nov  7 19:33 .local
 -rw-r--r-- 1 bitcoin bitcoin 1670 Nov  7 19:32 .mkshrc
 -rw-r--r-- 1 bitcoin bitcoin  807 Nov  7 19:32 .profile
 </code></pre>
+
+{% hint style="warning" %}
+**Troubleshooting note:**\
+\
+If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-3)[^3]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+
+1. Delete the failed created symbolic link:
+
+```bash
+$ sudo rm -r .bitcoin
+```
+
+2. Try to create the symbolic link again
+
+```bash
+$ ln -s /data/bitcoin /home/bitcoin/.bitcoin
+```
+
+3. Check the symbolic link has been created correctly this time and you have now the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-4)[^4]
+
+```bash
+$ ls -la
+```
+{% endhint %}
 
 ### Generate access credentials
 
@@ -501,7 +525,7 @@ Expected output:
 </strong>-rw------- 1 admin admin 51959 Nov  7 12:19 .bash_history
 -rw-r--r-- 1 admin admin   220 Nov  7 20:25 .bash_logout
 -rw-r--r-- 1 admin admin  3792 Nov  7 07:56 .bashrc
-lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-3">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-5">.bitcoin -> /data/bitcoin</a>
 -rw-r--r-- 1 admin admin   807 Nov  7  2023 .profile
 drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
 -rw-r--r-- 1 admin admin   208 Nov  7 19:32 .wget-hsts
@@ -551,9 +575,9 @@ $2 sudo ss -tulpn | grep LISTEN | grep bitcoind
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-4">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
-> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
-> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+<pre><code>> tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
 > tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
 </code></pre>
 
@@ -911,8 +935,12 @@ $ sudo systemctl restart bitcoind
 
 [^3]: Symbolic link
 
-[^4]: RPC port
+[^4]: Symbolic link
 
-[^5]: P2P main port
+[^5]: Symbolic link
 
-[^6]: P2P secondary port
+[^6]: RPC port
+
+[^7]: P2P main port
+
+[^8]: P2P secondary port
