@@ -124,20 +124,11 @@ Bitcoin Core will communicate directly with the Tor daemon to route all traffic 
 $ sudo nano /etc/tor/torrc --linenumbers
 ```
 
-* Uncommenting (removing the `#`) the following lines
+* Uncomment **line 56** to enable the control port
 
 ```
-# uncomment line 56:
 ControlPort 9051
-
-# uncomment line 60
-CookieAuthentication 1
 ```
-
-* Add under line 60 (line 61) the next line. Save and exit
-
-<pre><code><strong>CookieAuthFileGroupReadable 1
-</strong></code></pre>
 
 * Reload the Tor configuration to activate the modifications
 

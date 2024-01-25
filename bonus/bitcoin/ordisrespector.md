@@ -403,6 +403,35 @@ If you have enabled the I2P network, add this line as well
 addnode=.....3q5hw6625xyqekprljz6uasa.b32.i2p:0
 ```
 
+### Add an external fee estimator to the LND
+
+By applying Ordisrespector to our node, would can have a different version of the mempool compared to the rest of the network and with it the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
+
+* With user admin, stop LND if you have installed
+
+```bash
+$ sudo systemctl stop lnd
+```
+
+* Edit `lnd.conf`
+
+```bash
+$ sudo nano /data/lnd/lnd.conf
+```
+
+* Add the next lines inside of `[Application Options]` section
+
+```
+# Use external fee estimator
+feeurl=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
+```
+
+* Start LND again
+
+```bash
+$ sudo systemctl start lnd
+```
+
 ## Port reference
 
 Same as [Bitcoin Core section](../../index-2/bitcoin-client.md#port-reference)

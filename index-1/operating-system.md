@@ -55,10 +55,13 @@ It should display a **"Flash Complete!"** message after
 * **Safely eject** the pen drive from your regular computer
 * **Connect to your selected PC** for the MiniBolt node
 * **Attach a screen**, a **keyboard,** and the **Ethernet** wire of the Internet (not the case for Wi-Fi connection) to the **PC** and start it
-*   Press the key quickly to **enter to BIOS setup** or directly to the **boot menu** to select the **pen drive as the 1st boot priority device** (normally, F9, Esc, F12, or Supr keys)
+* Press the key quickly to **enter to BIOS setup** or directly to the **boot menu** to select the **pen drive as the 1st boot priority device** (normally, F9, Esc, F12, or Supr keys)
 
-    💡 In this step, you might want to take advantage of activating the **"Restore on AC"** or similar in the BIOS setup. Normally found in **Advanced** -> **ACPI Configuration**, switching to **"Power ON"** or similar. With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
-* If you configured boot options in BIOS, **save changes and exit**. This starts automatically with the Ubuntu Server guided installation. You will keep selecting **"Try or Install Ubuntu Server"** and press **enter**, or wait 20 seconds for it to start automatically.
+{% hint style="info" %}
+&#x20;In this step, you might want to take advantage of activating the **Restore on AC** / **After power failure** or similar in the BIOS setup. Normally found in **Advanced** -> **Power** / **ACPI Configuration**, switching to **Last State** / **Memory** or similar (System power on depends on the status before AC lost) or **Power ON / Full on** or similar (Always power on the system when AC back) depends on your preference. With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence
+{% endhint %}
+
+* If you configured boot options in BIOS, **save changes and exit**. This starts automatically with the Ubuntu Server guided installation. You will keep selecting \[**Try or Install Ubuntu Server]** and press **enter**, or wait 20 seconds for it to start automatically
 
 ## Ubuntu Server installation
 
@@ -89,7 +92,7 @@ The router reserves the IP address of the device for a time after going out, but
 
 > **8.1.** Check **"Use an entire disk"**, if you have **only one primary unit storage (1+ TB)**. In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before select \[**done]** and press **enter**. Then, continue with **step 9**.
 
-> **8.2.** Check **"Custom storage layout"**, if you want to use one **secondary** disk, e.g. primary for the system and secondary disk for data (blockchain, indexes, etc)(1+ TB). For this case, go to --> the [Case 1](../bonus/system/store-data-secondary-disk.md#case-1-during-the-ubuntu-server-guided-installation) of [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, to get instructions about how to follow, and then continue with **step 10**.
+> **8.2.** Check **"Custom storage layout"**, if you want to use one **secondary** disk, e.g. primary for the system and secondary disk for data (blockchain, indexes, etc)(1+ TB). For this case, go to -> the [Case 1](../bonus/system/store-data-secondary-disk.md#case-1-during-the-ubuntu-server-guided-installation) of [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, to get instructions about how to follow, and then continue with **step 10**.
 
 **9.** Confirm destructive action by selecting the \[**Continue]** option. Press **enter**
 
@@ -97,9 +100,9 @@ The router reserves the IP address of the device for a time after going out, but
 **This will delete all existing data on the disks, including existing partitions!**
 {% endhint %}
 
-**10.** Keep selecting **"Skip for now",** when the **"Upgrade to Ubuntu Pro"** section appears you press **enter** on the **done** button
+**10.** Keep selecting \[**Skip for now],** when the \[**Upgrade to Ubuntu Pro]** section appears you press **enter** on the **done** button
 
-**11.** The username **`"admin"`** is reserved for use by the system, to use in the first place, so we are going to create a **temporary user** called "temp" which we will **delete later**. Complete the profile configuration form with the following.
+**11.** The username **`admin`** is reserved for use by the system, to use in the first place, so we are going to create a **temporary user** called "temp" which we will **delete later**. Complete the profile configuration form with the following.
 
 {% hint style="danger" %}
 Very IMPORTANT step!

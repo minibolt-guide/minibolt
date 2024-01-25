@@ -60,8 +60,9 @@ $ sudo nano /data/bitcoin/bitcoin.conf
 # Support filtering of blocks and transactions with bloom filters
 peerbloomfilters=1
 
-# Whitelist our P2P connection
+# Whitelist our Wireguard VPN & local network P2P connection
 whitelist=bloomfilter@192.168.0.0/16
+whitelist=bloomfilter@10.0.0.0/16
 ```
 
 ### Obtain your Bitcoin Core `onion` address

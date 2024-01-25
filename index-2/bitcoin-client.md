@@ -132,11 +132,13 @@ The following screenshot is just an **example** of one of the versions:
 $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
 
-* Install the binaries on the OS
+* Install the proper binaries on the OS
 
+{% code overflow="wrap" %}
 ```sh
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/*
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitcoin-cli bitcoin-$VERSION/bin/bitcoind
 ```
+{% endcode %}
 
 * Check the correct installation requesting the output of the version
 
@@ -513,7 +515,7 @@ drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
 \
 If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-4)[^4]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
-1. Delete the failed created symbolic link:
+1. Delete the failed created symbolic link
 
 ```bash
 $ sudo rm -r .bitcoin
@@ -746,11 +748,16 @@ rpcworkqueue=256
 {% hint style="info" %}
 Realize that with `maxuploadtarget` parameter enabled you will need whitelist the connection to [Electrs](../bonus/bitcoin/electrs.md) and [Bisq](../bonus/bitcoin/bisq.md) by adding these parameter to `bitcoin.conf`:
 
-<pre><code><strong>For Electrs: whitelist=download@127.0.0.1
-</strong></code></pre>
+For Electrs:
 
 ```
-For Bisq: whitelist=bloomfilter@192.168.0.0/16
+whitelist=download@127.0.0.1
+```
+
+For Bisq:
+
+```
+whitelist=bloomfilter@192.168.0.0/16
 ```
 {% endhint %}
 
