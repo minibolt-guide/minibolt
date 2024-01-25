@@ -122,7 +122,7 @@ $ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
 ```
 
 {% hint style="info" %}
-If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run-sparrow) section to start the Sparrow server again with the new version
+If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run) section to start the Sparrow server again with the new version
 {% endhint %}
 
 * Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of the PATH
