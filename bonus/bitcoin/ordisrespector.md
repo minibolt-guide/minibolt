@@ -317,7 +317,15 @@ $ sudo rm -r bitcoin-$VERSION && rm bdb.sh && rm bitcoin-$VERSION.tar.gz && rm d
 ```
 {% endcode %}
 
-* Restart your existing Bitcoin Core using the systemd or start a new instance with the Ordisrespector patch change
+* Delete no needed binaries before installed by `make install` command
+
+{% code overflow="wrap" %}
+```bash
+$ sudo rm /usr/local/bin/bitcoin-tx && sudo rm /usr/local/bin/bitcoin-wallet && sudo rm /usr/local/bin/bitcoin-util
+```
+{% endcode %}
+
+* If you had a existing Bitcoin Core installation without Ordisrespector applied, restart it using the systemd and start a new instance with the Ordisrespector patch applied
 
 ```sh
 $ sudo systemctl restart bitcoind

@@ -97,7 +97,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=2024.1.4
+$ VERSION=2024.1.5
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)

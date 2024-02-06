@@ -533,7 +533,7 @@ $2 sudo ss -tulpn | grep LISTEN | grep nym-socks5
 Expected output:
 
 ```
-> tcp  LISTEN 0  1024  127.0.0.1:1080  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
+> tcp  LISTEN 0  1024  0.0.0.0:1080  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
 ```
 
 * Delete the NYM compilation folder to be ready for the next update and free up space
