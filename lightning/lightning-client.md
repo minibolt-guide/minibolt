@@ -163,14 +163,14 @@ $ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 
 **Example** of expected output:
 
-```
-> gpg: Signature made Tue 06 Feb 2024 08:12:33 AM UTC
-> gpg:                using RSA key F4FC70F07310028424EFC20A8E4256593F177720
-> gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
+<pre><code>> gpg: Signature made Mon 13 Nov 2023 11:45:38 PM UTC
+> gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
+> gpg: <a data-footnote-ref href="#user-content-fn-4">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
 > gpg: WARNING: This key is not certified with a trusted signature!
 > gpg:          There is no indication that the signature belongs to the owner.
-> Primary key fingerprint: F4FC 70F0 7310 0284 24EF  C20A 8E42 5659 3F17 7720
-```
+> Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
+>      Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
+</code></pre>
 
 ### Timestamp check
 
@@ -190,7 +190,7 @@ $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roa
 > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
 > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
 > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-> <a data-footnote-ref href="#user-content-fn-4">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-5">765521 attests existence as of 2022-12-01 UTC</a>
+> <a data-footnote-ref href="#user-content-fn-5">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-6">765521 attests existence as of 2022-12-01 UTC</a>
 </code></pre>
 
 {% code overflow="wrap" %}
@@ -201,13 +201,12 @@ $ ots --no-cache verify manifest-v$VERSION-beta.txt.ots -f manifest-v$VERSION-be
 
 **Example** of expected output:
 
-```
-> Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+<pre><code>> Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
 > Got 1 attestation(s) from https://btc.calendar.catallaxy.com
 > Got 1 attestation(s) from https://finney.calendar.eternitywall.com
 > Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-> Success! Bitcoin block 829257 attests existence as of 2024-02-06 UTC
-```
+> <a data-footnote-ref href="#user-content-fn-7">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-8">829257 attests existence as of 2024-02-06 UTC</a>
+</code></pre>
 
 {% hint style="info" %}
 Check that the date of the timestamp is close to the [release date](https://github.com/lightningnetwork/lnd/releases) of the LND binary
@@ -322,8 +321,8 @@ drwxr-x--- 2 lnd  lnd  4096 Jul 15 20:57 .
 drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
 -rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
 -rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
-lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-6">.bitcoin -> /data/bitcoin</a>
-lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-7">.lnd -> /data/lnd</a>
+lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-9">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-10">.lnd -> /data/lnd</a>
 -rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
 </code></pre>
 
@@ -360,7 +359,7 @@ $ nano /data/lnd/lnd.conf
 
 [Application Options]
 # Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ https://emojikeyboard.top/
-alias=<a data-footnote-ref href="#user-content-fn-8">&#x3C;YOUR_FANCY_ALIAS></a>
+alias=<a data-footnote-ref href="#user-content-fn-11">&#x3C;YOUR_FANCY_ALIAS></a>
 # You can choose the color you want at https://www.color-hex.com/
 color=#ff9900
 
@@ -381,11 +380,11 @@ tlsdisableautofill=true
 # Fee settings - default LND base fee = 1000 (mSat),
 # default LND fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
-<a data-footnote-ref href="#user-content-fn-9">#bitcoin.basefee=0</a>
-<a data-footnote-ref href="#user-content-fn-10">#bitcoin.feerate=0</a>
+<a data-footnote-ref href="#user-content-fn-12">#bitcoin.basefee=0</a>
+<a data-footnote-ref href="#user-content-fn-13">#bitcoin.feerate=0</a>
 
 # Minimum channel size (default: 20000 sats). You can choose whatever you want
-<a data-footnote-ref href="#user-content-fn-11">#minchansize=20000</a>
+<a data-footnote-ref href="#user-content-fn-14">#minchansize=20000</a>
 
 maxpendingchannels=5
 accept-keysend=true
@@ -401,7 +400,7 @@ wtclient.active=true
 
 # Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-12">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-15">#wtclient.sweep-fee-rate=10</a>
 
 # Watchtower server
 watchtower.active=true
@@ -418,11 +417,11 @@ stagger-initial-reconnect=true
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
-<a data-footnote-ref href="#user-content-fn-13">#db.bolt.auto-compact-min-age=0h</a>
+<a data-footnote-ref href="#user-content-fn-16">#db.bolt.auto-compact-min-age=0h</a>
 
 # Optional (uncomment the next 2 lines (default: CONSERVATIVE))
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-14">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-17">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
 bitcoin.active=true
@@ -715,14 +714,14 @@ lnd successfully initialized!
 
 <summary>Return to the first terminal with <code>$ journalctl -f -u lnd</code>. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this</summary>
 
-<pre><code>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.642 [INF] LNWL: <a data-footnote-ref href="#user-content-fn-15">RECOVERY MODE ENABLED</a> -- rescanning for used addresses with recovery_window=2500
+<pre><code>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.642 [INF] LNWL: <a data-footnote-ref href="#user-content-fn-18">RECOVERY MODE ENABLED</a> -- rescanning for used addresses with recovery_window=2500
 Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.685 [INF] LNWL: Seed birthday surpassed, starting recovery of wallet from height=2540246 hash=00000000000000178484e446a4fb5c966b5fd5db76121421bfa470c7c879ff05 with recovery-window=2500
 Nov 26 19:47:09 minibolt lnd[1321]: 2023-11-26 19:47:09.859 [INF] LNWL: Scanning 311 blocks for recoverable addresses
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.328 [INF] LNWL: Recovered addresses from blocks 2540246-2540556
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.338 [INF] LNWL: Started rescan from block 000000000000001e297a052a69708908dbe9769d834a07447d85e446b6b4b2a0 (height 2540556) for 0 addresses
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.360 [INF] LNWL: Catching up block hashes to height 2540557, this might take a while
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: Done catching up block hashes
-Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: <a data-footnote-ref href="#user-content-fn-16">Finished rescan</a> for 0 addresses (synced to block 00000000443337ee5135e26cc7611c570f0cfface2823516a59fee41fc9750b0, height 2540557)
+Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: <a data-footnote-ref href="#user-content-fn-19">Finished rescan</a> for 0 addresses (synced to block 00000000443337ee5135e26cc7611c570f0cfface2823516a59fee41fc9750b0, height 2540557)
 [...]
 </code></pre>
 
@@ -748,9 +747,9 @@ $2 sudo ss -tulpn | grep LISTEN | grep lnd
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-17">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
-> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
-> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-19">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
+<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-20">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
+> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-21">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
+> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-22">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
 </code></pre>
 
 ### Allow user "admin" to work with LND
@@ -786,7 +785,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-20">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-23">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -1090,34 +1089,40 @@ $ sudo systemctl restart lnd
 
 [^4]: Check this
 
-[^5]: (**Example)**
+[^5]: Check this
 
-[^6]: Symbolic link
+[^6]: (**Example)**
 
-[^7]: Symbolic link
+[^7]: Check this
 
-[^8]: (Customize)
+[^8]: (**Example)**
 
-[^9]: (Uncomment and customize the value)
+[^9]: Symbolic link
 
-[^10]: (Uncomment and customize the value)
+[^10]: Symbolic link
 
-[^11]: (Uncomment and customize the value)
+[^11]: (Customize)
 
 [^12]: (Uncomment and customize the value)
 
-[^13]: (Uncomment and customize the value or keep commented to left default)
+[^13]: (Uncomment and customize the value)
 
 [^14]: (Uncomment and customize the value)
 
-[^15]: Check this
+[^15]: (Uncomment and customize the value)
 
-[^16]: Check this
+[^16]: (Uncomment and customize the value or keep commented to left default)
 
-[^17]: LND P2P host:port
+[^17]: (Uncomment and customize the value)
 
-[^18]: gRPC host:port
+[^18]: Check this
 
-[^19]: Watchtower server host:port
+[^19]: Check this
 
-[^20]: Symbolic link
+[^20]: LND P2P host:port
+
+[^21]: gRPC host:port
+
+[^22]: Watchtower server host:port
+
+[^23]: Symbolic link
