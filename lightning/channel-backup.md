@@ -487,3 +487,29 @@ $ ls -la /mnt/static-channel-backup-external
 {% hint style="success" %}
 You're set! Each time you open a new channel or close an existing one, the monitoring script will automatically save a timestamped copy of the backup file to your backup location(s)
 {% endhint %}
+
+## Uninstall
+
+### Uninstall service & user
+
+Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
+
+```bash
+$ sudo systemctl stop scb-backup
+```
+
+```bash
+$ sudo systemctl disable
+```
+
+```bash
+$ sudo rm /etc/systemd/system/scb-backup.service
+```
+
+### Uninstall script
+
+* &#x20;Delete the script installed
+
+```bash
+$ sudo rm /usr/local/bin/scb-backup
+```

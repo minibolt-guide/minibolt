@@ -226,7 +226,9 @@ $ tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
 > lnd-linux-amd64-v0.17.1-beta/
 ```
 
-* Proceed to install it
+### Binaries installation
+
+* Install it
 
 {% code overflow="wrap" %}
 ```sh
@@ -1058,7 +1060,7 @@ More: full [LND API reference](https://api.lightning.community/)
 
 ## Upgrade
 
-Upgrading LND can lead to a number of issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases) completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
+Upgrading LND can lead to some issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases) completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
 
 * Check your current LND version
 
@@ -1071,6 +1073,66 @@ $ lnd --version
 
 ```sh
 $ sudo systemctl restart lnd
+```
+
+## Uninstall
+
+### Uninstall service & user
+
+* Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
+
+```bash
+$ sudo systemctl stop lnd
+```
+
+```bash
+$ sudo systemctl disable lnd
+```
+
+```bash
+$ sudo rm /etc/systemd/system/lnd.service
+```
+
+* Delete the `lnd` user. Don't worry about `userdel: lnd mail spool (/var/mail/lnd) not found` output, the uninstall has been successful
+
+```bash
+$ sudo userdel -rf lnd
+```
+
+* Delete the complete `lnd` directory
+
+```bash
+$ sudo rm -rf /data/lnd/
+```
+
+### Uninstall binaries
+
+* Delete the binaries installed
+
+```bash
+$ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
+```
+
+### Uninstall FW configuration
+
+If you followed the Mobile app: Zeus guide, probably you needed to add an allow rule on UFW to allow the incoming connection to the `8080` LND REST port
+
+* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
+
+```bash
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 8080           ALLOW IN    Anywhere          # allow LND REST from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```bash
+$ sudo ufw delete X
 ```
 
 ## Port reference

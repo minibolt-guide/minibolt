@@ -97,7 +97,7 @@ Expected output:
 
 ## Installation
 
-### Download and set up Fulcrum
+### Download binaries
 
 We have our Bitcoin Core configuration file set up and can now move on to the next part of the Fulcrum installation.
 
@@ -132,6 +132,8 @@ $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$
 $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-shasums.txt
 ```
 {% endcode %}
+
+### Signature check
 
 * Get the public key from the Fulcrum developer
 
@@ -169,6 +171,8 @@ Expected output:
 [...]
 </code></pre>
 
+### Checksum check
+
 * Verify the signed checksum against the actual checksum of your download
 
 ```sh
@@ -194,6 +198,8 @@ tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.system.posix_acl
 tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.docker.grpcfuse.ownership'
 ```
 {% endhint %}
+
+### Binaries installation
 
 * Install it
 
@@ -662,7 +668,7 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 
 ### Uninstall service & user
 
-* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
+* Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
 
 ```sh
 $ sudo systemctl stop fulcrum
@@ -676,8 +682,7 @@ $ sudo systemctl disable fulcrum
 $ sudo rm /etc/systemd/system/fulcrum.service
 ```
 
-* Ensure you are logged in with the user `admin`. Delete the fulcrum user.\
-  Don't worry about `userdel: fulcrum mail spool (/var/mail/nym) not found` output, the uninstall has been successful
+* Delete the fulcrum user. Don't worry about `userdel: fulcrum mail spool (/var/mail/fulcrum) not found` output, the uninstall has been successful
 
 ```sh
 $ sudo userdel -rf fulcrum
@@ -687,6 +692,14 @@ $ sudo userdel -rf fulcrum
 
 ```sh
 $ sudo rm -rf /data/fulcrum/
+```
+
+### Uninstall binaries
+
+* Delete the binaries installed
+
+```bash
+$ sudo rm /usr/local/bin/Fulcrum && sudo rm /usr/local/bin/FulcrumAdmin
 ```
 
 ### Uninstall Tor hidden service
@@ -763,7 +776,7 @@ Expected output:
 
 ```
 Filename            Type                Size           Used    Priority
-/var/swap           file                 102396         0       -2
+/var/swap           file               102396            0        -2
 ```
 
 ## Port reference

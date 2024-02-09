@@ -50,17 +50,17 @@ Now it’s time to connect to the MiniBolt via Secure Shell (SSH) and get to wor
 
 Install and start the SSH client for your operating system:
 
-* Windows, 2 options:
-  * Download Putty [64-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture. [Source](https://www.chiark.greenend.org.uk/\~sgtatham/putty/latest.html)
+* **Windows**, 2 options:
+  * Download **Putty** [64-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/\~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture. [Source](https://www.chiark.greenend.org.uk/\~sgtatham/putty/latest.html)
     * Start Putty, to the left tree, select "session", in the "Hostname (or IP address)" box, type `temp@192.168.x.xx`, port `22` to the left box.
     * Press the button OPEN, when a "PuTTy security alert" banner appears, press the "Accept" button, and finally type your `password [A]`.
-  * Download the MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm\_Portable\_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm\_Installer\_v22.3.zip) version depending of you want to install it permanently or not. [Source](https://mobaxterm.mobatek.net/)
+  * [Download](https://mobaxterm.mobatek.net/download-home-edition.html) the **MobaXterm** Portable Edition or Installer Edition version depending on whether you want to install it permanently or not.
     * Start MobaXterm, 2 options:
       * If you want to save the session for later: on the top menu, click on "Session" -> "New session" -> Select "SSH".
         * Enter MiniBolt IP address (192.168.x.xx), check "specify username" and enter to the right "temp", keep port "22" selected to the right.
         * Press the button OK, when a "Connexion to..." banner appears, press the "Accept" button, and finally type your `password [A]`.
       * Otherwise, select on the dashboard the "Start local terminal" button and type directly on the terminal `ssh temp@192.168.x.xxx`.
-* MacOS and Linux:
+* **MacOS** and **Linux**:
   * From the native terminal, type: `ssh temp@192.168.x.xxx`
   * Use Putty, simply from the native terminal type `sudo apt install putty` and start it by typing `putty`, follow the same Putty instructions as before for Windows.
 

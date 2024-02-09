@@ -124,15 +124,15 @@ The following screenshot is just an **example** of one of the versions:
 
 ![](../images/bitcoin-ots-check.PNG)
 
-### Binaries installation
-
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
 
 ```sh
 $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
 
-* Install the proper binaries on the OS
+### Binaries installation
+
+* Install it
 
 {% code overflow="wrap" %}
 ```sh
@@ -926,6 +926,66 @@ The following output is just an **example** of one of the versions:
 
 ```sh
 $ sudo systemctl restart bitcoind
+```
+
+## Uninstall
+
+### Uninstall service & user
+
+* Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
+
+```bash
+$ sudo systemctl stop bitcoind
+```
+
+```bash
+$ sudo systemctl disable bitcoind
+```
+
+```bash
+$ sudo rm /etc/systemd/system/bitcoind.service
+```
+
+* Delete the bitcoind user. Don't worry about `userdel: bitcoind mail spool (/var/mail/bitcoind) not found` output, the uninstall has been successful
+
+```bash
+$ sudo userdel -rf bitcoind
+```
+
+* Delete the complete `bitcoind` directory
+
+```bash
+$ sudo rm -rf /data/bitcoind/
+```
+
+### Uninstall binaries
+
+* Delete the binaries installed
+
+```bash
+$ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
+```
+
+### Uninstall FW configuration
+
+If you followed the Bisq bonus guide, probably you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
+
+* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below)
+
+```bash
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 8333       ALLOW IN    Anywhere            # allow Bitcoin Core from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```bash
+$ sudo ufw delete X
 ```
 
 ## Port reference
