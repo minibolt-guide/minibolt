@@ -762,7 +762,7 @@ $ sudo rm -r /tmp/nostr-rs-relay
 
 ## Uninstall
 
-### Uninstall service
+### Uninstall service & user
 
 * Ensure you are logged in with the user `admin`, stop `nostr-relay` service
 
@@ -774,6 +774,24 @@ $ sudo systemctl stop nostr-relay
 
 ```bash
 $ sudo rm /etc/systemd/system/nostr-relay.service
+```
+
+* Delete the nostr user. Don't worry about `userdel: nostr mail spool (/var/mail/nym) not found` output, the uninstall has been successful
+
+```bash
+$ sudo userdel -rf nostr
+```
+
+Expected output:
+
+```
+> userdel: nostr mail spool (/var/mail/nostr) not found
+```
+
+* Delete the nostr relay data folder
+
+```bash
+$ sudo rm -r /data/nostr/relay
 ```
 
 ### Uninstall the nostr relay of the Cloudflare tunnel
@@ -808,34 +826,12 @@ ingress:
 $ sudo systemctl restart cloudflared
 ```
 
-### Uninstall nostr user
-
-* Staying with user `admin`, delete the nostr user. Don't worry about `userdel: nostr mail spool (/var/mail/nym) not found` output, the uninstall has been successful
-
-```bash
-$ sudo userdel -rf nostr
-```
-
-Expected output:
-
-```
-> userdel: nostr mail spool (/var/mail/nostr) not found
-```
-
-### Uninstall nostr relay binary
+### Uninstall binaries
 
 * Staying with user `admin,` delete the nostr-rs-relay binary of the system
 
 ```bash
 $ sudo rm /usr/local/bin/nostr-rs-relay
-```
-
-### Uninstall nostr relay data folder
-
-* Staying with user `admin`, delete the nostr relay data folder
-
-```bash
-$ sudo rm -r /data/nostr/relay
 ```
 
 ## Port reference
