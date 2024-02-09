@@ -679,9 +679,40 @@ $ sudo nano /etc/tor/torrc
 $ sudo systemctl reload tor
 ```
 
-### **Uninstall FW configuration**
+### **Uninstall reverse proxy & FW configuration**
 
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
+* Ensure you are logged in with the user `admin`, delete the reverse proxy config file
+
+```bash
+$ sudo rm /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
+```
+
+* Delete the simbolic link
+
+```bash
+$ sudo rm /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf
+```
+
+* Test Nginx configuration
+
+```bash
+$ sudo nginx -t
+```
+
+Expected output:
+
+```
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+$ sudo systemctl reload nginx
+```
+
+* Display the UFW firewall rules, and note the numbers of the rules for BTC RPC Explorer (e.g. "Y" below)
 
 ```bash
 $ sudo ufw status numbered

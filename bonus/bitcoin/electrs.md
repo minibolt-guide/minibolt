@@ -735,7 +735,7 @@ Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path:
 
 ## Uninstall
 
-### Uninstall Electrs
+### Uninstall service & user
 
 * Ensure you are logged in with the user `admin`, stop, disable, and delete the service
 
@@ -787,6 +787,58 @@ $ sudo nano /etc/tor/torrc
 
 ```bash
 $ sudo systemctl reload tor
+```
+
+### Uninstall reverse proxy & FW configuration
+
+* Ensure you are logged in with the user `admin`, delete the reverse proxy config file
+
+```bash
+$ sudo rm /etc/nginx/sites-available/electrs-reverse-proxy.conf
+```
+
+* Delete the simbolic link
+
+```bash
+$ sudo rm /etc/nginx/sites-enabled/electrs-reverse-proxy.conf
+```
+
+* Test Nginx configuration
+
+```bash
+$ sudo nginx -t
+```
+
+Expected output:
+
+```
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+$ sudo systemctl reload nginx
+```
+
+* Display the UFW firewall rules, and note the numbers of the rules for Electrs (e.g., X and Y below)
+
+```bash
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 50001       ALLOW IN    Anywhere          # allow Electrs TCP from anywhere
+> [X] 50002       ALLOW IN    Anywhere          # allow Electrs SSL from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```bash
+$ sudo ufw delete X
 ```
 
 ## Port reference

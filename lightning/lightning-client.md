@@ -1115,7 +1115,7 @@ $ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 ### Uninstall FW configuration
 
-If you followed the Mobile app: Zeus guide, probably you needed to add an allow rule on UFW to allow the incoming connection to the `8080` LND REST port
+If you followed the [Mobile app: Zeus guide](mobile-app.md), probably you needed to add an allow rule on UFW to allow the incoming connection to the `8080` LND REST port
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
 

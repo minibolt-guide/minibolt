@@ -499,7 +499,7 @@ $ sudo systemctl stop scb-backup
 ```
 
 ```bash
-$ sudo systemctl disable
+$ sudo systemctl disable scb-backup
 ```
 
 ```bash

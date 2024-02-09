@@ -968,7 +968,7 @@ $ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
 
 ### Uninstall FW configuration
 
-If you followed the Bisq bonus guide, probably you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
+If you followed the [Bisq bonus guide](../bonus/bitcoin/bisq.md), probably you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below)
 

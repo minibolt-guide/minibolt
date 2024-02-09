@@ -934,30 +934,9 @@ Expected output:
 > userdel: thunderhub mail spool (/var/mail/thunderhub) not found
 ```
 
-### Uninstall FW configuration
-
-* Display the UFW firewall rules and note the numbers of the rules for Thunderhub (e.g., X and Y below)
-
-```sh
-$ sudo ufw status numbered
-```
-
-Expected output:
-
-```
-> [...]
-> [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
-```
-
-* Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
-
-```sh
-$ sudo ufw delete X
-```
-
 ### Uninstall Tor hidden service
 
-* Comment or remove the fulcrum hidden service lines in torrc. Save and exit
+* Comment or remove the ThunderHub hidden service lines in torrc. Save and exit
 
 ```sh
 $ sudo nano /etc/tor/torrc
@@ -975,6 +954,57 @@ $ sudo nano /etc/tor/torrc
 
 ```sh
 $ sudo systemctl reload tor
+```
+
+### Uninstall reverse proxy & FW configuration
+
+* Ensure you are logged in with the user `admin`, delete the reverse proxy config file
+
+```bash
+$ sudo rm /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
+```
+
+* Delete the simbolic link
+
+```bash
+$ sudo rm /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
+```
+
+* Test Nginx configuration
+
+```bash
+$ sudo nginx -t
+```
+
+Expected output:
+
+```
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+$ sudo systemctl reload nginx
+```
+
+* Display the UFW firewall rules and note the numbers of the rules for Thunderhub (e.g. "X" below)
+
+```sh
+$ sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
+```
+
+* Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
+
+```sh
+$ sudo ufw delete X
 ```
 
 ## Port reference
