@@ -206,7 +206,7 @@ $ Sparrow
 
 * Go to `Wallets > Create Wallet`
 * Paste the seed words of the hot wallet you will mix bitcoin with. If you use for example Samourai Wallet - do not forget to paste the SW passphrase as well
-* Create a strong password for the Sparrow Terminal wallet to prevent loss of funds in case of someone gets access to your node/wallet
+* Create a strong password for the Sparrow Terminal wallet to prevent loss of funds in case someone gets access to your node/wallet
 * Open your Wallet
 
 #### Start mixing
@@ -222,12 +222,12 @@ $ Sparrow
 
 #### Detaching a session
 
-* Detach tmux session to run ST in the background
+* Detach tmux session to run Sparrow Server in the background
 
 1. Press `Ctrl + b` once
 2. Press `d` once
 
-Closing or logging out from your node without detaching would cause mixing to stop. ST now runs as a separate process regardless of your disconnecting from the node
+Closing or logging out from your node without detaching would cause mixing to stop. Sparrow Server now runs as a separate process regardless of your disconnecting from the node
 
 * You can view tmux sessions using the following command
 
@@ -252,8 +252,6 @@ $ tmux a -t sparrowserver
 Follow the complete [Installation](sparrow-server.md#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
 ## Uninstall
-
-#### Delete Sparrow
 
 * Delete Sparrow symlinks & directory
 

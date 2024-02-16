@@ -20,13 +20,42 @@ The MiniBolt needs to be secured against online attacks using various methods.
 
 <figure><img src="../.gitbook/assets/security.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
-## Enabling the Uncomplicated Firewall
+## Uncomplicated Firewall (enable & configure)
 
 A firewall controls what kind of outside traffic your machine accepts and which applications can send data out. By default, many network ports are open and listening for incoming connections. Closing unnecessary ports can mitigate many potential system vulnerabilities.
 
 For now, only SSH should be reachable from the outside. Bitcoin Core and LND are using Tor and don't need incoming ports. We'll open the port for Electrs and web applications later if needed.
 
-* With user `admin`, deny incoming connections (we are going to allow incoming connections on demand)
+### Check IPv6 availability
+
+* With user `admin`, check your IPv6 availability
+
+{% code overflow="wrap" %}
+```bash
+$ ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
+```
+{% endcode %}
+
+2 options:
+
+1. If you obtain the `"OK."` output, you have IPv6 availability, additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are OK, continue the guide without modifications
+2. If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, the IPv6 adoption is new, you will use your internet connection using the common IPv4, additionally, you can obtain your IPv4 with: `curl -s ipv4.icanhazip.com`
+
+If you don't have IPv6 availability, you can disable IPv6 on UFW to avoid the creation of rules related to it:
+
+* Edit the UFW configuration
+
+```bash
+$ sudo nano /etc/default/ufw
+```
+
+* Change `IPV6=yes` to `IPV6=no`
+
+```
+IPV6=no
+```
+
+* Deny incoming connections (we are going to allow incoming connections on demand)
 
 ```sh
 $ sudo ufw default deny incoming
@@ -94,7 +123,7 @@ $ sudo ufw status verbose
 If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). More: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
 
-## Monitoring SSH authentication logs
+### Monitoring SSH authentication logs (optional)
 
 * You can monitor authentication general logs in your system in real-time
 

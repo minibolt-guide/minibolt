@@ -194,7 +194,7 @@ Nov 13 23:19:20 minibolt systemd[1]: Reloaded tor@default.service - Anonymizing 
 Not all network traffic is routed over the Tor network. But we now have the base to configure sensitive applications to use it.
 
 {% hint style="info" %}
-**(Optional)** --> If you want, you can **disable the autoboot** option for Tor using:
+**(Optional)** -> If you want, you can **disable the autoboot** option for Tor using:
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ sudo systemctl disable tor
 </strong></code></pre>
@@ -207,6 +207,23 @@ Not all network traffic is routed over the Tor network. But we now have the base
 > Removed /etc/systemd/system/multi-user.target.wants/tor.service.
 ```
 {% endhint %}
+
+### Uninstall Tor
+
+* With user `admin`, enter the next command and "`y`" when the prompt asks you if you want to continue
+
+```bash
+$ sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
+```
+
+Expected output:
+
+```
+[...]
+The following packages will be REMOVED:
+  deb.torproject.org-keyring tor tor-geoipdb torsocks
+[...]
+```
 
 ## I2P Project
 
@@ -308,7 +325,7 @@ $ sudo tail -f /var/log/i2pd/i2pd.log
 </details>
 
 {% hint style="info" %}
-**(Optional)** --> If you want, you can **disable the autoboot** option for I2P using:
+**(Optional)** -> If you want, you can **disable the autoboot** option for I2P using:
 
 ```bash
 $ sudo systemctl disable i2pd
@@ -323,9 +340,26 @@ $ sudo systemctl disable i2pd
 ```
 {% endhint %}
 
+### Uninstall I2P
+
+* With user `admin`, enter the next command, and "`y`" when the prompt asks you if you want to continue
+
+```bash
+$ sudo apt autoremove i2pd && sudo apt purge i2pd
+```
+
+Expected output:
+
+```
+[...]
+The following packages will be REMOVED:
+  i2pd libminiupnpc17
+[...]
+```
+
 ## Upgrade Tor and I2P
 
-The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or on the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
+The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
 
 ```sh
 $ sudo apt update && sudo apt upgrade

@@ -1371,7 +1371,7 @@ $ sudo systemctl start btcpay
 
 ## Uninstall
 
-### Uninstall services
+### Uninstall service & user
 
 * Ensure you are logged in with the user `admin`, stop `btcpay` and `nbxplorer` services
 
@@ -1391,6 +1391,13 @@ $ sudo rm /etc/systemd/system/btcpay.service
 
 ```bash
 $ sudo rm /etc/systemd/system/nbxplorer.service
+```
+
+* Ensure you are logged in with the user `admin`. Delete the `btcpay` user.\
+  Don't worry about `userdel: btcpay mail spool (/var/mail/btcpay) not found` output, the uninstall has been successfull
+
+```bash
+$ sudo userdel -rf btcpay
 ```
 
 ### Uninstall Firewall **configuration** & Reverse proxy
@@ -1415,11 +1422,13 @@ $ sudo ufw delete X
 
 ### **Uninstall Tor hidden service**
 
-* Ensure you are logged in with the user `admin`, comment or remove btcpay hidden service in the torrc. Save and exit
+* Ensure you are logged in with the user `admin`
 
 ```bash
 $ sudo nano /etc/tor/torrc
 ```
+
+* Comment or remove the btcpay hidden service in the torrc. Save and exit
 
 <pre><code># Hidden Service BTCPay Server
 #HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
@@ -1432,15 +1441,6 @@ $ sudo nano /etc/tor/torrc
 
 ```bash
 $ sudo systemctl reload tor
-```
-
-### Delete btcpay user
-
-* Ensure you are logged in with the user `admin`. Delete the `btcpay` user.\
-  Don't worry about `userdel: btcpay mail spool (/var/mail/btcpay) not found` output, the uninstall has been successful
-
-```bash
-$ sudo userdel -rf btcpay
 ```
 
 ## Port reference

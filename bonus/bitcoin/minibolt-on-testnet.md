@@ -232,7 +232,7 @@ SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
 ```
 
 {% hint style="info" %}
-**If you have a mainnet node running on another device** and you want to use the same GitHub account for the channel backups:
+**If you have a mainnet node running on another device** and you want to use the same GitHub account for the testnet channel backups:
 
 * Change this line on the script to this for example: `REMOTE_BACKUP_DIR="/data/lnd/remote-lnd-testnet-backup"`
 * When you arrive at the ["Create a GitHub repository"](../../lightning/channel-backup.md#create-a-github-repository) section, change the name of the GitHub repo to for example: "`remote-lnd-testnet-backup"`

@@ -14,7 +14,7 @@ layout:
 
 # Tor obfs4 bridge
 
-The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called obfs4, a special kind of bridge, to address this by adding a layer of obfuscation.
+The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called [obfs4](https://gitlab.com/yawning/obfs4), a special kind of bridge, to address this by adding a layer of obfuscation.
 
 {% hint style="danger" %}
 _USE WITH CAUTION - For this guide to work properly, you will need to open ports too are reachable from outside_
@@ -147,6 +147,10 @@ By default, Tor will advertise your bridge to users through various [mechanisms]
 > ```
 
 Currently valid, recognized options are: `none` | `any` | `https` | `email` | `moat`
+
+
+
+If you don't specify this line, by default the method will be `any` , this means that you give the choice of whatever method it sees fit
 {% endhint %}
 
 ### **Configure Firewall & Router**

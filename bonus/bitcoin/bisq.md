@@ -211,9 +211,6 @@ $ sudo ufw status numbered
 ```
 
 ```sh
-Status: active
-   To                      Action      From
-   --                      ------      ----
 [X] 8333                   ALLOW IN    Anywhere   # allow BTC Core from anywhere
 ```
 

@@ -834,7 +834,7 @@ Press OK and start the navigation
 If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
 {% endhint %}
 
-### NYM Android
+### NYM android
 
 At the moment, the Android app is undergoing constant development, and the download link on the GitHub repository is being regularly updated, with some updates being non-functional. The following link is not available on GitHub, but it is a static and functional link, although it is also a pre-alpha version and may have bugs on certain occasions.
 
@@ -922,9 +922,8 @@ Explorer to get information of the NYM network components
 
 ## Upgrade
 
-Follow again the entire [**Compile NYM binaries from the source code**](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below:
-
-* With user `admin`, stop the network requester and the socks5 client
+* First, ensure that you have the latest Rustc version following the [Upgrade section](rustup-+-cargo.md#upgrade) of the Rustup + Cargo bonus guide
+* Follow again the entire [Compile NYM binaries from the source code](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below:
 
 ```bash
 $ sudo systemctl stop nym-network-requester
@@ -992,7 +991,7 @@ $ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
 $ sudo su - nym
 ```
 
-* Init again the socks5 client with the same command and service provider, this update the `config.toml` file if needed
+* Init again the socks5 client with the same command and service provider, this updates the `config.toml` file if needed
 
 {% code overflow="wrap" %}
 ```bash

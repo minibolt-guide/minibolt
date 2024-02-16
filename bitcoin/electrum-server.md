@@ -572,7 +572,7 @@ db_mem = 1024.0
 
 #### Install zram-swap
 
-zram-swap is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
+[zram-swap](https://github.com/foundObjects/zram-swap) is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
 
 * With user `admin`, access to "admin" home folder
 

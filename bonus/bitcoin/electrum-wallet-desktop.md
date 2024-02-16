@@ -191,9 +191,9 @@ After opening a wallet or creating a new one, Electrum will indicate an active c
 
 {% hint style="danger" %}
 **Troubleshooting note:** For those who already had Electrum installed on their systems with old server connections, is needed to clear the pre-existing cert of the certs folder. Follow these instructions:
-{% endhint %}
 
-1. Shut down Electrum if it's running
-2. Go to C:\Users\<yourUsername>\AppData/Roaming\Electrum\certs (or \~/.electrum/certs on Linux afaik)
+1. Shutdown Electrum if it's running
+2. Go to `C:\Users\<yourUsername>\AppData\Roaming\Electrum\certs` (or \~/.electrum/certs on Linux afaik)
 3. Delete the certificate that corresponds to your node IP address
 4. Start Electrum again
+{% endhint %}

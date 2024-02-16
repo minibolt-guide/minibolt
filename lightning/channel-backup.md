@@ -49,10 +49,10 @@ This guide covers two automated backup methods:
 
 <table data-full-width="false"><thead><tr><th align="center">Method</th><th align="center">Requires hardware</th><th align="center">Requires GitHub account</th><th align="center">Protects against</th><th align="center">Relies on 3rd-party</th></tr></thead><tbody><tr><td align="center">LOCAL</td><td align="center">YES</td><td align="center">NO</td><td align="center">Drive failure only</td><td align="center">NO</td></tr><tr><td align="center">REMOTE</td><td align="center">NO</td><td align="center">YES</td><td align="center">Drive failure &#x26; widespread node damage</td><td align="center">YES</td></tr></tbody></table>
 
-We recommend using both methods, but you can choose either one of them, depending on your own requirements and preferences. Whatever method you choose:
+We recommend using both methods, but you can choose either one of them, depending on your requirements and preferences. Whatever method you choose:
 
 1. Follow the "Preparations" section first, then
-2. Follow the optional local or/and remote backup sections.
+2. Follow the optional local and/or remote backup sections.
 3. Finally, follow the "Run SCB-Backup" section that works for whatever method you've chosen.
 
 ## Requirements
@@ -78,12 +78,12 @@ $ sudo apt install inotify-tools
 
 ### Create script
 
-We create a shell script to monitor `channel.backup` and make a copy o our backup locations if it changes.
+We create a shell script to monitor `channel.backup` and make a copy of our backup locations if it changes.
 
 * Create a new shell script file
 
 ```sh
-$ sudo nano /usr/local/bin/scb-backup
+$ sudo nano /usr/local/bin/scb-backup --linenumbers
 ```
 
 * Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit
@@ -96,12 +96,12 @@ $ sudo nano /usr/local/bin/scb-backup
 # -u causes the bash shell to treat unset variables as an error and exit immediately.
 set -eu
 
-# The script waits for a change in /data/lnd/data/chain/bitcoin/mainnet/channel.backup.
+# The script waits for a change in the "channel.backup" file
 # When a change happens, it creates a backup of the file locally
-#   on a storage device and/or remotely in a GitHub repo
+# on a storage device and/or remotely in a GitHub repo
 
-# By default, both methods are used. If you do NOT want to use one of the
-#   method, replace "true" by "false" in the two variables below:
+# By default, either method is used. If you want to use one of the
+# method, replace "false" with "true" in the two variables below:
 LOCAL_BACKUP_ENABLED=false
 REMOTE_BACKUP_ENABLED=false
 
@@ -125,14 +125,13 @@ run_remote_backup_on_change () {
   echo "Making a timestamped copy of channel.backup..."
   echo "$1"
   cp "$SCB_SOURCE_FILE" "$1"
-  echo "Committing changes and adding a message"
+  echo "Committing changes and adding a message..."
   git add .
   git commit -m "Static Channel Backup $(date +"%Y%m%d-%H%M%S")"
   echo "Pushing changes to remote repository..."
   git push --set-upstream origin main
   echo "Success! The file is now remotely backed up!"
 }
-
 
 # Monitoring function
 run () {
@@ -181,11 +180,13 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
 ### Set up a mounting point for the storage device
 
-* Create the mounting directory and make it immutable
+* Create the mounting directory
 
 ```sh
 $ sudo mkdir /mnt/static-channel-backup-external
 ```
+
+* Make it immutable
 
 ```bash
 $ sudo chattr +i /mnt/static-channel-backup-external
@@ -300,7 +301,7 @@ $ cat ~/.ssh/id_rsa.pub
 * Go back to the GitHub repository webpage
   * Click on "Settings", then "Deploy keys", then "Add deploy key"
   * Type a title (e.g. "SCB")
-  * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 5678efgh... lnd@minibolt`)
+  * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 1234abcd... lnd@minibolt`)
   * Tick the box "`Allow write access`" to enable this key to push changes to the repository
   * Click "Add key"
 * Set up global Git configuration values (the name and email are required but can be dummy values)
@@ -464,10 +465,10 @@ If you get the next error:
 ```
 Nov 05 23:18:43 minibolt scb-backup[1710686]: Pushing changes to remote repository...
 Nov 05 23:18:43 minibolt scb-backup[1711268]: error: src refspec main does not match any
-Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to 'github.com:twofaktor/remote-lnd-testnet-backup.git'
+Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to 'github.com:<YourGitHubUsername>/remote-lnd-backup.git
 ```
 
-\--> Replace the line `git push "--set-upstream origin`` `**`main"`** to "`git push --set-upstream origin`` `**`master"`** [in the script](channel-backup.md#create-script) and try again
+\-> Replace the line 41 `git push "--set-upstream origin`` `**`main"`** to "`git push --set-upstream origin`` `**`master"`** [in the script](channel-backup.md#create-script) , and try again
 {% endhint %}
 
 * **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above

@@ -342,6 +342,15 @@ blocksonly=1
 ```
 
 {% hint style="info" %}
+If you checked on the "Check IPv6 availability" section and don't have IPv6 available, you can discard the IPv6 network of the Bitcoin Core by adding the next lines at the end of the configuration file:
+
+```
+# Disable IPv6 network
+onlynet=onion
+onlynet=i2p
+onlynet=ipv4
+```
+
 This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92) with all possible options
 {% endhint %}
 
