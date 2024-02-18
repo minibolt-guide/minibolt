@@ -136,7 +136,7 @@ ControlPort 9051
 $ sudo systemctl reload tor
 ```
 
-* Ensure that the Tor service is working and listening at the default ports `9050` and `9051`
+* Ensure that the Tor service is working and listening at the default ports `9050` and `9051` on the localhost (127.0.0.1)
 
 ```sh
 $ sudo ss -tulpn | grep LISTEN | grep tor
@@ -485,6 +485,61 @@ brew services restart tor
 ```bash
 ssh HOSTNICKNAME
 ```
+
+### **Use the Tor proxy from another device**
+
+It's possible to use the Tor proxy of the node from another device in the same local network (e.g your regular computer)
+
+* With `admin` user, edit the Tor file
+
+```bash
+$ sudo nano /etc/tor/torrc --linenumbers
+```
+
+* Replace the existing line 18 to this
+
+```
+SocksPort 0.0.0.0:9050
+```
+
+* Reload the Tor configuration to apply changes
+
+```bash
+$ sudo reload tor
+```
+
+* Configure the firewall to allow incoming Tor connections from anywhere
+
+```bash
+$ sudo ufw allow 9050/tcp comment 'allow Tor socks5 from anywhere'
+```
+
+* Ensure that the Tor service is working and listening at the default ports `9050` on the `0.0.0.0`
+
+```bash
+$ sudo ss -tulpn | grep LISTEN | grep tor
+```
+
+Expected output:
+
+```
+> tcp   LISTEN 0      4096         0.0.0.0:9050       0.0.0.0:*    users:(("tor",pid=2162,fd=6))
+> tcp   LISTEN 0      4096       127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=2162,fd=7))
+```
+
+You can use this connection from another device in the same local network for example to navigate using a standard browser, without using the Tor browser.
+
+Example from Firefox:
+
+Go to Settings > General > Network Settings > Push to the "Settings" button
+
+Edit the screen to match with this, replacing SOCKS Host, with your node local IP address:
+
+<figure><img src="../.gitbook/assets/tor-proxy-browser.png" alt="" width="563"><figcaption></figcaption></figure>
+
+Click on the OK button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info) or the MiniBolt donate [onion address](http://3iqm7nidexns5p6wmgc23ibgiscm6rge7hwyeziviwgav4fl7xui4mqd.onion/apps/Li3AtEGDsqNmNddv6rX69taidm3/pos), if it resolves, you are OK
+
+Also, you can use the Tor proxy connection to reach clearnet or third parties address connection on Sparrow wallet. Review the [Desktop wallet: Sparrow wallet](../bitcoin/desktop-wallet.md) guide to get instructions
 
 ## **Troubleshooting**
 

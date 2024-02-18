@@ -209,10 +209,12 @@ Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.
 Take note of your network requester address **\<requesteraddress>**
 {% endhint %}
 
-> **Example** -->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
+> **Example** ->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
 
 {% hint style="warning" %}
 **Important!** It is strongly advised **not to share** the address of your NYM service provider with anyone. Sharing this information could potentially involve you in illicit activities carried out by others using your network requester as a router. Please bear in mind that we operate in **open proxy mode** to avoid centralizing connections to concrete nodes of Bitcoin and servers of the other services. Safeguarding the confidentiality of your service provider address is essential to protect yourself and prevent any legal implications
+
+Additionally, you can use the exit policy feature to avoid malicious connections using your network requester, by following the [Use the exit policy feature](nym-mixnet.md#use-the-exit-policy-feature)
 {% endhint %}
 
 * Check the correct installation
@@ -552,6 +554,60 @@ You can get more information about the complete documentation [here](https://nym
 
 ## Extras (optional)
 
+### Use the exit policy feature
+
+Recently, NYM has introduced an option to publicly share your network requester (service provider address) and disallow all connections, minimizing the risk of your network requester being used to do malicious things. To achieve this, NYM uses a [URL](https://nymtech.net/.wellknown/network-requester/exit-policy.txt) with an upstream source of the exit policy, to which a connection should be refused if trying to certain addresses (publicly recognized as malicious by different public reputation database sites). **Important advice:** this list could be deprecated and not include all of the malicious known addresses, so you could be allowing connections to malicious sites not included in it, acting under your responsibility.
+
+* With user `admin`, stop `NYM socks5 client & NYM Network requester`
+
+```bash
+$ sudo systemctl stop nym-socks5-client
+```
+
+```bash
+$ sudo systemctl stop nym-network-requester
+```
+
+* Edit the `config.toml` of the network requester
+
+{% code overflow="wrap" %}
+```bash
+$ sudo nano /home/nym/.nym/service-providers/network-requester/bitcoin/config/config.toml
+```
+{% endcode %}
+
+* Change `use_deprecated_allow_list` = `true` to `false`. Save and exit
+
+```
+use_deprecated_allow_list = false
+```
+
+* Edit the network requester systemd service
+
+```bash
+$ sudo nano /etc/systemd/system/nym-network-requester.service --linenumbers
+```
+
+* Delete the `--open-proxy true` parameter on the line `13`
+
+```
+ExecStart=/home/nym/nym-network-requester run --id bitcoin
+```
+
+* Start the `Nym network requester & Nym socks5 client` again
+
+```bash
+$ sudo systemctl stop nym-network-requester
+```
+
+```bash
+$ sudo systemctl stop nym-socks5-client
+```
+
+{% hint style="info" %}
+Now you can share your previously obtained service provider (network requester) address publicly, without exposing you so much as using the open-proxy feature
+{% endhint %}
+
 ### Proxying Bitcoin Core
 
 So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. By doing this, we can reduce the volume of traffic on the Tor network.
@@ -565,7 +621,7 @@ $ sudo nano /data/bitcoin/bitcoin.conf
 * Modify the following line. Save and exit
 
 ```
-# Connect to clearnet using NYM SOCKS5 proxy
+# Connect to clearnet using NYM socks5 proxy
 proxy=127.0.0.1:1080
 ```
 
@@ -605,14 +661,14 @@ NymConnect is an easy-to-use interface that enables you to connect other applica
 
 Simply download the [NYM Connect](https://nymtech.net/download-nymconnect/) app for your operating system and click the prominent green button in the center of the screen. By default, the app automatically connects to a random gateway from a [predefined list](https://explorer.nymtech.net/network-components/gateways) and utilizes a random service provider of this [list](https://nymtech.net/.wellknown/connect/service-providers.json).
 
-These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero Wallet, and Blockstream Green Wallet. However, it is worth noting the benefits of configuring your own service provider with "open proxy" enabled.\
+These service providers grant access to specific applications such as Keybase, Telegram, Electrum, Monero Wallet, and Blockstream Green Wallet. However, it is worth noting the benefits of configuring your service provider with an "open proxy/exit policy" enabled.\
 \
 The previously configured Nym SOCKS5 client can run in the background as a daemon, commonly used in server operating systems without a desktop interface. Meanwhile, NYM Connect is typically utilized in desktop versions of operating systems.
 
 <figure><img src="../../.gitbook/assets/nym-connect.PNG" alt="" width="180"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-If you wish to choose your own gateway from the provided [list](https://explorer.nymtech.net/network-components/gateways) or configure your own service provider, you can do so by accessing the settings menu. Simply click on the **hamburger** icon located in the top-left corner --> **Settings --> Select your gateway** / **Select your service provider** using **\<requesteraddress>** before configured
+If you wish to choose your gateway from the provided [list](https://explorer.nymtech.net/network-components/gateways) or configure your service provider, you can do so by accessing the settings menu. Simply click on the **hamburger** icon located in the top-left corner -> **Settings -> Select your gateway** / **Select your service provider** using **\<requesteraddress>** before configured
 {% endhint %}
 
 ### Proxying wallets
@@ -621,7 +677,7 @@ If you wish to choose your own gateway from the provided [list](https://explorer
 
 Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-desktop.md). You have 2 options:
 
-1. If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
+1. If you don't have your node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
 Use this **example** of a shortcut for Linux to select a public server automatically proxying using NYM mixnet:
 
@@ -645,7 +701,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 
 </div>
 
-2. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
+2. If you have your node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
 Use this **example** of a shortcut for Linux to select your private server (your MiniBolt Electrum server), proxying through NYM mixnet:
 
@@ -665,7 +721,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
 
-1. If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
+1. If you don't have your node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
 > > URL: select one of the public serveres provided for Sparrow
 >
@@ -679,7 +735,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 
 </div>
 
-2. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
+2. If you have your node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
 <figure><img src="../../.gitbook/assets/sparrow-private-server-proxy-nym.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -691,15 +747,15 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 Follow the [Sparrow server bonus guide](../../bonus/bitcoin/sparrow-server.md), which could be used for these 2 cases of uses:
 
-1. If you have your own node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
+1. If you have your node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
-Go to **Preferences --> Server --> Private Electrum**
+Go to **Preferences -> Server -> Private Electrum**
 
 > > URL: select your MiniBolt IP address or localhost (127.0.0.1) if running on the same device, and select 50001 (mainnet) / 60001 (testnet) (TCP) or 50002 (mainnet) / 60002 (testnet) (SSL) port
 >
 > > Select "**yes**" to use SSL, if you use 50002 (mainnet) / 60002 (testnet) SSL connection
 >
-> > Select "**yes**" to use use proxy --> Proxy URL: 127.0.0.1 --> port 1080
+> > Select "**yes**" to use use proxy -> Proxy URL: 127.0.0.1 -> port 1080
 
 <figure><img src="../../.gitbook/assets/sparrow-server-nym-proxy" alt=""><figcaption><p>Sparrow server using Electrum Server testnet mode in localhost and proxy NYM mixnet</p></figcaption></figure>
 
@@ -709,13 +765,13 @@ Go to **Preferences --> Server --> Private Electrum**
 You have Sparrow server configured to proxy third parties servers connection using NYM mixnet
 {% endhint %}
 
-2. If you don't have your own node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
+2. If you don't have your node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
-Go to **Preferences --> Server --> Public Electrum**
+Go to **Preferences -> Server -> Public Electrum**
 
 > > URL: select one of the public serveres provided for Sparrow
 >
-> > Select "yes" to use use proxy --> Proxy URL: 127.0.0.1 --> port 1080
+> > Select "yes" to use use proxy -> Proxy URL: 127.0.0.1 -> port 1080
 
 <figure><img src="../../.gitbook/assets/sparrow-server-public.PNG" alt=""><figcaption></figcaption></figure>
 
@@ -731,7 +787,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS and install it.
 
-Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through a proxy**"
+Go to **App Settings ->** Navigate to **Network ->** switch "**Connect through a proxy**"
 
 > > Proxy host: 127.0.0.1
 >
@@ -743,9 +799,9 @@ Go to **App Settings -->** Navigate to **Network -->** switch "**Connect through
 
 Download the [Bitbox app](https://bitbox.swiss/download/?source=bitboxapp) for your OS and install it.
 
-Go to **Settings** --> **Advanced settings --> Enable Tor proxy,** check **"Enable Tor proxy"** and type `127.0.0.1:1080` --> **Set proxy address**
+Go to **Settings** -> **Advanced settings -> Enable Tor proxy,** check **"Enable Tor proxy"** and type `127.0.0.1:1080` -> **Set proxy address**
 
-Go to "Connect your own full node" --> Check the pre-setted Electrum servers Bitbox app or choose one of your elections, Go to Add a server:
+Go to "Connect your full node" -> Check the pre-setted Electrum servers Bitbox app or choose one of your elections, Go to Add a server:
 
 1. Enter the endpoint: `electrum.blockstream.info:50002`
 2. Click on the **"Download remote certificate"** button
@@ -762,7 +818,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 [Download](https://github.com/nunchuk-io/nunchuk-desktop/releases) the Nunchuk wallet desktop version for your OS and install it.
 
-Go to **Settings** --> **Network Settings** --> **Enable Tor proxy,** check **"Enable Tor proxy"** and type in the "Proxy address" box:`127.0.0.1` and in the "Port" box: `1080`. Above, enable "Connect to Electrum server", select "Mainnet server", keep the public Nunchuk address server by default, or click on the "Reset" button. Leave the rest of the boxes blank and finally click on "Save network settings".
+Go to **Settings** -> **Network Settings** -> **Enable Tor proxy,** check **"Enable Tor proxy"** and type in the "Proxy address" box:`127.0.0.1` and in the "Port" box: `1080`. Above, enable "Connect to Electrum server", select "Mainnet server", keep the public Nunchuk address server by default, or click on the "Reset" button. Leave the rest of the boxes blank and finally click on "Save network settings".
 
 <div>
 
@@ -784,7 +840,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 Download the [Keybase](https://keybase.io/download) app for your OS and install it\
 \
-Go to **Settings** --> **Advanced -->** Navigate to **"Proxy settings",** and check **"SOCKS5",** type this info:
+Go to **Settings** -> **Advanced ->** Navigate to **"Proxy settings",** and check **"SOCKS5",** type this info:
 
 > > Proxy Address: 127.0.0.1
 >
@@ -804,7 +860,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 Download the [Telegram](https://desktop.telegram.org/) app for your OS
 
-Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically save the configuration, click on "**Enable**" or go to **Settings --> Advanced --> Connection type --> Check "use custom proxy"**
+Use this [link](https://t.me/socks?server=127.0.0.1\&port=1080) to automatically save the configuration, click on "**Enable**" or go to **Settings -> Advanced -> Connection type -> Check "use custom proxy"**
 
 <figure><img src="../../.gitbook/assets/telegram-nym-proxy.PNG" alt="" width="275"><figcaption></figcaption></figure>
 
@@ -820,7 +876,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 Download [Firefox](https://www.mozilla.org/es-ES/firefox/all/#product-desktop-release) | [Librewolf](https://librewolf.net/installation/) | [Mullvad](https://mullvad.net/es/download/browser/linux) or any Firefox-based browser for your OS\
 \
-Go to **General** --> **Network Settings** --> **Settings**...
+Go to **General** -> **Network Settings** -> **Settings**...
 
 Fill the form with the next data:
 
@@ -846,7 +902,7 @@ Download [here](https://nymtech.net/nyms5-arm64-v8a-debug.apk) or in the future,
 You could use NYM proxy with the Telegram app for example ⬇️
 {% endhint %}
 
-Scan [**this QR code**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fdgm2BbSsYdaTVDCk9Tde%2Fuploads%2FtMxUa6RB6JGOvLsg4rR0%2Ftg-app-nym-proxy-qr.jpg?alt=media\&token=653cdc12-2144-4dd5-8d76-1fccfc97265c)**,** click on **"Connect proxy"** or manually, go to **Settings** --> **Data and Storage** --> **Proxy Settings -->** switch **"Use proxy"**
+Scan [**this QR code**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fdgm2BbSsYdaTVDCk9Tde%2Fuploads%2FtMxUa6RB6JGOvLsg4rR0%2Ftg-app-nym-proxy-qr.jpg?alt=media\&token=653cdc12-2144-4dd5-8d76-1fccfc97265c)**,** click on **"Connect proxy"** or manually, go to **Settings** -> **Data and Storage** -> **Proxy Settings ->** switch **"Use proxy"**
 
 > > Keep selected **"SOCKS5 proxy"**
 >
@@ -884,7 +940,7 @@ An adaptation of pastebin.com, using NYM mixnet, to protect users and their data
 \
 [Link](https://pastenym.ch) | [GitHub](https://github.com/notrustverify/pastenym)\
 \
-Paste NYM-CLI --> [GitHub](https://github.com/notrustverify/pastenym-cli)
+Paste NYM-CLI -> [GitHub](https://github.com/notrustverify/pastenym-cli)
 {% endtab %}
 
 {% tab title="NYM chat" %}
@@ -908,13 +964,13 @@ A Nostr client connected to a Nostr-NYM Proxy\
 
 {% tabs %}
 {% tab title="NYM Swap" %}
-\[Unofficial] Swap different tokens <-> NYM token
+\[Unofficial] Swap different tokens <> NYM token
 
 [Link](https://nymswap.com/)
 {% endtab %}
 
 {% tab title="NYM Network Explorer" %}
-Explorer to get information of the NYM network components
+Explorer to get information on the NYM network components
 
 [Link](https://explorer.nymtech.net/)
 {% endtab %}
@@ -924,6 +980,7 @@ Explorer to get information of the NYM network components
 
 * First, ensure that you have the latest Rustc version following the [Upgrade section](rustup-+-cargo.md#upgrade) of the Rustup + Cargo bonus guide
 * Follow again the entire [Compile NYM binaries from the source code](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below:
+* With `admin` user, stop `NYM socks5 client & NYM Network requester`
 
 ```bash
 $ sudo systemctl stop nym-network-requester
@@ -965,7 +1022,7 @@ $ ./nym-network-requester -V
 > nym-network-requester 1.1.24
 ```
 
-* Exit from the nym user session
+* Exit from the `nym` user session
 
 ```bash
 $ exit
@@ -1011,7 +1068,7 @@ $ ./nym-socks5-client -V
 >  nym-socks5-client 1.1.24
 ```
 
-* Exit from the nym user
+* Exit from the `nym` user
 
 ```bash
 $ exit
@@ -1063,7 +1120,7 @@ NYM is currently in development and may experience occasional issues.
 
 <figure><img src="../../.gitbook/assets/troubleshooting.png" alt=""><figcaption><p>Example of issues with a nym socks5 client</p></figcaption></figure>
 
-If you encounter any issues, it is possible that they are related to the gateway. To resolve this, you can attempt to change the gateway by deleting the data folder.
+If you encounter any issues, they may be related to the gateway. To resolve this, you can attempt to change the gateway by deleting the data folder.
 
 **Case NYM network requester issues:**
 
@@ -1079,7 +1136,7 @@ $ sudo systemctl stop nym-network-requester
 $ sudo su - nym
 ```
 
-* Init again network requester, by following the [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section, this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key
+* Init again network requester, by following the [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section, this time with `--force-register-gateway` and `--gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key
 
 {% hint style="info" %}
 **Example:** `./nym-network-requester init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --force-register-gateway`
@@ -1115,7 +1172,7 @@ $ sudo systemctl stop nym-socks5-client
 $ sudo su - nym
 ```
 
-* Init again the socks5 client by following the [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section, this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key. Remember to change the network requester address (service provider) if you changed it at any moment
+* Init again the socks5 client by following the [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section, this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key. Remember to change the network requester address (service provider) if you change it at any moment
 
 {% hint style="info" %}
 **Example:** `./nym-socks5-client init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --provider 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS --force-register-gateway`

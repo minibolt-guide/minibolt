@@ -86,7 +86,7 @@ Current installation options:
 
 </details>
 
-{% hint style="info" %}
+{% hint style="warning" %}
 When the prompt asks you to choose an option, type **"`1`"** and press **enter** to "Proceed with installation"
 {% endhint %}
 

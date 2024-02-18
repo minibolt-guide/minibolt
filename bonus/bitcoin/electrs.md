@@ -197,8 +197,8 @@ Expected output:
 > cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
-{% hint style="info" %}
-If you obtain "command not found" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it and then come back to continue with the guide
+{% hint style="warning" %}
+If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
 ### Reverse proxy & Firewall
@@ -262,13 +262,9 @@ $ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
 
 ## Installation
 
-An easy and performant way to run an Electrum server is to use [Electrs](https://github.com/romanz/electrs), the Electrum Server in Rust. There are no binaries available, so we will compile the application ourselves.
+There are no precompiled binaries available, so we will compile the application ourselves.
 
 ### Build from the source code
-
-We get the latest release of the Electrs source code, verify it, compile it to an executable binary, and install it.
-
-You can check the [release page](https://github.com/romanz/electrs/releases) to see if a newer release is available. Other releases might not have been properly tested with the rest of the MiniBolt configuration
 
 * With user `admin`, go to the temporary folder
 
@@ -279,7 +275,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.10.2
+$ VERSION=0.10.3
 ```
 
 * Download the source code
@@ -683,13 +679,9 @@ $ sudo systemctl restart btcrpcexplorer
 
 ## Upgrade
 
-Updating Electrs is straightforward. You can display the current version with the command below and check the Electrs [release page](https://github.com/romanz/electrs/releases) to see if a newer version is available. Depending if you come from a version prior to `0.10.0` or not, you will need to follow an installation process or other:
-
-> If you come from a version prior to `0.10.0`, follow the entire [Install dependencies](electrs.md#install-dependencies) to install the neccesary `librocksdb v7.8.3` dependency, and [Build from the source code](electrs.md#build-from-the-source-code) sections
-
-> If not, follow only the complete [Build from the source code](electrs.md#build-from-the-source-code) section
-
-* When you finish the section or both sections, restart Electrs to apply the new version
+* First, ensure that you have the latest Rustc version following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the Rustup + Cargo bonus guide
+* Follow the complete [Build from the source code](electrs.md#build-from-the-source-code) section
+* When you finish, restart Electrs to apply the new version
 
 ```sh
 $ sudo systemctl restart electrs

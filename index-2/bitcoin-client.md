@@ -342,7 +342,7 @@ blocksonly=1
 ```
 
 {% hint style="info" %}
-If you checked on the "Check IPv6 availability" section and don't have IPv6 available, you can discard the IPv6 network of the Bitcoin Core by adding the next lines at the end of the configuration file:
+If you checked on the "[Check IPv6 availability](../index-1/security.md#check-ipv6-availability)" section and don't have IPv6 available, you can discard the IPv6 network of the Bitcoin Core by adding the next lines at the end of the configuration file:
 
 ```
 # Disable IPv6 network

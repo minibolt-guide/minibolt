@@ -15,9 +15,9 @@ layout:
     visible: true
 ---
 
-# 2.4 Desktop wallet: Sparrow Wallet
+# 2.4 Desktop wallet: Sparrow wallet
 
-We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) on a computer and connect it to your Electrum server on your node for private Bitcoin on-chain transactions.
+We install [Sparrow wallet](https://github.com/sparrowwallet/sparrow) on a computer and connect it to your Electrum server on your node for private Bitcoin on-chain transactions.
 
 ![](../images/sparrow.png)
 
@@ -28,7 +28,7 @@ We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) on a compu
 
 ## Introduction
 
-Sparrow Wallet is an excellent software wallet to use with your MiniBolt: it's reliable and transparently shows what it's doing under the hood.
+Sparrow wallet is an excellent software wallet to use with your MiniBolt: it's reliable and transparently shows what it's doing under the hood.
 
 You can also use the following alternatives instead of Sparrow Wallet, according to your preferences and needs:
 
@@ -37,7 +37,7 @@ You can also use the following alternatives instead of Sparrow Wallet, according
 * [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin Core)
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5): wallet for users of Trezor hardware wallets
 
-We will connect Sparrow Wallet to our own Electrum server as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
+We will connect Sparrow wallet to our own Electrum server as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
 
 ![](../images/sparrow-stages.png)
 
@@ -47,13 +47,13 @@ Sparrow also connects to a couple of external services to get the Bitcoin price 
 
 ## Installation
 
-On your local computer, download, verify, and install Sparrow Wallet.
+On your local computer, download, verify, and install Sparrow wallet.
 
 * [Using the instructions on this page](https://www.sparrowwallet.com/download/)
   * Download the required version for your OS
   * Download the manifest and manifest signature files
   * Verify the release
-  * Install Sparrow Wallet
+  * Install Sparrow wallet
 
 ## Local connection
 
@@ -81,8 +81,8 @@ We now configure Sparrow to connect to your node within your local network.
 
 If there is a connection error message, try the following troubleshooting:
 
-* Make sure that your computer is not connected to any "guest" WiFi network at home. A "guest" WiFi network prevents the computer to connect to any other devices on the local network, such as your node.
-* If you have used Sparrow Wallet before on this computer, try to connect again after deleting the existing certificates that are stored within the `certs` folder:
+* Make sure that your computer is not connected to any "guest" WiFi network at home. A "guest" WiFi network prevents the computer from connecting to any other devices on the local network, such as your node.
+* If you have used Sparrow wallet before on this computer, try to connect again after deleting the existing certificates that are stored within the `certs` folder:
   * On Windows: `C:\Users\<username>\AppData\Roaming\Sparrow\certs`
   * On macOS: `~/.sparrow/certs`
   * On Linux: `~/.sparrow/certs`
@@ -153,7 +153,7 @@ You're set! Sparrow is now configured to connect to your node over Tor and you c
 
 ### (Optional) Set up a Tor proxy for external services
 
-If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin etc - even transaction broadcasting is then done via an external service (like blockstream.info) over Tor for additional privacy. Where-ever possible, the onion URLs of these services are used.
+If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin, etc - even transaction broadcasting is then done via an external service (like blockstream.info) over Tor for additional privacy. Where-ever possible, the onion URLs of these services are used.
 
 Sparrow can be configured to use an internal (bundled) or external Tor proxy. To use the internal proxy, an onion Electrum server URL must be specified, and the 'Use Proxy' toggle must be off. Therefore, the following section only applies if you connect to your Electrum server using the local IP address within your local network (e.g., `minibolt.local` or `192.168.X.XXX`). If you're using a Tor onion address to connect to your node, then Sparrow is already using the internal proxy and there is nothing else to be done!
 
@@ -183,13 +183,13 @@ Expected output:
   * The application must be started manually when you want to connect over Tor
   * By default, when you have Tor Browser running, Tor proxy is available on port 9150, use this port instead of `9050` port
 
-### Wallet configuration
+### Server configuration
 
 * Open Sparrow
 * Navigate to the server configuration page by hitting `Ctrl`+`P`, or `Cmd`+`,` on OSX, then click on "Server"
 * Click on the "Private Electrum" tab. If you already have an existing clearnet connection, click on "Edit Existing Connection".
 * Enable the Tor proxy by clicking on the "Use proxy" slider
-* On the "Proxy URL" line, paste `127.0.0.1` in the first box and either `9150` or `9050` in the second box depending if you run the Tor Browser or Tor as a background service.
+* On the "Proxy URL" line, enter `localhost` or `127.0.0.1` in the first box and either `9150` or `9050` in the second box depending if you run the Tor Browser or Tor as a background service.
 * Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output
 
 ```
@@ -198,6 +198,10 @@ Expected output:
 ```
 
 ![](../images/sparrow-tor-proxy.png)
+
+{% hint style="info" %}
+If you followed the [**Use the Tor proxy from another device**](../index-1/privacy.md#use-the-tor-proxy-from-another-device) section, you can use the Tor instance of your node instead of the instance of your regular computer, simply put on the "Proxy URL" box, your node IP local address (i.e 192.168.1.60) instead of localhost (127.0.0.1)
+{% endhint %}
 
 Now, let's go back to the wallet and check that the proxy is working properly.
 

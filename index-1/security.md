@@ -49,7 +49,7 @@ If you don't have IPv6 availability, you can disable IPv6 on UFW to avoid the cr
 $ sudo nano /etc/default/ufw
 ```
 
-* Change `IPV6=yes` to `IPV6=no`
+* Change `IPV6=yes` to `IPV6=no`. Save and exit
 
 ```
 IPV6=no
@@ -112,9 +112,9 @@ $ sudo ufw status verbose
 > New profiles: skip
 
 >
-> To                            Action      From
-> --                            ------      ----
-> 22                            ALLOW       Anywhere       # allow SSH from anywhere
+> To                    Action      From
+> --                    ------      ----
+> 22                    ALLOW       Anywhere       # allow SSH from anywhere
 ```
 
 </details>
