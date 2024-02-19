@@ -108,7 +108,7 @@ If you already had Bitcoin Core installed and the OTS client with the IBD comple
 $ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
 ```
 
-* Execute the OTS verification command (skip this step if you stay building a new node)
+* Execute the OTS verification command (**skip this step if you stay building a new node**)
 
 ```sh
 $ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -144,7 +144,7 @@ $ sha256sum --ignore-missing --check SHA256SUMS
 
 ### **Signature check**
 
-Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
@@ -325,7 +325,7 @@ $ sudo rm /usr/local/bin/bitcoin-tx && sudo rm /usr/local/bin/bitcoin-wallet && 
 ```
 {% endcode %}
 
-* If you had a existing Bitcoin Core installation without Ordisrespector applied, restart it using the systemd and start a new instance with the Ordisrespector patch applied
+* If you have an existing Bitcoin Core installation without Ordisrespector applied, restart it using systemd and start a new instance with the Ordisrespector patch applied
 
 ```sh
 $ sudo systemctl restart bitcoind
@@ -440,6 +440,20 @@ feeurl=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
 $ sudo systemctl start lnd
 ```
 
+## Upgrade
+
+The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
+
+Go to the [Installation section](ordisrespector.md#installation), and replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide. Continue until complete the entire [Installation section](ordisrespector.md#installation)
+
+{% hint style="info" %}
+Remember restart the Bitcoin Core to apply the new version with `$ sudo systemctl restart bitcoind`
+{% endhint %}
+
+## Uninstall
+
+To uninstall Bitcoin Core with the ordisrespector patch applied, follow the entire Bitcoin Core [uninstall section](../../index-2/bitcoin-client.md#uninstall)
+
 ## Port reference
 
-Same as [Bitcoin Core section](../../index-2/bitcoin-client.md#port-reference)
+Same as the [Bitcoin Core section](../../index-2/bitcoin-client.md#port-reference)

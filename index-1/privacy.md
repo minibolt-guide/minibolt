@@ -537,9 +537,9 @@ Edit the screen to match with this, replacing SOCKS Host, with your node local I
 
 <figure><img src="../.gitbook/assets/tor-proxy-browser.png" alt="" width="563"><figcaption></figcaption></figure>
 
-Click on the OK button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info) or the MiniBolt donate [onion address](http://3iqm7nidexns5p6wmgc23ibgiscm6rge7hwyeziviwgav4fl7xui4mqd.onion/apps/Li3AtEGDsqNmNddv6rX69taidm3/pos), if it resolves, you are OK
+Click on the OK button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info) or the MiniBolt donate [onion address](http://3iqm7nidexns5p6wmgc23ibgiscm6rge7hwyeziviwgav4fl7xui4mqd.onion/apps/Li3AtEGDsqNmNddv6rX69taidm3/pos), if it resolves, you are OK. Or simply go to this [website](https://check.torproject.org/), and you should see "_Congratulations. This browser is configured to use Tor."_
 
-Also, you can use the Tor proxy connection to reach clearnet or third parties address connection on Sparrow wallet. Review the [Desktop wallet: Sparrow wallet](../bitcoin/desktop-wallet.md) guide to get instructions
+Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Review the [Desktop wallet: Sparrow wallet](../bitcoin/desktop-wallet.md) guide to get instructions
 
 ## **Troubleshooting**
 

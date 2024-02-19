@@ -38,7 +38,7 @@ Difficulty: Medium
 
 ### **Install dependencies**
 
-obfs4 makes Tor traffic look random and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we can configure all.
+[obfs4](https://gitlab.com/yawning/obfs4) makes Tor traffic look random and also prevents censors from finding bridges by Internet scanning. One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so we can configure all.
 
 * Ensure you are logged in with the user `admin` and install obfs4 proxy
 
@@ -203,7 +203,7 @@ $ sudo nano /lib/systemd/system/tor@.service
 NoNewPrivileges=no
 ```
 
-* Reload systemd manager configuration to apply services changes
+* Reload systemd manager configuration to apply service changes
 
 ```sh
 $ sudo systemctl daemon-reload
@@ -344,7 +344,7 @@ $ exit
 $ nyx
 ```
 
-* Press the right --> navigation key to navigate to page 2/5 to show the traffic of your Tor instance
+* Press the right -> navigation key to navigate to page 2/5 to show the traffic of your Tor instance
 
 ![Example of an obsf4 bridge running ](../../images/nyx-tor-bridge.png)
 
@@ -356,11 +356,11 @@ On some occasions, due to some circumstances, your ISP, the company's network, y
 
 ![](../../images/tor-failing.jpg)
 
-Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the content in the next `torrc` configuration
+Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), and complete the captcha to get bridges. Select one of the 3 lines and replace the content in the next `torrc` configuration:
 
 ![](../../images/get-bridge.PNG)
 
-* On the MiniBolt node, with the user **`admin`**, install the `ofbs4` proxy
+* On the MiniBolt node, with the user `admin`, install the `ofbs4` proxy
 
 ```bash
 $ sudo apt install obfs4proxy
@@ -399,6 +399,14 @@ $ journalctl -fu tor@default
 **Example** output:
 
 ![](../../images/tor-bridge-running.png)
+
+## Upgrade
+
+* To upgrade simply use apt by typing this command
+
+```bash
+$ sudo apt update && sudo apt upgrade
+```
 
 ## Uninstall
 

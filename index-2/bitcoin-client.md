@@ -991,6 +991,10 @@ Expected output:
 > [Y] 8333       ALLOW IN    Anywhere            # allow Bitcoin Core from anywhere
 ```
 
+{% hint style="info" %}
+If you don't have any rule matched with this, you don't have to do anything, you are OK
+{% endhint %}
+
 * Delete the rule with the correct number and confirm with "`yes`"
 
 ```bash

@@ -20,10 +20,13 @@ With this guide, you can set up a Bitcoin and Lightning node on a personal compu
 
 There are many reasons why you should run your own Bitcoin node:
 
-* **Keep Bitcoin decentralized.** Use your node to help enforce your Bitcoin consensus rules.
-* **Take back your sovereignty.** Let your node validate your own Bitcoin transactions. No need to ask someone else to tell you what's happening in the Bitcoin network.
-* **Improve your privacy.** Connect your wallets to your node so that you no longer need to reveal their whole financial history to external servers.
-* **Be part of Lightning.** Run your own Lightning node for everyday payments and help build a robust, decentralized Bitcoin Lightning network.
+👥 **Keep Bitcoin decentralized.** Use your node to help enforce your Bitcoin consensus rules.
+
+🗽 **Take back your sovereignty.** Let your node validate your own Bitcoin transactions. No need to ask someone else to tell you what's happening in the Bitcoin network.
+
+🥷🏽 **Improve your privacy.** Connect your wallets to your node so that you no longer need to reveal their whole financial history to external servers.
+
+⚡️ **Be part of Lightning.** Run your Lightning node for everyday payments and help build a robust, decentralized Bitcoin Lightning network.
 
 ### MiniBolt overview
 
@@ -33,12 +36,17 @@ This guide explains how to set up your own Bitcoin node on a Personal Computer. 
 
 Your Bitcoin node will offer the following functionality:
 
-* **Bitcoin**: direct and trustless participation in the Bitcoin peer-to-peer network, full validation of blocks and transactions
-* **Electrum server**: connect your compatible wallets (including hardware wallets) to your own node
-* **Blockchain Explorer**: web-based Explorer to privately look up transactions, blocks, and more
-* **Lightning**: full client with stable long-term channels and web-based and mobile-based management interfaces
-* **Always on**: services are constantly synced and available 24/7
-* **Reachable from anywhere**: connect to all your services through the Tor network
+🟠 **Bitcoin**: direct and trustless participation in the Bitcoin peer-to-peer network, full validation of blocks and transactions
+
+⚛️ **Electrum server**: connect your compatible wallets (including hardware wallets) to your node
+
+⛓️ **Blockchain Explorer**: web-based Explorer to privately look up transactions, blocks, and more
+
+⚡ **Lightning**: full client with stable long-term channels and web-based and mobile-based management interfaces
+
+🔋 **Always on**: services are constantly synced and available 24/7
+
+🌐 **Reachable from anywhere**: connect to all your services through the Tor network and Wireguard VPN
 
 #### Target audience
 
@@ -52,13 +60,13 @@ If you like to learn about Linux, Bitcoin, and Lightning, then this guide is for
 
 #### Structure
 
-We aim to keep the core of this guide well maintained and up-to-date:
+We aim to keep the core of this guide well-maintained and up-to-date:
 
 1. [System](system/): prepare the hardware and set up the operating system
 2. [Bitcoin](bitcoin/): sync your own Bitcoin full node, Electrum server, Blockchain Explorer, and connect a desktop wallet to the Electrum server
-3. [Lightning](lightning/): run your own Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup
+3. [Lightning](lightning/): run your Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup
 
-* Bonus guides: the bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.
+➕ Bonus guides: the bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.
 
 ### How to build
 
