@@ -46,7 +46,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.8.2
+$ VERSION=1.8.4
 ```
 
 * Download the application, checksums, and signature
@@ -84,10 +84,10 @@ $ gpg --verify sparrow-$VERSION-manifest.txt.asc
 **Example** of expected output:
 
 ```
-> gpg: assuming signed data in 'sparrow-1.7.6-manifest.txt'
-> gpg: Signature made Thu Nov 17 14:08:59 2022 GMT
+> gpg: assuming signed data in 'sparrow-1.8.4-manifest.txt'
+> gpg: Signature made Thu Mar  7 16:47:57 2024 UTC
 > gpg:                using RSA key D4D0D3202FC06849A257B38DE94618334C674B40
-> gpg: Good signature from "Craig Raw <craigraw@gmail.com>" [unknown]
+> gpg: Good signature from "Craig Raw <craig@sparrowwallet.com>" [unknown]
 > gpg: WARNING: This key is not certified with a trusted signature!
 > gpg:          There is no indication that the signature belongs to the owner.
 > Primary key fingerprint: D4D0 D320 2FC0 6849 A257  B38D E946 1833 4C67 4B40
@@ -122,7 +122,7 @@ $ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
 ```
 
 {% hint style="info" %}
-If you come to update this is the final step, check the correct update by entering "`$ Sparrow --version"` command skipping the next step, and jumping directly to the [Run Sparrow](sparrow-server.md#run) section to start the Sparrow server again with the new version
+If you come to update, this is the final step, check the correct update by entering "`$ Sparrow --version"` command, skip the next step, and jump directly to the [Run Sparrow](sparrow-server.md#run) section to start the Sparrow server again with the new version.
 {% endhint %}
 
 * Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of the PATH
@@ -140,7 +140,7 @@ $ Sparrow --version
 **Example** of expected output:
 
 ```
-> Sparrow Wallet 1.7.6
+> Sparrow Wallet 1.8.4
 ```
 
 ## Run
