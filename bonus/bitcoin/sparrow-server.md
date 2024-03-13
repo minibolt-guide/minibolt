@@ -140,7 +140,7 @@ $ Sparrow --version
 **Example** of expected output:
 
 ```
-> Sparrow Wallet 1.8.4
+> Sparrow Wallet 1.7.6
 ```
 
 ## Run
