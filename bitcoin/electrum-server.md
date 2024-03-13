@@ -110,7 +110,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.8
+$ VERSION=1.10.0
 ```
 
 * Download the application, checksums, and signature
