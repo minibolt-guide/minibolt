@@ -505,7 +505,7 @@ SocksPort 0.0.0.0:9050
 * Reload the Tor configuration to apply changes
 
 ```bash
-$ sudo reload tor
+$ sudo systemctl reload tor
 ```
 
 * Configure the firewall to allow incoming Tor connections from anywhere

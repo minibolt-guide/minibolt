@@ -183,7 +183,7 @@ $ lndconnect --host=abcdefg......xyz.onion --port=8080
 * If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `".onion"` address with the private Wireguard VPN IP address (recommended)
 
 ```sh
-$ lndconnect --host=10.0.0.1 --port=8080
+$ lndconnect --host=10.0.1.1 --port=8080
 ```
 
 * If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
