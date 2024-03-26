@@ -533,7 +533,7 @@ $ sudo rm -r .bitcoin
 2. Try to create the symbolic link again
 
 ```bash
-$ ln -s /data/bitcoin /home/bitcoin/.bitcoin
+$ ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
 3. Check the symbolic link has been created correctly this time and you have now the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-5)[^5]
