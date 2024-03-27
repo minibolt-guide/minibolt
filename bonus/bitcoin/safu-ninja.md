@@ -20,7 +20,7 @@ layout:
 
 # Safu Ninja, a DIY steel mnemonic backup
 
-[Safu Ninja](https://safu.ninja/) is a DIY way to make resilient mnemonic word backups with off-the-shelf components for complete privacy.
+[Safu Ninja](https://jlopp.github.io/metal-bitcoin-storage-reviews/reviews/safu-ninja/) is a DIY way to make resilient mnemonic word backups with off-the-shelf components for complete privacy.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -32,7 +32,7 @@ Difficulty: Easy
 
 Practically, most onchain bitcoin wallets will ask you to save a list of 12 or 24 words as a backup to recover your funds in case you lose the wallet password or your hardware wallet.
 
-Technically, these words are known as "mnemonic words" and are used together with a salt to generate a "seed". The seed itself is hashed to derive your "master private key" and the "master chain code" which is used for the various accounts in your HD wallet. You can read more about this process in [Chapter 5 of "Mastering Bitcoin"](https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch05.asciidoc#hd\_wallets=).
+Technically, these words are known as "mnemonic words" and are used together with a salt to generate a "seed". The seed itself is hashed to derive your "master private key" and the "master chain code" which is used for the various accounts in your HD wallet. You can read more about this process in [Chapter 5 of "Mastering Bitcoin"](https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch05\_wallets.adoc#creating-an-hd-wallet-from-the-seed).
 
 ![](../../images/mnemonics-to-seed-to-private-key.png)
 
@@ -48,7 +48,7 @@ Instead, it is more private and ultimately secure to build this steel mnemonics 
 
 For example, a popular DIY method relies on standard steel washers stacked and locked on a bolt. The mnemonic words and ordering numbers are punched on the washers using a metal stamp set. All the components can be found easily in a hardware shop or online and none are associated with Bitcoin usage. Simple and private.
 
-As far as I know, Safu Ninja was the first one to come up with [this idea](https://www.reddit.com/r/Bitcoin/comments/h0j136/cheap\_and\_easy\_diy\_metal\_bitcoin\_seed\_storage/) back in June 2020. You can check their [website](https://safu.ninja/).
+As far as I know, Safu Ninja was the first one to come up with [this idea](https://www.reddit.com/r/Bitcoin/comments/h0j136/cheap\_and\_easy\_diy\_metal\_bitcoin\_seed\_storage/) back in June 2020. You can check their [website](https://jlopp.github.io/metal-bitcoin-storage-reviews/reviews/safu-ninja/).
 
 This metal backup has been stress tested by Jameson Lopp. Check his full review [here](https://blog.lopp.net/metal-bitcoin-seed-storage-stress-test-iv/) and below is a summary:
 
@@ -96,4 +96,4 @@ Below are a few pointers in case you need to use your backup to recover funds fr
 
 A best practice is to NEVER enter your 24 recovery words on an online software or website unless it's just a very small amount that you don't mind putting at risk.
 
-Instead, it is best to enter your mnemonic words into a dedicated and secure hardware wallet. Most hardware wallets have information on how to do just this on their website, make sure you have a look at these instructions BEFORE you have an emergency situation!
+Instead, it is best to enter your mnemonic words into a dedicated and secure hardware wallet. Most hardware wallets have information on how to do just this on their website, make sure you have a look at these instructions BEFORE you have an emergency scenery!
