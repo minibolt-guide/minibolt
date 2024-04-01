@@ -998,7 +998,7 @@ $ lncli listchannels
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
 
-To try, why not send me satoshis! You simply need to input my node pubkey [`⚡2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128), the amount in satoshis and add the "`–keysend`" flag. Replace `<amount in sats>` parameter with what you want
+To try, why not send me satoshis! You simply need to input my node pubkey [`2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128)⚡, the amount in satoshis and add the "`–keysend`" flag. Replace `<amount in sats>` parameter with what you want
 
 {% code overflow="wrap" %}
 ```sh

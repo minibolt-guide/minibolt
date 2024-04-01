@@ -641,7 +641,7 @@ $ cd src
 * Set variable environment version
 
 ```bash
-$ VERSION=1.12.3
+$ VERSION=1.13.0
 ```
 
 * Clone the BTCPay Server official GitHub repository

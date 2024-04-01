@@ -597,11 +597,11 @@ ExecStart=/home/nym/nym-network-requester run --id bitcoin
 * Start the `Nym network requester & Nym socks5 client` again
 
 ```bash
-$ sudo systemctl stop nym-network-requester
+$ sudo systemctl start nym-network-requester
 ```
 
 ```bash
-$ sudo systemctl stop nym-socks5-client
+$ sudo systemctl start nym-socks5-client
 ```
 
 {% hint style="info" %}
