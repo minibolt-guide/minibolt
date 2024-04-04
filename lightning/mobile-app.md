@@ -19,7 +19,7 @@ layout:
 
 We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connects to your LN node over Tor. Make payments with lightning or on-chain and manage your channels while you're on the go.
 
-![](../images/zeus.png)
+![](../.gitbook/assets/zeus.png)
 
 ## Requirements
 

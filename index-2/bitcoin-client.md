@@ -41,7 +41,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=26.0
+$ VERSION=26.1
 ```
 
 * Get the latest binaries and signatures
@@ -157,6 +157,14 @@ The following output is just an **example** of one of the versions:
 {% hint style="info" %}
 Now, if you want to install the manual page for `bitcoin-cli`, follow the [manual page for the bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section, and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
 {% endhint %}
+
+* (Optional) Delete installation files of the `/tmp` folder
+
+{% code overflow="wrap" %}
+```bash
+$ sudo rm -r bitcoin-$VERSION && sudo rm bitcoin-$VERSION-x86_64-linux-gnu.tar.gz && sudo rm SHA256SUMS && sudo rm SHA256SUMS.asc && sudo rm SHA256SUMS.ots
+```
+{% endcode %}
 
 ### Create the bitcoin user & group
 
@@ -811,7 +819,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=26.0
+$ VERSION=26.1
 ```
 
 * Download binary, checksum, signature files, and timestamp file
@@ -913,7 +921,7 @@ $ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 
 {% code overflow="wrap" %}
 ```sh
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/*
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitcoin-cli bitcoin-$VERSION/bin/bitcoind
 ```
 {% endcode %}
 
@@ -930,6 +938,14 @@ The following output is just an **example** of one of the versions:
 > Copyright (C) 2009-2022 The Bitcoin Core developers
 > [...]
 ```
+
+* (Optional) Delete installation files of the `/tmp` folder
+
+{% code overflow="wrap" %}
+```bash
+$ sudo rm -r bitcoin-$VERSION && sudo rm bitcoin-$VERSION-x86_64-linux-gnu.tar.gz && sudo rm SHA256SUMS && sudo rm SHA256SUMS.asc && sudo rm SHA256SUMS.ots
+```
+{% endcode %}
 
 * Restart the Bitcoin Core to apply the new version
 
