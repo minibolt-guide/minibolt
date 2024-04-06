@@ -275,7 +275,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.10.3
+$ VERSION=0.10.4
 ```
 
 * Download the source code

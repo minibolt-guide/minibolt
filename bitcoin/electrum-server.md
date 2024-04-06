@@ -486,7 +486,7 @@ tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",
 $ sudo nano /etc/tor/torrc
 ```
 
-* add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Add the following lines in the "location hidden services" section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
 
 ```
 # Hidden Service Fulcrum TCP & SSL

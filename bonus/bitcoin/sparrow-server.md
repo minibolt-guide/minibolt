@@ -31,7 +31,7 @@ Difficulty: Medium
 ## Requirements
 
 * [Bitcoin Core](../../index-2/bitcoin-client.md)
-* Electrum server: [Fulcrum](../../bitcoin/electrum-server.md) or [Electrs](electrs.md)&#x20;
+* Electrum server: [Fulcrum](../../bitcoin/electrum-server.md) or [Electrs](electrs.md)
 
 ## Installation
 
@@ -246,6 +246,8 @@ $ tmux a
 ```sh
 $ tmux a -t sparrowserver
 ```
+
+* You can leave and delete the tmux session by pressing `Ctrl + d`
 
 ## Upgrade
 
