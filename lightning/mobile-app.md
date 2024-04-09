@@ -177,19 +177,19 @@ lndconnect generates a URI and displays it as a QR code that Zeus can read.
   * If you want to use the Tor connection, make sure to replace the `".onion"` address with the one you generated above
 
 ```sh
-$ lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
+$ lndconnect --host=abcdefg......xyz.onion --port=8080
 ```
 
 * If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `.onion` address with the private Wireguard VPN IP address (recommended)
 
 ```sh
-$ lndconnect --host=10.0.1.1 --port=8080 --nocert
+$ lndconnect --host=10.0.1.1 --port=8080
 ```
 
 * If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
 
 ```sh
-$ lndconnect --host=192.168.X.XXX --port=8080 --nocert
+$ lndconnect --host=192.168.X.XXX --port=8080
 ```
 
 * It will be a big QR code, so maximize your terminal window and use `CTRL`+`-` / `"Terminal unzoom"` / `"Zoom out"` options of your terminal, to shrink the code further to fit the screen
@@ -223,7 +223,7 @@ Once you verify that the connection has been made correctly with your Lightning 
 
 ### Security
 
-Anyone using Zeus on your phone has control over your node and all its funds. It is strongly recommended to set up a password or biometrics identification for the app.
+Anyone using Zeus on your phone controls your node and all its funds. Setting up a password or biometrics identification for the app is strongly recommended.
 
 * In the app, tap on the Zeus icon in the top-left corner
 * Click on `Security` and `Set/Change Password` to enter a Password/PIN or enable the Biometrics feature
@@ -231,7 +231,7 @@ Anyone using Zeus on your phone has control over your node and all its funds. It
 
 ### Privacy
 
-In order to preserve your privacy, you can choose your private blockchain explorer when making inquiries related to on-chain transactions.
+To preserve your privacy, you can choose your private blockchain explorer when making inquiries about on-chain transactions.
 
 * In the app, tap on the Zeus icon in the top-left corner
 * Click on `Privacy` and change `Default Block explorer`, by selecting `Custom`, on the `Custom block explorer` box, enter your preferred Block Explorer URL, `.onion`, the local IP address of BTC RPC explorer: `https://192.168.X.XXX:4000`, or Wireguard VPN IP address: `https://10.0.0.1:4000`, depending on the situation
