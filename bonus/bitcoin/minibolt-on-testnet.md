@@ -270,9 +270,13 @@ For **example**, to generate a QR code for a Wireguard VPN connection, enter thi
 
 {% code overflow="wrap" %}
 ```sh
-$ lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon
+$ lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon --nocert
 ```
 {% endcode %}
+
+{% hint style="info" %}
+Be careful to add `--nocert` parameter only to the onion and Wireguard VPN network, the local network could be shared with more devices and you should use a valid certificate to encrypt the connection, so don't add that parameter in this case
+{% endhint %}
 
 ## Bonus section
 
