@@ -177,19 +177,19 @@ lndconnect generates a URI and displays it as a QR code that Zeus can read.
   * If you want to use the Tor connection, make sure to replace the `".onion"` address with the one you generated above
 
 ```sh
-$ lndconnect --host=abcdefg......xyz.onion --port=8080
+$ lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
 ```
 
-* If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `".onion"` address with the private Wireguard VPN IP address (recommended)
+* If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `.onion` address with the private Wireguard VPN IP address (recommended)
 
 ```sh
-$ lndconnect --host=10.0.1.1 --port=8080
+$ lndconnect --host=10.0.1.1 --port=8080 --nocert
 ```
 
 * If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
 
 ```sh
-$ lndconnect --host=192.168.X.XXX --port=8080
+$ lndconnect --host=192.168.X.XXX --port=8080 --nocert
 ```
 
 * It will be a big QR code, so maximize your terminal window and use `CTRL`+`-` / `"Terminal unzoom"` / `"Zoom out"` options of your terminal, to shrink the code further to fit the screen

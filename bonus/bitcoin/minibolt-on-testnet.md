@@ -264,19 +264,13 @@ The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode
 
 ### [Mobile app: Zeus](../../lightning/mobile-app.md)
 
-* Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, add to the "lndconnect" command the next flags
-
-{% code overflow="wrap" %}
-```bash
-$ --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon
-```
-{% endcode %}
+* Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match with the next
 
 For **example**, to generate a QR code for a Wireguard VPN connection, enter this command:
 
 {% code overflow="wrap" %}
 ```sh
-$ lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon
+$ lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon --nocert
 ```
 {% endcode %}
 
