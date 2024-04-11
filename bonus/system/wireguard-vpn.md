@@ -255,7 +255,7 @@ e.g: GOQi4j/yvmu/7f3cRvFZwlXvnWS3gRLosQbjrb13sFY=
 $ sudo nano /etc/wireguard/wg0.conf
 ```
 
-* Write the following content and replace only **`"<Your_Server_Private_Key>"`** with the data previously obtained. `"`**`<Your_Client_Public_Key>`**`"` will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](wireguard-vpn.md#server-configuration-part-2)
+* Write the following content and replace only **`<Your_Server_Private_Key>`** with the data previously obtained. **`<Your_Client_Public_Key>`** will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](wireguard-vpn.md#server-configuration-part-2)
 
 ```
 # MiniBolt: Wireguard configuration
@@ -388,9 +388,9 @@ Now return to the MiniBolt node to allow access to the newly created Wireguard V
 $ sudo nano /etc/wireguard/wg0.conf
 ```
 
-Now we are going to complete the previous parameter **`"<Your_Client_Public_Key>"`** that we left pending to complete before with the created in the [**"generate client key pair"**](wireguard-vpn.md#generate-client-key-pair) section
+Now we are going to complete the previous parameter **`<Your_Client_Public_Key>`** that we left pending to complete before with the created in the [**"generate client key pair"**](wireguard-vpn.md#generate-client-key-pair) section
 
-* Replace the existing **`"<Your_Client_Public_Key>"`** parameter with your one
+* Replace the existing **`<Your_Client_Public_Key>`** parameter with your one
 
 ```
 # MiniBolt: Wireguard configuration
@@ -557,15 +557,11 @@ Keep the MiniBolt SSH session open in the terminal to come back later and scan t
 
 Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) | Link to [Android](https://play.google.com/store/apps/details?id=com.wireguard.android) | [F-Droid](https://f-droid.org/en/packages/com.wireguard.android/)
 
-**1.** Hit on **(+)** button
-
-**2.** Select the **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Press `ALLOW`
-
-**3.** Scan the QR code generated previously
-
-**4.** Type a **name** for the tunnel, e.g. "MiniBolt\_WG", and hit on **"Create tunnel"**
-
-**5.** Press on the **switch at the right** to activate the Wireguard tunnel. Press **OK** to accept the connection request
+1. Hit on **(+)** button
+2. Select the **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Press `ALLOW`
+3. Scan the QR code generated previously
+4. Type a **name** for the tunnel, e.g. "MiniBolt\_WG", and hit on **"Create tunnel"**
+5. Press on the **switch at the right** to activate the Wireguard tunnel. Press **OK** to accept the connection request
 
 {% hint style="info" %}
 You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of `"wg0.conf"` configured on the [client configuration](wireguard-vpn.md#client-configuration-part-1) section. Select **"CREATE FROM SCRATCH"** instead of **"SCAN FROM QR CODE"** on the second step, fill out the form, and hit on the diskette icon on the top right to save and follow the same steps from **4**
