@@ -33,7 +33,8 @@ layout:
 ### Install / Update / Uninstall common languages
 
 * [**Node + NPM**](nodejs-npm.md) - Install/Update/Uninstall Node + NPM
-* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install/ Update/Uninstall Rustup + Cargo
+* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install/Update/Uninstall Rustup + Cargo
+* [PostgreSQL](../../bonus-guides/system/postgresql.md) - Install/Update/Uninstall PostgreSQL
 
 ### Security
 
