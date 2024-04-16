@@ -41,7 +41,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=26.1
+$ VERSION=27.0
 ```
 
 * Get the latest binaries and signatures
@@ -819,7 +819,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=26.1
+$ VERSION=27.0
 ```
 
 * Download binary, checksum, signature files, and timestamp file
