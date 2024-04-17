@@ -311,9 +311,6 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
 # Disable debug.log
 nodebuglogfile=1
 
-# Activate v2 P2P
-v2transport=1
-
 # Avoid assuming that a block and its ancestors are valid,
 # and potentially skipping their script verification.
 # We will set it to 0, to verify all.
