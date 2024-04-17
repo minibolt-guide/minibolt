@@ -64,7 +64,7 @@ $ sudo chmod g+rx /data/bitcoin/testnet3
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the Bitcoin client guide is exactly the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../index-2/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor seed nodes, not clearnet or I2P nodes.
+The rest of the Bitcoin client guide is the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../index-2/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor and I2P seed nodes, not clearnet nodes.
 {% endhint %}
 
 ### [Electrum server: Fulcrum](../../bitcoin/electrum-server.md)
@@ -203,10 +203,10 @@ When you arrive at the [Watchtower client](../../lightning/lightning-client.md#w
 
 **Interacting with the LND daemon**
 
-* Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag
+* Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag. Example:
 
 ```sh
-$ lncli --network testnet walletbalance
+$2 lncli --network=testnet --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 {% hint style="info" %}
