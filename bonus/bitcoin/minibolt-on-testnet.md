@@ -203,10 +203,10 @@ When you arrive at the [Watchtower client](../../lightning/lightning-client.md#w
 
 **Interacting with the LND daemon**
 
-* Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag
+* Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag. Example:
 
 ```sh
-$ lncli --network testnet walletbalance
+$2 lncli --network=testnet --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 {% hint style="info" %}
