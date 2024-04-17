@@ -587,7 +587,7 @@ or 'n' to create a new seed (Enter y/x/n):
 
 {% tabs %}
 {% tab title="Scenery 1" %}
-### <mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
+#### <mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
 
 * Press `n` and enter
 
@@ -663,7 +663,7 @@ Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Fini
 {% endtab %}
 
 {% tab title="Scenery 2" %}
-### <mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
+#### <mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
 
 * Press `y` and enter to recover it
 
