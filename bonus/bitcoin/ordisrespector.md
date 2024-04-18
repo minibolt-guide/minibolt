@@ -81,7 +81,7 @@ $ cd /tmp
 * Set the next environment variable
 
 ```sh
-$ VERSION=27.0
+$ VERSION=26.1
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums

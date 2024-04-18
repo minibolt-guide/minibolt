@@ -41,7 +41,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=27.0
+$ VERSION=26.1
 ```
 
 * Get the latest binaries and signatures
@@ -311,6 +311,9 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
 # Disable debug.log
 nodebuglogfile=1
 
+# Activate v2 P2P
+v2transport=1
+
 # Avoid assuming that a block and its ancestors are valid,
 # and potentially skipping their script verification.
 # We will set it to 0, to verify all.
@@ -423,6 +426,7 @@ ProtectSystem=full
 NoNewPrivileges=true
 PrivateDevices=true
 MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target
@@ -503,7 +507,7 @@ $2 ln -s /data/bitcoin /home/admin/.bitcoin
 $ exit
 ```
 
-* Log in again as user `admin` [opening a new SSH session](../index-1/remote-access.md#access-with-secure-shell)
+* Log in again as a user `admin` [opening a new SSH session](../index-1/remote-access.md#access-with-secure-shell)
 * Check symbolic link have been created correctly
 
 ```bash
@@ -609,14 +613,14 @@ This can take between one day and a week, depending mostly on your PC performanc
 
 If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Core, and play around with `bitcoin-cli` until the blockchain is up-to-date.
 
-* [The Little Bitcoin Book](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how".
+* [The Little Bitcoin Book](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how"
 *   [Mastering Bitcoin](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part how to compile from source code):
 
-    * you definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
-    * read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
+    * You definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
+    * Read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
 
     <figure><img src="../images/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
-* [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
+* [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin
 * Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original\_Bitcoin\_client/API\_calls\_list)
 
 ## Activate mempool & reduce 'dbcache' after a full sync
@@ -816,7 +820,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=27.0
+$ VERSION=26.1
 ```
 
 * Download binary, checksum, signature files, and timestamp file
