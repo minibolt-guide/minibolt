@@ -84,7 +84,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.17.4
+$ VERSION=0.17.5
 ```
 
 * Download the application, checksums, and signature
@@ -720,9 +720,11 @@ lnd successfully initialized!
 
 Return to the first terminal with `$ journalctl -f -u lnd`. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this ⬇️
 
-```
-Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.642 [INF] LNWL: RECOVERY MODE ENABLED -- rescanning for used addresses with recovery_window=2500
-Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.685 [INF] LNWL: Seed birthday surpassed, starting recovery of wallet from height=2540246 hash=00000000000000178484e446a4fb5c966b5fd5db76121421bfa470c7c879ff05 with recovery-window=2500
+<pre><code>Apr 17 21:17:19 roamingrpi lnd[63591]: 2024-04-17 21:17:19.288 [INF] LNWL: Opened wallet
+Apr 17 21:17:19 roamingrpi lnd[63591]: 2024-04-17 21:17:19.288 [INF] LTND: Wallet recovery mode enabled with address lookahead of 2500 addresses
+<strong>[...]
+</strong><strong>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.642 [INF] LNWL: RECOVERY MODE ENABLED -- rescanning for used addresses with recovery_window=2500
+</strong>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.685 [INF] LNWL: Seed birthday surpassed, starting recovery of wallet from height=2540246 hash=00000000000000178484e446a4fb5c966b5fd5db76121421bfa470c7c879ff05 with recovery-window=2500
 Nov 26 19:47:09 minibolt lnd[1321]: 2023-11-26 19:47:09.859 [INF] LNWL: Scanning 311 blocks for recoverable addresses
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.328 [INF] LNWL: Recovered addresses from blocks 2540246-2540556
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.338 [INF] LNWL: Started rescan from block 000000000000001e297a052a69708908dbe9769d834a07447d85e446b6b4b2a0 (height 2540556) for 0 addresses
@@ -730,7 +732,7 @@ Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.360 [INF] LNWL: Catching
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: Done catching up block hashes
 Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: Finished rescan for 0 addresses (synced to block 00000000443337ee5135e26cc7611c570f0cfface2823516a59fee41fc9750b0, height 2540557)
 [...]
-```
+</code></pre>
 {% endtab %}
 {% endtabs %}
 
