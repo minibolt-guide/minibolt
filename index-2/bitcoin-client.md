@@ -41,7 +41,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=26.1
+$ VERSION=27.0
 ```
 
 * Get the latest binaries and signatures
@@ -310,9 +310,6 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
 
 # Disable debug.log
 nodebuglogfile=1
-
-# Activate v2 P2P
-v2transport=1
 
 # Avoid assuming that a block and its ancestors are valid,
 # and potentially skipping their script verification.
@@ -820,7 +817,7 @@ $ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=26.1
+$ VERSION=27.0
 ```
 
 * Download binary, checksum, signature files, and timestamp file

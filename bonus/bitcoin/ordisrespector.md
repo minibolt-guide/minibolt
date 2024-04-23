@@ -81,7 +81,7 @@ $ cd /tmp
 * Set the next environment variable
 
 ```sh
-$ VERSION=26.1
+$ VERSION=27.0
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -447,12 +447,12 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoin/
 Go to the [Installation section](ordisrespector.md#installation), and replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide. Continue until complete the entire [Installation section](ordisrespector.md#installation)
 
 {% hint style="info" %}
-Remember restart the Bitcoin Core to apply the new version with `$ sudo systemctl restart bitcoind`
+Remember to restart the Bitcoin Core to apply the new version with `$ sudo systemctl restart bitcoind`
 {% endhint %}
 
 ## Uninstall
 
-To uninstall Bitcoin Core with the ordisrespector patch applied, follow the entire Bitcoin Core [uninstall section](../../index-2/bitcoin-client.md#uninstall)
+To uninstall Bitcoin Core with the Ordisrespector patch applied, follow the entire Bitcoin Core [uninstall section](../../index-2/bitcoin-client.md#uninstall)
 
 ## Port reference
 
