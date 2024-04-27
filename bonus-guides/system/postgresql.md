@@ -75,40 +75,6 @@ Expected output:
 </strong>> tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
 </code></pre>
 
-### Create PostgreSQL user  account
-
-* With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
-
-```bash
-$ sudo su - postgres
-```
-
-* Create a new database user
-
-```bash
-$ createuser --pwprompt --interactive
-```
-
-Type in the following:
-
-> > Enter name of role to add: **admin**
->
-> > Enter password for new role: **admin**
->
-> > Enter it again: **admin**
->
-> > Shall the new role be a superuser? (y/n) **n**
->
-> > Shall the new role be allowed to create databases? (y/n) **y**
->
-> > Shall the new role be allowed to create more new roles? (y/n) **n**
-
-* Come back to the admin user
-
-```bash
-& exit
-```
-
 * Create the PostgreSQL data folder
 
 ```bash
@@ -170,3 +136,37 @@ Commands for the **second session** start with the prompt **`$3` (which must not
 
 <pre class="language-bash"><code class="lang-bash"><strong>$3 sudo systemctl restart postgresql
 </strong></code></pre>
+
+### Create PostgreSQL user  account
+
+* With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
+
+```bash
+$ sudo su - postgres
+```
+
+* Create a new database user
+
+```bash
+$ createuser --pwprompt --interactive
+```
+
+Type in the following:
+
+> > Enter name of role to add: **admin**
+>
+> > Enter password for new role: **admin**
+>
+> > Enter it again: **admin**
+>
+> > Shall the new role be a superuser? (y/n) **n**
+>
+> > Shall the new role be allowed to create databases? (y/n) **y**
+>
+> > Shall the new role be allowed to create more new roles? (y/n) **n**
+
+* Come back to the admin user
+
+```bash
+& exit
+```
