@@ -125,10 +125,12 @@ If the prompt shows you this error:
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
 You need to type "**`$ rustup default stable"`** and wait for the process to finish, then try again the command before
+
+Also, that could help [Upgrade Rust](rustup-+-cargo.md#upgrade) to the latest version
 {% endhint %}
 
 {% hint style="success" %}
-If you come to update, this is the final step, go back to the [Upgrade section](nym-mixnet.md#for-the-future-upgrade-nym-binaries) to continue
+If you come to update, this is the final step, go back to the [Upgrade section](nym-mixnet.md#upgrade) to continue
 {% endhint %}
 
 ### Install network Requester
