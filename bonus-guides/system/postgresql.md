@@ -75,7 +75,7 @@ Expected output:
 </strong>> tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
 </code></pre>
 
-### Create PostgreSQL account user
+### Create PostgreSQL user  account
 
 * With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
 
@@ -102,3 +102,71 @@ Type in the following:
 > > Shall the new role be allowed to create databases? (y/n) **y**
 >
 > > Shall the new role be allowed to create more new roles? (y/n) **n**
+
+* Come back to the admin user
+
+```bash
+& exit
+```
+
+* Create the PostgreSQL data folder
+
+```bash
+$ sudo mkdir /data/postgresdb
+```
+
+* Assign as the owner to the `postgres`user
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ sudo chown postgres:postgres /data/postgresdb
+</strong></code></pre>
+
+* Assing permissions of the data folder only to the postgres user
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ sudo chmod -R 700 /data/postgresdb
+</strong></code></pre>
+
+* With user `postgres`, create a new cluster
+
+```bash
+$ sudo -u postgres /usr/lib/postgresql/16/bin/initdb -D /data/postgresdb
+```
+
+* Edit PostgreSQL data directory on configuration to rediret to the new location
+
+```bash
+$ sudo nano /etc/postgresql/16/main/postgresql.conf --linenumbers
+```
+
+* Replace the `line 42` to this. Save and exit
+
+<pre><code><strong>data_directory = '/data/postgresdb'
+</strong></code></pre>
+
+* Prepare PostgreSQL main instance monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
+
+```bash
+$ journalctl -fu postgresql@16-main
+```
+
+To keep an eye on the software movements, [start your SSH program](https://v2.minibolt.info/system/system/remote-access#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+
+{% hint style="info" %}
+Commands for the **second session** start with the prompt **`$2` (which must not be entered)**
+{% endhint %}
+
+Prepare PostgreSQL sub-instance monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
+
+```bash
+$2 journalctl -fu postgresql
+```
+
+* To keep an eye on the software movements, [start your SSH program](https://v2.minibolt.info/system/system/remote-access#access-with-secure-shell) (eg. PuTTY) a third time, connect to the MiniBolt node, and log in as `admin`
+
+{% hint style="info" %}
+Commands for the **second session** start with the prompt **`$3` (which must not be entered)**
+{% endhint %}
+
+* Restart PostgreSQL to apply changes and monitor the correct status on the main instance and sub-instance monitoring sessions before
+
+<pre class="language-bash"><code class="lang-bash"><strong>$3 sudo systemctl restart postgresql
+</strong></code></pre>

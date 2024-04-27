@@ -183,13 +183,35 @@ $ dotnet --version
 $ rm dotnet-install.sh
 ```
 
-* Come back to the "admin" user
+* Come back to the `admin` user
 
 ```bash
 $ exit
 ```
 
 ### Install PostgreSQL
+
+Check if you already have PostgreSQL installed:
+
+```bash
+$ psql -V
+```
+
+**Example** of expected output:
+
+```
+> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+```
+
+If you see `command not found` output, follow the [PostgreSQL bonus guide](../system/postgresql.md) to install it and then come back to continue with the guide
+
+### Create PostgreSQL databases
+
+* With user `postgres`
+
+```bash
+$ sudo su - postgres
+```
 
 * Create 2 new databases
 
@@ -900,7 +922,7 @@ restlisten=0.0.0.0:8080
 $ sudo systemctl restart lnd
 ```
 
-* Ensure the REST port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
+* Ensure the REST port is now binding to the `0.0.0.0` host instead of `127.0.0.1`
 
 ```bash
 $ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
@@ -1013,7 +1035,7 @@ dotnet-install: Installation finished successfully.
 
 </details>
 
-**(Optional)**  If you haven't done this before, to improve your privacy, disable the .NET Core SDK telemetry
+**(Optional)** If you haven't done this before, to improve your privacy, disable the .NET Core SDK telemetry
 
 ```bash
 $ echo 'export DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
@@ -1360,6 +1382,6 @@ $ sudo systemctl reload tor
 
 |  Port | Protocol |             Use            |
 | :---: | :------: | :------------------------: |
-|  5432 |    TCP   |  PostgreSQL default port   |
+|  5432 |    TCP   |   PostgreSQL default port  |
 | 24444 |    TCP   |   NBXplorer default port   |
 | 23000 |    TCP   | BTCPay Server default port |
