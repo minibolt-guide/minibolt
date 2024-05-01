@@ -35,6 +35,10 @@ layout:
 
 * [**Sparrow Server**](sparrow-server.md) - a stripped down version of Sparrow that can be run on systems without displays
 
+#### Daemon
+
+* [**sentrum**](sentrum.md) - daemon that monitors watch-only wallets and sends notifications
+
 ### Decentralized exchange
 
 * [**Bisq**](bisq.md) - a decentralized exchange desktop app connected to your node to privately buy and sell non-KYC bitcoins
