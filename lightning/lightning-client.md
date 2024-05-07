@@ -288,7 +288,7 @@ $ sudo adduser admin lnd
 $ sudo mkdir /data/lnd
 ```
 
-* Assign as owner the `lnd` user&#x20;
+* Assign as owner the `lnd` user
 
 ```sh
 $ sudo chown -R lnd:lnd /data/lnd
@@ -393,6 +393,7 @@ accept-keysend=true
 accept-amp=true
 protocol.wumbo-channels=true
 coop-close-target-confs=24
+protocol.option-scid-alias=true
 
 # Set to enable support for the experimental taproot channel type
 protocol.simple-taproot-chans=true
@@ -587,12 +588,12 @@ or 'n' to create a new seed (Enter y/x/n):
 
 {% tabs %}
 {% tab title="Scenery 1" %}
-#### <mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
+<mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
 
 * Press `n` and enter
 
 {% hint style="info" %}
-If you choose this option, the next step will be choosing the passphrase **(optional -** press enter to proceed without a cipher seed passphrase**)**
+If you choose this option, the next step will be choosing the passphrase **(optional -** press enter to proceed without a cipher seed passphrase\*\*)\*\*
 {% endhint %}
 
 Expected output:
@@ -631,15 +632,11 @@ You can use a simple piece of paper, write them on the custom themed [Shiftcrypt
 {% hint style="danger" %}
 This piece of paper is all an attacker needs to empty your on-chain wallet!
 
-
-
 🚫 **Do not store it on a computer**
 
 🚫 **Do not take a picture with your mobile phone**
 
 🚫 **This information should never be stored anywhere in digital form**
-
-
 
 This information must be kept secret at all times
 {% endhint %}
@@ -663,7 +660,7 @@ Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Fini
 {% endtab %}
 
 {% tab title="Scenery 2" %}
-#### <mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
+<mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
 
 * Press `y` and enter to recover it
 
@@ -807,7 +804,7 @@ drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
 
 </details>
 
-* &#x20;Make all directories browsable for the group&#x20;
+* Make all directories browsable for the group
 
 ```sh
 $2 sudo chmod -R g+X /data/lnd/data/

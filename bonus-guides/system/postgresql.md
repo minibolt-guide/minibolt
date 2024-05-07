@@ -97,7 +97,7 @@ $ sudo mkdir /data/postgresdb
 $ sudo -u postgres /usr/lib/postgresql/16/bin/initdb -D /data/postgresdb
 ```
 
-* Edit PostgreSQL data directory on configuration to rediret to the new location
+* Edit PostgreSQL data directory on configuration to redirect the store to the new location
 
 ```bash
 $ sudo nano /etc/postgresql/16/main/postgresql.conf --linenumbers
@@ -137,7 +137,27 @@ Commands for the **second session** start with the prompt **`$3` (which must not
 <pre class="language-bash"><code class="lang-bash"><strong>$3 sudo systemctl restart postgresql
 </strong></code></pre>
 
-### Create PostgreSQL user  account
+Example of expected output of `$ journalctl -fu postgresql@16-main`
+
+```
+Nov 08 11:51:10 minibolt systemd[1]: Stopping PostgreSQL Cluster 16-main...
+Nov 08 11:51:11 minibolt systemd[1]: postgresql@16-main.service: Succeeded.
+Nov 08 11:51:11 minibolt systemd[1]: Stopped PostgreSQL Cluster 16-main.
+Nov 08 11:51:11 minibolt systemd[1]: postgresql@16-main.service: Consumed 1h 10min 8.677s CPU time.
+Nov 08 11:51:11 minibolt systemd[1]: Starting PostgreSQL Cluster 16-main...
+Nov 08 11:51:13 minibolt systemd[1]: Started PostgreSQL Cluster 16-main.
+```
+
+Example of expected output of `$ journalctl -fu postgresql`
+
+```
+Nov 08 11:51:10 minibolt systemd[1]: Stopped PostgreSQL RDBMS.
+Nov 08 11:51:10 minibolt systemd[1]: Stopping PostgreSQL RDBMS...
+Nov 08 11:51:13 minibolt systemd[1]: Starting PostgreSQL RDBMS...
+Nov 08 11:51:13 minibolt systemd[1]: Finished PostgreSQL RDBMS.
+```
+
+### Create PostgreSQL user account
 
 * With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
 
@@ -165,7 +185,7 @@ Type in the following:
 >
 > > Shall the new role be allowed to create more new roles? (y/n) **n**
 
-* Come back to the admin user
+* Come back to the `admin` user
 
 ```bash
 & exit
