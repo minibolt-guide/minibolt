@@ -299,7 +299,7 @@ Keep the MiniBolt SSH session open in the terminal to come back later
 
 ## Install WireGuard VPN on Client
 
-Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS. Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see [Windows](wireguard-vpn.md#install--configure-wireguard-vpn-client-on-windows) or [Mobile](wireguard-vpn.md#install--configure-the-wireguard-vpn-client-on-a-mobile-phone) configurations in the extra section.
+Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS. Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see [Mobile](wireguard-vpn.md#install-and-configure-the-wireguard-vpn-client-on-a-mobile-phone) or [Windows](wireguard-vpn.md#install-and-configure-the-wireguard-vpn-client-on-windows) configurations in the extra section.
 
 * On your Linux regular computer, for instance, you do this by simply installing the **`"Wireguard VPN"`** package
 
@@ -567,7 +567,7 @@ Link to [iOS](https://apps.apple.com/us/app/wireguard/id1441195209) | Link to [A
 You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of `"wg0.conf"` configured on the [client configuration](wireguard-vpn.md#client-configuration-part-1) section. Select **"CREATE FROM SCRATCH"** instead of **"SCAN FROM QR CODE"** on the second step, fill out the form, and hit on the diskette icon on the top right to save and follow the same steps from **4**
 {% endhint %}
 
-### Install & configure WireGuard VPN Client on Windows
+### Install & configure the WireGuard VPN Client on Windows
 
 * Download and install the Wireguard VPN [Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
 * Hit on the little arrow down on the bottom left and select **"Add empty tunnel"**

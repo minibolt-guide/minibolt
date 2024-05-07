@@ -17,9 +17,13 @@ layout:
 
 # 2.2 Electrum Server: Fulcrum
 
-[Fulcrum](https://github.com/cculianu/Fulcrum) is a fast & nimble SPV server for Bitcoin Cash, Bitcoin BTC, and Litecoin created by Calin Culianu. It can be used as an alternative to Electrs because of its performance, as we can see in Craig Raw's [comparison](https://www.sparrowwallet.com/docs/server-performance.html) of servers.
+[Fulcrum](https://github.com/cculianu/Fulcrum) is a fast & nimble SPV server for Bitcoin created by Calin Culianu. It can be used as an alternative to Electrs because of its performance, as we can see in Craig Raw's [comparison](https://www.sparrowwallet.com/docs/server-performance.html) of servers.
 
-![](../images/fulcrum.png)
+<div data-full-width="false">
+
+<figure><img src="../.gitbook/assets/Fulcrum_logo" alt="" width="375"><figcaption></figcaption></figure>
+
+</div>
 
 ## Requirements
 

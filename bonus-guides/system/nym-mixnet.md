@@ -1138,7 +1138,7 @@ $ sudo systemctl stop nym-network-requester
 $ sudo su - nym
 ```
 
-* Init again network requester, by following the [Init NYM network requester](nym-mixnet.md#install-nym-network-requester) section, this time with `--force-register-gateway` and `--gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key
+* Init again network requester, by following the [Init NYM network requester section](nym-mixnet.md#init-network-requester), this time with `--force-register-gateway` and `--gateway` flags (remember deleting `--latency-based-selection` flag). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key
 
 {% hint style="info" %}
 **Example:** `./nym-network-requester init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --force-register-gateway`
@@ -1174,7 +1174,7 @@ $ sudo systemctl stop nym-socks5-client
 $ sudo su - nym
 ```
 
-* Init again the socks5 client by following the [Init NYM socks5 client](nym-mixnet.md#init-nym-socks5-client) section, this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection flag`). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key. Remember to change the network requester address (service provider) if you change it at any moment
+* Init again the socks5 client by following the [Init NYM socks5 client section](nym-mixnet.md#init-socks5-client), this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection` flag). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key. Remember to change the network requester address (service provider) if you change it at any moment
 
 {% hint style="info" %}
 **Example:** `./nym-socks5-client init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --provider 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS --force-register-gateway`

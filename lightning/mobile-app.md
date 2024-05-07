@@ -174,7 +174,7 @@ $ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
 lndconnect generates a URI and displays it as a QR code that Zeus can read.
 
 * Still with the `admin` user, and use the following command
-  * If you want to use the Tor connection, make sure to replace the `".onion"` address with the one you generated above
+  * If you want to use the Tor connection, make sure to replace the `.onion` address with the one you generated above
 
 ```sh
 $ lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
@@ -183,7 +183,7 @@ $ lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
 * If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `.onion` address with the private Wireguard VPN IP address (recommended)
 
 ```sh
-$ lndconnect --host=10.0.1.1 --port=8080 --nocert
+$ lndconnect --host=10.0.0.1 --port=8080 --nocert
 ```
 
 * If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
@@ -242,7 +242,7 @@ To update Zeus, update the app using the same app store or the app source you ch
 
 ## Uninstall
 
-To uninstall, you need to uninstall the app on your phone and deactivate the LND REST API Tor hidden service.
+You need to uninstall the app on your phone and deactivate the LND REST API Tor hidden service.
 
 * Uninstall the app on your phone
 * To deactivate the LND REST API Tor hidden service, comment out the hidden service lines in `torrc` and reload Tor
