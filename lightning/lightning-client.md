@@ -393,6 +393,7 @@ accept-keysend=true
 accept-amp=true
 protocol.wumbo-channels=true
 coop-close-target-confs=24
+protocol.option-scid-alias=true
 
 # Set to enable support for the experimental taproot channel type
 protocol.simple-taproot-chans=true

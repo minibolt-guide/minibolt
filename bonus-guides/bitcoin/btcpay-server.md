@@ -319,7 +319,7 @@ $ cd src
 * Set the environment variable version
 
 ```bash
-$ VERSION=2.4.3
+$ VERSION=2.5.2
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -641,7 +641,7 @@ $ cd src
 * Set variable environment version
 
 ```bash
-$ VERSION=1.13.0
+$ VERSION=1.13.1
 ```
 
 * Clone the BTCPay Server official GitHub repository
@@ -1159,7 +1159,7 @@ $ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-$ VERSION=2.5.0
+$ VERSION=2.5.2
 ```
 
 * Fetch the changes of the wish latest tag
@@ -1272,7 +1272,7 @@ $ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-$ VERSION=1.12.4
+$ VERSION=1.13.1
 ```
 
 * Fetch the changes of the wish latest tag

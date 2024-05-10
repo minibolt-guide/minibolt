@@ -184,11 +184,20 @@ The rest of the **BTC RPC Explorer** guide is exactly the same as the mainnet mo
 $ nano /data/lnd/lnd.conf
 ```
 
-* Replace the parameter `"bitcoin.mainnet=true"` with the `"bitcoin.testnet=true"` to enable LND in testnet mode
+* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet=true` to enable LND in testnet mode
 
 ```
 [Bitcoin]
 bitcoin.testnet=true
+```
+
+{% hint style="info" %}
+If you use [Ordirespector](ordisrespector.md) on testnet, add the next lines at the end of the file:
+{% endhint %}
+
+```
+# Use external fee estimator
+feeurl=https://nodes.lightning.computer/fees/v1/btctestnet-fee-estimates.json
 ```
 
 * When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace `ExecStop` parameter to this

@@ -175,8 +175,8 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 
 ### Formatting
 
-* To ensure that the storage device does not contain malicious code, we will format it on our local computer (select a name easy to recognize like "SCB backup" and choose the FAT filesystem). The following external guides explain how to format your USB thumbdrive or microSD card on [Windows](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-in-windows-12893), [macOS](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-on-a-mac-12899), or [Linux](https://phoenixnap.com/kb/linux-format-usb)
-* Once formatted, plug the storage device into your PC. If using a thumbdrive, use one of the black USB2 ports
+* To ensure that the storage device does not contain malicious code, we will format it on our local computer (select a name easy to recognize like "SCB backup" and choose the FAT filesystem). The following external guides explain how to format your USB thumbdrive or microSD card on [Windows](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-in-windows-12893), [macOS](https://www.techsolutions.support.com/how-to/how-to-format-a-usb-drive-on-a-mac-12899), or [Linux](https://phoenixnap.com/kb/linux-format-usb).
+* Once formatted, plug the storage device into your MiniBolt.
 
 ### Set up a mounting point for the storage device
 
@@ -192,11 +192,13 @@ $ sudo mkdir /mnt/static-channel-backup-external
 $ sudo chattr +i /mnt/static-channel-backup-external
 ```
 
-* List active block devices and copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`)
+* List active block devices
 
 ```sh
 $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 ```
+
+* Copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`)
 
 ```
 > NAME   MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL      MODEL
@@ -206,21 +208,24 @@ $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 > sdb               123456                               vfat     1.9G SCB backup UDisk
 ```
 
-* Get the "lnd" user identifier (UID) and the "lnd" group identifier (GID) from the `/etc/passwd` database of all user accounts. Copy these values into a text editor on your local computer (e.g. here GID `XXXX` and UID `YYYY`)
+* Get the "lnd" user identifier (UID) and the "lnd" group identifier (GID) from the `/etc/passwd` database of all user accounts
 
 ```sh
 $ awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
 ```
 
-```
-> GID: XXXX / UID: YYYY
-```
+* Copy these values into a text editor on your local computer (e.g. here GID `XXXX` and UID `YYYY`)
 
-* Edit your Filesystem Table configuration file and add the following as a new line at the end, replacing `123456`, `XXXX` and `YYYY` with your own `UUID`, `GID` and `UID`
+<pre><code><strong>> GID: XXXX / UID: YYYY
+</strong></code></pre>
+
+* Edit your Filesystem Table configuration file
 
 ```sh
 $ sudo nano /etc/fstab
 ```
+
+* Add the following as a new line at the end, replacing `123456`, `XXXX` and `YYYY` with your own `UUID`, `GID` and `UID`
 
 ```sh
 UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,nosuid,nodev,noatime,nodiratime,nofail,umask=022,gid=XXXX,uid=YYYY 0 0
@@ -232,7 +237,7 @@ UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,
 $ sudo mount -a
 ```
 
-* &#x20;Is “`/mnt/static-channel-backup-external`” listed?
+* &#x20;Ensure that `/mnt/static-channel-backup-external` is listed
 
 ```bash
 $ df -h /mnt/static-channel-backup-external
@@ -261,7 +266,7 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 ### Create a GitHub repository
 
-* Go to [GitHub](https://github.com/), sign up for a new user account, or log in with an existing one. If you don't want GitHub to know your identity and IP address in relation to your Lightning node, it is recommended to create a new account even if you have an existing one, and use [Tor Browser](https://www.torproject.org/download/) for this and follow the steps
+* Go to [GitHub](https://github.com/), sign up for a new user account, or log in with an existing one. If you don't want GitHub to know your identity and IP address about your Lightning node, it is recommended to create a new account even if you have an existing one, and use [Tor Browser](https://www.torproject.org/download/) for this and follow the steps
 * Create a [new repository](https://github.com/new)
   * Type the following repository name: `remote-lnd-backup`
   * Select "Private" (rather than the default "Public")
