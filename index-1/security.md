@@ -55,16 +55,10 @@ $ sudo nano /etc/default/ufw
 IPV6=no
 ```
 
-* Deny incoming connections (we are going to allow incoming connections on demand)
+* Disable logging
 
 ```sh
-$ sudo ufw default deny incoming
-```
-
-* Allow outgoing connections
-
-```sh
-$ sudo ufw default allow outgoing
+$ sudo ufw logging off
 ```
 
 * Allow SSH incoming connection
@@ -75,12 +69,6 @@ Attention! Don't forget the next step!
 
 ```sh
 $ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
-```
-
-* Disable logging
-
-```sh
-$ sudo ufw logging off
 ```
 
 * Enable ufw, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press `"y"` and enter

@@ -382,7 +382,7 @@ Keep this terminal open to come back later
 
 Now return to the MiniBolt node to allow access to the newly created Wireguard VPN client.
 
-* Ensure are you logged in as `admin` user, and edit the `"wg0.conf"` file
+* Ensure you are logged in as `admin` user, and edit the `"wg0.conf"` file
 
 ```sh
 $ sudo nano /etc/wireguard/wg0.conf
@@ -445,7 +445,7 @@ udp   UNCONN 0      0                   [::]:51820         [::]:*
 * Check the systemd journal to see Wireguard VPN real-time updates output logs
 
 ```sh
-$ sudo journalctl -f -u wg-quick@wg0.service
+$ journalctl -f -u wg-quick@wg0.service
 ```
 
 {% hint style="success" %}
@@ -574,13 +574,13 @@ You could create a Wireguard VPN client connection manually from scratch filling
 
 ![](../../images/wireguard-windows.png)
 
-* Paste the entire [configure Wireguard VPN Client](wireguard-vpn.md#client-configuration-part-1) content of the `"wg0.conf"` file in the big text box and push on **"Save"**
+* Paste the entire content of the client configuration `"wg0.conf"` file in the big text box and push on **"Save"**
 * Click on the **"Activate"** button to enable the VPN connection
-* Test it creating a [new SSH connection](broken-reference/) to MiniBolt for example, this time with the VPN IP address
+* Test it by creating a [new SSH connection](broken-reference/) to MiniBolt for example, this time with the VPN IP address
 
 ### Configure additional clients
 
-For each additional client, you must install the WireGuard software in each of them and you could reuse the client's key pair previously created on the [generate client key pair](wireguard-vpn.md#generate-client-key-pair) section and all [client configuration](wireguard-vpn.md#client-configuration-part-1) sections.
+For each additional client, you must install the WireGuard software in each of them, and generate a new client key pair following the [before section](wireguard-vpn.md#generate-client-key-pair) and following all [client configuration-related](wireguard-vpn.md#client-configuration-part-1) sections.
 
 ### Configure additional servers
 
