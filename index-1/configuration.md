@@ -133,7 +133,7 @@ If the measured speeds are more than 100 MB/s, you're good but is recommended mo
 
 ## Data directory
 
-We'll store all application data in the dedicated directory `/data`. This allows for better security because it's not inside any user's home directory. Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`.
+We'll store all application data in the dedicated directory `/data`. This allows for better security because it's not inside any user's home directory. Additionally, it's easier to move that directory somewhere else, for instance to a separate drive, as you can just mount any storage option to `/data`
 
 * Create the data folder
 
