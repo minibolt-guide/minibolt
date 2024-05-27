@@ -32,7 +32,7 @@ You can prettify your command prompt for each user by enabling color output and 
 * With user `admin`, open and edit `.bashrc` as shown below. Save and exit
 
 ```sh
-$ nano /home/admin/.bashrc --linenumbers
+nano /home/admin/.bashrc --linenumbers
 ```
 
 * Uncomment line 46
@@ -64,7 +64,7 @@ alias ls='ls -la --color=always'
 * Apply changes
 
 ```sh
-$ source /home/admin/.bashrc
+source /home/admin/.bashrc
 ```
 
 <figure><img src="../../.gitbook/assets/pimp-command-line-2.PNG" alt=""><figcaption></figcaption></figure>
@@ -74,27 +74,27 @@ $ source /home/admin/.bashrc
 * As user `admin`, install bash completion scripts for Bitcoin Core and LND. You then can complete partial commands by pressing the Tab key (e.g. bitcoin-cli getblockch \[Tab] → bitcoin-cli getblockchaininfo)
 
 ```bash
-$ cd /tmp/
+cd /tmp/
 ```
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoind.bash
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoind.bash
 </strong></code></pre>
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoin-cli.bash
+wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/completions/bash/bitcoin-cli.bash
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/lightningnetwork/lnd/master/contrib/lncli.bash-completion
+wget https://raw.githubusercontent.com/lightningnetwork/lnd/master/contrib/lncli.bash-completion
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo mv bitcoind.bash bitcoin-cli.bash lncli.bash-completion /etc/bash_completion.d/
+sudo mv bitcoind.bash bitcoin-cli.bash lncli.bash-completion /etc/bash_completion.d/
 ```
 {% endcode %}
 

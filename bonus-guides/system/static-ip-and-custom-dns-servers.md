@@ -73,7 +73,7 @@ After having done the [1.3 Remote access](remote-access.md) section, you could w
 * Stay login with user **admin**, and check your current data network interface by doing
 
 ```bash
-$ ip address
+ip address
 ```
 
 Check your own configuration, the next output is **only** an **example** of a concrete case, but in your case could be different:
@@ -114,7 +114,7 @@ Take note of your case data, you will need it later
 * Check the current DNS server set, typing the next command
 
 ```bash
-$ resolvectl status
+resolvectl status
 ```
 
 **Example** of expected output (more common):
@@ -146,7 +146,7 @@ In the case of before:
 
 * Edit the content of the next file
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/netplan/00-installer-config.yaml
+<pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/netplan/00-installer-config.yaml
 </strong></code></pre>
 
 * Replace the content to match this template
@@ -170,7 +170,7 @@ network:
 ```
 
 {% hint style="info" %}
-Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>, \<nameserver2>** <-- (optional but recommended)**,** and **\<gateway>** to your own data.\
+Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>, \<nameserver2>** <- (name server optional but recommended)**,** and **\<gateway>** to your own data.\
 \
 You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**) whatever you want, including the default one set in the DNS server of your router (normally DNS servers of your ISP), in this last case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**.
 
@@ -204,7 +204,7 @@ network:
 * Finally, type this command to apply the changes
 
 ```bash
-$ sudo netplan apply
+sudo netplan apply
 ```
 
 {% hint style="success" %}
@@ -220,7 +220,7 @@ If you chose a different IP address than the router assigned you at first and ha
 * To check the successful IP address change, type the next command
 
 ```bash
-$ ip address
+ip address
 ```
 
 {% hint style="info" %}
@@ -230,7 +230,7 @@ The output of this command **may not change**, depending on whether you chose th
 * To check the successful DNS servers change, type the next command
 
 ```bash
-$ resolvectl status
+resolvectl status
 ```
 
 <details>
@@ -258,7 +258,7 @@ If you go to change the router you could want to enable or check if you have ena
 
 * Edit the content of the next file
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/netplan/00-installer-config.yaml
+<pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/netplan/00-installer-config.yaml
 </strong></code></pre>
 
 * Replace the content to match this template, replacing **\<interface>** with your data obtained in the [Preparations](static-ip-and-custom-dns-servers.md#preparations) section before
@@ -274,7 +274,7 @@ If you go to change the router you could want to enable or check if you have ena
 * Finally, type this command to apply the changes
 
 ```bash
-$ sudo netplan apply
+sudo netplan apply
 ```
 
 {% hint style="info" %}

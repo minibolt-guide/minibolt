@@ -43,14 +43,14 @@ Difficulty: Medium
 * In the terminal on your regular computer, first, check if the keys already exist
 
 ```sh
-$ ls -la ~/.ssh/*.pub
+ls -la ~/.ssh/*.pub
 ```
 
 * If files are listed, your public key should be named something like `id_rsa.pub`. If one of these files already exists, skip the next step
 * If none of those files exist, or you get a "No such file or directory" error, create a new public/private key pair
 
 ```sh
-$ ssh-keygen -t rsa -b 2048
+ssh-keygen -t rsa -b 2048
 ```
 
 When you're prompted to "Enter a file in which to save the key", press Enter to use the default file location. Optionally, for maximum security, enter a key passphrase to protect your key, and use `password [A]`
@@ -60,13 +60,13 @@ When you're prompted to "Enter a file in which to save the key", press Enter to 
     Use the command `ssh-copy-id`, which stores your public key on the remote machine (and creates files and directories, if needed). You will be prompted for your SSH login password once. If fails you can try `admin@192.168.x.xxx` instead
 
 ```sh
-$ ssh-copy-id admin@minibolt
+ssh-copy-id admin@minibolt
 ```
 
 💡 If you are on macOS and encounter an error, you might need to install `ssh-copy-id` first by running the following command on your Mac's command line
 
 ```sh
-$ brew install ssh-copy-id
+brew install ssh-copy-id
 ```
 
 ## Import SSH pubkey to MiniBolt node
@@ -76,19 +76,19 @@ $ brew install ssh-copy-id
 * Login with the `admin` user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step
 
 ```sh
-$ mkdir .ssh
+mkdir .ssh
 ```
 
 * Limit permissions for reading, writing, and executing only to the user admin
 
 ```sh
-$ chmod 700 .ssh
+chmod 700 .ssh
 ```
 
 * Create a file called "authorized\_keys" and paste the content information of the "minibolt\_SSH\_pubkey.txt" file generated in the [Windows step before](ssh-keys.md#generate-ssh-keys-on-windows)
 
 ```sh
-$ nano .ssh/authorized_keys
+nano .ssh/authorized_keys
 ```
 
 e.g:
@@ -100,7 +100,7 @@ ssh-rsa AAAAB3N........
 * Limit permissions for reading and writing only to the user admin
 
 ```sh
-$ chmod 600 authorized_keys
+chmod 600 authorized_keys
 ```
 
 ### From your regular Linux PC
@@ -108,19 +108,19 @@ $ chmod 600 authorized_keys
 * Login with the user `admin`and create a new folder at home called `".ssh"`. If already exists, skip the next step
 
 ```sh
-$ mkdir .ssh
+mkdir .ssh
 ```
 
 * Limit permissions for reading, writing, and executing only to the user admin
 
 ```sh
-$ chmod 700 .ssh
+chmod 700 .ssh
 ```
 
 * Create a file called "authorized\_keys" on it and paste the content information of the "id\_rsa.pub" file generated in the [Linux or macOS step before](ssh-keys.md#generate-ssh-keys-on-linux-or-macos)
 
 ```sh
-$ nano .ssh/authorized_keys
+nano .ssh/authorized_keys
 ```
 
 e.g:
@@ -132,7 +132,7 @@ ssh-rsa AAAAB3N........
 * Limit permissions for reading and writing only to the user admin
 
 ```sh
-$ chmod 600 .ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
 ```
 
 ### From GitHub keyserver
@@ -142,37 +142,37 @@ $ chmod 600 .ssh/authorized_keys
 * Login with the `admin` user on MiniBolt and create a new folder at home called ".ssh". If already exists, skip the next step
 
 ```sh
-$ mkdir .ssh
+mkdir .ssh
 ```
 
 * Limit permissions for reading, writing, and executing only to the user admin
 
 ```sh
-$ chmod 700 .ssh
+chmod 700 .ssh
 ```
 
 * Enter the ".ssh" folder
 
 ```sh
-$ cd .ssh
+cd .ssh
 ```
 
 * Import your SSH GitHub keys replacing `<username>` with the GitHub username (that appears in your profile section)
 
 ```sh
-$ curl https://github.com/<username>.keys >> authorized_keys
+curl https://github.com/<username>.keys >> authorized_keys
 ```
 
 * Ensure that your SSH keys have been imported correctly in "authorized\_keys" file, and press `Ctrl-X` to exit
 
 ```sh
-$ nano authorized_keys
+nano authorized_keys
 ```
 
 * Limit permissions for read and write only to the user admin
 
 ```sh
-$ chmod 600 authorized_keys
+chmod 600 authorized_keys
 ```
 
 ## Connect to MiniBolt through SSH keys
@@ -182,7 +182,7 @@ $ chmod 600 authorized_keys
 * From the Terminal, use the native command
 
 ```sh
-$ ssh -i /home/<user>/.ssh/id_rsa admin@minibolt.local
+ssh -i /home/<user>/.ssh/id_rsa admin@minibolt.local
 ```
 
 {% hint style="warning" %}
@@ -209,7 +209,7 @@ Attention: This command only works if you generated the SSH keys [on Linux or ma
 * Edit the ssh configuration file `/etc/ssh/sshd_config` by uncommenting the following options and setting their value to `no`
 
 ```sh
-$ sudo nano /etc/ssh/sshd_config
+sudo nano /etc/ssh/sshd_config
 ```
 
 ```
@@ -224,13 +224,13 @@ PasswordAuthentication no
 * Test this barebone SSH configuration. If you see no output to the next command, that is OK. If you see something like `/etc/ssh/sshd_config line XX: unsupported option "XXX"` that means something is incorrect
 
 ```sh
-$ sudo sshd -t
+sudo sshd -t
 ```
 
 * Restart the SSH daemon
 
 ```sh
-$ sudo systemctl restart sshd
+sudo systemctl restart sshd
 ```
 
 * Type `exit` or `logout` to finish the session
@@ -253,7 +253,7 @@ You will need to attach a screen and keyboard to your PC if you lose them
 * Ensure you are logged in with user admin, edit the next file
 
 ```sh
-$ sudo visudo
+sudo visudo
 ```
 
 * Add the next line at the end of the file. Save and exit

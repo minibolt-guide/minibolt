@@ -45,39 +45,33 @@ Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), thes
 * With user `admin`, update the packages and upgrade to keep up to date with the OS
 
 ```sh
-$ sudo apt update && sudo apt full-upgrade
+sudo apt update && sudo apt full-upgrade
 ```
 
 * Make sure that all necessary software packages are installed
 
 {% code overflow="wrap" %}
 ```sh
-$ sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev make g++ clang cmake build-essential
+sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev make g++ clang cmake build-essential
 ```
 {% endcode %}
 
 * Install the `librocksdb v7.8.3` from the source code. Go to the temporary folder
 
 ```bash
-$ cd /tmp
+cd /tmp
 ```
 
-* Clone the [`rocksdb`](https://github.com/facebook/rocksdb) GitHub repository
+* Clone the [`rocksdb`](https://github.com/facebook/rocksdb) GitHub repository and enter the `rocksdb` folder
 
 ```bash
-$ git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb
-```
-
-* Enter to the `rocksdb` folder
-
-```bash
-$ cd rocksdb
+git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb && cd rocksdb
 ```
 
 * Compile it. This could take time depending on your system performance, be patient
 
 ```bash
-$ make shared_lib -j $(nproc)
+make shared_lib -j $(nproc)
 ```
 
 <details>
@@ -112,7 +106,7 @@ $DEBUG_LEVEL is 0
 * Install it
 
 ```bash
-$ sudo make install-shared
+sudo make install-shared
 ```
 
 <details>
@@ -158,25 +152,25 @@ ln -fs librocksdb.so.7.8.3 /usr/local/lib/librocksdb.so
 * Update the shared library cache. Wait until the prompt comes back to show
 
 ```bash
-$ sudo ldconfig
+sudo ldconfig
 ```
 
 * Come back to the `/tmp` folder
 
 ```bash
-$ cd ..
+cd ..
 ```
 
 * Delete `rocksdb` folder
 
 ```bash
-$ sudo rm -r rocksdb
+sudo rm -r rocksdb
 ```
 
 * Check if you already have `Rustc` installed
 
 ```bash
-$ rustc --version
+rustc --version
 ```
 
 Expected output:
@@ -188,7 +182,7 @@ Expected output:
 * And cargo installed
 
 ```bash
-$ cargo -V
+cargo -V
 ```
 
 Expected output:
@@ -208,7 +202,7 @@ In the [Security section](broken-reference/), we already set up Nginx as a rever
 * With user `admin`, create the reverse proxy configuration
 
 ```sh
-$ sudo nano /etc/nginx/streams-available/electrs-reverse-proxy.conf
+sudo nano /etc/nginx/streams-available/electrs-reverse-proxy.conf
 ```
 
 * Paste the complete following configuration. Save and exit
@@ -227,14 +221,14 @@ server {
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo ln -s /etc/nginx/streams-available/electrs-reverse-proxy.conf /etc/nginx/streams-enabled/
+sudo ln -s /etc/nginx/streams-available/electrs-reverse-proxy.conf /etc/nginx/streams-enabled/
 ```
 {% endcode %}
 
 * Test the Nginx configuration
 
 ```bash
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 Expected output:
@@ -247,17 +241,17 @@ Expected output:
 * Reload the Nginx configuration to apply changes
 
 ```sh
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 * Configure the firewall to allow incoming requests to the SSL and TCP ports
 
 ```sh
-$ sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
+sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
 ```
 
 ```sh
-$ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
+sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
 ```
 
 ## Installation
@@ -269,31 +263,25 @@ There are no precompiled binaries available, so we will compile the application 
 * With user `admin`, go to the temporary folder
 
 ```sh
-$ cd /tmp
+cd /tmp
 ```
 
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.10.4
+VERSION=0.10.5
 ```
 
-* Download the source code
+* Download the source code and go to the `electrs` folder
 
 ```sh
-$ git clone --branch v$VERSION https://github.com/romanz/electrs.git
-```
-
-* Go to the `electrs` folder
-
-```sh
-$ cd electrs
+git clone --branch v$VERSION https://github.com/romanz/electrs.git && cd electrs
 ```
 
 * To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz)
 
 ```sh
-$ curl https://romanzey.de/pgp.txt | gpg --import
+curl https://romanzey.de/pgp.txt | gpg --import
 ```
 
 Expected output:
@@ -310,7 +298,7 @@ Expected output:
 * Verify the release
 
 ```sh
-$ git verify-tag v$VERSION
+git verify-tag v$VERSION
 ```
 
 Expected output:
@@ -329,7 +317,7 @@ Expected output:
 
 {% code overflow="wrap" %}
 ```bash
-$ ROCKSDB_INCLUDE_DIR=/usr/local/include ROCKSDB_LIB_DIR=/usr/local/lib cargo build --locked --release
+ROCKSDB_INCLUDE_DIR=/usr/local/include ROCKSDB_LIB_DIR=/usr/local/lib cargo build --locked --release
 ```
 {% endcode %}
 
@@ -380,14 +368,14 @@ info: installing component 'rustfmt'
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
+sudo install -m 0755 -o root -g root -t /usr/local/bin ./target/release/electrs
 ```
 {% endcode %}
 
 * Check the correct installation
 
 ```sh
-$ electrs --version
+electrs --version
 ```
 
 **Example** of expected output:
@@ -399,13 +387,13 @@ $ electrs --version
 * Return to the home folder and delete the folder `/electrs` to be ready for the next update
 
 ```sh
-$ cd
+cd
 ```
 
 * Delete the temporal `electrs` folder
 
 ```sh
-$ sudo rm -r /tmp/electrs
+sudo rm -r /tmp/electrs
 ```
 
 {% hint style="info" %}
@@ -417,37 +405,37 @@ If you come to update this is the final step
 * Create the `electrs` user
 
 ```sh
-$ sudo adduser --disabled-password --gecos "" electrs
+sudo adduser --disabled-password --gecos "" electrs
 ```
 
 * Make to the `electrs` user a member of the "bitcoin" group
 
 ```sh
-$ sudo adduser electrs bitcoin
+sudo adduser electrs bitcoin
 ```
 
 * Create the Electrs data directory
 
 ```sh
-$ sudo mkdir /data/electrs
+sudo mkdir /data/electrs
 ```
 
 * Assign as the owner to the `electrs` user
 
 ```sh
-$ sudo chown electrs:electrs /data/electrs
+sudo chown electrs:electrs /data/electrs
 ```
 
 * Switch to the `electrs` user
 
 ```sh
-$ sudo su - electrs
+sudo su - electrs
 ```
 
 * Create the electrs config file
 
 ```sh
-$ nano /data/electrs/electrs.conf
+nano /data/electrs/electrs.conf
 ```
 
 * Enter the complete next content
@@ -474,7 +462,7 @@ timestamp = true
 * Exit `electrs` user session to return to the "admin" user session
 
 ```sh
-$ exit
+exit
 ```
 
 ### Create systemd service
@@ -482,7 +470,7 @@ $ exit
 * As user `admin`, create the Electrs systemd unit
 
 ```sh
-$ sudo nano /etc/systemd/system/electrs.service
+sudo nano /etc/systemd/system/electrs.service
 ```
 
 * Enter the complete following configuration. Save and exit
@@ -527,30 +515,30 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```sh
-$ sudo systemctl enable electrs
+sudo systemctl enable electrs
 ```
 
 * Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
-$ journalctl -f -u electrs
+journalctl -fu electrs
 ```
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
 ```sh
-$2 sudo systemctl start electrs
+sudo systemctl start electrs
 ```
 
 * Monitor the systemd journal at the first session created to check if everything works fine
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u electrs</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu electrs</code> ⬇️</summary>
 
 <pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-2">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
 [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
@@ -583,23 +571,23 @@ $2 sudo systemctl start electrs
 Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
 {% endhint %}
 
-* Ensure electrs service is working and listening at the default TCP `50001` port, the monitoring `14224` port (not used on MiniBolt) and
+* Ensure electrs service is working and listening at the default TCP `50001` port and the monitoring `14224` port (not used on MiniBolt)
 
 ```sh
-$2 sudo ss -tulpn | grep LISTEN | grep electrs
+sudo ss -tulpn | grep LISTEN | grep electrs
 ```
 
 Expected output:
 
 ```bash
-tcp   LISTEN 0      128          0.0.0.0:50001      0.0.0.0:*    users:(("electrs",pid=54749,fd=4))
-tcp   LISTEN 0      128        127.0.0.1:14224      0.0.0.0:*    users:(("electrs",pid=54749,fd=3))
+> tcp   LISTEN 0      128          0.0.0.0:50001      0.0.0.0:*    users:(("electrs",pid=54749,fd=4))
+> tcp   LISTEN 0      128        127.0.0.1:14224      0.0.0.0:*    users:(("electrs",pid=54749,fd=3))
 ```
 
 * And the SSL `50002` port
 
 ```bash
-$2 sudo ss -tulpn | grep LISTEN | grep 50002
+sudo ss -tulpn | grep LISTEN | grep 50002
 ```
 
 Expected output:
@@ -621,7 +609,7 @@ To use your Electrum server when you're on the go, you can easily create a Tor h
 * Ensure that you are logged in with the user `admin`, edit the `torrc` file &#x20;
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
@@ -638,13 +626,13 @@ HiddenServicePort 50002 127.0.0.1:50002
 * Reload the Tor configuration to apply changes
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Get your Onion address
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
+sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
 ```
 
 Expected output:
@@ -662,7 +650,7 @@ To get address balances, either an Electrum server or an external service is nec
 * As user `admin`, open the `btcrpcexplorer` service
 
 ```sh
-$ sudo nano /etc/systemd/system/btcrpcexplorer.service
+sudo nano /etc/systemd/system/btcrpcexplorer.service
 ```
 
 * Replace the `"After=fulcrum.service"` with the `"After=electrs.service"` parameter. Save and exit
@@ -674,7 +662,7 @@ After=electrs.service
 * Restart the BTC RPC Explorer service to apply the changes
 
 ```sh
-$ sudo systemctl restart btcrpcexplorer
+sudo systemctl restart btcrpcexplorer
 ```
 
 ## Upgrade
@@ -684,13 +672,13 @@ $ sudo systemctl restart btcrpcexplorer
 * When you finish, restart Electrs to apply the new version
 
 ```sh
-$ sudo systemctl restart electrs
+sudo systemctl restart electrs
 ```
 
 * Check logs and pay attention to the next log if that attends to the new version installed
 
 ```bash
-$ journalctl -fu electrs
+journalctl -fu electrs
 ```
 
 <details>
@@ -732,28 +720,28 @@ Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path:
 * Ensure you are logged in with the user `admin`, stop, disable, and delete the service
 
 ```bash
-$ sudo systemctl stop electrs
+sudo systemctl stop electrs
 ```
 
 ```bash
-$ sudo systemctl disable electrs
+sudo systemctl disable electrs
 ```
 
 ```bash
-$ sudo rm /etc/systemd/system/electrs.service
+sudo rm /etc/systemd/system/electrs.service
 ```
 
 * Ensure you are logged in with the user `admin`. Delete the electrs user.\
   Don't worry about `userdel: electrs mail spool (/var/mail/electrs) not found` output, the uninstall has been successful
 
 ```bash
-$ sudo userdel -rf electrs
+sudo userdel -rf electrs
 ```
 
 * Delete electrs directory
 
 ```bash
-$ sudo rm -rf /data/electrs/
+sudo rm -rf /data/electrs/
 ```
 
 ### Uninstall Tor hidden service
@@ -761,7 +749,7 @@ $ sudo rm -rf /data/electrs/
 * Ensure that you are logged in with the user `admin` , edit the `torrc` config file&#x20;
 
 ```bash
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
@@ -778,7 +766,7 @@ $ sudo nano /etc/tor/torrc
 * Reload the Tor configuration to apply changes
 
 ```bash
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ### Uninstall reverse proxy & FW configuration
@@ -786,19 +774,19 @@ $ sudo systemctl reload tor
 * Ensure you are logged in with the user `admin`, delete the reverse proxy config file
 
 ```bash
-$ sudo rm /etc/nginx/sites-available/electrs-reverse-proxy.conf
+sudo rm /etc/nginx/sites-available/electrs-reverse-proxy.conf
 ```
 
 * Delete the simbolic link
 
 ```bash
-$ sudo rm /etc/nginx/sites-enabled/electrs-reverse-proxy.conf
+sudo rm /etc/nginx/sites-enabled/electrs-reverse-proxy.conf
 ```
 
 * Test Nginx configuration
 
 ```bash
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 Expected output:
@@ -811,13 +799,13 @@ Expected output:
 * Reload the Nginx configuration to apply changes
 
 ```bash
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 * Display the UFW firewall rules, and note the numbers of the rules for Electrs (e.g., X and Y below)
 
 ```bash
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 Expected output:
@@ -830,7 +818,7 @@ Expected output:
 * Delete the rule with the correct number and confirm with "`yes`"
 
 ```bash
-$ sudo ufw delete X
+sudo ufw delete X
 ```
 
 ## Port reference

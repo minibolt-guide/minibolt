@@ -32,47 +32,41 @@ Difficulty: Easy
 * With user `admin`, update the packages and upgrade to keep up to date with the OS, press "**y**" and "**enter**" when needed
 
 ```bash
-$ sudo apt update && sudo apt full-upgrade
+sudo apt update && sudo apt full-upgrade
 ```
 
 * We will use the NodeSource Node.js Binary Distributions [repository](https://github.com/nodesource/distributions) instructions. Download and import the NodeSource GPG key
 
 {% code overflow="wrap" %}
 ```sh
-$ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 ```
 {% endcode %}
 
 * Set the environment variable of the version
 
 ```bash
-$ VERSION=20
+VERSION=20
 ```
 
 * Create deb repository
 
 {% code overflow="wrap" %}
 ```bash
-$ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$VERSION.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$VERSION.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 ```
 {% endcode %}
 
-* Run update
+* Run update and install Node.js + NPM using the apt package manager. Press 'y' and enter
 
 ```sh
-$ sudo apt update
-```
-
-* Install Node.js + NPM using the apt package manager
-
-```sh
-$ sudo apt install nodejs
+sudo apt update && sudo apt install nodejs
 ```
 
 * Check the correct installation of nodejs
 
 ```sh
-$ node -v
+node -v
 ```
 
 **Example** of expected output:
@@ -84,7 +78,7 @@ $ node -v
 * Check the correct installation of NPM
 
 ```sh
-$ npm -v
+npm -v
 ```
 
 **Example** of expected output:
@@ -98,13 +92,13 @@ $ npm -v
 * With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + Thunderhub
 
 ```bash
-$ sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
+sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
 ```
 
 * To upgrade simply type this command
 
 ```sh
-$ sudo apt update && sudo apt full-upgrade
+sudo apt update && sudo apt full-upgrade
 ```
 
 {% hint style="info" %}
@@ -114,39 +108,39 @@ If you want to update to the upper version LTS release ([see here](https://nodej
 * Check the current version installed of the nodejs
 
 ```bash
-$ node -v
+node -v
 ```
 
 * If you have 18.x version, set the environment variable to the new number of versions, for example to 20.x
 
 ```bash
-$ VERSION=20
+VERSION=20
 ```
 
 * Update the current deb repository
 
 {% code overflow="wrap" %}
 ```bash
-$ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$VERSION.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$VERSION.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 ```
 {% endcode %}
 
 * Run the update and upgrade command to update the nodejs to the latest version. Press "**y**" and "**enter**" when needed
 
 ```bash
-$ sudo apt update & sudo apt full-upgrade
+sudo apt update & sudo apt full-upgrade
 ```
 
 * Check the correct installation to the latest release
 
 ```bash
-$ node -v
+node -v
 ```
 
 * Start BTC RPC Explorer & Thunderhub again
 
 ```bash
-$ sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
+sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
 ```
 
 ## Uninstall
@@ -155,6 +149,6 @@ $ sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
 
 {% code overflow="wrap" %}
 ```sh
-$ sudo apt purge nodejs && sudo rm -r /etc/apt/sources.list.d/nodesource.list && sudo rm -r /etc/apt/keyrings/nodesource.gpg
+sudo apt purge nodejs && sudo rm -r /etc/apt/sources.list.d/nodesource.list && sudo rm -r /etc/apt/keyrings/nodesource.gpg
 ```
 {% endcode %}

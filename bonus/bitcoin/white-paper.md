@@ -18,7 +18,7 @@ layout:
     visible: true
 ---
 
-# Download the bitcoin whitepaper directly from your own blockchain
+# Download the bitcoin whitepaper
 
 Download the Bitcoin white paper PDF directly from the blockchain data on your own node and witness the power of a decentralized network to fight censorship.
 
@@ -38,14 +38,16 @@ This guide explains how to reconstruct the Bitcoin white paper PDF using your ow
 
 ## Preparations
 
-* Install `jq`, a JSON processor that will be used to parse the transaction data
+* Update the OS
 
 ```sh
-$ sudo apt update && sudo apt full-upgrade
+sudo apt update && sudo apt full-upgrade
 ```
 
+* Install `jq`, JSON processor that will be used to parse the transaction data
+
 ```bash
-$ sudo apt install jq
+sudo apt install jq
 ```
 
 ## Extract the whitepaper directly from Bitcoin Core
@@ -53,18 +55,18 @@ $ sudo apt install jq
 * With the `admin` user, go to the temporary folder
 
 ```sh
-$ cd /tmp
+cd /tmp
 ```
 
 * Use `bitcoin-cli` to download and create the PDF
 
-<pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>$ bitcoin-cli getrawtransaction 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 true | jq -r '.vout[].scriptPubKey.asm' | cut -c3- | xxd -p -r | tail +9c | head -c 184292 > bitcoin.pdf
+<pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>bitcoin-cli getrawtransaction 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 true | jq -r '.vout[].scriptPubKey.asm' | cut -c3- | xxd -p -r | tail +9c | head -c 184292 > bitcoin.pdf
 </strong></code></pre>
 
 * Check PDF was correctly created
 
 ```bash
-$ ls -la bitcoin.pdf
+ls -la bitcoin.pdf
 ```
 
 Expected output:
@@ -108,7 +110,7 @@ To be read, the PDF can now be sent from the remote node to your local computer 
     On your local computer, open a terminal window and type the following command. Replace YourNodeIP with the MiniBolt IP address (or `minibolt.local` if it works) and do not forget the dot at the end of the line (representing the destination of the file, here the 'Home' folder of your local computer)
 
 ```sh
-$ scp admin@YourNodeIP:/tmp/bitcoin.pdf .
+scp admin@YourNodeIP:/tmp/bitcoin.pdf .
 ```
 
 *   **Windows**
@@ -116,7 +118,7 @@ $ scp admin@YourNodeIP:/tmp/bitcoin.pdf .
     This also works with the PSCP tool from PuTTY that you can run from the command line. See [How to Use Putty pscp to Copy Files](https://tonyteaches.tech/putty-pscp-tutorial/) for more information
 
 ```sh
-$ pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
+pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
 ```
 
 * The file should now be located in the Home folder of your local computer.
@@ -130,7 +132,7 @@ $ pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
 
 {% code overflow="wrap" %}
 ```sh
-$ curl -v -F "chat_id=YourChatID" -F document=@/tmp/bitcoin.pdf https://api.telegram.org/botYourBotID/sendDocument
+curl -v -F "chat_id=YourChatID" -F document=@/tmp/bitcoin.pdf https://api.telegram.org/botYourBotID/sendDocument
 ```
 {% endcode %}
 
@@ -138,7 +140,7 @@ $ curl -v -F "chat_id=YourChatID" -F document=@/tmp/bitcoin.pdf https://api.tele
 
 ## Get the whitepaper from BTC RPC Explorer
 
-The BTC-RPC-Explorer has also a functionality to extract the data from the node and display the PDF in the web browser.
+The BTC RPC Explorer has also a functionality to extract the data from the node and display the PDF in the web browser.
 
 ![](../../images/white-paper-transac.png)
 

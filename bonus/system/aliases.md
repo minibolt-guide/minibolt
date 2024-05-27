@@ -37,26 +37,26 @@ The following list of aliases was derived from contributions by [RobClark56](htt
 
 {% code overflow="wrap" %}
 ```bash
-$ cd /home/admin
+cd /home/admin
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases -O .bash_aliases
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases -O .bash_aliases
 ```
 {% endcode %}
 
 If you want, inspect the list of aliases to make sure it does not do bad things, and modify it with your personal aliases if you want. Exit with Ctrl-X
 
 ```sh
-$ nano .bash_aliases
+nano .bash_aliases
 ```
 
 * Execute a `source` command to register changes of the `.bash_aliases` file in the `.bashrc` file
 
 ```sh
-$ source /home/admin/.bashrc
+source /home/admin/.bashrc
 ```
 
 ## Run
@@ -77,7 +77,7 @@ alias enablefulcrum='sudo systemctl enable fulcrum'
 * Test some of the aliases to see if it has been installed properly
 
 ```sh
-$ showmainversion
+showmainversion
 ```
 
 <details>
@@ -113,11 +113,11 @@ You can see if the aliases have a recent update by entering [here](https://githu
 * To remove these special aliases, with the user `admin`, simply deletes the `.bash_aliases` and executes a source command to register changes. The aliases will be gone with the next login
 
 ```sh
-$ rm ~/.bash_aliases
+rm ~/.bash_aliases
 ```
 
 * Execute a source command to register changes to the `.bashrc` file
 
 ```sh
-$ source /home/admin/.bashrc
+source /home/admin/.bashrc
 ```

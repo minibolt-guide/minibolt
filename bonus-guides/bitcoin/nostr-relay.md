@@ -55,14 +55,14 @@ You can obtain more info about nostr on these additional resources:
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo apt install build-essential cmake protobuf-compiler pkg-config libssl-dev build-essential sqlite3 libsqlite3-dev
+sudo apt install build-essential cmake protobuf-compiler pkg-config libssl-dev build-essential sqlite3 libsqlite3-dev
 ```
 {% endcode %}
 
 * Check if you already have Rustup installed
 
 ```bash
-$ rustc --version
+rustc --version
 ```
 
 **Example** of expected output:
@@ -74,7 +74,7 @@ $ rustc --version
 * Also Cargo
 
 ```bash
-$ cargo -V
+cargo -V
 ```
 
 **Example** of expected output:
@@ -92,25 +92,19 @@ If you obtain "**command not found**" outputs, you need to follow the [Rustup + 
 * With user `admin`, go to the temporary folder
 
 ```bash
-$ cd /tmp
+cd /tmp
 ```
 
-* Clone the source code directly from the GitHub repository, and then build a release version of the relay
+* Clone the source code directly from the GitHub repository, and then build a release version of the relay and go to the `nostr-rs-relay` folder
 
 ```bash
-$ git clone https://github.com/scsibug/nostr-rs-relay.git
-```
-
-* Go to the `nostr-rs-relay` recently created
-
-```bash
-$ cd nostr-rs-relay
+git clone https://github.com/scsibug/nostr-rs-relay.git && cd nostr-rs-relay
 ```
 
 * Build a release version of the relay
 
 ```bash
-$ cargo build --release
+cargo build --release
 ```
 
 <details>
@@ -165,18 +159,18 @@ If the prompt shows you this error:
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
-You need to type `"`**`$ rustup default stable`**`"` and wait for the process to finish, then try again the command before
+You need to type **`rustup default stable`** and wait for the process to finish, then try again the command before
 {% endhint %}
 
 * Install it
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ sudo install -m 0755 -o root -g root -t /usr/local/bin /tmp/nostr-rs-relay/target/release/nostr-rs-relay
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo install -m 0755 -o root -g root -t /usr/local/bin /tmp/nostr-rs-relay/target/release/nostr-rs-relay
 </strong></code></pre>
 
 * Check the correct installation
 
 ```bash
-$ nostr-rs-relay -V
+nostr-rs-relay -V
 ```
 
 **Example** of expected output:
@@ -194,7 +188,7 @@ If you come to update this is the final step, continue with the indications of t
 * Create the user `nostr` with this command
 
 ```bash
-$ sudo adduser --gecos "" --disabled-password nostr
+sudo adduser --gecos "" --disabled-password nostr
 ```
 
 Expected output:
@@ -210,27 +204,27 @@ Copying files from `/etc/skel' ...
 * Create the `rs-relay` and `db` folder
 
 ```bash
-$ mkdir -p /data/nostr/rs-relay/db
+mkdir -p /data/nostr/rs-relay/db
 ```
 
 * Change to the home `nostr` user folder
 
 ```bash
-$ sudo su - nostr
+sudo su - nostr
 ```
 
 * **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step to not provide any
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico
 ```
 {% endcode %}
 
 * Exit to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
 ## Configuration
@@ -238,31 +232,31 @@ $ exit
 * With user `admin`, copy-paste the configuration file
 
 ```bash
-$ sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/
+sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/
 ```
 
 * Assign as the owner to the `nostr` user
 
 ```bash
-$ sudo chown -R nostr:nostr /data/nostr
+sudo chown -R nostr:nostr /data/nostr
 ```
 
 * Return to the home folder
 
 ```bash
-$ cd
+cd
 ```
 
 * Delete the `nostr-rs-relay` folder to be ready for the next update
 
 ```bash
-$ sudo rm -r /tmp/nostr-rs-relay
+sudo rm -r /tmp/nostr-rs-relay
 ```
 
 * Edit the config file, uncomment, and replace the needed information on the next parameters. Save and exit
 
 ```bash
-$ sudo nano /data/nostr/rs-relay/config.toml
+sudo nano /data/nostr/rs-relay/config.toml
 ```
 
 > > **Customize this with your own info (\*):**
@@ -311,7 +305,7 @@ The system needs to run the nostr relay daemon automatically in the background, 
 
 * As user `admin`, create the service file
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/systemd/system/nostr-relay.service
+<pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/systemd/system/nostr-relay.service
 </strong></code></pre>
 
 * Paste the following configuration. Save and exit
@@ -347,28 +341,28 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```bash
-$ sudo systemctl enable nostr-relay
+sudo systemctl enable nostr-relay
 ```
 
 * Prepare “nostr-relay” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ journalctl -fu nostr-relay
+journalctl -fu nostr-relay
 ```
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered).
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the nostr relay
 
 ```bash
-$2 sudo systemctl start nostr-relay
+sudo systemctl start nostr-relay
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nostr-relay</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu nostr-relay</code> ⬇️</summary>
 
 ```
 Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.232103Z  INFO nostr_rs_relay: Starting up from main
@@ -392,7 +386,7 @@ Jul 31 19:11:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:11:59.275842Z  INF
 * Ensure the service is working and listening at the default `8880` port
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep nostr-rs-relay
+sudo ss -tulpn | grep LISTEN | grep nostr-rs-relay
 ```
 
 Expected output:
@@ -406,7 +400,7 @@ Expected output:
 Follow the [Cloudflare Tunnel bonus guide](nostr-relay.md#cloudflare-tunnel), when you arrive at the [Configuration file section](../system/cloudflare-tunnel.md#create-a-configuration-file), add the next `# Nostr relay` lines to ingress the related ingress rule
 
 ```bash
-$ nano /home/admin/.cloudflared/config.yml
+nano /home/admin/.cloudflared/config.yml
 ```
 
 <pre><code># MiniBolt: cloudflared configuration
@@ -424,16 +418,20 @@ ingress:
   - service: http_status:404
 </code></pre>
 
+{% hint style="warning" %}
+Remember to keep `- service: http_status:404` line at the end of the file
+{% endhint %}
+
 * Restart the Cloudflared service
 
 ```bash
-$ sudo systemctl restart cloudflared
+sudo systemctl restart cloudflared
 ```
 
 * Check the Cloudflared logs to ensure all is still OK
 
 ```bash
-$ journalctl -fu cloudflared
+journalctl -fu cloudflared
 ```
 
 ### Check relay connection
@@ -630,12 +628,6 @@ Highlight, share, discover, comment and earn on any text via the nostr network. 
 [Web](https://highlighter.com)
 {% endtab %}
 
-{% tab title="InMyTown" %}
-InMyTown uses the NOSTR protocol to allow users to create meetup communities and events.
-
-[Web](https://www.inmytown.social) | [GitHub](https://github.com/BrightonBTC/inmytown.social)
-{% endtab %}
-
 {% tab title="Pinstr" %}
 Pinstr is a decentralized, free, and open-source social network built on top of the Nostr Protocol for curating and sharing interests with the world.
 
@@ -666,12 +658,6 @@ Pleb.to does NOSTR things... documents, links, graphs, maps, and more... Pleb.to
 Habla allows you to read, write, curate and monetize long form content over Nostr, a censorship-resistant protocol for social media that uses long form nostr content.
 
 [Web](https://habla.news) | [GitHub](https://github.com/verbiricha/habla.news)
-{% endtab %}
-
-{% tab title="Yana" %}
-Yet Another Nostr Application
-
-[Web](https://yana.do/) | [GitHub](https://github.com/frnandu/yana)
 {% endtab %}
 
 {% tab title="Amethyst" %}
@@ -714,50 +700,50 @@ Find the top relays of those who follow you or you follow
 * With user `admin`, stop `nostr-rs-relay` service
 
 ```bash
-$ sudo systemctl stop nostr-relay
+sudo systemctl stop nostr-relay
 ```
 
 * Follow the complete [Installation](nostr-relay.md#installation) section
 * Replace the `config.toml` file with the new one of the new version **(if needed)**
 
 {% hint style="warning" %}
-**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If no changes, jump directly to the next **"Start `nostr-rs-relay` service again" ->**`$ sudo systemctl start nostr-relay`
+**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If no changes, jump directly to the next **"Start `nostr-rs-relay` service again" >**`sudo systemctl start nostr-relay`
 {% endhint %}
 
 * Backup the `config.toml` file to keep a copy of your old configuration
 
 ```bash
-$ sudo cp /data/nostr/rs-relay/config.toml /data/nostr/rs-relay/config.toml.backup
+sudo cp /data/nostr/rs-relay/config.toml /data/nostr/rs-relay/config.toml.backup
 ```
 
 * Assign the owner of the backup file to the `nostr` user
 
 ```bash
-$ sudo chown nostr:nostr /data/nostr/rs-relay/config.toml.backup
+sudo chown nostr:nostr /data/nostr/rs-relay/config.toml.backup
 ```
 
 * Replace the new `config.toml` file of the new release
 
 ```bash
-$ sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/
+sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/
 ```
 
 * Edit the config file and replace it with the same old information as the file you had. Save and exit
 
 ```bash
-$ sudo nano /data/nostr/rs-relay/config.toml
+sudo nano /data/nostr/rs-relay/config.toml
 ```
 
 * Start `nostr-rs-relay` service again
 
 ```bash
-$ sudo systemctl start nostr-relay
+sudo systemctl start nostr-relay
 ```
 
 * Delete the `nostr-rs-relay` folder to be ready for the next update
 
 ```bash
-$ sudo rm -r /tmp/nostr-rs-relay
+sudo rm -r /tmp/nostr-rs-relay
 ```
 
 ## Uninstall
@@ -767,19 +753,19 @@ $ sudo rm -r /tmp/nostr-rs-relay
 * Ensure you are logged in with the user `admin`, stop `nostr-relay` service
 
 ```bash
-$ sudo systemctl stop nostr-relay
+sudo systemctl stop nostr-relay
 ```
 
 * Delete `nostr-relay` service
 
 ```bash
-$ sudo rm /etc/systemd/system/nostr-relay.service
+sudo rm /etc/systemd/system/nostr-relay.service
 ```
 
 * Delete the nostr user. Don't worry about `userdel: nostr mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash
-$ sudo userdel -rf nostr
+sudo userdel -rf nostr
 ```
 
 Expected output:
@@ -791,7 +777,7 @@ Expected output:
 * Delete the nostr relay data folder
 
 ```bash
-$ sudo rm -r /data/nostr/relay
+sudo rm -r /data/nostr/relay
 ```
 
 ### Uninstall the nostr relay of the Cloudflare tunnel
@@ -799,7 +785,7 @@ $ sudo rm -r /data/nostr/relay
 * Staying with user `admin`, edit `config.yml`
 
 ```bash
-$ nano /home/admin/.cloudflared/config.yml
+nano /home/admin/.cloudflared/config.yml
 ```
 
 * Comment or delete the nostr relay associated ingress rule. Save and exit
@@ -823,7 +809,7 @@ ingress:
 * Restart the Cloudflare tunnel to apply the changes
 
 ```bash
-$ sudo systemctl restart cloudflared
+sudo systemctl restart cloudflared
 ```
 
 ### Uninstall binaries
@@ -831,7 +817,7 @@ $ sudo systemctl restart cloudflared
 * Staying with user `admin,` delete the nostr-rs-relay binary of the system
 
 ```bash
-$ sudo rm /usr/local/bin/nostr-rs-relay
+sudo rm /usr/local/bin/nostr-rs-relay
 ```
 
 ## Port reference

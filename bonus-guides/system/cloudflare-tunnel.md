@@ -91,30 +91,30 @@ Keep this Cloudflare session open, we will add and modify some registries to con
 * With user `admin`, go to the temporary folder
 
 ```bash
-$ cd /tmp
+cd /tmp
 ```
 
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=2024.5.0
+VERSION=2024.5.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ wget https://github.com/cloudflare/cloudflared/releases/download/$VERSION/cloudflared-linux-amd64.deb
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>wget https://github.com/cloudflare/cloudflared/releases/download/$VERSION/cloudflared-linux-amd64.deb
 </strong></code></pre>
 
 * Use the deb package manager to install it
 
 ```bash
-$ sudo dpkg -i cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared-linux-amd64.deb
 ```
 
 * Check the correct installation
 
 ```bash
-$ cloudflared --version
+cloudflared --version
 ```
 
 **Example** of expected output:
@@ -126,7 +126,7 @@ $ cloudflared --version
 * Remove the package installation file
 
 ```bash
-$ sudo rm cloudflared-linux-amd64.deb
+sudo rm cloudflared-linux-amd64.deb
 ```
 
 {% hint style="info" %}
@@ -138,7 +138,7 @@ If you come to update this is the final step
 * With user `admin`, authenticate Cloudflared with your Cloudflare account
 
 ```bash
-$ cloudflared tunnel login
+cloudflared tunnel login
 ```
 
 **Example** of expected output:
@@ -181,7 +181,7 @@ Expected output:
 ### Create a tunnel and give it a name <a href="#id-3-create-a-tunnel-and-give-it-a-name" id="id-3-create-a-tunnel-and-give-it-a-name"></a>
 
 ```bash
-$ cloudflared tunnel create <NAME>
+cloudflared tunnel create <NAME>
 ```
 
 {% hint style="info" %}
@@ -203,7 +203,7 @@ Take note of the tunnel ID ->`<UUID>: e.g: 8666c35d-6ac3-4b39-9324-12ae32ce64a7`
 * Ensure that the tunnel has been created
 
 ```bash
-$ cloudflared tunnel list
+cloudflared tunnel list
 ```
 
 **Example** of expected output:
@@ -217,7 +217,7 @@ ID                                      NAME              CREATED               
 * You can obtain more detailed information about the tunnel with
 
 ```bash
-$ cloudflared tunnel info <NAME>
+cloudflared tunnel info <NAME>
 ```
 
 **Example** of expected output:
@@ -241,7 +241,7 @@ CONNECTOR ID                         CREATED              ARCHITECTURE VERSION  
 > Replace **`<UUID>`** for your one obtained before
 {% endhint %}
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ cloudflared tunnel route dns &#x3C;UUID> subdomain.domain.com
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>cloudflared tunnel route dns &#x3C;UUID> subdomain.domain.com
 </strong></code></pre>
 
 **Example** of expected output:
@@ -257,7 +257,7 @@ We will create a configuration file in your `.cloudflared` directory. This file 
 * Staying with user `admin`, create `config.yml`
 
 ```bash
-$ nano /home/admin/.cloudflared/config.yml
+nano /home/admin/.cloudflared/config.yml
 ```
 
 * Here you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your name (subdomain) chosen for the service, and `<domain.com>` with the domain, you purchased previously. Ensure to replace `<UUID>` with your obtained before
@@ -318,7 +318,7 @@ Experiments have shown that QUIC transfers on high-bandwidth connections can be 
 * With user `admin`, increase the maximum buffer size by editing the next file to add kernel parameters
 
 ```bash
-$ sudo nano /etc/sysctl.conf
+sudo nano /etc/sysctl.conf
 ```
 
 * Here are the lines you’ll want to add at the end of the file. Save and exit
@@ -331,7 +331,7 @@ net.core.wmem_max=2500000
 * Then apply the changes with
 
 ```bash
-$ sudo sysctl --system
+sudo sysctl --system
 ```
 
 {% hint style="info" %}
@@ -343,7 +343,7 @@ These parameters would increase the maximum send and receive buffer size to roug
 * Create the configuration file in the nano text editor and copy the following content. Save and exit
 
 ```bash
-$ sudo nano /etc/systemd/system/cloudflared.service
+sudo nano /etc/systemd/system/cloudflared.service
 ```
 
 <pre><code># MiniBolt: systemd unit for Cloudflared
@@ -369,13 +369,13 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```bash
-$ sudo systemctl enable cloudflared
+sudo systemctl enable cloudflared
 ```
 
 * Prepare `cloudflared` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ journalctl -f -u cloudflared
+journalctl -fu cloudflared
 ```
 
 {% hint style="info" %}
@@ -384,17 +384,17 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Run <a href="#id-6-run-the-tunnel" id="id-6-run-the-tunnel"></a>
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt **`$2` (which must not be entered)**. Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin.
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Run the tunnel to proxy incoming traffic from the tunnel to any number of services running locally on your origin
 
 * Start the service
 
 ```bash
-$2 sudo systemctl start cloudflared
+sudo systemctl start cloudflared
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u cloudflared</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu cloudflared</code> ⬇️</summary>
 
 ```
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Starting tunnel tunnelID=8666c35d-6ac3-4b39-9324-12ae32ce64a7
@@ -425,7 +425,7 @@ You should see the service properly running as if it were a local connection
 
 Ensure Cloudflared is listening on the random port assigned:
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ sudo ss -tulpn | grep LISTEN | grep cloudflared
+<pre class="language-bash"><code class="lang-bash"><strong>sudo ss -tulpn | grep LISTEN | grep cloudflared
 </strong></code></pre>
 
 **Example** of expected output:
@@ -438,24 +438,24 @@ Ensure Cloudflared is listening on the random port assigned:
 * With user `admin`, stop Cloudflared
 
 ```bash
-$ sudo systemctl stop cloudflared
+sudo systemctl stop cloudflared
 ```
 
 * Check the current version of Cloudflared
 
 ```bash
-$ cloudflared --version
+cloudflared --version
 ```
 
 * Follow again the [installation section](cloudflare-tunnel.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the [latest](https://github.com/cloudflare/cloudflared/releases) if it has not been already changed in this guide
 * Start Cloudflared again
 
 ```bash
-$ sudo systemctl start cloudflared
+sudo systemctl start cloudflared
 ```
 
 {% hint style="info" %}
-Monitor logs with **`$ journalctl -fu cloudflared`** to ensure that all is still working well
+Monitor logs with **`journalctl -fu cloudflared`** to ensure that all is still working well
 {% endhint %}
 
 ## Uninstall
@@ -463,13 +463,13 @@ Monitor logs with **`$ journalctl -fu cloudflared`** to ensure that all is still
 * With user `admin`, stop the Cloudflared
 
 ```bash
-$ sudo systemctl stop cloudflared
+sudo systemctl stop cloudflared
 ```
 
 * Use the deb package manager to uninstall Cloudflared
 
 ```bash
-$ sudo dpkg -r cloudflared
+sudo dpkg -r cloudflared
 ```
 
 **Example** of expected output:

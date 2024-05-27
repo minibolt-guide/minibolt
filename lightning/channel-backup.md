@@ -73,7 +73,7 @@ We will use it to monitor the `channel.backup` file and detect updates by LND ea
 * With user `admin`, install `inotify-tools`
 
 ```sh
-$ sudo apt install inotify-tools
+sudo apt install inotify-tools
 ```
 
 ### Create script
@@ -83,7 +83,7 @@ We create a shell script to monitor `channel.backup` and make a copy of our back
 * Create a new shell script file
 
 ```sh
-$ sudo nano /usr/local/bin/scb-backup --linenumbers
+sudo nano /usr/local/bin/scb-backup --linenumbers
 ```
 
 * Check the following lines of code and paste them into the text editor. By default, both local and remote backup methods are disabled. We will enable one or both of them in the next sections, depending on your preferences. Save and exit
@@ -162,7 +162,7 @@ run
 * Make the script executable
 
 ```sh
-$ sudo chmod +x /usr/local/bin/scb-backup
+sudo chmod +x /usr/local/bin/scb-backup
 ```
 
 ## Option 1: Local backup
@@ -183,19 +183,19 @@ The `channel.backup` file is very small in size (<<1 MB) so even the smallest US
 * Create the mounting directory
 
 ```sh
-$ sudo mkdir /mnt/static-channel-backup-external
+sudo mkdir /mnt/static-channel-backup-external
 ```
 
 * Make it immutable
 
 ```bash
-$ sudo chattr +i /mnt/static-channel-backup-external
+sudo chattr +i /mnt/static-channel-backup-external
 ```
 
 * List active block devices
 
 ```sh
-$ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 ```
 
 * Copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`)
@@ -211,7 +211,7 @@ $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 * Get the "lnd" user identifier (UID) and the "lnd" group identifier (GID) from the `/etc/passwd` database of all user accounts
 
 ```sh
-$ awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
+awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
 ```
 
 * Copy these values into a text editor on your local computer (e.g. here GID `XXXX` and UID `YYYY`)
@@ -222,7 +222,7 @@ $ awk -F ':' '$1=="lnd" {print "GID: "$3" / UID: "$4}'  /etc/passwd
 * Edit your Filesystem Table configuration file
 
 ```sh
-$ sudo nano /etc/fstab
+sudo nano /etc/fstab
 ```
 
 * Add the following as a new line at the end, replacing `123456`, `XXXX` and `YYYY` with your own `UUID`, `GID` and `UID`
@@ -234,13 +234,13 @@ UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,
 * Mount the drive and check the file system
 
 ```sh
-$ sudo mount -a
+sudo mount -a
 ```
 
 * &#x20;Ensure that `/mnt/static-channel-backup-external` is listed
 
 ```bash
-$ df -h /mnt/static-channel-backup-external
+df -h /mnt/static-channel-backup-external
 ```
 
 ```
@@ -253,7 +253,7 @@ $ df -h /mnt/static-channel-backup-external
 * Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit
 
 ```sh
-$ sudo nano /usr/local/bin/scb-backup --linenumbers
+sudo nano /usr/local/bin/scb-backup --linenumbers
 ```
 
 ```
@@ -277,13 +277,13 @@ Follow this section if you want a remote backup. If you already set up a local b
 * Using the `lnd` user
 
 ```sh
-$ sudo su - lnd
+sudo su - lnd
 ```
 
 * Create a pair of SSH keys
 
 ```bash
-$ ssh-keygen -t rsa -b 4096
+ssh-keygen -t rsa -b 4096
 ```
 
 * When prompted, press "Enter" to confirm the default SSH directory and press "Enter" again to not set up a passphrase
@@ -296,7 +296,7 @@ $ ssh-keygen -t rsa -b 4096
 * Display the public key and take note
 
 ```sh
-$ cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub
 ```
 
 ```
@@ -312,28 +312,28 @@ $ cat ~/.ssh/id_rsa.pub
 * Set up global Git configuration values (the name and email are required but can be dummy values)
 
 ```sh
-$ git config user.name "MiniBolt"
+git config user.name "MiniBolt"
 ```
 
 ```bash
-$ git config user.email "minibolt@dummyemail.com"
+git config user.email "minibolt@dummyemail.com"
 ```
 
-* **(Optional)** Add this step if you want to preserve your privacy with GitHub servers if not, jump to the next step directly -> (`$ cd ~/.lnd`)
+* **(Optional)** Add this step if you want to preserve your privacy with GitHub servers if not, jump to the next step directly -> (`cd ~/.lnd`)
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ git config --global core.sshCommand "torsocks ssh"
+<pre class="language-bash"><code class="lang-bash"><strong>git config --global core.sshCommand "torsocks ssh"
 </strong></code></pre>
 
 * Move to the LND data folder and clone your newly created empty repository
 
 ```bash
-$ cd ~/.lnd
+cd ~/.lnd
 ```
 
 * Replace `<YourGitHubUsername>` with your own GitHub username.  When prompted `"Are you sure you want to continue connecting (yes/no/[fingerprint])?"` type "yes" and enter
 
 ```bash
-$ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
+git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
 ```
 
 **Example** of expected output:
@@ -352,7 +352,7 @@ $ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
 * Exit the `lnd` session to return to the `admin` user session
 
 ```bash
-$ exit
+exit
 ```
 
 ### Enable the remote backup function in the script
@@ -360,7 +360,7 @@ $ exit
 * Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` line 15 to `true`. Save and exit
 
 ```sh
-$ sudo nano /usr/local/bin/scb-backup --linenumbers
+sudo nano /usr/local/bin/scb-backup --linenumbers
 ```
 
 ```
@@ -374,7 +374,7 @@ We set up the backup script as a systemd service to run in the background and op
 * Still as user `admin`, create a new service file
 
 ```sh
-$ sudo nano /etc/systemd/system/scb-backup.service
+sudo nano /etc/systemd/system/scb-backup.service
 ```
 
 * Paste the following lines. Save and exit
@@ -404,26 +404,26 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```sh
-$ sudo systemctl enable scb-backup
+sudo systemctl enable scb-backup
 ```
 
 * Prepare “scb-backup” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ journalctl -f -u scb-backup
+journalctl -fu scb-backup
 ```
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service
 
 ```bash
-$2 sudo systemctl start scb-backup
+sudo systemctl start scb-backup
 ```
 
-**Example** of expected output on the  first SSH session with `$ journalctl -f -u btcrpcexplorer` ⬇️
+**Example** of expected output on the  first SSH session with `journalctl -fu scb-backup` ⬇️
 
 ```
 Jul 25 17:31:54 minibolt systemd[1]: Started SCB Backup.
@@ -433,14 +433,14 @@ Jul 25 17:31:54 minibolt scb-backup[401705]: Watches established.
 * The automated backup is now up and running. To test if everything works, we now cause the default `channel.backup` file to change. Then we check if a copy gets stored at the intended backup location(s). Simulate a `channel.backup` file change with the `touch` command (don't worry! It simply updates the timestamp of the file but not its content)
 
 ```sh
-$2 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
+sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
 ```
 
 * Switch back again to the first SSH session. In the logs, you should see new entries similar to these (depending on which backup methods you enabled)
 
 <details>
 
-<summary><strong>Example</strong> of the expected output  with <code>$ journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
+<summary><strong>Example</strong> of the expected output  with <code>journalctl -fu scb-backup</code> ⬇️</summary>
 
 ```
 Jul 25 17:32:32 minibolt scb-backup[401705]: /data/lnd/data/chain/bitcoin/mainnet/channel.backup OPEN
@@ -479,7 +479,7 @@ Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to
 * **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above
 
 ```sh
-$ ls -la /mnt/static-channel-backup-external
+ls -la /mnt/static-channel-backup-external
 ```
 
 **Example** of expected output:
@@ -501,15 +501,15 @@ You're set! Each time you open a new channel or close an existing one, the monit
 Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
 
 ```bash
-$ sudo systemctl stop scb-backup
+sudo systemctl stop scb-backup
 ```
 
 ```bash
-$ sudo systemctl disable scb-backup
+sudo systemctl disable scb-backup
 ```
 
 ```bash
-$ sudo rm /etc/systemd/system/scb-backup.service
+sudo rm /etc/systemd/system/scb-backup.service
 ```
 
 ### Uninstall script
@@ -517,5 +517,5 @@ $ sudo rm /etc/systemd/system/scb-backup.service
 * &#x20;Delete the script installed
 
 ```bash
-$ sudo rm /usr/local/bin/scb-backup
+sudo rm /usr/local/bin/scb-backup
 ```

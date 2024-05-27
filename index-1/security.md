@@ -32,7 +32,7 @@ For now, only SSH should be reachable from the outside. Bitcoin Core and LND are
 
 {% code overflow="wrap" %}
 ```bash
-$ ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
+ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
 ```
 {% endcode %}
 
@@ -46,7 +46,7 @@ If you don't have IPv6 availability, you can disable IPv6 on UFW to avoid the cr
 * Edit the UFW configuration
 
 ```bash
-$ sudo nano /etc/default/ufw
+sudo nano /etc/default/ufw
 ```
 
 * Change `IPV6=yes` to `IPV6=no`. Save and exit
@@ -58,7 +58,7 @@ IPV6=no
 * Disable logging
 
 ```sh
-$ sudo ufw logging off
+sudo ufw logging off
 ```
 
 * Allow SSH incoming connection
@@ -68,13 +68,13 @@ Attention! Don't forget the next step!
 {% endhint %}
 
 ```sh
-$ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
+sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
 ```
 
 * Enable ufw, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press `"y"` and enter
 
 ```sh
-$ sudo ufw enable
+sudo ufw enable
 ```
 
 Expected output:
@@ -86,7 +86,7 @@ Expected output:
 * Check if the UFW is properly configured and active
 
 ```sh
-$ sudo ufw status verbose
+sudo ufw status verbose
 ```
 
 <details>
@@ -116,19 +116,19 @@ If you find yourself locked out by mistake, you can connect a keyboard and scree
 * You can monitor authentication general logs in your system in real-time
 
 ```sh
-$ sudo tail -f /var/log/auth.log
+sudo tail -f /var/log/auth.log
 ```
 
 * Or filtering only by SSH authentication logs in the last 500 lines
 
 ```sh
-$ sudo tail --lines 500 /var/log/auth.log | grep sshd
+sudo tail --lines 500 /var/log/auth.log | grep sshd
 ```
 
 * With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to whatever you want
 
 ```sh
-$ last -s -7days -t today
+last -s -7days -t today
 ```
 
 In this way, you can detect a possible brute-force attack and take appropriate mitigation measures
@@ -146,13 +146,13 @@ We use Ngnix to encrypt the communication with SSL/TLS (Transport Layer Security
 * Install Ngnix
 
 ```sh
-$ sudo apt install nginx
+sudo apt install nginx
 ```
 
 * Check the correct installation
 
 ```bash
-$ nginx -v
+nginx -v
 ```
 
 **Example** of expected output:
@@ -165,7 +165,7 @@ $ nginx -v
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
+sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
 ```
 {% endcode %}
 
@@ -178,13 +178,13 @@ $ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-
 * NGINX is also a full web server. To use it only as a reverse proxy, backup the default configuration
 
 ```bash
-$ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 ```
 
 * Create a new blank configuration file
 
 ```bash
-$ sudo nano /etc/nginx/nginx.conf
+sudo nano /etc/nginx/nginx.conf
 ```
 
 * &#x20;Paste the following configuration into the `nginx.conf` file. Save and exit
@@ -223,27 +223,27 @@ stream {
 * Create the `streams-available` and `streams-enabled` directories for future configuration files
 
 ```bash
-$ sudo mkdir /etc/nginx/streams-available
+sudo mkdir /etc/nginx/streams-available
 ```
 
 ```sh
-$ sudo mkdir /etc/nginx/streams-enabled
+sudo mkdir /etc/nginx/streams-enabled
 ```
 
 * Remove the Nginx `site available` and `site enabled` default configuration files
 
 ```bash
-$ sudo rm /etc/nginx/sites-available/default
+sudo rm /etc/nginx/sites-available/default
 ```
 
 ```sh
-$ sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-enabled/default
 ```
 
 * Test this barebone Nginx configuration
 
 ```sh
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 Expected output:
@@ -256,13 +256,13 @@ Expected output:
 * Reload Nginx to apply the configuration
 
 ```sh
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 &#x20;You can monitor the Nginx logs by entering this command. Exit with Ctrl + C
 
 ```bash
-$ journalctl -f -u nginx
+journalctl -fu nginx
 ```
 
 Expected output:
@@ -274,5 +274,5 @@ Expected output:
 You can monitor Nginx error logs by entering this command. Exit with Ctrl + C
 
 ```bash
-$ sudo tail -f /var/log/nginx/error.log
+sudo tail -f /var/log/nginx/error.log
 ```

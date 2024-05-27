@@ -43,19 +43,19 @@ Log in to your MiniBolt via SSH as the user `admin` and install Tor.
 * Update the packages and upgrade to keep up to date with the OS
 
 ```bash
-$ sudo apt update && sudo apt full-upgrade
+sudo apt update && sudo apt full-upgrade
 ```
 
 * Install dependency
 
 ```sh
-$ sudo apt install apt-transport-https
+sudo apt install apt-transport-https
 ```
 
 * Create a new file called `tor.list`
 
 ```sh
-$ sudo nano /etc/apt/sources.list.d/tor.list
+sudo nano /etc/apt/sources.list.d/tor.list
 ```
 
 * Add the following entries. Save and exit
@@ -68,39 +68,33 @@ deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https
 * Up to `"root"` user temporarily
 
 ```sh
-$ sudo su
+sudo su
 ```
 
 * Add the GPG key used to sign the packages by running the following command at your command prompt
 
 {% code overflow="wrap" %}
 ```sh
-$ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
+wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
 ```
 {% endcode %}
 
 * Return to `admin` using `exit` command
 
 ```bash
-$ exit
+exit
 ```
 
-* Update apt repository
+* Update the apt repository, and install Tor and Tor Debian keyring. Press "y" and "enter"
 
 ```sh
-$ sudo apt update
-```
-
-* Install Tor and Tor Debian keyring
-
-```sh
-$ sudo apt install tor deb.torproject.org-keyring
+sudo apt update && sudo apt install tor deb.torproject.org-keyring
 ```
 
 * Check Tor has been correctly installed
 
 ```sh
-$ tor --version
+tor --version
 ```
 
 **Example** of expected output:
@@ -121,7 +115,7 @@ Bitcoin Core will communicate directly with the Tor daemon to route all traffic 
 * Edit the Tor configuration
 
 ```sh
-$ sudo nano /etc/tor/torrc --linenumbers
+sudo nano /etc/tor/torrc --linenumbers
 ```
 
 * Uncomment **line 56** to enable the control port
@@ -133,13 +127,13 @@ ControlPort 9051
 * Reload the Tor configuration to activate the modifications
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Ensure that the Tor service is working and listening at the default ports `9050` and `9051` on the localhost (127.0.0.1)
 
 ```sh
-$ sudo ss -tulpn | grep LISTEN | grep tor
+sudo ss -tulpn | grep LISTEN | grep tor
 ```
 
 <details>
@@ -156,7 +150,7 @@ tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795
 * **(Optional)** Check the systemd journal to see Tor in real time updates output logs. Ctrl + C to exit
 
 ```sh
-$ journalctl -f -u tor@default
+journalctl -fu tor@default
 ```
 
 <details>
@@ -191,12 +185,14 @@ Nov 13 23:19:20 minibolt systemd[1]: Reloaded tor@default.service - Anonymizing 
 
 </details>
 
-Not all network traffic is routed over the Tor network. But we now have the base to configure sensitive applications to use it.
+{% hint style="info" %}
+Not all network traffic is routed over the Tor network, by default some services don't include a proxy socks5 configuration to use. Anyway, we now have the base to configure sensitive applications to use it
+{% endhint %}
 
 {% hint style="info" %}
 **(Optional)** -> If you want, you can **disable the autoboot** option for Tor using:
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ sudo systemctl disable tor
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl disable tor
 </strong></code></pre>
 
 **Expected output:**
@@ -213,7 +209,7 @@ Not all network traffic is routed over the Tor network. But we now have the base
 * With user `admin`, enter the next command and "`y`" when the prompt asks you if you want to continue
 
 ```bash
-$ sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
+sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
 ```
 
 Expected output:
@@ -244,7 +240,7 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 * Ensure that you are logged in with the user `admin` and add the i2pd repository
 
 ```sh
-$ wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
+wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
 ```
 
 Expected output:
@@ -254,22 +250,16 @@ Importing signing key
 Adding APT repository
 ```
 
-* Update apt repository
+* Update the apt repository and Install i2pd as any other software package. Press "y" and "enter"
 
 ```sh
-$ sudo apt update
-```
-
-* Install i2pd as any other software package. Press "y" and "enter"
-
-```sh
-$ sudo apt install i2pd
+sudo apt update && sudo apt install i2pd
 ```
 
 * Check that i2pd has been correctly installed
 
 ```sh
-$ i2pd --version
+i2pd --version
 ```
 
 **Example** of expected output:
@@ -281,7 +271,7 @@ $ i2pd --version
 * Ensure that the i2pd service is working and listening at the default ports
 
 ```sh
-$ sudo ss -tulpn | grep LISTEN | grep i2pd
+sudo ss -tulpn | grep LISTEN | grep i2pd
 ```
 
 <details>
@@ -302,7 +292,7 @@ tcp   LISTEN 0      4096       127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",
 * See “i2p” in action by monitoring its log file. Exit with Ctrl-C
 
 ```sh
-$ sudo tail -f /var/log/i2pd/i2pd.log
+sudo tail -f /var/log/i2pd/i2pd.log
 ```
 
 <details>
@@ -328,7 +318,7 @@ $ sudo tail -f /var/log/i2pd/i2pd.log
 **(Optional)** -> If you want, you can **disable the autoboot** option for I2P using:
 
 ```bash
-$ sudo systemctl disable i2pd
+sudo systemctl disable i2pd
 ```
 
 **Expected output:**
@@ -345,7 +335,7 @@ $ sudo systemctl disable i2pd
 * With user `admin`, enter the next command, and "`y`" when the prompt asks you if you want to continue
 
 ```bash
-$ sudo apt autoremove i2pd && sudo apt purge i2pd
+sudo apt autoremove i2pd && sudo apt purge i2pd
 ```
 
 Expected output:
@@ -362,7 +352,7 @@ The following packages will be REMOVED:
 The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
 
 ```sh
-$ sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt upgrade
 ```
 
 ## Extras (optional)
@@ -376,7 +366,7 @@ If you want to log into your MiniBolt with SSH when you're away, you can easily 
 * Ensure that you are logged in with the user `admin` , edit the `torrc` file
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
@@ -392,13 +382,13 @@ HiddenServicePort 22 127.0.0.1:22
 * Reload the Tor configuration to apply the configuration
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Get the SSH Onion address
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_sshd/hostname
+sudo cat /var/lib/tor/hidden_service_sshd/hostname
 ```
 
 **Example** of expected output:
@@ -432,11 +422,11 @@ To enable Tor in the background follow the same instructions for the [preparatio
   * Use `torify` or `torsocks`, both work similarly; just use whatever you have available
 
 ```bash
-$ torify ssh admin@abcdefg..............xyz.onion
+torify ssh admin@abcdefg..............xyz.onion
 ```
 
 ```bash
-$ torsocks ssh admin@abcdefg..............xyz.onion
+torsocks ssh admin@abcdefg..............xyz.onion
 ```
 
 {% hint style="info" %}
@@ -448,21 +438,21 @@ When the prompt asks you "Are you sure you want to continue connecting?" type "y
 To work around this, first, make sure Tor is installed and running on your Mac:
 
 ```sh
-$ brew install tor && brew services start tor
+brew install tor && brew services start tor
 ```
 
 You can SSH to your PC "out of the box" with the following proxy command:
 
 {% code overflow="wrap" %}
 ```bash
-$ ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg..............xyz.onion
+ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg..............xyz.onion
 ```
 {% endcode %}
 
 * For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save, and exit
 
 ```bash
-$ sudo nano .ssh/config
+sudo nano .ssh/config
 ```
 
 ```
@@ -493,7 +483,7 @@ It's possible to use the Tor proxy of the node from another device in the same l
 * With `admin` user, edit the Tor file
 
 ```bash
-$ sudo nano /etc/tor/torrc --linenumbers
+sudo nano /etc/tor/torrc --linenumbers
 ```
 
 * Replace the existing line 18 to this
@@ -505,19 +495,19 @@ SocksPort 0.0.0.0:9050
 * Reload the Tor configuration to apply changes
 
 ```bash
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Configure the firewall to allow incoming Tor connections from anywhere
 
 ```bash
-$ sudo ufw allow 9050/tcp comment 'allow Tor socks5 from anywhere'
+sudo ufw allow 9050/tcp comment 'allow Tor socks5 from anywhere'
 ```
 
 * Ensure that the Tor service is working and listening at the default ports `9050` on the `0.0.0.0`
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep tor
+sudo ss -tulpn | grep LISTEN | grep tor
 ```
 
 Expected output:
@@ -550,19 +540,19 @@ If you have problems with the Tor connection (LN channels offline, excessive del
 * Stop Tor
 
 ```sh
-$ sudo systemctl stop tor
+sudo systemctl stop tor
 ```
 
-* Delete the file called "state" in your Tor directory
+* Delete the file called "`state`" in your Tor directory
 
 ```sh
-$ sudo rm /var/lib/tor/state
+sudo rm /var/lib/tor/state
 ```
 
 * Start Tor again
 
 ```sh
-$ sudo systemctl start tor
+sudo systemctl start tor
 ```
 
 If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to.&#x20;
@@ -584,7 +574,7 @@ If this happens, usually this fix only with restarting the i2pd service
 * With user `admin`, restart the service
 
 ```sh
-$ sudo systemctl restart i2pd
+sudo systemctl restart i2pd
 ```
 
 * Check again Bitcoin Core logs to ensure that the errors don't appear anymore

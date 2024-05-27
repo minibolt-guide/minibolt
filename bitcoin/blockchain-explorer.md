@@ -37,10 +37,10 @@ After the MiniBolt runs your own fully validated node, and even acts as a backen
 
 ### Install Node + NPM
 
-* With user admin, check if you have already installed Node
+* With user `admin`, check if you have already installed Node
 
 ```bash
-$ node -v
+node -v
 ```
 
 **Example** of expected output:
@@ -52,7 +52,7 @@ $ node -v
 * Check if you have already installed NPM
 
 ```bash
-$ npm -v
+npm -v
 ```
 
 **Example** of expected output:
@@ -62,13 +62,13 @@ $ npm -v
 ```
 
 {% hint style="info" %}
-If the version is `>=18`, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+If the version is **`>=18`**, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
-* Install the next dependency package. Press "**y**" and `enter` when the prompt asks you
+* Install the next dependency package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
-$ sudo apt install build-essential
+sudo apt install build-essential
 ```
 
 ### Reverse proxy & Firewall
@@ -80,7 +80,7 @@ Enable the Nginx reverse proxy to route external encrypted HTTPS traffic interna
 * With user `admin`, create the reverse proxy configuration
 
 ```sh
-$ sudo nano /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
+sudo nano /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
 ```
 
 * Paste the complete following configuration. Save and exit
@@ -99,14 +99,14 @@ server {
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo ln -s /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf /etc/nginx/sites-enabled/
 ```
 {% endcode %}
 
 * Test Nginx configuration
 
 ```sh
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 Expected output:
@@ -119,13 +119,13 @@ Expected output:
 * Reload the Nginx configuration to apply changes
 
 ```sh
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 * Configure the firewall to allow incoming HTTPS requests
 
 ```sh
-$ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
+sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
 ```
 
 ## Installation
@@ -135,47 +135,44 @@ For improved security, we will create a new user `btcrpcexplorer` that will run 
 * Create a new one called `btcrpcexplorer` user
 
 ```sh
-$ sudo adduser --disabled-password --gecos "" btcrpcexplorer
+sudo adduser --disabled-password --gecos "" btcrpcexplorer
 ```
 
 * Assign it to the "bitcoin" group
 
 ```sh
-$ sudo adduser btcrpcexplorer bitcoin
+sudo adduser btcrpcexplorer bitcoin
 ```
 
 * Change to the new `btcrpcexplorer` user
 
 ```sh
-$ sudo su - btcrpcexplorer
+sudo su - btcrpcexplorer
 ```
 
 * Set a temporary version environment variable to the installation
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ VERSION=3.4.0
+<pre class="language-bash"><code class="lang-bash"><strong>VERSION=3.4.0
 </strong></code></pre>
 
 * Import the GPG key of the developer
 
 ```bash
-$ curl https://github.com/janoside.gpg | gpg --import
+curl https://github.com/janoside.gpg | gpg --import
 ```
 
-* Download the source code directly from GitHub
+* Download the source code directly from GitHub and go to the `btc-rpc-explorer` folder&#x20;
 
+{% code overflow="wrap" %}
 ```sh
-$ git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git
+git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git && cd btc-rpc-explorer
 ```
-
-* Go to the `btc-rpc-explorer` folder&#x20;
-
-<pre class="language-bash"><code class="lang-bash"><strong>$ cd btc-rpc-explorer
-</strong></code></pre>
+{% endcode %}
 
 * Verify the release
 
 ```bash
-$ git verify-commit v$VERSION
+git verify-commit v$VERSION
 ```
 
 **Example** of expected output:
@@ -192,7 +189,7 @@ Primary key fingerprint: 4D84 1E6E 6B1B 68EB FAB4  A9E6 70C0 B166 321C 0AF8
 * Install all dependencies using NPM
 
 ```sh
-$ npm install
+npm install
 ```
 
 {% hint style="info" %}
@@ -214,7 +211,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 
 * Check the correct installation by requesting the version
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
 </strong></code></pre>
 
 **Example** of expected output:
@@ -228,13 +225,13 @@ Installation can take some time, be patient. There might be a lot of confusing o
 * Copy the configuration template
 
 ```sh
-$ cp .env-sample .env
+cp .env-sample .env
 ```
 
 * Edit the `.env` file. Activate any setting by removing the `#` at the beginning of the line or editing directly
 
 ```sh
-$ nano .env
+nano .env
 ```
 
 * Instruct the BTC RPC Explorer to connect to the local Bitcoin Core
@@ -266,7 +263,7 @@ You can set additional features of [Privacy](blockchain-explorer.md#privacy) / [
 * Exit the `btcrpcexplorer` user session to return to the "admin" user session
 
 ```sh
-$ exit
+exit
 ```
 
 ### Create systemd service
@@ -276,7 +273,7 @@ Now we'll make sure our blockchain explorer starts as a service on the PC so tha
 * As user `admin`, create the service file
 
 ```sh
-$ sudo nano /etc/systemd/system/btcrpcexplorer.service
+sudo nano /etc/systemd/system/btcrpcexplorer.service
 ```
 
 * Paste the following configuration. Save and exit
@@ -310,28 +307,28 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```sh
-$ sudo systemctl enable btcrpcexplorer
+sudo systemctl enable btcrpcexplorer
 ```
 
 * Prepare "btcrpcexplorer" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
-$ journalctl -f -u btcrpcexplorer
+journalctl -fu btcrpcexplorer
 ```
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service
 
 ```sh
-$2 sudo systemctl start btcrpcexplorer
+sudo systemctl start btcrpcexplorer
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u btcrpcexplorer</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu btcrpcexplorer</code> ⬇️</summary>
 
 ```
 Jul 18 11:08:29 minibolt systemd[1]: Started BTC RPC Explorer.
@@ -391,7 +388,7 @@ Jul 18 11:08:35 minibolt npm[140461]: 2023-07-18T11:08:35.135Z btcexp:app Networ
 * Ensure the service is working and listening at the default `3002` port and the HTTPS `4000` port
 
 ```bash
-$ sudo ss -tulpn | grep 'LISTEN.*\(4000\|3002\)'
+sudo ss -tulpn | grep 'LISTEN.*\(4000\|3002\)'
 ```
 
 Expected output:
@@ -414,7 +411,7 @@ You can decide whether you want to optimize for more information or more privacy
 * With user `admin` user, edit the `.env` configuration file
 
 ```bash
-$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
 * More information mode, including Bitcoin exchange rates
@@ -437,12 +434,12 @@ BTCEXP_NO_RATES=true
 
 ### Security
 
-You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked.
+You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
 
 * With user `admin` user, edit the `.env` configuration file
 
 ```bash
-$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
 * Replace the next line. Save and exit
@@ -459,7 +456,7 @@ Decide whether you prefer a `light` or `dark` theme by default. Left uncommented
 * With user `admin` user, edit the `.env` configuration file
 
 ```bash
-$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
 * Uncomment and replace this line with your selection. Save and exit
@@ -475,7 +472,7 @@ Extend the timeout period due to the limited resources
 * With user `admin` user, edit the `.env` configuration file
 
 ```bash
-$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
 * Uncomment and change the value of this line
@@ -497,7 +494,7 @@ You may want to share your BTC RPC Explorer **onion** address with confident peo
 * With user `admin` user, edit the `.env` configuration file
 
 ```bash
-$ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
 * Uncomment this line
@@ -533,7 +530,7 @@ Do you want to access your personal blockchain explorer remotely? You can easily
 * With the user `admin` , edit the `torrc` file
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
@@ -549,13 +546,13 @@ HiddenServicePort 80 127.0.0.1:3002
 * Reload the Tor configuration
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Get your Onion address
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
+sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
 ```
 
 **Example** of expected output:
@@ -573,63 +570,63 @@ Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/release
 * With `admin` user, stop the service
 
 ```sh
-$ sudo systemctl stop btcrpcexplorer
+sudo systemctl stop btcrpcexplorer
 ```
 
 * Change to the `btcrpcexplorer` user
 
 ```sh
-$ sudo su - btcrpcexplorer
+sudo su - btcrpcexplorer
 ```
 
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=3.4.0
+VERSION=3.4.0
 ```
 
 * Go to the `btc-rpc-explorer` folder
 
 ```sh
-$ cd btc-rpc-explorer
+cd btc-rpc-explorer
 ```
 
 * Fetch the latest GitHub repository information
 
 ```sh
-$ git fetch
+git fetch
 ```
 
 ```sh
-$ git reset --hard HEAD
+git reset --hard HEAD
 ```
 
 * Display the release tags (use the latest in this example)
 
 ```sh
-$ git tag
+git tag
 ```
 
 ```sh
-$ git checkout v$VERSION
+git checkout v$VERSION
 ```
 
 * Install dependencies
 
 ```sh
-$ npm install
+npm install
 ```
 
 * Come back to the `admin` user
 
 ```sh
-$ exit
+exit
 ```
 
 * Start the service again
 
 ```sh
-$ sudo systemctl start btcrpcexplorer
+sudo systemctl start btcrpcexplorer
 ```
 
 ## Uninstall
@@ -639,22 +636,22 @@ $ sudo systemctl start btcrpcexplorer
 * Ensure you are logged in with the user `admin`, stop, disable, and delete the service
 
 ```bash
-$ sudo systemctl stop btcrpcexplorer
+sudo systemctl stop btcrpcexplorer
 ```
 
 ```bash
-$ sudo systemctl disable btcrpcexplorer
+sudo systemctl disable btcrpcexplorer
 ```
 
 ```bash
-$ sudo rm /etc/systemd/system/btcrpcexplorer.service
+sudo rm /etc/systemd/system/btcrpcexplorer.service
 ```
 
 * Ensure you are logged in with the user `admin`. Delete the btcrpcexplorer user.\
   Don't worry about `userdel: btcrpcexplorer mail spool (/var/mail/btcrpcexplorer) not found` output, the uninstall has been successful
 
 ```bash
-$ sudo userdel -rf btcrpcexplorer
+sudo userdel -rf btcrpcexplorer
 ```
 
 ### Uninstall Tor hidden service
@@ -662,7 +659,7 @@ $ sudo userdel -rf btcrpcexplorer
 * Ensure that you are logged in with the user `admin` and delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```bash
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 ```
@@ -676,7 +673,7 @@ $ sudo nano /etc/tor/torrc
 * Reload the tor to apply changes
 
 ```bash
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ### **Uninstall reverse proxy & FW configuration**
@@ -684,19 +681,19 @@ $ sudo systemctl reload tor
 * Ensure you are logged in with the user `admin`, delete the reverse proxy config file
 
 ```bash
-$ sudo rm /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
+sudo rm /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
 ```
 
 * Delete the simbolic link
 
 ```bash
-$ sudo rm /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf
+sudo rm /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf
 ```
 
 * Test Nginx configuration
 
 ```bash
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 Expected output:
@@ -709,13 +706,13 @@ Expected output:
 * Reload the Nginx configuration to apply changes
 
 ```bash
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 * Display the UFW firewall rules, and note the numbers of the rules for BTC RPC Explorer (e.g. "Y" below)
 
 ```bash
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 Expected output:
@@ -727,7 +724,7 @@ Expected output:
 * Delete the rule with the correct number and confirm with "`yes`"
 
 ```bash
-$ sudo ufw delete X
+sudo ufw delete X
 ```
 
 ## Port reference

@@ -67,7 +67,7 @@ The GIF above is a recreation of a scenario made with a virtual machine **-->** 
 That's it: when you finish the [Operating system](../../index-1/operating-system.md) section, your PC will boot the system from the primary disk while the data directory **`(/data)`** will be located on the secondary disk.
 {% endhint %}
 
-**-->** Now you can continue with **step 10** of the [Ubuntu Server installation](../../index-1/operating-system.md#ubuntu-server-installation)
+**->** Now you can continue with **step 10** of the [Ubuntu Server installation](../../index-1/operating-system.md#ubuntu-server-installation)
 
 ## **Case 2: build it after system installation (by command line)**
 
@@ -78,7 +78,7 @@ Attach the secondary disk to the MiniBolt node
 * List all block devices with additional information
 
 ```sh
-$ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 ```
 
 **Example** of expected output without existing partitions:
@@ -105,7 +105,7 @@ Here we will see if the new disk has been detected by the system and what unit n
 * Type this command to use the `"fdisk"` utility and manage the secondary disk
 
 ```sh
-$ sudo fdisk /dev/sdb
+sudo fdisk /dev/sdb
 ```
 
 * Now we select the option wished pressing the option letter and enter
@@ -124,7 +124,7 @@ This will create a new partition called probably **`"sdb1"`**
 * Finally, format the new partition to `"Ext4"` and obtain the **UUID**
 
 ```sh
-$ sudo mkfs.ext4 /dev/[NAME_P]
+sudo mkfs.ext4 /dev/[NAME_P]
 ```
 
 **Example** of expected output:
@@ -148,7 +148,7 @@ The secondary disk is then attached to the file system and becomes available as 
 * List the block devices once more and copy the new partitions `UUID` into a text editor on your main machine
 
 ```sh
-$ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 ```
 
 **Example** of expected output:
@@ -162,7 +162,7 @@ $ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 * Edit the `"fstab"` file and add the following as a new line **at the end**, replacing `<yourUUID>` with your own `UUID`
 
 ```sh
-$ sudo nano /etc/fstab
+sudo nano /etc/fstab
 ```
 
 ```
@@ -172,25 +172,25 @@ UUID=<yourUUID> /data ext4 defaults 0 2
 * Create the data directory as a mount point
 
 ```sh
-$ sudo mkdir /data
+sudo mkdir /data
 ```
 
 * Assign as the owner to the `admin` user
 
 ```sh
-$ sudo chown admin:admin /data
+sudo chown admin:admin /data
 ```
 
 * Mount all disks and check the file system
 
 ```sh
-$ sudo mount -a
+sudo mount -a
 ```
 
 * Is “/data” listed?
 
 ```sh
-$ df -h /data
+df -h /data
 ```
 
 **Example** expected output:
@@ -203,11 +203,11 @@ $ df -h /data
 * Check measure the speed of your secondary drive with
 
 ```sh
-$ sudo hdparm -t --direct /dev/sdb
+sudo hdparm -t --direct /dev/sdb
 ```
 
 {% hint style="success" %}
 If the measured speeds are more than 100 MB/s, you're good
 {% endhint %}
 
-**-->** Now you can continue with the Security section of the guide, press [here](../../index-1/security.md)
+**->** Now you can continue with the Security section of the guide, press [here](../../index-1/security.md)

@@ -43,7 +43,7 @@ Difficulty: Medium
 * Ensure you are logged in with the user `admin` and install obfs4 proxy
 
 ```sh
-$ sudo apt install obfs4proxy
+sudo apt install obfs4proxy
 ```
 
 ## **Installation**
@@ -51,7 +51,7 @@ $ sudo apt install obfs4proxy
 * Ensure you have Tor daemon installed in your system
 
 ```sh
-$ tor --version
+tor --version
 ```
 
 **Example** of expected output:
@@ -70,7 +70,7 @@ If not obtain results, follow the [Privacy section](../../index-1/privacy.md#tor
 * Stay logged in with `admin` user, edit the torrc config file
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Add the next lines **at the end of the file**. We will use 2 ports: <**TODO1>** and <**TODO2>, m**ake sure you replace them. Save and exit
@@ -158,11 +158,11 @@ If you don't specify this line, by default the method will be `any` , this means
 * Configure the firewall to allow incoming requests to be replaced `<TODO1>` and `<TODO2>` previously configured in the section before
 
 ```sh
-$ sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge from anywhere'
+sudo ufw allow <TODO1>/tcp comment 'allow OR port Tor bridge from anywhere'
 ```
 
 ```sh
-$ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
+sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 ```
 
 {% hint style="warning" %}
@@ -172,7 +172,7 @@ If your bridge is behind a NAT, make sure to open both ports. See [portforward.c
 
 You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet.&#x20;
 
-Enter the website your public **"IP ADDRESS"** obtained with **`$ curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port.
+Enter the website your public **"IP ADDRESS"** obtained with **`curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port.
 {% endhint %}
 
 ### **Systemd hardening**
@@ -180,7 +180,7 @@ Enter the website your public **"IP ADDRESS"** obtained with **`$ curl icanhazip
 * To work around systemd hardening, you will also need to set Tor services, edit the next files
 
 ```sh
-$ sudo nano /lib/systemd/system/tor@default.service
+sudo nano /lib/systemd/system/tor@default.service
 ```
 
 * Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
@@ -193,7 +193,7 @@ NoNewPrivileges=no
 * Same for `"tor@.service"` file, edit the service
 
 ```sh
-$ sudo nano /lib/systemd/system/tor@.service
+sudo nano /lib/systemd/system/tor@.service
 ```
 
 * &#x20;Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
@@ -206,13 +206,13 @@ NoNewPrivileges=no
 * Reload systemd manager configuration to apply service changes
 
 ```sh
-$ sudo systemctl daemon-reload
+sudo systemctl daemon-reload
 ```
 
 * Restart Tor to apply changes
 
 ```sh
-$ sudo systemctl restart tor
+sudo systemctl restart tor
 ```
 
 ## Testing
@@ -220,7 +220,7 @@ $ sudo systemctl restart tor
 * Check the systemd journal to see Tor logs since the last update output logs. Press Ctrl-C to exit
 
 ```sh
-$ journalctl -f -u tor@default --since '1 hour ago'
+journalctl -fu tor@default --since '1 hour ago'
 ```
 
 * Verify that your relay works, if your logfile (syslog) contains the following entry after starting your tor daemon your relay should be up and running as expected
@@ -249,7 +249,7 @@ About **3 hours** after you start your relay, it should appear on [Relay Search]
 * If you want to connect to your bridge manually, you will need to know the bridge's obfs4 certificate. Open the file **"obfs4\_bridgeline.txt"** to obtain your bridge info
 
 ```sh
-$ sudo cat /var/lib/tor/pt_state/obfs4_bridgeline.txt | grep Bridge
+sudo cat /var/lib/tor/pt_state/obfs4_bridgeline.txt | grep Bridge
 ```
 
 * Paste the next entire bridge line into your Tor browser
@@ -279,13 +279,13 @@ One of the most important things to keep your relay secure is to install securit
 * Install dependencies
 
 ```sh
-$ sudo apt install unattended-upgrades apt-listchanges
+sudo apt install unattended-upgrades apt-listchanges
 ```
 
 * Edit the next file and enter the next lines at the end of the file. Save and exit
 
 ```sh
-$ sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
+sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
 ```
 
 ```
@@ -297,7 +297,7 @@ Unattended-Upgrade::Package-Blacklist {
 };
 ```
 
-* **(Optional)** If you want to automatically reboot add the following at the end of the file
+* **(Optional)** If you want to automatically reboot add the following line at the end of the file
 
 ```
 Unattended-Upgrade::Automatic-Reboot "true";
@@ -306,13 +306,13 @@ Unattended-Upgrade::Automatic-Reboot "true";
 * You can test your unattended-upgrades setup with the following command
 
 ```sh
-$ unattended-upgrade --debug
+unattended-upgrade --debug
 ```
 
 * If you just want to see the debug output but don't change anything use
 
 ```sh
-$ unattended-upgrade --debug --dry-run
+unattended-upgrade --debug --dry-run
 ```
 
 ### **Install Nyx**
@@ -322,26 +322,26 @@ $ unattended-upgrade --debug --dry-run
 * With user `admin`, install the package
 
 ```sh
-$ sudo apt install nyx
+sudo apt install nyx
 ```
 
 * Add the user `admin` to the `debian-tor` group
 
 ```bash
-$ sudo adduser admin debian-tor
+sudo adduser admin debian-tor
 ```
 
 * The assigned group becomes active only in a new user session. Log out from SSH
 
 ```bash
-$ exit
+exit
 ```
 
 * Log in as the user `admin` again -> `ssh admin@minibolt.local`
 * Execute Nyx
 
 ```sh
-$ nyx
+nyx
 ```
 
 * Press the right -> navigation key to navigate to page 2/5 to show the traffic of your Tor instance
@@ -363,13 +363,13 @@ Visit [this website](https://bridges.torproject.org/bridges/?transport=obfs4), a
 * On the MiniBolt node, with the user `admin`, install the `ofbs4` proxy
 
 ```bash
-$ sudo apt install obfs4proxy
+sudo apt install obfs4proxy
 ```
 
 * Edit the `torrc` file
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Add the next lines at the end of the file
@@ -387,13 +387,13 @@ Add the needed lines with the number of bridges that you wish, replacing <**IP\_
 * Restart Tor to apply changes
 
 ```sh
-$ sudo systemctl restart tor
+sudo systemctl restart tor
 ```
 
 * Monitor tor logs to ensure all is correct
 
 ```bash
-$ journalctl -fu tor@default
+journalctl -fu tor@default
 ```
 
 **Example** output:
@@ -405,7 +405,7 @@ $ journalctl -fu tor@default
 * To upgrade simply use apt by typing this command
 
 ```bash
-$ sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt upgrade
 ```
 
 ## Uninstall
@@ -415,7 +415,7 @@ $ sudo apt update && sudo apt upgrade
 * Uninstall obfs4proxy software
 
 ```sh
-$ sudo apt autoremove obfs4proxy --purge
+sudo apt autoremove obfs4proxy --purge
 ```
 
 ### **Uninstall Tor configuration**
@@ -423,7 +423,7 @@ $ sudo apt autoremove obfs4proxy --purge
 * Reverts "torrc" file configuration commenting previously configured lines. Save and exit
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 ```
@@ -440,7 +440,7 @@ $ sudo nano /etc/tor/torrc
 * Display the UFW firewall rules and note the numbers of the rules for Tor bridge (e.g. W, Z, Y, and Z below)
 
 ```sh
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 Expected output:
@@ -456,13 +456,13 @@ Expected output:
 * Delete the rule with the correct number and confirm with "yes"
 
 ```sh
-$ sudo ufw delete X
+sudo ufw delete X
 ```
 
 * Check the correct update of the rules
 
 ```sh
-$ sudo ufw status verbose
+sudo ufw status verbose
 ```
 
 {% hint style="info" %}
@@ -474,7 +474,7 @@ Reverts router NAT configuration following the same [Configure Firewall and NAT]
 * Reverts "systemd hardening" in service files configuration changing the next files
 
 ```sh
-$ sudo nano /lib/systemd/system/tor@default.service
+sudo nano /lib/systemd/system/tor@default.service
 ```
 
 * Change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
@@ -487,7 +487,7 @@ NoNewPrivileges=yes
 * Same for `"tor@.service"` file, change `"NoNewPrivileges=no"` to `"NoNewPrivileges=yes"`. Save and exit
 
 ```sh
-$ sudo nano /lib/systemd/system/tor@.service
+sudo nano /lib/systemd/system/tor@.service
 ```
 
 ```sh
@@ -498,7 +498,7 @@ NoNewPrivileges=yes
 * Reload systemd manager configuration to apply the service changes
 
 ```sh
-$ sudo systemctl daemon-reload
+sudo systemctl daemon-reload
 ```
 
 ## Port reference
