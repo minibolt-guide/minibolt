@@ -919,7 +919,7 @@ Almost all of the following steps could be run with the [mobile](mobile-app.md) 
 
 ### Funding your Lightning node
 
-* Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
+* Generate a new Bitcoin address (`p2tr = taproot/bech32m`) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
 
 ```sh
 lncli newaddress p2tr
