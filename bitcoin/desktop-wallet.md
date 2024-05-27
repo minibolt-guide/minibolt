@@ -124,7 +124,7 @@ To connect via Tor to Fulcrum, the server must have a Tor hidden service connect
 If you've already set up the hidden service but lost the connection address, you can obtain it again by running the following command with "admin" on your node:
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
+sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
 ```
 
 Expected output:
@@ -171,7 +171,7 @@ By OS:
 * **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default port `9050`
 
 ```sh
-$ sudo ss -tulpn | grep LISTEN | grep tor
+sudo ss -tulpn | grep LISTEN | grep tor
 ```
 
 Expected output:

@@ -33,7 +33,7 @@ We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connect
 * Login as `admin` user, and configure LND to allow LND REST from anywhere. Edit `lnd.conf`
 
 ```sh
-$ sudo nano /data/lnd/lnd.conf
+sudo nano /data/lnd/lnd.conf
 ```
 
 * Add the next line under the `[Application Options]` section. Save and exit
@@ -46,13 +46,13 @@ restlisten=0.0.0.0:8080
 * Restart LND to apply changes
 
 ```sh
-$ sudo systemctl restart lnd
+sudo systemctl restart lnd
 ```
 
 * Ensure the gRPC proxy port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
+sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
 ```
 
 Expected output:
@@ -65,7 +65,7 @@ Expected output:
 * Configure the Firewall to allow LND REST incoming requests
 
 ```sh
-$ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
+sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
 ```
 
 ## Installation
@@ -77,41 +77,41 @@ $ sudo ufw allow 8080/tcp comment 'allow LND REST from anywhere'
 * As `admin` user, navigate to the `tmp` folder
 
 ```sh
-$ cd /tmp
+cd /tmp
 ```
 
 * Set the environment variable
 
 ```sh
-$ VERSION=0.2.0
+VERSION=0.2.0
 ```
 
 * Download
 
 {% code overflow="wrap" %}
 ```sh
-$ wget https://github.com/LN-Zap/lndconnect/releases/download/v$VERSION/lndconnect-linux-amd64-v$VERSION.tar.gz
+wget https://github.com/LN-Zap/lndconnect/releases/download/v$VERSION/lndconnect-linux-amd64-v$VERSION.tar.gz
 ```
 {% endcode %}
 
 * Extract
 
 ```sh
-$ tar -xvf lndconnect-linux-amd64-v$VERSION.tar.gz
+tar -xvf lndconnect-linux-amd64-v$VERSION.tar.gz
 ```
 
-* Install
+* Install it
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v$VERSION/lndconnect
+sudo install -m 0755 -o root -g root -t /usr/local/bin lndconnect-linux-amd64-v$VERSION/lndconnect
 ```
 {% endcode %}
 
 * Ensure `lndconnect` is correctly installed
 
 ```sh
-$ lndconnect -h
+lndconnect -h
 ```
 
 <details>
@@ -140,7 +140,7 @@ Application Options:
 * Ensure that you are logged in with the user admin and add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 ```
@@ -154,11 +154,11 @@ HiddenServicePort 8080 127.0.0.1:8080
 * Reload the Tor configuration and get your connection address
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
+sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
 ```
 
 **Example** expected output:
@@ -177,19 +177,19 @@ lndconnect generates a URI and displays it as a QR code that Zeus can read.
   * If you want to use the Tor connection, make sure to replace the `.onion` address with the one you generated above
 
 ```sh
-$ lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
+lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
 ```
 
 * If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `.onion` address with the private Wireguard VPN IP address (recommended)
 
 ```sh
-$ lndconnect --host=10.0.0.1 --port=8080 --nocert
+lndconnect --host=10.0.0.1 --port=8080 --nocert
 ```
 
 * If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
 
 ```sh
-$ lndconnect --host=192.168.X.XXX --port=8080
+lndconnect --host=192.168.X.XXX --port=8080
 ```
 
 * It will be a big QR code, so maximize your terminal window and use `CTRL`+`-` / `"Terminal unzoom"` / `"Zoom out"` options of your terminal, to shrink the code further to fit the screen
@@ -248,7 +248,7 @@ You need to uninstall the app on your phone and deactivate the LND REST API Tor 
 * To deactivate the LND REST API Tor hidden service, comment out the hidden service lines in `torrc` and reload Tor
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 ```
@@ -262,7 +262,7 @@ HiddenServicePoWDefensesEnabled 1
 * Reload Tor to apply changes
 
 ```bash
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ## Port reference

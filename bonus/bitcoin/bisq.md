@@ -48,7 +48,7 @@ The guide will show you how to:
 * To connect Bisq from your personal computer in your local network, with the user `admin`, comment, or delete the `bind=127.0.0.1` line of the `bitcoin.conf` file. Save and exit
 
 ```bash
-$ sudo nano /data/bitcoin/bitcoin.conf
+sudo nano /data/bitcoin/bitcoin.conf
 ```
 
 <pre><code><strong>#bind=127.0.0.1
@@ -70,7 +70,7 @@ whitelist=bloomfilter@10.0.0.0/16
 * With the `admin` or `bitcoin` user, run the following command and make a copy of the .onion address and port (e.g. here, `123...abc.onion:8333`)
 
 ```sh
-$ bitcoin-cli getnetworkinfo | grep address.*onion
+bitcoin-cli getnetworkinfo | grep address.*onion
 ```
 
 **Example** of expected output:
@@ -84,7 +84,7 @@ $ bitcoin-cli getnetworkinfo | grep address.*onion
 * Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
 
 ```sh
-$ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
+sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
 ```
 
 ## Installation
@@ -106,13 +106,13 @@ On your personal computer where you installed Bisq, depending on your OS
 From the local network connection, replace `192.168.X.X:8333` it with your node IP address.
 
 ```sh
-$ /opt/bisq/bin/Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
+/opt/bisq/bin/Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
 ```
 
 From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above
 
 ```sh
-$ /opt/bisq/bin/Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
+/opt/bisq/bin/Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
 ```
 
 * Wait a few minutes until Bisq is up to date with the current state of the blockchain and go back to "Settings" > "Network info" to check that only your own node local IP address or onion address is listed in the first table
@@ -124,13 +124,13 @@ $ /opt/bisq/bin/Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
 * From the local network connection, replace `192.168.X.X:8333` with your own node IP address
 
 ```sh
-$ Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
+Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
 ```
 
 * From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above
 
 ```sh
-$ Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
+Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
 ```
 
 * Wait a few minutes until Bisq is up to date with the current state of the blockchain and go back to "Settings" > "Network info" to check that only your own node local IP address or onion address is listed in the first table
@@ -207,7 +207,7 @@ Bisq will let you know when a new update is available. Simply follow the instruc
 * Delete the firewall rules with the comment 'allow BTC Core from anywhere' identifying the number of the rule
 
 ```sh
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 ```sh
@@ -217,5 +217,5 @@ $ sudo ufw status numbered
 * Delete the rule with the correct number and confirm with "yes"
 
 ```sh
-$ sudo ufw delete X
+sudo ufw delete X
 ```

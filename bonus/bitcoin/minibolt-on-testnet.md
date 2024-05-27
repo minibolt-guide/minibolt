@@ -43,7 +43,7 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 * Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../index-2/bitcoin-client.md), when you arrive at the ["Configuration section"](../../index-2/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
 
 ```sh
-$ nano /home/bitcoin/.bitcoin/bitcoin.conf
+nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
 ```
@@ -56,7 +56,7 @@ testnet=1
 * When you finish the [Running Bitcoin](../../index-2/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
 
 ```bash
-$ sudo chmod g+rx /data/bitcoin/testnet3
+sudo chmod g+rx /data/bitcoin/testnet3
 ```
 
 {% hint style="warning" %}
@@ -76,18 +76,18 @@ Follow the complete Electrum server guide from the beginning, when you arrive at
 * Replace the next lines to 60001/60002 ports, to match with the Testnet mode
 
 ```sh
-$ sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
+sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
 ```
 
 ```sh
-$ sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
+sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
 ```
 
 * When you arrive at the ["Data directory"](../../bitcoin/electrum-server.md#data-directory) section on the _"Download the custom Fulcrum banner based on MiniBolt..." step_. Download the Fulcrum testnet banner instead of the mainnet banner
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner-testnet.txt
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner-testnet.txt
 ```
 {% endcode %}
 
@@ -96,7 +96,7 @@ $ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/
 * In the next [Configuration](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `fulcrum.conf` file, to match with the testnet mode
 
 ```sh
-$ nano /data/fulcrum/fulcrum.conf
+nano /data/fulcrum/fulcrum.conf
 ```
 
 ```
@@ -117,7 +117,7 @@ banner = /data/fulcrum/fulcrum-banner-testnet.txt
 * When you arrive at the[ remote access over the Tor section](../../bitcoin/electrum-server.md#remote-access-over-tor), edit torrc file
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Replace ports to 60001/60002 to match with testnet mode
@@ -135,11 +135,11 @@ HiddenServicePort 60002 127.0.0.1:60002
 * Reload the Tor configuration and get your connection addresses
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
+sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
 ```
 
 **Example** of expected output:
@@ -161,7 +161,7 @@ The rest of the **Fulcrum** guide is exactly the same as the mainnet mode
 * Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
 
 ```sh
-$ nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
 ```
@@ -181,14 +181,23 @@ The rest of the **BTC RPC Explorer** guide is exactly the same as the mainnet mo
 * Follow the complete guide from the beginning, when you arrive at the [Configur](../../lightning/lightning-client.md#configuration)[ation](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
 ```bash
-$ nano /data/lnd/lnd.conf
+nano /data/lnd/lnd.conf
 ```
 
-* Replace the parameter `"bitcoin.mainnet=true"` with the `"bitcoin.testnet=true"` to enable LND in testnet mode
+* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet=true` to enable LND in testnet mode
 
 ```
 [Bitcoin]
 bitcoin.testnet=true
+```
+
+{% hint style="info" %}
+If you use [Ordirespector](ordisrespector.md) on testnet, add the next lines at the end of the file:
+{% endhint %}
+
+```
+# Use external fee estimator
+feeurl=https://nodes.lightning.computer/fees/v1/btctestnet-fee-estimates.json
 ```
 
 * When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace `ExecStop` parameter to this
@@ -206,7 +215,7 @@ When you arrive at the [Watchtower client](../../lightning/lightning-client.md#w
 * Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag. Example:
 
 ```sh
-$2 lncli --network=testnet --tlscertpath /data/lnd/tls.cert.tmp create
+lncli --network=testnet --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 {% hint style="info" %}
@@ -222,7 +231,7 @@ The rest of the **Lightning Clien**t guide is exactly the same as the mainnet mo
 * Follow the complete guide from the beginning, when you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
 
 ```sh
-$ sudo nano /usr/local/bin/scb-backup --linenumbers
+sudo nano /usr/local/bin/scb-backup --linenumbers
 ```
 
 * Replace the `line 18` in the script to match with the testnet path
@@ -236,8 +245,8 @@ SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
 
 * Change this line on the script to this for example: `REMOTE_BACKUP_DIR="/data/lnd/remote-lnd-testnet-backup"`
 * When you arrive at the ["Create a GitHub repository"](../../lightning/channel-backup.md#create-a-github-repository) section, change the name of the GitHub repo to for example: "`remote-lnd-testnet-backup"`
-* When you arrive at the ["Clone the repository to your node"](../../lightning/channel-backup.md#clone-the-repository-to-your-node) section, replace the command with: `$ git clone git@github.com:<YourGitHubUsername>/remote-lnd-testnet-backup.git`
-* When you arrive at the ["GitHub test"](../../lightning/channel-backup.md#github-test) section, replace the command to: `$ cd remote-lnd-testnet-backup`
+* When you arrive at the ["Clone the repository to your node"](../../lightning/channel-backup.md#clone-the-repository-to-your-node) section, replace the command with: `git clone git@github.com:<YourGitHubUsername>/remote-lnd-testnet-backup.git`
+* When you arrive at the ["GitHub test"](../../lightning/channel-backup.md#github-test) section, replace the command to: `cd remote-lnd-testnet-backup`
 {% endhint %}
 
 {% hint style="success" %}
@@ -270,7 +279,7 @@ For **example**, to generate a QR code for a Wireguard VPN connection, enter thi
 
 {% code overflow="wrap" %}
 ```sh
-$ lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon --nocert
+lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon --nocert
 ```
 {% endcode %}
 
@@ -291,17 +300,17 @@ Follow the complete guide from the beginning, when you arrive at the ["Firewall 
 * Configure the Firewall to allow incoming requests
 
 ```sh
-$ sudo ufw allow 60002/tcp comment 'allow Electrs SSL from anywhere'
+sudo ufw allow 60002/tcp comment 'allow Electrs SSL from anywhere'
 ```
 
 ```sh
-$ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
+sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
 ```
 
 * Create the `electrs-reverse-proxy.conf` file
 
 ```sh
-$ sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
+sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
 ```
 
 * Replace the mainnet ports `50001/50002` with the `60001/60001` testnet ports
@@ -316,14 +325,14 @@ server {
 }
 ```
 
-* Test and reload NGINX configuration
+* Test and reload Nginx configuration
 
 ```sh
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 ```bash
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 [Configuration](electrs.md#configuration)
@@ -331,7 +340,7 @@ $ sudo systemctl reload nginx
 * When you arrive at the [Configuration](electrs.md#configuration) section, replace it with the next lines
 
 ```sh
-$ nano /data/electrs/electrs.conf
+nano /data/electrs/electrs.conf
 ```
 
 <pre><code># MiniBolt: electrs testnet configuration
@@ -352,7 +361,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 * When you arrive at the [Remote access over Tor](electrs.md#remote-access-over-tor-optional) section
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Edit torrc and replace ports to `60001/60002` to match with testnet mode
@@ -369,11 +378,11 @@ HiddenServicePort 60002 127.0.0.1:60002
 * Reload the Tor configuration and get your connection addresses
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
+sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
 ```
 
 **Example** of expected output:

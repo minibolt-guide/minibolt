@@ -46,7 +46,7 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 * With user `admin`, edit `bitcoin.conf`
 
 ```bash
-$ sudo nano /data/bitcoin/bitcoin.conf
+sudo nano /data/bitcoin/bitcoin.conf
 ```
 
 * Add the following line to the `"# Connections"` section. Save and exit
@@ -58,7 +58,7 @@ $ sudo nano /data/bitcoin/bitcoin.conf
 * Restart Bitcoin Core to apply changes
 
 ```bash
-$ sudo systemctl restart bitcoind
+sudo systemctl restart bitcoind
 ```
 
 ### Firewall
@@ -66,7 +66,7 @@ $ sudo systemctl restart bitcoind
 * Configure the firewall to allow incoming HTTPS requests
 
 ```bash
-$ sudo ufw allow 23000/tcp comment 'allow BTCPay Server from anywhere'
+sudo ufw allow 23000/tcp comment 'allow BTCPay Server from anywhere'
 ```
 
 Expected output
@@ -83,13 +83,13 @@ We do not want to run BTCPay Server and other related services alongside other s
 * With user `admin`, create a new user called `btcpay`
 
 ```bash
-$ sudo adduser --disabled-password --gecos "" btcpay
+sudo adduser --disabled-password --gecos "" btcpay
 ```
 
 * Add `btcpay` user to the bitcoin and lnd groups
 
 ```bash
-$ sudo usermod -a -G bitcoin,lnd btcpay
+sudo usermod -a -G bitcoin,lnd btcpay
 ```
 
 ### Install .NET Core SDK
@@ -97,33 +97,33 @@ $ sudo usermod -a -G bitcoin,lnd btcpay
 * With user `admin`, change to the `btcpay` user
 
 ```bash
-$ sudo su - btcpay
+sudo su - btcpay
 ```
 
 * We will use the scripted install mode. Download the script
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
 ```
 {% endcode %}
 
 * Before running this script, you'll need to grant permission for this script to run as an executable
 
 ```bash
-$ chmod +x ./dotnet-install.sh
+chmod +x ./dotnet-install.sh
 ```
 
 * Set environment variable version
 
 ```bash
-$ VERSION=8.0
+VERSION=8.0
 ```
 
 * Install .NET Core SDK
 
 ```bash
-$ ./dotnet-install.sh --channel $VERSION
+./dotnet-install.sh --channel $VERSION
 ```
 
 <details>
@@ -148,27 +148,27 @@ dotnet-install: Installation finished successfully.
 * Add path to dotnet executable
 
 ```bash
-$ echo 'export DOTNET_ROOT=$HOME/.dotnet' >>~/.bashrc
+echo 'export DOTNET_ROOT=$HOME/.dotnet' >>~/.bashrc
 ```
 
 ```bash
-$ echo 'export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools' >>~/.bashrc
+echo 'export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools' >>~/.bashrc
 ```
 
 **(Optional)** To improve your privacy, disable the .NET Core SDK telemetry
 
 ```bash
-$ echo 'export DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
+echo 'export DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
 ```
 
 ```bash
-$ source ~/.bashrc
+source ~/.bashrc
 ```
 
 * Check .NET SDK is correctly installed
 
 ```bash
-$ dotnet --version
+dotnet --version
 ```
 
 **Example** of expected output:
@@ -180,21 +180,56 @@ $ dotnet --version
 * Delete the installation script
 
 ```bash
-$ rm dotnet-install.sh
+rm dotnet-install.sh
 ```
 
-* Come back to the `admin` user
+* Come back to the "admin" user
 
 ```bash
-$ exit
+exit
 ```
 
 ### Install PostgreSQL
 
-Check if you already have PostgreSQL installed:
+* With user `admin`, create the file repository configuration
+
+{% code overflow="wrap" %}
+```bash
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+```
+{% endcode %}
+
+* Import the repository signing key
+
+{% code overflow="wrap" %}
+```bash
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+```
+{% endcode %}
+
+Expected output:
+
+```
+> Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+OK
+```
+
+* Update the package lists. You can ignore the `W: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8))` message
 
 ```bash
-$ psql -V
+sudo apt update
+```
+
+* Install the latest version of PostgreSQL
+
+```bash
+sudo apt install postgresql postgresql-contrib
+```
+
+* Check the correct installation
+
+```bash
+psql -V
 ```
 
 **Example** of expected output:
@@ -203,30 +238,60 @@ $ psql -V
 > psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
-If you see `command not found` output, follow the [PostgreSQL bonus guide](../system/postgresql.md) to install it and then come back to continue with the guide
+* Ensure PostgreSQL is running and listening on the default port `5432`
+
+```bash
+sudo ss -tulpn | grep LISTEN | grep postgres
+```
+
+Expected output:
+
+<pre><code><strong>> tcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=2532748,fd=7))
+</strong>> tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
+</code></pre>
 
 ### Create PostgreSQL databases
 
-* With user `postgres`
+* With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
 
 ```bash
-$ sudo su - postgres
+sudo su - postgres
 ```
+
+* Create a new database user
+
+```bash
+createuser --pwprompt --interactive
+```
+
+Type in the following:
+
+> > Enter name of role to add: **admin**
+>
+> > Enter password for new role: **admin**
+>
+> > Enter it again: **admin**
+>
+> > Shall the new role be a superuser? (y/n) **n**
+>
+> > Shall the new role be allowed to create databases? (y/n) **y**
+>
+> > Shall the new role be allowed to create more new roles? (y/n) **n**
 
 * Create 2 new databases
 
 ```bash
-$ createdb -O admin btcpayserver
+createdb -O admin btcpayserver
 ```
 
 ```bash
-$ createdb -O admin nbxplorer
+createdb -O admin nbxplorer
 ```
 
 * Go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
 ## Installation, Configuration & Run
@@ -238,29 +303,29 @@ $ exit
 * With user `admin`, switch to the `btcpay` user
 
 ```bash
-$ sudo su - btcpay
+sudo su - btcpay
 ```
 
 * Create a "src" directory and enter the folder
 
 ```bash
-$ mkdir src
+mkdir src
 ```
 
 ```bash
-$ cd src
+cd src
 ```
 
 * Set the environment variable version
 
 ```bash
-$ VERSION=2.4.3
+VERSION=2.5.2
 ```
 
 * Download the NBXplorer source code and enter the folder
 
 ```bash
-$ git clone --branch v$VERSION https://github.com/dgarage/NBXplorer.git
+git clone --branch v$VERSION https://github.com/dgarage/NBXplorer.git
 ```
 
 <details>
@@ -296,13 +361,13 @@ Turn off this advice by setting config variable advice.detachedHead to false
 </details>
 
 ```bash
-$ cd NBXplorer
+cd NBXplorer
 ```
 
 * Modify NBXplorer run script
 
 ```bash
-$ nano run.sh
+nano run.sh
 ```
 
 * Comment existing line
@@ -320,7 +385,7 @@ $ nano run.sh
 * Modify NBXplorer build script
 
 ```bash
-$ nano build.sh
+nano build.sh
 ```
 
 * Comment next line
@@ -338,7 +403,7 @@ $ nano build.sh
 * Build NBXplorer
 
 ```bash
-$ ./build.sh
+./build.sh
 ```
 
 <details>
@@ -380,7 +445,7 @@ Time Elapsed 00:00:41.43
 * Check the correct installation
 
 ```bash
-$ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
+head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 ```
 
 **Example** of expected output:
@@ -391,17 +456,17 @@ $ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 
 * Create the data folder and navigate to it
 
-<pre class="language-sh"><code class="lang-sh"><strong>$ mkdir -p ~/.nbxplorer/Main
+<pre class="language-sh"><code class="lang-sh"><strong>mkdir -p ~/.nbxplorer/Main
 </strong></code></pre>
 
 ```bash
-$ cd ~/.nbxplorer/Main
+cd ~/.nbxplorer/Main
 ```
 
 * Create a new config file
 
 ```bash
-$ nano settings.config
+nano settings.config
 ```
 
 ### NBXplorer configuration
@@ -422,7 +487,7 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplore
 * Go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
 ### Create NBXplorer systemd service
@@ -430,7 +495,7 @@ $ exit
 * As user `admin`, create the service file
 
 ```bash
-$ sudo nano /etc/systemd/system/nbxplorer.service
+sudo nano /etc/systemd/system/nbxplorer.service
 ```
 
 * Paste the following configuration. Save and exit
@@ -471,13 +536,13 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```bash
-$ sudo systemctl enable nbxplorer
+sudo systemctl enable nbxplorer
 ```
 
 * Prepare “`nbxplorer`” monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ journalctl -f -u nbxplorer
+journalctl -fu nbxplorer
 ```
 
 {% hint style="info" %}
@@ -486,17 +551,17 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ### Running NBXplorer
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt `$2` (which must not be entered)
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * With user `admin`, start the `nbxplorer` service
 
 ```bash
-$ sudo systemctl start nbxplorer
+sudo systemctl start nbxplorer
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nbxplorer</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu nbxplorer</code> ⬇️</summary>
 
 ```
 Jul 05 17:50:20 bbonode systemd[1]: Started NBXplorer daemon.
@@ -546,7 +611,7 @@ Jul 05 17:50:23 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: New block 
 * Ensure NBXplorer is running and listening on the default port `24444`
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep NBXplorer
+sudo ss -tulpn | grep LISTEN | grep NBXplorer
 ```
 
 Expected output:
@@ -564,25 +629,25 @@ You have NBxplorer running and prepared for the BTCpay server to use it
 * Switch to the `btcpay` user
 
 ```bash
-$ sudo su - btcpay
+sudo su - btcpay
 ```
 
 * Go to the `src` folder
 
 ```bash
-$ cd src
+cd src
 ```
 
 * Set variable environment version
 
 ```bash
-$ VERSION=1.13.0
+VERSION=1.13.1
 ```
 
 * Clone the BTCPay Server official GitHub repository
 
 ```bash
-$ git clone --branch v$VERSION https://github.com/btcpayserver/btcpayserver
+git clone --branch v$VERSION https://github.com/btcpayserver/btcpayserver
 ```
 
 <details>
@@ -620,13 +685,13 @@ Turn off this advice by setting config variable advice.detachedHead to false
 * Go to the `btcpayserver` folder
 
 ```bash
-$ cd btcpayserver
+cd btcpayserver
 ```
 
 * Modify BTCPay Server run script
 
 ```bash
-$ nano run.sh
+nano run.sh
 ```
 
 * Comment next line
@@ -644,7 +709,7 @@ $ nano run.sh
 * Modify the BTCPay Server build script
 
 ```bash
-$ nano build.sh
+nano build.sh
 ```
 
 * Comment next line
@@ -662,7 +727,7 @@ $ nano build.sh
 * Build BTCPay Server
 
 ```bash
-$ ./build.sh
+./build.sh
 ```
 
 <details>
@@ -693,7 +758,7 @@ MSBuild version 17.3.2+561848881 for .NET
 * Check the correct installation
 
 ```bash
-$ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
+head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 ```
 
 **Example** of expected output:
@@ -705,11 +770,7 @@ $ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 * Create the data folder and enter it
 
 ```bash
-$ mkdir -p ~/.btcpayserver/Main
-```
-
-```bash
-$ cd ~/.btcpayserver/Main
+mkdir -p ~/.btcpayserver/Main && cd ~/.btcpayserver/Main
 ```
 
 ### BTCPay Server configuration
@@ -717,7 +778,7 @@ $ cd ~/.btcpayserver/Main
 * Create a new config file
 
 ```bash
-$ nano settings.config
+nano settings.config
 ```
 
 * Add the complete following lines
@@ -742,7 +803,7 @@ If you want to connect your Lightning LND node to BTCpay too, go to the [Connect
 * Go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
 ### Create BTCPay Server systemd service
@@ -750,7 +811,7 @@ $ exit
 * As user `admin`, create the service file
 
 ```bash
-$ sudo nano /etc/systemd/system/btcpay.service
+sudo nano /etc/systemd/system/btcpay.service
 ```
 
 * Paste the following configuration. Save and exit
@@ -782,13 +843,13 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```bash
-$ sudo systemctl enable btcpay
+sudo systemctl enable btcpay
 ```
 
 * Prepare `btcpay` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ journalctl -f -u btcpay
+journalctl -fu btcpay
 ```
 
 {% hint style="info" %}
@@ -797,15 +858,15 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ### Running BTCPay Server
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt `$2` (which must not be entered)
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 ```bash
-$ sudo systemctl start btcpay
+sudo systemctl start btcpay
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u btcpay</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu btcpay</code> ⬇️</summary>
 
 ```
 Jul 05 18:01:08 bbonode run.sh[2810276]: info: Configuration:  Data Directory: /home/btcpay/.btcpayserver/Main
@@ -840,7 +901,7 @@ Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Connected to WebS
 * Ensure the BTCPay Server is running and listening on the default port `23000`
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep 23000
+sudo ss -tulpn | grep LISTEN | grep 23000
 ```
 
 Expected output:
@@ -868,7 +929,7 @@ You can easily do so by adding a Tor hidden service on the MiniBolt and accessin
 * Ensure that you are logged in with the user `admin` and add the following lines to the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
 
 ```bash
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 ```
@@ -882,13 +943,13 @@ HiddenServicePort 80 127.0.0.1:23000
 * Reload the Tor configuration
 
 ```bash
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Get your connection address
 
 ```bash
-$ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
+sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 ```
 
 **Example** of expected output:
@@ -906,7 +967,7 @@ $ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 * Stay logged as `admin` user, and configure LND to allow LND REST from anywhere editing the `lnd.conf` file
 
 ```bash
-$ sudo nano /data/lnd/lnd.conf
+sudo nano /data/lnd/lnd.conf
 ```
 
 * Add the next line under the `[Application Options]` section. Save and exit
@@ -919,13 +980,13 @@ restlisten=0.0.0.0:8080
 * Restart LND to apply changes
 
 ```bash
-$ sudo systemctl restart lnd
+sudo systemctl restart lnd
 ```
 
-* Ensure the REST port is now binding to the `0.0.0.0` host instead of `127.0.0.1`
+* Ensure the REST port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
+sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
 ```
 
 Expected output:
@@ -936,19 +997,19 @@ Expected output:
 * Stop BTCPay Server before making changes
 
 ```bash
-$ sudo systemctl stop btcpay
+sudo systemctl stop btcpay
 ```
 
 * Change to the `btcpay` user
 
 ```bash
-$ sudo su - btcpay
+sudo su - btcpay
 ```
 
 * Edit the `settings.config` file
 
 ```bash
-$ nano .btcpayserver/Main/settings.config
+nano .btcpayserver/Main/settings.config
 ```
 
 * Add the next content to the end of the file. Save and exit
@@ -961,17 +1022,17 @@ BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/dat
 * Go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
 * Start the BTCPay Server again
 
 ```bash
-$ sudo systemctl start btcpay
+sudo systemctl start btcpay
 ```
 
 {% hint style="info" %}
-Monitor logs with `$ journalctl -f -u btcpay` to ensure that all is running well
+Monitor logs with `journalctl -fu btcpay` to ensure that all is running well
 {% endhint %}
 
 ## Upgrade
@@ -983,37 +1044,37 @@ Updating to a new release of [BTCPay Server](https://github.com/btcpayserver/btc
 * With user `admin`, stop BTCPay Server & NBXplorer
 
 ```bash
-$ sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
+sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
 ```
 
 * Change to the `btcpay` user
 
 ```bash
-$ sudo su - btcpay
+sudo su - btcpay
 ```
 
 * We will use the scripted install mode. Download the script
 
 ```bash
-$ wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
 ```
 
 * Before running this script, you'll need to grant permission for this script to run as an executable
 
 ```bash
-$ chmod +x ./dotnet-install.sh
+chmod +x ./dotnet-install.sh
 ```
 
 * Set the new `VERSION` environment variable, for example, 6.0 -> 8.0
 
 ```bash
-$ VERSION=8.0
+VERSION=8.0
 ```
 
 * Install .NET Core SDK
 
 ```bash
-$ ./dotnet-install.sh --channel $VERSION
+./dotnet-install.sh --channel $VERSION
 ```
 
 <details>
@@ -1035,22 +1096,22 @@ dotnet-install: Installation finished successfully.
 
 </details>
 
-**(Optional)** If you haven't done this before, to improve your privacy, disable the .NET Core SDK telemetry
+* **(Optional)** If you haven't done this before, to improve your privacy, disable the .NET Core SDK telemetry
 
 ```bash
-$ echo 'export DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
+echo 'export DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
 ```
 
 * Apply changes
 
 ```bash
-$ source ~/.bashrc
+source ~/.bashrc
 ```
 
 * Check the new .NET SDK version has been correctly installed
 
 ```bash
- $ dotnet --version
+dotnet --version
 ```
 
 **Example** of expected output:
@@ -1062,13 +1123,13 @@ $ source ~/.bashrc
 * Delete the installation script
 
 ```bash
-$ rm dotnet-install.sh
+rm dotnet-install.sh
 ```
 
 * Exit to return to the admin user
 
 ```bash
-$ exit
+exit
 ```
 
 ### Upgrade NBXplorer
@@ -1076,30 +1137,30 @@ $ exit
 * With user `admin`, stop BTCPay Server & NBXplorer
 
 ```bash
-$ sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
+sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
 ```
 
 * Change to the `btcpay` user
 
 ```bash
-$ sudo su - btcpay
+sudo su - btcpay
 ```
 
 * Enter the `src/nbxplorer` folder
 
 ```bash
-$ cd src/NBXplorer
+cd src/NBXplorer
 ```
 
 * Set the environment variable version
 
 ```bash
-$ VERSION=2.5.0
+VERSION=2.5.2
 ```
 
 * Fetch the changes of the wish latest tag
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>$ git pull https://github.com/dgarage/NBXplorer.git v$VERSION
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>git pull https://github.com/dgarage/NBXplorer.git v$VERSION
 </strong></code></pre>
 
 **Example** of expected output:
@@ -1120,11 +1181,11 @@ Fast-forward
 If the prompt shows you `"fatal: unable to auto-detect email address (got 'btcpay@minibolt2fa.(none)')"`⬇️
 
 ```bash
-$ git config user.email "minibolt@dummyemail.com"
+git config user.email "minibolt@dummyemail.com"
 ```
 
 ```bash
-$ git config user.name "MiniBolt"
+git config user.name "MiniBolt"
 ```
 {% endhint %}
 
@@ -1149,7 +1210,7 @@ hint: invocation.
 You need to do and exec the before `git pull` command again:
 
 ```bash
-$ git config pull.rebase false
+git config pull.rebase false
 ```
 {% endhint %}
 
@@ -1157,13 +1218,13 @@ $ git config pull.rebase false
 * Build it
 
 ```bash
-$ ./build.sh
+./build.sh
 ```
 
 * Check the correct installation update
 
 ```bash
-$ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
+head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 ```
 
 **Example** of expected output:
@@ -1175,13 +1236,13 @@ $ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 * Go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
-* Start the NBXplorer & BTCpay server again. Monitor logs with `$ journalctl -f -u nbxplorer` & `$ journalctl -f -u btcpay` to ensure that all is running well
+* Start the NBXplorer & BTCpay server again. Monitor logs with `journalctl -fu nbxplorer` & `journalctl -fu btcpay` to ensure that all is running well
 
 ```bash
-$ sudo systemctl start nbxplorer && sudo systemctl start btcpay
+sudo systemctl start nbxplorer && sudo systemctl start btcpay
 ```
 
 ### Upgrade BTCPay Server
@@ -1189,32 +1250,32 @@ $ sudo systemctl start nbxplorer && sudo systemctl start btcpay
 * With user `admin`, stop BTCPay Server
 
 ```bash
-$ sudo systemctl stop btcpay
+sudo systemctl stop btcpay
 ```
 
 * Change to the `btcpay` user
 
 ```bash
-$ sudo su - btcpay
+sudo su - btcpay
 ```
 
 * Enter the `src/btcpayserver` folder
 
 ```bash
-$ cd src/btcpayserver
+cd src/btcpayserver
 ```
 
 * Set the environment variable version
 
 ```bash
-$ VERSION=1.12.4
+VERSION=1.13.1
 ```
 
 * Fetch the changes of the wish latest tag
 
 {% code overflow="wrap" %}
 ```bash
-$ git pull https://github.com/btcpayserver/btcpayserver.git v$VERSION
+git pull https://github.com/btcpayserver/btcpayserver.git v$VERSION
 ```
 {% endcode %}
 
@@ -1234,11 +1295,11 @@ Fast-forward
 If the prompt shows you `"fatal: unable to auto-detect email address (got 'btcpay@minibolt2fa.(none)')"`⬇️
 
 ```bash
-$ git config user.email "minibolt@dummyemail.com"
+git config user.email "minibolt@dummyemail.com"
 ```
 
 ```bash
-$ git config user.name "MiniBolt"
+git config user.name "MiniBolt"
 ```
 {% endhint %}
 
@@ -1246,7 +1307,7 @@ $ git config user.name "MiniBolt"
 If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
 
 ```bash
-$ git config pull.rebase false
+git config pull.rebase false
 ```
 {% endhint %}
 
@@ -1254,7 +1315,7 @@ $ git config pull.rebase false
 * Build it
 
 ```bash
-$ ./build.sh
+./build.sh
 ```
 
 <details>
@@ -1283,7 +1344,7 @@ $ ./build.sh
 * Check the correct installation update
 
 ```bash
-$ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
+head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 ```
 
 **Example** of expected output:
@@ -1295,13 +1356,13 @@ $ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 * Go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
-* Start the BTCpay server again. Monitor logs with `$ journalctl -f -u btcpay` to ensure that all is running well
+* Start the BTCpay server again. Monitor logs with `journalctl -fu btcpay` to ensure that all is running well
 
 ```bash
-$ sudo systemctl start btcpay
+sudo systemctl start btcpay
 ```
 
 ## Uninstall
@@ -1311,28 +1372,24 @@ $ sudo systemctl start btcpay
 * Ensure you are logged in with the user `admin`, stop `btcpay` and `nbxplorer` services
 
 ```bash
-$ sudo systemctl stop btcpay
-```
-
-```bash
-$ sudo systemctl stop nbxplorer
+sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
 ```
 
 * Delete `btcpay` and `nbxplorer` services
 
 ```bash
-$ sudo rm /etc/systemd/system/btcpay.service
+sudo rm /etc/systemd/system/btcpay.service
 ```
 
 ```bash
-$ sudo rm /etc/systemd/system/nbxplorer.service
+sudo rm /etc/systemd/system/nbxplorer.service
 ```
 
 * Ensure you are logged in with the user `admin`. Delete the `btcpay` user.\
   Don't worry about `userdel: btcpay mail spool (/var/mail/btcpay) not found` output, the uninstall has been successfull
 
 ```bash
-$ sudo userdel -rf btcpay
+sudo userdel -rf btcpay
 ```
 
 ### Uninstall Firewall **configuration** & Reverse proxy
@@ -1340,7 +1397,7 @@ $ sudo userdel -rf btcpay
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCPay Server (e.g. X and Y below)
 
 ```bash
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 Expected output:
@@ -1352,7 +1409,7 @@ Expected output:
 * Delete the rule with the correct number and confirm with `yes`
 
 ```bash
-$ sudo ufw delete X
+sudo ufw delete X
 ```
 
 ### **Uninstall Tor hidden service**
@@ -1360,7 +1417,7 @@ $ sudo ufw delete X
 * Ensure you are logged in with the user `admin`
 
 ```bash
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Comment or remove the btcpay hidden service in the torrc. Save and exit
@@ -1375,13 +1432,13 @@ $ sudo nano /etc/tor/torrc
 * Reload the torrc config
 
 ```bash
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ## Port reference
 
 |  Port | Protocol |             Use            |
 | :---: | :------: | :------------------------: |
-|  5432 |    TCP   |   PostgreSQL default port  |
+|  5432 |    TCP   |  PostgreSQL default port   |
 | 24444 |    TCP   |   NBXplorer default port   |
 | 23000 |    TCP   | BTCPay Server default port |

@@ -40,7 +40,7 @@ Before running LND, we need to set up settings in the Bitcoin Core configuration
 * Login as user `admin`, edit the `bitcoin.conf` file
 
 ```sh
-$ sudo nano /data/bitcoin/bitcoin.conf
+sudo nano /data/bitcoin/bitcoin.conf
 ```
 
 * Add the following lines. Save and exit
@@ -54,13 +54,13 @@ zmqpubrawtx=tcp://127.0.0.1:28333
 * Restart Bitcoin Core to apply changes
 
 ```sh
-$ sudo systemctl restart bitcoind
+sudo systemctl restart bitcoind
 ```
 
 * Check Bitcoin Core is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 2833
+sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 2833
 ```
 
 Expected output:
@@ -78,44 +78,44 @@ We'll download, verify, and install LND.
 * Navigate to the temporary directory
 
 ```sh
-$ cd /tmp
+cd /tmp
 ```
 
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=0.17.5
+VERSION=0.17.5
 ```
 
 * Download the application, checksums, and signature
 
 {% code overflow="wrap" %}
 ```sh
-$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/lnd-linux-amd64-v$VERSION-beta.tar.gz
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/lnd-linux-amd64-v$VERSION-beta.tar.gz
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt.ots
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt.ots
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```sh
-$ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig
 ```
 {% endcode %}
 
@@ -124,7 +124,7 @@ $ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/
 * Verify the signed checksum against the actual checksum of your download
 
 ```sh
-$ sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
+sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
 ```
 
 **Example** of expected output:
@@ -141,7 +141,7 @@ Now that we've verified the integrity of the downloaded binary, we need to check
 
 {% code overflow="wrap" %}
 ```bash
-$ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
+curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
 ```
 {% endcode %}
 
@@ -158,7 +158,7 @@ Expected output:
 * Verify the signature of the text file containing the checksums for the application
 
 ```sh
-$ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
+gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 ```
 
 **Example** of expected output:
@@ -180,7 +180,7 @@ We can also check that the manifest file was in existence around the time of the
 
 {% code overflow="wrap" %}
 ```bash
-$ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
+ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
 ```
 {% endcode %}
 
@@ -195,7 +195,7 @@ $ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roa
 
 {% code overflow="wrap" %}
 ```bash
-$ ots --no-cache verify manifest-v$VERSION-beta.txt.ots -f manifest-v$VERSION-beta.txt
+ots --no-cache verify manifest-v$VERSION-beta.txt.ots -f manifest-v$VERSION-beta.txt
 ```
 {% endcode %}
 
@@ -215,7 +215,7 @@ Check that the date of the timestamp is close to the [release date](https://gith
 * Having verified the integrity and authenticity of the release binary, we can safely
 
 ```sh
-$ tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
+tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
 ```
 
 **Example** of expected output:
@@ -232,14 +232,14 @@ $ tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
 
 {% code overflow="wrap" %}
 ```sh
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v$VERSION-beta/lnd lnd-linux-amd64-v$VERSION-beta/lncli
+sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v$VERSION-beta/lnd lnd-linux-amd64-v$VERSION-beta/lncli
 ```
 {% endcode %}
 
 * Ensure you are installed by running the version command
 
 ```sh
-$ lnd --version
+lnd --version
 ```
 
 **Example** of expected output:
@@ -248,11 +248,11 @@ $ lnd --version
 > lnd version 0.16.3-beta commit=v0.16.3-beta
 ```
 
-* Clean the LND files of the `tmp` folder
+* **(Optional)** Clean the LND files of the `tmp` folder
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo rm -r lnd-linux-amd64-v$VERSION-beta && sudo rm lnd-linux-amd64-v$VERSION-beta.tar.gz && sudo rm manifest-roasbeef-v$VERSION-beta.sig && sudo rm manifest-roasbeef-v$VERSION-beta.sig.ots && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.txt.ots
+sudo rm -r lnd-linux-amd64-v$VERSION-beta && sudo rm lnd-linux-amd64-v$VERSION-beta.tar.gz && sudo rm manifest-roasbeef-v$VERSION-beta.sig && sudo rm manifest-roasbeef-v$VERSION-beta.sig.ots && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.txt.ots
 ```
 {% endcode %}
 
@@ -265,19 +265,19 @@ If you come to update this is the final step
 * Create the `lnd` user and group
 
 ```sh
-$ sudo adduser --disabled-password --gecos "" lnd
+sudo adduser --disabled-password --gecos "" lnd
 ```
 
 * Add the `lnd` user to the groups "bitcoin" and "debian-tor"
 
 ```sh
-$ sudo usermod -a -G bitcoin,debian-tor lnd
+sudo usermod -a -G bitcoin,debian-tor lnd
 ```
 
 * Add the user `admin` to the group "lnd"
 
 ```sh
-$ sudo adduser admin lnd
+sudo adduser admin lnd
 ```
 
 ### Create data folder
@@ -285,35 +285,35 @@ $ sudo adduser admin lnd
 * Create the LND data folder
 
 ```sh
-$ sudo mkdir /data/lnd
+sudo mkdir /data/lnd
 ```
 
 * Assign as owner the `lnd` user
 
 ```sh
-$ sudo chown -R lnd:lnd /data/lnd
+sudo chown -R lnd:lnd /data/lnd
 ```
 
 * Open a `lnd` user session
 
 ```sh
-$ sudo su - lnd
+sudo su - lnd
 ```
 
 * Create symbolic links pointing to the LND and bitcoin data directories
 
 ```sh
-$ ln -s /data/lnd /home/lnd/.lnd
+ln -s /data/lnd /home/lnd/.lnd
 ```
 
 ```sh
-$ ln -s /data/bitcoin /home/lnd/.bitcoin
+ln -s /data/bitcoin /home/lnd/.bitcoin
 ```
 
 * Check symbolic links have been created correctly
 
 ```bash
-$ ls -la
+ls -la
 ```
 
 Expected output:
@@ -337,13 +337,13 @@ For this initial setup, we choose the easy route: we store the password in a fil
 * Still as user `lnd`, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
 
 ```sh
-$ nano /data/lnd/password.txt
+nano /data/lnd/password.txt
 ```
 
 * Tighten access privileges and make the file readable only for user `lnd`
 
 ```sh
-$ chmod 600 /data/lnd/password.txt
+chmod 600 /data/lnd/password.txt
 ```
 
 ## Configuration
@@ -351,7 +351,7 @@ $ chmod 600 /data/lnd/password.txt
 * Create the LND configuration file
 
 ```sh
-$ nano /data/lnd/lnd.conf
+nano /data/lnd/lnd.conf
 ```
 
 * Paste the following content (set your alias `"<YOUR_FANCY_ALIAS>"`, your preferred color `"<#ff9900>"`, your minimum channel size **`"minchansize"`** , and fees). Save and exit
@@ -444,7 +444,7 @@ This is a standard configuration. Check the official LND [sample-lnd.conf](https
 * Exit of the `lnd` user session to return to the **admin** user session
 
 ```sh
-$ exit
+exit
 ```
 
 ### Create systemd service
@@ -454,7 +454,7 @@ Now, let's set up LND to start automatically on system startup.
 * As user `admin`, create LND systemd unit
 
 ```sh
-$ sudo nano /etc/systemd/system/lnd.service
+sudo nano /etc/systemd/system/lnd.service
 ```
 
 * Enter the following complete content. Save and exit
@@ -502,28 +502,28 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```sh
-$ sudo systemctl enable lnd
+sudo systemctl enable lnd
 ```
 
 * Now, the daemon information is no longer displayed on the command line but is written into the system journal. You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
-$ journalctl -f -u lnd
+journalctl -fu lnd
 ```
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`. Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
 ```sh
-$2 sudo systemctl start lnd
+sudo systemctl start lnd
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u lnd</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu lnd</code> ⬇️</summary>
 
 ```
 Nov 26 18:57:25 minibolt systemd[1]: Started LND.
@@ -554,13 +554,13 @@ Once LND is started, the process waits for us to create the integrated Bitcoin o
 * Change to the `lnd` user
 
 ```sh
-$2 sudo su - lnd
+sudo su - lnd
 ```
 
 * Create the LND wallet
 
 ```sh
-$2 lncli --tlscertpath /data/lnd/tls.cert.tmp create
+lncli --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 Expected output:
@@ -641,7 +641,7 @@ This piece of paper is all an attacker needs to empty your on-chain wallet!
 This information must be kept secret at all times
 {% endhint %}
 
-**Return to the first terminal with `$ journalctl -f -u lnd`. Example of expected output ⬇️**
+**Return to the first terminal with `journalctl -fu lnd`. Example of expected output ⬇️**
 
 ```
 Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.037 [INF] LNWL: Opened wallet
@@ -715,7 +715,7 @@ Generating fresh cipher seed...
 lnd successfully initialized!
 ```
 
-Return to the first terminal with `$ journalctl -f -u lnd`. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this ⬇️
+Return to the first terminal with `journalctl -f -u lnd`. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this ⬇️
 
 <pre><code>Apr 17 21:17:19 roamingrpi lnd[63591]: 2024-04-17 21:17:19.288 [INF] LNWL: Opened wallet
 Apr 17 21:17:19 roamingrpi lnd[63591]: 2024-04-17 21:17:19.288 [INF] LTND: Wallet recovery mode enabled with address lookahead of 2500 addresses
@@ -742,13 +742,13 @@ There is a dedicated [guide](channel-backup.md) to making an automatic backup
 * Type "exit" to return to the `admin` user
 
 ```sh
-$2 exit
+exit
 ```
 
 * Check that LND is running and related ports listening
 
 ```bash
-$2 sudo ss -tulpn | grep LISTEN | grep lnd
+sudo ss -tulpn | grep LISTEN | grep lnd
 ```
 
 Expected output:
@@ -765,13 +765,13 @@ We interact with LND using the application `lncli`. At the moment, only the user
 * As user `admin`, link the LND data directory in the user "`admin`" home. As a member of the group "`lnd`", the "`admin`" user has read-only access to certain files
 
 ```sh
-$2 ln -s /data/lnd /home/admin/.lnd
+ln -s /data/lnd /home/admin/.lnd
 ```
 
 * Check symbolic link has been created correctly
 
 ```bash
-$2 ls -la /home/admin
+ls -la /home/admin
 ```
 
 <details>
@@ -807,13 +807,13 @@ drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
 * Make all directories browsable for the group
 
 ```sh
-$2 sudo chmod -R g+X /data/lnd/data/
+sudo chmod -R g+X /data/lnd/data/
 ```
 
 * Check if you can use `lncli` with the `admin` user by querying LND for information
 
 ```sh
-$2 lncli getinfo
+lncli getinfo
 ```
 
 ## LND in action
@@ -836,7 +836,7 @@ A watchtower can only send such a punishing transaction to your wallet, so you d
 
 {% code overflow="wrap" %}
 ```bash
-$ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
+lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
 ```
 {% endcode %}
 
@@ -844,14 +844,14 @@ $ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde6
 
 {% code overflow="wrap" %}
 ```bash
-$ lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
+lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
 ```
 {% endcode %}
 
 * If you want to list your towers and active watchtowers
 
 ```sh
-$ lncli wtclient towers
+lncli wtclient towers
 ```
 
 Expected output:
@@ -876,11 +876,11 @@ Expected output:
 * If you want to deactivate an active tower
 
 ```sh
-$ lncli wtclient remove <pubkey>
+lncli wtclient remove <pubkey>
 ```
 
 {% hint style="info" %}
-Monitor logs with `$ journalctl -f -u lnd` to check the watchtower client is working fine, it should show you after a while, the next logs ⬇️
+Monitor logs with `journalctl -fu lnd` to check the watchtower client is working fine, it should show you after a while, the next logs ⬇️
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/lnd-watchtower_log.PNG" alt=""><figcaption></figcaption></figure>
@@ -890,7 +890,7 @@ Monitor logs with `$ journalctl -f -u lnd` to check the watchtower client is wor
 Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
 ```sh
-$ lncli tower info
+lncli tower info
 ```
 
 Expected output:
@@ -922,7 +922,7 @@ Almost all of the following steps could be run with the [mobile](mobile-app.md) 
 * Generate a new Bitcoin address (p2tr = taproot/bech32m) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
 
 ```sh
-$ lncli newaddress p2tr
+lncli newaddress p2tr
 ```
 
 Expected output:
@@ -934,7 +934,7 @@ Expected output:
 * Check your LND wallet balance
 
 ```sh
-$ lncli walletbalance
+lncli walletbalance
 ```
 
 **Example** of expected output:
@@ -970,7 +970,7 @@ Just grab the whole URI above the big QR code and use it as follows (we will use
 
 {% code overflow="wrap" %}
 ```bash
-$ lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
+lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
 ```
 {% endcode %}
 
@@ -980,24 +980,24 @@ The command has a built-in fee estimator, but to avoid overpaying fees, you can 
 
 {% code overflow="wrap" %}
 ```bash
-$ lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 500000 0
+lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 500000 0
 ```
 {% endcode %}
 
 * **Check your funds**, both in the on-chain wallet and the channel balances
 
 ```sh
-$ lncli walletbalance
+lncli walletbalance
 ```
 
 ```sh
-$ lncli channelbalance
+lncli channelbalance
 ```
 
 * **List active channels**. Once the channel funding transaction has been mined and gained enough confirmations, your channel is fully operational. That can take an hour or more
 
 ```sh
-$ lncli listchannels
+lncli listchannels
 ```
 
 * **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
@@ -1006,7 +1006,7 @@ To try, why not send me satoshis! You simply need to input my node pubkey [`2Fak
 
 {% code overflow="wrap" %}
 ```sh
-$ lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats> --keysend
+lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats> --keysend
 ```
 {% endcode %}
 
@@ -1017,26 +1017,26 @@ A quick reference with special commands to play around with:
 * Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
 ```sh
-$ lncli payinvoice --amt <amount> <amp invoice>
+lncli payinvoice --amt <amount> <amp invoice>
 ```
 
 * Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
 ```sh
-$ lncli sendpayment --dest <destination public key> --amt <amount> --amp
+lncli sendpayment --dest <destination public key> --amt <amount> --amp
 ```
 
 * Send payment to a node without an invoice using Keysend (both sender and receiver nodes have to have Keysend enabled)
 
 ```sh
-$ lncli sendpayment --dest <destination public key> --amt <amount> --keysend
+lncli sendpayment --dest <destination public key> --amt <amount> --keysend
 ```
 
 * Create your own Re-Usable Static AMP invoice
 
 {% code overflow="wrap" %}
 ```bash
-$ lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
+lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
 ```
 {% endcode %}
 
@@ -1049,13 +1049,13 @@ Copy the output \[lnbc...] of the "payment\_request": "lnbc...". Transform your 
 * List all invoices
 
 ```sh
-$ lncli listinvoices
+lncli listinvoices
 ```
 
 * Close all channels in cooperative mode
 
 ```sh
-$ lncli closeallchannels --sat_per_byte <sat/byte>
+lncli closeallchannels --sat_per_byte <sat/byte>
 ```
 
 {% hint style="info" %}
@@ -1069,14 +1069,14 @@ Upgrading LND can lead to some issues. **Always** read the [LND release notes](h
 * Check your current LND version
 
 ```sh
-$ lnd --version
+lnd --version
 ```
 
 * Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
 * Restart LND to apply the new version
 
 ```sh
-$ sudo systemctl restart lnd
+sudo systemctl restart lnd
 ```
 
 ## Uninstall
@@ -1086,27 +1086,27 @@ $ sudo systemctl restart lnd
 * Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
 
 ```bash
-$ sudo systemctl stop lnd
+sudo systemctl stop lnd
 ```
 
 ```bash
-$ sudo systemctl disable lnd
+sudo systemctl disable lnd
 ```
 
 ```bash
-$ sudo rm /etc/systemd/system/lnd.service
+sudo rm /etc/systemd/system/lnd.service
 ```
 
 * Delete the `lnd` user. Don't worry about `userdel: lnd mail spool (/var/mail/lnd) not found` output, the uninstall has been successful
 
 ```bash
-$ sudo userdel -rf lnd
+sudo userdel -rf lnd
 ```
 
 * Delete the complete `lnd` directory
 
 ```bash
-$ sudo rm -rf /data/lnd/
+sudo rm -rf /data/lnd/
 ```
 
 ### Uninstall binaries
@@ -1114,7 +1114,7 @@ $ sudo rm -rf /data/lnd/
 * Delete the binaries installed
 
 ```bash
-$ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
+sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 ```
 
 ### Uninstall FW configuration
@@ -1124,7 +1124,7 @@ If you followed the [Mobile app: Zeus guide](mobile-app.md), probably you needed
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
 
 ```bash
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 Expected output:
@@ -1136,7 +1136,7 @@ Expected output:
 * Delete the rule with the correct number and confirm with "`yes`"
 
 ```bash
-$ sudo ufw delete X
+sudo ufw delete X
 ```
 
 ## Port reference

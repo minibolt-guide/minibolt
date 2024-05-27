@@ -56,7 +56,7 @@ If you plan to use Electrum from only within your own secured local area network
 * **Linux**
   * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
 
-<pre class="language-sh"><code class="lang-sh"><strong>$ ./electrum -1 -s minibolt.local:50002:s
+<pre class="language-sh"><code class="lang-sh"><strong>./electrum -1 -s minibolt.local:50002:s
 </strong></code></pre>
 
 * **Windows**
@@ -109,7 +109,7 @@ By OS:
 * **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
 
 ```sh
-$ sudo ss -tulpn | grep tor | grep LISTEN
+sudo ss -tulpn | grep tor | grep LISTEN
 ```
 
 Expected output:
@@ -127,10 +127,10 @@ Now we need to specify the Tor address for the Electrum Server and the local Tor
 
 First, get the onion address of your Electrum server directly on the MiniBolt, depending on whether you chose the Electrs or Fulcrum service
 
-* For Electrs:
+* For Electrs
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_electrs/hostname
+sudo cat /var/lib/tor/hidden_service_electrs/hostname
 ```
 
 **Example** of expected output:
@@ -139,10 +139,10 @@ $ sudo cat /var/lib/tor/hidden_service_electrs/hostname
 > ab...yz.onion
 ```
 
-* For Fulcrum:
+* For Fulcrum
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_fulcrum/hostname
+sudo cat /var/lib/tor/hidden_service_fulcrum/hostname
 ```
 
 **Example** of expected output:
@@ -157,7 +157,7 @@ Now, execute Electrum Wallet choosing the correct way depending on your OS (repl
   * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
 
 ```sh
-$ ./electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
+./electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
 ```
 
 * **Windows**

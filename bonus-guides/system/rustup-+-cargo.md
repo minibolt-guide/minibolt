@@ -29,7 +29,7 @@ Rustup is an installer for the systems programming language [Rust](https://www.r
 * With user `admin`, run the following in your terminal, then follow the on-screen instructions to install Rust
 
 ```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 <details>
@@ -138,13 +138,13 @@ source "$HOME/.cargo/env"
 * Configure your current shell to reload your PATH environment variable to include Cargo's bin directory (`$HOME/.cargo/bin`)
 
 ```bash
-$ source "$HOME/.cargo/env"
+source "$HOME/.cargo/env"
 ```
 
 * Now check the correct installation of Rustup
 
 ```bash
-$ rustc --version
+rustc --version
 ```
 
 **Example** of expected output:
@@ -156,7 +156,7 @@ $ rustc --version
 * And cargo
 
 ```bash
-$ cargo -V
+cargo -V
 ```
 
 **Example** of expected output:
@@ -170,7 +170,7 @@ $ cargo -V
 * With user `admin` type the appropriate command to get that&#x20;
 
 ```bash
-$ rustup update
+rustup update
 ```
 
 Expected output:
@@ -186,7 +186,7 @@ info: checking for self-update
 * With user `admin` type the appropriate command to get that&#x20;
 
 ```bash
-$ rustup self uninstall
+rustup self uninstall
 ```
 
 Expected output:

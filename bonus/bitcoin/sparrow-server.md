@@ -40,45 +40,45 @@ Difficulty: Medium
 * Login as `admin` and change to a temporary directory which is cleared on reboot
 
 ```sh
-$ cd /tmp
+cd /tmp
 ```
 
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.9.0
+VERSION=1.9.1
 ```
 
 * Download the application, checksums, and signature
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-server-$VERSION-x86_64.tar.gz
+wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-server-$VERSION-x86_64.tar.gz
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt.asc
+wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt.asc
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt
+wget https://github.com/sparrowwallet/sparrow/releases/download/$VERSION/sparrow-$VERSION-manifest.txt
 ```
 {% endcode %}
 
 * Import keys that signed the release
 
 ```sh
-$ curl https://keybase.io/craigraw/pgp_keys.asc | gpg --import
+curl https://keybase.io/craigraw/pgp_keys.asc | gpg --import
 ```
 
 * Verify the release
 
 ```sh
-$ gpg --verify sparrow-$VERSION-manifest.txt.asc
+gpg --verify sparrow-$VERSION-manifest.txt.asc
 ```
 
 **Example** of expected output:
@@ -94,7 +94,7 @@ $ gpg --verify sparrow-$VERSION-manifest.txt.asc
 ```
 
 ```sh
-$ sha256sum --check sparrow-$VERSION-manifest.txt --ignore-missing
+sha256sum --check sparrow-$VERSION-manifest.txt --ignore-missing
 ```
 
 Expected output:
@@ -106,35 +106,35 @@ Expected output:
 * If everything is correct, unpack Sparrow
 
 ```sh
-$ tar -xvf sparrow-server-$VERSION-x86_64.tar.gz
+tar -xvf sparrow-server-$VERSION-x86_64.tar.gz
 ```
 
 * Move data files to the home `admin` user
 
 ```sh
-$ sudo cp -r Sparrow /home/admin/
+sudo cp -r Sparrow /home/admin/
 ```
 
 * Clean the remaining installation files from the `tmp` folder to avoid problems for the next update
 
 ```sh
-$ sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
+sudo rm -r Sparrow && rm sparrow-server-$VERSION-x86_64.tar.gz
 ```
 
 {% hint style="info" %}
-If you come to update, this is the final step. Check the correct update by entering the "`$ Sparrow --version"` command, skip the next step, and jump directly to the [Run Sparrow](sparrow-server.md#run) section to start Sparrow server again with the new version.
+If you come to update, this is the final step. Check the correct update by entering the "`Sparrow --version"` command, skip the next step, and jump directly to the [Run Sparrow](sparrow-server.md#run) section to start Sparrow server again with the new version
 {% endhint %}
 
 * Add the Sparrow executable to your PATH by creating a symlink to it within `/usr/local/bin`, which is already part of the PATH
 
 ```sh
-$ sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
+sudo ln -s /home/admin/Sparrow/bin/Sparrow /usr/local/bin/Sparrow
 ```
 
 * Check the correct installation by reclaiming the version output
 
 ```sh
-$ Sparrow --version
+Sparrow --version
 ```
 
 **Example** of expected output:
@@ -148,7 +148,7 @@ $ Sparrow --version
 * You can run Sparrow with the following command
 
 ```sh
-$ Sparrow
+Sparrow
 ```
 
 ![](../../images/sparrow-server.png)
@@ -164,7 +164,7 @@ Sparrow Server doesn't work on MobaXterm with X11-Forwarding enabled in the SSH 
 * Open Sparrow Wallet
 
 ```sh
-$ Sparrow
+Sparrow
 ```
 
 * Go to `Preferences > Server > Private Electrum > Continue`
@@ -191,13 +191,13 @@ Use SSL?: Yes
 * Start a new tmux session called "Sparrow"
 
 ```sh
-$ tmux new -s sparrowserver
+tmux new -s sparrowserver
 ```
 
 * Launch Sparrow Terminal
 
 ```sh
-$ Sparrow
+Sparrow
 ```
 
 * Connect Sparrow Terminal to your own Electrum Server implementation according to the steps above if not already done
@@ -232,19 +232,19 @@ Closing or logging out from your node without detaching would cause mixing to st
 * You can view tmux sessions using the following command
 
 ```sh
-$ tmux ls
+tmux ls
 ```
 
 * You can get back in sessions using
 
 ```sh
-$ tmux a
+tmux a
 ```
 
 * Or use this if you have other sessions opened
 
 ```sh
-$ tmux a -t sparrowserver
+tmux a -t sparrowserver
 ```
 
 * You can leave and delete the tmux session by pressing `Ctrl + d`
@@ -258,9 +258,9 @@ Follow the complete [Installation](sparrow-server.md#installation) section repla
 * Delete Sparrow symlinks & directory
 
 ```bash
-$ sudo rm /usr/local/bin/Sparrow
+sudo rm /usr/local/bin/Sparrow
 ```
 
 ```bash
-$ sudo rm -r /home/admin/Sparrow
+sudo rm -r /home/admin/Sparrow
 ```

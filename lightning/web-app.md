@@ -37,7 +37,7 @@ Node + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/bloc
 * With the user `admin`, check the Node version
 
 ```sh
-$ node -v
+node -v
 ```
 
 **Example** of expected output:
@@ -49,7 +49,7 @@ $ node -v
 * Check the NPM version
 
 ```sh
-$ npm -v
+npm -v
 ```
 
 **Example** of expected output:
@@ -71,7 +71,7 @@ Enable the Nginx reverse proxy to route external encrypted HTTPS traffic interna
 * With user `admin`, create the reverse proxy configuration
 
 ```sh
-$ sudo nano /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
+sudo nano /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
 ```
 
 * Paste the complete following configuration. Save and exit
@@ -91,14 +91,14 @@ server {
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo ln -s /etc/nginx/sites-available/thunderhub-reverse-proxy.conf /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/thunderhub-reverse-proxy.conf /etc/nginx/sites-enabled/
 ```
 {% endcode %}
 
 * Test Nginx configuration
 
 ```sh
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 Expected output:
@@ -111,13 +111,13 @@ Expected output:
 * Reload NGINX configuration to apply changes
 
 ```bash
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 * Configure the firewall to allow incoming HTTP requests from anywhere to the web server
 
 ```sh
-$ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
+sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
 ```
 
 ## Installation
@@ -127,48 +127,45 @@ We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of 
 * Create a new `thunderhub` user
 
 ```sh
-$ sudo adduser --disabled-password --gecos "" thunderhub
+sudo adduser --disabled-password --gecos "" thunderhub
 ```
 
 * Add `thunderhub` user to the `lnd` group
 
 ```sh
-$ sudo adduser thunderhub lnd
+sudo adduser thunderhub lnd
 ```
 
 * Change to the `thunderhub` user
 
 ```bash
-$ sudo su - thunderhub
+sudo su - thunderhub
 ```
 
 * Set a temporary version environment variable to the installation
 
 ```bash
-$ VERSION=0.13.27
+VERSION=0.13.27
 ```
 
 * Import the GPG key of the developer
 
 ```bash
-$ curl https://github.com/apotdevin.gpg | gpg --import
+curl https://github.com/apotdevin.gpg | gpg --import
 ```
 
-* Download the source code directly from GitHub, selecting the latest release branch associated
+* Download the source code directly from GitHub, selecting the latest release branch associated and go to the `thunderhub` folder
 
+{% code overflow="wrap" %}
 ```sh
-$ git clone --branch v$VERSION https://github.com/apotdevin/thunderhub.git
+git clone --branch v$VERSION https://github.com/apotdevin/thunderhub.git && cd thunderhub
 ```
-
-* Enter the recently created `thunderhub` folder
-
-<pre class="language-sh"><code class="lang-sh"><strong>$ cd thunderhub
-</strong></code></pre>
+{% endcode %}
 
 * Verify the release
 
 ```bash
-$ git verify-commit v$VERSION
+git verify-commit v$VERSION
 ```
 
 **Example** of expected output:
@@ -185,11 +182,11 @@ Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 * Install all dependencies and the necessary modules using NPM
 
 {% hint style="warning" %}
-**Not to run** the `$ npm audit fix` command, which could break the original code!!
+**Not to run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
 ```sh
-$ npm install
+npm install
 ```
 
 <details>
@@ -234,7 +231,7 @@ npm notice
 **(Optional)** Improve your privacy by opt-out of Next.js [telemetry](https://nextjs.org/telemetry)
 
 ```bash
-$ npx next telemetry disable
+npx next telemetry disable
 ```
 
 Expected output:
@@ -252,7 +249,7 @@ Learn more: https://nextjs.org/telemetry
 * Build it
 
 ```sh
-$ npm run build
+npm run build
 ```
 
 <details>
@@ -324,7 +321,7 @@ Route (pages)                              Size     First Load JS
 * Check the correct installation by requesting the version
 
 ```bash
-$ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
+head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 ```
 
 **Example** of expected output:
@@ -338,13 +335,13 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 * Copy the configuration file template
 
 ```sh
-$ cp .env .env.local
+cp .env .env.local
 ```
 
 * Edit the configuration file
 
 ```sh
-$ nano .env.local
+nano .env.local
 ```
 
 * Edit the following line to match with the next. Save and exit
@@ -356,7 +353,7 @@ ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
 * Create a new`thubConfig.yaml` file
 
 ```sh
-$ nano thubConfig.yaml
+nano thubConfig.yaml
 ```
 
 * Copy and paste the next information
@@ -392,7 +389,7 @@ healthCheckPingEnabled: true
 {% hint style="info" %}
 > Anyway is possible to enable this later using the ThunderHub interface that will be explained in the [Enable auto backups and healthcheck notifications](web-app.md#enable-auto-backups-and-healthcheck-notifications-to-the-amboss-account) extra section
 
-> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Amboss to send healthchecks pings
+> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <> Amboss to send healthchecks pings
 {% endhint %}
 
 {% hint style="info" %}
@@ -402,7 +399,7 @@ These features are not available for a testnet node
 * Exit `thunderhub` user session to return to the `admin` user session
 
 ```sh
-$ exit
+exit
 ```
 
 ### Create systemd service
@@ -410,7 +407,7 @@ $ exit
 * As user `admin`, create the service file
 
 ```sh
-$ sudo nano /etc/systemd/system/thunderhub.service
+sudo nano /etc/systemd/system/thunderhub.service
 ```
 
 * Paste the following configuration. Save and exit
@@ -448,28 +445,28 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```sh
-$ sudo systemctl enable thunderhub
+sudo systemctl enable thunderhub
 ```
 
 * Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
-$ journalctl -f -u thunderhub
+journalctl -fu thunderhub
 ```
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service
 
 ```sh
-$2 sudo systemctl start thunderhub
+sudo systemctl start thunderhub
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u thunderhub</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu thunderhub</code> ⬇️</summary>
 
 ```
 Jun 28 23:35:43 minibolt npm[513274]: > thunderhub@0.13.15 start
@@ -583,7 +580,7 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 * Ensure the service is working and listening at the default `3000` port and the HTTPS `4002` port
 
 ```bash
-$ sudo ss -tulpn | grep -v 'dotnet' | grep 'LISTEN.*\(4002\|3000\)'
+sudo ss -tulpn | grep -v 'dotnet' | grep 'LISTEN.*\(4002\|3000\)'
 ```
 
 Expected output:
@@ -603,7 +600,7 @@ Expected output:
 * Ensure that you are logged in with the user `admin` and edit the `torrc` file
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`". Save and exit
@@ -619,13 +616,13 @@ HiddenServicePort 80 127.0.0.1:3000
 * Reload Tor to apply changes
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Get your Onion address
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
+sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
 ```
 
 Expected output:
@@ -700,31 +697,31 @@ Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) sh
 * Stay logged in with the user `admin`, stop the service
 
 ```sh
-$ sudo systemctl stop thunderhub
+sudo systemctl stop thunderhub
 ```
 
 * Change to the `thunderhub` user
 
 ```sh
-$ sudo su - thunderhub
+sudo su - thunderhub
 ```
 
 * Go to the thunderhub folder
 
 ```sh
-$ cd thunderhub
+cd thunderhub
 ```
 
 * Set the environment variable version
 
 ```bash
-$ VERSION=0.13.27
+VERSION=0.13.27
 ```
 
 * Pull the changes from GitHub
 
 ```bash
-$ git pull https://github.com/apotdevin/thunderhub.git v$VERSION
+git pull https://github.com/apotdevin/thunderhub.git v$VERSION
 ```
 
 <details>
@@ -750,7 +747,7 @@ Fast-forward
 * Install all the necessary modules
 
 ```bash
-$ npm install
+npm install
 ```
 
 <details>
@@ -794,7 +791,7 @@ npm notice
 
 * Build it
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ npm run build
+<pre class="language-bash"><code class="lang-bash"><strong>npm run build
 </strong></code></pre>
 
 <details>
@@ -879,7 +876,7 @@ Route (pages)                              Size     First Load JS
 * Check the correct update
 
 ```bash
-$ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
+head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 ```
 
 **Example** of expected output:
@@ -891,13 +888,13 @@ $ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 * Exit to go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
 * Start the service again
 
 ```sh
-$ sudo systemctl start thunderhub
+sudo systemctl start thunderhub
 ```
 
 {% hint style="warning" %}
@@ -911,21 +908,21 @@ If the update fails, you probably will have to stop Thunderhub, follow the [Unin
 * Stop, disable, and delete the Thunderhub systemd service
 
 ```sh
-$ sudo systemctl stop thunderhub
+sudo systemctl stop thunderhub
 ```
 
 ```sh
-$ sudo systemctl disable thunderhub
+sudo systemctl disable thunderhub
 ```
 
 ```sh
-$ sudo rm /etc/systemd/system/thunderhub.service
+sudo rm /etc/systemd/system/thunderhub.service
 ```
 
 * Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
 
 ```sh
-$ sudo userdel -rf thunderhub
+sudo userdel -rf thunderhub
 ```
 
 Expected output:
@@ -939,7 +936,7 @@ Expected output:
 * Comment or remove the ThunderHub hidden service lines in torrc. Save and exit
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 ```
@@ -953,7 +950,7 @@ $ sudo nano /etc/tor/torrc
 * Reload the tor config to apply changes
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ### Uninstall reverse proxy & FW configuration
@@ -961,19 +958,19 @@ $ sudo systemctl reload tor
 * Ensure you are logged in with the user `admin`, delete the reverse proxy config file
 
 ```bash
-$ sudo rm /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
+sudo rm /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
 ```
 
 * Delete the simbolic link
 
 ```bash
-$ sudo rm /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
+sudo rm /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
 ```
 
 * Test Nginx configuration
 
 ```bash
-$ sudo nginx -t
+sudo nginx -t
 ```
 
 Expected output:
@@ -986,13 +983,13 @@ Expected output:
 * Reload the Nginx configuration to apply changes
 
 ```bash
-$ sudo systemctl reload nginx
+sudo systemctl reload nginx
 ```
 
 * Display the UFW firewall rules and note the numbers of the rules for Thunderhub (e.g. "X" below)
 
 ```sh
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 Expected output:
@@ -1004,7 +1001,7 @@ Expected output:
 * Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
 
 ```sh
-$ sudo ufw delete X
+sudo ufw delete X
 ```
 
 ## Port reference

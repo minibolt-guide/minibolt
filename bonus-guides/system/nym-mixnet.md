@@ -48,13 +48,13 @@ Together, these components and service providers create a decentralized infrastr
 * With user `admin`, make sure that all necessary software packages are installed
 
 ```bash
-$ sudo apt install pkg-config build-essential libssl-dev jq
+sudo apt install pkg-config build-essential libssl-dev jq
 ```
 
 * Check if you already have Rustc
 
 ```bash
-$ rustc --version
+rustc --version
 ```
 
 **Example** of expected output:
@@ -66,7 +66,7 @@ $ rustc --version
 * And cargo installed
 
 ```bash
-$ cargo -V
+cargo -V
 ```
 
 **Example** of expected output:
@@ -84,7 +84,7 @@ If you obtain "command not found" outputs, you need to follow the [Rustup + Carg
 * Stay login with the user `admin`, configure the firewall to allow incoming requests to the nym-socks5-client
 
 ```bash
-$ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
+sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
 ```
 
 ## Installation, Configuration & Run
@@ -94,25 +94,19 @@ $ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
 * Now we will go to the temporary folder to create the NYM binaries that we will need for the installation process
 
 ```bash
-$ cd /tmp
+cd /tmp
 ```
 
-* Clone the latest version of the source code from the GitHub repository
+* Clone the latest version of the source code from the GitHub repository and enter to the nym folder
 
 ```bash
-$ git clone https://github.com/nymtech/nym.git
-```
-
-* Enter to the nym folder
-
-```bash
-$ cd nym
+git clone https://github.com/nymtech/nym.git && cd nym
 ```
 
 * Enter the command to compile
 
 ```bash
-$ cargo build --release
+cargo build --release
 ```
 
 {% hint style="info" %}
@@ -124,7 +118,7 @@ If the prompt shows you this error:
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
-You need to type "**`$ rustup default stable"`** and wait for the process to finish, then try again the command before
+You need to type "**`rustup default stable"`** and wait for the process to finish, then try again the command before
 
 Also, that could help [Upgrade Rust](rustup-+-cargo.md#upgrade) to the latest version
 {% endhint %}
@@ -140,19 +134,19 @@ If you come to update, this is the final step, go back to the [Upgrade section](
 * Create the user nym with this command
 
 ```bash
-$ sudo adduser --gecos "" --disabled-password nym
+sudo adduser --gecos "" --disabled-password nym
 ```
 
 * Staying in the temporary folder, copy to the home nym user the "nym network requester" binary
 
 ```bash
-$ sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
+sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
 ```
 
 * Assign the owner of the binary to the nym user
 
 ```bash
-$ sudo chown nym:nym /home/nym/nym-network-requester
+sudo chown nym:nym /home/nym/nym-network-requester
 ```
 
 ### Init network requester
@@ -160,13 +154,13 @@ $ sudo chown nym:nym /home/nym/nym-network-requester
 * Switch to the user "nym"
 
 ```bash
-$ sudo su - nym
+sudo su - nym
 ```
 
 * Init the network requester for the first time with `gateway based selection` flag to choose a gateway based on its location relative to your device
 
 ```bash
-$ ./nym-network-requester init --id bitcoin --latency-based-selection
+./nym-network-requester init --id bitcoin --latency-based-selection
 ```
 
 {% hint style="info" %}
@@ -222,7 +216,7 @@ Additionally, you can use the exit policy feature to avoid malicious connections
 * Check the correct installation
 
 ```bash
-$ ./nym-network-requester -V
+./nym-network-requester -V
 ```
 
 **Example** of expected output:
@@ -234,7 +228,7 @@ $ ./nym-network-requester -V
 * Exit from the nym user session
 
 ```bash
-$ exit
+exit
 ```
 
 ### Create network requester systemd service
@@ -243,7 +237,7 @@ The system needs to run the network requester daemon automatically in the backgr
 
 * As user `admin`, create the service file
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ sudo nano /etc/systemd/system/nym-network-requester.service
+<pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/systemd/system/nym-network-requester.service
 </strong></code></pre>
 
 * Paste the following configuration. Save and exit
@@ -283,28 +277,28 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```bash
-$ sudo systemctl enable nym-network-requester
+sudo systemctl enable nym-network-requester
 ```
 
 * Prepare “nym-network-requester” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ journalctl -f -u nym-network-requester
+journalctl -fu nym-network-requester
 ```
 
 ### Running network requester
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the nym network requester service
 
 ```bash
-$2 sudo systemctl start nym-network-requester
+sudo systemctl start nym-network-requester
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nym-network-requester</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu nym-network-requester</code> ⬇️</summary>
 
 ```
 Jun 25 20:43:00 minibolt systemd[1]: Started Nym Network Requester.
@@ -338,19 +332,19 @@ All network requester specific configurations can be found in `/home/nym/.nym/se
 * Stay logged in with `admin`user, go to the temporary folder
 
 ```bash
-$ cd /tmp
+cd /tmp
 ```
 
 * Copy to the home nym user the "nym socks5 client" binary
 
 ```bash
-$ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
+sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
 ```
 
 * Assign the owner of the binary to the nym user
 
 ```bash
-$ sudo chown nym:nym /home/nym/nym-socks5-client
+sudo chown nym:nym /home/nym/nym-socks5-client
 ```
 
 ### Init socks5 client
@@ -358,14 +352,14 @@ $ sudo chown nym:nym /home/nym/nym-socks5-client
 * Switch to the user "nym"
 
 ```bash
-$ sudo su - nym
+sudo su - nym
 ```
 
 * Init the nym socks5 client for the first time with `gateway based selection` flag to choose a gateway based on its location relative to your device and replace **\<requesteraddress>** with the obtained in the [Run NYM network requester](nym-mixnet.md#run-nym-network-requester) step before
 
 {% code overflow="wrap" %}
 ```bash
-$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
+./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
 ```
 {% endcode %}
 
@@ -412,7 +406,7 @@ Address of this client: GwFEXSpQP1VFZwDdYRkuRTUpQ28v3zvZbq3mtQnNELwr.EeAiN8mySPw
 * Check the correct installation
 
 ```bash
-$ ./nym-socks5-client -V
+./nym-socks5-client -V
 ```
 
 **Example** of expected output:
@@ -424,7 +418,7 @@ $ ./nym-socks5-client -V
 * Exit from the nym user session
 
 ```bash
-$ exit
+exit
 ```
 
 ### Create socks5 client systemd service
@@ -434,7 +428,7 @@ The system needs to run the network requester daemon automatically in the backgr
 * As user `admin`, create the service file
 
 ```bash
-$ sudo nano /etc/systemd/system/nym-socks5-client.service
+sudo nano /etc/systemd/system/nym-socks5-client.service
 ```
 
 * Paste the following configuration. Save and exit
@@ -472,7 +466,7 @@ WantedBy=multi-user.target
 ```
 
 {% hint style="info" %}
-(Optional) You can add `--fastmode` attribute to the `ExecStart` parameter to enable this feature, this means the connection will not mixed up as much, but you will still be covered by the same privacy standard/minimum that NYM provides:
+**(Optional)** You can add `--fastmode` attribute to the `ExecStart` parameter to enable this feature, this means the connection will not mixed up as much, but you will still be covered by the same privacy standard/minimum that NYM provides:
 
 ```bash
 ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode
@@ -482,28 +476,28 @@ ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode
 * Enable autoboot **(optional)**
 
 ```bash
-$ sudo systemctl enable nym-network-requester
+sudo systemctl enable nym-network-requester
 ```
 
 * Prepare “nym-socks5-client” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-$ journalctl -f -u nym-socks5-client
+journalctl -fu nym-socks5-client
 ```
 
 ### Running socks5 client
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the nym socks5 client service
 
 ```bash
-$2 sudo systemctl start nym-socks5-client
+sudo systemctl start nym-socks5-client
 ```
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>$ journalctl -f -u nym-socks5-client</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu nym-socks5-client</code> ⬇️</summary>
 
 ```
 Jun 25 21:19:30 minibolt systemd[1]: Started Nym Socks5 client.
@@ -531,7 +525,7 @@ Jun 25 21:19:31 minibolt nym-socks5-client[1776937]:  2023-06-25T19:19:31.394Z I
 * Ensure the service is working and listening at the default `1080` port
 
 ```bash
-$2 sudo ss -tulpn | grep LISTEN | grep nym-socks5
+sudo ss -tulpn | grep LISTEN | grep nym-socks5
 ```
 
 Expected output:
@@ -543,7 +537,7 @@ Expected output:
 * Delete the NYM compilation folder to be ready for the next update and free up space
 
 ```bash
-$ sudo rm -r /tmp/nym
+sudo rm -r /tmp/nym
 ```
 
 {% hint style="info" %}
@@ -563,18 +557,18 @@ Recently, NYM has introduced an option to publicly share your network requester 
 * With user `admin`, stop `NYM socks5 client & NYM Network requester`
 
 ```bash
-$ sudo systemctl stop nym-socks5-client
+sudo systemctl stop nym-socks5-client
 ```
 
 ```bash
-$ sudo systemctl stop nym-network-requester
+sudo systemctl stop nym-network-requester
 ```
 
 * Edit the `config.toml` of the network requester
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo nano /home/nym/.nym/service-providers/network-requester/bitcoin/config/config.toml
+sudo nano /home/nym/.nym/service-providers/network-requester/bitcoin/config/config.toml
 ```
 {% endcode %}
 
@@ -587,7 +581,7 @@ use_deprecated_allow_list = false
 * Edit the network requester systemd service
 
 ```bash
-$ sudo nano /etc/systemd/system/nym-network-requester.service --linenumbers
+sudo nano /etc/systemd/system/nym-network-requester.service --linenumbers
 ```
 
 * Delete the `--open-proxy true` parameter on the line `13`
@@ -599,11 +593,11 @@ ExecStart=/home/nym/nym-network-requester run --id bitcoin
 * Start the `Nym network requester & Nym socks5 client` again
 
 ```bash
-$ sudo systemctl start nym-network-requester
+sudo systemctl start nym-network-requester
 ```
 
 ```bash
-$ sudo systemctl start nym-socks5-client
+sudo systemctl start nym-socks5-client
 ```
 
 {% hint style="info" %}
@@ -617,7 +611,7 @@ So far, we have been routing all clearnet network traffic through Tor. However, 
 * With user `admin`, edit the `bitcoin.conf` file
 
 ```bash
-$ sudo nano /data/bitcoin/bitcoin.conf
+sudo nano /data/bitcoin/bitcoin.conf
 ```
 
 * Modify the following line. Save and exit
@@ -630,13 +624,13 @@ proxy=127.0.0.1:1080
 * Restart bitcoind to apply changes
 
 ```bash
-$ sudo systemctl restart bitcoind
+sudo systemctl restart bitcoind
 ```
 
 * Check the correct proxy change network connection
 
 ```bash
-$ bitcoin-cli getnetworkinfo | grep -A 3 ipv
+bitcoin-cli getnetworkinfo | grep -A 3 ipv
 ```
 
 Expected output:
@@ -684,7 +678,7 @@ Follow the [Electrum Wallet desktop guide](../../bonus/bitcoin/electrum-wallet-d
 Use this **example** of a shortcut for Linux to select a public server automatically proxying using NYM mixnet:
 
 ```bash
-$ ./electrum-4.4.5-x86_64.AppImage -p socks5:localhost:1080
+./electrum-4.4.5-x86_64.AppImage -p socks5:localhost:1080
 ```
 
 Or directly on the interface; on the top menu, go to **Tools** --> **Network** --> Proxy tab, check "**Use proxy**", select "**SOCKS5**"
@@ -709,7 +703,7 @@ Use this **example** of a shortcut for Linux to select your private server (your
 
 {% code overflow="wrap" %}
 ```bash
-$ ./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localhost:1080
+./electrum-4.4.5-x86_64.AppImage -1 -s 192.168.1.147:50002:s -p socks5:localhost:1080
 ```
 {% endcode %}
 
@@ -729,7 +723,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) unt
 >
 > > Swich "Use proxy"
 >
-> > Proxy URL: 127.0.0.1 --> Port: 1080
+> > Proxy URL: 127.0.0.1 -> Port: 1080
 
 <div align="center" data-full-width="false">
 
@@ -985,11 +979,11 @@ Explorer to get information on the NYM network components
 * With `admin` user, stop `NYM socks5 client & NYM Network requester`
 
 ```bash
-$ sudo systemctl stop nym-network-requester
+sudo systemctl stop nym-network-requester
 ```
 
 ```bash
-$ sudo systemctl stop nym-socks5-client
+sudo systemctl stop nym-socks5-client
 ```
 
 ### Upgrade network requester
@@ -997,25 +991,25 @@ $ sudo systemctl stop nym-socks5-client
 * Replace the network requester binary
 
 ```bash
-$ sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
+sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
 ```
 
 * Change to the nym user
 
 ```bash
-$ sudo su - nym
+sudo su - nym
 ```
 
 * Init again the network requester to update the `config.toml` file if needed
 
 ```bash
-$ ./nym-network-requester init --id bitcoin --latency-based-selection
+./nym-network-requester init --id bitcoin --latency-based-selection
 ```
 
 * Check the correct update
 
 ```bash
-$ ./nym-network-requester -V
+./nym-network-requester -V
 ```
 
 **Example** of expected output:
@@ -1027,13 +1021,13 @@ $ ./nym-network-requester -V
 * Exit from the `nym` user session
 
 ```bash
-$ exit
+exit
 ```
 
 * Start network requester again
 
 ```bash
-$ sudo systemctl start nym-network-requester
+sudo systemctl start nym-network-requester
 ```
 
 ### Upgrade socks5 client
@@ -1041,27 +1035,27 @@ $ sudo systemctl start nym-network-requester
 * Replace the socks5 client binary
 
 ```bash
-$ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
+sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
 ```
 
 * Change to the nym user
 
 ```bash
-$ sudo su - nym
+sudo su - nym
 ```
 
 * Init again the socks5 client with the same command and service provider, this updates the `config.toml` file if needed
 
 {% code overflow="wrap" %}
 ```bash
-$ ./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
+./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
 ```
 {% endcode %}
 
 * Check the correct update
 
 ```bash
-$ ./nym-socks5-client -V
+./nym-socks5-client -V
 ```
 
 **Example** of expected output:
@@ -1073,19 +1067,19 @@ $ ./nym-socks5-client -V
 * Exit from the `nym` user
 
 ```bash
-$ exit
+exit
 ```
 
 * Start socks5 client again
 
 ```bash
-$ sudo systemctl start nym-socks5-client
+sudo systemctl start nym-socks5-client
 ```
 
 * Delete the NYM compilation folder to be ready for the next update and free up space
 
 ```bash
-$ sudo rm -r /tmp/nym
+sudo rm -r /tmp/nym
 ```
 
 ## Uninstall
@@ -1093,27 +1087,27 @@ $ sudo rm -r /tmp/nym
 * With user `admin`, stop network requester and socks5 client services
 
 ```bash
-$ sudo systemctl stop nym-network-requester
+sudo systemctl stop nym-network-requester
 ```
 
 ```bash
-$ sudo systemctl stop nym-socks5-client
+sudo systemctl stop nym-socks5-client
 ```
 
 * Delete network requester and socks5 client services
 
 ```bash
-$ sudo rm /etc/systemd/system/nym-network-requester.service
+sudo rm /etc/systemd/system/nym-network-requester.service
 ```
 
 ```bash
-$ sudo rm /etc/systemd/system/nym-socks5-client.service
+sudo rm /etc/systemd/system/nym-socks5-client.service
 ```
 
 * Delete nym user. Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash
-$ sudo userdel -rf nym
+sudo userdel -rf nym
 ```
 
 ## Troubleshooting
@@ -1129,13 +1123,13 @@ If you encounter any issues, they may be related to the gateway. To resolve this
 * With user `admin`, stop the network requester
 
 ```bash
-$ sudo systemctl stop nym-network-requester
+sudo systemctl stop nym-network-requester
 ```
 
 * Change to the nym user
 
 ```bash
-$ sudo su - nym
+sudo su - nym
 ```
 
 * Init again network requester, by following the [Init NYM network requester section](nym-mixnet.md#init-network-requester), this time with `--force-register-gateway` and `--gateway` flags (remember deleting `--latency-based-selection` flag). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key
@@ -1151,13 +1145,13 @@ Take note of the new "`Address of this network-requester:..."` to refresh it on 
 * Exit the nym user session to go back to the admin user
 
 ```bash
-$ exit
+exit
 ```
 
 * Start network requester again
 
 ```bash
-$ sudo systemctl start nym-network-requester
+sudo systemctl start nym-network-requester
 ```
 
 **Case NYM socks5 client issues:**
@@ -1165,13 +1159,13 @@ $ sudo systemctl start nym-network-requester
 * With user `admin`, stop the socks5 client
 
 ```bash
-$ sudo systemctl stop nym-socks5-client
+sudo systemctl stop nym-socks5-client
 ```
 
 * Change to the nym user
 
 ```bash
-$ sudo su - nym
+sudo su - nym
 ```
 
 * Init again the socks5 client by following the [Init NYM socks5 client section](nym-mixnet.md#init-socks5-client), this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection` flag). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key. Remember to change the network requester address (service provider) if you change it at any moment
@@ -1183,7 +1177,7 @@ $ sudo su - nym
 * If you want to change only the service provider of your nym socks5 client connected, edit the config file and replace the `provider_mix_address =` parameter with the new one. With user `nym.` Save and exit
 
 ```bash
-$ nano /home/nym/.nym/socks5-clients/bitcoin/config/config.toml
+nano /home/nym/.nym/socks5-clients/bitcoin/config/config.toml
 ```
 
 <details>
@@ -1202,13 +1196,13 @@ provider_mix_address = '84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6
 * Exit the `nym` user session to go back to the `admin` user
 
 ```bash
-$ exit
+exit
 ```
 
 * Start socks5 client again
 
 ```bash
-$ sudo systemctl start nym-socks5-client
+sudo systemctl start nym-socks5-client
 ```
 
 ## Port reference

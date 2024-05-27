@@ -25,26 +25,26 @@ We will use the primary user `admin` instead of `temp` to make this guide more u
 * Create a new user called `admin` with your `password [A]`
 
 ```sh
-$ sudo adduser --gecos "" admin
+sudo adduser --gecos "" admin
 ```
 
 * Make this new user a superuser by adding it to the `sudo` and old `temp` user groups
 
 ```sh
-$ sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
+sudo usermod -a -G sudo,adm,cdrom,dip,plugdev,lxd admin
 ```
 
 * Logout the existing `temp` user
 
 ```sh
-$ logout
+logout
 ```
 
 * Repeat [Access with Secure Shell](remote-access.md#access-with-secure-shell) but this time login with `admin` and your `password [A]`
 * Delete the `temp` user. Do not worry about the `userdel: temp mail spool (/var/mail/temp) not found` message
 
 ```sh
-$ sudo userdel -rf temp
+sudo userdel -rf temp
 ```
 
 Expected output:
@@ -68,7 +68,7 @@ Now, you can start to access it without a password by following the [SSH keys bo
 * Update the operating system and all installed software packages
 
 ```sh
-$ sudo apt update && sudo apt full-upgrade
+sudo apt update && sudo apt full-upgrade
 ```
 
 {% hint style="info" %}
@@ -84,7 +84,7 @@ It is recommended to keep the default selection and restart all marked items. Ho
 * To be able to use the `minibolt` hostname instead of the IP address, we must install this necessary software package
 
 ```sh
-$ sudo apt install avahi-daemon
+sudo apt install avahi-daemon
 ```
 
 ## Check drive performance
@@ -96,13 +96,13 @@ Let's check if your drive works well as-is.
 * Your disk should be detected as `/dev/sda`. Check if this is the case by listing the names of connected block devices
 
 ```sh
-$ lsblk -pli
+lsblk -pli
 ```
 
 * Measure the speed of your drive
 
 ```sh
-$ sudo hdparm -t --direct /dev/sda
+sudo hdparm -t --direct /dev/sda
 ```
 
 **Example** of expected output:
@@ -118,7 +118,7 @@ If the measured speeds are more than 150 MB/s, you're good
 * If you installed a **secondary disk**, check and measure the speed with the next command, if not, skip it
 
 ```sh
-$ sudo hdparm -t --direct /dev/sdb
+sudo hdparm -t --direct /dev/sdb
 ```
 
 **Example** of expected output:
@@ -138,7 +138,7 @@ We'll store all application data in the dedicated directory `/data`. This allows
 * Create the data folder
 
 ```sh
-$ sudo mkdir /data
+sudo mkdir /data
 ```
 
 {% hint style="info" %}
@@ -148,5 +148,5 @@ Remember that the before command is not necessary if you previously followed [Ca
 * Assing to the `admin` user as the owner of the **`(/data)`** folder
 
 ```sh
-$ sudo chown admin:admin /data
+sudo chown admin:admin /data
 ```

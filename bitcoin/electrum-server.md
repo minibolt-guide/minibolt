@@ -30,7 +30,7 @@ layout:
 * [Bitcoin Core](../index-2/bitcoin-client.md)
 * \~ 130GB of free storage for the database
 
-Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `$ sudo systemctl stop electrs`.
+Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs`.
 
 ## Introduction
 
@@ -51,7 +51,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](../index-2/
 * With user `admin`, make sure that all necessary software packages are installed
 
 ```sh
-$ sudo apt install libssl-dev
+sudo apt install libssl-dev
 ```
 
 ### Configure Firewall
@@ -59,11 +59,11 @@ $ sudo apt install libssl-dev
 * Configure the firewall to allow incoming requests
 
 ```sh
-$ sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
+sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
 ```
 
 ```sh
-$ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
+sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
 ```
 
 ### Configure Bitcoin Core
@@ -73,7 +73,7 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 * Edit `bitcoin.conf` file
 
 ```sh
-$ sudo nano /data/bitcoin/bitcoin.conf
+sudo nano /data/bitcoin/bitcoin.conf
 ```
 
 * Add the following line to the `"# Connections"` section. Save and exit
@@ -85,13 +85,13 @@ zmqpubhashblock=tcp://127.0.0.1:8433
 * Restart Bitcoin Core to apply changes
 
 ```sh
-$ sudo systemctl restart bitcoind
+sudo systemctl restart bitcoind
 ```
 
 * Check Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port
 
 ```bash
-$ sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 8433
+sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 8433
 ```
 
 Expected output:
@@ -108,32 +108,32 @@ We have our Bitcoin Core configuration file set up and can now move on to the ne
 * Login as `admin` user and change to a temporary directory which is cleared on reboot
 
 ```sh
-$ cd /tmp
+cd /tmp
 ```
 
 * Set a temporary version environment variable to the installation
 
 ```sh
-$ VERSION=1.10.0
+VERSION=1.10.0
 ```
 
 * Download the application, checksums, and signature
 
 {% code overflow="wrap" %}
 ```sh
-$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz
+wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-shasums.txt.asc
+wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-shasums.txt.asc
 ```
 {% endcode %}
 
 {% code overflow="wrap" fullWidth="false" %}
 ```bash
-$ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-shasums.txt
+wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-shasums.txt
 ```
 {% endcode %}
 
@@ -143,7 +143,7 @@ $ wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$
 
 {% code overflow="wrap" %}
 ```bash
-$ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
+curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt | gpg --import
 ```
 {% endcode %}
 
@@ -162,7 +162,7 @@ Expected output:
 * Verify the signature of the text file containing the checksums for the application
 
 ```sh
-$ gpg --verify Fulcrum-$VERSION-shasums.txt.asc
+gpg --verify Fulcrum-$VERSION-shasums.txt.asc
 ```
 
 Expected output:
@@ -180,7 +180,7 @@ Expected output:
 * Verify the signed checksum against the actual checksum of your download
 
 ```sh
-$ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
+grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 ```
 
 **Example** of expected output:
@@ -191,7 +191,7 @@ $ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 * Extract
 
 ```sh
-$ tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
+tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
 ```
 
 {% hint style="info" %}
@@ -209,14 +209,14 @@ tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.docker.grpcf
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-$VERSION-x86_64-linux/Fulcrum Fulcrum-$VERSION-x86_64-linux/FulcrumAdmin
+sudo install -m 0755 -o root -g root -t /usr/local/bin Fulcrum-$VERSION-x86_64-linux/Fulcrum Fulcrum-$VERSION-x86_64-linux/FulcrumAdmin
 ```
 {% endcode %}
 
 * Check the correct installation requesting the version
 
 ```sh
-$ Fulcrum --version
+Fulcrum --version
 ```
 
 **Example** of expected output:
@@ -231,7 +231,7 @@ $ Fulcrum --version
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo rm -r Fulcrum-$VERSION-x86_64-linux && sudo rm Fulcrum-$VERSION-x86_64-linux.tar.gz && sudo rm Fulcrum-$VERSION-shasums.txt && sudo rm Fulcrum-$VERSION-shasums.txt.asc
+sudo rm -r Fulcrum-$VERSION-x86_64-linux && sudo rm Fulcrum-$VERSION-x86_64-linux.tar.gz && sudo rm Fulcrum-$VERSION-shasums.txt && sudo rm Fulcrum-$VERSION-shasums.txt.asc
 ```
 {% endcode %}
 
@@ -244,13 +244,13 @@ If you come to update, this is the final step, go back to the [Upgrade section](
 * Create the `fulcrum` user and group
 
 ```sh
-$ sudo adduser --disabled-password --gecos "" fulcrum
+sudo adduser --disabled-password --gecos "" fulcrum
 ```
 
 * Add `fulcrum` user to the "bitcoin" group
 
 ```sh
-$ sudo adduser fulcrum bitcoin
+sudo adduser fulcrum bitcoin
 ```
 
 ### Create data folder
@@ -258,31 +258,31 @@ $ sudo adduser fulcrum bitcoin
 * Create the fulcrum data folder
 
 ```sh
-$ sudo mkdir -p /data/fulcrum/fulcrum_db
+sudo mkdir -p /data/fulcrum/fulcrum_db
 ```
 
 * Assign as the owner to the `fulcrum` user
 
 ```sh
-$ sudo chown -R fulcrum:fulcrum /data/fulcrum/
+sudo chown -R fulcrum:fulcrum /data/fulcrum/
 ```
 
 * Change to the `fulcrum` user
 
 ```bash
-$ sudo su - fulcrum
+sudo su - fulcrum
 ```
 
 * Create a symlink from `/home/fulcrum/.fulcrum` folder to the `/data/fulcrum` folder
 
 ```sh
-$ ln -s /data/fulcrum /home/fulcrum/.fulcrum
+ln -s /data/fulcrum /home/fulcrum/.fulcrum
 ```
 
 * Check symbolic link has been created correctly
 
 ```bash
-$ ls -la
+ls -la
 ```
 
 Expected output:
@@ -300,14 +300,14 @@ lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-
 * Change to the fulcrum data folder
 
 ```sh
-$ cd /data/fulcrum
+cd /data/fulcrum
 ```
 
 * Generate cert and key files for SSL
 
 {% code overflow="wrap" %}
 ```bash
-$ openssl req -newkey rsa:2048 -sha256 -nodes -x509 -days 3650 -subj "/O=Fulcrum" -keyout key.pem -out cert.pem
+openssl req -newkey rsa:2048 -sha256 -nodes -x509 -days 3650 -subj "/O=Fulcrum" -keyout key.pem -out cert.pem
 ```
 {% endcode %}
 
@@ -325,7 +325,7 @@ Expected output:
 
 {% code overflow="wrap" %}
 ```bash
-$ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner.txt
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner.txt
 ```
 {% endcode %}
 
@@ -336,12 +336,12 @@ MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do no
 * Create a Fulcrum configuration file
 
 ```sh
-$ nano /data/fulcrum/fulcrum.conf
+nano /data/fulcrum/fulcrum.conf
 ```
 
 * Enter the following content. Save and exit
 
-{% hint style="info" %}
+{% hint style="warning" %}
 Remember to accommodate the `fast-sync` parameter depending on your hardware
 {% endhint %}
 
@@ -378,7 +378,7 @@ Remember, if you have a slow-performance device, follow the [slow device section
 * Exit the `fulcrum` user session to return to the "admin" user session
 
 ```sh
-$ exit
+exit
 ```
 
 ### Create systemd service
@@ -388,7 +388,7 @@ Fulcrum needs to start automatically on system boot.
 * As user `admin`, create the Fulcrum systemd unit
 
 ```sh
-$ sudo nano /etc/systemd/system/fulcrum.service
+sudo nano /etc/systemd/system/fulcrum.service
 ```
 
 * Enter the complete following configuration. Save and exit
@@ -425,26 +425,26 @@ WantedBy=multi-user.target
 * Enable autoboot **(optional)**
 
 ```sh
-$ sudo systemctl enable fulcrum
+sudo systemctl enable fulcrum
 ```
 
 * Prepare "fulcrum" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
-$ journalctl -f -u fulcrum
+journalctl -fu fulcrum
 ```
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin". Commands for the **second session** start with the prompt **`$2` (which must not be entered).**
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service
 
 ```sh
-$2 sudo systemctl start fulcrum
+sudo systemctl start fulcrum
 ```
 
-**Example** of expected output on the first terminal with `$ journalctl -f -u fulcrum` ⬇️
+**Example** of expected output on the first terminal with `journalctl -fu fulcrum` ⬇️
 
 <div data-full-width="false">
 
@@ -469,7 +469,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUP
 * Ensure the service is working and listening at the default `50002` & `50001` ports and the `8000` admin port
 
 ```sh
-$2 sudo ss -tulpn | grep LISTEN | grep Fulcrum
+sudo ss -tulpn | grep LISTEN | grep Fulcrum
 ```
 
 Expected output:
@@ -487,7 +487,7 @@ tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",
 * Ensure that you are logged in with the user `admin` and edit the `torrc` file
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 * Add the following lines in the "location hidden services" section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
@@ -504,13 +504,13 @@ HiddenServicePort 50002 127.0.0.1:50002
 * Reload the Tor configuration to apply changes
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 * Get your Onion address
 
 ```sh
-$ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
+sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
 ```
 
 **Example** of expected output:
@@ -528,7 +528,7 @@ Fulcrum comes with an admin script. The admin service is used for sending specia
 * Type the next command to see a list of possible subcommands that you can send to Fulcrum
 
 ```sh
-$ FulcrumAdmin -h
+FulcrumAdmin -h
 ```
 
 Expected output:
@@ -542,7 +542,7 @@ usage: FulcrumAdmin [-h] -p port [-j] [-H [host]]
 * Type the next command to get complete server information
 
 ```sh
-$ FulcrumAdmin -p 8000 getinfo
+FulcrumAdmin -p 8000 getinfo
 ```
 
 {% hint style="info" %}
@@ -556,7 +556,7 @@ Get more information about this command in the official documentation [section](
 * As the `admin` user, edit the existing `fulcrum.conf` file
 
 ```sh
- $ sudo nano /data/fulcrum/fulcrum.conf
+ sudo nano /data/fulcrum/fulcrum.conf
 ```
 
 * Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware
@@ -578,34 +578,28 @@ db_mem = 1024.0
 
 [zram-swap](https://github.com/foundObjects/zram-swap) is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
 
-* With user `admin`, access to "admin" home folder
+* With user `admin`, access to the "admin" home folder
 
 ```sh
-$ cd /home/admin/
+cd /home/admin/
 ```
 
-* Clone the repository of GitHub
+* Clone the repository of GitHub and go to the `zram-swap` folder
 
 ```sh
-$ git clone https://github.com/foundObjects/zram-swap.git
-```
-
-* Go to the `zram-swap` folder
-
-```bash
-$ cd zram-swap
+git clone https://github.com/foundObjects/zram-swap.git && cd zram-swap
 ```
 
 * Install it
 
 ```bash
-$ sudo ./install.sh
+sudo ./install.sh
 ```
 
 * Add kernel parameters to make better use of zram
 
 ```sh
-$ sudo nano /etc/sysctl.conf
+sudo nano /etc/sysctl.conf
 ```
 
 * Add next lines at the end of the file. Save and exit
@@ -620,19 +614,19 @@ vm.dirty_ratio=50
 * Then apply the changes with
 
 ```sh
-$ sudo sysctl --system
+sudo sysctl --system
 ```
 
 * Restart the service
 
 ```sh
-$ sudo systemctl restart zram-swap
+sudo systemctl restart zram-swap
 ```
 
 * Make sure zram was correctly installed and prioritized (+ Priority than swap)
 
 ```sh
-$ sudo cat /proc/swaps
+sudo cat /proc/swaps
 ```
 
 **Example** of expected output:
@@ -650,13 +644,13 @@ Follow the complete [Download and set up Fulcrum](electrum-server.md#download-an
 * Restart the service to apply the changes
 
 ```sh
-$ sudo systemctl restart fulcrum
+sudo systemctl restart fulcrum
 ```
 
 * Check logs and pay attention to the next log if that attends to the new version installed
 
 ```sh
-$ journalctl -f -u fulcrum
+journalctl -fu fulcrum
 ```
 
 **Example** of expected output:
@@ -675,27 +669,27 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 * Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
 
 ```sh
-$ sudo systemctl stop fulcrum
+sudo systemctl stop fulcrum
 ```
 
 ```sh
-$ sudo systemctl disable fulcrum
+sudo systemctl disable fulcrum
 ```
 
 ```sh
-$ sudo rm /etc/systemd/system/fulcrum.service
+sudo rm /etc/systemd/system/fulcrum.service
 ```
 
 * Delete the fulcrum user. Don't worry about `userdel: fulcrum mail spool (/var/mail/fulcrum) not found` output, the uninstall has been successful
 
 ```sh
-$ sudo userdel -rf fulcrum
+sudo userdel -rf fulcrum
 ```
 
 * Delete fulcrum directory
 
 ```sh
-$ sudo rm -rf /data/fulcrum/
+sudo rm -rf /data/fulcrum/
 ```
 
 ### Uninstall binaries
@@ -703,7 +697,7 @@ $ sudo rm -rf /data/fulcrum/
 * Delete the binaries installed
 
 ```bash
-$ sudo rm /usr/local/bin/Fulcrum && sudo rm /usr/local/bin/FulcrumAdmin
+sudo rm /usr/local/bin/Fulcrum && sudo rm /usr/local/bin/FulcrumAdmin
 ```
 
 ### Uninstall Tor hidden service
@@ -711,7 +705,7 @@ $ sudo rm /usr/local/bin/Fulcrum && sudo rm /usr/local/bin/FulcrumAdmin
 * Ensure that you are logged in with the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```sh
-$ sudo nano /etc/tor/torrc
+sudo nano /etc/tor/torrc
 ```
 
 ```
@@ -726,7 +720,7 @@ $ sudo nano /etc/tor/torrc
 * Reload the torrc config
 
 ```sh
-$ sudo systemctl reload tor
+sudo systemctl reload tor
 ```
 
 ### Uninstall FW configuration
@@ -734,7 +728,7 @@ $ sudo systemctl reload tor
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
 
 ```sh
-$ sudo ufw status numbered
+sudo ufw status numbered
 ```
 
 Expected output:
@@ -747,7 +741,7 @@ Expected output:
 * Delete the rule with the correct number and confirm with "`yes`"
 
 ```sh
-$ sudo ufw delete X
+sudo ufw delete X
 ```
 
 ### Uninstall the Zram
@@ -755,25 +749,25 @@ $ sudo ufw delete X
 * Ensure you are logged in with the user `admin`, navigate to the zram-swap folder, and uninstall
 
 ```sh
-$ cd /home/admin/zram-swap
+cd /home/admin/zram-swap
 ```
 
 ```sh
-$ sudo ./install.sh --uninstall
+sudo ./install.sh --uninstall
 ```
 
 ```sh
-$ sudo rm /etc/default/zram-swap
+sudo rm /etc/default/zram-swap
 ```
 
 ```sh
-$ sudo rm -rf /home/admin/zram-swap
+sudo rm -rf /home/admin/zram-swap
 ```
 
 * Make sure that the change was done
 
 ```sh
-$ sudo cat /proc/swaps
+sudo cat /proc/swaps
 ```
 
 Expected output:
