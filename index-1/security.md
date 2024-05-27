@@ -259,7 +259,9 @@ Expected output:
 sudo systemctl reload nginx
 ```
 
+{% hint style="info" %}
 &#x20;You can monitor the Nginx logs by entering this command. Exit with Ctrl + C
+{% endhint %}
 
 ```bash
 journalctl -fu nginx
@@ -271,7 +273,9 @@ Expected output:
 </strong>> Nov 16 16:56:56 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
 </code></pre>
 
+{% hint style="info" %}
 You can monitor Nginx error logs by entering this command. Exit with Ctrl + C
+{% endhint %}
 
 ```bash
 sudo tail -f /var/log/nginx/error.log
