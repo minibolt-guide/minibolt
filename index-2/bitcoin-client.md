@@ -113,12 +113,12 @@ gpg --verify SHA256SUMS.asc
 ### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time\_stamp\_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS.ots) the checksum file
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-25.1/SHA256SUMS) its timestamp proof
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.0/SHA256SUMS.ots) the checksum file
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.0/SHA256SUMS) its timestamp proof
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
-* In the "Stamp and verify" section, drop or upload the downloaded SHA256SUMS.ots proof file in the dotted box
-* In the next box, drop or upload the SHA256SUMS file
-* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases/tag/v25.0) of the latest Bitcoin Core version
+* In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box
+* In the next box, drop or upload the `SHA256SUMS` file
+* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases) of the latest Bitcoin Core version
 
 The following screenshot is just an **example** of one of the versions:
 
