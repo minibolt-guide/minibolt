@@ -86,7 +86,7 @@ sudo mkdir /data/postgresdb
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chown postgres:postgres /data/postgresdb
 </strong></code></pre>
 
-* Assing permissions of the data folder only to the postgres user
+* Assign permissions of the data folder only to the postgres user
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chmod -R 700 /data/postgresdb
 </strong></code></pre>
