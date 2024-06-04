@@ -27,6 +27,7 @@ alias showmainversion='echo The installed versions of the main services are as f
   echo NPM: v`npm --version` ; \
   htop --version ; \
   ots --version ; \
+  psql -V ; \
   nginx -v'
 
 alias showbonusversion='echo The installed versions of the bonus services are as follows: ; \
@@ -132,14 +133,14 @@ alias disableallmain='sudo systemctl disable bitcoind fulcrum btcrpcexplorer lnd
 # MAIN SERVICES LOGS #
 ######################
 
-alias torlogs='journalctl -f -u tor@default'
+alias torlogs='journalctl -fu tor@default'
 alias i2plogs='sudo tail -f /var/log/i2pd/i2pd.log'
-alias bitcoindlogs='journalctl -f -u bitcoind.service'
-alias fulcrumlogs='journalctl -f -u fulcrum'
-alias btcrpcexplorerlogs='journalctl -f -u btcrpcexplorer'
-alias lndlogs='journalctl -f -u lnd'
-alias thunderhublogs='journalctl -f -u thunderhub'
-alias scbackuplogs='journalctl -f -u scb-backup'
+alias bitcoindlogs='journalctl -fu bitcoind.service'
+alias fulcrumlogs='journalctl -fu fulcrum'
+alias btcrpcexplorerlogs='journalctl -fu btcrpcexplorer'
+alias lndlogs='journalctl -fu lnd'
+alias thunderhublogs='journalctl -fu thunderhub'
+alias scbackuplogs='journalctl -fu scb-backup'
 
 ##########################
 #       LND Mainnet      #
@@ -185,7 +186,8 @@ alias enablenbx='sudo systemctl enable nbxplorer'
 alias enablebtcpay='sudo systemctl enable btcpay'
 alias enablecloudflared='sudo systemctl enable cloudflared'
 alias enablenostrelay='sudo systemctl enable nostr-relay'
-alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay'
+alias enablepostgres='sudo systemctl enable postgresql'
+alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql'
 
 ########################
 # START BONUS SERVICES #
@@ -199,6 +201,7 @@ alias startnbx='sudo systemctl start nbxplorer'
 alias startbtcpay='sudo systemctl start btcpay'
 alias startcloudflared='sudo systemctl start cloudflared'
 alias startnostrelay='sudo systemctl start nostr-relay'
+alias startpostgres='sudo systemctl start postgresql'
 
 #########################
 # STATUS BONUS SERVICES #
@@ -212,8 +215,9 @@ alias statusnbx='sudo systemctl status nbxplorer'
 alias statusbtcpay='sudo systemctl status btcpay'
 alias statuscloudflared='sudo systemctl status cloudflared'
 alias statusnostrelay='sudo systemctl status nostr-relay'
+alias statuspostgres='sudo systemctl status postgresql'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
-  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay'
+  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql'
 
 #######################
 # STOP BONUS SERVICES #
@@ -227,7 +231,8 @@ alias stopnbx='sudo systemctl stop nbxplorer'
 alias stopbtcpay='sudo systemctl stop btcpay'
 alias stopcloudflared='sudo systemctl stop cloudflared'
 alias stopnostrelay='sudo systemctl stop nostr-relay'
-alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay'
+alias stopostgres='sudo systemctl stop postgresql'
+alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql'
 
 ###################################
 # DISABLE AUTOBOOT BONUS SERVICES #
@@ -240,20 +245,22 @@ alias disablenbx='sudo systemctl disable nbxplorer'
 alias disablebtcpay='sudo systemctl disable btcpay'
 alias disablecloudflared='sudo systemctl disable cloudflared'
 alias disablenostrelay='sudo systemctl disable nostr-relay'
-alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay'
+alias disablepostgres='sudo systemctl disable postgresql'
+alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql'
 
 #######################
 # BONUS SERVICES LOGS #
 #######################
 
-alias electrslogs='journalctl -f -u electrs'
-alias wireguardlogs='journalctl -f -u wg-quick@wg0'
-alias nymrequesterlogs='journalctl -f -u nym-network-requester'
-alias nymsocks5logs='journalctl -f -u nym-socks5-client'
-alias nbxlogs='journalctl -f -u nbxplorer'
-alias btcpaylogs='journalctl -f -u btcpay'
-alias cloudflaredlogs='journalctl -f -u cloudflared'
-alias nostrelaylogs='journalctl -f -u nostr-relay'
+alias electrslogs='journalctl -fu electrs'
+alias wireguardlogs='journalctl -fu wg-quick@wg0'
+alias nymrequesterlogs='journalctl -fu nym-network-requester'
+alias nymsocks5logs='journalctl -fu nym-socks5-client'
+alias nbxlogs='journalctl -fu nbxplorer'
+alias btcpaylogs='journalctl -fu btcpay'
+alias cloudflaredlogs='journalctl -fu cloudflared'
+alias nostrelaylogs='journalctl -fu nostr-relay'
+alias postgreslogs='journalctl -fu postgresql'
 
 #################
 #  LND Testnet  #
