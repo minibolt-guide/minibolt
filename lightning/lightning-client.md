@@ -1335,17 +1335,21 @@ The `[WRN]` logs indicate that LND has detected an existing old bbolt database a
 
 ```
 [...]
-> Apr 17 14:33:20 minibolt lnd[55570]: 2024-04-17 14:33:20.984 [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/chain/bitcoin/mainnet/wallet.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
-> Apr 17 14:33:20 minibolt lnd[55570]: 2024-04-17 14:33:20.985 [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/graph/mainnet/channel.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
+> [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/chain/bitcoin/mainnet/wallet.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
+> [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/graph/mainnet/channel.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
 [...]
 ```
 
 \-> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
 
+
+
 Pay attention to this `[INF]` significant log to confirm you are using PostgreSQL now
 
 ```
-[INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
+[...]
+> [INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
+[...]
 ```
 {% endhint %}
 
