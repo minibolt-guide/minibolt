@@ -34,6 +34,7 @@
 
 * [🖥️ System](bonus/system/README.md)
   * [Pimp the command line](bonus/system/command-line.md)
+  * [System Overview](bonus-guides/system/system-overview.md)
   * [Aliases](bonus/system/aliases.md)
   * [Static IP & custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
   * [Node + NPM](bonus/system/nodejs-npm.md)
