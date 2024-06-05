@@ -26,7 +26,7 @@ alias showmainversion='echo The installed versions of the main services are as f
   echo NodeJS: `node -v` ; \
   echo NPM: v`npm --version` ; \
   htop --version ; \
-  ots --version ; \
+  echo OTS: `ots --version` ; \
   psql -V ; \
   nginx -v'
 
