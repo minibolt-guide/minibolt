@@ -57,7 +57,7 @@ We recommend using both methods, but you can choose either one of them, dependin
 
 ## Requirements
 
-* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [Bitcoin Core](../itcoin/bitcoin/bitcoin-client.md)
 * [LND](lightning-client.md)
 
 ## Preparations
@@ -237,7 +237,7 @@ UUID=123456 /mnt/static-channel-backup-external vfat auto,noexec,nouser,rw,sync,
 sudo mount -a
 ```
 
-* &#x20;Ensure that `/mnt/static-channel-backup-external` is listed
+* Ensure that `/mnt/static-channel-backup-external` is listed
 
 ```bash
 df -h /mnt/static-channel-backup-external
@@ -330,7 +330,7 @@ git config user.email "minibolt@dummyemail.com"
 cd ~/.lnd
 ```
 
-* Replace `<YourGitHubUsername>` with your own GitHub username.  When prompted `"Are you sure you want to continue connecting (yes/no/[fingerprint])?"` type "yes" and enter
+* Replace `<YourGitHubUsername>` with your own GitHub username. When prompted `"Are you sure you want to continue connecting (yes/no/[fingerprint])?"` type "yes" and enter
 
 ```bash
 git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
@@ -423,7 +423,7 @@ To keep an eye on the software movements, [start your SSH program](../index-1/re
 sudo systemctl start scb-backup
 ```
 
-**Example** of expected output on the  first SSH session with `journalctl -fu scb-backup` ⬇️
+**Example** of expected output on the first SSH session with `journalctl -fu scb-backup` ⬇️
 
 ```
 Jul 25 17:31:54 minibolt systemd[1]: Started SCB Backup.
@@ -440,7 +440,7 @@ sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
 
 <details>
 
-<summary><strong>Example</strong> of the expected output  with <code>journalctl -fu scb-backup</code> ⬇️</summary>
+<summary><strong>Example</strong> of the expected output with <code>journalctl -fu scb-backup</code> ⬇️</summary>
 
 ```
 Jul 25 17:32:32 minibolt scb-backup[401705]: /data/lnd/data/chain/bitcoin/mainnet/channel.backup OPEN
@@ -473,7 +473,7 @@ Nov 05 23:18:43 minibolt scb-backup[1711268]: error: src refspec main does not m
 Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to 'github.com:<YourGitHubUsername>/remote-lnd-backup.git
 ```
 
-\-> Replace the line 41 `git push "--set-upstream origin`` `**`main"`** to "`git push --set-upstream origin`` `**`master"`** [in the script](channel-backup.md#create-script) , and try again
+\-> Replace the line 41 ` git push "--set-upstream origin`` `` `**`main"`** to "` git push --set-upstream origin`` `` `**`master"`** [in the script](channel-backup.md#create-script) , and try again
 {% endhint %}
 
 * **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above
@@ -514,7 +514,7 @@ sudo rm /etc/systemd/system/scb-backup.service
 
 ### Uninstall script
 
-* &#x20;Delete the script installed
+* Delete the script installed
 
 ```bash
 sudo rm /usr/local/bin/scb-backup

@@ -30,7 +30,7 @@ Difficulty: Easy
 
 ## Requirements
 
-* [Bitcoin Core](../../index-2/bitcoin-client.md)
+* [Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md)
 
 ## Introduction
 

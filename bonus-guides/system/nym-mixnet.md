@@ -248,7 +248,7 @@ The system needs to run the network requester daemon automatically in the backgr
 
 [Unit]
 Description=Nym Network Requester
-Wants=network-online.target
+Requires=network-online.target
 After=network-online.target
 
 StartLimitInterval=350
@@ -439,7 +439,7 @@ sudo nano /etc/systemd/system/nym-socks5-client.service
 
 [Unit]
 Description=Nym Socks5 client
-Wants=network-online.target
+Requires=network-online.target
 After=network-online.target
 
 StartLimitInterval=350
@@ -715,7 +715,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 #### Sparrow desktop
 
-Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
+Follow the [Desktop wallet: Sparrow Wallet](../../itcoin/bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../itcoin/bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
 
 1. If you don't have your node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 

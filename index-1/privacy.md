@@ -204,23 +204,6 @@ Not all network traffic is routed over the Tor network, by default some services
 ```
 {% endhint %}
 
-### Uninstall Tor
-
-* With user `admin`, enter the next command and "`y`" when the prompt asks you if you want to continue
-
-```bash
-sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
-```
-
-Expected output:
-
-```
-[...]
-The following packages will be REMOVED:
-  deb.torproject.org-keyring tor tor-geoipdb torsocks
-[...]
-```
-
 ## I2P Project
 
 <div align="left">
@@ -250,7 +233,7 @@ Importing signing key
 Adding APT repository
 ```
 
-* Update the apt repository and Install i2pd as any other software package. Press "y" and "enter"
+* Update the apt repository and install i2pd as any other software package. Press "y" and "enter"
 
 ```sh
 sudo apt update && sudo apt install i2pd
@@ -330,31 +313,6 @@ sudo systemctl disable i2pd
 ```
 {% endhint %}
 
-### Uninstall I2P
-
-* With user `admin`, enter the next command, and "`y`" when the prompt asks you if you want to continue
-
-```bash
-sudo apt autoremove i2pd && sudo apt purge i2pd
-```
-
-Expected output:
-
-```
-[...]
-The following packages will be REMOVED:
-  i2pd libminiupnpc17
-[...]
-```
-
-## Upgrade Tor and I2P
-
-The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade simply type this command:
-
-```sh
-sudo apt update && sudo apt upgrade
-```
-
 ## Extras (optional)
 
 ### **SSH remote access through Tor**
@@ -405,7 +363,7 @@ You also need to have Tor installed on your regular computer where you start the
 
 * **Windows**:
 
-To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
+To enable Tor in the background follow the same instructions for the [preparations](../itcoin/bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
 * PuTTy:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
@@ -530,7 +488,51 @@ Edit the screen to match with this, replacing SOCKS Host, with your node local I
 Click on the OK button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info), if it resolves, you are OK.\
 Or simply go to this [website](https://check.torproject.org/), and you should see "_Congratulations. This browser is configured to use Tor."_
 
-Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Check out the [Desktop wallet: Sparrow wallet](../bitcoin/desktop-wallet.md) guide to get instructions.
+Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Check out the [Desktop wallet: Sparrow wallet](../itcoin/bitcoin/desktop-wallet.md) guide to get instructions.
+
+## Upgrade Tor and I2P
+
+The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade type this command:
+
+```sh
+sudo apt update && sudo apt upgrade
+```
+
+## Uninstall
+
+### Uninstall Tor
+
+* With user `admin`, enter the next command and "`y`" when the prompt asks you if you want to continue
+
+```bash
+sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
+```
+
+Expected output:
+
+```
+[...]
+The following packages will be REMOVED:
+  deb.torproject.org-keyring tor tor-geoipdb torsocks
+[...]
+```
+
+### Uninstall I2P
+
+* With user `admin`, enter the next command, and "`y`" when the prompt asks you if you want to continue
+
+```bash
+sudo apt autoremove i2pd && sudo apt purge i2pd
+```
+
+Expected output:
+
+```
+[...]
+The following packages will be REMOVED:
+  i2pd libminiupnpc17
+[...]
+```
 
 ## **Troubleshooting**
 
@@ -556,7 +558,7 @@ sudo rm /var/lib/tor/state
 sudo systemctl start tor
 ```
 
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to.&#x20;
+If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to.
 
 If not, try using [obfs bridges](../index-4/index/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs bridges could help to avoid this censorship.
 
@@ -578,7 +580,7 @@ If this happens, usually this fix only with restarting the i2pd service
 sudo systemctl restart i2pd
 ```
 
-* Check again Bitcoin Core logs to ensure that the errors don't appear anymore
+* Check again the Bitcoin Core logs to ensure that the errors don't appear anymore
 
 ## Port reference
 

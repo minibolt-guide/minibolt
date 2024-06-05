@@ -97,7 +97,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=2024.5.0
+VERSION=2024.6.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -286,7 +286,7 @@ ingress:
 > 1. Electrum server are not supported using Cloudflared
 
 > 2. For security reasons, you shouldn't expose publically the administration access services using Cloudflared e.g SSH or Thunderhub, for these cases you should use [Wireguard VPN](../../bonus/system/wireguard-vpn.md)
-> 3.  If you want to expose only a service, you can delete or comment the associated lines of other services, always maintaining the "`- service: http_status:404"` line at the end of the rules. Example, expose only BTCPay Server, the comment the associated lines for BTC RPC Explorer:&#x20;
+> 3.  If you want to expose only a service, you can delete or comment the associated lines of other services, always maintaining the "`- service: http_status:404"` line at the end of the rules. Example, expose only BTCPay Server, the comment the associated lines for BTC RPC Explorer:
 >
 >     ```
 >     # BTC RPC Explorer
@@ -351,13 +351,13 @@ sudo nano /etc/systemd/system/cloudflared.service
 
 [Unit]
 Description=Cloudflared
-Wants=network-online.target
+Requires=network-online.target
 After=network-online.target
 
 [Service]
 ExecStart=/usr/bin/cloudflared --no-autoupdate --config /home/admin/.cloudflared/config.yml tunnel run
-<strong>
-</strong># Process management
+
+# Process management
 ####################
 Type=notify
 <strong>TimeoutStartSec=0

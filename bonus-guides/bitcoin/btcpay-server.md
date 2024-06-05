@@ -30,7 +30,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Requirements
 
-* [Bitcoin Core](../../index-2/bitcoin-client.md)
+* [Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md) (optional)
 * Others
   * PostgreSQL
@@ -191,42 +191,7 @@ exit
 
 ### Install PostgreSQL
 
-* With user `admin`, create the file repository configuration
-
-{% code overflow="wrap" %}
-```bash
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-```
-{% endcode %}
-
-* Import the repository signing key
-
-{% code overflow="wrap" %}
-```bash
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-```
-{% endcode %}
-
-Expected output:
-
-```
-> Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
-OK
-```
-
-* Update the package lists. You can ignore the `W: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8))` message
-
-```bash
-sudo apt update
-```
-
-* Install the latest version of PostgreSQL
-
-```bash
-sudo apt install postgresql postgresql-contrib
-```
-
-* Check the correct installation
+* With user `admin`, check if you have already installed PostgreSQL
 
 ```bash
 psql -V
@@ -235,64 +200,22 @@ psql -V
 **Example** of expected output:
 
 ```
-> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+> psql (PostgreSQL) 16.3 (Ubuntu 16.3-1.pgdg22.04+1)
 ```
 
-* Ensure PostgreSQL is running and listening on the default port `5432`
+{% hint style="info" %}
+If PostgreSQL is not installed (output: Command 'psql' not found), follow this [PostgreSQL](../system/postgresql.md) guide to install it
+{% endhint %}
 
+#### Create PostgreSQL databases
+
+* With user `admin`, create 2 new databases with the `postgres` user
+
+{% code overflow="wrap" %}
 ```bash
-sudo ss -tulpn | grep LISTEN | grep postgres
+sudo -u postgres createdb -O admin btcpayserver && sudo -u postgres createdb -O admin nbxplorer
 ```
-
-Expected output:
-
-<pre><code><strong>> tcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=2532748,fd=7))
-</strong>> tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
-</code></pre>
-
-### Create PostgreSQL databases
-
-* With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
-
-```bash
-sudo su - postgres
-```
-
-* Create a new database user
-
-```bash
-createuser --pwprompt --interactive
-```
-
-Type in the following:
-
-> > Enter name of role to add: **admin**
->
-> > Enter password for new role: **admin**
->
-> > Enter it again: **admin**
->
-> > Shall the new role be a superuser? (y/n) **n**
->
-> > Shall the new role be allowed to create databases? (y/n) **y**
->
-> > Shall the new role be allowed to create more new roles? (y/n) **n**
-
-* Create 2 new databases
-
-```bash
-createdb -O admin btcpayserver
-```
-
-```bash
-createdb -O admin nbxplorer
-```
-
-* Go back to the `admin` user
-
-```bash
-exit
-```
+{% endcode %}
 
 ## Installation, Configuration & Run
 
@@ -306,14 +229,10 @@ exit
 sudo su - btcpay
 ```
 
-* Create a "src" directory and enter the folder
+* Create a `src` directory and enter the folder
 
 ```bash
-mkdir src
-```
-
-```bash
-cd src
+mkdir src && cd src
 ```
 
 * Set the environment variable version
@@ -506,8 +425,8 @@ sudo nano /etc/systemd/system/nbxplorer.service
 
 [Unit]
 Description=NBXplorer
-Wants=bitcoind.service
-After=bitcoind.service
+Requires=bitcoind.service postgresql.service
+After=bitcoind.service postgresql.service
 
 [Service]
 WorkingDirectory=/home/btcpay/src/NBXplorer
@@ -539,7 +458,7 @@ WantedBy=multi-user.target
 sudo systemctl enable nbxplorer
 ```
 
-* Prepare “`nbxplorer`” monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare `nbxplorer` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
 journalctl -fu nbxplorer
@@ -821,8 +740,8 @@ sudo nano /etc/systemd/system/btcpay.service
 
 <strong>[Unit]
 </strong>Description=BTCPay Server
-Wants=nbxplorer.service
-After=nbxplorer.service
+Requires=nbxplorer.service postgresql.service
+After=nbxplorer.service postgresql.service
 
 [Service]
 WorkingDirectory=/home/btcpay/src/btcpayserver
@@ -907,13 +826,13 @@ sudo ss -tulpn | grep LISTEN | grep 23000
 Expected output:
 
 ```
-> tcp   LISTEN 0   512        127.0.0.1:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
+> tcp   LISTEN 0   512        0.0.0.0:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
 ```
 
-Now point your browser, `"http://minibolt.local:23000"` (or your node IP address) like `"http://192.168.0.20:23000"`.
+Now point your browser, `"http://minibolt.local:23000"` (or your node IP address) like `"http://192.168.0.20:23000"`
 
 {% hint style="info" %}
-You can now create the first account to access the dashboard using a real (recommended) or a dummy email, and password
+You can now create the first account to access the dashboard using a real (recommended) or a dummy email + password
 {% endhint %}
 
 {% hint style="success" %}
@@ -983,7 +902,7 @@ restlisten=0.0.0.0:8080
 sudo systemctl restart lnd
 ```
 
-* Ensure the REST port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
+* Ensure the REST port is now binding to the `0.0.0.0` host instead of `127.0.0.1`
 
 ```bash
 sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
@@ -999,6 +918,8 @@ Expected output:
 ```bash
 sudo systemctl stop btcpay
 ```
+
+#### Modify BTCPay Server configuration
 
 * Change to the `btcpay` user
 
@@ -1023,6 +944,21 @@ BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/dat
 
 ```bash
 exit
+```
+
+#### Modify the BTCPay Server systemd service
+
+* Modify the next lines of the systemd service file by following [this section](btcpay-server.md#create-btcpay-server-systemd-service)
+
+```
+Requires=nbxplorer.service lnd.service
+After=nbxplorer.service lnd.service
+```
+
+* Reload the systemd daemon
+
+```bash
+sudo systemctl daemon-reload
 ```
 
 * Start the BTCPay Server again
@@ -1439,6 +1375,6 @@ sudo systemctl reload tor
 
 |  Port | Protocol |             Use            |
 | :---: | :------: | :------------------------: |
-|  5432 |    TCP   |  PostgreSQL default port   |
+|  5432 |    TCP   |   PostgreSQL default port  |
 | 24444 |    TCP   |   NBXplorer default port   |
 | 23000 |    TCP   | BTCPay Server default port |

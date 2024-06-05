@@ -21,16 +21,16 @@ layout:
 
 <div data-full-width="false">
 
-<figure><img src="../.gitbook/assets/Fulcrum_logo" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Fulcrum_logo" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
 ## Requirements
 
-* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [Bitcoin Core](bitcoin-client.md)
 * \~ 130GB of free storage for the database
 
-Fulcrum is a replacement for [Electrs](../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs`.
+Fulcrum is a replacement for [Electrs](../../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs`.
 
 ## Introduction
 
@@ -44,7 +44,7 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](../index-2/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
+Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
 
 ### Install dependencies
 
@@ -399,7 +399,7 @@ sudo nano /etc/systemd/system/fulcrum.service
 
 [Unit]
 Description=Fulcrum
-Wants=bitcoind.service
+Requires=bitcoind.service
 After=bitcoind.service
 
 StartLimitBurst=2
@@ -436,7 +436,7 @@ journalctl -fu fulcrum
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service
 
@@ -448,7 +448,7 @@ sudo systemctl start fulcrum
 
 <div data-full-width="false">
 
-<figure><img src="../.gitbook/assets/fulcrum-index.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/fulcrum-index.PNG" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -464,7 +464,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUP
 
 * When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed
 
-<figure><img src="../.gitbook/assets/fulcrum-index-finished.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/fulcrum-index-finished.PNG" alt=""><figcaption></figcaption></figure>
 
 * Ensure the service is working and listening at the default `50002` & `50001` ports and the `8000` admin port
 

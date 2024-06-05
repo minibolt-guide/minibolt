@@ -16,7 +16,7 @@ layout:
 
 We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/), the reference client implementation of the Bitcoin network.
 
-![](../images/bitcoin-core-logo-trans.png)
+![](../../images/bitcoin-core-logo-trans.png)
 
 ## This may take some time
 
@@ -26,9 +26,9 @@ Bitcoin Core will download the full Bitcoin blockchain, and validate all transac
 
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
+💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md#preparations) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
 
-💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md#preparations) skipping [Apply the patch “Ordisrespector”](../bonus/bitcoin/ordisrespector.md#apply-the-patch-ordisrespector) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
+💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md#preparations) skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-patch-ordisrespector) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
 
 ### Download binaries
 
@@ -122,13 +122,17 @@ gpg --verify SHA256SUMS.asc
 
 The following screenshot is just an **example** of one of the versions:
 
-![](../images/bitcoin-ots-check.PNG)
+![](../../images/bitcoin-ots-check.PNG)
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
 
 ```sh
 tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
+
+{% hint style="info" %}
+If you want to [generate a full bitcoin.conf file](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), follow the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), and then come back to continue with the [next section](bitcoin-client.md#binaries-installation)
+{% endhint %}
 
 ### Binaries installation
 
@@ -165,6 +169,8 @@ Now, if you want to install the manual page for `bitcoin-cli`, follow the [manua
 sudo rm -r bitcoin-$VERSION && sudo rm bitcoin-$VERSION-x86_64-linux-gnu.tar.gz && sudo rm SHA256SUMS && sudo rm SHA256SUMS.asc && sudo rm SHA256SUMS.ots
 ```
 {% endcode %}
+
+
 
 ### Create the bitcoin user & group
 
@@ -347,7 +353,7 @@ blocksonly=1
 ```
 
 {% hint style="info" %}
-If you checked on the "[Check IPv6 availability](../index-1/security.md#check-ipv6-availability)" section and don't have IPv6 available, you can discard the IPv6 network of the Bitcoin Core by adding the next lines at the end of the configuration file:
+If you checked on the [Check IPv6 availability](../../index-1/security.md#check-ipv6-availability) section and don't have IPv6 available, you can discard the IPv6 network of the Bitcoin Core by adding the next lines at the end of the configuration file:
 
 ```
 # Disable IPv6 network
@@ -356,7 +362,7 @@ onlynet=i2p
 onlynet=ipv4
 ```
 
-This is a standard configuration. Check this Bitcoin Core [sample-bitcoind.conf](https://gist.github.com/1ma/65751ba7f148612dfb39ff3527486a92) with all possible options
+This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options or generate one yourself following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
 {% endhint %}
 
 * Set permissions: only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)
@@ -375,7 +381,7 @@ exit
 
 ### Create systemd service
 
-The system needs to run the bitcoin daemon automatically in the background, even when nobody is logged in. We use `"systemd"`, a daemon that controls the startup process using configuration files.
+The system needs to run the bitcoin daemon automatically in the background. We use `systemd`, a daemon that controls the startup process using configuration files
 
 * Create the systemd configuration
 
@@ -391,7 +397,7 @@ sudo nano /etc/systemd/system/bitcoind.service
 
 [Unit]
 Description=Bitcoin Core Daemon
-Wants=network-online.target
+Requires=network-online.target
 After=network-online.target
 
 [Service]
@@ -447,7 +453,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "`admin`"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "`admin`"
 
 * Start the service
 
@@ -504,7 +510,7 @@ ln -s /data/bitcoin /home/admin/.bitcoin
 exit
 ```
 
-* Log in again as a user `admin` [opening a new SSH session](../index-1/remote-access.md#access-with-secure-shell)
+* Log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell)
 * Check symbolic link have been created correctly
 
 ```bash
@@ -616,7 +622,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
     * You definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
     * Read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
 
-    <figure><img src="../images/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../images/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
 * [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin
 * Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original\_Bitcoin\_client/API\_calls\_list)
 
@@ -761,7 +767,7 @@ rpcworkqueue=256
 ```
 
 {% hint style="info" %}
-Realize that with `maxuploadtarget` parameter enabled you will need whitelist the connection to [Electrs](../bonus/bitcoin/electrs.md) and [Bisq](../bonus/bitcoin/bisq.md) by adding these parameter to `bitcoin.conf`:
+Realize that with `maxuploadtarget` parameter enabled you will need whitelist the connection to [Electrs](../../bonus/bitcoin/electrs.md) and [Bisq](../../bonus/bitcoin/bisq.md) by adding these parameter to `bitcoin.conf`:
 
 For Electrs:
 
@@ -776,12 +782,48 @@ whitelist=bloomfilter@192.168.0.0/16
 ```
 {% endhint %}
 
-### Manual page for bitcoin-cli
+### Renovate your Bitcoin Core Tor and I2P addresses
+
+* With user `admin`, stop bitcoind and dependencies
+
+```bash
+sudo systemctl stop bitcoind
+```
+
+* Delete&#x20;
+
+```bash
+sudo rm /data/bitcoin/onion_v3_private_key && 
+```
+
+* Start bitcoind again
+
+```bash
+sudo systemctl start bitcoind
+```
+
+* If you want to monitor the bitcoind logs and the starting progress, type `journalctl -fu bitcoind` in a separate SSH session
+* Wait a minute to identify your newly generated addresses with
+
+{% code overflow="wrap" %}
+```bash
+bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo | grep address.*i2p
+```
+{% endcode %}
+
+**Example** of expected output:
+
+```
+> "address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
+> "address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
+```
+
+### The manual page for bitcoin-cli
 
 * For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine so that they can be consulted offline, they can be installed from the directory
 
 {% hint style="warning" %}
-This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../bonus/bitcoin/ordisrespector.md)
+This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
 {% endhint %}
 
 ```sh
@@ -802,7 +844,52 @@ sudo cp * /usr/share/man/man1/
 man bitcoin-cli
 ```
 
-⬆️ Now come back to the next section [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user) to continue with the Bitcoin Core installation process.
+⬆️ Now come back to the next section [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user) to continue with the Bitcoin Core installation process
+
+### Generate a full bitcoin.conf example file
+
+* Follow the [Installation progress before](bitcoin-client.md#installation)&#x20;
+* With user `admin`, clone the source code from GitHub
+
+```bash
+git clone https://github.com/bitcoin/bitcoin.git
+```
+
+* Copy-paste the bitcoind binary file to the source code folder
+
+```bash
+cp /tmp/bitcoin-$VERSION/bin/bitcoind /tmp/bitcoin/src/
+```
+
+* Go to the `devtools` folder
+
+```bash
+cd bitcoin/contrib/devtools
+```
+
+* Exec the `gen-bitcoin-conf` script to generate the file
+
+```bash
+sudo ./gen-bitcoin-conf.sh
+```
+
+Expected output:
+
+```
+Generating example bitcoin.conf file in share/examples/
+```
+
+* Use `cat` to print it on the terminal to enable a copy-paste
+
+```bash
+cat /tmp/bitcoin/share/examples/bitcoin.conf
+```
+
+* Or `nano` to examine the content inside of
+
+```bash
+nano /tmp/bitcoin/share/examples/bitcoin.conf
+```
 
 ## Upgrade
 
@@ -991,7 +1078,7 @@ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
 
 ### Uninstall FW configuration
 
-If you followed the [Bisq bonus guide](../bonus/bitcoin/bisq.md), probably you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
+If you followed the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), probably you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below)
 

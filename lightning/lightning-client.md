@@ -27,7 +27,10 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 ## Requirements
 
-* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [Bitcoin Core](../itcoin/bitcoin/bitcoin-client.md)
+* Others
+  * [PostgreSQL](../bonus-guides/system/postgresql.md)
+  * [Go!](../bonus-guides/system/go.md) **(optional)**
 
 ## Preparations
 
@@ -69,13 +72,41 @@ Expected output:
 > tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-2">28333</a>      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=22))
 </code></pre>
 
+### Install PostgreSQL
+
+{% hint style="warning" %}
+You may want to use the bbolt database backend instead of PostgreSQL, if yes, jump to the [next step](lightning-client.md#installation) and follow the [Use bbolt database backend](lightning-client.md#use-the-bbolt-database-backend) section and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
+{% endhint %}
+
+* With user `admin`, check if you already have PostgreSQL installed
+
+```bash
+psql -V
+```
+
+**Example** of expected output:
+
+```
+> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+```
+
+{% hint style="info" %}
+If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide installation progress](../bonus-guides/system/postgresql.md#installation) to install it and then come back to continue with the guide
+{% endhint %}
+
+#### Create PostgreSQL database
+
+* With user `admin`, create a new database with the `postgres` user
+
+```bash
+sudo -u postgres createdb -O admin lndb
+```
+
 ## Installation
 
 ### Download binaries
 
-We'll download, verify, and install LND.
-
-* Navigate to the temporary directory
+* We'll download, verify, and install LND. Navigate to the temporary directory
 
 ```sh
 cd /tmp
@@ -84,7 +115,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=0.17.5
+VERSION=0.18.0
 ```
 
 * Download the application, checksums, and signature
@@ -257,7 +288,7 @@ sudo rm -r lnd-linux-amd64-v$VERSION-beta && sudo rm lnd-linux-amd64-v$VERSION-b
 {% endcode %}
 
 {% hint style="info" %}
-If you come to update this is the final step
+If you come to [update](lightning-client.md#upgrade) this is the final step
 {% endhint %}
 
 ### Create the lnd user & group
@@ -379,13 +410,13 @@ tlsautorefresh=true
 tlsdisableautofill=true
 
 # Channel settings
-# Fee settings - default LND base fee = 1000 (mSat),
-# default LND fee rate = 1 (ppm)
+# Fee settings - default LND base fee = 1000 (mSat), fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
 <a data-footnote-ref href="#user-content-fn-12">#bitcoin.basefee=0</a>
 <a data-footnote-ref href="#user-content-fn-13">#bitcoin.feerate=0</a>
 
-# Minimum channel size (default: 20000 sats). You can choose whatever you want
+# (Optional) Minimum channel size. Uncomment and set whatever you want
+# (default: 20000 sats)
 <a data-footnote-ref href="#user-content-fn-14">#minchansize=20000</a>
 
 maxpendingchannels=5
@@ -401,7 +432,7 @@ protocol.simple-taproot-chans=true
 # Watchtower client
 wtclient.active=true
 
-# Specify the fee rate with which justice transactions will be signed
+# (Optional) Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
 <a data-footnote-ref href="#user-content-fn-15">#wtclient.sweep-fee-rate=10</a>
 
@@ -415,19 +446,19 @@ ignore-historical-gossip-filters=true
 stagger-initial-reconnect=true
 
 # Database
-[bolt]
-# Set the next value to false to disable auto-compact DB
-# and fast boot and comment the next line
-db.bolt.auto-compact=true
-# Uncomment to do DB compact at every LND reboot (default: 168h)
-<a data-footnote-ref href="#user-content-fn-16">#db.bolt.auto-compact-min-age=0h</a>
+[db]
+db.backend=postgres
 
-# Optional (uncomment the next 2 lines (default: CONSERVATIVE))
+[postgres]
+db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
+db.postgres.timeout=0
+
+# (Optional) Uncomment the next 2 lines 
+# (default: CONSERVATIVE)
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-17">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-16">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [Bitcoin]
-bitcoin.active=true
 bitcoin.mainnet=true
 bitcoin.node=bitcoind
 
@@ -438,10 +469,10 @@ tor.streamisolation=true
 </code></pre>
 
 {% hint style="info" %}
-This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf) with all possible options
+This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf) with all possible options if you want to add something special
 {% endhint %}
 
-* Exit of the `lnd` user session to return to the **admin** user session
+* Exit of the `lnd` user session to return to the `admin` user session
 
 ```sh
 exit
@@ -465,8 +496,8 @@ sudo nano /etc/systemd/system/lnd.service
 
 [Unit]
 Description=Lightning Network Daemon
-Wants=bitcoind.service
-After=bitcoind.service
+Requires=bitcoind.service postgresql.service
+After=bitcoind.service postgresql.service
 
 [Service]
 ExecStart=/usr/local/bin/lnd
@@ -644,17 +675,18 @@ This information must be kept secret at all times
 **Return to the first terminal with `journalctl -fu lnd`. Example of expected output ⬇️**
 
 ```
-Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.037 [INF] LNWL: Opened wallet
-Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.204 [INF] CHRE: Primary chain is set to: bitcoin
-Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind block notifications via ZMQ on 127.0.0.1:28332
-Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.245 [INF] CHRE: Initializing bitcoind backed fee estimator in CONSERVATIVE mode
-Nov 26 19:17:38 raspiboltest lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind transaction notifications via ZMQ on 127.0.0.1:28333
-Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.576 [INF] LNWL: The wallet has been unlocked without a time limit
-Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.712 [INF] CHRE: LightningWallet opened
-Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.722 [INF] SRVR: Proxying all network traffic via Tor (stream_isolation=true)! NOTE: Ensure the backend node is proxying over Tor as well
-Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.723 [INF] TORC: Starting tor controller
-Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Cleaning circuits from disk for closed channels
-Nov 26 19:17:40 raspiboltest lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Finished cleaning: no closed channels found, no actions taken.
+[...]
+Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.037 [INF] LNWL: Opened wallet
+Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.204 [INF] CHRE: Primary chain is set to: bitcoin
+Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind block notifications via ZMQ on 127.0.0.1:28332
+Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.245 [INF] CHRE: Initializing bitcoind backed fee estimator in CONSERVATIVE mode
+Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind transaction notifications via ZMQ on 127.0.0.1:28333
+Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.576 [INF] LNWL: The wallet has been unlocked without a time limit
+Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.712 [INF] CHRE: LightningWallet opened
+Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.722 [INF] SRVR: Proxying all network traffic via Tor (stream_isolation=true)! NOTE: Ensure the backend node is proxying over Tor as well
+Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.723 [INF] TORC: Starting tor controller
+Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Cleaning circuits from disk for closed channels
+Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Finished cleaning: no closed channels found, no actions taken.
 [...]
 ```
 {% endtab %}
@@ -717,8 +749,9 @@ lnd successfully initialized!
 
 Return to the first terminal with `journalctl -f -u lnd`. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this ⬇️
 
-<pre><code>Apr 17 21:17:19 roamingrpi lnd[63591]: 2024-04-17 21:17:19.288 [INF] LNWL: Opened wallet
-Apr 17 21:17:19 roamingrpi lnd[63591]: 2024-04-17 21:17:19.288 [INF] LTND: Wallet recovery mode enabled with address lookahead of 2500 addresses
+<pre><code><strong>[...]
+</strong><strong>Apr 17 21:17:19 minibolt lnd[63591]: 2024-04-17 21:17:19.288 [INF] LNWL: Opened wallet
+</strong>Apr 17 21:17:19 minibolt lnd[63591]: 2024-04-17 21:17:19.288 [INF] LTND: Wallet recovery mode enabled with address lookahead of 2500 addresses
 <strong>[...]
 </strong><strong>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.642 [INF] LNWL: RECOVERY MODE ENABLED -- rescanning for used addresses with recovery_window=2500
 </strong>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.685 [INF] LNWL: Seed birthday surpassed, starting recovery of wallet from height=2540246 hash=00000000000000178484e446a4fb5c966b5fd5db76121421bfa470c7c879ff05 with recovery-window=2500
@@ -739,7 +772,7 @@ The current state of your channels, however, cannot be recreated from this seed.
 There is a dedicated [guide](channel-backup.md) to making an automatic backup
 {% endhint %}
 
-* Type "exit" to return to the `admin` user
+* Return to the `admin` user
 
 ```sh
 exit
@@ -753,16 +786,16 @@ sudo ss -tulpn | grep LISTEN | grep lnd
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
-> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-19">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
-> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-20">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
+<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-17">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
+> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
+> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-19">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
 </code></pre>
 
 ### Allow user "admin" to work with LND
 
-We interact with LND using the application `lncli`. At the moment, only the user "lnd" has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
+We interact with LND using the application `lncli`. At the moment, only the user `lnd` has the necessary access privileges. To make the user "admin" the main administrative user, we make sure it can interact with LND as well.
 
-* As user `admin`, link the LND data directory in the user "`admin`" home. As a member of the group "`lnd`", the "`admin`" user has read-only access to certain files
+* As user `admin`, link the LND data directory in the user `admin` home. As a member of the group `lnd`, the `admin` user has read-only access to certain files
 
 ```sh
 ln -s /data/lnd /home/admin/.lnd
@@ -791,7 +824,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-21">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-20">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -887,7 +920,7 @@ Monitor logs with `journalctl -fu lnd` to check the watchtower client is working
 
 ### Watchtower server
 
-Same as you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
+Same you can connect as a watchtower client to other watchtower servers, you could give the same service running an altruist watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
 ```sh
 lncli tower info
@@ -907,112 +940,427 @@ Expected output:
 }
 ```
 
-{% hint style="info" %}
+{% hint style="warning" %}
 This watchtower server service is not recommended to activate if you have a slow device without high-performance features, if yes consider disabling it commenting, or deleting the line `watchtower.active=true` of the `lnd.conf` file
 {% endhint %}
 
-{% hint style="warning" %}
-Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line
+{% hint style="info" %}
+Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line. Anyway, if you want to explore the lncli, you have some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
 {% endhint %}
 
 ## Extras (optional)
 
-### Funding your Lightning node
+### Use the default bbolt database backend
 
-* Generate a new Bitcoin address (`p2tr = taproot/bech32m`) to receive funds on-chain and send a small amount of Bitcoin to it from any wallet of your choice
+Once you have skipped the before section of the [PostgreSQL installation](lightning-client.md#install-postgresql), and when you arrive at the [Configuration section](lightning-client.md#configuration), modify `lnd.conf` file
 
-```sh
-lncli newaddress p2tr
+* With user `lnd`, edit `lnd.conf`
+
+```bash
+nano /data/lnd/lnd.conf
 ```
 
-Expected output:
+* Replace `# Database` section about the PostgreSQL database backend
 
 ```
-> "address": "bc1p..."
+# Database
+[db]
+db.backend=postgres
+
+[postgres]
+db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
+db.postgres.timeout=0
 ```
 
-* Check your LND wallet balance
+* To this
 
-```sh
-lncli walletbalance
+```
+# Database
+[bolt]
+# Set the next value to false to disable auto-compact DB
+# and fast boot and comment the next line
+db.bolt.auto-compact=true
+# Uncomment to do DB compact at every LND reboot (default: 168h)
+#db.bolt.auto-compact-min-age=0h
+```
+
+* Return to the `admin` user
+
+```bash
+exit
+```
+
+{% hint style="info" %}
+Continue with the guide on the [Create systemd service](lightning-client.md#create-systemd-service) section
+{% endhint %}
+
+### Migrate an existing bbolt database to PostgreSQL
+
+{% hint style="danger" %}
+Attention: this process is very risky, supposedly this [software is in an experimental state](https://github.com/lightninglabs/lndinit/pull/21) which could damage your existing LND database. Act at your own risk. It is recommended to start from scratch by closing all existing channels, rather than a migration
+{% endhint %}
+
+#### Install Go!
+
+* With user `admin`, verify that you've installed Go by typing the following command
+
+```bash
+go version
 ```
 
 **Example** of expected output:
 
 ```
-{
-    "total_balance": "712345",
-    "confirmed_balance": "0",
-    "unconfirmed_balance": "712345"
-}
+> go version go1.21.10 linux/amd64
 ```
-
-As soon as your funding transaction is mined (1 confirmation), LND will show its amount as "confirmed\_balance".
 
 {% hint style="info" %}
-If you want to open a few channels, you might want to send a few transactions. If you have only one UTXO, you need to wait for the change to return to your wallet after every new channel opening
+If you obtain "**command not found**" outputs, you need to follow the [Go! bonus guide installation progress](../bonus-guides/system/go.md#installation) to install it and then come back to continue with the guide
 {% endhint %}
 
-### Opening channels
+#### Install lndinit
 
-Although LND features an optional "autopilot", we manually open some channels.
+* With user `admin`, go to the temporary folder
 
-We recommend going on [amboss.space](https://amboss.space) or [1ML.com](https://1ml.com) and looking for a mix of big and small nodes with decent Node Ranks. Another great way to find peers to collaboratively set up channels is [LightningNetwork+](https://lightningnetwork.plus/).
+```bash
+cd /tmp
+```
 
-To connect to a remote node, you need its URI that looks like `<pubkey>@host`:
-
-* the `<pubkey>` is just a long hexadecimal number, like `02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128`
-* the `host` can be a domain name, a clearnet IP address, or a Tor onion address, followed by the port number (usually `:9735`)
-
-Just grab the whole URI above the big QR code and use it as follows (we will use the `⚡2FakTor⚡` LN node **as an example**):
-
-* **Connect** to the remote node, with the full URI
+* Clone the `migrate-db` branch of the lndinit, from the official repository of the Minibolt and enter to the lndinit folder
 
 {% code overflow="wrap" %}
 ```bash
-lncli connect 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128@aopvxn7cf7kv42u5oxfo3mplhl5oerukndi3wos7vpsfvqvc7vvmgyqd.onion:9735
+git clone --branch migrate-db https://github.com/minibolt-guide/lndinit.git && cd lndinit
 ```
 {% endcode %}
 
-* **Open a channel** using the `<pubkey>` only (_i.e._, the part of the URI before the `@`) and the channel capacity in satoshis.
+* Compile it
 
-The command has a built-in fee estimator, but to avoid overpaying fees, you can manually control the fees for the funding transaction by using the `sat_per_vbyte` argument as follows (to select the appropriate fee, in sats/vB, check [mempool.space](https://mempool.space/))
+```bash
+make install
+```
+
+{% hint style="info" %}
+This process can take quite a long time, 5-10 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+{% endhint %}
+
+* Install it
+
+```bash
+sudo install -m 0755 -o root -g root -t /usr/local/bin /home/admin/go/bin/lndinit
+```
+
+* Check the correct installation
+
+```bash
+lndinit -v
+```
+
+**Example** of  expected output:
+
+```
+2024-05-30 23:00:15.666 LNDINIT: Version 0.1.4-beta commit=, debuglevel=debug
+2024-05-30 23:00:15.668 LNDINIT: Config error: Please specify one command of: gen-password, gen-seed, init-wallet, load-secret, migrate-db, store-secret or wait-ready
+```
+
+**(Optional)** Delete the installation files
+
+```bash
+sudo rm -r /tmp/lndinit
+```
+
+#### Migrate bbolt database to PostgreSQL
+
+* With user `admin`, stop lnd
+
+```bash
+sudo systemctl stop lnd
+```
+
+* Confirm and ensure that LND is stopped successfully by monitoring logs
+
+```bash
+journalctl -fu lnd
+```
+
+Expected output:
+
+<pre><code>May 30 20:44:36 minibolt lnd[314082]: 2024-05-30 20:44:36.840 [INF] INVC: Cancelling invoice subscription for client=1
+May 30 20:44:36 minibolt lnd[314082]: 2024-05-30 20:44:36.855 [ERR] RPCS: [/routerrpc.Router/SubscribeHtlcEvents]: context canceled
+May 30 20:44:36 minibolt lnd[314082]: 2024-05-30 20:44:36.861 [ERR] RPCS: [/routerrpc.Router/SubscribeHtlcEvents]: context canceled
+May 30 20:44:48 minibolt lnd[314082]: 2024-05-30 20:44:48.927 [INF] CRTR: Processed channels=0 updates=21 nodes=0 in last 1m0.000123683s
+May 30 20:45:02 minibolt systemd[1]: Stopping Lightning Network Daemon...
+May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.606 [INF] LTND: Received shutdown request.
+May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.609 [INF] LTND: Shutting down...
+May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: Systemd was notified about stopping
+May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: Gracefully shutting down.
+May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.615 [INF] WTWR: Stopping watchtower
+May 30 20:45:02 minibolt systemd[1]: lnd.service: Succeeded.
+May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-21">Stopped Lightning Network Daemon.</a>
+May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU time.
+</code></pre>
+
+* Previously followed:
+  1. [Install PostgreSQL section](lightning-client.md#install-postgresql)
+  2. [Create PostgreSQL database section](lightning-client.md#create-postgresql-database)
+* Exec the migration and wait to finish it
+
+```bash
+sudo lndinit -v migrate-db \
+      --source.bolt.data-dir /home/admin/.lnd/data \
+      --source.bolt.tower-dir /home/admin/.lnd/data/watchtower \
+      --source.bolt.network=mainnet \
+      --dest.backend postgres \
+      --dest.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable \
+      --dest.postgres.timeout=0
+```
+
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
+```
+2024-04-17 14:07:41.277 LNDINIT: Version 0.1.4-beta commit=, debuglevel=debug
+2024-04-17 14:07:41.279 LNDINIT: Migrating DB with prefix channeldb
+2024-04-17 14:07:41.279 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/graph/mainnet/channel.db for prefix 'channeldb'
+2024-04-17 14:07:41.370 LNDINIT: Opened source DB
+2024-04-17 14:07:41.370 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'channeldb'
+2024-04-17 14:07:41.394 LNDINIT: Opened destination DB
+2024-04-17 14:07:41.394 LNDINIT: Checking tombstone marker on source DB
+2024-04-17 14:07:41.394 LNDINIT: Checking if migration was already applied to target DB
+2024-04-17 14:07:41.401 LNDINIT: Starting the migration to the target backend
+2024-04-17 14:07:41.402 LNDINIT: Copying top-level bucket 'alias-bucket'
+2024-04-17 14:07:41.409 LNDINIT: Committing bucket 'alias-bucket'
+2024-04-17 14:07:41.411 LNDINIT: Copying top-level bucket 'base-bucket'
+2024-04-17 14:07:41.413 LNDINIT: Committing bucket 'base-bucket'
+2024-04-17 14:07:41.415 LNDINIT: Copying top-level bucket 'chan-id-bucket'
+2024-04-17 14:07:41.417 LNDINIT: Committing bucket 'chan-id-bucket'
+2024-04-17 14:07:41.481 LNDINIT: Copying top-level bucket 'circuit-adds'
+2024-04-17 14:07:41.483 LNDINIT: Committing bucket 'circuit-adds'
+2024-04-17 14:07:41.484 LNDINIT: Copying top-level bucket 'circuit-fwd-log'
+2024-04-17 14:07:41.486 LNDINIT: Committing bucket 'circuit-fwd-log'
+2024-04-17 14:07:41.487 LNDINIT: Copying top-level bucket 'circuit-keystones'
+2024-04-17 14:07:41.489 LNDINIT: Committing bucket 'circuit-keystones'
+2024-04-17 14:07:41.490 LNDINIT: Copying top-level bucket 'close-summaries'
+2024-04-17 14:07:41.492 LNDINIT: Committing bucket 'close-summaries'
+2024-04-17 14:07:41.493 LNDINIT: Copying top-level bucket 'closed-chan-bucket'
+2024-04-17 14:07:41.495 LNDINIT: Committing bucket 'closed-chan-bucket'
+2024-04-17 14:07:41.496 LNDINIT: Copying top-level bucket 'confirm-hints'
+2024-04-17 14:07:41.497 LNDINIT: Committing bucket 'confirm-hints'
+2024-04-17 14:07:41.499 LNDINIT: Copying top-level bucket 'edge-index'
+2024-04-17 14:07:41.500 LNDINIT: Committing bucket 'edge-index'
+2024-04-17 14:07:41.501 LNDINIT: Copying top-level bucket 'fwd-packages'
+2024-04-17 14:07:41.503 LNDINIT: Committing bucket 'fwd-packages'
+2024-04-17 14:07:41.504 LNDINIT: Copying top-level bucket 'graph-edge'
+2024-04-17 14:07:58.418 LNDINIT: Committing bucket 'graph-edge'
+2024-04-17 14:08:08.332 LNDINIT: Copying top-level bucket 'graph-meta'
+2024-04-17 14:08:08.337 LNDINIT: Committing bucket 'graph-meta'
+2024-04-17 14:08:08.834 LNDINIT: Copying top-level bucket 'graph-node'
+2024-04-17 14:08:11.346 LNDINIT: Committing bucket 'graph-node'
+2024-04-17 14:08:13.710 LNDINIT: Copying top-level bucket 'historical-chan-bucket'
+2024-04-17 14:08:13.713 LNDINIT: Committing bucket 'historical-chan-bucket'
+2024-04-17 14:08:13.727 LNDINIT: Copying top-level bucket 'invoice-alias-bucket'
+2024-04-17 14:08:13.728 LNDINIT: Committing bucket 'invoice-alias-bucket'
+2024-04-17 14:08:13.733 LNDINIT: Copying top-level bucket 'invoices'
+2024-04-17 14:08:13.737 LNDINIT: Committing bucket 'invoices'
+2024-04-17 14:08:13.742 LNDINIT: Copying top-level bucket 'message-store'
+2024-04-17 14:08:13.743 LNDINIT: Committing bucket 'message-store'
+2024-04-17 14:08:13.748 LNDINIT: Copying top-level bucket 'metadata'
+2024-04-17 14:08:13.750 LNDINIT: Committing bucket 'metadata'
+2024-04-17 14:08:13.754 LNDINIT: Copying top-level bucket 'missioncontrol-results'
+2024-04-17 14:08:13.756 LNDINIT: Committing bucket 'missioncontrol-results'
+2024-04-17 14:08:13.760 LNDINIT: Copying top-level bucket 'network-result-store-bucket'
+2024-04-17 14:08:13.762 LNDINIT: Committing bucket 'network-result-store-bucket'
+2024-04-17 14:08:13.767 LNDINIT: Copying top-level bucket 'next-payment-id-key'
+2024-04-17 14:08:13.768 LNDINIT: Committing bucket 'next-payment-id-key'
+2024-04-17 14:08:13.773 LNDINIT: Copying top-level bucket 'nib'
+2024-04-17 14:08:13.774 LNDINIT: Committing bucket 'nib'
+2024-04-17 14:08:13.779 LNDINIT: Copying top-level bucket 'open-chan-bucket'
+2024-04-17 14:08:13.780 LNDINIT: Committing bucket 'open-chan-bucket'
+2024-04-17 14:08:13.782 LNDINIT: Copying top-level bucket 'outpoint-bucket'
+2024-04-17 14:08:13.783 LNDINIT: Committing bucket 'outpoint-bucket'
+2024-04-17 14:08:13.784 LNDINIT: Copying top-level bucket 'pay-addr-index'
+2024-04-17 14:08:13.786 LNDINIT: Committing bucket 'pay-addr-index'
+2024-04-17 14:08:13.787 LNDINIT: Copying top-level bucket 'payments-index-bucket'
+2024-04-17 14:08:13.788 LNDINIT: Committing bucket 'payments-index-bucket'
+2024-04-17 14:08:13.790 LNDINIT: Copying top-level bucket 'peers-bucket'
+2024-04-17 14:08:13.791 LNDINIT: Committing bucket 'peers-bucket'
+2024-04-17 14:08:13.792 LNDINIT: Copying top-level bucket 'set-id-index'
+2024-04-17 14:08:13.793 LNDINIT: Committing bucket 'set-id-index'
+2024-04-17 14:08:13.794 LNDINIT: Copying top-level bucket 'spend-hints'
+2024-04-17 14:08:13.796 LNDINIT: Committing bucket 'spend-hints'
+2024-04-17 14:08:13.797 LNDINIT: Copying top-level bucket 'sweeper-tx-hashes'
+2024-04-17 14:08:13.798 LNDINIT: Committing bucket 'sweeper-tx-hashes'
+2024-04-17 14:08:13.803 LNDINIT: Migrating DB with prefix macaroondb
+2024-04-17 14:08:13.803 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/chain/bitcoin/mainnet/macaroons.db for prefix 'macaroondb'
+2024-04-17 14:08:13.804 LNDINIT: Opened source DB
+2024-04-17 14:08:13.804 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'macaroondb'
+2024-04-17 14:08:13.878 LNDINIT: Opened destination DB
+2024-04-17 14:08:13.878 LNDINIT: Checking tombstone marker on source DB
+2024-04-17 14:08:13.878 LNDINIT: Checking if migration was already applied to target DB
+2024-04-17 14:08:13.881 LNDINIT: Starting the migration to the target backend
+2024-04-17 14:08:13.881 LNDINIT: Copying top-level bucket 'macrootkeys'
+2024-04-17 14:08:13.887 LNDINIT: Committing bucket 'macrootkeys'
+2024-04-17 14:08:13.900 LNDINIT: Migrating DB with prefix decayedlogdb
+2024-04-17 14:08:13.900 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/graph/mainnet/sphinxreplay.db for prefix 'decayedlogdb'
+2024-04-17 14:08:13.900 LNDINIT: Opened source DB
+2024-04-17 14:08:13.900 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'decayedlogdb'
+2024-04-17 14:08:14.762 LNDINIT: Opened destination DB
+2024-04-17 14:08:14.762 LNDINIT: Checking tombstone marker on source DB
+2024-04-17 14:08:14.762 LNDINIT: Checking if migration was already applied to target DB
+2024-04-17 14:08:14.768 LNDINIT: Starting the migration to the target backend
+2024-04-17 14:08:14.768 LNDINIT: Copying top-level bucket 'batch-replay'
+2024-04-17 14:08:14.776 LNDINIT: Committing bucket 'batch-replay'
+2024-04-17 14:08:14.782 LNDINIT: Copying top-level bucket 'shared-hash'
+2024-04-17 14:08:14.786 LNDINIT: Committing bucket 'shared-hash'
+2024-04-17 14:08:14.811 LNDINIT: Migrating DB with prefix towerclientdb
+2024-04-17 14:08:14.811 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/graph/mainnet/wtclient.db for prefix 'towerclientdb'
+2024-04-17 14:08:14.812 LNDINIT: Opened source DB
+2024-04-17 14:08:14.812 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'towerclientdb'
+2024-04-17 14:08:14.956 LNDINIT: Opened destination DB
+2024-04-17 14:08:14.956 LNDINIT: Checking tombstone marker on source DB
+2024-04-17 14:08:14.956 LNDINIT: Checking if migration was already applied to target DB
+2024-04-17 14:08:14.963 LNDINIT: Starting the migration to the target backend
+2024-04-17 14:08:14.963 LNDINIT: Copying top-level bucket 'client-channel-detail-bucket'
+2024-04-17 14:08:14.970 LNDINIT: Committing bucket 'client-channel-detail-bucket'
+2024-04-17 14:08:14.975 LNDINIT: Copying top-level bucket 'client-channel-id-index'
+2024-04-17 14:08:14.978 LNDINIT: Committing bucket 'client-channel-id-index'
+2024-04-17 14:08:14.983 LNDINIT: Copying top-level bucket 'client-closable-sessions-bucket'
+2024-04-17 14:08:14.986 LNDINIT: Committing bucket 'client-closable-sessions-bucket'
+2024-04-17 14:08:14.991 LNDINIT: Copying top-level bucket 'client-session-bucket'
+2024-04-17 14:08:14.994 LNDINIT: Committing bucket 'client-session-bucket'
+2024-04-17 14:08:14.999 LNDINIT: Copying top-level bucket 'client-session-id-index'
+2024-04-17 14:08:15.002 LNDINIT: Committing bucket 'client-session-id-index'
+2024-04-17 14:08:15.007 LNDINIT: Copying top-level bucket 'client-session-key-index-bucket'
+2024-04-17 14:08:15.010 LNDINIT: Committing bucket 'client-session-key-index-bucket'
+2024-04-17 14:08:15.015 LNDINIT: Copying top-level bucket 'client-tower-bucket'
+2024-04-17 14:08:15.017 LNDINIT: Committing bucket 'client-tower-bucket'
+2024-04-17 14:08:15.022 LNDINIT: Copying top-level bucket 'client-tower-index-bucket'
+2024-04-17 14:08:15.025 LNDINIT: Committing bucket 'client-tower-index-bucket'
+2024-04-17 14:08:15.030 LNDINIT: Copying top-level bucket 'client-tower-to-session-index-bucket'
+2024-04-17 14:08:15.032 LNDINIT: Committing bucket 'client-tower-to-session-index-bucket'
+2024-04-17 14:08:15.037 LNDINIT: Copying top-level bucket 'metadata-bucket'
+2024-04-17 14:08:15.043 LNDINIT: Committing bucket 'metadata-bucket'
+2024-04-17 14:08:15.061 LNDINIT: Migrating DB with prefix towerserverdb
+2024-04-17 14:08:15.061 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/watchtower/bitcoin/mainnet/watchtower.db for prefix 'towerserverdb'
+2024-04-17 14:08:15.061 LNDINIT: Opened source DB
+2024-04-17 14:08:15.061 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'towerserverdb'
+2024-04-17 14:08:15.144 LNDINIT: Opened destination DB
+2024-04-17 14:08:15.144 LNDINIT: Checking tombstone marker on source DB
+2024-04-17 14:08:15.144 LNDINIT: Checking if migration was already applied to target DB
+2024-04-17 14:08:15.149 LNDINIT: Starting the migration to the target backend
+2024-04-17 14:08:15.149 LNDINIT: Copying top-level bucket 'lookout-tip-bucket'
+2024-04-17 14:08:15.155 LNDINIT: Committing bucket 'lookout-tip-bucket'
+2024-04-17 14:08:15.161 LNDINIT: Copying top-level bucket 'metadata-bucket'
+2024-04-17 14:08:15.166 LNDINIT: Committing bucket 'metadata-bucket'
+2024-04-17 14:08:15.168 LNDINIT: Copying top-level bucket 'sessions-bucket'
+2024-04-17 14:08:15.171 LNDINIT: Committing bucket 'sessions-bucket'
+2024-04-17 14:08:15.173 LNDINIT: Copying top-level bucket 'update-index-bucket'
+2024-04-17 14:08:15.175 LNDINIT: Committing bucket 'update-index-bucket'
+2024-04-17 14:08:15.177 LNDINIT: Copying top-level bucket 'updates-bucket'
+2024-04-17 14:08:15.180 LNDINIT: Committing bucket 'updates-bucket'
+2024-04-17 14:08:15.192 LNDINIT: Migrating DB with prefix walletdb
+2024-04-17 14:08:15.193 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/chain/bitcoin/mainnet/wallet.db for prefix 'walletdb'
+2024-04-17 14:08:15.213 LNDINIT: Opened source DB
+2024-04-17 14:08:15.213 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'walletdb'
+2024-04-17 14:08:15.299 LNDINIT: Opened destination DB
+2024-04-17 14:08:15.299 LNDINIT: Checking tombstone marker on source DB
+2024-04-17 14:08:15.300 LNDINIT: Checking if migration was already applied to target DB
+2024-04-17 14:08:15.304 LNDINIT: Starting the migration to the target backend
+2024-04-17 14:08:15.304 LNDINIT: Copying top-level bucket 'waddrmgr'
+2024-04-17 14:08:15.809 LNDINIT: Committing bucket 'waddrmgr'
+2024-04-17 14:08:15.815 LNDINIT: Copying top-level bucket 'wtxmgr'
+2024-04-17 14:08:15.828 LNDINIT: Committing bucket 'wtxmgr'
+2024-04-17 14:08:15.833 LNDINIT: Creating 'wallet created' marker
+2024-04-17 14:08:15.835 LNDINIT: Committing 'wallet created' marker
+```
+
+</details>
+
+{% hint style="info" %}
+This process could take a few minutes depending on the size of the database. When the prompt comes back to show you, the migration is finished successfully
+{% endhint %}
+
+* Now follow the [Configured](lightning-client.md#configuration) section `lnd.conf`, to use the PostgreSQL database as the backend, paying attention to the next section
+
+```
+# Database
+[db]
+db.backend=postgres
+
+[postgres]
+db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
+db.postgres.timeout=0
+```
+
+* With the user `admin`, start LND again
+
+```bash
+sudo systemctl start lnd
+```
+
+* Monitor the LND logs to ensure all is working correctly with the new PostgreSQL database backend successfully migrated
+
+```bash
+journalctl -fu lnd
+```
+
+{% hint style="info" %}
+The `[WRN]` logs indicate that LND has detected an existing old bbolt database and It will not be migrated to postgres automatically, but we already migrated it before 😏
+
+You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
+{% endhint %}
+
+```
+[...]
+> Apr 17 14:33:20 minibolt lnd[55570]: 2024-04-17 14:33:20.984 [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/chain/bitcoin/mainnet/wallet.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
+> Apr 17 14:33:20 minibolt lnd[55570]: 2024-04-17 14:33:20.985 [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/graph/mainnet/channel.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
+[...]
+```
+
+{% hint style="info" %}
+Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md) of lncli with commands like `lncli listchannels or lncli listunspent or lncli wtclient towers` and see if everything is as you left it before the migration
+{% endhint %}
+
+#### (Optional) Delete old bbolt files database
+
+* With user `admin`, change to the `lnd` user
+
+```bash
+sudo su - lnd
+```
+
+* Detele the old bbolt database files
 
 {% code overflow="wrap" %}
 ```bash
-lncli openchannel --sat_per_vbyte 8 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 500000 0
+rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db && rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db.last-compacted && rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db && rm /data/lnd/data/graph/mainnet/* && rm /data/lnd/data/watchtower/bitcoin/mainnet/*
 ```
 {% endcode %}
 
-* **Check your funds**, both in the on-chain wallet and the channel balances
+* Return to the `admin` user
 
-```sh
-lncli walletbalance
+```bash
+exit
 ```
 
-```sh
-lncli channelbalance
-```
+### Some useful lncli commands
 
-* **List active channels**. Once the channel funding transaction has been mined and gained enough confirmations, your channel is fully operational. That can take an hour or more
+Quick reference with special commands to play around with:
 
-```sh
-lncli listchannels
-```
-
-* **Make a Lightning payment**. By default, these work with invoices, so when you buy something or want to send money, you need to get an invoice first. However, you can also pay without requesting an invoice as long the receiving node supports the keysend or amp feature!
-
-To try, why not send me satoshis! You simply need to input my node pubkey [`2FakTor`](https://amboss.space/node/02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128)⚡, the amount in satoshis and add the "`–keysend`" flag. Replace `<amount in sats>` parameter with what you want
+* Create your own Re-Usable Static AMP invoice
 
 {% code overflow="wrap" %}
-```sh
-lncli sendpayment --dest 02b03a1d133c0338c0185e57f0c35c63cce53d5e3ae18414fc40e5b63ca08a2128 --amt <amount in sats> --keysend
+```bash
+lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
 ```
 {% endcode %}
 
-### Some useful commands
+{% hint style="info" %}
+The flags `--memo` |`--amt` & `--expiry` are optional. The default expiry time will be 30 days by default and the rest can be empty
 
-A quick reference with special commands to play around with:
+Copy the output `[lnbc...]` of the "payment\_request": "`lnbc...`". Transform your output payment request into a QR code, embed it on your website, or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools
+{% endhint %}
 
 * Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
@@ -1026,45 +1374,26 @@ lncli payinvoice --amt <amount> <amp invoice>
 lncli sendpayment --dest <destination public key> --amt <amount> --amp
 ```
 
-* Send payment to a node without an invoice using Keysend (both sender and receiver nodes have to have Keysend enabled)
+**Example** of expected output:
 
-```sh
-lncli sendpayment --dest <destination public key> --amt <amount> --keysend
 ```
-
-* Create your own Re-Usable Static AMP invoice
-
-{% code overflow="wrap" %}
-```bash
-lncli addinvoice --memo "your memo here" --amt <amount in sats> --expiry <time in seconds> --amp
-```
-{% endcode %}
-
-{% hint style="info" %}
-The default flags "--memo" "--amt" and "--expiry" are optional. The default expiry time will be 30 days by default and the rest can be empty
-{% endhint %}
-
-Copy the output \[lnbc...] of the "payment\_request": "lnbc...". Transform your output payment request into a QR code, embed it on your website, or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools.
-
-* List all invoices
-
-```sh
-lncli listinvoices
-```
-
-* Close all channels in cooperative mode
-
-```sh
-lncli closeallchannels --sat_per_byte <sat/byte>
+// Some code+------------+--------------+--------------+--------------+-----+----------+---------------------+--------------------+
+| HTLC_STATE | ATTEMPT_TIME | RESOLVE_TIME | RECEIVER_AMT | FEE | TIMELOCK | CHAN_OUT            | ROUTE              |
++------------+--------------+--------------+--------------+-----+----------+---------------------+--------------------+
+| SUCCEEDED  |        0.017 |        4.789 | 10000        | 0   |  2819586 | 3100070835543670784 | 2FakTor⚡Testnet🧪 |
++------------+--------------+--------------+--------------+-----+----------+---------------------+--------------------+
+Amount + fee:   10000 + 0 sat
+Payment hash:   466351a225dfff6b7205c1397c2c19d803c87e888baa0d845050498ade44f4fe
+Payment status: SUCCEEDED, preimage: 7c7c34c655eaea4f683db53f22ca2f5256758eb260f2c355d815b71977e3308f
 ```
 
 {% hint style="info" %}
-More: full [LND API reference](https://api.lightning.community/)
+If you want to send a circular payment to yourself, add the next flag at the end of the command:`--allow_self_payment`
 {% endhint %}
 
 ## Upgrade
 
-Upgrading LND can lead to some issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/releases) completely to understand the changes. These also cover a lot of additional topics and many new features not mentioned here.
+Upgrading LND can lead to some issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/blob/master/docs/release-notes/) completely to understand the changes. These also cover many additional topics and new features not mentioned here.
 
 * Check your current LND version
 
@@ -1072,7 +1401,7 @@ Upgrading LND can lead to some issues. **Always** read the [LND release notes](h
 lnd --version
 ```
 
-* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide
+* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide **(acting behind your responsibility)**
 * Restart LND to apply the new version
 
 ```sh
@@ -1083,15 +1412,19 @@ sudo systemctl restart lnd
 
 ### Uninstall service & user
 
-* Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
+* With user `admin` , stop lnd
 
 ```bash
 sudo systemctl stop lnd
 ```
 
+* Disable autoboot (if enabled)
+
 ```bash
 sudo systemctl disable lnd
 ```
+
+* Delete the service
 
 ```bash
 sudo rm /etc/systemd/system/lnd.service
@@ -1115,28 +1448,6 @@ sudo rm -rf /data/lnd/
 
 ```bash
 sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
-```
-
-### Uninstall FW configuration
-
-If you followed the [Mobile app: Zeus guide](mobile-app.md), probably you needed to add an allow rule on UFW to allow the incoming connection to the `8080` LND REST port
-
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
-
-```bash
-sudo ufw status numbered
-```
-
-Expected output:
-
-```
-> [Y] 8080           ALLOW IN    Anywhere          # allow LND REST from anywhere
-```
-
-* Delete the rule with the correct number and confirm with "`yes`"
-
-```bash
-sudo ufw delete X
 ```
 
 ## Port reference
@@ -1177,14 +1488,14 @@ sudo ufw delete X
 
 [^15]: (Uncomment and customize the value)
 
-[^16]: (Uncomment and customize the value or keep commented to left default)
+[^16]: (Uncomment and customize the value)
 
-[^17]: (Uncomment and customize the value)
+[^17]: LND P2P host:port
 
-[^18]: LND P2P host:port
+[^18]: gRPC host:port
 
-[^19]: gRPC host:port
+[^19]: Watchtower server host:port
 
-[^20]: Watchtower server host:port
+[^20]: Symbolic link
 
-[^21]: Symbolic link
+[^21]: Check this

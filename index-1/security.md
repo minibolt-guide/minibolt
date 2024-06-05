@@ -20,7 +20,7 @@ The MiniBolt needs to be secured against online attacks using various methods.
 
 <figure><img src="../.gitbook/assets/security.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
-## Uncomplicated Firewall (enable & configure)
+## Uncomplicated Firewall
 
 A firewall controls what kind of outside traffic your machine accepts and which applications can send data out. By default, many network ports are open and listening for incoming connections. Closing unnecessary ports can mitigate many potential system vulnerabilities.
 
@@ -38,8 +38,17 @@ ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118
 
 2 options:
 
-1. If you obtain the `"OK."` output, you have IPv6 availability, additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are OK, continue the guide without modifications
-2. If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, the IPv6 adoption is new, you will use your internet connection using the common IPv4, additionally, you can obtain your IPv4 with: `curl -s ipv4.icanhazip.com`
+{% tabs %}
+{% tab title="First" %}
+If you obtain the `"OK."` output, you have IPv6 availability, additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are OK, continue the guide without modifications
+{% endtab %}
+
+{% tab title="Second" %}
+If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, the IPv6 adoption is new, you will use your internet connection using the common IPv4, additionally, you can obtain your IPv4 with: `curl -s ipv4.icanhazip.com`
+{% endtab %}
+{% endtabs %}
+
+### Configuration
 
 If you don't have IPv6 availability, you can disable IPv6 on UFW to avoid the creation of rules related to it:
 
@@ -71,7 +80,9 @@ Attention! Don't forget the next step!
 sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
 ```
 
-* Enable ufw, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press `"y"` and enter
+### Enable
+
+* Enable the UFW, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press `"y"` and enter
 
 ```sh
 sudo ufw enable
@@ -108,7 +119,9 @@ sudo ufw status verbose
 </details>
 
 {% hint style="info" %}
-If you find yourself locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22). More: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
+If you find it locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22)
+
+More: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
 
 ### Monitoring SSH authentication logs (optional)
@@ -125,7 +138,7 @@ sudo tail -f /var/log/auth.log
 sudo tail --lines 500 /var/log/auth.log | grep sshd
 ```
 
-* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to whatever you want
+* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to do whatever you want
 
 ```sh
 last -s -7days -t today
@@ -187,7 +200,7 @@ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 sudo nano /etc/nginx/nginx.conf
 ```
 
-* &#x20;Paste the following configuration into the `nginx.conf` file. Save and exit
+* Paste the following configuration into the `nginx.conf` file. Save and exit
 
 ```nginx
 user www-data;
@@ -260,7 +273,7 @@ sudo systemctl reload nginx
 ```
 
 {% hint style="info" %}
-&#x20;You can monitor the Nginx logs by entering this command. Exit with Ctrl + C
+You can monitor the Nginx logs by entering this command. Exit with Ctrl + C
 {% endhint %}
 
 ```bash
@@ -269,12 +282,14 @@ journalctl -fu nginx
 
 Expected output:
 
-<pre><code><strong>> Nov 16 16:56:56 minibolt systemd[1]: Starting A high performance web server and a reverse proxy server...
-</strong>> Nov 16 16:56:56 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
+<pre><code><strong>> Jun 04 18:21:09 minibolt systemd[1]: Starting A high performance web server and a reverse proxy server...
+</strong>> Jun 04 18:21:09 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
+> Jun 04 18:25:18 minibolt systemd[1]: Reloading A high performance web server and a reverse proxy server...
+> Jun 04 18:25:18 minibol systemd[1]: Reloaded A high performance web server and a reverse proxy server.
 </code></pre>
 
 {% hint style="info" %}
-You can monitor Nginx error logs by entering this command. Exit with Ctrl + C
+You can monitor Nginx error logs by entering this command. Exit with `Ctrl + C`
 {% endhint %}
 
 ```bash
