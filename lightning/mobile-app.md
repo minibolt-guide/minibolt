@@ -23,7 +23,7 @@ We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connect
 
 ## Requirements
 
-* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [Bitcoin Core](../itcoin/bitcoin/bitcoin-client.md)
 * [LND](lightning-client.md)
 
 ## Preparations
@@ -49,7 +49,7 @@ restlisten=0.0.0.0:8080
 sudo systemctl restart lnd
 ```
 
-* Ensure the gRPC proxy port is now binding to the `0.0.0.0`  host instead of `127.0.0.1`
+* Ensure the gRPC proxy port is now binding to the `0.0.0.0` host instead of `127.0.0.1`
 
 ```bash
 sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
@@ -241,6 +241,28 @@ To preserve your privacy, you can choose your private blockchain explorer when m
 To update Zeus, update the app using the same app store or the app source you chose to install it.
 
 ## Uninstall
+
+### Uninstall Firewall
+
+* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
+
+```
+sudo ufw status numbered
+```
+
+Expected output:
+
+```
+> [Y] 8080           ALLOW IN    Anywhere          # allow LND REST from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```
+sudo ufw delete X
+```
+
+### Uninstall Tor
 
 You need to uninstall the app on your phone and deactivate the LND REST API Tor hidden service.
 

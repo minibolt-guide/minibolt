@@ -38,9 +38,9 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ## Bitcoin
 
-### [Bitcoin client: Bitcoin Core](../../index-2/bitcoin-client.md)
+### [Bitcoin client: Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md)
 
-* Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../index-2/bitcoin-client.md), when you arrive at the ["Configuration section"](../../index-2/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
+* Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../itcoin/bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../itcoin/bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
 
 ```sh
 nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -53,7 +53,7 @@ startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
 testnet=1
 ```
 
-* When you finish the [Running Bitcoin](../../index-2/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
+* When you finish the [Running Bitcoin](../../itcoin/bitcoin/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
 
 ```bash
 sudo chmod g+rx /data/bitcoin/testnet3
@@ -64,14 +64,14 @@ sudo chmod g+rx /data/bitcoin/testnet3
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the Bitcoin client guide is the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../index-2/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor and I2P seed nodes, not clearnet nodes.
+The rest of the Bitcoin client guide is the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../itcoin/bitcoin/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor and I2P seed nodes, not clearnet nodes.
 {% endhint %}
 
-### [Electrum server: Fulcrum](../../bitcoin/electrum-server.md)
+### [Electrum server: Fulcrum](../../itcoin/bitcoin/electrum-server.md)
 
-Follow the complete Electrum server guide from the beginning, when you arrive at the ["Configure Firewall"](../../bitcoin/electrum-server.md#configure-firewall) section:
+Follow the complete Electrum server guide from the beginning, when you arrive at the ["Configure Firewall"](../../itcoin/bitcoin/electrum-server.md#configure-firewall) section:
 
-[Configure Firewall](../../bitcoin/electrum-server.md#configure-firewall)
+[Configure Firewall](../../itcoin/bitcoin/electrum-server.md#configure-firewall)
 
 * Replace the next lines to 60001/60002 ports, to match with the Testnet mode
 
@@ -83,7 +83,7 @@ sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
 sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
 ```
 
-* When you arrive at the ["Data directory"](../../bitcoin/electrum-server.md#data-directory) section on the _"Download the custom Fulcrum banner based on MiniBolt..." step_. Download the Fulcrum testnet banner instead of the mainnet banner
+* When you arrive at the ["Data directory"](../../itcoin/bitcoin/electrum-server.md#data-directory) section on the _"Download the custom Fulcrum banner based on MiniBolt..." step_. Download the Fulcrum testnet banner instead of the mainnet banner
 
 {% code overflow="wrap" %}
 ```bash
@@ -91,9 +91,9 @@ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fu
 ```
 {% endcode %}
 
-[Configuration](../../bitcoin/electrum-server.md#configuration)
+[Configuration](../../itcoin/bitcoin/electrum-server.md#configuration)
 
-* In the next [Configuration](../../bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `fulcrum.conf` file, to match with the testnet mode
+* In the next [Configuration](../../itcoin/bitcoin/electrum-server.md#configuration) step, stay tuned to replace the next lines on the `fulcrum.conf` file, to match with the testnet mode
 
 ```sh
 nano /data/fulcrum/fulcrum.conf
@@ -112,9 +112,9 @@ tcp = 0.0.0.0:60001
 banner = /data/fulcrum/fulcrum-banner-testnet.txt
 ```
 
-[Remote access over Tor](../../bitcoin/electrum-server.md#remote-access-over-tor)
+[Remote access over Tor](../../itcoin/bitcoin/electrum-server.md#remote-access-over-tor)
 
-* When you arrive at the[ remote access over the Tor section](../../bitcoin/electrum-server.md#remote-access-over-tor), edit torrc file
+* When you arrive at the[ remote access over the Tor section](../../itcoin/bitcoin/electrum-server.md#remote-access-over-tor), edit torrc file
 
 ```sh
 sudo nano /etc/tor/torrc
@@ -156,9 +156,9 @@ You should now be able to connect to your Fulcrum server remotely via Tor using 
 The rest of the **Fulcrum** guide is exactly the same as the mainnet mode
 {% endhint %}
 
-### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/blockchain-explorer.md)
+### [Blockchain Explorer: BTC RPC Explorer](../../itcoin/bitcoin/blockchain-explorer.md)
 
-* Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
+* Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../itcoin/bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
 
 ```sh
 nano /home/btcrpcexplorer/btc-rpc-explorer/.env
@@ -197,7 +197,8 @@ If you use [Ordirespector](ordisrespector.md) on testnet, add the next lines at 
 
 ```
 # Use external fee estimator
-feeurl=https://nodes.lightning.computer/fees/v1/btctestnet-fee-estimates.json
+[fee]
+fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
 ```
 
 * When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace `ExecStop` parameter to this

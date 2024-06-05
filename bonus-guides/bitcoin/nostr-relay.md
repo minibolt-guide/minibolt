@@ -45,19 +45,26 @@ You can obtain more info about nostr on these additional resources:
 
 * [Cloudflare tunnel](../system/cloudflare-tunnel.md)
 * Others
+  * [PostgreSQL](../system/postgresql.md)
   * [Rustup + Cargo](../system/rustup-+-cargo.md)
 
 ## Preparations
 
 ### Install dependencies
 
-* With user `admin`, make sure that all necessary software packages are installed (pending to concrete)
+* With user `admin`, make sure that all necessary software packages are installed
 
 {% code overflow="wrap" %}
 ```bash
-sudo apt install build-essential cmake protobuf-compiler pkg-config libssl-dev build-essential sqlite3 libsqlite3-dev
+sudo apt install build-essential cmake protobuf-compiler pkg-config libssl-dev
 ```
 {% endcode %}
+
+{% hint style="info" %}
+If you want to use the default SQLite database backend, go to the [Use the default SQLite database backend extra section](nostr-relay.md#use-the-default-sqlite-database-backend) to install the additional SQLite dependency packages
+{% endhint %}
+
+### Install Rustup + Cargo
 
 * Check if you already have Rustup installed
 
@@ -84,8 +91,38 @@ cargo -V
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
+If you obtain "**command not found**" output, you need to follow the [Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
+
+### Install PostgreSQL
+
+{% hint style="info" %}
+Skip this step if you want to use the SQLite database, go directly to the [next section](nostr-relay.md#installation)
+{% endhint %}
+
+* Check if you already have PostgreSQL installed
+
+```bash
+psql -V
+```
+
+**Example** of expected output:
+
+```
+> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+```
+
+{% hint style="info" %}
+If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide](../system/postgresql.md) to install it and then come back to continue with the guide
+{% endhint %}
+
+#### Create PostgreSQL database
+
+* With user `admin`, create a new database with the `postgres` user
+
+```bash
+sudo -u postgres createdb -O admin nostrelay
+```
 
 ## Installation
 
@@ -180,7 +217,7 @@ nostr-rs-relay -V
 ```
 
 {% hint style="info" %}
-If you come to update this is the final step, continue with the indications of the [Update section](nostr-relay.md#for-the-future-nostr-relay-upgrade)
+If you come to update this is the final step, continue with the indications of the [Upgrade section](nostr-relay.md#upgrade)
 {% endhint %}
 
 ### Create the nostr user
@@ -201,12 +238,6 @@ Creating home directory `/home/nostr' ...
 Copying files from `/etc/skel' ...
 ```
 
-* Create the `rs-relay` and `db` folder
-
-```bash
-mkdir -p /data/nostr/rs-relay/db
-```
-
 * Change to the home `nostr` user folder
 
 ```bash
@@ -221,6 +252,12 @@ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fa
 ```
 {% endcode %}
 
+* Create the `rs-relay` folder
+
+```bash
+mkdir rs-relay
+```
+
 * Exit to the `admin` user
 
 ```bash
@@ -229,22 +266,16 @@ exit
 
 ## Configuration
 
-* With user `admin`, copy-paste the configuration file
+* Copy-paste the configuration file template to the before-created folder
 
 ```bash
-sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/
+sudo cp /tmp/nostr-rs-relay/config.toml /home/nostr/rs-relay/
 ```
 
-* Assign as the owner to the `nostr` user
+* Assign the owner of the file to the `nostr` user
 
 ```bash
-sudo chown -R nostr:nostr /data/nostr
-```
-
-* Return to the home folder
-
-```bash
-cd
+sudo chown nostr:nostr /home/nostr/rs-relay/config.toml
 ```
 
 * Delete the `nostr-rs-relay` folder to be ready for the next update
@@ -256,24 +287,38 @@ sudo rm -r /tmp/nostr-rs-relay
 * Edit the config file, uncomment, and replace the needed information on the next parameters. Save and exit
 
 ```bash
-sudo nano /data/nostr/rs-relay/config.toml
+sudo nano /home/nostr/rs-relay/config.toml
 ```
+
+{% hint style="info" %}
+Pay attention to not include the next lines:
+
+> engine = "postgres"[^1]
+
+> connection = "postgresql://admin:admin@localhost:5432/nostrelay"[^2]
+
+Include the uncomment, and replace the next line:
+
+> data\_directory = "/data/nostr/rs-relay/db"
+
+If you want to use the default SQLite database backend. More details and additional steps on the exclusive [extra section](nostr-relay.md#use-the-default-sqlite-database-backend)
+{% endhint %}
 
 > > **Customize this with your own info (\*):**
 > >
-> > **(\*)** click on parameter to get an example/explanation)
-> >
-> > > relay\_url = "[`<yourelayurl>`](#user-content-fn-1)[^1]"
-> >
-> > > name = "`<nametotherelay>`"
-> >
-> > > description = "[`<descriptionrelay>`](#user-content-fn-2)[^2]"
-> >
-> > > pubkey = "`<yournostrhexpubkey>`"
-> >
-> > > contact = "[`<yourcontact>`](#user-content-fn-3)[^3]"
-> >
-> > > relay\_icon = "`<yourelayiconURL>`"
+> > **(\*)** Click on parameter to get an example/explanation
+>
+> > relay\_url = "\<yourelayurl>[^3]"
+>
+> > name = "\<nametotherelay>"
+>
+> > description = "\<descriptionrelay>[^4]"
+>
+> > pubkey = "\<yournostrhexpubkey>"
+>
+> > contact = "\<yourcontact>[^5]"
+>
+> > relay\_icon = "\<yourelayiconURL>[^6]"
 
 {% hint style="info" %}
 If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this.
@@ -283,17 +328,19 @@ You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub
 
 > > **Required same as next (\*):**
 > >
-> > **(\*)** click on the parameter to get action to do (\<Edit> or \<Uncomment>)
-> >
-> > [favicon = "favicon.ico"](#user-content-fn-4)[^4]
+> > **(\*)** click on the parameter to get action to do **(\<Edit>** or **\<Uncomment>**)
 >
-> > data\_directory = "/data/nostr/rs-relay/db"
+> > favicon = "favicon.ico"[^7]
 >
-> > [address = "127.0.0.1"](#user-content-fn-5)[^5]
+> > engine = "postgres"[^8]
 >
-> > port = 8880
+> > connection = "postgresql://admin:admin@localhost:5432/nostrelay"[^9]
 >
-> > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-6)[^6]
+> > address = "127.0.0.1"[^10]
+>
+> > port = 8880[^11]
+>
+> > remote\_ip\_header = "cf-connecting-ip"[^12]
 
 {% hint style="info" %}
 If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL), or replace it with your own, downloading it instead
@@ -316,12 +363,12 @@ The system needs to run the nostr relay daemon automatically in the background, 
 
 [Unit]
 Description=Nostr relay
-Wants=network-online.target
-After=network-online.target
+Requires=network-online.target postgresql.service
+After=network-online.target postgresql.service
 
 [Service]
 WorkingDirectory=/home/nostr
-ExecStart=/usr/local/bin/nostr-rs-relay -c /data/nostr/rs-relay/config.toml
+ExecStart=/usr/local/bin/nostr-rs-relay -c /home/nostr/rs-relay/config.toml
 Environment=RUST_LOG=info,nostr_rs_relay=info
 
 User=nostr
@@ -412,7 +459,7 @@ credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 ingress:
 
 # Nostr relay
-  - hostname: relay.<a data-footnote-ref href="#user-content-fn-7">&#x3C;domain.com></a>
+  - hostname: relay.<a data-footnote-ref href="#user-content-fn-13">&#x3C;domain.com></a>
     service: ws://localhost:8880
 
   - service: http_status:404
@@ -436,27 +483,89 @@ journalctl -fu cloudflared
 
 ### Check relay connection
 
-3 different methods:
+\-> 3 different methods ⬇️
 
-1. Go to the [nostr.watch](https://nostr.watch) website to check and test the relay connection
-
-Access to the URL, replacing `<relay.domain.com>` with your Nostr relay URL: `https://nostr.watch/relay/relay.domain.com,` example: [https://nostr.watch/relay/relay.damus.io](https://nostr.watch/relay/relay.damus.io)
+{% tabs %}
+{% tab title="Method 1" %}
+* Go to the [nostr.watch](https://nostr.watch) website to check and test the relay connection
+* Access to the URL, replacing `<relay.domain.com>` with your Nostr relay URL: `https://nostr.watch/relay/relay.domain.com,` example: [https://nostr.watch/relay/relay.damus.io](https://nostr.watch/relay/relay.damus.io)
 
 Expected output:
 
 <figure><img src="../../.gitbook/assets/relay-connection.PNG" alt=""><figcaption></figcaption></figure>
+{% endtab %}
 
-2. Go to the [websocketking.com](https://websocketking.com/) website, type in the WebSocket URL box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button
+{% tab title="Method 2" %}
+Go to the [websocketking.com](https://websocketking.com/) website, type in the WebSocket URL box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button
 
 **Example** of expected output:
 
 <figure><img src="../../.gitbook/assets/relay-test-connected.PNG" alt=""><figcaption></figcaption></figure>
+{% endtab %}
 
-3. Go to the [https://nostrdebug.com/relay](https://nostrdebug.com/relay) website, type in the box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button. You should see the status "✅ Connected" on the history
+{% tab title="Method 3" %}
+Go to the [https://nostrdebug.com/relay](https://nostrdebug.com/relay) website, type in the box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button. You should see the status "✅ **Connected**" on the history
 
 <figure><img src="../../.gitbook/assets/relay-connected-nostr-debug.PNG" alt="" width="478"><figcaption></figcaption></figure>
+{% endtab %}
+{% endtabs %}
 
 ## Extras (optional)
+
+### Use the default SQLite database backend
+
+* With user `admin`, install the next additional dependencies
+
+{% code overflow="wrap" %}
+```bash
+sudo apt install sqlite3 libsqlite3-dev
+```
+{% endcode %}
+
+* Create the `rs-relay` and `db` folder
+
+```bash
+mkdir -p /data/nostr/rs-relay/db
+```
+
+* Assign as the owner to the `nostr` user
+
+```bash
+sudo chown -R nostr:nostr /data/nostr
+```
+
+* Edit the config file
+
+```bash
+sudo nano /data/nostr/rs-relay/config.toml
+```
+
+* Uncomment, and replace the needed information on the next parameters. Save and exit
+
+```
+data_directory = "/data/nostr/rs-relay/db"
+```
+
+{% hint style="info" %}
+Ignore the next lines related to the PostgreSQL (not uncomment or edit):
+
+```
+engine = "postgres"
+
+connection = "postgresql://admin:admin@localhost:5432/nostrelay"
+```
+{% endhint %}
+
+* Delete `postgres.service` of the systemd service lines
+
+```
+Requires=network-online.target
+After=network-online.target
+```
+
+{% hint style="info" %}
+[Continue](nostr-relay.md#run) with the guide, the rest of the steps are the same as PostgreSQL use
+{% endhint %}
 
 ### Create your nostr key pair
 
@@ -464,11 +573,11 @@ Expected output:
   * For Firefox-based browser:
     * [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/alby/)
     * [Librewolf](https://addons.mozilla.org/en-US/firefox/addon/alby/)
-    * [Tor browser](https://addons.mozilla.org/en-US/firefox/addon/alby/) <-- Follow [this guide](https://guides.getalby.com/alby-guides/alby-browser-extension/faqs/can-i-use-alby-with-the-tor-browser) to enable the Alby extension using the Tor browser
+    * [Tor browser](https://addons.mozilla.org/en-US/firefox/addon/alby/) <- Follow [this guide](https://guides.getalby.com/alby-guides/alby-browser-extension/faqs/can-i-use-alby-with-the-tor-browser) to enable the Alby extension using the Tor browser
   * For Chromium based-browser:
     * [Chrome](https://chrome.google.com/webstore/detail/alby-bitcoin-lightning-wa/iokeahhehimjnekafflcihljlcjccdbe)
     * [Brave](https://chrome.google.com/webstore/detail/alby-bitcoin-lightning-wa/iokeahhehimjnekafflcihljlcjccdbe)
-* After installation, the browser will redirect automatically you to choose the password to unlock Alby. Click on the \[**Next]** button
+* After installation, the browser automatically redirects you to choose the password to unlock Alby. Click on the \[**Next]** button
 
 <figure><img src="../../.gitbook/assets/pass-alby.PNG" alt="" width="334"><figcaption></figcaption></figure>
 
@@ -504,7 +613,7 @@ Select a strong password for the Alby extension (this password is for encrypting
 
 <figure><img src="../../.gitbook/assets/create-import-nostr-alby.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
-* If you selected to **create a new one**, remember backup the seed shown on the screen, check the verification box, and click on the **\[Save Master Key]** box
+* If you selected to **create a new one**, remember to backup the seed shown on the screen, check the verification box, and click on the **\[Save Master Key]** box
 
 <figure><img src="../../.gitbook/assets/seeds-nostr-keys-alby.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -529,7 +638,7 @@ Click on the **\[Nostr Settings]** box to **obtain your private key and backup o
 * If you selected the Nostr private key, fill in the "**Nostr Private key**" box with your private key, it will derivate you the "**Nostr Public Key"**, check if correct
 
 {% hint style="info" %}
-If you see this banner when you enter on "**Nostr Settings**" section, this means that you should backup carefully the private key, because the existing seeds that you have are not compatible with Alby only the private key
+If you see this banner when you enter the "**Nostr Settings**" section, this means that you should backup carefully the private key, because the existing seeds that you have are not compatible with Alby only the private key
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/advice-private-key-imported.PNG" alt=""><figcaption></figcaption></figure>
@@ -576,7 +685,7 @@ If you want all your past events to be accessible through your new relay, you ca
 {% hint style="info" %}
 Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr.
 
-Optionally, you can also save a copy of all your events locally as you'll have the download option.
+Optionally, you can save a copy of all your events locally as you'll have the download option.
 {% endhint %}
 
 ### Nostr clients
@@ -595,13 +704,13 @@ A nostr UI built with React aiming for speed and efficiency.
 {% endtab %}
 
 {% tab title="Zap stream" %}
-Nostr live streaming
+Nostr live streaming.
 
 [Web](https://zap.stream/) | [GitHub](https://github.com/v0l/zap.stream)
 {% endtab %}
 
 {% tab title="Rana" %}
-Nostr public key mining tool
+Nostr public key mining tool.
 
 [GitHub](https://github.com/grunch/rana)
 {% endtab %}
@@ -615,7 +724,7 @@ A free URL shortener service enabled by the NOSTR protocol, that is fast and fus
 
 {% tabs %}
 {% tab title="Nostree" %}
-A Nostr-based application to create, manage and discover link lists, show notes and other stuff.
+A Nostr-based application to create, manage, and discover link lists, show notes, and other stuff.
 
 [Web](https://nostree.me/) | [GitHub](https://github.com/gzuuus/linktr-nostr)
 {% endtab %}
@@ -635,7 +744,7 @@ Pinstr is a decentralized, free, and open-source social network built on top of 
 {% endtab %}
 
 {% tab title="Nostr nests" %}
-Nostr Nests is an audio space for chatting, brainstorming, debating, jamming, micro-conferences and more.
+Nostr Nests is an audio space for chatting, brainstorming, debating, jamming, micro-conferences, and more.
 
 [Web](https://nostrnests.com) | [Git](https://gitlab.com/jam-systems/jam)
 {% endtab %}
@@ -649,7 +758,7 @@ Pleb.to does NOSTR things... documents, links, graphs, maps, and more... Pleb.to
 {% endtab %}
 
 {% tab title="Nostrudel" %}
-"My half-baked personal nostr client"
+"My half-baked personal nostr client".
 
 [Web](https://nostrudel.ninja) | [GitHub](https://github.com/hzrd149/nostrudel)
 {% endtab %}
@@ -661,7 +770,7 @@ Habla allows you to read, write, curate and monetize long form content over Nost
 {% endtab %}
 
 {% tab title="Amethyst" %}
-Nostr client for Android
+Nostr client for Android.
 
 Amethyst brings the best social network to your Android phone.
 
@@ -671,7 +780,7 @@ Amethyst brings the best social network to your Android phone.
 
 {% tabs %}
 {% tab title="Password Manager (Vault)" %}
-A free, open source, and decentralized password manager, powered by NOSTR
+A free, open source, and decentralized password manager, powered by NOSTR.
 
 [Chrome-based extension](https://chrome.google.com/webstore/detail/vault/namadahddjnkmjgdnncdlhioopmjiflm) | [GitHub](nostr-relay.md#first-https-github.com-jinglescode-nostr-password-manager)
 {% endtab %}
@@ -689,7 +798,7 @@ Tool for migrating your entire past Twitter activity to Nostr.
 {% endtab %}
 
 {% tab title="Nosy" %}
-Find the top relays of those who follow you or you follow
+Find the top relays of those who follow you or you follow.
 
 [Web](https://nosy.tigerville.no/)
 {% endtab %}
@@ -707,7 +816,7 @@ sudo systemctl stop nostr-relay
 * Replace the `config.toml` file with the new one of the new version **(if needed)**
 
 {% hint style="warning" %}
-**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If no changes, jump directly to the next **"Start `nostr-rs-relay` service again" >**`sudo systemctl start nostr-relay`
+**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If there are no changes, jump directly to the next **"Start `nostr-rs-relay` service again" >**`sudo systemctl start nostr-relay`
 {% endhint %}
 
 * Backup the `config.toml` file to keep a copy of your old configuration
@@ -826,16 +935,28 @@ sudo rm /usr/local/bin/nostr-rs-relay
 | :--: | :------: | :----------: |
 | 8880 |    TCP   | Default port |
 
-[^1]: **Example:** `"wss://relay.bitcoin.org/"`
+[^1]: \<Uncomment> & \<Edit>
 
-[^2]: **Example:** `"The official nostr relay of the Bitcoin community"`
+[^2]: \<Uncomment>
 
-[^3]: **Example:** `"hello@bitcoin.org"`
+[^3]: **Example:** `"wss://relay.bitcoin.org/"`
 
-[^4]: \<Uncomment>
+[^4]: **Example:** `"The official nostr relay of the Bitcoin community"`
 
-[^5]: \<Edit> to `127.0.0.1`
+[^5]: **Example:** `"hello@bitcoin.org"`
 
-[^6]: \<Uncomment>
+[^6]: Example: [https://twofaktor.github.io/logo\_circle%2BB.png](https://twofaktor.github.io/logo\_circle%2BB.png)
 
-[^7]: Here your personal domain
+[^7]: \<Uncomment>
+
+[^8]: \<Uncomment> & \<Edit>
+
+[^9]: \<Uncomment>
+
+[^10]: \<Edit>
+
+[^11]: \<Edit>
+
+[^12]: \<Uncomment>
+
+[^13]: Here your personal domain

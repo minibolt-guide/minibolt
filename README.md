@@ -12,7 +12,7 @@ Build your own "do-everything-yourself" Bitcoin full node on a personal computer
 
 No need to trust anyone else. Don't trust, verify!
 
-### What is the MiniBolt?
+## What is the MiniBolt?
 
 With this guide, you can set up a Bitcoin and Lightning node on a personal computer from scratch, doing everything yourself. You will learn about Linux, Bitcoin, and Lightning. As a result, you'll have your very own Bitcoin node, built by you and no one else.
 
@@ -28,11 +28,11 @@ There are many reasons why you should run your own Bitcoin node:
 
 ⚡️ **Be part of Lightning.** Run your Lightning node for everyday payments and help build a robust, decentralized Bitcoin Lightning network.
 
-### MiniBolt overview
+## MiniBolt overview
 
 This guide explains how to set up your own Bitcoin node on a Personal Computer. But it works on most hardware platforms because it only uses standard Debian Linux commands.
 
-#### Features
+### Features
 
 Your Bitcoin node will offer the following functionality:
 
@@ -48,52 +48,37 @@ Your Bitcoin node will offer the following functionality:
 
 🌐 **Reachable from anywhere**: connect to all your services through the Tor network and Wireguard VPN
 
-#### Target audience
+### Target audience
 
-We strive to give foolproof instructions. But the goal is also to do everything ourselves.
+* [x] We strive to give foolproof instructions. But the goal is also to do everything ourselves.
+* [x] Shortcuts that involve trusting someone else are not allowed. This makes this guide quite technical, but we try to make it as straightforward as possible.
+* [x] You'll gain a basic understanding of the how and why.
+* [x] If you like to learn about Linux, Bitcoin, and Lightning, then this guide is for you.
 
-Shortcuts that involve trusting someone else are not allowed. This makes this guide quite technical, but we try to make it as straightforward as possible.
-
-You'll gain a basic understanding of the how and why.
-
-If you like to learn about Linux, Bitcoin, and Lightning, then this guide is for you.
-
-#### Structure
+### Structure
 
 We aim to keep the core of this guide well-maintained and up-to-date:
 
-1. [System](system/): prepare the hardware and set up the operating system
-2. [Bitcoin](bitcoin/): sync your own Bitcoin full node, Electrum server, Blockchain Explorer, and connect a desktop wallet to the Electrum server
-3. [Lightning](lightning/): run your Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup
+<table data-view="cards" data-full-width="false"><thead><tr><th></th><th align="center"></th><th align="center"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><ol><li><a href="system/">System</a> <strong>🖥️</strong></li></ol></td><td align="center">Prepare the hardware and set up the operating system</td><td align="center"></td><td><a href="index-1/preparations.md">preparations.md</a></td><td><a href="index-1/operating-system.md">operating-system.md</a></td><td><a href="index-1/remote-access.md">remote-access.md</a></td><td><a href="system/">system</a></td><td><a href=".gitbook/assets/operating-system.gif">operating-system.gif</a></td></tr><tr><td><ol start="2"><li><a href="bonus/bitcoin/"><strong>₿</strong></a><a href="bonus/bitcoin/"><strong>itcoin</strong></a> <strong>🟠</strong></li></ol></td><td align="center">Sync your own Bitcoin full node, Electrum server, Blockchain Explorer, and connect a desktop wallet to the Electrum server</td><td align="center"></td><td><a href="itcoin/bitcoin/bitcoin-client.md">bitcoin-client.md</a></td><td><a href="itcoin/bitcoin/electrum-server.md">electrum-server.md</a></td><td><a href="itcoin/bitcoin/blockchain-explorer.md">blockchain-explorer.md</a></td><td><a href="itcoin/bitcoin/">bitcoin</a></td><td><a href=".gitbook/assets/core_logo.png">core_logo.png</a></td></tr><tr><td><ol start="3"><li><a href="lightning/">Lightning</a> <strong>⚡</strong></li></ol></td><td align="center">Run your Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup</td><td align="center"></td><td><a href="lightning/lightning-client.md">lightning-client.md</a></td><td><a href="lightning/channel-backup.md">channel-backup.md</a></td><td><a href="lightning/web-app.md">web-app.md</a></td><td><a href="lightning/">lightning</a></td><td><a href="images/lightning-network-daemon-logo.png">lightning-network-daemon-logo.png</a></td></tr><tr><td><br><strong>➕</strong> <a href="broken-reference"><strong>Bonus guides</strong></a><br></td><td align="center">The bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.</td><td align="center"></td><td></td><td><a href="bonus/system/">system</a></td><td><a href="bonus/bitcoin/">bitcoin</a></td><td><a href="broken-reference">Broken link</a></td><td><a href=".gitbook/assets/bonus-logo.png">bonus-logo.png</a></td></tr></tbody></table>
 
-➕ Bonus guides: the bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.
-
-### How to build
+## How to build
 
 * **YouTube list** building MiniBolt in live with [Alberto](https://twitter.com/Albercoin) of Laboratorio Virtual Bitcoin (Spanish)
 
 {% embed url="https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms" %}
 
-### Community
+## Community
 
-* [GitHub Pull Requests](https://github.com/minibolt-guide/minibolt/pulls)
-* [GitHub Issues / Knowledge Base](https://github.com/minibolt-guide/minibolt/issues)
-* [GitHub discussions](https://github.com/orgs/minibolt-guide/discussions)
-* Reddit sub: [r/minibolt](https://www.reddit.com/r/minibolt/)
-* Telegram Groups:
-  * [English](https://t.me/minibolt)
-  * [Spanish](https://t.me/minibolt\_es)
-* Nostr channels:
-  * [English](https://www.nostrchat.io/channel/aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249)
-  * [Spanish](https://www.nostrchat.io/channel/3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015)
+<table data-card-size="large" data-view="cards" data-full-width="false"><thead><tr><th align="center"></th><th></th><th></th></tr></thead><tbody><tr><td align="center"><strong>🛠️</strong> <a href="https://github.com/minibolt-guide/minibolt"><strong>GitHub</strong></a> <strong>🛠️</strong></td><td></td><td><ul><li><a href="https://github.com/minibolt-guide/minibolt/pulls">Pull requests</a></li><li><a href="https://github.com/minibolt-guide/minibolt/issues">Issues / Knowledge base</a></li><li><a href="https://github.com/orgs/minibolt-guide/discussions">Discussions</a></li></ul></td></tr><tr><td align="center"><strong>👥 RRSS 👥</strong></td><td></td><td><ul><li>Reddit sub: <a href="https://www.reddit.com/r/minibolt/">r/minibolt</a></li><li><a href="https://satellite.earth/n/MiniBolt/npub1k9luehc8hg3c0upckdzzvusv66x3zt0eyw7290kclrpsndepz92sfcpp63">Nostr community</a></li><li><p>Telegram Groups:</p><ul><li><a href="https://t.me/minibolt">English</a></li><li><a href="https://t.me/minibolt_es">Spanish</a></li></ul></li><li><p>Nostr channels:</p><ul><li><a href="https://www.nostrchat.io/channel/aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249">English</a></li><li><a href="https://www.nostrchat.io/channel/3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015">Spanish</a></li></ul></li></ul></td></tr></tbody></table>
 
+\
 Feel free to join the many other contributors if you see something that can be improved!
 
-### Rating
+## Rating
 
 All guides are rated with labels to help you assess the difficulty of each guide, and if it is tested against the most recent version of the main guide.
 
-* Difficulty: indicates how difficult the bonus guide is in terms of installation procedure or usage.
+* **Difficulty:** indicates how difficult the bonus guide is in terms of installation procedure or usage
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -107,7 +92,7 @@ Difficulty: Medium
 Difficulty: Hard
 {% endhint %}
 
-* Paid service: indicates if the service used in the guide is free or paid.
+* **Paid service:** indicates if the service used in the guide is free or paid
 
 {% hint style="warning" %}
 Cost: Paid service

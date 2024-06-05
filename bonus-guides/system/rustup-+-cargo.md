@@ -32,6 +32,10 @@ Rustup is an installer for the systems programming language [Rust](https://www.r
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
+{% hint style="warning" %}
+When the prompt asks you to choose an option, type **"`1`"** and press **enter** or press **enter** directly to "**Proceed with installation**"
+{% endhint %}
+
 <details>
 
 <summary>Expected output 🔽</summary>
@@ -86,13 +90,9 @@ Current installation options:
 
 </details>
 
-{% hint style="warning" %}
-When the prompt asks you to choose an option, type **"`1`"** and press **enter** or press **enter** directly to "Proceed with installation"
-{% endhint %}
-
 <details>
 
-<summary>Example of expected output 🔽</summary>
+<summary>Example of installation expected output 🔽</summary>
 
 ```
 info: profile set to 'default'
@@ -167,7 +167,7 @@ cargo -V
 
 ## Upgrade
 
-* With user `admin` type the appropriate command to get that&#x20;
+* With user `admin` type the appropriate command to get that
 
 ```bash
 rustup update
@@ -183,7 +183,7 @@ info: checking for self-update
 
 ## Uninstall
 
-* With user `admin` type the appropriate command to get that&#x20;
+* With user `admin` type the appropriate command to get that
 
 ```bash
 rustup self uninstall
@@ -212,4 +212,4 @@ info: removing rustup binaries
 info: rustup is uninstalled
 ```
 
-[^1]: &#x20;Type "`1`" and press enter
+[^1]: Type "`1`" and press enter

@@ -30,15 +30,15 @@ Difficulty: Medium
 
 ## Requirements
 
-* [Bitcoin Core](../../index-2/bitcoin-client.md)
+* [Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md)
 * Others
   * [Rustup + Cargo](../../bonus-guides/system/rustup-+-cargo.md)
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](../../index-2/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
+Make sure that you have [reduced the database cache of Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
 
-Electrs is a replacement for a [Fulcrum](../../bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop or [uninstall](../../bitcoin/electrum-server.md#uninstall) Fulcrum by doing `"sudo systemctl stop fulcrum"`.
+Electrs is a replacement for a [Fulcrum](../../itcoin/bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop or [uninstall](../../itcoin/bitcoin/electrum-server.md#uninstall) Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
 ### Install dependencies
 
@@ -481,7 +481,7 @@ sudo nano /etc/systemd/system/electrs.service
 
 [Unit]
 Description=Electrs
-Wants=bitcoind.service
+Requires=bitcoind.service
 After=bitcoind.service
 
 [Service]
@@ -597,7 +597,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/desktop-wallet.md) once Electrs is ready
+Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../itcoin/bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
 ## Extras (optional)
@@ -606,7 +606,7 @@ Electrs must first fully index the blockchain and compact its database before yo
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-* Ensure that you are logged in with the user `admin`, edit the `torrc` file &#x20;
+* Ensure that you are logged in with the user `admin`, edit the `torrc` file
 
 ```sh
 sudo nano /etc/tor/torrc
@@ -746,7 +746,7 @@ sudo rm -rf /data/electrs/
 
 ### Uninstall Tor hidden service
 
-* Ensure that you are logged in with the user `admin` , edit the `torrc` config file&#x20;
+* Ensure that you are logged in with the user `admin` , edit the `torrc` config file
 
 ```bash
 sudo nano /etc/tor/torrc

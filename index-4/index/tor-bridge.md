@@ -148,8 +148,6 @@ By default, Tor will advertise your bridge to users through various [mechanisms]
 
 Currently valid, recognized options are: `none` | `any` | `https` | `email` | `moat`
 
-
-
 If you don't specify this line, by default the method will be `any` , this means that you give the choice of whatever method it sees fit
 {% endhint %}
 
@@ -168,9 +166,9 @@ sudo ufw allow <TODO2>/tcp comment 'allow obsf4 port Tor bridge from anywhere'
 {% hint style="warning" %}
 Note that both Tor's OR port and its obfs4 port must be reachable from outside.
 
-If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.&#x20;
+If your bridge is behind a NAT, make sure to open both ports. See [portforward.com](https://portforward.com/) for directions on how to port forward with your NAT/router device.
 
-You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet.&#x20;
+You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet.
 
 Enter the website your public **"IP ADDRESS"** obtained with **`curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port.
 {% endhint %}
@@ -196,7 +194,7 @@ NoNewPrivileges=no
 sudo nano /lib/systemd/system/tor@.service
 ```
 
-* &#x20;Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
+* Change `"NoNewPrivileges=yes"` to `"NoNewPrivileges=no"`. Save and exit
 
 ```
 # Hardening
@@ -243,8 +241,23 @@ You can check the status of your bridge relay at https://bridges.torproject.org/
 ```
 
 {% hint style="info" %}
-About **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname or IP address and can monitor your obfs4 bridge's usage on Relay Search. Just enter your bridge's **"HASHED FINGERPRINT"** in the form and click on "Search"
+About **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname or IP address and monitor your obfs4 bridge's usage on Relay Search. Just enter your bridge's **"HASHED FINGERPRINT"** in the form and click on "Search"
 {% endhint %}
+
+* Ensure that the Tor port related to the bridge and the Obfs4proxy service are working and listening at the the ports selected
+
+```bash
+sudo ss -tulpn | grep 'LISTEN.*\(tor\|obfs4proxy\)'
+```
+
+**Example** of expected output:
+
+```
+tcp   LISTEN 0      4096         0.0.0.0:2016       0.0.0.0:*    users:(("tor",pid=1302348,fd=7))
+tcp   LISTEN 0      4096       127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=14899,fd=7))
+tcp   LISTEN 0      4096         0.0.0.0:9050       0.0.0.0:*    users:(("tor",pid=14899,fd=6))
+tcp   LISTEN 0      4096               *:2008             *:*    users:(("obfs4proxy",pid=1302349,fd=7))
+```
 
 * If you want to connect to your bridge manually, you will need to know the bridge's obfs4 certificate. Open the file **"obfs4\_bridgeline.txt"** to obtain your bridge info
 
@@ -274,7 +287,7 @@ More info to connect the Tor browser to your own Tor bridge on this [website](ht
 
 ### **Enable automatic software updates**
 
-One of the most important things to keep your relay secure is to install security updates timely and ideally automatically so you can not forget about them. Follow the instructions to enable automatic software updates for your operating system.
+One of the most important things to keep your relay secure is to install security updates timely and ideally do it automatically, so you can not forget about them. Follow the instructions to enable automatic software updates for your operating system.
 
 * Install dependencies
 
@@ -309,7 +322,7 @@ Unattended-Upgrade::Automatic-Reboot "true";
 unattended-upgrade --debug
 ```
 
-* If you just want to see the debug output but don't change anything use
+* If you want to see the debug output but don't change anything use
 
 ```sh
 unattended-upgrade --debug --dry-run
@@ -346,7 +359,7 @@ nyx
 
 * Press the right -> navigation key to navigate to page 2/5 to show the traffic of your Tor instance
 
-![Example of an obsf4 bridge running ](../../images/nyx-tor-bridge.png)
+![Example of an obsf4 bridge running](../../images/nyx-tor-bridge.png)
 
 * Press `"q"` key **2 times** to exit
 

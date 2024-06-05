@@ -17,7 +17,7 @@ layout:
     visible: true
 ---
 
-# System
+# 🖥️ System
 
 ## Bonus Section: System guides
 
@@ -30,10 +30,15 @@ layout:
 * [**Aliases**](aliases.md) - set up CLI command shortcuts to simplify your node management experienc**e**
 * [**Static IP & custom DNS servers**](../../bonus-guides/system/static-ip-and-custom-dns-servers.md) - set a static IP local address and customize the DNS servers
 
-### Install / Update / Uninstall common languages
+### Common programming languages
 
-* [**Node + NPM**](nodejs-npm.md) - Install/Update/Uninstall Node + NPM
-* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install/ Update/Uninstall Rustup + Cargo
+* [**Node + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node + NPM
+* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install / Update / Uninstall Rustup + Cargo
+* [**Go!**](https://github.com/golang/go) - Install / Update / Uninstall Go
+
+### Databases
+
+* [**PostgreSQL**](../../bonus-guides/system/postgresql.md) - Install / Update / Uninstall PostgreSQL database
 
 ### Security
 

@@ -29,8 +29,8 @@ Difficulty: Easy
 
 ## Requirements
 
-* [Bitcoin Core](../../index-2/bitcoin-client.md)
-* Electrum server:[ Fulcrum](../../bitcoin/electrum-server.md) or [Electrs](electrs.md)
+* [Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md)
+* Electrum server:[ Fulcrum](../../itcoin/bitcoin/electrum-server.md) or [Electrs](electrs.md)
 
 ## Installation
 

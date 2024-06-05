@@ -19,19 +19,19 @@ layout:
 
 Run your own private blockchain explorer with [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer). Trust your node, not some external services.
 
-![](../images/btcrpcexplorer-homepage.png)
+![](../../images/btcrpcexplorer-homepage.png)
 
 ## Requirements
 
-* [Bitcoin Core](../index-2/bitcoin-client.md)
+* [Bitcoin Core](bitcoin-client.md)
 * Others
-  * [Node + NPM](../bonus/system/nodejs-npm.md)
+  * [Node + NPM](../../bonus/system/nodejs-npm.md)
 
 ## Introduction
 
 After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with [Fulcrum](electrum-server.md), the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
 
-[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy to use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying [Bitcoin Core](../index-2/bitcoin-client.md) and [Fulcrum](electrum-server.md) via RPC.
+[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy to use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying [Bitcoin Core](bitcoin-client.md) and [Fulcrum](electrum-server.md) via RPC.
 
 ## Preparations
 
@@ -62,7 +62,7 @@ npm -v
 ```
 
 {% hint style="info" %}
-If the version is **`>=18`**, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+If the version is **`>=18`**, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 * Install the next dependency package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
@@ -73,7 +73,7 @@ sudo apt install build-essential
 
 ### Reverse proxy & Firewall
 
-In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
+In the security [section](../../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the BTC RPC Explorer configuration.
 
 Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the BTC RPC Explorer. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
@@ -161,7 +161,7 @@ sudo su - btcrpcexplorer
 curl https://github.com/janoside.gpg | gpg --import
 ```
 
-* Download the source code directly from GitHub and go to the `btc-rpc-explorer` folder&#x20;
+* Download the source code directly from GitHub and go to the `btc-rpc-explorer` folder
 
 {% code overflow="wrap" %}
 ```sh
@@ -228,23 +228,27 @@ Installation can take some time, be patient. There might be a lot of confusing o
 cp .env-sample .env
 ```
 
-* Edit the `.env` file. Activate any setting by removing the `#` at the beginning of the line or editing directly
+* Edit the `.env` file.&#x20;
 
 ```sh
 nano .env
 ```
 
+{% hint style="info" %}
+Activate any setting by removing the `#` at the beginning of the line or editing directly
+{% endhint %}
+
 * Instruct the BTC RPC Explorer to connect to the local Bitcoin Core
 
 ```
-# replace this line
+# Uncomment & replace the value of these lines
 BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
 ```
 
 * To get address balances, either an Electrum server or an external service is necessary. Your local Electrum server can provide address transaction lists, balances, and more
 
 ```
-# replace these lines
+# Uncomment & replace the value of these lines
 BTCEXP_ADDRESS_API=electrum
 BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
 ```
@@ -260,7 +264,7 @@ You can set additional features of [Privacy](blockchain-explorer.md#privacy) / [
 {% endhint %}
 
 * Save and exit
-* Exit the `btcrpcexplorer` user session to return to the "admin" user session
+* Exit the `btcrpcexplorer` user session to return to the `admin` user session
 
 ```sh
 exit
@@ -284,6 +288,7 @@ sudo nano /etc/systemd/system/btcrpcexplorer.service
 
 [Unit]
 Description=BTC RPC Explorer
+Requires=bitcoind.service fulcrum.service
 After=bitcoind.service fulcrum.service
 
 [Service]
@@ -318,7 +323,7 @@ journalctl -fu btcrpcexplorer
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service
 
@@ -516,12 +521,12 @@ RPC Terminal / Browser require authentication. Set an authentication password vi
 {% endhint %}
 
 {% hint style="info" %}
-With DEMO mode enabled, the user will see the next message:&#x20;
+With DEMO mode enabled, the user will see the next message:
 
 `"Sorry, that RPC command is blacklisted. If this is your server, you may allow this command by removing it from the 'rpcBlacklist' setting in config.js."`
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/btc-rpc-explorer-blacklisted.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/btc-rpc-explorer-blacklisted.PNG" alt=""><figcaption></figcaption></figure>
 
 ### Remote access over Tor
 

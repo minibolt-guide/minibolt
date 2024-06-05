@@ -17,9 +17,9 @@ layout:
     visible: true
 ---
 
-# Bitcoin
+# 🟠 ₿itcoin
 
-## Bonus Section: Bitcoin guides
+## Bonus Section: ₿itcoin guides
 
 ### Electrum servers
 
@@ -55,4 +55,4 @@ layout:
 
 ### Payment processors
 
-* [**BTCPay Server**](../../bonus-guides/bitcoin/btcpay-server.md) - a free and open-source Bitcoin payment processor which allows you to accept Bitcoin without fees or intermediaries
+* [**BTCPay Server**](../../bonus-guides/bitcoin/btcpay-server.md) - a free and open-source Bitcoin payment processor that allows you to accept Bitcoin without fees or intermediaries
