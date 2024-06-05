@@ -293,9 +293,9 @@ sudo nano /home/nostr/rs-relay/config.toml
 {% hint style="info" %}
 Pay attention to not include the next lines:
 
-> engine = "postgres"[^1]
+> engine = "postgres"
 
-> connection = "postgresql://admin:admin@localhost:5432/nostrelay"[^2]
+> connection = "postgresql://admin:admin@localhost:5432/nostrelay"
 
 Include the uncomment, and replace the next line:
 
@@ -308,17 +308,17 @@ If you want to use the default SQLite database backend. More details and additio
 > >
 > > **(\*)** Click on parameter to get an example/explanation
 >
-> > relay\_url = "\<yourelayurl>[^3]"
+> > relay\_url = "\<yourelayurl>"
 >
 > > name = "\<nametotherelay>"
 >
-> > description = "\<descriptionrelay>[^4]"
+> > description = "\<descriptionrelay>"
 >
 > > pubkey = "\<yournostrhexpubkey>"
 >
-> > contact = "\<yourcontact>[^5]"
+> > contact = "\<yourcontact>"
 >
-> > relay\_icon = "\<yourelayiconURL>[^6]"
+> > relay\_icon = "\<yourelayiconURL>"
 
 {% hint style="info" %}
 If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this.
@@ -330,17 +330,17 @@ You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub
 > >
 > > **(\*)** click on the parameter to get action to do **(\<Edit>** or **\<Uncomment>**)
 >
-> > favicon = "favicon.ico"[^7]
+> > favicon = "favicon.ico"
 >
-> > engine = "postgres"[^8]
+> > engine = "postgres"
 >
-> > connection = "postgresql://admin:admin@localhost:5432/nostrelay"[^9]
+> > connection = "postgresql://admin:admin@localhost:5432/nostrelay"
 >
-> > address = "127.0.0.1"[^10]
+> > address = "127.0.0.1"
 >
-> > port = 8880[^11]
+> > port = 8880[^1]
 >
-> > remote\_ip\_header = "cf-connecting-ip"[^12]
+> > remote\_ip\_header = "cf-connecting-ip"
 
 {% hint style="info" %}
 If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL), or replace it with your own, downloading it instead
@@ -459,7 +459,7 @@ credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 ingress:
 
 # Nostr relay
-  - hostname: relay.<a data-footnote-ref href="#user-content-fn-13">&#x3C;domain.com></a>
+  - hostname: relay.<a data-footnote-ref href="#user-content-fn-2">&#x3C;domain.com></a>
     service: ws://localhost:8880
 
   - service: http_status:404
@@ -752,7 +752,7 @@ Nostr Nests is an audio space for chatting, brainstorming, debating, jamming, mi
 
 {% tabs %}
 {% tab title="Pleb.to" %}
-Pleb.to does NOSTR things... documents, links, graphs, maps, and more... Pleb.to is a portal to your decentralized data.
+`Pleb.to` does NOSTR things... documents, links, graphs, maps, and more... `Pleb.to` is a portal to your decentralized data.
 
 [Web](https://pleb.to)
 {% endtab %}
@@ -935,28 +935,6 @@ sudo rm /usr/local/bin/nostr-rs-relay
 | :--: | :------: | :----------: |
 | 8880 |    TCP   | Default port |
 
-[^1]: \<Uncomment> & \<Edit>
+[^1]: \<Edit>
 
-[^2]: \<Uncomment>
-
-[^3]: **Example:** `"wss://relay.bitcoin.org/"`
-
-[^4]: **Example:** `"The official nostr relay of the Bitcoin community"`
-
-[^5]: **Example:** `"hello@bitcoin.org"`
-
-[^6]: Example: [https://twofaktor.github.io/logo\_circle%2BB.png](https://twofaktor.github.io/logo\_circle%2BB.png)
-
-[^7]: \<Uncomment>
-
-[^8]: \<Uncomment> & \<Edit>
-
-[^9]: \<Uncomment>
-
-[^10]: \<Edit>
-
-[^11]: \<Edit>
-
-[^12]: \<Uncomment>
-
-[^13]: Here your personal domain
+[^2]: Here your personal domain

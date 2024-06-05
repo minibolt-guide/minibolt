@@ -557,23 +557,22 @@ sudo systemctl start lnd
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu lnd</code> ⬇️</summary>
 
 ```
-Nov 26 18:57:25 minibolt systemd[1]: Started LND.
-Nov 26 18:57:27 minibolt lnd[1004]: Attempting automatic RPC configuration to bitcoind
-Nov 26 18:57:27 minibolt lnd[1004]: Automatically obtained bitcoind's RPC credentials
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.299 [INF] LTND: Version: 0.17.2-beta commit=v0.17.2-beta, build=production, logging=default, debuglevel=info
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.300 [INF] LTND: Active chain: Bitcoin (network=testnet)
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.300 [INF] RPCS: Generating ephemeral TLS certificates...
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.304 [INF] RPCS: Done generating ephemeral TLS certificates
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.321 [INF] RPCS: RPC server listening on 127.0.0.1:10009
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.408 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.408 [INF] LTND: Opening the main database, this might take a few minutes...
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.408 [INF] LTND: Opening bbolt database, sync_freelist=false, auto_compact=true
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.445 [INF] LTND: Creating local graph and channel state DB instances
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.473 [INF] CHDB: Checking for schema update: latest_version=31, db_version=31
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.474 [INF] CHDB: Checking for optional update: prune_revocation_log=false, db_version=empty
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.493 [INF] LTND: Database(s) now open (time_to_open=84.180567ms)!
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.493 [INF] LTND: We're not running within systemd or the service type is not 'notify'
-Nov 26 18:57:27 minibolt lnd[1004]: 2023-11-26 18:57:27.493 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
+Jun 05 14:58:50 minibolt systemd[1]: Starting Lightning Network Daemon...
+Jun 05 14:58:50 minibolt lnd[124224]: Attempting automatic RPC configuration to bitcoind
+Jun 05 14:58:50 minibolt lnd[124224]: Automatically obtained bitcoind's RPC credentials
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.368 [INF] LTND: Version: 0.18.0-beta commit=v0.18.0-beta, build=production, logging=default, debuglevel=info
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.369 [INF] LTND: Active chain: Bitcoin (network=mainnet)
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.369 [INF] RPCS: Generating ephemeral TLS certificates...
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.370 [INF] RPCS: Done generating ephemeral TLS certificates
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.372 [INF] RPCS: RPC server listening on 127.0.0.1:10009
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.394 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.395 [INF] LTND: Opening the main database, this might take a few minutes...
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.615 [INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.667 [INF] CHDB: Checking for schema update: latest_version=31, db_version=31
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.669 [INF] CHDB: Checking for optional update: prune_revocation_log=false, db_version=empty
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.700 [INF] LTND: Database(s) now open (time_to_open=305.162267ms)!
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.703 [INF] LTND: Systemd was notified about our readiness
+Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.703 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
 ```
 
 </details>
@@ -619,7 +618,7 @@ or 'n' to create a new seed (Enter y/x/n):
 
 {% tabs %}
 {% tab title="Scenery 1" %}
-<mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
+### <mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
 
 * Press `n` and enter
 
@@ -692,7 +691,7 @@ Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Finished
 {% endtab %}
 
 {% tab title="Scenery 2" %}
-<mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
+### <mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
 
 * Press `y` and enter to recover it
 
@@ -750,17 +749,22 @@ lnd successfully initialized!
 Return to the first terminal with `journalctl -f -u lnd`. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this ⬇️
 
 <pre><code><strong>[...]
-</strong><strong>Apr 17 21:17:19 minibolt lnd[63591]: 2024-04-17 21:17:19.288 [INF] LNWL: Opened wallet
-</strong>Apr 17 21:17:19 minibolt lnd[63591]: 2024-04-17 21:17:19.288 [INF] LTND: Wallet recovery mode enabled with address lookahead of 2500 addresses
+</strong>Jun 05 15:05:16 minibolt lnd[124224]: 2024-06-05 15:05:16.248 [INF] LNWL: Opened wallet
+Jun 05 15:05:16 minibolt lnd[124224]: 2024-06-05 15:05:16.249 [INF] LTND: Wallet recovery mode enabled with address lookahead of 2500 addresses
+Jun 05 15:05:16 minibolt lnd[124224]: 2024-06-05 15:05:16.442 [INF] LNWL: Started listening for bitcoind block notifications via ZMQ on 127.0.0.1:28332
+Jun 05 15:05:16 minibolt lnd[124224]: 2024-06-05 15:05:16.442 [INF] LNWL: Started listening for bitcoind transaction notifications via ZMQ on 127.0.0.1:28333
+Jun 05 15:05:16 minibolt lnd[124224]: 2024-06-05 15:05:16.442 [INF] CHRE: Initializing bitcoind backed fee estimator in CONSERVATIVE mode
+Jun 05 15:05:18 minibolt lnd[124224]: 2024-06-05 15:05:18.762 [INF] LNWL: The wallet has been unlocked without a time limit
+Jun 05 15:05:21 minibolt lnd[124224]: 2024-06-05 15:05:21.066 [INF] CHRE: LightningWallet opened
 <strong>[...]
-</strong><strong>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.642 [INF] LNWL: RECOVERY MODE ENABLED -- rescanning for used addresses with recovery_window=2500
-</strong>Nov 26 19:47:08 minibolt lnd[1321]: 2023-11-26 19:47:08.685 [INF] LNWL: Seed birthday surpassed, starting recovery of wallet from height=2540246 hash=00000000000000178484e446a4fb5c966b5fd5db76121421bfa470c7c879ff05 with recovery-window=2500
-Nov 26 19:47:09 minibolt lnd[1321]: 2023-11-26 19:47:09.859 [INF] LNWL: Scanning 311 blocks for recoverable addresses
-Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.328 [INF] LNWL: Recovered addresses from blocks 2540246-2540556
-Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.338 [INF] LNWL: Started rescan from block 000000000000001e297a052a69708908dbe9769d834a07447d85e446b6b4b2a0 (height 2540556) for 0 addresses
-Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.360 [INF] LNWL: Catching up block hashes to height 2540557, this might take a while
-Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: Done catching up block hashes
-Nov 26 19:48:36 minibolt lnd[1321]: 2023-11-26 19:48:36.361 [INF] LNWL: Finished rescan for 0 addresses (synced to block 00000000443337ee5135e26cc7611c570f0cfface2823516a59fee41fc9750b0, height 2540557)
+</strong><strong>Jun 05 19:47:08 minibolt lnd[124224]: 2023-11-26 19:47:08.642 [INF] LNWL: RECOVERY MODE ENABLED -- rescanning for used addresses with recovery_window=2500
+</strong>Jun 05 19:47:08 minibolt lnd[124224]: 2023-11-26 19:47:08.685 [INF] LNWL: Seed birthday surpassed, starting recovery of wallet from height=2540246 hash=00000000000000178484e446a4fb5c966b5fd5db76121421bfa470c7c879ff05 with recovery-window=2500
+Jun 05 19:47:09 minibolt lnd[124224]: 2023-11-26 19:47:09.859 [INF] LNWL: Scanning 311 blocks for recoverable addresses
+Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.328 [INF] LNWL: Recovered addresses from blocks 2540246-2540556
+Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.338 [INF] LNWL: Started rescan from block 000000000000001e297a052a69708908dbe9769d834a07447d85e446b6b4b2a0 (height 2540556) for 0 addresses
+Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.360 [INF] LNWL: Catching up block hashes to height 2540557, this might take a while
+Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.361 [INF] LNWL: Done catching up block hashes
+Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.361 [INF] LNWL: Finished rescan for 0 addresses (synced to block 00000000443337ee5135e26cc7611c570f0cfface2823516a59fee41fc9750b0, height 2540557)
 [...]
 </code></pre>
 {% endtab %}
@@ -997,7 +1001,9 @@ Continue with the guide on the [Create systemd service](lightning-client.md#crea
 ### Migrate an existing bbolt database to PostgreSQL
 
 {% hint style="danger" %}
-Attention: this process is very risky, supposedly this [software is in an experimental state](https://github.com/lightninglabs/lndinit/pull/21) which could damage your existing LND database. Act at your own risk. It is recommended to start from scratch by closing all existing channels, rather than a migration
+Attention: this process is very risky, supposedly this [software is in an experimental state](https://github.com/lightninglabs/lndinit/pull/21) which could damage your existing LND database. **Act at your own risk**❗
+
+\-> It is recommended to start from scratch by closing all existing channels, rather than a migration to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
 {% endhint %}
 
 #### Install Go!
@@ -1056,7 +1062,7 @@ sudo install -m 0755 -o root -g root -t /usr/local/bin /home/admin/go/bin/lndini
 lndinit -v
 ```
 
-**Example** of  expected output:
+**Example** of expected output:
 
 ```
 2024-05-30 23:00:15.666 LNDINIT: Version 0.1.4-beta commit=, debuglevel=debug
@@ -1100,7 +1106,7 @@ May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU time.
 </code></pre>
 
-* Previously followed:
+* a Previously followed:
   1. [Install PostgreSQL section](lightning-client.md#install-postgresql)
   2. [Create PostgreSQL database section](lightning-client.md#create-postgresql-database)
 * Exec the migration and wait to finish it
@@ -1278,7 +1284,7 @@ sudo lndinit -v migrate-db \
 </details>
 
 {% hint style="info" %}
-This process could take a few minutes depending on the size of the database. When the prompt comes back to show you, the migration is finished successfully
+This process could take a few minutes depending on the size of the database. When the prompt comes back to show you, that the migration is finished successfully
 {% endhint %}
 
 * Now follow the [Configured](lightning-client.md#configuration) section `lnd.conf`, to use the PostgreSQL database as the backend, paying attention to the next section
@@ -1293,7 +1299,26 @@ db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
 db.postgres.timeout=0
 ```
 
-* With the user `admin`, start LND again
+* With user admin, edit the [systemd service file](lightning-client.md#create-systemd-service)
+
+```bash
+sudo nano /etc/systemd/system/lnd.service
+```
+
+* &#x20;Replace the next lines to include the `postgres.service` dependency
+
+```
+Requires=bitcoind.service postgresql.service
+After=bitcoind.service postgresql.service
+```
+
+* Reload the systemd daemon
+
+```bash
+sudo systemctl daemon-reload
+```
+
+* Start LND again
 
 ```bash
 sudo systemctl start lnd
@@ -1308,9 +1333,6 @@ journalctl -fu lnd
 {% hint style="info" %}
 The `[WRN]` logs indicate that LND has detected an existing old bbolt database and It will not be migrated to postgres automatically, but we already migrated it before 😏
 
-You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
-{% endhint %}
-
 ```
 [...]
 > Apr 17 14:33:20 minibolt lnd[55570]: 2024-04-17 14:33:20.984 [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/chain/bitcoin/mainnet/wallet.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
@@ -1318,8 +1340,17 @@ You can delete these logs by following the [next section](lightning-client.md#op
 [...]
 ```
 
+\-> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
+
+Pay attention to this `[INF]` significant log to confirm you are using PostgreSQL now
+
+```
+[INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
+```
+{% endhint %}
+
 {% hint style="info" %}
-Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md) of lncli with commands like `lncli listchannels or lncli listunspent or lncli wtclient towers` and see if everything is as you left it before the migration
+Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md) or using `lncli` with commands like `lncli listchannels / lncli listunspent / lncli wtclient towers` and see if everything is as you left it before the migration
 {% endhint %}
 
 #### (Optional) Delete old bbolt files database

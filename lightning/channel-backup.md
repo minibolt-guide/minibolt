@@ -384,6 +384,7 @@ sudo nano /etc/systemd/system/scb-backup.service
 
 [Unit]
 Description=SCB Automatic Backup
+Requires=lnd.service
 After=lnd.service
 
 [Service]
