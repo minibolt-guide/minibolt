@@ -254,7 +254,7 @@ psql -c "ALTER ROLE admin WITH PASSWORD 'admin';"
 * Come back to the `admin` user
 
 ```bash
-exit
+\q
 ```
 
 ## Extras (optional)
