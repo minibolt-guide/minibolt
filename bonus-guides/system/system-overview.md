@@ -22,7 +22,7 @@ Difficulty: Easy
 
 <figure><img src="../../.gitbook/assets/system_overview.png" alt=""><figcaption></figcaption></figure>
 
-### &#x20;Acknowledgments <a href="#acknowledgments" id="acknowledgments"></a>
+### Acknowledgments <a href="#acknowledgments" id="acknowledgments"></a>
 
 This is a fork of the [minibolt\_info](https://github.com/rmnscb/minibolt\_info) repository, the main developer of this project is [rmnscb](https://github.com/rmnscb), a member of the MiniBolt community, all the merits go to him. Thank you for your contribution 🧡🫂
 
@@ -30,7 +30,7 @@ This is a fork of the [minibolt\_info](https://github.com/rmnscb/minibolt\_info)
 
 ### Install dependencies
 
-* With user `admin`, install the necessary dependencies using the apt package manager&#x20;
+* With user `admin`, install the necessary dependencies using the apt package manager
 
 ```bash
 sudo apt install jq net-tools netcat
@@ -51,6 +51,10 @@ cd /tmp
 git clone https://github.com/minibolt-guide/system_overview && cd system_overview
 ```
 {% endcode %}
+
+{% hint style="info" %}
+You can inspect the scripts to make sure it does not do bad things, by going to the [GitHub repository](https://github.com/minibolt-guide/system\_overview)
+{% endhint %}
 
 * Install it to the system
 
@@ -77,14 +81,14 @@ minibolt.sh
 
 > To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-optional-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
 
-> ✅ Finally, the terminal shows you something like the cover photo of this bonus guide 🎨
+> ✅ Finally, the terminal shows you something like [the cover photo of this bonus guide](https://v2.minibolt.info/bonus-guides/system/system-overview) 🎨
 {% endhint %}
 
 ## Extras (optional)
 
 ### Show on login <a href="#show-on-login-optional" id="show-on-login-optional"></a>
 
-You can run the welcome script automatically every time you log in
+> Run the welcome script automatically every time you log in
 
 * With user `admin`, add `minibolt.sh` to the end of your `.bashrc` file
 
@@ -93,7 +97,7 @@ echo "minibolt.sh" >> ~/.bashrc
 ```
 
 {% hint style="info" %}
-Now log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell) you can see the process of exec script before the prompt shows you.&#x20;
+Now log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell) you can see the process of exec script before the prompt shows you.
 
 > To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-optional-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
 

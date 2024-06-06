@@ -24,7 +24,7 @@ layout:
 ### Dashboards & Appearance
 
 * [**Pimp the command line**](command-line.md) - make your command line prompt shine with a golden ฿ and use more colors overall
-* [System Overview](../../bonus-guides/system/system-overview.md) - your MiniBolt will greet you with a quick system summary
+* [**System Overview**](../../bonus-guides/system/system-overview.md) - your MiniBolt will greet you with a quick system summary
 
 ### System Administration
 
