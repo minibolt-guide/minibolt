@@ -31,7 +31,7 @@ Difficulty: Easy
 
 The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor).
 
-## Configuration
+## Installation
 
 * With user `admin`, ensure you are on `home` folder and download the aliases list provided for a MiniBolt environment
 
@@ -47,7 +47,7 @@ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.b
 ```
 {% endcode %}
 
-If you want, inspect the list of aliases to make sure it does not do bad things, and modify it with your personal aliases if you want. Exit with Ctrl-X
+If you want, inspect the list of aliases to make sure it does not do bad things, and modify it with your personal aliases. Exit with `Ctrl-X`
 
 ```sh
 nano .bash_aliases
