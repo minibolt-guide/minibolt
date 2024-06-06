@@ -238,7 +238,7 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.2
+VERSION=2.5.5
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -560,7 +560,7 @@ cd src
 * Set variable environment version
 
 ```bash
-VERSION=1.13.1
+VERSION=1.13.2
 ```
 
 * Clone the BTCPay Server official GitHub repository
@@ -1091,7 +1091,7 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.2
+VERSION=2.5.5
 ```
 
 * Fetch the changes of the wish latest tag
@@ -1157,6 +1157,27 @@ git config pull.rebase false
 ./build.sh
 ```
 
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+MSBuild version 17.8.3+195e7f5a3 for .NET
+  Determining projects to restore...
+  Restored /home/btcpay/src/NBXplorer/NBXplorer.Client/NBXplorer.Client.csproj (in 2.43 sec).
+  Restored /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj (in 2.47 sec).
+  NBXplorer.Client -> /home/btcpay/src/NBXplorer/NBXplorer.Client/bin/Release/netstandard2.1/NBXplorer.Client.dll
+  NBXplorer -> /home/btcpay/src/NBXplorer/NBXplorer/bin/Release/net8.0/NBXplorer.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:19.80
+```
+
+</details>
+
 * Check the correct installation update
 
 ```bash
@@ -1204,7 +1225,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=1.13.1
+VERSION=1.13.2
 ```
 
 * Fetch the changes of the wish latest tag

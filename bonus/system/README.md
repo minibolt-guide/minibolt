@@ -24,8 +24,9 @@ layout:
 ### Dashboards & Appearance
 
 * [**Pimp the command line**](command-line.md) - make your command line prompt shine with a golden ฿ and use more colors overall
+* [System Overview](../../bonus-guides/system/system-overview.md) - your MiniBolt will greet you with a quick system summary
 
-### System administration
+### System Administration
 
 * [**Aliases**](aliases.md) - set up CLI command shortcuts to simplify your node management experienc**e**
 * [**Static IP & custom DNS servers**](../../bonus-guides/system/static-ip-and-custom-dns-servers.md) - set a static IP local address and customize the DNS servers

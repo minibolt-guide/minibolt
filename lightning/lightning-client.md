@@ -618,7 +618,7 @@ or 'n' to create a new seed (Enter y/x/n):
 
 {% tabs %}
 {% tab title="Scenery 1" %}
-### <mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
+#### <mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
 
 * Press `n` and enter
 
@@ -691,7 +691,7 @@ Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Finished
 {% endtab %}
 
 {% tab title="Scenery 2" %}
-### <mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
+#### <mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
 
 * Press `y` and enter to recover it
 
@@ -1305,7 +1305,7 @@ db.postgres.timeout=0
 sudo nano /etc/systemd/system/lnd.service
 ```
 
-* &#x20;Replace the next lines to include the `postgres.service` dependency
+* Replace the next lines to include the `postgres.service` dependency
 
 ```
 Requires=bitcoind.service postgresql.service
@@ -1341,8 +1341,6 @@ The `[WRN]` logs indicate that LND has detected an existing old bbolt database a
 ```
 
 \-> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
-
-
 
 Pay attention to this `[INF]` significant log to confirm you are using PostgreSQL now
 

@@ -170,8 +170,6 @@ sudo rm -r bitcoin-$VERSION && sudo rm bitcoin-$VERSION-x86_64-linux-gnu.tar.gz 
 ```
 {% endcode %}
 
-
-
 ### Create the bitcoin user & group
 
 The Bitcoin Core application will run in the background as a daemon and use the separate user “bitcoin” for security reasons. This user does not have admin rights and cannot change the system configuration.
@@ -463,7 +461,7 @@ sudo systemctl start bitcoind
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>sudo journalctl -fu bitcoind</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu bitcoind</code> ⬇️</summary>
 
 ```
 > 2022-11-24T18:08:04Z Bitcoin Core version v24.0.1.0 (release build)
@@ -790,7 +788,7 @@ whitelist=bloomfilter@192.168.0.0/16
 sudo systemctl stop bitcoind
 ```
 
-* Delete&#x20;
+* Delete
 
 ```bash
 sudo rm /data/bitcoin/onion_v3_private_key && 
@@ -848,7 +846,7 @@ man bitcoin-cli
 
 ### Generate a full bitcoin.conf example file
 
-* Follow the [Installation progress before](bitcoin-client.md#installation)&#x20;
+* Follow the [Installation progress before](bitcoin-client.md#installation)
 * With user `admin`, clone the source code from GitHub
 
 ```bash
