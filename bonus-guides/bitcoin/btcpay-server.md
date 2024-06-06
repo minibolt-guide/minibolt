@@ -209,11 +209,19 @@ If PostgreSQL is not installed (output: Command 'psql' not found), follow this [
 
 #### Create PostgreSQL databases
 
-* With user `admin`, create 2 new databases with the `postgres` user
+* With user `admin`, create a new database for NBXplorer with the `postgres` user and assign the user `admin` as the owner
 
 {% code overflow="wrap" %}
 ```bash
-sudo -u postgres createdb -O admin btcpayserver && sudo -u postgres createdb -O admin nbxplorer
+sudo -u postgres psql -c "CREATE DATABASE nbxplorer TEMPLATE 'template0' LC_CTYPE 'C' LC_COLLATE 'C' ENCODING 'UTF8' OWNER admin;"
+```
+{% endcode %}
+
+* Create a new database for BTCPay Server with the `postgres` user and assign the user `admin` as the owner
+
+{% code overflow="wrap" %}
+```bash
+sudo -u postgres psql -c "CREATE DATABASE btcpay TEMPLATE 'template0' LC_CTYPE 'C' LC_COLLATE 'C' ENCODING 'UTF8' OWNER admin;"
 ```
 {% endcode %}
 

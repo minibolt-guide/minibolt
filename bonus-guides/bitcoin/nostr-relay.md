@@ -118,11 +118,13 @@ If you obtain "**command not found**" outputs, you need to follow the [PostgreSQ
 
 #### Create PostgreSQL database
 
-* With user `admin`, create a new database with the `postgres` user
+* With user `admin`, create a new database with the `postgres` user and assign as the owner to the `admin` user
 
+{% code overflow="wrap" %}
 ```bash
 sudo -u postgres createdb -O admin nostrelay
 ```
+{% endcode %}
 
 ## Installation
 

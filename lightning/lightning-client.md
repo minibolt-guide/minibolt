@@ -96,11 +96,13 @@ If you obtain "**command not found**" outputs, you need to follow the [PostgreSQ
 
 #### Create PostgreSQL database
 
-* With user `admin`, create a new database with the `postgres` user
+* With user `admin`, create a new database with the `postgres` user and assign as the owner to the `admin` user
 
+{% code overflow="wrap" %}
 ```bash
 sudo -u postgres createdb -O admin lndb
 ```
+{% endcode %}
 
 ## Installation
 
@@ -618,7 +620,7 @@ or 'n' to create a new seed (Enter y/x/n):
 
 {% tabs %}
 {% tab title="Scenery 1" %}
-#### <mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
+<mark style="color:green;">**If you are creating a new node and you wish to create a new seed**</mark>
 
 * Press `n` and enter
 
@@ -691,7 +693,7 @@ Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Finished
 {% endtab %}
 
 {% tab title="Scenery 2" %}
-#### <mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
+<mark style="color:orange;">**If you had an old node and an existing cipher seed**</mark>
 
 * Press `y` and enter to recover it
 

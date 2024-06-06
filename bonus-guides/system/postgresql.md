@@ -14,7 +14,7 @@ layout:
 
 # PostgreSQL
 
-PostgreSQL is a powerful, open source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.
+PostgreSQL is a powerful, opensource object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -239,16 +239,10 @@ Removed /etc/systemd/system/multi-user.target.wants/postgresql.service.
 sudo su - postgres
 ```
 
-* Create a new database user
+* Create a new database user and assign the password "`admin`" to the new user
 
 ```bash
-createuser -d admin
-```
-
-* Assign the password "`admin`" to the new user
-
-```bash
-psql -c "ALTER ROLE admin WITH PASSWORD 'admin';"
+psql -c "CREATE ROLE admin WITH LOGIN CREATEDB PASSWORD 'admin';"
 ```
 
 * Come back to the `admin` user
@@ -311,7 +305,7 @@ Type `\q` command and enter to exit PostgreSQL CLI and exit to come back to the 
 ```
      Name     |  Owner   | Encoding | Locale Provider |   Collate   |    Ctype    | ICU Locale | ICU Rules |   Access privileges
 --------------+----------+----------+-----------------+-------------+-------------+------------+-----------+-----------------------
- btcpayserver | admin    | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           |
+ btcpay       | admin    | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           |
  lndb         | admin    | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           |
  nbxplorer    | admin    | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           |
  nostrelay    | admin    | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           |
@@ -544,7 +538,7 @@ sudo rm -rf /etc/postgresql/ && sudo rm -rf /etc/postgresql-common/ && sudo rm -
 ```
 {% endcode %}
 
-### Uninstall postgres user&#x20;
+### Uninstall postgres user
 
 * Delete the postgres user. Don't worry about `userdel: bitcoind mail spool (/var/mail/bitcoind) not found` output, the uninstall has been successful
 
