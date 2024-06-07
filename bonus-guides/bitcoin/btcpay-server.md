@@ -748,8 +748,8 @@ sudo nano /etc/systemd/system/btcpay.service
 
 <strong>[Unit]
 </strong>Description=BTCPay Server
-Requires=nbxplorer.service postgresql.service
-After=nbxplorer.service postgresql.service
+Requires=nbxplorer.service postgresql.service lnd.service
+After=nbxplorer.service postgresql.service lnd.service
 
 [Service]
 WorkingDirectory=/home/btcpay/src/btcpayserver

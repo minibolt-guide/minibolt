@@ -459,7 +459,27 @@ sudo systemctl start fulcrum
 {% endhint %}
 
 {% hint style="warning" %}
-DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting and recreating `fulcrum_db` folder.
+DO NOT REBOOT OR STOP THE SERVICE DURING THE DB CREATION PROCESS. YOU MAY CORRUPT THE FILES - in case that happens, start the sync from scratch by deleting the content of `fulcrum_db` folder, follow the next steps:
+
+* With user `admin`, stop `fulcrum`
+
+```bash
+sudo systemctl stop fulcrum
+```
+
+* Delete the `fulcrum_db` folder content
+
+```bash
+sudo rm -r /data/fulcrum/fulcrum_db/*
+```
+
+* Start fulcrum again
+
+```bash
+sudo systemctl start fulcrum
+```
+
+You should again the logs of the [Run process](electrum-server.md#run) before
 {% endhint %}
 
 * When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed

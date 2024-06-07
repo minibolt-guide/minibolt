@@ -414,20 +414,15 @@ sudo systemctl start nostr-relay
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu nostr-relay</code> ⬇️</summary>
 
 ```
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.232103Z  INFO nostr_rs_relay: Starting up from main
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.233677Z  INFO nostr_rs_relay::server: listening on: 127.0.0.1:8008
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.241608Z  INFO nostr_rs_relay::repo::sqlite: Built a connection pool "writer" (min=0, max=2)
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.242695Z  INFO nostr_rs_relay::repo::sqlite: Built a connection pool "maintenance" (min=0, max=2)
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.244825Z  INFO nostr_rs_relay::repo::sqlite: Built a connection pool "reader" (min=4, max=8)
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.245895Z  INFO nostr_rs_relay::repo::sqlite_migration: DB version = 18
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.246417Z  INFO nostr_rs_relay::server: db writer created
-Jul 31 19:05:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:05:59.246880Z  INFO nostr_rs_relay::server: control message listener started
-Jul 31 19:06:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:06:59.250853Z  INFO nostr_rs_relay::repo::sqlite: checkpoint ran in 137.674µs (result: Ok, WAL size: 0)
-Jul 31 19:07:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:07:59.255370Z  INFO nostr_rs_relay::repo::sqlite: checkpoint ran in 217.764µs (result: Ok, WAL size: 0)
-Jul 31 19:08:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:08:59.261774Z  INFO nostr_rs_relay::repo::sqlite: checkpoint ran in 131.048µs (result: Ok, WAL size: 0)
-Jul 31 19:09:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:09:59.265335Z  INFO nostr_rs_relay::repo::sqlite: checkpoint ran in 176.033µs (result: Ok, WAL size: 0)
-Jul 31 19:10:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:10:59.270412Z  INFO nostr_rs_relay::repo::sqlite: checkpoint ran in 172.006µs (result: Ok, WAL size: 0)
-Jul 31 19:11:59 minibolt nostr-rs-relay[35593]: 2023-07-31T19:11:59.275842Z  INFO nostr_rs_relay::repo::sqlite: checkpoint ran in 131.853µs (result: Ok, WAL size: 0)
+Jun 07 10:49:45 minibolt systemd[1]: Started Nostr relay.
+Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.130712Z  INFO nostr_rs_relay: Starting up from main
+Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.150378Z  INFO nostr_rs_relay::server: listening on: 127.0.0.1:8880
+Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.302830Z  INFO sqlx::postgres::notice: relation "migrations" already exists, skipping
+Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.337047Z  INFO nostr_rs_relay::db: Postgres migration completed, at v5
+Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.337902Z  INFO nostr_rs_relay::server: db writer created
+Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.337945Z  INFO nostr_rs_relay::server: control message listener started
+Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.338012Z  INFO nostr_rs_relay::server: reading favicon...
+[...]
 ```
 
 </details>
