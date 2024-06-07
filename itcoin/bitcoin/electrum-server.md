@@ -481,7 +481,7 @@ sudo systemctl start fulcrum
 
 \-> You should see the logs of the [Run process](electrum-server.md#run) before again
 
-\-> The before troubleshooting note could be useful after the first sync **after a data corruption due to a power outage**&#x20;
+\-> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
 {% endhint %}
 
 * When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed
