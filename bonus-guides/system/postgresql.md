@@ -14,7 +14,7 @@ layout:
 
 # PostgreSQL
 
-PostgreSQL is a powerful, opensource object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.
+PostgreSQL is a powerful, open source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -239,7 +239,7 @@ Removed /etc/systemd/system/multi-user.target.wants/postgresql.service.
 sudo su - postgres
 ```
 
-* Create a new database user and assign the password "`admin`" to the new user
+* Create a new database `admin` user and assign the password "`admin`"
 
 ```bash
 psql -c "CREATE ROLE admin WITH LOGIN CREATEDB PASSWORD 'admin';"
@@ -512,7 +512,7 @@ sudo apt update && sudo apt full-upgrade
 
 ### Uninstall PostgreSQL package and configuration
 
-* With user `admin`, stop and disable postgres service
+* With user `admin`, stop and disable the postgres service
 
 ```bash
 sudo systemctl stop postgresql && sudo systemctl disable postgresql
