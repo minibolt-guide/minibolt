@@ -846,17 +846,23 @@ man bitcoin-cli
 
 ### Generate a full bitcoin.conf example file
 
-* Follow the [Installation progress before](bitcoin-client.md#installation)
-* With user `admin`, clone the source code from GitHub
+* Follow the [Installation progress before](bitcoin-client.md#installation) or [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
+* With user `admin`, go to the temporary folder
+
+```bash
+cd /tmp
+```
+
+* Clone the source code from GitHub
 
 ```bash
 git clone https://github.com/bitcoin/bitcoin.git
 ```
 
-* Copy-paste the bitcoind binary file to the source code folder
+* Copy-paste the bitcoind binary file existing on your OS to the source code folder
 
 ```bash
-cp /tmp/bitcoin-$VERSION/bin/bitcoind /tmp/bitcoin/src/
+cp /usr/local/bin/bitcoind /tmp/bitcoin/src/
 ```
 
 * Go to the `devtools` folder
@@ -883,10 +889,16 @@ Generating example bitcoin.conf file in share/examples/
 cat /tmp/bitcoin/share/examples/bitcoin.conf
 ```
 
-* Or `nano` to examine the content inside of
+* Or `nano` to examine the content
 
 ```bash
 nano /tmp/bitcoin/share/examples/bitcoin.conf
+```
+
+**(Optional)** Delete the `bitcoin` folder from the temporary folder
+
+```bash
+sudo rm -r /tmp/bitcoin
 ```
 
 ## Upgrade
