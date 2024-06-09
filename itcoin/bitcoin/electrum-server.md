@@ -114,7 +114,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=1.10.0
+VERSION=1.11.0
 ```
 
 * Download the application, checksums, and signature
@@ -193,15 +193,6 @@ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 ```sh
 tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
 ```
-
-{% hint style="info" %}
-**Ignore the next line output if it appears to you**, this happens because the dev uses macOS with an xattr-capable filesystem:
-
-```
-tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.system.posix_acl_access'
-tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.docker.grpcfuse.ownership'
-```
-{% endhint %}
 
 ### Binaries installation
 
@@ -363,9 +354,9 @@ ssl = 0.0.0.0:50002
 tcp = 0.0.0.0:50001
 peering = false
 
-# Set fast-sync according to your device,
-# recommended: fast-sync=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
-<a data-footnote-ref href="#user-content-fn-6">fast-sync</a> = 2048
+# Set utxo-cache according to your device performance,
+# recommended: utxo-cache=1/2 x RAM available e.g: 4GB RAM -> utxo-cache=2000
+utxo-cache = <a data-footnote-ref href="#user-content-fn-6">2000</a>
 
 # Banner
 banner = /data/fulcrum/fulcrum-banner.txt
@@ -484,9 +475,18 @@ sudo systemctl start fulcrum
 \-> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
 {% endhint %}
 
-* When you see logs like this `<Controller> XXXX mempool txs involving XXXX addresses`, which means that Fulcrum is fully indexed
+* When you see logs like this `SrvMgr: starting 3 services ...`, which means that Fulcrum is fully indexed
 
-<figure><img src="../../.gitbook/assets/fulcrum-index-finished.PNG" alt=""><figcaption></figcaption></figure>
+```
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.705] SrvMgr: starting 3 services ...
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Starting listener service for TcpSrv 0.0.0.0:50001 ...
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Service started, listening for connections on 0.0.0.0:50001
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Starting listener service for SslSrv 0.0.0.0:50002 ...
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Service started, listening for connections on 0.0.0.0:50002
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Starting listener service for AdminSrv 127.0.0.1:8000 ...
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Service started, listening for connections on 127.0.0.1:8000
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller> Starting ZMQ Notifier (hashblock) ...
+```
 
 * Ensure the service is working and listening at the default `50002` & `50001` ports and the `8000` admin port
 

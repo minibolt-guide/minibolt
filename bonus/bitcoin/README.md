@@ -31,7 +31,7 @@ layout:
 
 * [**Electrum Wallet Desktop**](electrum-wallet-desktop.md) - a feature-rich desktop wallet for power-users
 
-#### CLI
+#### CLI wallets
 
 * [**Sparrow Server**](sparrow-server.md) - a stripped down version of Sparrow that can be run on systems without displays
 

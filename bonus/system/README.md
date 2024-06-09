@@ -35,7 +35,7 @@ layout:
 
 * [**Node + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node + NPM
 * [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install / Update / Uninstall Rustup + Cargo
-* [**Go!**](https://github.com/golang/go) - Install / Update / Uninstall Go
+* [**Go!**](../../bonus-guides/system/go.md) - Install / Update / Uninstall Go
 
 ### Databases
 

@@ -24,14 +24,14 @@ Difficulty: Medium
 
 ## Introduction
 
-Running a testnet node is a great way to get acquainted with the MiniBolt and the suite of Bitcoin-related software typical of these powerful setups. Moreover, testnet empowers users to tinker with the software and its many configurations without the threat of losing funds. Helping bitcoiners run a full testnet setup is a goal worthy of the MiniBolt, and this page should provide you with the knowledge to get there.
+Running a testnet node is a great way to get acquainted with the MiniBolt and the suite of Bitcoin-related software typical of these powerful setups. Moreover, testnet empowers users to tinker with the software and its many configurations without the threat of losing funds. Helping Bitcoiners run a full testnet setup is a goal worthy of the MiniBolt, and this page should provide you with the knowledge to get there.
 
-The great news is that most of the MiniBolt guide can be used as-is. The small adjustments come in the form of changes to the config files and ports for testnet. You can follow the guide and simply replace the following configurations in the right places as you go.
+The great news is that most of the MiniBolt guide can be used as-is. The small adjustments come in the form of changes to the config files and ports for testnet. You can follow the guide and replace the following configurations in the right places as you go.
 
 {% hint style="info" %}
 > <mark style="color:red;">**Advice:**</mark>
 >
-> For the moment, this guide will touch only the case of an **only testnet mode** situation, in the future, we will study adding the case of configuration to enable the parallel/simultaneous mode (mainnet+testnet in the same device) in an extra section in this guide.
+> For the moment, this guide will touch only the case of an **only testnet mode** situation, in the future, we will study adding the case of configuration to enable the parallel/simultaneous mode (`mainnet+testnet` in the same device) in an extra section in this guide.
 
 > The services mentioned in this guide are those that have been tested using testnet configuration and these worked fine. Later, in the next versions of this guide, we will go to adding other process to adapt other services to the testnet mode.
 {% endhint %}
@@ -64,7 +64,7 @@ sudo chmod g+rx /data/bitcoin/testnet3
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the Bitcoin client guide is the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../itcoin/bitcoin/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor and I2P seed nodes, not clearnet nodes.
+The rest of the Bitcoin client guide is the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../itcoin/bitcoin/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor and I2P seed nodes, not clearnet nodes
 {% endhint %}
 
 ### [Electrum server: Fulcrum](../../itcoin/bitcoin/electrum-server.md)
@@ -83,7 +83,7 @@ sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
 sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
 ```
 
-* When you arrive at the ["Data directory"](../../itcoin/bitcoin/electrum-server.md#data-directory) section on the _"Download the custom Fulcrum banner based on MiniBolt..." step_. Download the Fulcrum testnet banner instead of the mainnet banner
+* When you arrive at the ["Data directory"](../../itcoin/bitcoin/electrum-server.md#data-directory) section, on the _"Download the custom Fulcrum banner based on MiniBolt..." step, d_ownload the Fulcrum testnet banner instead of the mainnet banner
 
 {% code overflow="wrap" %}
 ```bash
@@ -114,7 +114,7 @@ banner = /data/fulcrum/fulcrum-banner-testnet.txt
 
 [Remote access over Tor](../../itcoin/bitcoin/electrum-server.md#remote-access-over-tor)
 
-* When you arrive at the[ remote access over the Tor section](../../itcoin/bitcoin/electrum-server.md#remote-access-over-tor), edit torrc file
+* When you arrive at the[ remote access over the Tor section](../../itcoin/bitcoin/electrum-server.md#remote-access-over-tor), edit the torrc file
 
 ```sh
 sudo nano /etc/tor/torrc
@@ -153,7 +153,7 @@ You should now be able to connect to your Fulcrum server remotely via Tor using 
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the **Fulcrum** guide is exactly the same as the mainnet mode
+The rest of the **Fulcrum** guide is the same as the mainnet mode
 {% endhint %}
 
 ### [Blockchain Explorer: BTC RPC Explorer](../../itcoin/bitcoin/blockchain-explorer.md)
@@ -171,7 +171,7 @@ BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:60001
 ```
 
 {% hint style="success" %}
-The rest of the **BTC RPC Explorer** guide is exactly the same as the mainnet mode
+The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 {% endhint %}
 
 ## Lightning
@@ -220,11 +220,11 @@ lncli --network=testnet --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 {% hint style="info" %}
-Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt-gitbook/main/resources/.bash\_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
+Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash\_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the **Lightning Clien**t guide is exactly the same as the mainnet mode
+The rest of the **Lightning Clien**t guide is the same as the mainnet mode
 {% endhint %}
 
 ### [Channel backup](../../lightning/channel-backup.md)
@@ -251,7 +251,7 @@ SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the **Channel Backup guide** is exactly the same as the mainnet mode
+The rest of the **Channel Backup guide** is the same as the mainnet mode
 {% endhint %}
 
 ### [Web app: ThunderHub](../../lightning/web-app.md)
@@ -269,7 +269,7 @@ macaroonPath: /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
 ```
 
 {% hint style="success" %}
-The rest of the **Web app: Thunderhub** is exactly the same as the mainnet mode
+The rest of the **Web app: Thunderhub** is the same as the mainnet mode
 {% endhint %}
 
 ### [Mobile app: Zeus](../../lightning/mobile-app.md)
@@ -365,7 +365,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 sudo nano /etc/tor/torrc
 ```
 
-* Edit torrc and replace ports to `60001/60002` to match with testnet mode
+* Edit the torrc file and replace ports to `60001/60002` to match with testnet mode
 
 ```
 # Hidden Service Electrs Testnet TCP & SSL
