@@ -132,6 +132,8 @@ tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 
 {% hint style="info" %}
 If you want to [generate a full bitcoin.conf file](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), follow the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), and then come back to continue with the [next section](bitcoin-client.md#binaries-installation)
+
+If you want to install the manual page for `bitcoin-cli`, follow [the manual page for the bitcoin-cli extra section](bitcoin-client.md#the-manual-page-for-bitcoin-cli), and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user-and-group)
 {% endhint %}
 
 ### Binaries installation
@@ -157,10 +159,6 @@ The following output is just an **example** of one of the versions:
 > Copyright (C) 2009-2022 The Bitcoin Core developers
 > [...]
 ```
-
-{% hint style="info" %}
-Now, if you want to install the manual page for `bitcoin-cli`, follow the [manual page for the bitcoin-cli](bitcoin-client.md#manual-page-for-bitcoin-cli) extra section, and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user)
-{% endhint %}
 
 * **(Optional)** Delete installation files of the `/tmp` folder
 
@@ -821,7 +819,7 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 * For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine so that they can be consulted offline, they can be installed from the directory
 
 {% hint style="warning" %}
-This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
+This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) because is needed the containt inside of the precompiled binary package before downloaded. You need to follow the [Installation process](bitcoin-client.md#installation) before but skipping the [Binaries installation](bitcoin-client.md#binaries-installation) process, because that would replace the Ordirespector binary
 {% endhint %}
 
 ```sh
@@ -842,11 +840,17 @@ sudo cp * /usr/share/man/man1/
 man bitcoin-cli
 ```
 
-⬆️ Now come back to the next section [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user) to continue with the Bitcoin Core installation process
+{% hint style="info" %}
+Now come back to the section [Binaries installation](bitcoin-client.md#binaries-installation) to continue with the Bitcoin Core installation process, not if you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
+{% endhint %}
 
 ### Generate a full bitcoin.conf example file
 
-* Follow the [Installation progress before](bitcoin-client.md#installation) or [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
+{% hint style="success" %}
+This extra section is valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
+{% endhint %}
+
+* Follow the complete [Installation progress before](bitcoin-client.md#installation) or [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
 * With user `admin`, go to the temporary folder
 
 ```bash
