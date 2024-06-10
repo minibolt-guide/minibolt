@@ -27,7 +27,7 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 ## Requirements
 
-* [Bitcoin Core](../itcoin/bitcoin/bitcoin-client.md)
+* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
 * Others
   * [PostgreSQL](../bonus-guides/system/postgresql.md)
   * [Go!](../bonus-guides/system/go.md) **(optional)**

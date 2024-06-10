@@ -30,15 +30,15 @@ Difficulty: Medium
 
 ## Requirements
 
-* [Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md)
+* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 * Others
   * [Rustup + Cargo](../../bonus-guides/system/rustup-+-cargo.md)
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
+Make sure that you have [reduced the database cache of Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
 
-Electrs is a replacement for a [Fulcrum](../../itcoin/bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop or [uninstall](../../itcoin/bitcoin/electrum-server.md#uninstall) Fulcrum by doing `"sudo systemctl stop fulcrum"`.
+Electrs is a replacement for a [Fulcrum](../../bitcoin/bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop or [uninstall](../../bitcoin/bitcoin/electrum-server.md#uninstall) Fulcrum by doing `"sudo systemctl stop fulcrum"`.
 
 ### Install dependencies
 
@@ -597,7 +597,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../itcoin/bitcoin/desktop-wallet.md) once Electrs is ready
+Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/bitcoin/desktop-wallet.md) once Electrs is ready
 {% endhint %}
 
 ## Extras (optional)

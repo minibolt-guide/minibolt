@@ -57,7 +57,7 @@ We recommend using both methods, but you can choose either one of them, dependin
 
 ## Requirements
 
-* [Bitcoin Core](../itcoin/bitcoin/bitcoin-client.md)
+* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](lightning-client.md)
 
 ## Preparations

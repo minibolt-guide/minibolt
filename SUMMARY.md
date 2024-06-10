@@ -14,13 +14,13 @@
   * [1.5 Security](index-1/security.md)
   * [1.6 Privacy](index-1/privacy.md)
 
-## 🟠 ₿itcoin
+## 🟠 ₿itcoin <a href="#bitcoin" id="bitcoin"></a>
 
-* [2. Bitcoin](itcoin/bitcoin/README.md)
-  * [2.1 Bitcoin client: Bitcoin Core](itcoin/bitcoin/bitcoin-client.md)
-  * [2.2 Electrum Server: Fulcrum](itcoin/bitcoin/electrum-server.md)
-  * [2.3 Blockchain explorer: BTC RPC Explorer](itcoin/bitcoin/blockchain-explorer.md)
-  * [2.4 Desktop wallet: Sparrow wallet](itcoin/bitcoin/desktop-wallet.md)
+* [2. ₿itcoin](bitcoin/bitcoin/README.md)
+  * [2.1 Bitcoin client: Bitcoin Core](bitcoin/bitcoin/bitcoin-client.md)
+  * [2.2 Electrum Server: Fulcrum](bitcoin/bitcoin/electrum-server.md)
+  * [2.3 Blockchain explorer: BTC RPC Explorer](bitcoin/bitcoin/blockchain-explorer.md)
+  * [2.4 Desktop wallet: Sparrow wallet](bitcoin/bitcoin/desktop-wallet.md)
 
 ## ⚡ Lightning
 

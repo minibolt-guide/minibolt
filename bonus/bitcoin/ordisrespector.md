@@ -300,7 +300,7 @@ The following output is just an **example** of one of the versions:
 ```
 
 {% hint style="info" %}
-Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../itcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps
+Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps
 {% endhint %}
 
 * Return to the `tmp` folder
@@ -452,8 +452,8 @@ Remember to restart the Bitcoin Core to apply the new version with `$ sudo syste
 
 ## Uninstall
 
-To uninstall Bitcoin Core with the Ordisrespector patch applied, follow the entire Bitcoin Core [uninstall section](../../itcoin/bitcoin/bitcoin-client.md#uninstall)
+To uninstall Bitcoin Core with the Ordisrespector patch applied, follow the entire Bitcoin Core [uninstall section](../../bitcoin/bitcoin/bitcoin-client.md#uninstall)
 
 ## Port reference
 
-Same as the [Bitcoin Core section](../../itcoin/bitcoin/bitcoin-client.md#port-reference)
+Same as the [Bitcoin Core section](../../bitcoin/bitcoin/bitcoin-client.md#port-reference)

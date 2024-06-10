@@ -363,7 +363,7 @@ You also need to have Tor installed on your regular computer where you start the
 
 * **Windows**:
 
-To enable Tor in the background follow the same instructions for the [preparations](../itcoin/bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
+To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
 * PuTTy:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
@@ -488,7 +488,7 @@ Edit the screen to match with this, replacing SOCKS Host, with your node local I
 Click on the OK button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info), if it resolves, you are OK.\
 Or simply go to this [website](https://check.torproject.org/), and you should see "_Congratulations. This browser is configured to use Tor."_
 
-Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Check out the [Desktop wallet: Sparrow wallet](../itcoin/bitcoin/desktop-wallet.md) guide to get instructions.
+Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Check out the [Desktop wallet: Sparrow wallet](../bitcoin/bitcoin/desktop-wallet.md) guide to get instructions.
 
 ## Upgrade Tor and I2P
 

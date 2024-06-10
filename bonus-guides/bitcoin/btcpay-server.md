@@ -30,7 +30,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Requirements
 
-* [Bitcoin Core](../../itcoin/bitcoin/bitcoin-client.md)
+* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md) (optional)
 * Others
   * PostgreSQL

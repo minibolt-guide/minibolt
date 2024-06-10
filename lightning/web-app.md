@@ -23,7 +23,7 @@ layout:
 
 ## Requirements
 
-* [Bitcoin Core](../itcoin/bitcoin/bitcoin-client.md)
+* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](lightning-client.md)
 * Others
   * [Node + NPM](../bonus/system/nodejs-npm.md)
@@ -32,7 +32,7 @@ layout:
 
 ### Check Node + NPM
 
-Node + NPM should have been installed for the [BTC RPC Explorer](../itcoin/bitcoin/blockchain-explorer.md).
+Node + NPM should have been installed for the [BTC RPC Explorer](../bitcoin/bitcoin/blockchain-explorer.md).
 
 * With the user `admin`, check the Node version
 
