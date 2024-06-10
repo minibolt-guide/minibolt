@@ -14,7 +14,7 @@ layout:
 
 # Static IP & custom DNS servers
 
-Set a static IP address and custom DNS nameservers for your MiniBolt.
+stepsSet a static IP address and custom DNS nameservers for your MiniBolt.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -22,7 +22,7 @@ Difficulty: Easy
 
 <figure><img src="../../.gitbook/assets/static-ip-custom-dns.PNG" alt=""><figcaption></figcaption></figure>
 
-The router reserves the IP address of the device for a time after going out, but if the device goes out soo time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node.
+The router reserves the IP address of the device for a time after going out, but if the device goes out some time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node.
 
 {% hint style="danger" %}
 **Be careful by setting this!** If you change the router, could be the new router doesn't work in the same IP address range as the old router, the device won't be registered on the local network and will be completely out of the connection.
@@ -32,13 +32,13 @@ The router reserves the IP address of the device for a time after going out, but
 If you don't do this, you will have to attach the monitor screen or television and keyboard to fix this.
 {% endhint %}
 
-In addition, you can customize your DNS servers to improve your privacy, normally your ISP, gives you the router with its own DNS servers configured by default, and this does that you expose all of your navigation trackings to your ISP, affecting seriously your privacy.
+In addition, you can customize your DNS servers to improve your privacy, normally your ISP, gives you the router with its own DNS servers configured by default, and this does that you exposes all of your navigation trackings to your ISP, affecting seriously your privacy.
 
 ### Option 1: At the beginning, during the Ubuntu Server installation GUI
 
 When you arrive at **step 5** of the [Ubuntu Server installation](../../index-1/operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS name server/s.
 
-Wait for the router automatically assign the IP address to your MiniBolt node to find out what IP range the node is in, you will be able to assign the same or a different IP in the next step.
+Wait for the router to automatically assign the IP address to your MiniBolt node to find out what IP range the node is in, you will be able to assign the same or a different IP in the next step.
 
 <figure><img src="../../.gitbook/assets/static-ip-dns-gif.gif" alt=""><figcaption><p>GIF example of a Static IP &#x26; custom DNS server configuration</p></figcaption></figure>
 
@@ -76,7 +76,7 @@ After having done the [1.3 Remote access](remote-access.md) section, you could w
 ip address
 ```
 
-Check your own configuration, the next output is **only** an **example** of a concrete case, but in your case could be different:
+Check your configuration, the next output is **only** an **example** of a concrete case, but in your case could be different:
 
 <pre><code>1: lo: &#x3C;LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -278,7 +278,7 @@ sudo netplan apply
 ```
 
 {% hint style="info" %}
-Check changes are applied correctly following the [same step](static-ip-and-custom-dns-servers.md#check-changes) as before
+Check changes are applied correctly following the [same steps](static-ip-and-custom-dns-servers.md#check-changes) as before
 {% endhint %}
 
 {% hint style="success" %}

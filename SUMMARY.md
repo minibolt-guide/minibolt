@@ -16,7 +16,7 @@
 
 ## 🟠 ₿itcoin
 
-* [2. ₿itcoin](itcoin/bitcoin/README.md)
+* [2. Bitcoin](itcoin/bitcoin/README.md)
   * [2.1 Bitcoin client: Bitcoin Core](itcoin/bitcoin/bitcoin-client.md)
   * [2.2 Electrum Server: Fulcrum](itcoin/bitcoin/electrum-server.md)
   * [2.3 Blockchain explorer: BTC RPC Explorer](itcoin/bitcoin/blockchain-explorer.md)
