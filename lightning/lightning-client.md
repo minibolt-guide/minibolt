@@ -411,58 +411,73 @@ tlsautorefresh=true
 # Do not include the interface IPs or the system hostname in TLS certificate
 tlsdisableautofill=true
 
-# Channel settings
-# Fee settings - default LND base fee = 1000 (mSat), fee rate = 1 (ppm)
-# You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,1)
-<a data-footnote-ref href="#user-content-fn-12">#bitcoin.basefee=0</a>
-<a data-footnote-ref href="#user-content-fn-13">#bitcoin.feerate=0</a>
-
+## Channel settings
 # (Optional) Minimum channel size. Uncomment and set whatever you want
 # (default: 20000 sats)
-<a data-footnote-ref href="#user-content-fn-14">#minchansize=20000</a>
+<a data-footnote-ref href="#user-content-fn-12">#minchansize=20000</a>
 
-maxpendingchannels=5
+## High fee environment (Optional)
+# (default: 10 sat/byte)
+<a data-footnote-ref href="#user-content-fn-13">#max-commit-fee-rate-anchors=50</a>
+<strong><a data-footnote-ref href="#user-content-fn-14">#max-channel-fee-allocation=1</a>
+</strong>
+## Communication
 accept-keysend=true
 accept-amp=true
-protocol.wumbo-channels=true
-coop-close-target-confs=24
-protocol.option-scid-alias=true
 
-# Set to enable support for the experimental taproot channel type
+## Rebalancing
+allow-circular-route=true
+
+## Performance
+gc-canceled-invoices-on-startup=true
+gc-canceled-invoices-on-the-fly=true
+ignore-historical-gossip-filters=true
+
+[Bitcoin]
+bitcoin.mainnet=true
+bitcoin.node=bitcoind
+
+# Fee settings - default LND base fee = 1000 (mSat), fee rate = 1 (ppm)
+# You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,X)
+<a data-footnote-ref href="#user-content-fn-15">#bitcoin.basefee=1000</a>
+<a data-footnote-ref href="#user-content-fn-16">#bitcoin.feerate=1</a>
+
+# The CLTV delta we will subtract from a forwarded HTLC's timelock value
+# (default: 80)
+<a data-footnote-ref href="#user-content-fn-17">#bitcoin.timelockdelta=144</a>
+
+[protocol]
+protocol.wumbo-channels=true
+protocol.option-scid-alias=true
 protocol.simple-taproot-chans=true
 
-# Watchtower client
+[wtclient]
+## Watchtower client settings
 wtclient.active=true
 
 # (Optional) Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-15">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-18">#wtclient.sweep-fee-rate=10</a>
 
-# Watchtower server
+[watchtower]
+## Watchtower server settings
 watchtower.active=true
 
-# Performance
-gc-canceled-invoices-on-startup=true
-gc-canceled-invoices-on-the-fly=true
-ignore-historical-gossip-filters=true
-stagger-initial-reconnect=true
+[routing]
+routing.strictgraphpruning=true
 
-# Database
 [db]
+## Database
 db.backend=postgres
 
 [postgres]
 db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
 db.postgres.timeout=0
 
-# (Optional) Uncomment the next 2 lines 
-# (default: CONSERVATIVE)
+## High fee environment (Optional)
+# (default: CONSERVATIVE) Uncomment the next 2 lines
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-16">#bitcoind.estimatemode=ECONOMICAL</a>
-
-[Bitcoin]
-bitcoin.mainnet=true
-bitcoin.node=bitcoind
+<a data-footnote-ref href="#user-content-fn-19">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [tor]
 tor.active=true
@@ -792,9 +807,9 @@ sudo ss -tulpn | grep LISTEN | grep lnd
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-17">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
-> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-18">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
-> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-19">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
+<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-20">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
+> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-21">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
+> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-22">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
 </code></pre>
 
 ### Allow user "admin" to work with LND
@@ -830,7 +845,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-20">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-23">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -969,8 +984,8 @@ nano /data/lnd/lnd.conf
 * Replace `# Database` section about the PostgreSQL database backend
 
 ```
-# Database
 [db]
+## Database
 db.backend=postgres
 
 [postgres]
@@ -981,8 +996,8 @@ db.postgres.timeout=0
 * To this
 
 ```
-# Database
 [bolt]
+## Database
 # Set the next value to false to disable auto-compact DB
 # and fast boot and comment the next line
 db.bolt.auto-compact=true
@@ -1104,7 +1119,7 @@ May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: System
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: Gracefully shutting down.
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.615 [INF] WTWR: Stopping watchtower
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Succeeded.
-May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-21">Stopped Lightning Network Daemon.</a>
+May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-24">Stopped Lightning Network Daemon.</a>
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU time.
 </code></pre>
 
@@ -1517,20 +1532,26 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^12]: (Uncomment and customize the value)
 
-[^13]: (Uncomment and customize the value)
+[^13]: On the other hand, increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria**
 
-[^14]: (Uncomment and customize the value)
+[^14]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria**
 
 [^15]: (Uncomment and customize the value)
 
 [^16]: (Uncomment and customize the value)
 
-[^17]: LND P2P host:port
+[^17]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience**
 
-[^18]: gRPC host:port
+[^18]: (Uncomment and customize the value)
 
-[^19]: Watchtower server host:port
+[^19]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value**
 
-[^20]: Symbolic link
+[^20]: LND P2P host:port
 
-[^21]: Check this
+[^21]: gRPC host:port
+
+[^22]: Watchtower server host:port
+
+[^23]: Symbolic link
+
+[^24]: Check this

@@ -29,7 +29,7 @@ While a personal computer is the best choice for most, this guide also works wit
 You need the following hardware:
 
 * Personal Computer with Intel/AMD processor (2010+ gen), with 2+ GB RAM (only Bitcoin), a 4+ GB RAM is recommended (Bitcoin + Lightning + bonus)
-* Internal storage: 1+ TB, an SSD is recommended
+* Internal storage: 1+ TB, an SSD and 2+ TB is recommended
 * Pen drive: 4+ GB
 * Temporary monitor screen or television
 * Temporary keyboard USB/PS2
@@ -43,7 +43,7 @@ You might also want to get this optional hardware:
 You will need several passwords, and it's easiest to write them all down in the beginning, instead of bumping into them throughout the guide. They should be unique and very secure, at least 12 characters in length. Do **not use uncommon special characters**, spaces, or quotes (‘ or “).
 
 ```
-[ A ] Master user password
+[ A ] Master admin user password
 [ B ] Bitcoin RPC password
 [ C ] LND wallet password
 [ D ] BTC-RPC-Explorer password (optional)

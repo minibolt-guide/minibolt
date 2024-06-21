@@ -429,9 +429,9 @@ sudo nano /data/lnd/lnd.conf
 
 * Add the next lines at the end of the file
 
-<pre><code># Use external fee estimator
-<strong>[fee]
-</strong>fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
+<pre><code><strong>[fee]
+</strong># Use external fee estimator
+fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
 </code></pre>
 
 * Start LND again

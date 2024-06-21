@@ -59,12 +59,20 @@ If you plan to use Electrum from only within your own secured local area network
 <pre class="language-sh"><code class="lang-sh"><strong>./electrum -1 -s minibolt.local:50002:s
 </strong></code></pre>
 
+{% hint style="info" %}
+You can also use the local IP address of your node, i.e: 192.168.1.10:50002:s
+{% endhint %}
+
 * **Windows**
-  * Find the new Electrum desktop shortcut, right-click it, go to "Properties", and click the shortcut tab at the top bar, in the box named target, put "`-1 -s minibolt.local:50002:s`" after "electrum.exe" (replace minibolt.local with your node IP if necessary)
+  * Find the new Electrum desktop shortcut, right-click it, go to "Properties", and click the shortcut tab at the top bar, in the box named target, put "`-1 -s minibolt.local:50002:s`" after "electrum.exe"
 
 ```sh
 "C:\Program Files (x86)\Electrum\electrum.exe" -1 -s minibolt.local:50002:s
 ```
+
+{% hint style="info" %}
+You can use the local IP address of your node, i.e: 192.168.1.10:50002:s
+{% endhint %}
 
 * Apply, accept, and execute by double-clicking on the new shortcut
 
@@ -78,6 +86,10 @@ If you plan to use Electrum from only within your own secured local area network
 /Applications/Electrum.app/Contents/MacOS/run_electrum -1 -s minibolt.local:50002:s
 ```
 {% endcode %}
+
+{% hint style="info" %}
+You can use the local IP address of your node, i.e: 192.168.1.10:50002:s
+{% endhint %}
 
 * After using this command for the first run, close Electrum, and open the Electrum config file with the following customized command
 
@@ -93,7 +105,13 @@ nano /Users/<YOUR_PERSONAL_COMPUTER_USERNAME>/.electrum/config
 "server": "minibolt.local:50002:s",
 ```
 
-After opening a wallet or creating a new one, Electrum will indicate an active connection to a local server with a green dot in the bottom right corner of the screen.
+{% hint style="info" %}
+You can use the local IP address of your node, i.e: 192.168.1.10:50002:s
+{% endhint %}
+
+{% hint style="info" %}
+After opening a wallet or creating a new one, Electrum will indicate an active connection to a local server with a green dot in the bottom right corner of the screen
+{% endhint %}
 
 ![](../../images/electrum-wallet-local.PNG)
 
@@ -161,7 +179,7 @@ Now, execute Electrum Wallet choosing the correct way depending on your OS (repl
 ```
 
 * **Windows**
-  * With your new shortcut created after installation in Desktop, right-click it and go to properties, click the shortcut tab at the top bar, and in the box named target put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept, and execute doing double-clicking on our new shortcut
+  * With your new shortcut created after installation in Desktop, right-click it and go to properties, click the shortcut tab at the top bar, and in the box named target put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept, and execute by double-clicking on our new shortcut
 
 {% code overflow="wrap" %}
 ```sh
@@ -185,15 +203,17 @@ After opening a wallet or creating a new one, Electrum will indicate an active c
 
 ![](../../images/electrum-wallet-tor.png)
 
-🚨 Try to check `"Use Tor proxy at port 9050"` or `"Use Tor proxy at port 9150"` in `"Proxy"` settings tab if not connected for you
+{% hint style="danger" %}
+Try to check `"Use Tor proxy at port 9050"` or `"Use Tor proxy at port 9150"` in `"Proxy"` settings tab if not connected for you
+{% endhint %}
 
 ![](../../images/electrum-wallet-tor-check.PNG)
 
 {% hint style="danger" %}
-**Troubleshooting note:** For those who already had Electrum installed on their systems with old server connections, is needed to clear the pre-existing cert of the certs folder. Follow these instructions:
+**Troubleshooting note:** for those who already had Electrum installed on their systems with old server connections, it is needed to clear the pre-existing cert of the certs folder. Follow these instructions:
 
 1. Shutdown Electrum if it's running
-2. Go to `C:\Users\<yourUsername>\AppData\Roaming\Electrum\certs` (or \~/.electrum/certs on Linux afaik)
+2. Go to `C:\Users\<yourUsername>\AppData\Roaming\Electrum\certs` (or `~/.electrum/certs` on Linux afaik)
 3. Delete the certificate that corresponds to your node IP address
 4. Start Electrum again
 {% endhint %}

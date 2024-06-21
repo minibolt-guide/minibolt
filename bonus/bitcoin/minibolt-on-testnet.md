@@ -60,11 +60,11 @@ sudo chmod g+rx /data/bitcoin/testnet3
 ```
 
 {% hint style="warning" %}
-**Attention:** the step before is **important!** to allow LND to access to the `.cookie` file and startup without problems
+**Attention:** the step before is very **important!** to allow LND to access to the `.cookie` file and startup without problems
 {% endhint %}
 
 {% hint style="success" %}
-The rest of the Bitcoin client guide is the same as the mainnet mode. Note that the seeds nodes of the ["Reject non-privacy networks"](../../bitcoin/bitcoin/bitcoin-client.md#reject-non-private-networks) section will be different, being correct those on this [list](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_test.txt). Only exist Tor and I2P seed nodes, not clearnet nodes
+The rest of the Bitcoin client guide is the same as the mainnet mode
 {% endhint %}
 
 ### [Electrum server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md)
@@ -196,9 +196,9 @@ If you use [Ordirespector](ordisrespector.md) on testnet, add the next lines at 
 {% endhint %}
 
 ```
-# Use external fee estimator
 [fee]
-fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
+# Use external fee estimator
+fee.url=https://nodes.lightning.computer/fees/v1/btctestnet-fee-estimates.json
 ```
 
 * When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace `ExecStop` parameter to this

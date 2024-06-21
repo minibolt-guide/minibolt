@@ -76,7 +76,7 @@ After having done the [1.3 Remote access](remote-access.md) section, you could w
 ip address
 ```
 
-Check your configuration, the next output is **only** an **example** of a concrete case, but in your case could be different:
+Check your configuration, the next output is **only** an **example** of a concrete case, but in your case, it could be different:
 
 <pre><code>1: lo: &#x3C;LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -144,6 +144,12 @@ In the case of before:
 
 #### Configuration
 
+{% hint style="warning" %}
+Remember, always back up your current network configuration before making changes. This ensures you can restore the previous configuration if something goes wrong
+{% endhint %}
+
+We will use Netplan with the `systemd-networkd` renderer backend
+
 * Edit the content of the next file
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/netplan/00-installer-config.yaml
@@ -201,7 +207,17 @@ network:
 
 </details>
 
-* Finally, type this command to apply the changes
+* Apply the configuration temporarily
+
+```bash
+sudo netplan try
+```
+
+{% hint style="info" %}
+This will apply the configuration and start a 120-second timer
+{% endhint %}
+
+* If the network works as expected, you need to confirm the changes. If the network is not working or you don't confirm, the changes will be rolled back after 120 seconds. To confirm, type
 
 ```bash
 sudo netplan apply
@@ -211,7 +227,7 @@ sudo netplan apply
 Now you have set your static IP address and custom DNS servers
 {% endhint %}
 
-{% hint style="warning" %}
+{% hint style="info" %}
 If you chose a different IP address than the router assigned you at first and has currently, this step could break the current SSH connection, reconnect using the new and chosen IP address
 {% endhint %}
 
@@ -224,10 +240,10 @@ ip address
 ```
 
 {% hint style="info" %}
-The output of this command **may not change**, depending on whether you chose the same IP that the router originally assigned you at first, or whether you chose to change to another
+The output of this command **may not change**, depending on whether you chose the same IP that the router originally assigned you at the beginning, or whether you chose to change to another
 {% endhint %}
 
-* To check the successful DNS servers change, type the next command
+* To check the successful DNS server change, type the next command
 
 ```bash
 resolvectl status
@@ -235,7 +251,7 @@ resolvectl status
 
 <details>
 
-<summary>Example of expected output⬇️</summary>
+<summary>Example of expected output ⬇️</summary>
 
 ```
 Global
@@ -252,9 +268,35 @@ Current DNS Server: 1.1.1.1
 
 </details>
 
+Or if you prefer:
+
+```bash
+sudo networkctl status
+```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+●        State: routable
+  Online state: online
+       Address: 192.168.1.71 on eno1
+                10.0.1.1 on wg0
+                fe80::1e69:7aff:feac:8129 on eno1
+       Gateway: 192.168.1.1 on eno1
+           DNS: 1.1.1.1
+                1.0.0.1
+           NTP: 10.28.64.1
+```
+
+</details>
+
 ### Set the A**utomatic (DHCP) mode** configuration (by command line)
 
 If you go to change the router you could want to enable or check if you have enabled the a**utomatic (DHCP) mode** configuration to avoid problems
+
+We will use Netplan with the `systemd-networkd` renderer backend
 
 * Edit the content of the next file
 
@@ -271,7 +313,17 @@ If you go to change the router you could want to enable or check if you have ena
   version: 2
 </code></pre>
 
-* Finally, type this command to apply the changes
+* Apply the configuration temporarily
+
+```bash
+sudo netplan try
+```
+
+{% hint style="info" %}
+This will apply the configuration and start a 120-second timer
+{% endhint %}
+
+* If the network works as expected, you need to confirm the changes. If the network is not working or you don't confirm, the changes will be rolled back after 120 seconds. To confirm, type
 
 ```bash
 sudo netplan apply

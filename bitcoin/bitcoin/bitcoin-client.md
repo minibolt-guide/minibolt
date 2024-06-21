@@ -160,7 +160,7 @@ The following output is just an **example** of one of the versions:
 > [...]
 ```
 
-* **(Optional)** Delete installation files of the `/tmp` folder
+* **(Optional)** Delete installation files of the `/tmp` folder to be ready for the next installation
 
 {% code overflow="wrap" %}
 ```bash
@@ -367,7 +367,7 @@ This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf]
 chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Exit the “bitcoin” user session back to user “admin”
+* Exit the `bitcoin` user session back to user `admin`
 
 {% code fullWidth="false" %}
 ```sh
@@ -449,7 +449,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "`admin`"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
@@ -683,56 +683,6 @@ To update the OpenTimestamps client, simply exec `sudo pip3 install --upgrade op
 
 ## Extras (optional)
 
-### Reject non-private networks
-
-* As user `admin` edit `bitcoin.conf` file
-
-```sh
-sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
-```
-
-* Add these lines to the end of the file, remember to add seed nodes. You can add more seed nodes to this list: [seed nodes](https://github.com/bitcoin/bitcoin/blob/master/contrib/seeds/nodes\_main\_manual.txt). Save and exit
-
-```
-# Reject non-private networks
-onlynet=onion
-onlynet=i2p
-dns=0
-dnsseed=0
-
-##Tor seed nodes
-seednode=2bqghnldu6mcug4pikzprwhtjjnsyederctvci6klcwzepnjd46ikjyd.onion:8333
-seednode=4lr3w2iyyl5u5l6tosizclykf5v3smqroqdn2i4h3kq6pfbbjb2xytad.onion:8333
-seednode=5g72ppm3krkorsfopcm2bi7wlv4ohhs4u4mlseymasn7g7zhdcyjpfid.onion:8333
-seednode=5sbmcl4m5api5tqafi4gcckrn3y52sz5mskxf3t6iw4bp7erwiptrgqd.onion:8333
-seednode=776aegl7tfhg6oiqqy76jnwrwbvcytsx2qegcgh2mjqujll4376ohlid.onion:8333
-seednode=77mdte42srl42shdh2mhtjr7nf7dmedqrw6bkcdekhdvmnld6ojyyiad.onion:8333
-seednode=azbpsh4arqlm6442wfimy7qr65bmha2zhgjg7wbaji6vvaug53hur2qd.onion:8333
-seednode=b64xcbleqmwgq2u46bh4hegnlrzzvxntyzbmucn3zt7cssm7y4ubv3id.onion:8333
-seednode=bsqbtcparrfihlwolt4xgjbf4cgqckvrvsfyvy6vhiqrnh4w6ghixoid.onion:8333
-seednode=bsqbtctulf2g4jtjsdfgl2ed7qs6zz5wqx27qnyiik7laockryvszqqd.onion:8333
-
-##I2P seed nodes
-seednode=255fhcp6ajvftnyo7bwz3an3t4a4brhopm3bamyh2iu5r3gnr2rq.b32.i2p:0
-seednode=27yrtht5b5bzom2w5ajb27najuqvuydtzb7bavlak25wkufec5mq.b32.i2p:0
-seednode=3gocb7wc4zvbmmebktet7gujccuux4ifk3kqilnxnj5wpdpqx2hq.b32.i2p:0
-seednode=4fcc23wt3hyjk3csfzcdyjz5pcwg5dzhdqgma6bch2qyiakcbboa.b32.i2p:0
-seednode=4osyqeknhx5qf3a73jeimexwclmt42cju6xdp7icja4ixxguu2hq.b32.i2p:0
-seednode=4umsi4nlmgyp4rckosg4vegd2ysljvid47zu7pqsollkaszcbpqq.b32.i2p:0
-seednode=6j2ezegd3e2e2x3o3pox335f5vxfthrrigkdrbgfbdjchm5h4awa.b32.i2p:0
-seednode=6n36ljyr55szci5ygidmxqer64qr24f4qmnymnbvgehz7qinxnla.b32.i2p:0
-seednode=72yjs6mvlby3ky6mgpvvlemmwq5pfcznrzd34jkhclgrishqdxva.b32.i2p:0
-seednode=a5qsnv3maw77mlmmzlcglu6twje6ttctd3fhpbfwcbpmewx6fczq.b32.i2p:0
-seednode=aovep2pco7v2k4rheofrgytbgk23eg22dczpsjqgqtxcqqvmxk6a.b32.i2p:0
-seednode=bitcoi656nll5hu6u7ddzrmzysdtwtnzcnrjd4rfdqbeey7dmn5a.b32.i2p:0
-seednode=brifkruhlkgrj65hffybrjrjqcgdgqs2r7siizb5b2232nruik3a.b32.i2p:0
-seednode=c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p:0
-seednode=day3hgxyrtwjslt54sikevbhxxs4qzo7d6vi72ipmscqtq3qmijq.b32.i2p:0
-seednode=du5kydummi23bjfp6bd7owsvrijgt7zhvxmz5h5f5spcioeoetwq.b32.i2p:0
-seednode=e55k6wu46rzp4pg5pk5npgbr3zz45bc3ihtzu2xcye5vwnzdy7pq.b32.i2p:0
-seednode=eciohu5nq7vsvwjjc52epskuk75d24iccgzmhbzrwonw6lx4gdva.b32.i2p:0
-```
-
 ### Slow device mode
 
 * As user `admin` edit `bitcoin.conf` file
@@ -763,7 +713,7 @@ rpcworkqueue=256
 ```
 
 {% hint style="info" %}
-Realize that with `maxuploadtarget` parameter enabled you will need whitelist the connection to [Electrs](../../bonus/bitcoin/electrs.md) and [Bisq](../../bonus/bitcoin/bisq.md) by adding these parameter to `bitcoin.conf`:
+Realize that with `maxuploadtarget` parameter enabled you will need to whitelist the connection to [Electrs](../../bonus/bitcoin/electrs.md) and [Bisq](../../bonus/bitcoin/bisq.md) by adding these parameters to `bitcoin.conf`:
 
 For Electrs:
 
@@ -819,7 +769,7 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 * For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine so that they can be consulted offline, they can be installed from the directory
 
 {% hint style="warning" %}
-This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) because is needed the containt inside of the precompiled binary package before downloaded. You need to follow the [Installation process](bitcoin-client.md#installation) before but skipping the [Binaries installation](bitcoin-client.md#binaries-installation) process, because that would replace the Ordirespector binary
+This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) because is needed the content inside of the precompiled binary package before downloaded. You need to follow the [Installation process](bitcoin-client.md#installation) before, skipping the [Binaries installation](bitcoin-client.md#binaries-installation) process because that would replace the Ordirespector binary
 {% endhint %}
 
 ```sh
@@ -847,10 +797,10 @@ Now come back to the section [Binaries installation](bitcoin-client.md#binaries-
 ### Generate a full bitcoin.conf example file
 
 {% hint style="success" %}
-This extra section is valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
+This extra section is valid if you compiled it from the source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
 {% endhint %}
 
-* Follow the complete [Installation progress before](bitcoin-client.md#installation) or [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
+* Follow the complete [Installation progress before](bitcoin-client.md#installation) or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
 * With user `admin`, go to the temporary folder
 
 ```bash
@@ -959,7 +909,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 > bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ```
 
-* The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
 {% code overflow="wrap" %}
 ```sh
@@ -979,7 +929,7 @@ Expected output:
 [...]
 ```
 
-* Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
+* Verify the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
 
 ```sh
 gpg --verify SHA256SUMS.asc
@@ -992,7 +942,7 @@ gpg --verify SHA256SUMS.asc
 > Primary key fingerprint: ...
 ```
 
-* If you completed the IBD, now you can verify the timestamp with your own node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
+* If you completed the IBD, now you can verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
 
 ```sh
 ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -1008,7 +958,9 @@ The following output is just an **example** of one of the versions:
 > Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
 ```
 
-Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing.
+{% hint style="info" %}
+Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
+{% endhint %}
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
 
@@ -1038,7 +990,7 @@ The following output is just an **example** of one of the versions:
 > [...]
 ```
 
-* **(Optional)** Delete installation files of the `/tmp` folder
+* **(Optional)** Delete installation files of the `/tmp` folder to be ready for the next upgrade
 
 {% code overflow="wrap" %}
 ```bash
@@ -1092,7 +1044,7 @@ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
 
 ### Uninstall FW configuration
 
-If you followed the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), probably you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
+If you followed the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below)
 

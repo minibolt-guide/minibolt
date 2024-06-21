@@ -36,11 +36,11 @@ ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118
 ```
 {% endcode %}
 
-2 options:
+**-> 2 output options:**
 
 {% tabs %}
 {% tab title="First" %}
-If you obtain the `"OK."` output, you have IPv6 availability, additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are OK, continue the guide without modifications
+If you obtain the `"OK."` output, you have IPv6 availability, additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are **OK**, continue the guide without modifications
 {% endtab %}
 
 {% tab title="Second" %}
