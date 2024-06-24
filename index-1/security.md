@@ -44,7 +44,7 @@ If you obtain the `"OK."` output, you have IPv6 availability, additionally, you 
 {% endtab %}
 
 {% tab title="Second" %}
-If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, the IPv6 adoption is new, you will use your internet connection using the common IPv4, additionally, you can obtain your IPv4 with: `curl -s ipv4.icanhazip.com`
+If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, the IPv6 adoption is new, you will use your internet connection using the common IPv4. Additionally, you can obtain your public IPv4 with: `curl -s ipv4.icanhazip.com`
 {% endtab %}
 {% endtabs %}
 

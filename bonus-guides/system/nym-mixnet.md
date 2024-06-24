@@ -97,10 +97,16 @@ sudo ufw allow 1080/tcp comment 'allow NYM socks5 client from anywhere'
 cd /tmp
 ```
 
-* Clone the latest version of the source code from the GitHub repository and enter to the nym folder
+* Set a temporary version environment variable to the installation
 
 ```bash
-git clone https://github.com/nymtech/nym.git && cd nym
+VERSION=nym-binaries-v2024.5-ragusa
+```
+
+* Clone the latest version of the source code from the GitHub repository and go to the nym folder
+
+```bash
+git clone --branch $VERSION https://github.com/nymtech/nym.git && cd nym
 ```
 
 * Enter the command to compile
@@ -110,11 +116,13 @@ cargo build --release
 ```
 
 {% hint style="info" %}
-This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 {% hint style="info" %}
-If the prompt shows you this error:
+\-> Don't worry about possible "`warning:...`" logs, it is aimed at application developers
+
+\-> If the prompt shows you this error:
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
@@ -207,12 +215,6 @@ Take note of your network requester address **\<requesteraddress>**
 
 > **Example** ->`Address of this network-requester: 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS`
 
-{% hint style="warning" %}
-**Important!** It is strongly advised **not to share** the address of your NYM service provider with anyone. Sharing this information could potentially involve you in illicit activities carried out by others using your network requester as a router. Please bear in mind that we operate in **open proxy mode** to avoid centralizing connections to concrete nodes of Bitcoin and servers of the other services. Safeguarding the confidentiality of your service provider address is essential to protect yourself and prevent any legal implications
-
-Additionally, you can use the exit policy feature to avoid malicious connections using your network requester, by following the [Use the exit policy feature](nym-mixnet.md#use-the-exit-policy-feature)
-{% endhint %}
-
 * Check the correct installation
 
 ```bash
@@ -255,7 +257,7 @@ StartLimitInterval=350
 StartLimitBurst=10
 
 [Service]
-ExecStart=/home/nym/nym-network-requester run --id bitcoin --open-proxy true
+ExecStart=/home/nym/nym-network-requester run --id bitcoin
 
 User=nym
 Group=nym
@@ -273,6 +275,14 @@ LimitNOFILE=65536
 [Install]
 WantedBy=multi-user.target
 ```
+
+{% hint style="info" %}
+**(Optional)** You can add `--fastmode` attribute to the `ExecStart` parameter to enable this feature, this means the connection will not mixed up as much, but you will still be covered by the same privacy standard/minimum that NYM provides:
+
+```bash
+ExecStart=/home/nym/nym-network-requester run --id bitcoin --fastmode
+```
+{% endhint %}
 
 * Enable autoboot **(optional)**
 
@@ -540,6 +550,12 @@ Expected output:
 sudo rm -r /tmp/nym
 ```
 
+* Clean the compilation artifacts to reclaim space used for it
+
+```bash
+cargo clean
+```
+
 {% hint style="info" %}
 All socks5-client-specific configurations can be found in `/home/nym/.nym/socks5-clients/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service
 {% endhint %}
@@ -549,60 +565,6 @@ You can get more information about the complete documentation [here](https://nym
 {% endhint %}
 
 ## Extras (optional)
-
-### Use the exit policy feature
-
-Recently, NYM has introduced an option to publicly share your network requester (service provider address) and disallow all connections, minimizing the risk of your network requester being used to do malicious things. To achieve this, NYM uses a [URL](https://nymtech.net/.wellknown/network-requester/exit-policy.txt) with an upstream source of the exit policy, to which a connection should be refused if trying to certain addresses (publicly recognized as malicious by different public reputation database sites). **Important advice:** this list could be deprecated and not include all of the malicious known addresses, so you could be allowing connections to malicious sites not included in it, acting under your responsibility.
-
-* With user `admin`, stop `NYM socks5 client & NYM Network requester`
-
-```bash
-sudo systemctl stop nym-socks5-client
-```
-
-```bash
-sudo systemctl stop nym-network-requester
-```
-
-* Edit the `config.toml` of the network requester
-
-{% code overflow="wrap" %}
-```bash
-sudo nano /home/nym/.nym/service-providers/network-requester/bitcoin/config/config.toml
-```
-{% endcode %}
-
-* Change `use_deprecated_allow_list` = `true` to `false`. Save and exit
-
-```
-use_deprecated_allow_list = false
-```
-
-* Edit the network requester systemd service
-
-```bash
-sudo nano /etc/systemd/system/nym-network-requester.service --linenumbers
-```
-
-* Delete the `--open-proxy true` parameter on the line `13`
-
-```
-ExecStart=/home/nym/nym-network-requester run --id bitcoin
-```
-
-* Start the `Nym network requester & Nym socks5 client` again
-
-```bash
-sudo systemctl start nym-network-requester
-```
-
-```bash
-sudo systemctl start nym-socks5-client
-```
-
-{% hint style="info" %}
-Now you can share your previously obtained service provider (network requester) address publicly, without exposing you so much as using the open-proxy feature
-{% endhint %}
 
 ### Proxying Bitcoin Core
 
@@ -931,20 +893,6 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 ### Other NYM tools
 
 {% tabs %}
-{% tab title="Paste NYM (UC)" %}
-An adaptation of pastebin.com, using NYM mixnet, to protect users and their data but especially their metadata\
-\
-[Link](https://pastenym.ch) | [GitHub](https://github.com/notrustverify/pastenym)\
-\
-Paste NYM-CLI -> [GitHub](https://github.com/notrustverify/pastenym-cli)
-{% endtab %}
-
-{% tab title="NYM chat" %}
-A simple chat client that sends its traffic through the NYM mixnet
-
-[Link](https://chat-demo.nymtech.net/) | [GitHub](https://github.com/nymtech/demo-mixnet-chat-client)
-{% endtab %}
-
 {% tab title="Nostr-NYM Proxy" %}
 Proxy for using Nostr over Nym mixnet. Nostr-nym is a proxy for using Nostr through the Nym Mixnet. It stands between Nostr users and a specific Nostr relay, preferably on the same machine as the relay, allowing users to connect to this relay without leaking their IP address to it
 
@@ -960,7 +908,7 @@ A Nostr client connected to a Nostr-NYM Proxy\
 
 {% tabs %}
 {% tab title="NYM Swap" %}
-\[Unofficial] Swap different tokens <> NYM token
+**\[Unofficial]** Swap different tokens <> NYM token
 
 [Link](https://nymswap.com/)
 {% endtab %}
@@ -1000,22 +948,22 @@ sudo cp /tmp/nym/target/release/nym-network-requester /home/nym/
 sudo su - nym
 ```
 
-* Init again the network requester to update the `config.toml` file if needed
-
-```bash
-./nym-network-requester init --id bitcoin --latency-based-selection
-```
-
 * Check the correct update
 
 ```bash
 ./nym-network-requester -V
 ```
 
-**Example** of expected output:
-
 ```
 > nym-network-requester 1.1.24
+```
+
+**Example** of expected output:
+
+* Init again the network requester to update the `config.toml` file if needed
+
+```bash
+./nym-network-requester init --id bitcoin --latency-based-selection
 ```
 
 * Exit from the `nym` user session
@@ -1044,25 +992,25 @@ sudo cp /tmp/nym/target/release/nym-socks5-client /home/nym/
 sudo su - nym
 ```
 
-* Init again the socks5 client with the same command and service provider, this updates the `config.toml` file if needed
-
-{% code overflow="wrap" %}
-```bash
-./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
-```
-{% endcode %}
-
 * Check the correct update
 
 ```bash
 ./nym-socks5-client -V
 ```
 
-**Example** of expected output:
-
 ```
 >  nym-socks5-client 1.1.24
 ```
+
+**Example** of expected output:
+
+* Init again the socks5 client with the same command, this updates the `config.toml` file if needed
+
+{% code overflow="wrap" %}
+```bash
+./nym-socks5-client init --id bitcoin --latency-based-selection --provider <requesteraddress>
+```
+{% endcode %}
 
 * Exit from the `nym` user
 
@@ -1108,101 +1056,6 @@ sudo rm /etc/systemd/system/nym-socks5-client.service
 
 ```bash
 sudo userdel -rf nym
-```
-
-## Troubleshooting
-
-NYM is currently in development and may experience occasional issues.
-
-<figure><img src="../../.gitbook/assets/troubleshooting.png" alt=""><figcaption><p>Example of issues with a nym socks5 client</p></figcaption></figure>
-
-If you encounter any issues, they may be related to the gateway. To resolve this, you can attempt to change the gateway by deleting the data folder.
-
-**Case NYM network requester issues:**
-
-* With user `admin`, stop the network requester
-
-```bash
-sudo systemctl stop nym-network-requester
-```
-
-* Change to the nym user
-
-```bash
-sudo su - nym
-```
-
-* Init again network requester, by following the [Init NYM network requester section](nym-mixnet.md#init-network-requester), this time with `--force-register-gateway` and `--gateway` flags (remember deleting `--latency-based-selection` flag). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key
-
-{% hint style="info" %}
-**Example:** `./nym-network-requester init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --force-register-gateway`
-{% endhint %}
-
-{% hint style="warning" %}
-Take note of the new "`Address of this network-requester:..."` to refresh it on socks5 clients are using this network requester ("`--provider"` flag)
-{% endhint %}
-
-* Exit the nym user session to go back to the admin user
-
-```bash
-exit
-```
-
-* Start network requester again
-
-```bash
-sudo systemctl start nym-network-requester
-```
-
-**Case NYM socks5 client issues:**
-
-* With user `admin`, stop the socks5 client
-
-```bash
-sudo systemctl stop nym-socks5-client
-```
-
-* Change to the nym user
-
-```bash
-sudo su - nym
-```
-
-* Init again the socks5 client by following the [Init NYM socks5 client section](nym-mixnet.md#init-socks5-client), this time with `--force-register-gateway` and -`-gateway` flags (remember deleting `--latency-based-selection` flag). Choose one gateway from this [list](https://explorer.nymtech.net/network-components/gateways), using its ID key. Remember to change the network requester address (service provider) if you change it at any moment
-
-{% hint style="info" %}
-**Example:** `./nym-socks5-client init --id bitcoin --gateway 2xU4CBE6QiiYt6EyFCSALwxKNvM7gqJfjHXaMkjiFmYW --provider 84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS --force-register-gateway`
-{% endhint %}
-
-* If you want to change only the service provider of your nym socks5 client connected, edit the config file and replace the `provider_mix_address =` parameter with the new one. With user `nym.` Save and exit
-
-```bash
-nano /home/nym/.nym/socks5-clients/bitcoin/config/config.toml
-```
-
-<details>
-
-<summary>Example ⬇️</summary>
-
-```
-[core.socks5]
-
-# The mix address of the provider to which all requests are going to be sent.
-provider_mix_address = '84K1SPBsSPGcCGQ6hK4AYKXuZHb5iU3zBc9gYb3cJp6o.Cfc67agMVw6GRjPb7ZyEfZSwLeVSvYtqKCKmATewujajT@2xU4CBE6QiiYt6EyBXSALwxkNvM7gqJfjHXaMkjhdjywS'
-```
-
-</details>
-
-* Exit the `nym` user session to go back to the `admin` user
-
-```bash
-exit
-```
-
-* Start socks5 client again
-
-```bash
-sudo systemctl start nym-socks5-client
 ```
 
 ## Port reference

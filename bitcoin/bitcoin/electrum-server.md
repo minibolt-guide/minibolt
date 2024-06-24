@@ -218,11 +218,11 @@ Fulcrum --version
 [...]
 ```
 
-* **(Optional)** Delete installation files of the `/tmp` folder
+* **(Optional)** Delete installation files of the `tmp` folder
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm -r Fulcrum-$VERSION-x86_64-linux && sudo rm Fulcrum-$VERSION-x86_64-linux.tar.gz && sudo rm Fulcrum-$VERSION-shasums.txt && sudo rm Fulcrum-$VERSION-shasums.txt.asc
+sudo rm -r Fulcrum-$VERSION-x86_64-linux Fulcrum-$VERSION-x86_64-linux.tar.gz Fulcrum-$VERSION-shasums.txt Fulcrum-$VERSION-shasums.txt.asc
 ```
 {% endcode %}
 

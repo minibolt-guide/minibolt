@@ -81,7 +81,7 @@ cd /tmp
 * Set the next environment variable
 
 ```sh
-VERSION=27.0
+VERSION=27.1
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -108,7 +108,11 @@ If you already had Bitcoin Core installed and the OTS client with the IBD comple
 wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
 ```
 
-* Execute the OTS verification command (**skip this step if you stay building a new node**)
+* Execute the OTS verification command
+
+{% hint style="warning" %}
+**Skip this step if you stay building a new node**
+{% endhint %}
 
 ```sh
 ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -125,7 +129,20 @@ The following output is just an **example** of one of the versions:
 ```
 
 {% hint style="info" %}
-Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
+Now, check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
+
+If you obtain this output:
+
+```
+> Calendar https://btc.calendar.catallaxy.com: Pending confirmation in Bitcoin blockchain
+> Calendar https://finney.calendar.eternitywall.com: Pending confirmation in Bitcoin blockchain
+> Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+> Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+```
+
+
+
+\-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next ones
 {% endhint %}
 
 ### **Checksum check**
@@ -146,7 +163,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 
 Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
 {% code overflow="wrap" %}
 ```bash
@@ -154,9 +171,10 @@ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | 
 ```
 {% endcode %}
 
-Expected output:
+**Example** of expected output:
 
 ```
+[...]
 > gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
 > gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
 > gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
@@ -210,6 +228,36 @@ chmod +x bdb.sh
 ./bdb.sh bitcoin-$VERSION
 ```
 
+Expected output:
+
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 21.7M  100 21.7M    0     0  12.2M      0  0:00:01  0:00:01 --:--:-- 12.2M
+db-4.8.30.NC.tar.gz: OK
+db-4.8.30.NC/
+db-4.8.30.NC/btree/
+db-4.8.30.NC/btree/bt_compress.c
+db-4.8.30.NC/btree/bt_compact.c
+db-4.8.30.NC/btree/bt_compare.c
+db-4.8.30.NC/btree/btree_autop.c
+db-4.8.30.NC/btree/bt_conv.c
+db-4.8.30.NC/btree/bt_curadj.c
+db-4.8.30.NC/btree/bt_cursor.c
+db-4.8.30.NC/btree/bt_delete.c
+db-4.8.30.NC/btree/bt_method.c
+db-4.8.30.NC/btree/bt_open.c
+db-4.8.30.NC/btree/bt_put.c
+db-4.8.30.NC/btree/bt_rec.c
+db-4.8.30.NC/btree/bt_reclaim.c
+db-4.8.30.NC/btree/bt_recno.c
+db-4.8.30.NC/btree/bt_rsearch.c
+db-4.8.30.NC/btree/bt_search.c
+db-4.8.30.NC/btree/bt_split.c
+db-4.8.30.NC/btree/bt_stat.c
+[...]
+```
+
 * Enter to the Bitcoin Core source code folder
 
 ```sh
@@ -222,21 +270,40 @@ cd bitcoin-$VERSION
 ./autogen.sh
 ```
 
-* The next command will pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
+Expected output:
+
+```
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+libtoolize: copying file 'build-aux/ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'build-aux/m4'.
+libtoolize: copying file 'build-aux/m4/libtool.m4'
+libtoolize: copying file 'build-aux/m4/ltoptions.m4'
+libtoolize: copying file 'build-aux/m4/ltsugar.m4'
+libtoolize: copying file 'build-aux/m4/ltversion.m4'
+libtoolize: copying file 'build-aux/m4/lt~obsolete.m4'
+configure.ac:39: installing 'build-aux/ar-lib'
+configure.ac:37: installing 'build-aux/compile'
+configure.ac:24: installing 'build-aux/config.guess'
+configure.ac:24: installing 'build-aux/config.sub'
+configure.ac:27: installing 'build-aux/install-sh'
+configure.ac:27: installing 'build-aux/missing'
+Makefile.am: installing 'build-aux/depcomp'
+parallel-tests: installing 'build-aux/test-driver'
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+libtoolize: copying file 'build-aux/ltmain.sh'
+[...]
+```
+
+* The next command will Configure the Berkeley DB path and pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
 ```sh
 export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
 ./configure \
    BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" \
   --disable-bench \
-  --disable-gui-tests \
   --disable-maintainer-mode \
-  --disable-man \
   --disable-tests \
-  --with-daemon=yes \
-  --with-gui=no \
-  --with-qrencode=no \
-  --with-utils=yes
+  --with-gui=no
 ```
 
 ### **Apply the "Ordisrespector" patch**
@@ -313,7 +380,7 @@ cd ..
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm -r bitcoin-$VERSION && rm bdb.sh && rm bitcoin-$VERSION.tar.gz && rm db-4.8.30.NC.tar.gz & rm SHA256SUMS && rm SHA256SUMS.asc && rm SHA256SUMS.ots
+sudo rm -r bitcoin-$VERSION bdb.sh bitcoin-$VERSION.tar.gz db-4.8.30.NC.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
 ```
 {% endcode %}
 
@@ -321,7 +388,7 @@ sudo rm -r bitcoin-$VERSION && rm bdb.sh && rm bitcoin-$VERSION.tar.gz && rm db-
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm /usr/local/bin/bitcoin-tx && sudo rm /usr/local/bin/bitcoin-wallet && sudo rm /usr/local/bin/bitcoin-util
+sudo rm /usr/local/bin/bitcoin-tx /usr/local/bin/bitcoin-wallet /usr/local/bin/bitcoin-util
 ```
 {% endcode %}
 
@@ -346,7 +413,7 @@ After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mem
 {% endhint %}
 
 * Go to the public mempool.space [clearnet](https://mempool.space) or [Tor](http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion) link official web page
-* Click on the first mempool candidate blocks in the green/yellow color blocks
+* Click on the first mempool candidate block in the green/yellow color blocks
 
 ![](../../images/ordisrespector-mempool-blocks.png)
 
@@ -358,9 +425,9 @@ After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mem
 
 ![](../../images/ordisrespector-mempool-space-tx.png)
 
-#### **Check the Ordisrespector filter working on your mempool**
+### **Check the Ordisrespector filter working on your mempool**
 
-* Click on the "copy to the clipboard" icon to copy the transaction id `(<txid>)`, and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool), in a BTC RPC Explorer running on a MiniBolt environment, go to [https://minibolt.local:4000](https://minibolt.local:4000)
+* Click on the "copy to the clipboard" icon to copy the transaction ID `(<txid>)`, and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool), in a BTC RPC Explorer running on a MiniBolt environment, go to [https://minibolt.local:4000](https://minibolt.local:4000)
 * Search the `"<txid>"` on the browser of your own Bitcoin Explorer
 
 _**Mempool space**_ expected output:
@@ -439,6 +506,32 @@ fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
 ```bash
 sudo systemctl start lnd
 ```
+
+### Reject other possible data included in transactions
+
+Once you get to the [Configuration section](../../bitcoin/bitcoin/bitcoin-client.md#configuration) of the Bitcoin Client: Bitcoin Core
+
+* With user `bitcoin`, create the `bitcoin.conf` file
+
+```bash
+nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+* Include with the rest, the next lines at the end of the file. Save and exit
+
+```
+# Reject shit
+datacarriersize=0
+permitbaremultisig=0
+```
+
+{% hint style="info" %}
+[Continue](../../bitcoin/bitcoin/bitcoin-client.md#configuration) with the guide on `Set permissions:..`. step
+{% endhint %}
+
+{% hint style="warning" %}
+Attention: With the before configuration, Whirlpool will not work
+{% endhint %}
 
 ## Upgrade
 

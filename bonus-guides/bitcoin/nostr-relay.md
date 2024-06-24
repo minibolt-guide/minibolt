@@ -246,7 +246,7 @@ Copying files from `/etc/skel' ...
 sudo su - nostr
 ```
 
-* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step to not provide any
+* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step to not provide any (remember to leave the`favicon.ico`commented on the configuration file)
 
 {% code overflow="wrap" %}
 ```bash
@@ -280,7 +280,7 @@ sudo cp /tmp/nostr-rs-relay/config.toml /home/nostr/rs-relay/
 sudo chown nostr:nostr /home/nostr/rs-relay/config.toml
 ```
 
-* Delete the `nostr-rs-relay` folder to be ready for the next update
+* **(Optional)** Delete the `nostr-rs-relay` folder to be ready for the next update
 
 ```bash
 sudo rm -r /tmp/nostr-rs-relay
@@ -292,60 +292,60 @@ sudo rm -r /tmp/nostr-rs-relay
 sudo nano /home/nostr/rs-relay/config.toml
 ```
 
+> > **Customize this with your own info (\*):**
+> >
+> > **(\*)** Click on parameter to get an example/explanation
+>
+> > [relay\_url = "\<yourelayurl>"](#user-content-fn-1)[^1]
+>
+> > [name = "\<nametotherelay>"](#user-content-fn-2)[^2]
+>
+> > [description = "\<descriptionrelay>"](#user-content-fn-3)[^3]
+>
+> > [pubkey = "\<yournostrhexpubkey>"](#user-content-fn-4)[^4]
+>
+> > [contact = "\<yourcontact>"](#user-content-fn-5)[^5]
+>
+> > [relay\_icon = "\<yourelayiconURL>"](#user-content-fn-6)[^6]
+
 {% hint style="info" %}
-Pay attention to not include the next lines:
+If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this
+
+You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub" pubkey to hexadecimal format
+{% endhint %}
+
+{% hint style="info" %}
+If you want to use the default SQLite database backend, pay attention to **not including the next lines** (not uncomment):
 
 > engine = "postgres"
 
 > connection = "postgresql://admin:admin@localhost:5432/nostrelay"
 
-Include the uncomment, and replace the next line:
+Uncomment and replace only the next line:
 
 > data\_directory = "/data/nostr/rs-relay/db"
 
-If you want to use the default SQLite database backend. More details and additional steps on the exclusive [extra section](nostr-relay.md#use-the-default-sqlite-database-backend)
-{% endhint %}
-
-> > **Customize this with your own info (\*):**
-> >
-> > **(\*)** Click on parameter to get an example/explanation
->
-> > relay\_url = "\<yourelayurl>"
->
-> > name = "\<nametotherelay>"
->
-> > description = "\<descriptionrelay>"
->
-> > pubkey = "\<yournostrhexpubkey>"
->
-> > contact = "\<yourcontact>"
->
-> > relay\_icon = "\<yourelayiconURL>"
-
-{% hint style="info" %}
-If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this.
-
-You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub" pubkey to hexadecimal format
+\-> More details and additional steps on the exclusive [extra section](nostr-relay.md#use-the-default-sqlite-database-backend)
 {% endhint %}
 
 > > **Required same as next (\*):**
 > >
 > > **(\*)** click on the parameter to get action to do **(\<Edit>** or **\<Uncomment>**)
 >
-> > favicon = "favicon.ico"
+> > [favicon = "favicon.ico"](#user-content-fn-7)[^7]
 >
-> > engine = "postgres"
+> > [engine = "postgres"](#user-content-fn-8)[^8]
 >
-> > connection = "postgresql://admin:admin@localhost:5432/nostrelay"
+> > [connection = "postgresql://admin:admin@localhost:5432/nostrelay"](#user-content-fn-9)[^9]
 >
-> > address = "127.0.0.1"
+> > [address = "127.0.0.1"](#user-content-fn-10)[^10]
 >
-> > port = 8880[^1]
+> > [port = 8880](#user-content-fn-11)[^11]
 >
-> > remote\_ip\_header = "cf-connecting-ip"
+> > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-12)[^12]
 
 {% hint style="info" %}
-If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL), or replace it with your own, downloading it instead
+If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://twofaktor.github.io/logo\_circle%2BB.png](https://twofaktor.github.io/logo\_circle%2BB.png)), or replace it with your own info
 {% endhint %}
 
 ### **Create systemd service**
@@ -456,7 +456,7 @@ credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 ingress:
 
 # Nostr relay
-  - hostname: relay.<a data-footnote-ref href="#user-content-fn-2">&#x3C;domain.com></a>
+  - hostname: relay.<a data-footnote-ref href="#user-content-fn-13">&#x3C;domain.com></a>
     service: ws://localhost:8880
 
   - service: http_status:404
@@ -544,7 +544,7 @@ data_directory = "/data/nostr/rs-relay/db"
 ```
 
 {% hint style="info" %}
-Ignore the next lines related to the PostgreSQL (not uncomment or edit):
+Ignore the next lines related to the PostgreSQL **(not uncomment or edit)**:
 
 ```
 engine = "postgres"
@@ -932,6 +932,28 @@ sudo rm /usr/local/bin/nostr-rs-relay
 | :--: | :------: | :----------: |
 | 8880 |    TCP   | Default port |
 
-[^1]: \<Edit>
+[^1]: **\<Edit>**
 
-[^2]: Here your personal domain
+[^2]: **\<Edit>**
+
+[^3]: **\<Edit>**
+
+[^4]: **\<Uncomment> & \<Edit>**
+
+[^5]: **\<Uncomment> & \<Edit>**
+
+[^6]: **\<Uncomment> & \<Edit> with** [**https://twofaktor.github.io/logo\_circle%2BB.png**](https://twofaktor.github.io/logo\_circle%2BB.png) **if you want**
+
+[^7]: **\<Uncomment>**
+
+[^8]: **\<Uncomment> & \<Edit>**
+
+[^9]: **\<Uncomment> & \<Edit>**
+
+[^10]: **\<Edit>**
+
+[^11]: **\<Edit>**
+
+[^12]: **\<Uncomment>**
+
+[^13]: Here your personal domain

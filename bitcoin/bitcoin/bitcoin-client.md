@@ -41,7 +41,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=27.0
+VERSION=27.1
 ```
 
 * Get the latest binaries and signatures
@@ -160,11 +160,11 @@ The following output is just an **example** of one of the versions:
 > [...]
 ```
 
-* **(Optional)** Delete installation files of the `/tmp` folder to be ready for the next installation
+* **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm -r bitcoin-$VERSION && sudo rm bitcoin-$VERSION-x86_64-linux-gnu.tar.gz && sudo rm SHA256SUMS && sudo rm SHA256SUMS.asc && sudo rm SHA256SUMS.ots
+sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
 ```
 {% endcode %}
 
@@ -343,13 +343,13 @@ rpcauth=<replace with your own auth line generated in the previous step>
 # Initial block download optimizations (set dbcache size in megabytes 
 # (4 to 16384, default: 300) according to the available RAM of your device,
 # recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
-# Remember to comment after IBD!
+# Remember to comment after IBD (Initial Block Download)!
 dbcache=2048
 blocksonly=1
 ```
 
 {% hint style="info" %}
-If you checked on the [Check IPv6 availability](../../index-1/security.md#check-ipv6-availability) section and don't have IPv6 available, you can discard the IPv6 network of the Bitcoin Core by adding the next lines at the end of the configuration file:
+**(Optional)** If you checked on the [Check IPv6 availability](../../index-1/security.md#check-ipv6-availability) section and you don't have IPv6 available, you can discard the IPv6 network and cjdns of the Bitcoin Core by adding the next lines at the end of the configuration file:
 
 ```
 # Disable IPv6 network
@@ -358,7 +358,7 @@ onlynet=i2p
 onlynet=ipv4
 ```
 
-This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options or generate one yourself following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
+\-> This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options or generate one yourself following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
 {% endhint %}
 
 * Set permissions: only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)
@@ -367,7 +367,7 @@ This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf]
 chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Exit the `bitcoin` user session back to user `admin`
+* Exit the `bitcoin` user session back to the user `admin`
 
 {% code fullWidth="false" %}
 ```sh
@@ -444,7 +444,7 @@ journalctl -fu bitcoind
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor logs
+Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
 ## Run
@@ -602,11 +602,13 @@ Expected output:
 
 * Please note:
   * When “bitcoind” is still starting, you may get an error message like “verifying blocks”. That’s normal, just give it a few minutes.
-  * Among other info, the “verificationprogress” is shown. Once this value reaches almost 1 (0.999…), the blockchain is up-to-date and fully validated.
+  * Among other info, the “verificationprogress” is shown. Once this value reaches almost 1 or near (0.999…), the blockchain is up-to-date and fully validated.
 
 ## Bitcoin Core is syncing
 
-This can take between one day and a week, depending mostly on your PC performance. It's best to wait until the synchronization is complete before going ahead.
+{% hint style="info" %}
+This process is called IBD (Initial Block Download). This can take between one day and a week, depending mostly on your PC performance. It's best to wait until the synchronization is complete before going ahead
+{% endhint %}
 
 ### Explore bitcoin-cli
 
@@ -652,7 +654,7 @@ sudo systemctl restart bitcoind
 
 ## OpenTimestamps client
 
-When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your own blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
+When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
 
 * As user `admin`, install dependencies
 
@@ -768,8 +770,8 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 
 * For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine so that they can be consulted offline, they can be installed from the directory
 
-{% hint style="warning" %}
-This extra section is not valid if you compiled it from source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) because is needed the content inside of the precompiled binary package before downloaded. You need to follow the [Installation process](bitcoin-client.md#installation) before, skipping the [Binaries installation](bitcoin-client.md#binaries-installation) process because that would replace the Ordirespector binary
+{% hint style="info" %}
+If you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) this section is not needed because man pages are installed by default, type directly `man bitcoin-cli` command to see the man pages
 {% endhint %}
 
 ```sh
@@ -868,7 +870,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=27.0
+VERSION=27.1
 ```
 
 * Download binary, checksum, signature files, and timestamp file
@@ -942,12 +944,13 @@ gpg --verify SHA256SUMS.asc
 > Primary key fingerprint: ...
 ```
 
-* If you completed the IBD, now you can verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
+* If you completed the IBD (Initial Block Download), now you can verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
 
 ```sh
 ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
 ```
 
+{% hint style="info" %}
 The following output is just an **example** of one of the versions:
 
 ```
@@ -957,9 +960,25 @@ The following output is just an **example** of one of the versions:
 > Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
 > Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
 ```
+{% endhint %}
 
 {% hint style="info" %}
 Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
+{% endhint %}
+
+{% hint style="info" %}
+If you obtain this output:
+
+```
+> Calendar https://btc.calendar.catallaxy.com: Pending confirmation in Bitcoin blockchain
+> Calendar https://finney.calendar.eternitywall.com: Pending confirmation in Bitcoin blockchain
+> Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+> Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+```
+
+
+
+\-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next ones
 {% endhint %}
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries

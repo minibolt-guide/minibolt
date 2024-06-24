@@ -283,11 +283,8 @@ lnd --version
 
 * **(Optional)** Clean the LND files of the `tmp` folder
 
-{% code overflow="wrap" %}
-```bash
-sudo rm -r lnd-linux-amd64-v$VERSION-beta && sudo rm lnd-linux-amd64-v$VERSION-beta.tar.gz && sudo rm manifest-roasbeef-v$VERSION-beta.sig && sudo rm manifest-roasbeef-v$VERSION-beta.sig.ots && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.txt.ots
-```
-{% endcode %}
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo rm -r lnd-linux-amd64-v$VERSION-beta lnd-linux-amd64-v$VERSION-beta.tar.gz manifest-roasbeef-v$VERSION-beta.sig manifest-roasbeef-v$VERSION-beta.sig.ots manifest-v$VERSION-beta.txt manifest-v$VERSION-beta.txt.ots
+</strong></code></pre>
 
 {% hint style="info" %}
 If you come to [update](lightning-client.md#upgrade) this is the final step
@@ -1398,7 +1395,7 @@ exit
 
 Quick reference with special commands to play around with:
 
-* Create your own Re-Usable Static AMP invoice
+#### Create your own Re-Usable Static AMP invoice
 
 {% code overflow="wrap" %}
 ```bash
@@ -1412,13 +1409,13 @@ The flags `--memo` |`--amt` & `--expiry` are optional. The default expiry time w
 Copy the output `[lnbc...]` of the "payment\_request": "`lnbc...`". Transform your output payment request into a QR code, embed it on your website, or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools
 {% endhint %}
 
-* Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
+#### Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
 ```sh
 lncli payinvoice --amt <amount> <amp invoice>
 ```
 
-* Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
+#### Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
 ```sh
 lncli sendpayment --dest <destination public key> --amt <amount> --amp
@@ -1440,6 +1437,28 @@ Payment status: SUCCEEDED, preimage: 7c7c34c655eaea4f683db53f22ca2f5256758eb260f
 {% hint style="info" %}
 If you want to send a circular payment to yourself, add the next flag at the end of the command:`--allow_self_payment`
 {% endhint %}
+
+#### Extract the SegWit and Taproot master public key of your onchain LND wallet
+
+{% code overflow="wrap" %}
+```bash
+lncli wallet accounts list | grep -A 3 "TAPROOT" && echo "------------------------" && \
+lncli wallet accounts list | grep -B 3 "m/84"
+```
+{% endcode %}
+
+Example of expected output:
+
+<pre><code>            "address_type":  "TAPROOT_PUBKEY",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-25">xpub........</a>",
+            "master_key_fingerprint":  "",
+            "derivation_path":  "m/86'/0'/0'",
+------------------------
+            "address_type":  "WITNESS_PUBKEY_HASH",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-26">zpub.........</a>",
+            "master_key_fingerprint":  "",
+            "derivation_path":  "m/84'/0'/0'",
+</code></pre>
 
 ## Upgrade
 
@@ -1555,3 +1574,7 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 [^23]: Symbolic link
 
 [^24]: Check this
+
+[^25]: Your Taproot master public key
+
+[^26]: Your SegWit master public key
