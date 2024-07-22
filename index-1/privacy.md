@@ -570,11 +570,13 @@ sudo systemctl start tor
 
 #### Tor signature verification error
 
-If you obtain this error after updating the repositories using the apt package manager:
+If you obtain this error [after updating](privacy.md#upgrade-tor-and-i2p) the repositories using the apt package manager:
 
 <figure><img src="../.gitbook/assets/tor_keyring_error.png" alt=""><figcaption></figcaption></figure>
 
-This means Tor has renovated the signature due probably that is soon to expiry or expired, follow the next steps to fix that:
+{% hint style="info" %}
+This means Tor has renovated the signature due probably that is soon to expiry or expired, follow the next steps to fix that ⬇️
+{% endhint %}
 
 * With user `admin`, up to `"root"` user temporarily
 
