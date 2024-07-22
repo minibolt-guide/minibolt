@@ -140,15 +140,15 @@ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
 
 For improved security, we will create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker could not do much within this user's permission settings. We will install  BTC RPC Explorer in the home directory since it doesn't need too much space.
 
-* Create a new one called `btcrpcexplorer` user
+* Create the `btcrpcexplorer` user and group
 
-```sh
+```bash
 sudo adduser --disabled-password --gecos "" btcrpcexplorer
 ```
 
-* Assign it to the "bitcoin" group
+* Add `btcrpcexplorer` user to the "bitcoin" group, allowing to the `btcrpcexplorer` user read the bitcoind `.cookie` file
 
-```sh
+```bash
 sudo adduser btcrpcexplorer bitcoin
 ```
 

@@ -240,13 +240,13 @@ If you come to update, this is the final step, go back to the [Upgrade section](
 
 * Create the `fulcrum` user and group
 
-```sh
+```bash
 sudo adduser --disabled-password --gecos "" fulcrum
 ```
 
-* Add `fulcrum` user to the "bitcoin" group
+* Add `fulcrum`user to the "bitcoin" group, allowing to the `fulcrum`user read the bitcoind `.cookie` file
 
-```sh
+```bash
 sudo adduser fulcrum bitcoin
 ```
 

@@ -500,7 +500,7 @@ sudo apt update && sudo apt upgrade
 
 ### Uninstall Tor
 
-* With user `admin`, enter the next command and "`y`" when the prompt asks you if you want to continue
+* With user `admin`, enter the next command, and "`y`" when the prompt asks you if you want to continue
 
 ```bash
 sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
@@ -538,7 +538,7 @@ The following packages will be REMOVED:
 
 #### **Tor network issues**
 
-If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...) is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
+If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...), it is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
 
 * Stop Tor
 
@@ -568,13 +568,13 @@ sudo systemctl start tor
 
 ![](../images/tor-censorship.png)
 
-#### Tor keyring issues
+#### Tor signature verification error
 
-If you obtain this error after updating the repositories using the apt package manager, this means Tor
+If you obtain this error after updating the repositories using the apt package manager:
 
 <figure><img src="../.gitbook/assets/tor_keyring_error.png" alt=""><figcaption></figcaption></figure>
 
-This means Tor has renovated the signature due probably that is soon to expiry or expired, follow next steps to fix that:
+This means Tor has renovated the signature due probably that is soon to expiry or expired, follow the next steps to fix that:
 
 * With user `admin`, up to `"root"` user temporarily
 
@@ -590,15 +590,19 @@ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8C
 ```
 {% endcode %}
 
-* Return to `admin` using `exit` command and try to do `sudo apt update` again and see the error doesn't appear
+* Return to `admin` using `exit` command
 
 ```bash
 exit
 ```
 
+{% hint style="info" %}
+Try to do `sudo apt update` again and see the error doesn't appear
+{% endhint %}
+
 ### **I2P troubleshooting**
 
-If you see these output logs on Bitcoin Core, normally could be that I2P is failing:
+If you see these output logs on Bitcoin Core, normally, it could be that I2P is failing:
 
 ![](../images/i2p-troubleshoting.png)
 

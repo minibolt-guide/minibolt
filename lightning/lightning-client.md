@@ -298,7 +298,7 @@ If you come to [update](lightning-client.md#upgrade) this is the final step
 sudo adduser --disabled-password --gecos "" lnd
 ```
 
-* Add the `lnd` user to the groups "bitcoin" and "debian-tor"
+* Add the `lnd` user to the groups "bitcoin" and "debian-tor", allowing to the `btcrpcexplorer` user read the bitcoind `.cookie` file and to use the control port configuring Tor directly
 
 ```sh
 sudo usermod -a -G bitcoin,debian-tor lnd

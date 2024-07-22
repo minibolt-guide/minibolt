@@ -171,19 +171,19 @@ The Bitcoin Core application will run in the background as a daemon and use the 
 
 * Create the `bitcoin` user and group
 
-```sh
+```bash
 sudo adduser --gecos "" --disabled-password bitcoin
 ```
 
 * Add the user `admin` to the group "bitcoin" as well
 
-```sh
+```bash
 sudo adduser admin bitcoin
 ```
 
 * Allow the user `bitcoin` to use the control port and configure Tor directly by adding it to the "`debian-tor`" group
 
-```sh
+```bash
 sudo adduser bitcoin debian-tor
 ```
 

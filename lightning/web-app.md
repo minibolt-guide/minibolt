@@ -126,13 +126,13 @@ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
 
 We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and run the code as the new user. We will install Thunderhub in the home directory since it doesn't need too much space.
 
-* Create a new `thunderhub` user
+* Create a new `thunderhub` user and group
 
 ```sh
 sudo adduser --disabled-password --gecos "" thunderhub
 ```
 
-* Add `thunderhub` user to the `lnd` group
+* Add `thunderhub` user to the `lnd` group to allow to the user `thunderhub` reading the `admin.macaroon` and `tls.cert` files
 
 ```sh
 sudo adduser thunderhub lnd
