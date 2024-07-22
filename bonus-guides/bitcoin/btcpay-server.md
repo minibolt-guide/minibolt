@@ -32,8 +32,10 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md) (optional)
+* [NBXplorer](btcpay-server.md#install-nbxplorer)
 * Others
-  * PostgreSQL
+  * [.NET Core SDK](btcpay-server.md#install-.net-core-sdk)
+  * [PostgreSQL](../system/postgresql.md)
 
 ## Preparations
 
@@ -63,7 +65,7 @@ sudo systemctl restart bitcoind
 
 ### Firewall
 
-* Configure the firewall to allow incoming HTTPS requests
+* Configure the Firewall to allow incoming HTTP requests
 
 ```bash
 sudo ufw allow 23000/tcp comment 'allow BTCPay Server from anywhere'
@@ -956,7 +958,7 @@ exit
 
 #### Modify the BTCPay Server systemd service
 
-* Modify the next lines of the systemd service file by following [this section](btcpay-server.md#create-btcpay-server-systemd-service)
+* Modify the next lines of the systemd service file by following [this section](btcpay-server.md#create-btcpay-server-systemd-service), adding the `lnd.service` dependency
 
 ```
 Requires=nbxplorer.service lnd.service
@@ -1233,10 +1235,10 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=1.13.3
+VERSION=1.13.5
 ```
 
-* Fetch the changes of the wish latest tag
+* Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
 
 {% code overflow="wrap" %}
 ```bash
@@ -1276,7 +1278,6 @@ git config pull.rebase false
 ```
 {% endhint %}
 
-* Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to no apply modifications
 * Build it
 
 ```bash
@@ -1332,12 +1333,18 @@ sudo systemctl start btcpay
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop `btcpay` and `nbxplorer` services
+* With user `admin`, stop btcpay and nbxplorer&#x20;
 
 ```bash
 sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
+```
+
+* Disable autoboot (if enabled)
+
+```bash
+sudo systemctl disable btcpay && sudo systemctl disable nbxplorer
 ```
 
 * Delete `btcpay` and `nbxplorer` services
@@ -1350,16 +1357,17 @@ sudo rm /etc/systemd/system/btcpay.service
 sudo rm /etc/systemd/system/nbxplorer.service
 ```
 
-* Ensure you are logged in with the user `admin`. Delete the `btcpay` user.\
-  Don't worry about `userdel: btcpay mail spool (/var/mail/btcpay) not found` output, the uninstall has been successfull
+### Delete user & group
+
+* Delete the `btcpay` user. Don't worry about `userdel: btcpay mail spool (/var/mail/btcpay) not found` output, the uninstall has been successful
 
 ```bash
 sudo userdel -rf btcpay
 ```
 
-### Uninstall Firewall **configuration** & Reverse proxy
+### Uninstall Firewall **configuration** & reverse proxy
 
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCPay Server (e.g. X and Y below)
+* With the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCPay Server (e.g. X and Y below)
 
 ```bash
 sudo ufw status numbered
@@ -1379,7 +1387,7 @@ sudo ufw delete X
 
 ### **Uninstall Tor hidden service**
 
-* Ensure you are logged in with the user `admin`
+* With the user `admin`, edit the torrc file
 
 ```bash
 sudo nano /etc/tor/torrc
@@ -1399,6 +1407,16 @@ sudo nano /etc/tor/torrc
 ```bash
 sudo systemctl reload tor
 ```
+
+### Delete the PostgreSQL databases
+
+* With user `admin` delete the `nbxplorer` and `btcpay` databases
+
+{% code overflow="wrap" %}
+```bash
+sudo -u postgres psql -c "DROP DATABASE nbxplorer;" && sudo -u postgres psql -c "DROP DATABASE btcpay;"
+```
+{% endcode %}
 
 ## Port reference
 

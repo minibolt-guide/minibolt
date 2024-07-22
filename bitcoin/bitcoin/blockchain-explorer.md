@@ -65,6 +65,12 @@ npm -v
 If the version is **`>=18`**, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
+* Update and upgrade your OS
+
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
 * Install the next dependency package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
@@ -130,7 +136,9 @@ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
 
 ## Installation
 
-For improved security, we will create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker would not be able to do much within this user's permission settings.
+### Create the btcrpcexplorer user & group
+
+For improved security, we will create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker could not do much within this user's permission settings. We will install  BTC RPC Explorer in the home directory since it doesn't need too much space.
 
 * Create a new one called `btcrpcexplorer` user
 
@@ -228,7 +236,7 @@ Installation can take some time, be patient. There might be a lot of confusing o
 cp .env-sample .env
 ```
 
-* Edit the `.env` file.&#x20;
+* Edit the `.env` file.
 
 ```sh
 nano .env
@@ -241,7 +249,7 @@ Activate any setting by removing the `#` at the beginning of the line or editing
 * Instruct the BTC RPC Explorer to connect to the local Bitcoin Core
 
 ```
-# Uncomment & replace the value of these lines
+# Uncomment & replace the value of this line
 BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
 ```
 
@@ -419,20 +427,20 @@ You can decide whether you want to optimize for more information or more privacy
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
+* **More privacy mode**, no external queries
+
+```
+# Ucomment these lines
+BTCEXP_PRIVACY_MODE=true
+BTCEXP_NO_RATES=true
+```
+
 * More information mode, including Bitcoin exchange rates
 
 ```
-# replace these lines
+# Replace these lines
 BTCEXP_PRIVACY_MODE=false
 BTCEXP_NO_RATES=false
-```
-
-* More privacy mode, no external queries
-
-```
-# uncomment these lines
-BTCEXP_PRIVACY_MODE=true
-BTCEXP_NO_RATES=true
 ```
 
 * Save and exit
@@ -450,13 +458,13 @@ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 * Replace the next line. Save and exit
 
 ```
-# replace `mypassword` with 'YourPassword [D] in this line
+# Replace with YourPassword [D] in this line
 BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
 ```
 
 ### Theme
 
-Decide whether you prefer a `light` or `dark` theme by default. Left uncommented to dark **(default dark)**
+Decide whether you prefer a `light` or `dark` theme by default
 
 * With user `admin` user, edit the `.env` configuration file
 
@@ -464,7 +472,7 @@ Decide whether you prefer a `light` or `dark` theme by default. Left uncommented
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
-* Uncomment and replace this line with your selection. Save and exit
+* Uncomment and replace this line with your selection. Left uncommented to dark **(default is dark).** Save and exit
 
 ```
 BTCEXP_UI_THEME=dark
@@ -472,7 +480,7 @@ BTCEXP_UI_THEME=dark
 
 ### Slow device mode (resource-intensive features are disabled)
 
-Extend the timeout period due to the limited resources
+Extend the timeout period and enable slow device mode due to the limited resources
 
 * With user `admin` user, edit the `.env` configuration file
 
@@ -486,7 +494,7 @@ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 ```
 
-* Comment this line if it is uncommented (default value is **true**). Save and exit
+* Comment this line if it is uncommented **(default value is true)**. Save and exit
 
 ```
 #BTCEXP_SLOW_DEVICE_MODE=false
@@ -535,7 +543,7 @@ Do you want to access your personal blockchain explorer remotely? You can easily
 * With the user `admin` , edit the `torrc` file
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
@@ -636,24 +644,29 @@ sudo systemctl start btcrpcexplorer
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
+* With the user `admin`  , stop btcrpcexplorer
 
 ```bash
 sudo systemctl stop btcrpcexplorer
 ```
 
+* Disable autoboot (if enabled)
+
 ```bash
 sudo systemctl disable btcrpcexplorer
 ```
+
+* Delete the service
 
 ```bash
 sudo rm /etc/systemd/system/btcrpcexplorer.service
 ```
 
-* Ensure you are logged in with the user `admin`. Delete the btcrpcexplorer user.\
-  Don't worry about `userdel: btcrpcexplorer mail spool (/var/mail/btcrpcexplorer) not found` output, the uninstall has been successful
+### Delete user & group
+
+* Delete the `btcrpcexplorer` user. Do not worry about the `userdel: btcrpcexplorer mail spool (/var/mail/btcrpcexplorer) not found`
 
 ```bash
 sudo userdel -rf btcrpcexplorer

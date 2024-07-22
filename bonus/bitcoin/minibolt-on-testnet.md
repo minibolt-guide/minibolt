@@ -42,7 +42,7 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 * Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration), stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
 
-```sh
+```bash
 nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
@@ -290,9 +290,7 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 
 ## Bonus section
 
-### Bitcoin
-
-#### [Electrs](electrs.md)
+### Bitcoin: [Electrs](electrs.md)
 
 Follow the complete guide from the beginning, when you arrive at the ["Firewall & reverse proxy section"](electrs.md#firewall-and-reverse-proxy), follow the next steps:
 

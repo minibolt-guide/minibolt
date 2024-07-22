@@ -33,13 +33,13 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=1.22.3
+VERSION=1.22.5
 ```
 
 * Set a temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=8920ea521bad8f6b7bc377b4824982e011c19af27df88a815e3586ea895f1b36
+SHA256=904b924d435eaea086515bc63235b192ea441bd8c9b198c507e85009e6e4c7f0
 ```
 
 * Get the latest binary of the [official repository](https://go.dev/dl/)
@@ -65,15 +65,15 @@ echo "$SHA256 go$VERSION.linux-amd64.tar.gz" | sha256sum --check
 sudo tar -C /usr/local -xvzf go$VERSION.linux-amd64.tar.gz
 ```
 
-* Edit `/etc/profile` file
+* Add the next line at the end of the `/etc/profile` file
 
 ```bash
-sudo nano /etc/profile
+echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile
 ```
 
-* Add the next line at the end of the file. Save and exit
+Expected output:
 
-```bash
+```
 export PATH=$PATH:/usr/local/go/bin
 ```
 

@@ -100,7 +100,7 @@ ssh-rsa AAAAB3N........
 * Limit permissions for reading and writing only to the user admin
 
 ```sh
-chmod 600 authorized_keys
+chmod 600 .ssh/authorized_keys
 ```
 
 ### From your regular Linux PC
@@ -151,28 +151,22 @@ mkdir .ssh
 chmod 700 .ssh
 ```
 
-* Enter the ".ssh" folder
-
-```sh
-cd .ssh
-```
-
 * Import your SSH GitHub keys replacing `<username>` with the GitHub username (that appears in your profile section)
 
 ```sh
-curl https://github.com/<username>.keys >> authorized_keys
+curl https://github.com/<username>.keys >> .ssh/authorized_keys
 ```
 
 * Ensure that your SSH keys have been imported correctly in "authorized\_keys" file, and press `Ctrl-X` to exit
 
 ```sh
-nano authorized_keys
+nano .ssh/authorized_keys
 ```
 
 * Limit permissions for read and write only to the user admin
 
 ```sh
-chmod 600 authorized_keys
+chmod 600 .ssh/authorized_keys
 ```
 
 ## Connect to MiniBolt through SSH keys

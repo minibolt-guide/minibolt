@@ -129,16 +129,15 @@ sudo mkfs.ext4 /dev/[NAME_P]
 
 **Example** of expected output:
 
-```
-mke2fs 1.46.5 (30-Dec-2021)
+<pre><code>mke2fs 1.46.5 (30-Dec-2021)
 Creating filesystem with 1572608 4k blocks and 393216 inodes
-***Filesystem UUID:*** **dafc3c67-c6e5-4eaa-8840-adaf604c85db**
+Filesystem UUID: <a data-footnote-ref href="#user-content-fn-1">dafc3c67-c6e5-4eaa-8840-adaf604c85db</a>
 Superblock backups stored on blocks:
         32768, 98304, 163840, 229376, 294912, 819200, 884736
-```
+</code></pre>
 
 {% hint style="info" %}
-Take note of your **UUID** e.g dafc3c67-c6e5-4eaa-8840-adaf604c85db and the partition name of your secondary disk (normally **"sdb1"**)
+Take note of your **UUID** e.g _**dafc3c67-c6e5-4eaa-8840-adaf604c85db**_ and the partition name of your secondary disk (normally **"sdb1"**)
 {% endhint %}
 
 ### **Mount the secondary disk**
@@ -211,3 +210,5 @@ If the measured speeds are more than 100 MB/s, you're good
 {% endhint %}
 
 **->** Now you can continue with the Security section of the guide, press [here](../../index-1/security.md)
+
+[^1]: Note this

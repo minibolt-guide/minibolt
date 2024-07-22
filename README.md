@@ -30,7 +30,7 @@ There are many reasons why you should run your own Bitcoin node:
 
 ## MiniBolt overview
 
-This guide explains how to set up your own Bitcoin node on a Personal Computer. But it works on most hardware platforms because it only uses standard Debian Linux commands.
+This guide explains setting up your own Bitcoin node on a Personal Computer. However, it works on most hardware platforms because it only uses standard Debian Linux commands.
 
 ### Features
 
@@ -53,7 +53,7 @@ Your Bitcoin node will offer the following functionality:
 * [x] We strive to give foolproof instructions. But the goal is also to do everything ourselves.
 * [x] Shortcuts that involve trusting someone else are not allowed. This makes this guide quite technical, but we try to make it as straightforward as possible.
 * [x] You'll gain a basic understanding of the how and why.
-* [x] If you like to learn about Linux, Bitcoin, and Lightning, then this guide is for you.
+* [x] If you want to learn about Linux, Bitcoin, and Lightning, this guide is for you.
 
 ### Structure
 

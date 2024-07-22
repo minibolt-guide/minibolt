@@ -804,10 +804,12 @@ sudo ss -tulpn | grep LISTEN | grep lnd
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096       <a data-footnote-ref href="#user-content-fn-20">127.0.0.1:9735</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=51))
-> tcp   LISTEN 0      4096      <a data-footnote-ref href="#user-content-fn-21">127.0.0.1:10009</a>      0.0.0.0:*    users:(("lnd",pid=774047,fd=8))
-> tcp   LISTEN 0      4096             <a data-footnote-ref href="#user-content-fn-22">*:9911</a>            *:*    users:(("lnd",pid=774047,fd=50))
-</code></pre>
+```
+tcp   LISTEN 0      4096       127.0.0.1:10009      0.0.0.0:*    users:(("lnd",pid=386562,fd=8))
+tcp   LISTEN 0      4096       127.0.0.1:8080       0.0.0.0:*    users:(("lnd",pid=386562,fd=29))
+tcp   LISTEN 0      4096       127.0.0.1:9735       0.0.0.0:*    users:(("lnd",pid=386562,fd=45))
+tcp   LISTEN 0      4096               *:9911             *:*    users:(("lnd",pid=386562,fd=44))
+```
 
 ### Allow user "admin" to work with LND
 
@@ -842,7 +844,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-23">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-20">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -1020,6 +1022,14 @@ Attention: this process is very risky, supposedly this [software is in an experi
 \-> It is recommended to start from scratch by closing all existing channels, rather than a migration to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
 {% endhint %}
 
+#### Install dependencies
+
+* With user `admin`, install the next dependencies packages. Press `enter` when the prompt asks you
+
+```bash
+sudo apt install build-essential
+```
+
 #### Install Go!
 
 * With user `admin`, verify that you've installed Go by typing the following command
@@ -1116,7 +1126,7 @@ May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: System
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: Gracefully shutting down.
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.615 [INF] WTWR: Stopping watchtower
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Succeeded.
-May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-24">Stopped Lightning Network Daemon.</a>
+May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-21">Stopped Lightning Network Daemon.</a>
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU time.
 </code></pre>
 
@@ -1450,12 +1460,12 @@ lncli wallet accounts list | grep -B 3 "m/84"
 Example of expected output:
 
 <pre><code>            "address_type":  "TAPROOT_PUBKEY",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-25">xpub........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-22">xpub........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/86'/0'/0'",
 ------------------------
             "address_type":  "WITNESS_PUBKEY_HASH",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-26">zpub.........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-23">zpub.........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
@@ -1479,7 +1489,7 @@ sudo systemctl restart lnd
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
 * With user `admin` , stop lnd
 
@@ -1499,16 +1509,42 @@ sudo systemctl disable lnd
 sudo rm /etc/systemd/system/lnd.service
 ```
 
+### &#x20;Delete user & group&#x20;
+
+* Delete lnd user's group
+
+{% code overflow="wrap" %}
+```bash
+sudo gpasswd -d admin lnd; sudo gpasswd -d thunderhub lnd; sudo gpasswd -d btcpay lnd
+```
+{% endcode %}
+
 * Delete the `lnd` user. Don't worry about `userdel: lnd mail spool (/var/mail/lnd) not found` output, the uninstall has been successful
 
 ```bash
 sudo userdel -rf lnd
 ```
 
+* Delete the lnd group
+
+```bash
+sudo groupdel lnd
+```
+
+### Detele the data directory
+
 * Delete the complete `lnd` directory
 
 ```bash
 sudo rm -rf /data/lnd/
+```
+
+### Delete the PostgreSQL database [(if used)](lightning-client.md#install-postgresql)
+
+* Delete the `lndb` database
+
+```bash
+sudo -u postgres psql -c "DROP DATABASE lndb;"
 ```
 
 ### Uninstall binaries
@@ -1565,16 +1601,10 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^19]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value**
 
-[^20]: LND P2P host:port
+[^20]: Symbolic link
 
-[^21]: gRPC host:port
+[^21]: Check this
 
-[^22]: Watchtower server host:port
+[^22]: Your Taproot master public key
 
-[^23]: Symbolic link
-
-[^24]: Check this
-
-[^25]: Your Taproot master public key
-
-[^26]: Your SegWit master public key
+[^23]: Your SegWit master public key

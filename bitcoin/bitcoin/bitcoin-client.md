@@ -140,11 +140,8 @@ If you want to install the manual page for `bitcoin-cli`, follow [the manual pag
 
 * Install it
 
-{% code overflow="wrap" %}
-```sh
-sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitcoin-cli bitcoin-$VERSION/bin/bitcoind
-```
-{% endcode %}
+<pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitcoin-cli bitcoin-$VERSION/bin/bitcoind
+</strong></code></pre>
 
 * Check the correct installation requesting the output of the version
 
@@ -1025,32 +1022,54 @@ sudo systemctl restart bitcoind
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
+* Ensure you are logged in with the user `admin`, stop bitcoind
 
 ```bash
 sudo systemctl stop bitcoind
 ```
 
+* Disable autoboot (if enabled)
+
 ```bash
 sudo systemctl disable bitcoind
 ```
+
+* Delete the service
 
 ```bash
 sudo rm /etc/systemd/system/bitcoind.service
 ```
 
-* Delete the bitcoind user. Don't worry about `userdel: bitcoind mail spool (/var/mail/bitcoind) not found` output, the uninstall has been successful
+### Delete user & group&#x20;
+
+* Delete bitcoin user's group
+
+{% code overflow="wrap" %}
+```bash
+sudo gpasswd -d admin bitcoin; sudo gpasswd -d fulcrum bitcoin; sudo gpasswd -d lnd bitcoin; sudo gpasswd -d btcrpcexplorer bitcoin; sudo gpasswd -d btcpay bitcoin
+```
+{% endcode %}
+
+* Delete the `bitcoin` user. Don't worry about `userdel: bitcoin mail spool (/var/mail/bitcoin) not found` output, the uninstall has been successful
 
 ```bash
-sudo userdel -rf bitcoind
+sudo userdel -rf bitcoin
 ```
 
-* Delete the complete `bitcoind` directory
+* Delete the bitcoin group
 
 ```bash
-sudo rm -rf /data/bitcoind/
+sudo groupdel bitcoin
+```
+
+### Detele data directory
+
+* Delete the complete `bitcoin`directory
+
+```bash
+sudo rm -rf /data/bitcoin/
 ```
 
 ### Uninstall binaries

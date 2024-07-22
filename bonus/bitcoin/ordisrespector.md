@@ -20,7 +20,7 @@ layout:
 
 # Ordisrespector spam filter
 
-[Ordinals](https://ordinals.com/) is a project created to number sats. It also has a feature called inscriptions, which is the problematic part and what is mainly being touched on in this guide. An inscription is basically data stored onchain associated with a sat.
+[Ordinals](https://ordinals.com/) is a project created to number sats. It also has a feature called inscriptions, which is the problematic part and what is mainly being touched on in this guide. An inscription is data stored onchain associated with a sat.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -55,8 +55,7 @@ There is no mention of data storage on the chain and only financial transactions
 You enter commands and the PC answers by printing the results below your command. The system response is marked with the `">"` character
 {% endhint %}
 
-* Login as `admin` user (for a MiniBolt environment), or your assigned user with `sudo` permissions
-* Update and upgrade your OS
+* With `admin` user, update and upgrade your OS
 
 ```sh
 sudo apt update && sudo apt full-upgrade
@@ -294,10 +293,15 @@ libtoolize: copying file 'build-aux/ltmain.sh'
 [...]
 ```
 
-* The next command will Configure the Berkeley DB path and pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
+* The next command will configure the Berkeley DB path, set the next environment variable
+
+```bash
+export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
+```
+
+* Pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
 ```sh
-export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
 ./configure \
    BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" \
   --disable-bench \
@@ -421,7 +425,7 @@ After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mem
 
 ![](../../images/ordisrespector-mempool-cube-tx.png)
 
-* Look for "Taproot", "Segwit", "RBF" and "CPFP" tags (this last doesn't appear always)
+* Look for "Taproot", "Segwit", "RBF" and "CPFP" tags (this last doesn't always appear)
 
 ![](../../images/ordisrespector-mempool-space-tx.png)
 
@@ -458,7 +462,7 @@ The before information indicates that the filter is working properly
 
 ### **Add Ordisrespector node peers (optional)**
 
-Add [Bitcoin Barcelona node](https://bitcoinbarcelona.xyz/servicios\_bbo) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
+Add the [Bitcoin Barcelona node](https://bitcoinbarcelona.xyz/servicios\_bbo) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
 
 * Edit and add to the `bitcoin.conf` file, the next line/s at the end of the file
 
@@ -480,7 +484,7 @@ addnode=.....3q5hw6625xyqekprljz6uasa.b32.i2p:0
 
 ### Add an external fee estimator to the LND
 
-By applying Ordisrespector to our node, would can have a different version of the mempool compared to the rest of the network and with it the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
+By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network and with it the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
 
 * With user admin, stop LND if you have installed
 
@@ -520,7 +524,7 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 * Include with the rest, the next lines at the end of the file. Save and exit
 
 ```
-# Reject shit
+# Reject data in transactions
 datacarriersize=0
 permitbaremultisig=0
 ```
@@ -530,14 +534,14 @@ permitbaremultisig=0
 {% endhint %}
 
 {% hint style="warning" %}
-Attention: With the before configuration, Whirlpool will not work
+Attention: with the previous configuration, Whirlpool will not work and either is recommended for mining use
 {% endhint %}
 
 ## Upgrade
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
 
-Go to the [Installation section](ordisrespector.md#installation), and replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide. Continue until complete the entire [Installation section](ordisrespector.md#installation)
+Go to the [Installation section](ordisrespector.md#installation), and replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide. Continue until complete the entire [Installation section](ordisrespector.md#installation)
 
 {% hint style="info" %}
 Remember to restart the Bitcoin Core to apply the new version with `$ sudo systemctl restart bitcoind`

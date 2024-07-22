@@ -48,7 +48,13 @@ Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-cli
 
 ### Install dependencies
 
-* With user `admin`, make sure that all necessary software packages are installed
+* With user `admin`, update and upgrade your OS
+
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
+* Make sure that all necessary software packages are installed
 
 ```sh
 sudo apt install libssl-dev
@@ -686,27 +692,35 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service
+* Ensure you are logged in with the user `admin`, stop fulcrum
 
 ```sh
 sudo systemctl stop fulcrum
 ```
 
+* Disable autoboot (if enabled)
+
 ```sh
 sudo systemctl disable fulcrum
 ```
 
+* Delete the service
+
 ```sh
 sudo rm /etc/systemd/system/fulcrum.service
 ```
+
+### Delete user & group
 
 * Delete the fulcrum user. Don't worry about `userdel: fulcrum mail spool (/var/mail/fulcrum) not found` output, the uninstall has been successful
 
 ```sh
 sudo userdel -rf fulcrum
 ```
+
+### Delete data directory
 
 * Delete fulcrum directory
 

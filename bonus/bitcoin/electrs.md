@@ -384,13 +384,7 @@ electrs --version
 > v0.10.0
 ```
 
-* Return to the home folder and delete the folder `/electrs` to be ready for the next update
-
-```sh
-cd
-```
-
-* Delete the temporal `electrs` folder
+* **(Optional)** Delete the temporal `electrs` folder
 
 ```sh
 sudo rm -r /tmp/electrs
@@ -400,7 +394,7 @@ sudo rm -r /tmp/electrs
 If you come to update this is the final step
 {% endhint %}
 
-## Configuration
+### Create the electrs user & group <a href="#create-the-bitcoin-user-and-group" id="create-the-bitcoin-user-and-group"></a>
 
 * Create the `electrs` user
 
@@ -425,6 +419,8 @@ sudo mkdir /data/electrs
 ```sh
 sudo chown electrs:electrs /data/electrs
 ```
+
+## Configuration
 
 * Switch to the `electrs` user
 
@@ -459,7 +455,7 @@ log_filters = "INFO"
 timestamp = true
 ```
 
-* Exit `electrs` user session to return to the "admin" user session
+* Exit `electrs` user session to return to the `admin` user session
 
 ```sh
 exit
@@ -568,7 +564,7 @@ sudo systemctl start electrs
 </details>
 
 {% hint style="info" %}
-Electrs will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
+Electrs will now index the Bitcoin blockchain to provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
 {% endhint %}
 
 * Ensure electrs service is working and listening at the default TCP `50001` port and the monitoring `14224` port (not used on MiniBolt)
@@ -715,21 +711,27 @@ Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path:
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop, disable, and delete the service
+* With the user `admin`, stop electrs
 
 ```bash
 sudo systemctl stop electrs
 ```
 
+* Disable autoboot (if eneabled)
+
 ```bash
 sudo systemctl disable electrs
 ```
 
+* Delete the service
+
 ```bash
 sudo rm /etc/systemd/system/electrs.service
 ```
+
+### Delete user & group
 
 * Ensure you are logged in with the user `admin`. Delete the electrs user.\
   Don't worry about `userdel: electrs mail spool (/var/mail/electrs) not found` output, the uninstall has been successful
@@ -738,10 +740,12 @@ sudo rm /etc/systemd/system/electrs.service
 sudo userdel -rf electrs
 ```
 
+### Delete data directory
+
 * Delete electrs directory
 
 ```bash
-sudo rm -rf /data/electrs/
+sudo rm -rf /data/electrs
 ```
 
 ### Uninstall Tor hidden service
@@ -815,7 +819,7 @@ Expected output:
 > [X] 50002       ALLOW IN    Anywhere          # allow Electrs SSL from anywhere
 ```
 
-* Delete the rule with the correct number and confirm with "`yes`"
+* Delete the rule with the correct number and confirm with "`yes`" and enter
 
 ```bash
 sudo ufw delete X

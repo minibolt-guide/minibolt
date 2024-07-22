@@ -14,6 +14,10 @@ layout:
 
 # NYM mixnet
 
+{% hint style="danger" %}
+This project is in a testing phase, which means that it could fail on numerous occasions and in cases of use, be conscious of this before starting this guide
+{% endhint %}
+
 The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity.
 
 {% hint style="warning" %}
@@ -28,7 +32,7 @@ Difficulty: Intermediate
 
 <figure><img src="../../.gitbook/assets/nym-mixnet.gif" alt="" width="563"><figcaption></figcaption></figure>
 
-The technology involves two key components: the **Network Requester** and the **SOCKS5 Client**. The Network Requester acts as an intermediary, **encrypting and routing data** through a decentralized mixnet network to **enhance privacy and prevent surveillance**. The SOCKS5 Client establishes a **secure connection** to the mixnet, enabling users to **route network traffic** and enjoy **improved privacy**.
+The technology involves two key components: the **Network Requester** and the **SOCKS5 Client**. The Network Requester acts as an intermediary, **encrypting and routing data** through a decentralized mixnet network to **enhance privacy and prevent surveillance**. The **SOCKS5 Client** establishes a **secure connection** to the mixnet, enabling users to **route network traffic** and enjoy **improved privacy**.
 
 <figure><img src="../../.gitbook/assets/nymtopology-NYM Networkmap socks5.drawio.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -45,7 +49,13 @@ Together, these components and service providers create a decentralized infrastr
 
 ### Install dependencies
 
-* With user `admin`, make sure that all necessary software packages are installed
+* With user `admin`, update and upgrade your OS
+
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
+* Make sure that all necessary software packages are installed
 
 ```bash
 sudo apt install pkg-config build-essential libssl-dev jq
@@ -100,7 +110,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=nym-binaries-v2024.5-ragusa
+VERSION=nym-binaries-v2024.6-chomp
 ```
 
 * Clone the latest version of the source code from the GitHub repository and go to the nym folder
@@ -481,6 +491,14 @@ WantedBy=multi-user.target
 ```bash
 ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode
 ```
+
+**(Optional)** You can add `--open-proxy true` attribute to the `ExecStart` parameter to enable this feature, this means that there will be no restriction on which sites can be accessed using your network requester, so it **is not recommended to share your service provider's address with anyone:**
+
+```bash
+ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode --open-proxy true
+```
+
+\-> This one before is necessary to add if you want to use it to [proxy Bitcoin Core](nym-mixnet.md#proxying-bitcoin-core)
 {% endhint %}
 
 * Enable autoboot **(optional)**
@@ -550,12 +568,6 @@ Expected output:
 sudo rm -r /tmp/nym
 ```
 
-* Clean the compilation artifacts to reclaim space used for it
-
-```bash
-cargo clean
-```
-
 {% hint style="info" %}
 All socks5-client-specific configurations can be found in `/home/nym/.nym/socks5-clients/bitcoin/config/config.toml`. If you do edit any configs, remember to restart the service
 {% endhint %}
@@ -568,7 +580,7 @@ You can get more information about the complete documentation [here](https://nym
 
 ### Proxying Bitcoin Core
 
-So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. By doing this, we can reduce the volume of traffic on the Tor network.
+So far, we have been routing all clearnet network traffic through Tor. However, it is also possible to proxy outbound clearnet connections (IPv4/IPv6) using the NYM mixnet. Doing this can reduce the traffic volume on the Tor network.
 
 * With user `admin`, edit the `bitcoin.conf` file
 
@@ -1032,6 +1044,8 @@ sudo rm -r /tmp/nym
 
 ## Uninstall
 
+### Uninstall service <a href="#uninstall-service-and-user" id="uninstall-service-and-user"></a>
+
 * With user `admin`, stop network requester and socks5 client services
 
 ```bash
@@ -1042,6 +1056,14 @@ sudo systemctl stop nym-network-requester
 sudo systemctl stop nym-socks5-client
 ```
 
+* Disable autoboot (if enabled)
+
+{% code overflow="wrap" %}
+```bash
+sudo systemctl disable nym-network-requester && sudo systemctl disable nym-socks5-client
+```
+{% endcode %}
+
 * Delete network requester and socks5 client services
 
 ```bash
@@ -1051,6 +1073,8 @@ sudo rm /etc/systemd/system/nym-network-requester.service
 ```bash
 sudo rm /etc/systemd/system/nym-socks5-client.service
 ```
+
+### Delete user & group
 
 * Delete nym user. Don't worry about `userdel: nym mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 

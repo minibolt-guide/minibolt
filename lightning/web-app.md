@@ -122,7 +122,9 @@ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
 
 ## Installation
 
-We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and we will be running the code as the new user. We are going to install Thunderhub in the home directory since it doesn't need too much space.
+### Create the thunderhub user & group
+
+We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and run the code as the new user. We will install Thunderhub in the home directory since it doesn't need too much space.
 
 * Create a new `thunderhub` user
 
@@ -903,32 +905,32 @@ If the update fails, you probably will have to stop Thunderhub, follow the [Unin
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
-* Stop, disable, and delete the Thunderhub systemd service
+* With user `admin` , stop thunderhub
 
 ```sh
 sudo systemctl stop thunderhub
 ```
 
+* Disable autoboot (if enabled)
+
 ```sh
 sudo systemctl disable thunderhub
 ```
+
+* Delete the service
 
 ```sh
 sudo rm /etc/systemd/system/thunderhub.service
 ```
 
-* Delete the "thunderhub" user. It might take a long time as the Thunderhub user directory is big. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
+### Delete user & group
+
+* Delete the "thunderhub" user. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
 
 ```sh
 sudo userdel -rf thunderhub
-```
-
-Expected output:
-
-```
-> userdel: thunderhub mail spool (/var/mail/thunderhub) not found
 ```
 
 ### Uninstall Tor hidden service

@@ -38,9 +38,7 @@ It is called "Tor" for "The Onion Router": information is routed through many ho
 
 ### **Tor installation**
 
-Log in to your MiniBolt via SSH as the user `admin` and install Tor.
-
-* Update the packages and upgrade to keep up to date with the OS
+* With user `admin`, update and upgrade the packages to keep up to date with the OS
 
 ```bash
 sudo apt update && sudo apt full-upgrade
@@ -115,10 +113,10 @@ Bitcoin Core will communicate directly with the Tor daemon to route all traffic 
 * Edit the Tor configuration
 
 ```sh
-sudo nano /etc/tor/torrc --linenumbers
+sudo nano +56 /etc/tor/torrc --linenumbers
 ```
 
-* Uncomment **line 56** to enable the control port
+* Uncomment **line 56** to enable the control port by deleting `#` at the beginning of the line. Save and exit
 
 ```
 ControlPort 9051
@@ -538,6 +536,8 @@ The following packages will be REMOVED:
 
 ### **Tor troubleshooting**
 
+#### **Tor network issues**
+
 If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...) is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
 
 * Stop Tor
@@ -558,13 +558,43 @@ sudo rm /var/lib/tor/state
 sudo systemctl start tor
 ```
 
-If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to.
+{% hint style="info" %}
+\-> If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to
 
-If not, try using [obfs bridges](../index-4/index/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs bridges could help to avoid this censorship.
+\-> If not, try using [obfs bridges](../index-4/index/tor-bridge.md#add-bridge-to-tor-daemon) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs bridges could help to avoid this censorship
+{% endhint %}
 
 **Example** of Tor censorship output:
 
 ![](../images/tor-censorship.png)
+
+#### Tor keyring issues
+
+If you obtain this error after updating the repositories using the apt package manager, this means Tor
+
+<figure><img src="../.gitbook/assets/tor_keyring_error.png" alt=""><figcaption></figcaption></figure>
+
+This means Tor has renovated the signature due probably that is soon to expiry or expired, follow next steps to fix that:
+
+* With user `admin`, up to `"root"` user temporarily
+
+```sh
+sudo su
+```
+
+* Add the GPG key used to sign the packages by running the following command at your command prompt
+
+{% code overflow="wrap" %}
+```sh
+wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
+```
+{% endcode %}
+
+* Return to `admin` using `exit` command and try to do `sudo apt update` again and see the error doesn't appear
+
+```bash
+exit
+```
 
 ### **I2P troubleshooting**
 

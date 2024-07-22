@@ -52,7 +52,13 @@ You can obtain more info about nostr on these additional resources:
 
 ### Install dependencies
 
-* With user `admin`, make sure that all necessary software packages are installed
+* With user `admin`, update and upgrade your OS
+
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
+* Make sure that all necessary software packages are installed
 
 {% code overflow="wrap" %}
 ```bash
@@ -246,7 +252,7 @@ Copying files from `/etc/skel' ...
 sudo su - nostr
 ```
 
-* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step to not provide any (remember to leave the`favicon.ico`commented on the configuration file)
+* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step not to provide any (remember to leave the`favicon.ico`commented on the configuration file)
 
 {% code overflow="wrap" %}
 ```bash
@@ -854,12 +860,18 @@ sudo rm -r /tmp/nostr-rs-relay
 
 ## Uninstall
 
-### Uninstall service & user
+### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop `nostr-relay` service
+* With the user `admin`, stop nostr-relay
 
 ```bash
 sudo systemctl stop nostr-relay
+```
+
+* Disable autoboot (if enabled)
+
+```bash
+sudo systemctl disable nostr-relay
 ```
 
 * Delete `nostr-relay` service
@@ -868,22 +880,28 @@ sudo systemctl stop nostr-relay
 sudo rm /etc/systemd/system/nostr-relay.service
 ```
 
+### Delete user & group
+
 * Delete the nostr user. Don't worry about `userdel: nostr mail spool (/var/mail/nym) not found` output, the uninstall has been successful
 
 ```bash
 sudo userdel -rf nostr
 ```
 
-Expected output:
-
-```
-> userdel: nostr mail spool (/var/mail/nostr) not found
-```
+### Delete SQLite data directory [(if used)](nostr-relay.md#use-the-default-sqlite-database-backend)
 
 * Delete the nostr relay data folder
 
 ```bash
-sudo rm -r /data/nostr/relay
+sudo rm -r /data/nostr/rs-relay
+```
+
+### Delete the PostgreSQL database [(if used)](nostr-relay.md#install-postgresql)
+
+* Delete the `nostrelay` database
+
+```bash
+sudo -u postgres psql -c "DROP DATABASE nostrelay;"
 ```
 
 ### Uninstall the nostr relay of the Cloudflare tunnel
@@ -920,7 +938,7 @@ sudo systemctl restart cloudflared
 
 ### Uninstall binaries
 
-* Staying with user `admin,` delete the nostr-rs-relay binary of the system
+* With the user `admin`, delete the nostr-rs-relay binary of the system
 
 ```bash
 sudo rm /usr/local/bin/nostr-rs-relay

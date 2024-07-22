@@ -26,7 +26,13 @@ Difficulty: Medium
 
 ### Install PostgreSQL using the apt package manager
 
-* With user `admin`, create the file repository configuration
+* With user `admin`, update and upgrade your OS
+
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
+* create the file repository configuration
 
 {% code overflow="wrap" %}
 ```bash
@@ -170,10 +176,10 @@ Success. You can now start the database server using:
 * Edit the PostgreSQL data directory on configuration, to redirect the store to the new location
 
 ```bash
-sudo nano /etc/postgresql/16/main/postgresql.conf --linenumbers
+sudo nano +42 /etc/postgresql/16/main/postgresql.conf --linenumbers
 ```
 
-* Replace the `line 42` to this. Save and exit
+* Replace the `line 42` with `/var/lib/postgresql/16/main` to the next. Save and exit
 
 <pre><code><strong>data_directory = '/data/postgresdb'
 </strong></code></pre>
@@ -233,23 +239,10 @@ Removed /etc/systemd/system/multi-user.target.wants/postgresql.service.
 
 ### Create a PostgreSQL user account
 
-* With user `admin`, change to the automatically created user for the PostgreSQL installation called `postgres`
+* Create a new database `admin` user and assign the password "`admin`" with the automatically created user for the PostgreSQL installation, called `postgres`
 
-```bash
-sudo su - postgres
-```
-
-* Create a new database `admin` user and assign the password "`admin`"
-
-```bash
-psql -c "CREATE ROLE admin WITH LOGIN CREATEDB PASSWORD 'admin';"
-```
-
-* Come back to the `admin` user
-
-```bash
-exit
-```
+<pre class="language-bash"><code class="lang-bash"><strong>sudo -u postgres psql -c "CREATE ROLE admin WITH LOGIN CREATEDB PASSWORD 'admin';"
+</strong></code></pre>
 
 ## Extras (optional)
 
@@ -366,7 +359,7 @@ Replace `<NAMEOFDATABASE`> to the specific name of the database
 
 * Type the next command and enter
 
-```bash
+```sql
 SELECT pg_size_pretty(pg_database_size('<NAMEOFDATABASE>'));
 ```
 
@@ -376,7 +369,7 @@ Replace `<NAMEOFDATABASE`> to the specific name of the database
 
 **Example:**
 
-```bash
+```sql
 SELECT pg_size_pretty(pg_database_size('lndb'));
 ```
 
@@ -409,7 +402,7 @@ Replace `<NAMEOFDATABASE>` to the specific name of the database
 
 * View the size of a specific table
 
-```bash
+```sql
 SELECT pg_size_pretty(pg_total_relation_size('<NAMEOFTABLE>'));
 ```
 
@@ -419,7 +412,7 @@ Replace `<NAMEOFTABLE>` to the specific name of the database
 
 **Example:**
 
-```bash
+```sql
 SELECT pg_size_pretty(pg_total_relation_size('channeldb_kv'));
 ```
 
@@ -436,7 +429,7 @@ SELECT pg_size_pretty(pg_total_relation_size('channeldb_kv'));
 
 * Type the next command and enter
 
-```bash
+```sql
 DROP DATABASE <NAMEOFDATABASE>;
 ```
 
@@ -446,7 +439,7 @@ Replace `<NAMEOFTABLE>` to the specific name of the table
 
 Example:
 
-```bash
+```sql
 DROP DATABASE lndb;
 ```
 
@@ -484,7 +477,7 @@ Replace `<NAMEOFDATABASE>` to the specific name of the database
 Stop the service related to this table and database before the action, i.e: `sudo systemctl stop lnd`
 {% endhint %}
 
-```bash
+```sql
 DROP TABLE <NAMEOFTABLE>;
 ```
 
@@ -546,7 +539,13 @@ sudo rm -rf /etc/postgresql/ && sudo rm -rf /etc/postgresql-common/ && sudo rm -
 sudo userdel -rf postgres
 ```
 
-* Delete the complete `PostgreSQL` directory
+* Delete postgres group
+
+```bash
+sudo groupdel postgres
+```
+
+* Delete the complete `postgresdb` directory
 
 ```bash
 sudo rm -rf /data/postgresdb
