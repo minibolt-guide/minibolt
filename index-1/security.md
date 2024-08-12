@@ -124,7 +124,7 @@ If you find it locked out by mistake, you can connect a keyboard and screen to y
 More: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
 
-### Monitoring SSH authentication logs (optional)
+## Monitoring SSH authentication logs (optional)
 
 * You can monitor authentication general logs in your system in real-time
 
@@ -150,7 +150,9 @@ In this way, you can detect a possible brute-force attack and take appropriate m
 Do this regularly to get security-related incidents
 {% endhint %}
 
-## Install Nginx
+## Nginx
+
+### Installation
 
 Several components of this guide will expose a communication port, for example, the Block Explorer, or the ThunderHub web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
@@ -193,6 +195,8 @@ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-se
 ```
 > .......+......+...+..+....+.....+......++++++........
 ```
+
+### Configuration
 
 * NGINX is also a full web server. To use it only as a reverse proxy, backup the default configuration
 

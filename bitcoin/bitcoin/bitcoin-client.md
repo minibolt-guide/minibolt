@@ -292,19 +292,21 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 Replace the whole line starting with `"rpcauth=..."` the connection string you just generated
 {% endhint %}
 
-```
-# MiniBolt: bitcoind configuration
+<pre><code># MiniBolt: bitcoind configuration
 # /home/bitcoin/.bitcoin/bitcoin.conf
 
-## Bitcoin daemon
+# Bitcoin daemon
 server=1
 txindex=1
+
+# Disable integrated Bitcoin Core wallet
+disablewallet=1
 
 # Additional logs
 debug=tor
 debug=i2p
 
-# Assign read permission to the Bitcoin group users
+# Assign to the cookie file read permission to the Bitcoin group users
 startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
 
 # Disable debug.log
@@ -326,16 +328,18 @@ coinstatsindex=1
 
 # Network
 listen=1
+
+## P2P bind
 bind=127.0.0.1
 
-# Connect to clearnet using Tor SOCKS5 proxy
+## Proxify clearnet outbound connections using Tor SOCKS5 proxy
 proxy=127.0.0.1:9050
 
-# I2P SAM proxy to reach I2P peers and accept I2P connections
+## I2P SAM proxy to reach I2P peers and accept I2P connections
 i2psam=127.0.0.1:7656
 
-## Connections
-rpcauth=<replace with your own auth line generated in the previous step>
+# Connections
+rpcauth=<a data-footnote-ref href="#user-content-fn-3">&#x3C;replace with your own auth line generated in the previous step></a>
 
 # Initial block download optimizations (set dbcache size in megabytes 
 # (4 to 16384, default: 300) according to the available RAM of your device,
@@ -343,13 +347,13 @@ rpcauth=<replace with your own auth line generated in the previous step>
 # Remember to comment after IBD (Initial Block Download)!
 dbcache=2048
 blocksonly=1
-```
+</code></pre>
 
 {% hint style="info" %}
 **(Optional)** If you checked on the [Check IPv6 availability](../../index-1/security.md#check-ipv6-availability) section and you don't have IPv6 available, you can discard the IPv6 network and cjdns of the Bitcoin Core by adding the next lines at the end of the configuration file:
 
 ```
-# Disable IPv6 network
+# Disable IPv6 and cjdns networks
 onlynet=onion
 onlynet=i2p
 onlynet=ipv4
@@ -491,7 +495,7 @@ sudo systemctl start bitcoind
 Monitor the log file for a few minutes to see if it works fine (it may stop at "`dnsseed thread exit`", that's ok)
 {% endhint %}
 
-* Link the Bitcoin data directory from the `admin` user home directory as well. This allows `admin` user to work with bitcoind directly, for example using the command `bitcoin-cli`
+* Link the Bitcoin data directory from the `admin` user home directory as well. This allows `admin` user to work with bitcoind directly, for example, by using the command `bitcoin-cli`
 
 ```sh
 ln -s /data/bitcoin /home/admin/.bitcoin
@@ -517,7 +521,7 @@ Expected output:
 </strong>-rw------- 1 admin admin 51959 Nov  7 12:19 .bash_history
 -rw-r--r-- 1 admin admin   220 Nov  7 20:25 .bash_logout
 -rw-r--r-- 1 admin admin  3792 Nov  7 07:56 .bashrc
-lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-3">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-4">.bitcoin -> /data/bitcoin</a>
 -rw-r--r-- 1 admin admin   807 Nov  7  2023 .profile
 drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
 -rw-r--r-- 1 admin admin   208 Nov  7 19:32 .wget-hsts
@@ -527,7 +531,7 @@ drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
 {% hint style="warning" %}
 **Troubleshooting note:**\
 \
-If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-4)[^4]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-5)[^5]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
 1. Delete the failed created symbolic link
 
@@ -541,7 +545,7 @@ sudo rm -r .bitcoin
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-3. Check the symbolic link has been created correctly this time and you have now the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-5)[^5]
+3. Check the symbolic link has been created correctly this time and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-6)[^6]
 
 ```bash
 ls -la
@@ -591,9 +595,9 @@ sudo ss -tulpn | grep LISTEN | grep bitcoind
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
-> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
-> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+<pre><code>> tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-9">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
 > tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
 </code></pre>
 
@@ -1118,14 +1122,16 @@ sudo ufw delete X
 
 [^2]: Symbolic link
 
-[^3]: Symbolic link
+[^3]: Replace
 
 [^4]: Symbolic link
 
 [^5]: Symbolic link
 
-[^6]: RPC port
+[^6]: Symbolic link
 
-[^7]: P2P main port
+[^7]: RPC port
 
-[^8]: P2P secondary port
+[^8]: P2P main port
+
+[^9]: P2P secondary port

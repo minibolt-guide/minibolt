@@ -82,9 +82,10 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Add the following line to the `"# Connections"` section. Save and exit
+* Add the following lines to the `"# Connections"` section. Save and exit
 
-```sh
+```
+# Enable ZMQ blockhash notification (for Fulcrum)
 zmqpubhashblock=tcp://127.0.0.1:8433
 ```
 
@@ -512,10 +513,10 @@ tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",
 
 ### Remote access over Tor
 
-* Ensure that you are logged in with the user `admin` and edit the `torrc` file
+* With the user `admin`, edit the `torrc` file
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 * Add the following lines in the "location hidden services" section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit

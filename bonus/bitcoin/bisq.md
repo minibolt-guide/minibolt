@@ -181,14 +181,14 @@ For the national currency account and trading configuration options, please refe
 ### Backup
 
 * Still in the "Account" tab, now click on "Backup"
-* Click on "Select a backup location" and select a folder where your Bisq data will be backed-up
+* Click on "Select a backup location" and select a folder where your Bisq data will be backed up
 * Click on "Backup now (backup is not encrypted)"
 
 ### Wallet password
 
 * Still in the "Account" tab, click on "Wallet password"
 * Set a strong unique password (e.g., using your password manager) and click on "Set password"
-* In the pop-up window that just appeared, read the information and then click on "Set password, I already made a backup". Once done, close the confirmation window
+* In the pop-up window that just appeared, read the information and then click "Set password, I already made a backup". Once done, close the confirmation window
 
 {% hint style="success" %}
 Congrats! You're now ready to start buying and selling Bitcoin on Bisq securely and privately
@@ -196,7 +196,7 @@ Congrats! You're now ready to start buying and selling Bitcoin on Bisq securely 
 
 ## Upgrade
 
-Bisq will let you know when a new update is available. Simply follow the instructions on their announcement to download, verify, and install the update.
+Bisq will let you know when a new update is available. Follow the instructions on their announcement to download, verify, and install the update.
 
 ![](../../images/bisq-update.png)
 

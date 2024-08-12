@@ -602,10 +602,10 @@ Electrs must first fully index the blockchain and compact its database before yo
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-* Ensure that you are logged in with the user `admin`, edit the `torrc` file
+* Wwith the user `admin`, edit the `torrc` file
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit

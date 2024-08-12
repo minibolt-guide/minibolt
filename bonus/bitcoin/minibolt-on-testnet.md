@@ -60,7 +60,7 @@ sudo chmod g+rx /data/bitcoin/testnet3
 ```
 
 {% hint style="warning" %}
-**Attention:** the step before is very **important!** to allow LND to access to the `.cookie` file and startup without problems
+**Attention:** the step before is critical**!** to allow the Bitcoin Core dependencies to access the `.cookie` file and startup without problems
 {% endhint %}
 
 {% hint style="success" %}

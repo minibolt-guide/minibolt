@@ -14,6 +14,8 @@ layout:
 
 # NYM mixnet
 
+
+
 {% hint style="danger" %}
 This project is in a testing phase, which means that it could fail on numerous occasions and in cases of use, be conscious of this before starting this guide
 {% endhint %}
@@ -110,7 +112,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=nym-binaries-v2024.6-chomp
+VERSION=nym-binaries-v2024.9-topdeck
 ```
 
 * Clone the latest version of the source code from the GitHub repository and go to the nym folder
@@ -591,7 +593,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 * Modify the following line. Save and exit
 
 ```
-# Connect to clearnet using NYM socks5 proxy
+# Proxify clearnet outbound connections using NYM SOCKS5 proxy
 proxy=127.0.0.1:1080
 ```
 
@@ -934,7 +936,7 @@ Explorer to get information on the NYM network components
 
 ## Upgrade
 
-* First, ensure that you have the latest Rustc version following the [Upgrade section](rustup-+-cargo.md#upgrade) of the Rustup + Cargo bonus guide
+* First, ensure that you have the latest Rustc version following the [Upgrade section](rustup-+-cargo.md#upgrade) of the Rustup + Cargo bonus guide, or simply exec: `rustup update` command with the `admin` user
 * Follow again the entire [Compile NYM binaries from the source code](nym-mixnet.md#compile-nym-binaries-from-the-source-code) section until the **"Enter the command to compile"** step (inclusive), once you do that, continue with the next steps below:
 * With `admin` user, stop `NYM socks5 client & NYM Network requester`
 

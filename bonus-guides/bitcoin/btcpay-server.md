@@ -855,11 +855,13 @@ You can now create the first account to access the dashboard using a real (recom
 
 You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCPay Server with the Tor browser from any device.
 
-* Ensure that you are logged in with the user `admin` and add the following lines to the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
+* With the user `admin`, edit the `torrc` file
 
 ```bash
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
+
+* Add the following lines to the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
 
 ```
 # Hidden Service BTCPay Server

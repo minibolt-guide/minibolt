@@ -49,7 +49,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 * Add the following lines. Save and exit
 
 ```
-# LND RPC connection
+# Enable ZMQ raw notification (for LND)
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
@@ -413,10 +413,9 @@ tlsdisableautofill=true
 # (default: 20000 sats)
 <a data-footnote-ref href="#user-content-fn-12">#minchansize=20000</a>
 
-## High fee environment (Optional)
-# (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-13">#max-commit-fee-rate-anchors=50</a>
-<strong><a data-footnote-ref href="#user-content-fn-14">#max-channel-fee-allocation=1</a>
+## (Optional) High fee environment settings
+<a data-footnote-ref href="#user-content-fn-13">#max-commit-fee-rate-anchors=</a><a data-footnote-ref href="#user-content-fn-14">10</a>
+<strong><a data-footnote-ref href="#user-content-fn-15">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-16">0.5</a>
 </strong>
 ## Communication
 accept-keysend=true
@@ -436,12 +435,12 @@ bitcoin.node=bitcoind
 
 # Fee settings - default LND base fee = 1000 (mSat), fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,X)
-<a data-footnote-ref href="#user-content-fn-15">#bitcoin.basefee=1000</a>
-<a data-footnote-ref href="#user-content-fn-16">#bitcoin.feerate=1</a>
+<a data-footnote-ref href="#user-content-fn-17">#bitcoin.basefee=1000</a>
+<a data-footnote-ref href="#user-content-fn-18">#bitcoin.feerate=1</a>
 
-# The CLTV delta we will subtract from a forwarded HTLC's timelock value
+# (Optional) Specify the CLTV delta we will subtract from a forwarded HTLC's timelock value
 # (default: 80)
-<a data-footnote-ref href="#user-content-fn-17">#bitcoin.timelockdelta=144</a>
+<a data-footnote-ref href="#user-content-fn-19">#bitcoin.timelockdelta=8</a><a data-footnote-ref href="#user-content-fn-20">0</a>
 
 [protocol]
 protocol.wumbo-channels=true
@@ -454,7 +453,7 @@ wtclient.active=true
 
 # (Optional) Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-18">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-21">#wtclient.sweep-fee-rate=10</a>
 
 [watchtower]
 ## Watchtower server settings
@@ -474,7 +473,7 @@ db.postgres.timeout=0
 ## High fee environment (Optional)
 # (default: CONSERVATIVE) Uncomment the next 2 lines
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-19">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-22">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [tor]
 tor.active=true
@@ -844,7 +843,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-20">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-23">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -1126,7 +1125,7 @@ May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: System
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: Gracefully shutting down.
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.615 [INF] WTWR: Stopping watchtower
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Succeeded.
-May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-21">Stopped Lightning Network Daemon.</a>
+May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-24">Stopped Lightning Network Daemon.</a>
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU time.
 </code></pre>
 
@@ -1460,12 +1459,12 @@ lncli wallet accounts list | grep -B 3 "m/84"
 Example of expected output:
 
 <pre><code>            "address_type":  "TAPROOT_PUBKEY",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-22">xpub........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-25">xpub........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/86'/0'/0'",
 ------------------------
             "address_type":  "WITNESS_PUBKEY_HASH",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-23">zpub.........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-26">zpub.........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
@@ -1587,24 +1586,30 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^12]: (Uncomment and customize the value)
 
-[^13]: On the other hand, increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria**
+[^13]: This is the maximum fee rate in sat/vbyte that will be used for commitments of channels of the anchors type. Increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria** (default: 10 sat/byte)
 
-[^14]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria**
+[^14]: This is the maximum fee rate in sat/vbyte that will be used for commitments of channels of the anchors type. Increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria** (default: 10 sat/byte)
 
-[^15]: (Uncomment and customize the value)
+[^15]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
 
-[^16]: (Uncomment and customize the value)
+[^16]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
 
-[^17]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience**
+[^17]: (Uncomment and customize the value)
 
 [^18]: (Uncomment and customize the value)
 
-[^19]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value**
+[^19]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^20]: Symbolic link
+[^20]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved onchain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^21]: Check this
+[^21]: (Uncomment and customize the value)
 
-[^22]: Your Taproot master public key
+[^22]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value**
 
-[^23]: Your SegWit master public key
+[^23]: Symbolic link
+
+[^24]: Check this
+
+[^25]: Your Taproot master public key
+
+[^26]: Your SegWit master public key

@@ -147,7 +147,7 @@ sudo su - thunderhub
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=0.13.27
+VERSION=0.13.31
 ```
 
 * Import the GPG key of the developer
@@ -196,40 +196,48 @@ npm install
 <summary>Example of expected output ⬇️</summary>
 
 ```
-npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws    For general help using `graphql-ws`, see https://github.com/enisdenjo/graphql-ws/blob/master/README.md
-npm WARN deprecated apollo-server-plugin-base@3.7.2: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
-npm WARN deprecated apollo-server-types@3.8.0: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
-npm WARN deprecated apollo-server-express@3.12.0: The `apollo-server-express` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
-npm WARN deprecated apollo-server@3.12.0: The `apollo-server` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
-npm WARN deprecated apollo-reporting-protobuf@3.4.0: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
-npm WARN deprecated apollo-server-core@3.12.0: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
-(#################⠂) ⠧ reify:value-or-promise: timing reifyNode:node_modules/foreground-child/node_modules/signal-exit Completed in 39393ms
-[...]
-> thunderhub@0.13.19 prepare
+npm warn deprecated @types/cron@2.4.0: This is a stub types definition. cron provides its own type definitions, so you do not need this installed.
+npm warn deprecated stringify-package@1.0.1: This module is not used anymore, and has been replaced by @npmcli/package-json
+npm warn deprecated @babel/plugin-proposal-class-properties@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class                     -properties instead.
+npm warn deprecated apollo-datasource@3.3.2: The `apollo-datasource` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm warn deprecated apollo-server-plugin-base@3.7.2: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm warn deprecated apollo-server-types@3.8.0: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm warn deprecated apollo-server-errors@3.3.1: The `apollo-server-errors` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm warn deprecated @babel/plugin-proposal-object-rest-spread@7.20.7: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-object-rest-spread instead.
+npm warn deprecated @apollo/server-plugin-landing-page-graphql-playground@4.0.0: The use of GraphQL Playground in Apollo Server was supported in previous versions, but this is no longer the case as of December 31, 2022. This package exists for v4 migration purposes only. We do not intend to resolve security issues or other bugs with this package if they arise, so please migrate away from this to [Apollo Server's default Explorer](https://www.apollographql.com/docs/apollo-server/api/plugin/landing-pages) as soon as possible.
+npm warn deprecated apollo-server-env@4.2.1: The `apollo-server-env` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/utils.fetcher` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm warn deprecated apollo-reporting-protobuf@3.4.0: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm warn deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws    For general help using `graphql-ws`, see https://github.com/enisdenjo/graphql-ws/blob/master/README.md
+
+> thunderhub@0.13.31 prepare
 > husky install
 
 husky - Git hooks installed
 
-added 1879 packages, and audited 1880 packages in 1m
+added 1949 packages, and audited 1950 packages in 46s
 
-201 packages are looking for funding
+251 packages are looking for funding
   run `npm fund` for details
 
-16 vulnerabilities (1 low, 5 moderate, 10 high)
+23 vulnerabilities (2 low, 6 moderate, 15 high)
 
-To address all issues, run:
+To address issues that do not require attention, run:
   npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
 
 Run `npm audit` for details.
 npm notice
-npm notice New minor version of npm available! 9.5.1 -> 9.8.0
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v9.8.0
-npm notice Run npm install -g npm@9.8.0 to update!
+npm notice New patch version of npm available! 10.8.1 -> 10.8.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.8.2
+npm notice To update run: npm install -g npm@10.8.2
 npm notice
 ```
 
 </details>
 
+{% hint style="info" %}
 **(Optional)** Improve your privacy by opt-out of Next.js [telemetry](https://nextjs.org/telemetry)
 
 ```bash
@@ -247,6 +255,7 @@ You have opted-out of Next.js' anonymous telemetry program.
 No data will be collected from your machine.
 Learn more: https://nextjs.org/telemetry
 ```
+{% endhint %}
 
 * Build it
 
@@ -256,64 +265,74 @@ npm run build
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-> thunderhub@0.13.19 prebuild
+> thunderhub@0.13.31 prebuild
 > rimraf dist && rimraf .next
 
 
-> thunderhub@0.13.19 build
+> thunderhub@0.13.31 build
 > npm run build:nest && npm run build:next
 
 
-> thunderhub@0.13.19 build:nest
+> thunderhub@0.13.31 build:nest
 > nest build
 
 
-> thunderhub@0.13.19 build:next
+> thunderhub@0.13.31 build:next
 > cd src/client && next build
 
-Attention: Next.js now collects completely anonymous telemetry regarding usage.
-This information is used to shape Next.js' roadmap and prioritize features.
-You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-https://nextjs.org/telemetry
 
-- info Linting and checking validity of types
-- info Creating an optimized production build
-- info Compiled successfully
-- info Collecting page data
-- info Finalizing page optimization
+./src/components/chart/BarChart.tsx
+61:6  Warning: React Hook useMemo has a missing dependency: 'dataKey'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/chart/HorizontalBarChart.tsx
+139:6  Warning: React Hook useMemo has a missing dependency: 'maxValue'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/table/DebouncedInput.tsx
+30:6  Warning: React Hook useEffect has missing dependencies: 'debounce' and 'onChange'. Either include them or remove the dependency array. If 'onChange' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+ ✓ Linting and checking validity of types
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+ ✓ Creating an optimized production build
+ ✓ Compiled successfully
+ ✓ Collecting page data
+ ✓ Collecting build traces
+ ✓ Finalizing page optimization
 
 Route (pages)                              Size     First Load JS
-┌ λ /                                      22.3 kB         377 kB
+┌ λ /                                      23.9 kB         557 kB
 ├   /_app                                  0 B             243 kB
-├ λ /404                                   339 B           244 kB
-├ λ /amboss                                3.19 kB         250 kB
-├ λ /chain                                 5.39 kB         267 kB
-├ λ /channels                              5.84 kB         309 kB
-├ λ /channels/[slug]                       4.35 kB         251 kB
-├ λ /chat                                  5.61 kB         252 kB
-├ λ /dashboard                             568 B           247 kB
-├ λ /forwards                              10.3 kB         353 kB
-├ λ /leaderboard                           3.49 kB         279 kB
-├ λ /lnmarkets                             5.06 kB         249 kB
-├ λ /login                                 5.4 kB          249 kB
-├ λ /peers                                 6.03 kB         268 kB
-├ λ /rebalance                             8.16 kB         281 kB
-├ λ /settings                              8.44 kB         257 kB
-├ λ /settings/dashboard                    454 B           247 kB
-├ λ /sso                                   2.7 kB          246 kB
-├ λ /stats                                 6.13 kB         250 kB
-├ λ /swap                                  11 kB           286 kB
-├ λ /tools                                 7.12 kB         251 kB
-└ λ /transactions                          4.86 kB         345 kB
+├ λ /404                                   344 B           243 kB
+├ λ /amboss                                3.92 kB         250 kB
+├ λ /chain                                 5.69 kB         265 kB
+├ λ /channels                              6.61 kB         310 kB
+├ λ /channels/[slug]                       4.44 kB         250 kB
+├ λ /chat                                  6.63 kB         255 kB
+├ λ /dashboard                             586 B           247 kB
+├ λ /forwards                              23.5 kB         545 kB
+├ λ /leaderboard                           3.62 kB         281 kB
+├ λ /lnmarkets                             5.2 kB          248 kB
+├ λ /login                                 5.54 kB         249 kB
+├ λ /peers                                 6.29 kB         265 kB
+├ λ /rebalance                             9.28 kB         287 kB
+├ λ /settings                              8.66 kB         257 kB
+├ λ /settings/dashboard                    458 B           247 kB
+├ λ /sso                                   2.78 kB         246 kB
+├ λ /stats                                 7.02 kB         253 kB
+├ λ /swap                                  11.2 kB         289 kB
+├ λ /tools                                 7.38 kB         250 kB
+└ λ /transactions                          5.08 kB         523 kB
 + First Load JS shared by all              247 kB
-  ├ chunks/framework-d6b15d8b3dd1dcdb.js   45.2 kB
-  ├ chunks/main-c500a90111607c9d.js        27.7 kB
-  ├ chunks/pages/_app-a6dc7da2774e90d5.js  168 kB
-  ├ chunks/webpack-e7ee4d06fbc921c4.js     2.09 kB
-  └ css/d7f6629e77206f04.css               3.75 kB
+  ├ chunks/framework-80ea8c0f440c6a32.js   45.4 kB
+  ├ chunks/main-5aa2e2aecccdc7ca.js        33 kB
+  ├ chunks/pages/_app-43ed1c524f6479ab.js  162 kB
+  ├ chunks/webpack-bafa1815dd7342f2.js     2.17 kB
+  └ css/9f506b76c3634369.css               4.22 kB
 
 λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ```
@@ -360,21 +379,20 @@ nano thubConfig.yaml
 
 * Copy and paste the next information
 
-```
-masterPassword: 'PASSWORD' # Default password unless defined in account
+<pre><code>masterPassword: '<a data-footnote-ref href="#user-content-fn-1">PASSWORD</a>'
 accounts:
   - name: 'MiniBolt'
     serverUrl: '127.0.0.1:10009'
     macaroonPath: '/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon'
     certificatePath: '/data/lnd/tls.cert'
     password: '[E] ThunderHub password'
-```
+</code></pre>
 
 {% hint style="info" %}
 Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
 {% endhint %}
 
-* **(Optional)** You can pre-enable automatic healthchecks ping and/or channel backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (without indentation)
+* **(Optional)** You can pre-enable automatic healthchecks ping and/or channel backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (**without indentation**)
 
 Enable auto-backups:
 
@@ -599,10 +617,10 @@ Expected output:
 
 ### Remote access over Tor
 
-* Ensure that you are logged in with the user `admin` and edit the `torrc` file
+* With the user `admin`, edit the `torrc` file
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`". Save and exit
@@ -1012,3 +1030,5 @@ sudo ufw delete X
 | :--: | :-------: | :------------: |
 | 3000 |    TCP    |  Default port  |
 | 4002 | TCP (SSL) | Encrypted port |
+
+[^1]: Default password unless defined in account
