@@ -211,7 +211,7 @@ If the measured speeds are more than 100 MB/s, you're good
 
 **->** Now you can continue with the Security section of the guide, press [here](../../index-1/security.md)
 
-## Case 3: replace the data disk.
+## Case 3: replace the data disk
 
 Change de data disk in MiniBolt node.
 
@@ -272,7 +272,7 @@ sudo nano /etc/fstab
 
 We look for the line that has the `UUID` we copied earlier (which should have `/data` as the mount point) and comment it out by adding `#` at the beginning.
 
-We save and close the /etc/fstab file by pressing `Ctrl + o` and `ENTER`, and finally `Ctrl + x`.
+We save and close the `/etc/fstab` file by pressing `Ctrl + o` and `ENTER`, and finally `Ctrl + x`.
 
 ### Replace the disk
 
@@ -307,9 +307,7 @@ _Example_ expected output with existing partitions:
 > sdb1                     2219-782E         ext4     931.5G
 ```
 
-{% hint style="info" %}
-Here we will see if the new disk has been detected by the system and what unit name has been assigned to it. Normally `sda` is the name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: Samsung SSD 870"
-{% endhint %}
+> Here we will see if the new disk has been detected by the system and what unit name has been assigned to it. Normally `sda` is the name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: Samsung SSD 870"
 
 ### Delete the existing partition & create a new one
 
@@ -328,9 +326,7 @@ sudo fdisk /dev/sdb
 
 * Finally, don't forget, to type **`w`** to automatically write on disk and exit
 
-{% hint style="info" %}
-This will create a new partition called probably **`"sdb1"`**
-{% endhint %}
+> This will create a new partition called probably **`"sdb1"`**
 
 * Finally, format the new partition to `"Ext4"` and obtain the **UUID**
 
@@ -347,9 +343,7 @@ Superblock backups stored on blocks:
         32768, 98304, 163840, 229376, 294912, 819200, 884736
 </code></pre>
 
-{% hint style="info" %}
-Take note of your **UUID** e.g _**dafc3c67-c6e5-4eaa-8840-adaf604c85db**_ and the partition name of your secondary disk (normally **"sdb1"**)
-{% endhint %}
+> Take note of your **UUID** e.g _**dafc3c67-c6e5-4eaa-8840-adaf604c85db**_ and the partition name of your secondary disk (normally **"sdb1"**)
 
 ### Mount the secondary disk
 
@@ -408,9 +402,7 @@ df -h /data
 sudo hdparm -t --direct /dev/sdb
 ```
 
-{% hint style="success" %}
-If the measured speeds are more than 100 MB/s, you're good
-{% endhint %}
+> If the measured speeds are more than 100 MB/s, you're good
 
 ### Copy data
 
@@ -425,12 +417,10 @@ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 ```
 > NAME        MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL  MODEL
 > sdc                                                                    931.5G       > 500SSD1
-> └─sdc1 /mnt/old_disk     d5932005-de0a-4926-bccb-2a341b720555 ext4     931.5G
+> └─sdc1                 d5932005-de0a-4926-bccb-2a341b720555 ext4     931.5G
 ```
 
-{% hint style="info" %}
-We will assume that the partition of the old disk connected via USB is `sdc1`.
-{% endhint %}
+> We will assume that the partition of the old disk connected via USB is `sdc1`.
 
 * We create a directory to mount the old disk and then mount it.
 
@@ -459,7 +449,7 @@ bitcoin fulcrum lnd
 ```sh
 sudo rsync -aAXv /mnt/old_disk/ /data/
 ```
-> This may take several hours, depending on the size of your disk.
+> This may take several hours, depending on the size of your disk. It's an incremental process, so if you need to stop it, when you restart it, it will continue synchronizing from where it left off.
 
 * Umount old disk
 
@@ -495,7 +485,7 @@ ls /etc/systemd/system/multi-user.target.wants/
 sudo reboot
 ```
 
-### Check and clean up.
+### Check and clean up
 
 * Check if the new disk has been mounted.
 
