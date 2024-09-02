@@ -94,18 +94,20 @@ ls -la
 # This is a comment, don't enter this on the command line
 ```
 
-* **Auto-complete commands**: You can use the `Tab` key for auto-completion when you enter commands, i.e., for commands, directories, or filenames.
+* **Auto-complete commands**: you can use the `Tab` key for auto-completion when you enter commands, i.e., for commands, directories, or filenames.
 * **Command history**: by pressing ⬆️ (arrow up) and ⬇️ (arrow down) on your keyboard, you can recall previously entered commands.
-*   **Use admin privileges**: Our regular user has no direct admin privileges. If a command needs to edit the system configuration, we must use the `sudo` ("superuser do") command as a prefix. Instead of editing a system file with `nano /etc/fstab`, we use `sudo nano /etc/fstab`.
+*   **Use admin privileges**: our regular user has no direct admin privileges. If a command needs to edit the system configuration, we must use the `sudo` ("superuser do") command as a prefix. Instead of editing a system file with `nano /etc/fstab`, we use `sudo nano /etc/fstab`.
 
     For security reasons, service users like "bitcoin" cannot use the `sudo` command.
-* **Using the Nano text editor**: We use the Nano editor to create new text files or edit existing ones. It's not complicated, but saving and exiting are not intuitive.
+* **Using the Nano text editor**: we use the Nano editor to create new text files or edit existing ones. It's not complicated, but saving and exiting are not intuitive.
   * Save: hit `Ctrl-O` (for Output), confirm the filename, and hit the `Enter` key
   * Exit: hit `Ctrl-X`
-*   **Copy / Paste**: If you are using Windows and the PuTTY SSH client, you can copy text from the shell by selecting it with your mouse (no need to click anything), and paste stuff at the cursor position with a right-click anywhere in the ssh window.
+*   **Copy / Paste**: if you are using Windows and the PuTTY SSH client, you can copy text from the shell by selecting it with your mouse (no need to click anything), and paste stuff at the cursor position with a right-click anywhere in the ssh window.
 
     In other Terminal programs, copy/paste usually works with `Ctrl`-`Shift`-`C` and `Ctrl`-`Shift`-`V`.
 
 ## Port reference
 
-<table data-full-width="false"><thead><tr><th align="center">Port</th><th align="center">Protocol</th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">22</td><td align="center">TCP</td><td align="center">Default SSH port</td></tr></tbody></table>
+| Port | Protocol |           Use           |
+| :--: | :------: | :---------------------: |
+|  22  |    TCP   | Default SSH server port |

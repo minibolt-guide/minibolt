@@ -747,7 +747,7 @@ sudo ufw delete X
 
 ## Port reference
 
-| Port |  Protocol |       Use      |
-| :--: | :-------: | :------------: |
-| 3002 |    TCP    |  Default port  |
-| 4000 | TCP (SSL) | Encrypted port |
+| Port |  Protocol |           Use          |
+| :--: | :-------: | :--------------------: |
+| 3002 |    TCP    |    Default HTTP port   |
+| 4000 | TCP (SSL) | HTTPS port (encrypted) |

@@ -237,6 +237,18 @@ Removed /etc/systemd/system/multi-user.target.wants/postgresql.service.
 ```
 {% endhint %}
 
+* Ensure PostgreSQL is listening on the default relational database port
+
+```bash
+sudo ss -tulpn | grep LISTEN | grep postgres
+```
+
+Expected output:
+
+```
+tcp   LISTEN 0      200            127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=1538218,fd=6))
+```
+
 ### Create a PostgreSQL user account
 
 * Create a new database `admin` user and assign the password "`admin`" with the automatically created user for the PostgreSQL installation, called `postgres`
@@ -550,3 +562,9 @@ sudo groupdel postgres
 ```bash
 sudo rm -rf /data/postgresdb
 ```
+
+## Port reference
+
+| Port | Protocol |             Use            |
+| :--: | :------: | :------------------------: |
+| 5432 |    TCP   | Default relational DB port |

@@ -299,7 +299,7 @@ Replace the whole line starting with `"rpcauth=..."` the connection string you j
 server=1
 txindex=1
 
-# Disable integrated Bitcoin Core wallet
+# Disable integrated wallet
 disablewallet=1
 
 # Additional logs
@@ -353,7 +353,7 @@ blocksonly=1
 **(Optional)** If you checked on the [Check IPv6 availability](../../index-1/security.md#check-ipv6-availability) section and you don't have IPv6 available, you can discard the IPv6 network and cjdns of the Bitcoin Core by adding the next lines at the end of the configuration file:
 
 ```
-# Disable IPv6 and cjdns networks
+# Disable IPv6 & cjdns networks
 onlynet=onion
 onlynet=i2p
 onlynet=ipv4
@@ -742,7 +742,7 @@ sudo systemctl stop bitcoind
 * Delete
 
 ```bash
-sudo rm /data/bitcoin/onion_v3_private_key && 
+sudo rm /data/bitcoin/onion_v3_private_key && /data/bitcoin/i2p_private_key
 ```
 
 * Start bitcoind again
@@ -1112,11 +1112,11 @@ sudo ufw delete X
 
 ## Port reference
 
-| Port | Protocolo |         Use        |
-| :--: | :-------: | :----------------: |
-| 8333 |    TCP    |      P2P port      |
-| 8332 |    TCP    |      RPC port      |
-| 8334 |    TCP    | P2P secondary port |
+| Port | Protocolo |             Use            |
+| :--: | :-------: | :------------------------: |
+| 8333 |    TCP    |      Default P2P port      |
+| 8332 |    TCP    |      Default RPC port      |
+| 8334 |    TCP    | Default P2P secondary port |
 
 [^1]: Check this
 

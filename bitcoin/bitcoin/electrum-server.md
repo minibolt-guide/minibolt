@@ -816,11 +816,11 @@ Filename            Type                Size           Used    Priority
 
 ## Port reference
 
-|  Port |  Protocol |       Use      |
-| :---: | :-------: | :------------: |
-| 50001 |    TCP    |  Default port  |
-| 50002 | TCP (SSL) | Encrypted port |
-|  8000 |    TCP    |   Admin port   |
+|  Port |  Protocol |     Use    |
+| :---: | :-------: | :--------: |
+| 50001 |    TCP    |  TCP port  |
+| 50002 | TCP (SSL) |  SSL port  |
+|  8000 |    TCP    | Admin port |
 
 [^1]: zmqpubhashblock port
 

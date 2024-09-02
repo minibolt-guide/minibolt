@@ -322,14 +322,14 @@ If you want to log into your MiniBolt with SSH when you're away, you can easily 
 * Ensure that you are logged in with the user `admin` , edit the `torrc` file
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```
 # Hidden Service SSH server
-HiddenServiceDir /var/lib/tor/hidden_service_sshd/
+HiddenServiceDir /var/lib/tor/hidden_service_ssh_server/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 22 127.0.0.1:22
@@ -344,7 +344,7 @@ sudo systemctl reload tor
 * Get the SSH Onion address
 
 ```sh
-sudo cat /var/lib/tor/hidden_service_sshd/hostname
+sudo cat /var/lib/tor/hidden_service_ssh_server/hostname
 ```
 
 **Example** of expected output:
@@ -620,8 +620,8 @@ sudo systemctl restart i2pd
 
 ## Port reference
 
-| Port | Protocol |         Use        |
-| :--: | :------: | :----------------: |
-| 9050 |    TCP   |    Default port    |
-| 9051 |    TCP   |    Control port    |
-| 7656 |    TCP   | I2P SAM proxy port |
+| Port | Protocol |             Use            |
+| :--: | :------: | :------------------------: |
+| 9050 |    TCP   |     Default SOCKS port     |
+| 9051 |    TCP   |    Default control port    |
+| 7656 |    TCP   | Default I2P SAM proxy port |
