@@ -79,7 +79,7 @@ Once all of this is done, you need to wait for the registrar to update the names
 <figure><img src="../../.gitbook/assets/DNS-records.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-You can add a new record manually by clicking on the **Add record** button. More later we will use this. Right now you will not have any record
+You can manually add a new record by clicking the "**Add record"** button. More later we will use this. Right now you will not have any record
 {% endhint %}
 
 {% hint style="info" %}
@@ -97,7 +97,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=2024.8.3
+VERSION=2024.9.1
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -297,7 +297,7 @@ ingress:
 
 ### Configure Cloudflare DNS records
 
-* Now, we go back to the Cloudflare DNS records table to do modifications.
+* We will go back to the Cloudflare DNS records table to make modifications.
 
 If you wanted to expose 2 services or more, that is to say, you ingressed more than one service on the ingress rules, follow the next steps, if not, you can only check the current recently created registry or jump directly to the next [Increase the maximum UDP Buffer Sizes](cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) section:
 

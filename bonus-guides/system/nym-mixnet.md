@@ -112,7 +112,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=nym-binaries-v2024.9-topdeck
+VERSION=nym-binaries-v2024.10-caramello
 ```
 
 * Clone the latest version of the source code from the GitHub repository and go to the nym folder

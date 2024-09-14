@@ -121,7 +121,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=1.11.0
+VERSION=1.11.1
 ```
 
 * Download the application, checksums, and signature
@@ -199,6 +199,20 @@ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 
 ```sh
 tar -xvf Fulcrum-$VERSION-x86_64-linux.tar.gz
+```
+
+**Example** of expected output:
+
+```
+Fulcrum-1.11.1-amd64-linux/
+Fulcrum-1.11.1-amd64-linux/man/
+Fulcrum-1.11.1-amd64-linux/man/Fulcrum.1
+Fulcrum-1.11.1-amd64-linux/FulcrumAdmin
+Fulcrum-1.11.1-amd64-linux/fulcrum-example-config.conf
+Fulcrum-1.11.1-amd64-linux/LICENSE.txt
+Fulcrum-1.11.1-amd64-linux/Fulcrum
+Fulcrum-1.11.1-amd64-linux/unix-man-page.md
+Fulcrum-1.11.1-amd64-linux/fulcrum-quick-config.conf
 ```
 
 ### Binaries installation
