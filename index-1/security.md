@@ -121,7 +121,7 @@ sudo ufw status verbose
 {% hint style="info" %}
 If you find it locked out by mistake, you can connect a keyboard and screen to your PC to log in locally and fix these settings (especially for the SSH port 22)
 
-More: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
+More info: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 {% endhint %}
 
 ## Monitoring SSH authentication logs (optional)

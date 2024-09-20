@@ -26,10 +26,10 @@ We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interf
 
 ## Balena Etcher and Ubuntu Server
 
-To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application
+To flash the operating system **(.iso file)** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application:
 
 * Go to the website and [download](https://etcher.balena.io/#download-etcher) the correct binary according to your OS
-* Direct download Ubuntu Server **22.04.5** LTS by clicking [here](https://releases.ubuntu.com/22.04.5/ubuntu-22.04.5-live-server-amd64.iso?\_gl=1\*11bdyss\*\_gcl\_au\*MjEzMzQ1OTA4Ny4xNzI1NzM4NzMz&\_ga=2.168914021.550945251.1726844857-324556832.1725738732)
+* Direct download Ubuntu Server **22.04.5** LTS by clicking [here](https://releases.ubuntu.com/22.04.5/ubuntu-22.04.5-live-server-amd64.iso)
 
 {% hint style="warning" %}
 MiniBolt has currently been tested using **Ubuntu Server 22.04.5 LTS (Jammy Jellyfish)**, it has not been tested on other distributions or versions and there is no guarantee that it will work well on them
