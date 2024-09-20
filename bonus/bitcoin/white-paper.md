@@ -20,21 +20,21 @@ layout:
 
 # Download the bitcoin whitepaper
 
-Download the Bitcoin white paper PDF directly from the blockchain data on your own node and witness the power of a decentralized network to fight censorship.
+Download the Bitcoin white paper PDF directly from the blockchain data on your node and witness the power of a decentralized network to fight censorship.
 
 {% hint style="success" %}
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/paper-pink.png)
+<figure><img src="../../.gitbook/assets/whitepaper_screen.png" alt=""><figcaption></figcaption></figure>
 
 ## Introduction
 
-The Bitcoin white paper PDF was encoded in the blockchain in April 2013, in the transaction `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713` of block `230,009`.
+The Bitcoin whitepaper PDF was encoded in the blockchain in April 2013, in the transaction `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713` of block `230009.`
 
 The transaction contains 947 outputs and the sender spent almost 60 million sats as miner fee! Some explanations of how the paper is encoded in the transaction are given in a [Bitcoin StackExchange post](https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970) from 2015.
 
-This guide explains how to reconstruct the Bitcoin white paper PDF using your own verified blockchain data. No matter how censored the white paper could become (see [this article about white paper copyright claims](https://bitcoinmagazine.com/business/copa-suing-craig-wright-over-bitcoin-white-paper-claims)), you will know how to recreate and share the foundational document of Bitcoin.
+This guide explains how to reconstruct the Bitcoin white paper PDF using your verified blockchain data. No matter how censored the white paper could become (see [this article about white paper copyright claims](https://bitcoinmagazine.com/business/copa-suing-craig-wright-over-bitcoin-white-paper-claims)), you will know how to recreate and share the foundational document of Bitcoin.
 
 ## Preparations
 
@@ -123,21 +123,6 @@ pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
 
 * The file should now be located in the Home folder of your local computer.
 
-### Send the PDF to your Telegram account
-
-🚨 **Privacy warning**: Using this method will leak your IP address to the Telegram server.
-
-* Follow [this tutorial](https://www.shellhacks.com/telegram-api-send-message-personal-notification-bot/) to create a new Telegram bot (up to, and including, 'Get the Chat ID'). Write down the bot ID and the chat ID in a secure location (e.g., your password manager)
-* Send the white paper to your bot (replace YourChatID and YourBotID by respectively your chat and bot ID obtained from the previous step). It might take a few seconds
-
-{% code overflow="wrap" %}
-```sh
-curl -v -F "chat_id=YourChatID" -F document=@/tmp/bitcoin.pdf https://api.telegram.org/botYourBotID/sendDocument
-```
-{% endcode %}
-
-* The PDF should now be available for download in your Telegram bot
-
 ## Get the whitepaper from BTC RPC Explorer
 
 The BTC RPC Explorer has also a functionality to extract the data from the node and display the PDF in the web browser.
@@ -146,5 +131,5 @@ The BTC RPC Explorer has also a functionality to extract the data from the node 
 
 * Open your Explorer at [https://minibolt.local:4000](https://miniboltt.local:4000/) or replace "minibolt.local" with your node IP address if needed)
 * Look up the transaction ID in explorer: `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713`
-* Click on the link "bitcoin whitepaper" in the top box, this will generate the PDF from the node blockchain and displays it as a pdf file in the browser
-* Alternatively, use the following URL: [https://minibolt.local:4000/bitcoin-whitepaper](https://minibolt.local:4000/bitcoin-whitepaper)
+* Click on the link "bitcoin whitepaper" in the top box, this will generate the PDF from the node blockchain and display it as a PDF file in the browser
+* Alternatively, use the following direct URL: [https://minibolt.local:4000/bitcoin-whitepaper](https://minibolt.local:4000/bitcoin-whitepaper)

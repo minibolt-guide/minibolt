@@ -870,7 +870,9 @@ lncli getinfo
 
 ## LND in action
 
-💊 Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real Bitcoin to your MiniBolt, you have "skin in the game"
+{% hint style="success" %}
+&#x20;Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real Bitcoin to your MiniBolt, you have "skin in the game"
+{% endhint %}
 
 {% hint style="info" %}
 The next commands can be entered in any new session without keeping a specific terminal opened with logs, but I recommend keeping this just in case any log could give extra information about the command you just entered
@@ -1363,7 +1365,11 @@ The `[WRN]` logs indicate that LND has detected an existing old bbolt database a
 [...]
 ```
 
+
+
 \-> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
+
+
 
 Pay attention to this `[INF]` significant log to confirm you are using PostgreSQL now
 
@@ -1404,7 +1410,7 @@ exit
 
 Quick reference with special commands to play around with:
 
-#### Create your own Re-Usable Static AMP invoice
+#### -> Create your own Re-Usable Static AMP invoice
 
 {% code overflow="wrap" %}
 ```bash
@@ -1418,13 +1424,13 @@ The flags `--memo` |`--amt` & `--expiry` are optional. The default expiry time w
 Copy the output `[lnbc...]` of the "payment\_request": "`lnbc...`". Transform your output payment request into a QR code, embed it on your website, or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools
 {% endhint %}
 
-#### Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
+#### -> Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
 ```sh
 lncli payinvoice --amt <amount> <amp invoice>
 ```
 
-#### Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
+#### -> Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
 
 ```sh
 lncli sendpayment --dest <destination public key> --amt <amount> --amp
@@ -1447,7 +1453,7 @@ Payment status: SUCCEEDED, preimage: 7c7c34c655eaea4f683db53f22ca2f5256758eb260f
 If you want to send a circular payment to yourself, add the next flag at the end of the command:`--allow_self_payment`
 {% endhint %}
 
-#### Extract the SegWit and Taproot master public key of your onchain LND wallet
+#### -> Extract the SegWit and Taproot master public key of your onchain LND wallet
 
 {% code overflow="wrap" %}
 ```bash

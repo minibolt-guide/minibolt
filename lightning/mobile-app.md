@@ -17,9 +17,9 @@ layout:
 
 # 3.4 Mobile app: Zeus
 
-We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connects to your LN node over Tor. Make payments with lightning or on-chain and manage your channels while you're on the go.
+We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connects to your Lightning network node. Make payments with lightning or on-chain and manage your channels while you're on the go.
 
-![](../.gitbook/assets/zeus.png)
+<figure><img src="../.gitbook/assets/zeus_logo.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## Requirements
 
@@ -173,32 +173,45 @@ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
 
 lndconnect generates a URI and displays it as a QR code that Zeus can read.
 
-* Still with the `admin` user, and use the following command
-  * If you want to use the Tor connection, make sure to replace the `.onion` address with the one you generated above
+* Still with the `admin` user, and use the following command depending on if you want If you want to use the:
 
-```sh
+{% tabs %}
+{% tab title="Tor connection" %}
+Set the `--host` parameter with the  `.onion` address with the one you generated above. e.g. abcdefg......xyz.onion
+
+```bash
 lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
 ```
+{% endtab %}
 
-* If you used the Wireguard VPN connection following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md), replace the `.onion` address with the private Wireguard VPN IP address (recommended)
+{% tab title="Wireguard VPN connection (recommended) " %}
+After following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md) set the `--host` parameter address with the private Wireguard VPN IP address. e.g. 10.0.0.1
 
-```sh
+```bash
 lndconnect --host=10.0.0.1 --port=8080 --nocert
 ```
+{% endtab %}
 
-* If you want to use the local connection with the IP address of MiniBolt, e.g: 192.168.X.XXX
+{% tab title="Local network connection" %}
+Set the `--host` parameter with the IP address of MiniBolt. e.g 192.168.1.10
 
-```sh
+```bash
 lndconnect --host=192.168.X.XXX --port=8080
 ```
+{% endtab %}
+{% endtabs %}
 
-* It will be a big QR code, so maximize your terminal window and use `CTRL`+`-` / `"Terminal unzoom"` / `"Zoom out"` options of your terminal, to shrink the code further to fit the screen
+* It will be a big QR code, so maximize your terminal window and use `CTRL+- / "Terminal unzoom" / "Zoom out"` options of your terminal, to shrink the code further to fit the screen or if you prefer you can use `-j`  parameter to get a code you can copy and paste into the app
 
-⌛ Keep the SSH session with the QR code open, it will be necessary later to scan the obtained QR code
+{% hint style="warning" %}
+Keep the SSH session with the QR code open, it will be necessary later to scan the obtained QR code
+{% endhint %}
 
 ## Install the Zeus app
 
-On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus), or directly from the [GitHub repository](https://github.com/ZeusLN/zeus/releases), if you can’t or do not want to use Google Play. Tap it, download it, and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, simply follow the on-screen instructions to do so.
+On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus) or the GitHub repository if you can’t or do not want to use Google Play. Tap it, download it, and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, follow the on-screen instructions to do so.
+
+<figure><img src="../.gitbook/assets/zeus.png" alt=""><figcaption></figcaption></figure>
 
 ### Connect Zeus to LND
 
@@ -264,7 +277,7 @@ sudo ufw delete X
 
 ### Uninstall Tor
 
-You need to uninstall the app on your phone and deactivate the LND REST API Tor hidden service.
+You must uninstall the app on your phone and delete the LND REST API on Tor hidden service.
 
 * Uninstall the app on your phone
 * To deactivate the LND REST API Tor hidden service, comment out the hidden service lines in `torrc` and reload Tor

@@ -8,29 +8,29 @@ description: >-
 
 <figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
 
-Build your own "do-everything-yourself" Bitcoin full node on a personal computer, that will make you a sovereign peer in the Bitcoin and Lightning network.
+Build your own "do-everything-yourself" Bitcoin full node, Lightning and other stuff on a personal computer, making you sovereign.
 
 No need to trust anyone else. Don't trust, verify!
 
 ## What is the MiniBolt?
 
-With this guide, you can set up a Bitcoin and Lightning node on a personal computer from scratch, doing everything yourself. You will learn about Linux, Bitcoin, and Lightning. As a result, you'll have your very own Bitcoin node, built by you and no one else.
+With this guide, you can set up a Bitcoin, Lightning node and other stuff on a personal computer, doing everything yourself. You will learn about Linux, Bitcoin, Lightning and much more.
 
 <figure><img src=".gitbook/assets/tgfoss-build-under-win.gif" alt=""><figcaption></figcaption></figure>
 
 There are many reasons why you should run your own Bitcoin node:
 
-👥 **Keep Bitcoin decentralized.** Use your node to help enforce your Bitcoin consensus rules.
+👥 **Keep Bitcoin decentralized:** use your node to help enforce your Bitcoin consensus rules.
 
-🗽 **Take back your sovereignty.** Let your node validate your own Bitcoin transactions. No need to ask someone else to tell you what's happening in the Bitcoin network.
+🗽 **Take back your sovereignty:** let your node validate your Bitcoin transactions. No need to ask someone else to tell you what's happening in the Bitcoin network.
 
-🥷🏽 **Improve your privacy.** Connect your wallets to your node so that you no longer need to reveal their whole financial history to external servers.
+🥷🏽 **Improve your privacy:** connect your wallets to your node so you no longer need to reveal their financial history to external servers.
 
-⚡️ **Be part of Lightning.** Run your Lightning node for everyday payments and help build a robust, decentralized Bitcoin Lightning network.
+⚡️ **Be part of Lightning:** run your Lightning node for everyday payments and help build a robust and decentralized Lightning network.
 
 ## MiniBolt overview
 
-This guide explains setting up your own Bitcoin node on a Personal Computer. However, it works on most hardware platforms because it only uses standard Debian Linux commands.
+This guide explains setting up your own Bitcoin node on a personal computer. However, it works on most hardware platforms because it only uses standard Debian-based Linux commands.
 
 ### Features
 
@@ -63,7 +63,7 @@ We aim to keep the core of this guide well-maintained and up-to-date:
 
 ## How to build
 
-* **YouTube list** building MiniBolt in live with [Alberto](https://twitter.com/Albercoin) of Laboratorio Virtual Bitcoin (Spanish)
+* **YouTube list** building MiniBolt in live with Albercoin of [Laboratorio Virtual Bitcoin](https://www.youtube.com/@LaboratorioVirtualBitcoin) (Spanish)
 
 {% embed url="https://youtube.com/playlist?list=PL7-Q40ihLbmP9vXZGdQgEozQnFISzT8ms" %}
 
@@ -71,12 +71,13 @@ We aim to keep the core of this guide well-maintained and up-to-date:
 
 <table data-card-size="large" data-view="cards" data-full-width="false"><thead><tr><th align="center"></th><th></th><th></th></tr></thead><tbody><tr><td align="center"><strong>🛠️</strong> <a href="https://github.com/minibolt-guide/minibolt"><strong>GitHub</strong></a> <strong>🛠️</strong></td><td></td><td><ul><li><a href="https://github.com/minibolt-guide/minibolt/pulls">Pull requests</a></li><li><a href="https://github.com/minibolt-guide/minibolt/issues">Issues / Knowledge base</a></li><li><a href="https://github.com/orgs/minibolt-guide/discussions">Discussions</a></li></ul></td></tr><tr><td align="center"><strong>👥 RRSS 👥</strong></td><td></td><td><ul><li>Reddit sub: <a href="https://www.reddit.com/r/minibolt/">r/minibolt</a></li><li><a href="https://satellite.earth/n/MiniBolt/npub1k9luehc8hg3c0upckdzzvusv66x3zt0eyw7290kclrpsndepz92sfcpp63">Nostr community</a></li><li><p>Telegram Groups:</p><ul><li><a href="https://t.me/minibolt">English</a></li><li><a href="https://t.me/minibolt_es">Spanish</a></li></ul></li><li><p>Nostr channels:</p><ul><li><a href="https://www.nostrchat.io/channel/aa64f2ead929ce8417f85bde7d22ebde13cc01ceb4e00145572437eb1ad46249">English</a></li><li><a href="https://www.nostrchat.io/channel/3bd633eaad12242572bfc5ba10d3e52b2c0e152f4207383858993c373d314015">Spanish</a></li></ul></li></ul></td></tr></tbody></table>
 
-\
+{% hint style="info" %}
 Feel free to join the many other contributors if you see something that can be improved!
+{% endhint %}
 
 ## Rating
 
-All guides are rated with labels to help you assess the difficulty of each guide, and if it is tested against the most recent version of the main guide.
+All guides are rated with labels to help you assess their difficulty and whether they are tested against the most recent version of the main guide.
 
 * **Difficulty:** indicates how difficult the bonus guide is in terms of installation procedure or usage
 

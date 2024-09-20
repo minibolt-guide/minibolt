@@ -17,9 +17,9 @@ layout:
 
 # 2.3 Blockchain explorer: BTC RPC Explorer
 
-Run your own private blockchain explorer with [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer). Trust your node, not some external services.
+Run your private blockchain explorer with [BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer). Trust your node, not some external services.
 
-![](../../images/btcrpcexplorer-homepage.png)
+<figure><img src="../../.gitbook/assets/btc_rpc_explorer_logo.png" alt=""><figcaption></figcaption></figure>
 
 ## Requirements
 
@@ -62,7 +62,9 @@ npm -v
 ```
 
 {% hint style="info" %}
-If the version is **`>=18`**, you can move to the next section. If Nodejs is not installed, follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
+\-> If the "`node -v"` output is **`>=18`**, you can move to the next section.
+
+\-> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 * Update and upgrade your OS
@@ -412,7 +414,7 @@ Expected output:
 ```
 
 {% hint style="success" %}
-**Congratulations!** You now have the BTC RPC Explorer running to check the Bitcoin network information directly from your node
+Congrats! Now you have a Blockchain Explorer: BTC RPC Explorer running to check the Bitcoin network information directly from your node
 {% endhint %}
 
 ## Extras (optional)
@@ -677,7 +679,7 @@ sudo userdel -rf btcrpcexplorer
 * Ensure that you are logged in with the user `admin` and delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```bash
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 ```

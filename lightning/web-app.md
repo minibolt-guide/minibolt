@@ -17,9 +17,9 @@ layout:
 
 # 3.3 Web app: ThunderHub
 
-[ThunderHub](https://thunderhub.io/) is an open source LND node manager where you can manage and monitor your node on any device or browser. It allows you to take control of the lightning network with a simple and intuitive UX and the most up-to-date tech stack.
+[ThunderHub](https://thunderhub.io/) is an open-source LND node manager where you can manage and monitor your node on any device or browser. It allows you to take control of the lightning network with a simple and intuitive UX and the most up-to-date tech stack.
 
-![](../images/thunderhub.png)
+<figure><img src="../.gitbook/assets/thunderhub_logo.png" alt=""><figcaption></figcaption></figure>
 
 ## Requirements
 
@@ -59,7 +59,9 @@ npm -v
 ```
 
 {% hint style="info" %}
-If the version is `>=18`, you can move to the next section. If Node.js is not installed, follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+\-> If the "`node -v"` output is **`>=18`**, you can move to the next section.
+
+\-> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 ### Reverse proxy & Firewall
@@ -156,7 +158,7 @@ VERSION=0.13.31
 curl https://github.com/apotdevin.gpg | gpg --import
 ```
 
-* Download the source code directly from GitHub, selecting the latest release branch associated and go to the `thunderhub` folder
+* Download the source code directly from GitHub, select the latest release branch associated, and go to the `thunderhub` folder
 
 {% code overflow="wrap" %}
 ```sh
@@ -610,7 +612,7 @@ Expected output:
 </code></pre>
 
 {% hint style="success" %}
-**Congratulations!** You now have Thunderhub up and running
+Congrats**!** You now have a LND node manager Web app: Thunderhub up and running
 {% endhint %}
 
 ## Extras (optional)
@@ -956,7 +958,7 @@ sudo userdel -rf thunderhub
 * Comment or remove the ThunderHub hidden service lines in torrc. Save and exit
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 ```

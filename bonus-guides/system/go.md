@@ -20,7 +20,7 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/golang.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/golang.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## Installation
 

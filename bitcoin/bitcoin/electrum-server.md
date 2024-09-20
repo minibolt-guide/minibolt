@@ -17,7 +17,7 @@ layout:
 
 # 2.2 Electrum Server: Fulcrum
 
-[Fulcrum](https://github.com/cculianu/Fulcrum) is a fast & nimble SPV server for Bitcoin created by Calin Culianu. It can be used as an alternative to Electrs because of its performance, as we can see in Craig Raw's [comparison](https://www.sparrowwallet.com/docs/server-performance.html) of servers.
+[Fulcrum](https://github.com/cculianu/Fulcrum) is a fast & nimble SPV server for Bitcoin created by [Calin Culianu](https://github.com/cculianu). It can be used as an alternative to Electrs because of its performance, as we can see in Craig Raw's [comparison](https://www.sparrowwallet.com/docs/server-performance.html) of servers.
 
 <div data-full-width="false">
 
@@ -30,13 +30,13 @@ layout:
 * [Bitcoin Core](bitcoin-client.md)
 * \~ 130GB of free storage for the database
 
-Fulcrum is a replacement for [Electrs](../../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs`.
+Fulcrum is a replacement for [Electrs](../../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs` if you have installed it.
 
 ## Introduction
 
 #### Bitcoin with hardware wallets
 
-The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://shiftcrypto.ch/bitbox02), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
+The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://bitbox.swiss/bitbox02/), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
 
 Bitcoin Core on the MiniBolt itself is not meant to hold funds.
 
@@ -44,7 +44,9 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 
 ## Preparations
 
+{% hint style="warning" %}
 Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
+{% endhint %}
 
 ### Install dependencies
 
@@ -259,7 +261,7 @@ If you come to update, this is the final step, go back to the [Upgrade section](
 sudo adduser --disabled-password --gecos "" fulcrum
 ```
 
-* Add `fulcrum`user to the "bitcoin" group, allowing to the `fulcrum`user read the bitcoind `.cookie` file
+* Add `fulcrum` user to the "bitcoin" group, allowing him to read the bitcoind `.cookie` file
 
 ```bash
 sudo adduser fulcrum bitcoin
@@ -354,7 +356,7 @@ nano /data/fulcrum/fulcrum.conf
 * Enter the following content. Save and exit
 
 {% hint style="warning" %}
-Remember to accommodate the `fast-sync` parameter depending on your hardware
+Remember to accommodate the `"utxo-cache"` parameter depending on your hardware. Recommended: utxo-cache=1/2 x RAM available, e.g. 4GB RAM -> utxo-cache=2000
 {% endhint %}
 
 <pre><code># MiniBolt: fulcrum configuration
@@ -395,7 +397,7 @@ exit
 
 ### Create systemd service
 
-Fulcrum needs to start automatically on system boot.
+Fulcrum needs to start automatically when booting the system.
 
 * As user `admin`, create the Fulcrum systemd unit
 
@@ -522,6 +524,10 @@ tcp   LISTEN 0      50        0.0.0.0:50001      0.0.0.0:*    users:(("Fulcrum",
 tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=204))
 tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=206))
 ```
+
+{% hint style="success" %}
+Congrats! Now you have a high-performance and self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](blockchain-explorer.md) or connect your [Desktop wallet: Sparrow wallet](desktop-wallet.md) or [Electrum Wallet ](../../bonus/bitcoin/electrum-wallet-desktop.md)[Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md)
+{% endhint %}
 
 ## Extras (optional)
 
@@ -756,7 +762,7 @@ sudo rm /usr/local/bin/Fulcrum && sudo rm /usr/local/bin/FulcrumAdmin
 * Ensure that you are logged in with the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 ```

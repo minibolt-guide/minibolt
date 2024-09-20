@@ -19,7 +19,7 @@ layout:
 
 We install [Sparrow wallet](https://github.com/sparrowwallet/sparrow) on a computer and connect it to your Electrum server on your node for private Bitcoin on-chain transactions.
 
-![](../../images/sparrow.png)
+<figure><img src="../../.gitbook/assets/sparrow_wallet_logo.png" alt=""><figcaption></figcaption></figure>
 
 ## Requirements
 

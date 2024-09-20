@@ -1392,7 +1392,7 @@ sudo ufw delete X
 * With the user `admin`, edit the torrc file
 
 ```bash
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 * Comment or remove the btcpay hidden service in the torrc. Save and exit

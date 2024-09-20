@@ -26,7 +26,11 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/bisq.png)
+{% hint style="warning" %}
+Attention: This guide is only valid for Bisq v1.x.x. Bisq v2.x.x radically changes its operation in terms of the network and many steps in the guide may not match and may not be valid or necessary
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/logo_bisq.png" alt=""><figcaption></figcaption></figure>
 
 ## Requirements
 
@@ -109,7 +113,7 @@ From the local network connection, replace `192.168.X.X:8333` it with your node 
 /opt/bisq/bin/Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
 ```
 
-From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above
+From the remote connection, replace `123...abc.onion:8333` with your Bitcoin Core .onion address you obtained above
 
 ```sh
 /opt/bisq/bin/Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
@@ -120,8 +124,8 @@ From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin
 
 **For MacOS:**
 
-* Open a command line terminal, we will start Bisq with two flags that will force it to connect to our own node only
-* From the local network connection, replace `192.168.X.X:8333` with your own node IP address
+* Open a command line terminal, we will start Bisq with two flags that will force it to connect to our node only
+* From the local network connection, replace `192.168.X.X:8333` with your node IP address
 
 ```sh
 Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false

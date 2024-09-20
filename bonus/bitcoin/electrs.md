@@ -20,7 +20,7 @@ layout:
 
 # Electrs
 
-We set up [Electrs](https://github.com/romanz/electrs/) to serve as a full Electrum server for use with your Bitcoin software or hardware wallets.
+[Electrs](https://github.com/romanz/electrs/) is an efficient re-implementation of Electrum Server in Rust, inspired by [ElectrumX](https://github.com/kyuupichan/electrumx), [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server) and [bitcoincore-indexd](https://github.com/jonasschnelli/bitcoincore-indexd).
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -62,13 +62,13 @@ sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev li
 cd /tmp
 ```
 
-* Clone the [`rocksdb`](https://github.com/facebook/rocksdb) GitHub repository and enter the `rocksdb` folder
+* Clone the [rocksdb](https://github.com/facebook/rocksdb) GitHub repository and enter the `rocksdb` folder
 
 ```bash
 git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb && cd rocksdb
 ```
 
-* Compile it. This could take time depending on your system performance, be patient
+* Compile it
 
 ```bash
 make shared_lib -j $(nproc)
@@ -102,6 +102,10 @@ $DEBUG_LEVEL is 0
 ```
 
 </details>
+
+{% hint style="info" %}
+This could take time depending on your system performance, be patient
+{% endhint %}
 
 * Install it
 
@@ -197,7 +201,7 @@ If you obtain "**command not found**" outputs, you need to follow the [Rustup + 
 
 ### Reverse proxy & Firewall
 
-In the [Security section](broken-reference/), we already set up Nginx as a reverse proxy. Now we can add the Electrs configuration.
+In the [Security section](../../index-1/security.md), we already set up Nginx as a reverse proxy. Now we can add the Electrs configuration.
 
 * With user `admin`, create the reverse proxy configuration
 
@@ -256,7 +260,7 @@ sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
 
 ## Installation
 
-There are no precompiled binaries available, so we will compile the application ourselves.
+There are no precompiled binaries available for Electrs, so we should compile the application ourselves.
 
 ### Build from the source code
 
@@ -563,7 +567,7 @@ sudo systemctl start electrs
 
 </details>
 
-{% hint style="info" %}
+{% hint style="success" %}
 Electrs will now index the Bitcoin blockchain to provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
 {% endhint %}
 
@@ -753,7 +757,7 @@ sudo rm -rf /data/electrs
 * Ensure that you are logged in with the user `admin` , edit the `torrc` config file
 
 ```bash
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 * Delete or comment on the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit

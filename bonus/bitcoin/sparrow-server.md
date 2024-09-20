@@ -46,7 +46,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=1.9.1
+VERSION=2.0.0
 ```
 
 * Download the application, checksums, and signature
@@ -218,7 +218,7 @@ Sparrow
 * Mix selected funds
 * Once confirmed, go to `Accounts > Postmix > UTXOs > Mix To`
 * You can mix to cold storage if desired. Select the value for minimum mixes before sending them to cold storage
-* If you use Whirlpool with Dojo as well - set the Postmix index range to "odd". This way you improve your chances of getting into a mix by running two separate mixing clients at the same time, using different index ranges to prevent mix failures
+* If you also use Whirlpool with Dojo, set the Postmix index range to "odd". This way you improve your chances of getting into a mix by running two separate mixing clients at the same time, using different index ranges to prevent mix failures
 
 #### Detaching a session
 
@@ -251,7 +251,7 @@ tmux a -t sparrowserver
 
 ## Upgrade
 
-Follow the complete [Installation](sparrow-server.md#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
+Follow the complete [Installation](sparrow-server.md#installation) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
 
 ## Uninstall
 
