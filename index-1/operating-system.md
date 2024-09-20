@@ -22,21 +22,21 @@ We configure the PC and install the Ubuntu Server operating system.
 
 We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interface. This provides the best stability for the PC and makes the initial setup a breeze.
 
-[Ubuntu Server](https://ubuntu.com/server/docs) is based on the [Debian](https://www.debian.org/) Linux distribution, which is available for most hardware platforms. To make this guide as universal as possible, it uses only standard Debian commands. As a result, it should work smoothly with a personal computer while still being compatible with most other hardware platforms running Debian.
+[Ubuntu Server](https://ubuntu.com/server/docs) is based on the [Debian](https://www.debian.org/) Linux distribution, which is available for most hardware platforms. To make this guide as universal as possible, it uses only standard Debian based commands. As a result, it should work smoothly with a personal computer while still being compatible with most other hardware platforms running Debian.
 
 ## Balena Etcher and Ubuntu Server
 
 To flash the operating system **.iso** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application
 
 * Go to the website and [download](https://etcher.balena.io/#download-etcher) the correct binary according to your OS
-* Direct download Ubuntu Server **22.04.4** LTS by clicking [here](https://releases.ubuntu.com/jammy/ubuntu-22.04.4-live-server-amd64.iso)
+* Direct download Ubuntu Server **22.04.5** LTS by clicking [here](https://releases.ubuntu.com/22.04.5/ubuntu-22.04.5-live-server-amd64.iso?\_gl=1\*11bdyss\*\_gcl\_au\*MjEzMzQ1OTA4Ny4xNzI1NzM4NzMz&\_ga=2.168914021.550945251.1726844857-324556832.1725738732)
 
 {% hint style="warning" %}
-MiniBolt has currently been tested using **Ubuntu Server 22.04.4 LTS (Jammy Jellyfish)**, it has not been tested on other distributions or versions and there is no guarantee that it will work well on them
+MiniBolt has currently been tested using **Ubuntu Server 22.04.5 LTS (Jammy Jellyfish)**, it has not been tested on other distributions or versions and there is no guarantee that it will work well on them
 {% endhint %}
 
 * **Start** the **Balena Etcher**
-* Select **"Flash from file"** -> Select Ubuntu Server LTS **.iso** file previously downloaded
+* Select **"Flash from file"** -> Select the Ubuntu Server LTS **(.iso)** file previously downloaded
 
 ## Write the operating system to the pen drive
 
@@ -45,7 +45,9 @@ MiniBolt has currently been tested using **Ubuntu Server 22.04.4 LTS (Jammy Jell
 * Select your pen drive unit
 * Click on **"Flash!**"
 
-Balena Etcher will now flash the operating system to your drive and validate it.
+{% hint style="info" %}
+Balena Etcher will now flash the operating system to your drive and validate it
+{% endhint %}
 
 {% hint style="success" %}
 It should display a **"Flash Complete!"** message after
@@ -54,15 +56,19 @@ It should display a **"Flash Complete!"** message after
 ## Start your PC
 
 * **Safely eject** the pen drive from your regular computer
-* **Connect to your selected PC** for the MiniBolt node
+* **Connect the pen drive to your selected PC** for the MiniBolt node
 * **Attach a screen**, a **keyboard,** and the **Ethernet** wire of the Internet (not the case for Wi-Fi connection) to the **PC** and start it
 * Press the key quickly to **enter THE BIOS setup** or directly to the **boot menu** to select the **pen drive as the 1st boot priority device** (normally, F9, Esc, F12, or Supr keys)
 
 {% hint style="info" %}
-&#x20;In this step, you might want to take advantage of activating the **Restore on AC** / **After power failure** or similar in the BIOS setup. Normally found in **Advanced** -> **Power** / **ACPI Configuration**, switching to **Last State** / **Memory** or similar (System power on depends on the status before AC lost) or **Power ON / Full on** or similar (Always power on the system when AC back) depends on your preference. With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence
+In this step, you might want to take advantage of activating the **Restore on AC** / **After power failure** or similar in the BIOS setup.&#x20;
+
+Normally found in **Advanced** -> **Power** / **ACPI Configuration**, switching to **Last State / Memory** or similar (System power on depends on the status before AC lost) or **Power ON / Full on** or similar (Always power on the system when AC back) depends on your preference.&#x20;
+
+With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
 {% endhint %}
 
-* If you configured boot options in BIOS, **save changes and exit**. This starts automatically with the Ubuntu Server guided installation. You will keep selecting \[**Try or Install Ubuntu Server]** and press **enter**, or wait 20 seconds for it to start automatically
+* If you configured boot options in BIOS, **save changes and exit**. This starts automatically with the Ubuntu Server guided installation. You will keep selecting **\[Try or Install Ubuntu Server]** and press **enter**, or wait 20 seconds for it to start automatically
 
 ## Ubuntu Server installation
 
@@ -126,14 +132,14 @@ Very IMPORTANT step!
 
 **13.** If you want to preinstall some additional software **(not recommended)**, select them, if not, press **\[done]** directly to jump to the next step.
 
-**14.** Now all before configurations will be applied and the system installed. This would be a few minutes depending on the hardware used. You can show extended logs by pressing **\[View full log]** if you want.
+**14.** Now all before configurations will be applied and the system installed. This would be a few minutes depending on the hardware used. You can show extended logs by pressing **\[View full log]**.
 
 ⌛ Wait until the installation finishes, when it happens, **\[Reboot now]** will appear. Select it and press **enter**.
 
 **15.** When the prompt shows you **"Please remove the installation medium, then press ENTER"**, extract the pen drive of the PC and press **enter** finally.
 
 {% hint style="success" %}
-🥳 Now the PC should reboot and show you the prompt to log in. You can disconnect the keyboard and the screen of the MiniBolt node, and proceed to connect remotely from your regular computer to continue with the installation
+Now the PC should reboot and show you the prompt to log in. You can disconnect the keyboard and the screen of the MiniBolt node, and proceed to connect remotely from your regular computer to continue with the installation
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/demo-install-os.gif" alt=""><figcaption><p>GIF showing an example of Ubuntu installation using automatic (DHCP)</p></figcaption></figure>
