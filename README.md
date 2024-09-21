@@ -8,13 +8,13 @@ description: >-
 
 <figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
 
-Build your own "do-everything-yourself" Bitcoin full node, Lightning and other stuff on a personal computer, making you sovereign.
+Build your own "do-everything-yourself" Bitcoin full node, Lightning, and other stuff on a personal computer, making you sovereign.
 
 No need to trust anyone else. Don't trust, verify!
 
 ## What is the MiniBolt?
 
-With this guide, you can set up a Bitcoin, Lightning node and other stuff on a personal computer, doing everything yourself. You will learn about Linux, Bitcoin, Lightning and much more.
+With this guide, you can set up a Bitcoin, Lightning node, and other stuff on a personal computer, doing everything yourself. You will learn about Linux, Bitcoin, Lightning, and much more.
 
 <figure><img src=".gitbook/assets/tgfoss-build-under-win.gif" alt=""><figcaption></figcaption></figure>
 

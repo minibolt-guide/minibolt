@@ -501,6 +501,7 @@ sudo systemctl start fulcrum
 * When you see logs like this `SrvMgr: starting 3 services ...`, which means that Fulcrum is fully indexed
 
 ```
+[...]
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.705] SrvMgr: starting 3 services ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Starting listener service for TcpSrv 0.0.0.0:50001 ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Service started, listening for connections on 0.0.0.0:50001
@@ -509,6 +510,7 @@ Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Service sta
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Starting listener service for AdminSrv 127.0.0.1:8000 ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Service started, listening for connections on 127.0.0.1:8000
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller> Starting ZMQ Notifier (hashblock) ...
+[...]
 ```
 
 * Ensure the service is working and listening at the default `50002` & `50001` ports and the `8000` admin port
@@ -704,12 +706,11 @@ journalctl -fu fulcrum
 
 **Example** of expected output:
 
-{% code overflow="wrap" %}
 ```
+[...]
 Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.1 (Release a5a53cf) - Wed Dec 21, 2022 15:35:25.963 UTC - starting up ...
 [...]
 ```
-{% endcode %}
 
 ## Uninstall
 

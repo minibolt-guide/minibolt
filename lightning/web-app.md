@@ -737,7 +737,7 @@ cd thunderhub
 * Set the environment variable version
 
 ```bash
-VERSION=0.13.27
+VERSION=0.13.31
 ```
 
 * Pull the changes from GitHub

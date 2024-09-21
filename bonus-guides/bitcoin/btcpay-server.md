@@ -493,46 +493,47 @@ sudo systemctl start nbxplorer
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu nbxplorer</code> ⬇️</summary>
 
 ```
-Jul 05 17:50:20 bbonode systemd[1]: Started NBXplorer daemon.
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Data Directory: /home/btcpay/.nbxplorer/Main
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Configuration File: /home/btcpay/.nbxplorer/Main/settings.config
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Network: Mainnet
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Supported chains: BTC
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  DBCache: 50 MB
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Network: Mainnet
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  Supported chains: BTC
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: Configuration:  DBCache: 50 MB
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Postgres services activated
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 001.Migrations...
-Jul 05 17:50:21 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 002.Model...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 003.Legacy...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 004.Fixup...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 005.ToBTCFix...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 006.GetWalletsRecent2...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 007.FasterSaveMatches...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 008.FasterGetUnused...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 009.FasterGetUnused2...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 010.ChangeEventsIdType...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 011.FixGetWalletsRecent...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 012.PerfFixGetWalletsRecent...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 013.FixTrackedTransactions...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 014.FixAddressReuse...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 015.AvoidWAL...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: TCP Connection succeed, handshaking...
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Handshaked
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Testing RPC connection to http://localhost:8332/
-Jul 05 17:50:22 bbonode run.sh[2808966]: Hosting environment: Production
-Jul 05 17:50:22 bbonode run.sh[2808966]: Content root path: /home/btcpay/src/NBXplorer/NBXplorer/bin/Release/net6.0/
-Jul 05 17:50:22 bbonode run.sh[2808966]: Now listening on: http://127.0.0.1:24444
-Jul 05 17:50:22 bbonode run.sh[2808966]: Application started. Press Ctrl+C to shut down.
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: RPC connection successful
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Full node version detected: 250000
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Has txindex support
-Jul 05 17:50:22 bbonode run.sh[2808966]: warn: NBXplorer.Indexer.BTC: BTC: Your NBXplorer server is not whitelisted by your node, you should add "whitelist=127.0.0.1" to the configuration file of your node. (Or use whitebind)
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: Node state changed: NotStarted => NBXplorerSynching
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Indexer.BTC: Current Index Progress not found, start syncing from the header's chain tip (At height: 797318)
-Jul 05 17:50:22 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: Node state changed: NBXplorerSynching => Ready
-Jul 05 17:50:23 bbonode run.sh[2808966]: info: NBXplorer.Events: BTC: New block 00000000000000000001415583131d3c1da985497830abcf638413226892d4ad (797318)
+Jul 05 17:50:20 minibolt systemd[1]: Started NBXplorer daemon.
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  Data Directory: /home/btcpay/.nbxplorer/Main
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  Configuration File: /home/btcpay/.nbxplorer/Main/settings.config
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  Network: Mainnet
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  Supported chains: BTC
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  DBCache: 50 MB
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  Network: Mainnet
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  Supported chains: BTC
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: Configuration:  DBCache: 50 MB
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Postgres services activated
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 001.Migrations...
+Jul 05 17:50:21 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 002.Model...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 003.Legacy...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 004.Fixup...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 005.ToBTCFix...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 006.GetWalletsRecent2...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 007.FasterSaveMatches...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 008.FasterGetUnused...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 009.FasterGetUnused2...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 010.ChangeEventsIdType...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 011.FixGetWalletsRecent...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 012.PerfFixGetWalletsRecent...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 013.FixTrackedTransactions...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 014.FixAddressReuse...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.DatabaseSetup: Execute script 015.AvoidWAL...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Indexer.BTC: TCP Connection succeed, handshaking...
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Indexer.BTC: Handshaked
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Indexer.BTC: Testing RPC connection to http://localhost:8332/
+Jul 05 17:50:22 minibolt run.sh[2808966]: Hosting environment: Production
+Jul 05 17:50:22 minibolt run.sh[2808966]: Content root path: /home/btcpay/src/NBXplorer/NBXplorer/bin/Release/net6.0/
+Jul 05 17:50:22 minibolt run.sh[2808966]: Now listening on: http://127.0.0.1:24444
+Jul 05 17:50:22 minibolt run.sh[2808966]: Application started. Press Ctrl+C to shut down.
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Indexer.BTC: RPC connection successful
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Indexer.BTC: Full node version detected: 250000
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Indexer.BTC: Has txindex support
+Jul 05 17:50:22 minibolt run.sh[2808966]: warn: NBXplorer.Indexer.BTC: BTC: Your NBXplorer server is not whitelisted by your node, you should add "whitelist=127.0.0.1" to the configuration file of your node. (Or use whitebind)
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Events: BTC: Node state changed: NotStarted => NBXplorerSynching
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Indexer.BTC: Current Index Progress not found, start syncing from the header's chain tip (At height: 797318)
+Jul 05 17:50:22 minibolt run.sh[2808966]: info: NBXplorer.Events: BTC: Node state changed: NBXplorerSynching => Ready
+Jul 05 17:50:23 minibolt run.sh[2808966]: info: NBXplorer.Events: BTC: New block 00000000000000000001415583131d3c1da985497830abcf638413226892d4ad (797318)
+[..]
 ```
 
 </details>
@@ -798,31 +799,31 @@ sudo systemctl start btcpay
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu btcpay</code> ⬇️</summary>
 
 ```
-Jul 05 18:01:08 bbonode run.sh[2810276]: info: Configuration:  Data Directory: /home/btcpay/.btcpayserver/Main
-Jul 05 18:01:08 bbonode run.sh[2810276]: info: Configuration:  Configuration File: /home/btcpay/.btcpayserver/Main/settings.config
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Loading plugins from /home/btcpay/.btcpayserver/Plugins
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer - 1.10.3
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.Shopify - 1.10.3
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.PointOfSale - 1.10.3
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.PayButton - 1.10.3
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.NFC - 1.10.3
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.Crowdfund - 1.10.3
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  Supported chains: BTC
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  BTC: Explorer url is http://127.0.0.1:24444/
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  BTC: Cookie file is /home/btcpay/.nbxplorer/Main/.cookie
-Jul 05 18:01:09 bbonode run.sh[2810276]: info: Configuration:  Network: Mainnet
-Jul 05 18:01:13 bbonode run.sh[2810276]: info: Configuration:  Root Path: /
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Checking if any payment arrived on lightning while the server was offline...
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Processing lightning payments...
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Starting listening NBXplorer (BTC)
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Start watching invoices
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Starting payment request expiration watcher
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      0 pending payment requests being checked since last run
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: Configuration:  Now listening on: http://127.0.0.1:23000
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      BTC: Checking if any pending invoice got paid while offline...
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      BTC: 0 payments happened while offline
-Jul 05 18:01:14 bbonode run.sh[2810276]: info: PayServer:      Connected to WebSocket of NBXplorer (BTC)
-
+Jul 05 18:01:08 minibolt run.sh[2810276]: info: Configuration:  Data Directory: /home/btcpay/.btcpayserver/Main
+Jul 05 18:01:08 minibolt run.sh[2810276]: info: Configuration:  Configuration File: /home/btcpay/.btcpayserver/Main/settings.config
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Loading plugins from /home/btcpay/.btcpayserver/Plugins
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer - 1.10.3
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.Shopify - 1.10.3
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.PointOfSale - 1.10.3
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.PayButton - 1.10.3
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.NFC - 1.10.3
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: BTCPayServer.Plugins.PluginManager: Adding and executing plugin BTCPayServer.Plugins.Crowdfund - 1.10.3
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: Configuration:  Supported chains: BTC
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: Configuration:  BTC: Explorer url is http://127.0.0.1:24444/
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: Configuration:  BTC: Cookie file is /home/btcpay/.nbxplorer/Main/.cookie
+Jul 05 18:01:09 minibolt run.sh[2810276]: info: Configuration:  Network: Mainnet
+Jul 05 18:01:13 minibolt run.sh[2810276]: info: Configuration:  Root Path: /
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Checking if any payment arrived on lightning while the server was offline...
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Processing lightning payments...
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Starting listening NBXplorer (BTC)
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Start watching invoices
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Starting payment request expiration watcher
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      0 pending payment requests being checked since last run
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: Configuration:  Now listening on: http://127.0.0.1:23000
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      BTC: Checking if any pending invoice got paid while offline...
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      BTC: 0 payments happened while offline
+Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Connected to WebSocket of NBXplorer (BTC)
+[...]
 ```
 
 </details>
@@ -1126,7 +1127,7 @@ Fast-forward
 ```
 
 {% hint style="info" %}
-If the prompt shows you `"fatal: unable to auto-detect email address (got 'btcpay@minibolt2fa.(none)')"`⬇️
+If the prompt shows you `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
 git config user.email "minibolt@dummyemail.com"
@@ -1208,7 +1209,7 @@ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 exit
 ```
 
-* Start the NBXplorer & BTCpay server again. Monitor logs with `journalctl -fu nbxplorer` & `journalctl -fu btcpay` to ensure that all is running well
+* Start the NBXplorer & BTCPay Server again. Monitor logs with `journalctl -fu nbxplorer` & `journalctl -fu btcpay` to ensure that all is running well
 
 ```bash
 sudo systemctl start nbxplorer && sudo systemctl start btcpay
@@ -1261,7 +1262,7 @@ Fast-forward
 ```
 
 {% hint style="info" %}
-If the prompt shows you `"fatal: unable to auto-detect email address (got 'btcpay@minibolt2fa.(none)')"`⬇️
+If the prompt shows you `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
 git config user.email "minibolt@dummyemail.com"

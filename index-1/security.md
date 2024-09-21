@@ -154,11 +154,11 @@ Do this regularly to get security-related incidents
 
 ### Installation
 
-Several components of this guide will expose a communication port, for example, the Block Explorer, or the ThunderHub web interface for your Lightning node. Even if you use these services only within your own home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
+Several components of this guide will expose a communication port, for example, the Block Explorer, or the ThunderHub web interface for your Lightning node. Even if you use these services only within your home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
 We use Ngnix to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": Nginx provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 
-* With user `admin`, update and upgradeth OS
+* With user `admin`, update and upgrade the OS
 
 ```bash
 sudo apt update && sudo apt full-upgrade
@@ -295,7 +295,7 @@ Expected output:
 <pre><code><strong>> Jun 04 18:21:09 minibolt systemd[1]: Starting A high performance web server and a reverse proxy server...
 </strong>> Jun 04 18:21:09 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
 > Jun 04 18:25:18 minibolt systemd[1]: Reloading A high performance web server and a reverse proxy server...
-> Jun 04 18:25:18 minibol systemd[1]: Reloaded A high performance web server and a reverse proxy server.
+> Jun 04 18:25:18 minibolt systemd[1]: Reloaded A high performance web server and a reverse proxy server.
 </code></pre>
 
 {% hint style="info" %}
