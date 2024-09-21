@@ -85,10 +85,10 @@ Use the **UP**, **DOWN,** and **ENTER** keys of your keyboard to navigate to the
 **5.** Select the interface network connection that you choose to use **(Ethernet recommended)** and **take note of your IP** obtained automatically through DHCP. (Normally 192.168.x.xx). Press **\[done]**
 
 {% hint style="info" %}
-The router reserves the IP address of the device for a time after going out, but If the device goes out some time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Static IP & custom DNS servers](../bonus-guides/system/static-ip-and-custom-dns-servers.md) bonus guide to get more instructions to do this.
+The router reserves the IP address of the device for a time after going out, but If the device goes out some time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Static IP & custom DNS servers](../bonus-guides/system/static-ip-and-custom-dns-servers.md) bonus guide for further instructions on how to do this.
 
 \
-🚨 <mark style="color:red;">Be careful by setting this!</mark> If you change the router could be **the new router doesn't work in the same IP address range as the old router**, the MiniBolt won't be registered and will be completely out of the connection. To avoid this, follow the [Set the DCHP (automatic) configuration](../bonus-guides/system/static-ip-and-custom-dns-servers.md#set-the-automatic-dhcp-mode-configuration-by-command-line) section of the bonus guide to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want after the change of the router, reconfigure the static IP address again following the [Option 2](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-after-ubuntu-server-installation-by-command-line) section.
+🚨 <mark style="color:red;">**Be careful by setting this!**</mark> If you change routers, the new router may not work in the same IP address range as the old router, the MiniBolt will not register and will be **completely offline**. To avoid this, follow the [Set the DCHP (automatic) configuration](../bonus-guides/system/static-ip-and-custom-dns-servers.md#set-the-automatic-dhcp-mode-configuration-by-command-line) section of the bonus guide to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want after the change of the router, reconfigure the static IP address again following the [Option 2](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-after-ubuntu-server-installation-by-command-line) section.
 {% endhint %}
 
 **6.** Leave the empty next option if you don't want to use an HTTP proxy to access it. Press **\[done]**
@@ -97,9 +97,9 @@ The router reserves the IP address of the device for a time after going out, but
 
 **8.** Configure a **guided storage layout**, with 2 options:
 
-> **8.1.** Check **"Use an entire disk"**, if you have **only one primary unit storage (1+ TB)**. In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before select **\[done]** and press **enter**. Then, continue with **step 9**.
+> **8.1.** Check **"Use an entire disk"**, if you have **only one primary unit storage (2+ TB)**. In this case, ensure that you **uncheck "Set up this disk as an LVM group"** before select **\[done]** and press **enter**. Then, continue with **step 9**.
 
-> **8.2.** Check **"Custom storage layout"**, if you want to use one **secondary** disk, e.g. primary for the system and secondary disk for data (blockchain, indexes, etc)(1+ TB). For this case, go to -> the [Case 1](../bonus/system/store-data-secondary-disk.md#case-1-during-the-ubuntu-server-guided-installation) of [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, to get instructions about how to follow, and then continue with **step 10**.
+> **8.2.** Check **"Custom storage layout"**, if you want to use one **secondary** disk, e.g. primary for the system and secondary disk for data (blockchain, indexes, etc) (2+ TB). For this case, go to -> the [Case 1](../bonus/system/store-data-secondary-disk.md#case-1-during-the-ubuntu-server-guided-installation) of [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, to get instructions about how to follow, and then continue with **step 10**.
 
 **9.** Confirm destructive action by selecting the **\[Continue]** option. Press **enter**
 
@@ -124,7 +124,7 @@ Very IMPORTANT step!
 ```
 {% endcode %}
 
-**12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key, and down to select the \[**Done]** box and press **enter** again
+**12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key, and down to select the \[d**one]** box and press **enter** again
 
 {% hint style="danger" %}
 Very IMPORTANT step!
@@ -134,7 +134,9 @@ Very IMPORTANT step!
 
 **14.** Now all before configurations will be applied and the system installed. This would be a few minutes depending on the hardware used. You can show extended logs by pressing **\[View full log]**.
 
-⌛ Wait until the installation finishes, when it happens, **\[Reboot now]** will appear. Select it and press **enter**.
+{% hint style="info" %}
+⌛ Wait until the installation finishes, when it happens, **\[Reboot now]** will appear. Select it and press **enter**
+{% endhint %}
 
 **15.** When the prompt shows you **"Please remove the installation medium, then press ENTER"**, extract the pen drive of the PC and press **enter** finally.
 
