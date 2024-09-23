@@ -24,7 +24,7 @@ The MiniBolt needs to be secured against online attacks using various methods.
 
 A firewall controls what kind of outside traffic your machine accepts and which applications can send data out. By default, many network ports are open and listening for incoming connections. Closing unnecessary ports can mitigate many potential system vulnerabilities.
 
-For now, only SSH should be reachable from the outside. Bitcoin Core and LND are using Tor and don't need incoming ports. We'll open the port for Electrs and web applications later if needed.
+For now, only SSH should be reachable from the outside. Bitcoin Core and LND are using Tor and don't need incoming ports. We'll open the port for Fulcrum and web applications later if needed.
 
 ### Check IPv6 availability
 
@@ -50,7 +50,7 @@ If you obtain the `"OK."` output, you have IPv6 availability, additionally, you 
 
 ### Configuration
 
-If you don't have IPv6 availability, you can disable IPv6 on UFW to avoid the creation of rules related to it:
+If you don't have [IPv6 availability](security.md#check-ipv6-availability), you can disable IPv6 on UFW to avoid the creation of rules related to it:
 
 * Edit the UFW configuration
 
@@ -105,15 +105,14 @@ sudo ufw status verbose
 <summary>Expected output ⬇️</summary>
 
 ```
-> Status: active
-> Logging: off
-> Default: deny (incoming), allow (outgoing), disabled (routed)
-> New profiles: skip
+Status: active
+Logging: off
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
 
->
-> To                    Action      From
-> --                    ------      ----
-> 22                    ALLOW       Anywhere       # allow SSH from anywhere
+To                    Action      From
+--                    ------      ----
+22                    ALLOW       Anywhere       # allow SSH from anywhere
 ```
 
 </details>
@@ -193,7 +192,7 @@ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-se
 **Example** of expected output:
 
 ```
-> .......+......+...+..+....+.....+......++++++........
+.......+......+...+..+....+.....+......++++++........
 ```
 
 ### Configuration

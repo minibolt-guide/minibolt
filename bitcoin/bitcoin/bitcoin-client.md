@@ -127,8 +127,46 @@ The following screenshot is just an **example** of one of the versions:
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
 
 ```sh
-tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+tar -xzvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
+
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
+```
+bitcoin-27.1/
+bitcoin-27.1/README.md
+bitcoin-27.1/bin/
+bitcoin-27.1/bin/bitcoin-cli
+bitcoin-27.1/bin/bitcoin-qt
+bitcoin-27.1/bin/bitcoin-tx
+bitcoin-27.1/bin/bitcoin-util
+bitcoin-27.1/bin/bitcoin-wallet
+bitcoin-27.1/bin/bitcoind
+bitcoin-27.1/bin/test_bitcoin
+bitcoin-27.1/bitcoin.conf
+bitcoin-27.1/include/
+bitcoin-27.1/include/bitcoinconsensus.h
+bitcoin-27.1/lib/
+bitcoin-27.1/lib/libbitcoinconsensus.so
+bitcoin-27.1/lib/libbitcoinconsensus.so.0
+bitcoin-27.1/lib/libbitcoinconsensus.so.0.0.0
+bitcoin-27.1/share/
+bitcoin-27.1/share/man/
+bitcoin-27.1/share/man/man1/
+bitcoin-27.1/share/man/man1/bitcoin-cli.1
+bitcoin-27.1/share/man/man1/bitcoin-qt.1
+bitcoin-27.1/share/man/man1/bitcoin-tx.1
+bitcoin-27.1/share/man/man1/bitcoin-util.1
+bitcoin-27.1/share/man/man1/bitcoin-wallet.1
+bitcoin-27.1/share/man/man1/bitcoind.1
+bitcoin-27.1/share/rpcauth/
+bitcoin-27.1/share/rpcauth/README.md
+bitcoin-27.1/share/rpcauth/rpcauth.py
+```
+
+</details>
 
 {% hint style="info" %}
 If you want to [generate a full bitcoin.conf file](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), follow the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), and then come back to continue with the [next section](bitcoin-client.md#binaries-installation)

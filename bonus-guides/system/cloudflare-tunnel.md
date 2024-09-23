@@ -146,7 +146,7 @@ cloudflared tunnel login
 ```
 Please open the following URL and log in with your Cloudflare account:
 
-https://dash.cloudflare.com/argotunnel?aud=&callback=https%3A%2F%2Flogin.cloudflareaccess.org%2FCbH_YLs-WM2zIR5j4NahjstGErge5AE79YIBNiZsV1Y%4D
+https://dash.cloudflare.com/argotunnel?aud=&callback=https%3A%2F%2Flogin.cloudflareaccess.org%2FCBH_YLs-WM2DIR5j4NahjstGErge5AE79YIBNiZsV1Y%4D
 
 Leave cloudflared running to download the cert automatically.
 You have successfully logged in.
@@ -197,7 +197,7 @@ Created tunnel <NAME> with id <UUID>
 ```
 
 {% hint style="info" %}
-Take note of the tunnel ID ->`<UUID>: e.g: 8666c35d-6ac3-4b39-9324-12ae32ce64a7` you will need it later
+Take note of the tunnel ID ->`<UUID>: e.g: 8666c35d-6ac3-4b39-9324-12ae32ce64a8` you will need it later
 {% endhint %}
 
 * Ensure that the tunnel has been created
@@ -211,7 +211,7 @@ cloudflared tunnel list
 ```
 You can obtain more detailed information for each tunnel with `cloudflared tunnel info <name/uuid>`
 ID                                      NAME              CREATED               CONNECTIONS
-8666c35d-6ac3-4b39-9324-12ae32ce64a7    miniboltunnel     2023-04-01T15:44:48Z
+8666c35d-6ac3-4b39-9324-12ae32ce64a8    miniboltunnel     2023-04-01T15:44:48Z
 ```
 
 * You can obtain more detailed information about the tunnel with
@@ -224,11 +224,11 @@ cloudflared tunnel info <NAME>
 
 ```
 NAME:     miniboltunnel
-ID:       8666c35d-6ac3-4b39-9324-12ae32ce64a7
+ID:       8666c35d-6ac3-4b39-9324-12ae32ce64a8
 CREATED:  2023-07-09 19:16:12.744487 +0000 UTC
 
 CONNECTOR ID                         CREATED              ARCHITECTURE VERSION   ORIGIN IP      EDGE
-8666c35d-6ac3-4b39-9324-12ae32ce64a7 2023-07-10T16:20:41Z linux_amd64  2023.6.1 <yourpublicip>
+8666c35d-6ac3-4b39-9324-12ae32ce64a8 2023-07-10T16:20:41Z linux_amd64  2023.6.1 <yourpublicip>
 ```
 
 ### Start routing traffic <a href="#id-5-start-routing-traffic" id="id-5-start-routing-traffic"></a>
@@ -397,7 +397,7 @@ sudo systemctl start cloudflared
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu cloudflared</code> ⬇️</summary>
 
 ```
-Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Starting tunnel tunnelID=8666c35d-6ac3-4b39-9324-12ae32ce64a7
+Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Starting tunnel tunnelID=8666c35d-6ac3-4b39-9324-12ae32ce64a8
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Version 2023.6.1
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF GOOS: linux, GOVersion: go1.19.6, GoArch: amd64
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Settings: map[config:/home/admin/.cloudflared/config.yml cred-file:/home/admin/.cloudflared/8666c35d-6ac3-4b39-9324-12ae32ce64a7.json credentials-file:/home/admin/.cloudflared/8666c35d-6ac3-4b39-9324-12ae32ce64a7.json no-autoupdate:true]
@@ -405,7 +405,7 @@ Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Generate
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF cloudflared will not automatically update if installed by a package manager.
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Initial protocol quic
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF ICMP proxy will use 192.168.1.87 as source for IPv4
-Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF ICMP proxy will use fe80::42a8:f0ff:feb0:aa4d in zone eno1 as source for IPv6
+Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF ICMP proxy will use fe80::42a8:f0ff:feb0:aa3d in zone eno1 as source for IPv6
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023-07-10T16:20:40Z INF Starting metrics server on 127.0.0.1:46345/metrics
 Jul 10 18:20:40 minibolt cloudflared[3405663]: 2023/07/10 18:20:40 failed to sufficiently increase receive buffer size (was: 208 kiB, wanted: 2048 kiB, got: 416 kiB). See https://github.com/quic-go/quic-go/wiki/UDP-Receive-Buffer-Size for details.
 Jul 10 18:20:41 minibolt cloudflared[3405663]: 2023-07-10T16:20:41Z INF Registered tunnel connection connIndex=0 connection=0c293573-9581-4087-ab56-504d7eca57a1 event=0 ip=198.41.200.23 location=MAD protocol=quic
@@ -413,6 +413,7 @@ Jul 10 18:20:41 minibolt systemd[1]: Started cloudflared.
 Jul 10 18:20:41 minibolt cloudflared[3405663]: 2023-07-10T16:20:41Z INF Registered tunnel connection connIndex=1 connection=cb1e7bb6-9051-43da-802e-1791687f7385 event=0 ip=198.41.192.57 location=MRS protocol=quic
 Jul 10 18:20:43 minibolt cloudflared[3405663]: 2023-07-10T16:20:43Z INF Registered tunnel connection connIndex=2 connection=749064a4-fe1d-4c07-b0b9-71dbc0bcbe3a event=0 ip=198.41.192.227 location=MRS protocol=quic
 Jul 10 18:20:43 minibolt cloudflared[3405663]: 2023-07-10T16:20:43Z INF Registered tunnel connection connIndex=3 connection=00f2ca81-1dd1-4695-9857-6815b376855b event=0 ip=198.41.200.33 location=MAD protocol=quic
+[...]
 ```
 
 </details>

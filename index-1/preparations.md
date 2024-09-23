@@ -28,15 +28,16 @@ While a personal computer is the best choice, this guide works with other comput
 
 You need the following hardware:
 
-* Intel/AMD processor (2010+ gen), with 2+ GB RAM (only Bitcoin), a 4+ GB RAM is recommended (Bitcoin + Lightning + bonus)
+* CPU Intel/AMD processor (2010+ gen), with 2+ GB RAM (only Bitcoin), 4+ GB RAM is recommended (Bitcoin + Lightning + bonus)
 * Internal storage: SSD 2+ TB is recommended
-* Pen drive: 4+ GB
-* Temporary monitor screen or television
+* USB/SD drive: 4+ GB
+* Temporary monitor screen or TV
 * Temporary keyboard USB/PS2
 
 You might also want to get this optional hardware:
 
 * UPS (uninterruptible power supply)
+* A small USB thumb drive or microSD card to create regular local backups of your Lightning channels
 
 ## Write down your passwords
 

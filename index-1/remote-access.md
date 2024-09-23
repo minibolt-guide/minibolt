@@ -79,7 +79,7 @@ Note, connection details:
 
 We will work on the command line of the PC, which may be new to you. Find some basic information below. It will help you navigate and interact with your PC.
 
-You enter commands and the PC answers by printing the results below your command. The system response is marked with the `>` character.
+You enter commands and the PC answers by printing the results below your command.
 
 Additional comments begin with `#` and must not be entered.
 

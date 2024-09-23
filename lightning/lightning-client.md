@@ -248,15 +248,15 @@ Check that the date of the timestamp is close to the [release date](https://gith
 * Having verified the integrity and authenticity of the release binary, we can safely
 
 ```sh
-tar -xvf lnd-linux-amd64-v$VERSION-beta.tar.gz
+tar -xzvf lnd-linux-amd64-v$VERSION-beta.tar.gz
 ```
 
 **Example** of expected output:
 
 ```
-> lnd-linux-amd64-v0.17.1-beta/lnd
-> lnd-linux-amd64-v0.17.1-beta/lncli
-> lnd-linux-amd64-v0.17.1-beta/
+lnd-linux-amd64-v0.17.1-beta/lnd
+lnd-linux-amd64-v0.17.1-beta/lncli
+lnd-linux-amd64-v0.17.1-beta/
 ```
 
 ### Binaries installation
