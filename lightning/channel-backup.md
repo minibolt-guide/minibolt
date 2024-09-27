@@ -469,12 +469,26 @@ Jul 25 17:32:34 minibolt scb-backup[401749]: Watches established.
 If you get the next error:
 
 ```
-Nov 05 23:18:43 minibolt scb-backup[1710686]: Pushing changes to remote repository...
-Nov 05 23:18:43 minibolt scb-backup[1711268]: error: src refspec main does not match any
-Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to 'github.com:<YourGitHubUsername>/remote-lnd-backup.git
+Nov 05 23:18:43 ramix scb-backup[1710686]: Pushing changes to remote repository...
+Nov 05 23:18:43 ramix scb-backup[1711268]: error: src refspec main does not match any
+Nov 05 23:18:43 ramix scb-backup[1711268]: error: failed to push some refs to 'github.com:<YourGitHubUsername>/remote-lnd-backup.git
 ```
 
-\-> Replace the line 41 ` git push "--set-upstream origin`` `` `**`main"`** to "` git push --set-upstream origin`` `` `**`master"`** [in the script](channel-backup.md#create-script) , and try again
+\-> Edit line 41  [in the script](channel-backup.md#create-script) with the following command:&#x20;
+
+```bash
+sudo nano +41 /usr/local/bin/scb-backup --linenumbers
+```
+
+Replace the content: `"git push --set-upstream origin`**`main`**`"`
+
+To:`"git push --set-upstream origin`**`master`**`"`
+
+And finaly try again with the following command:&#x20;
+
+```bash
+sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
+```
 {% endhint %}
 
 * **If you enabled the local backup**, check the content of your local storage device. It should now contain a backup file with the date/time corresponding to the test made just above

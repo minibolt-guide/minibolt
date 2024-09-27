@@ -110,7 +110,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=nym-binaries-v2024.10-caramello
+VERSION=nym-binaries-v2024.11-wedel
 ```
 
 * Clone the latest version of the source code from the GitHub repository and go to the nym folder
@@ -182,7 +182,7 @@ sudo su - nym
 ```
 
 {% hint style="info" %}
-If you want to select the gateway that your network requester will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection flag`
+If you want to select the gateway that your network requester will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection` flag
 {% endhint %}
 
 <details>
@@ -385,7 +385,7 @@ sudo su - nym
 {% endcode %}
 
 {% hint style="info" %}
-If you want to select the gateway that your socks5 client will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection flag`
+If you want to select the gateway that your socks5 client will be connected to, you could add the flag `--gateway <gatewayID>` replacing the `<gatewayID>` with someone on this [list](https://explorer.nymtech.net/network-components/gateways) and delete the `--latency-based-selection` flag
 {% endhint %}
 
 <details>

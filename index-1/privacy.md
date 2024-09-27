@@ -131,7 +131,7 @@ sudo systemctl reload tor
 * Ensure that the Tor service is working and listening at the default ports `9050` and `9051` on the localhost (127.0.0.1)
 
 ```sh
-sudo ss -tulpn | grep LISTEN | grep tor
+sudo ss -tulpn | grep tor
 ```
 
 <details>
@@ -252,7 +252,7 @@ i2pd --version
 * Ensure that the i2pd service is working and listening at the default ports
 
 ```sh
-sudo ss -tulpn | grep LISTEN | grep i2pd
+sudo ss -tulpn | grep i2pd
 ```
 
 <details>
@@ -260,12 +260,14 @@ sudo ss -tulpn | grep LISTEN | grep i2pd
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-tcp   LISTEN 0      4096       127.0.0.1:4444       0.0.0.0:*    users:(("i2pd",pid=17781,fd=32))
-tcp   LISTEN 0      4096       127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",pid=17781,fd=22))
-tcp   LISTEN 0      4096       127.0.0.1:4447       0.0.0.0:*    users:(("i2pd",pid=17781,fd=33))
-tcp   LISTEN 0      4096        0.0.0.0:22848       0.0.0.0:*    users:(("i2pd",pid=17781,fd=17))
-tcp   LISTEN 0      4096       127.0.0.1:7656       0.0.0.0:*    users:(("i2pd",pid=17781,fd=41))
-tcp   LISTEN 0      4096       127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",pid=17781,fd=37))
+udp   UNCONN 0      0              127.0.0.1:7655       0.0.0.0:*    users:(("i2pd",pid=1305094,fd=45))
+udp   UNCONN 0      0                0.0.0.0:20003      0.0.0.0:*    users:(("i2pd",pid=1305094,fd=21))
+tcp   LISTEN 0      4096             0.0.0.0:20003      0.0.0.0:*    users:(("i2pd",pid=1305094,fd=20))
+tcp   LISTEN 0      4096           127.0.0.1:7656       0.0.0.0:*    users:(("i2pd",pid=1305094,fd=44))
+tcp   LISTEN 0      4096           127.0.0.1:6668       0.0.0.0:*    users:(("i2pd",pid=1305094,fd=40))
+tcp   LISTEN 0      4096           127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",pid=1305094,fd=25))
+tcp   LISTEN 0      4096           127.0.0.1:4444       0.0.0.0:*    users:(("i2pd",pid=1305094,fd=35))
+tcp   LISTEN 0      4096           127.0.0.1:4447       0.0.0.0:*    users:(("i2pd",pid=1305094,fd=36))
 ```
 
 </details>
@@ -463,19 +465,21 @@ sudo ufw allow 9050/tcp comment 'allow Tor socks5 from anywhere'
 * Ensure that the Tor service is working and listening at the default ports `9050` on the `0.0.0.0`
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep tor
+sudo ss -tulpn | grep tor
 ```
 
 Expected output:
 
 ```
-> tcp   LISTEN 0      4096         0.0.0.0:9050       0.0.0.0:*    users:(("tor",pid=2162,fd=6))
-> tcp   LISTEN 0      4096       127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=2162,fd=7))
+tcp   LISTEN 0      4096         0.0.0.0:9050       0.0.0.0:*    users:(("tor",pid=2162,fd=6))
+tcp   LISTEN 0      4096       127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=2162,fd=7))
 ```
 
-You can use this connection from another device in the same local network for example to navigate using a standard browser, without using the Tor browser.
+{% hint style="info" %}
+You can use this connection from another device in the same local network for example to navigate using a standard browser, without using the Tor browser
+{% endhint %}
 
-**Example from Firefox:**
+#### **Example from Firefox:**
 
 Go to Settings > General > Network Settings > Push to the "Settings" button
 
@@ -483,10 +487,13 @@ Edit the screen to match with this, replacing SOCKS Host, with your node local I
 
 <figure><img src="../.gitbook/assets/tor-proxy-browser.png" alt="" width="563"><figcaption></figcaption></figure>
 
-Click on the OK button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info), if it resolves, you are OK.\
-Or simply go to this [website](https://check.torproject.org/), and you should see "_Congratulations. This browser is configured to use Tor."_
+Click on the OK button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info), if it resolves, you are OK.
+
+{% hint style="info" %}
+You can also go to this [website](https://check.torproject.org/) and see "_Congratulations. This browser is configured to use Tor."_
 
 Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Check out the [Desktop wallet: Sparrow wallet](../bitcoin/bitcoin/desktop-wallet.md) guide to get instructions.
+{% endhint %}
 
 ## Upgrade Tor and I2P
 
@@ -608,7 +615,9 @@ If you see these output logs on Bitcoin Core, normally, it could be that I2P is 
 
 ![](../images/i2p-troubleshoting.png)
 
-If this happens, usually this fix only with restarting the i2pd service
+{% hint style="info" %}
+If this happens, usually this fix only with **restarting** the i2pd service
+{% endhint %}
 
 * With user `admin`, restart the service
 

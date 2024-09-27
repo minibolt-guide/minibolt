@@ -649,15 +649,15 @@ etehks3xyh55nyjldjdeckk3nwpanivqhrzhsoracwqjxtk8apgk.b32.i2p       port      0  
 * Ensure bitcoind is listening on the default RPC & P2P ports
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep bitcoind
+sudo ss -tulpn | grep bitcoind
 ```
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
-> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-9">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
-> tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-10">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
-> tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
+<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-9">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-10">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
 </code></pre>
 
 * Please note:
@@ -968,7 +968,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 **Example** of expected output:
 
 ```
-> bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
+bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ```
 
 * The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
@@ -982,12 +982,12 @@ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | 
 Expected output:
 
 ```
-> gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
-> gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
-> gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
-> gpg: Total number processed: 1
-> gpg:               imported: 1
-> gpg: no ultimately trusted keys found
+gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
+gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: no ultimately trusted keys found
 [...]
 ```
 
@@ -1000,8 +1000,8 @@ gpg --verify SHA256SUMS.asc
 * Check that at least a few signatures show the following text
 
 ```
-> gpg: Good signature from ...
-> Primary key fingerprint: ...
+gpg: Good signature from ...
+Primary key fingerprint: ...
 ```
 
 * If you completed the IBD (Initial Block Download), now you can verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
@@ -1014,26 +1014,24 @@ ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
 The following output is just an **example** of one of the versions:
 
 ```
-> Got 1 attestation(s) from https://btc.calendar.catallaxy.com
-> Got 1 attestation(s) from https://finney.calendar.eternitywall.com
-> Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-> Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-> Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
+Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
 ```
 {% endhint %}
 
-{% hint style="info" %}
-Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
-{% endhint %}
+* Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
 
 {% hint style="info" %}
 If you obtain this output:
 
 ```
-> Calendar https://btc.calendar.catallaxy.com: Pending confirmation in Bitcoin blockchain
-> Calendar https://finney.calendar.eternitywall.com: Pending confirmation in Bitcoin blockchain
-> Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
-> Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+Calendar https://btc.calendar.catallaxy.com: Pending confirmation in Bitcoin blockchain
+Calendar https://finney.calendar.eternitywall.com: Pending confirmation in Bitcoin blockchain
+Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
 ```
 
 
@@ -1044,7 +1042,7 @@ If you obtain this output:
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
 
 ```sh
-tar -xvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
+tar -xzvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
 
 * Install them
@@ -1064,9 +1062,9 @@ bitcoin-cli --version
 The following output is just an **example** of one of the versions:
 
 ```
-> Bitcoin Core RPC client version v26.0.0
-> Copyright (C) 2009-2022 The Bitcoin Core developers
-> [...]
+Bitcoin Core RPC client version v26.0.0
+Copyright (C) 2009-2022 The Bitcoin Core developers
+[...]
 ```
 
 * **(Optional)** Delete installation files of the `/tmp` folder to be ready for the next upgrade

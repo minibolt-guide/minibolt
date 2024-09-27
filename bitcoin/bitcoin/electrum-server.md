@@ -517,7 +517,7 @@ Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller
 * Ensure the service is working and listening at the default `50002` & `50001` ports and the `8000` admin port
 
 ```sh
-sudo ss -tulpn | grep LISTEN | grep Fulcrum
+sudo ss -tulpn | grep Fulcrum
 ```
 
 Expected output:
@@ -568,7 +568,7 @@ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
 **Example** of expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 * You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port `50001` (TCP) or `50002` (SSL)
@@ -793,8 +793,8 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 50001       ALLOW IN    Anywhere          # allow Fulcrum TCP from anywhere
-> [X] 50002       ALLOW IN    Anywhere          # allow Fulcrum SSL from anywhere
+[Y] 50001       ALLOW IN    Anywhere          # allow Fulcrum TCP from anywhere
+[X] 50002       ALLOW IN    Anywhere          # allow Fulcrum SSL from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "`yes`"

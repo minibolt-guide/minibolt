@@ -32,10 +32,6 @@ Rustup is an installer for the systems programming language [Rust](https://www.r
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-{% hint style="warning" %}
-When the prompt asks you to choose an option, type **"`1`"** and press **enter** or press **enter** directly to "**Proceed with installation**"
-{% endhint %}
-
 <details>
 
 <summary>Expected output 🔽</summary>
@@ -89,6 +85,10 @@ Current installation options:
 </code></pre>
 
 </details>
+
+{% hint style="warning" %}
+When the prompt asks you to choose an option, type **"`1`"** and press **enter** or press **enter** directly to "**Proceed with installation**"
+{% endhint %}
 
 <details>
 

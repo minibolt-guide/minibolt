@@ -41,28 +41,6 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 To run the BTCPay Server you will need to install `.NET Core SDK`, `PostgreSQL`, and `NBXplorer`
 
-### Configure Bitcoin Core
-
-We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
-
-* With user `admin`, edit `bitcoin.conf`
-
-```bash
-sudo nano /data/bitcoin/bitcoin.conf
-```
-
-* Add the following line to the `"# Connections"` section. Save and exit
-
-<pre><code><strong># NBXplorer requeriment
-</strong><strong>whitelist=127.0.0.1
-</strong></code></pre>
-
-* Restart Bitcoin Core to apply changes
-
-```bash
-sudo systemctl restart bitcoind
-```
-
 ### Firewall
 
 * Configure the Firewall to allow incoming HTTP requests
@@ -248,7 +226,7 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.5
+VERSION=2.5.7
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -718,7 +696,8 @@ nano settings.config
 
 # Server settings
 <strong>bind=0.0.0.0
-</strong>
+</strong>socksendpoint=127.0.0.1:9050
+
 # Database
 ## NBXplorer
 explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;

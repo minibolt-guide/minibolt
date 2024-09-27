@@ -20,7 +20,7 @@ layout:
 
 # Electrs
 
-[Electrs](https://github.com/romanz/electrs/) is an efficient re-implementation of Electrum Server in Rust, inspired by [ElectrumX](https://github.com/kyuupichan/electrumx), [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server) and [bitcoincore-indexd](https://github.com/jonasschnelli/bitcoincore-indexd).
+[Electrs](https://github.com/romanz/electrs/) is an efficient re-implementation of Electrum Server in Rust, inspired by [ElectrumX](https://github.com/kyuupichan/electrumx), [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), and [bitcoincore-indexd](https://github.com/jonasschnelli/bitcoincore-indexd).
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -171,6 +171,8 @@ cd ..
 sudo rm -r rocksdb
 ```
 
+#### Install Rustc (Cargo included)
+
 * Check if you already have `Rustc` installed
 
 ```bash
@@ -213,10 +215,10 @@ sudo nano /etc/nginx/streams-available/electrs-reverse-proxy.conf
 
 ```nginx
 upstream electrs {
-  server 127.0.0.1:50001;
+  server 127.0.0.1:50021;
 }
 server {
-  listen 50002 ssl;
+  listen 50022 ssl;
   proxy_pass electrs;
 }
 ```
@@ -251,11 +253,11 @@ sudo systemctl reload nginx
 * Configure the firewall to allow incoming requests to the SSL and TCP ports
 
 ```sh
-sudo ufw allow 50002/tcp comment 'allow Electrs SSL from anywhere'
+sudo ufw allow 50022/tcp comment 'allow Electrs SSL from anywhere'
 ```
 
 ```sh
-sudo ufw allow 50001/tcp comment 'allow Electrs TCP from anywhere'
+sudo ufw allow 50021/tcp comment 'allow Electrs TCP from anywhere'
 ```
 
 ## Installation
@@ -449,7 +451,7 @@ network = "bitcoin"
 cookie_file= "/data/bitcoin/.cookie"
 
 # Electrs settings
-electrum_rpc_addr = "0.0.0.0:50001"
+electrum_rpc_addr = "0.0.0.0:50021"
 db_dir = "/data/electrs/db"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
 skip_block_download_wait = true
@@ -540,9 +542,9 @@ sudo systemctl start electrs
 
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu electrs</code> ⬇️</summary>
 
-<pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-2">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+<pre><code>Starting electrs <a data-footnote-ref href="#user-content-fn-2">0.10.0</a> on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50021, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
 [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
-[2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50001
+[2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50021
 [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
 [2021-11-09T07:09:43.174Z INFO  electrs::index] indexing 2000 blocks: [1..2000]
 [2021-11-09T07:09:44.665Z INFO  electrs::chain] chain updated: tip=00000000dfd5d65c9d8561b4b8f60a63018fe3933ecb131fb37f905f87da951a, height=2000
@@ -571,7 +573,7 @@ sudo systemctl start electrs
 Electrs will now index the Bitcoin blockchain to provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network
 {% endhint %}
 
-* Ensure electrs service is working and listening at the default TCP `50001` port and the monitoring `14224` port (not used on MiniBolt)
+* Ensure electrs service is working and listening at the default TCP `50021` port and the monitoring `14224` port (not used on MiniBolt)
 
 ```sh
 sudo ss -tulpn | grep LISTEN | grep electrs
@@ -580,20 +582,20 @@ sudo ss -tulpn | grep LISTEN | grep electrs
 Expected output:
 
 ```bash
-> tcp   LISTEN 0      128          0.0.0.0:50001      0.0.0.0:*    users:(("electrs",pid=54749,fd=4))
+> tcp   LISTEN 0      128          0.0.0.0:50021      0.0.0.0:*    users:(("electrs",pid=54749,fd=4))
 > tcp   LISTEN 0      128        127.0.0.1:14224      0.0.0.0:*    users:(("electrs",pid=54749,fd=3))
 ```
 
 * And the SSL `50002` port
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep 50002
+sudo ss -tulpn | grep LISTEN | grep 50022
 ```
 
 Expected output:
 
 ```
-> tcp   LISTEN 0   511   0.0.0.0:50002   0.0.0.0:*    users:(("nginx",pid=719,fd=5),("nginx",pid=718,fd=5),("nginx",pid=717,fd=5),("nginx",pid=716,fd=5),("nginx",pid=715,fd=5))
+> tcp   LISTEN 0   511   0.0.0.0:50022   0.0.0.0:*    users:(("nginx",pid=719,fd=5),("nginx",pid=718,fd=5),("nginx",pid=717,fd=5),("nginx",pid=716,fd=5),("nginx",pid=715,fd=5))
 ```
 
 {% hint style="info" %}
@@ -619,8 +621,8 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 50001 127.0.0.1:50001
-HiddenServicePort 50002 127.0.0.1:50002
+HiddenServicePort 50021 127.0.0.1:50021
+HiddenServicePort 50022 127.0.0.1:50022
 ```
 
 * Reload the Tor configuration to apply changes
@@ -641,7 +643,7 @@ Expected output:
 > abcdefg..............xyz.onion
 ```
 
-* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50002 (SSL)` or `50001 (TCP)`
+* You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50022 (SSL)` or `50021 (TCP)`
 
 ### Migrate BTC RPC Explorer to Electrs API connection
 
@@ -686,9 +688,9 @@ journalctl -fu electrs
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50001, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
+Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path: "/data/electrs/db/bitcoin", daemon_dir: "/data/bitcoin", daemon_auth: CookieFile("/data/bitcoin/.cookie"), daemon_rpc_addr: 127.0.0.1:8332, daemon_p2p_addr: 127.0.0.1:8333, electrum_rpc_addr: 0.0.0.0:50021, monitoring_addr: 127.0.0.1:4224, wait_duration: 10s, jsonrpc_timeout: 15s, index_batch_size: 10, index_lookup_limit: None, reindex_last_blocks: 0, auto_reindex: true, ignore_mempool: false, sync_once: false, disable_electrum_rpc: false, server_banner: "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!", args: [] }
 [2021-11-09T07:09:42.744Z INFO  electrs::metrics::metrics_impl] serving Prometheus metrics on 127.0.0.1:4224
-[2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50001
+[2021-11-09T07:09:42.744Z INFO  electrs::server] serving Electrum RPC on 0.0.0.0:50021
 [2021-11-09T07:09:42.812Z INFO  electrs::db] "/data/electrs/db/bitcoin": 0 SST files, 0 GB, 0 Grows
 [2021-11-09T07:09:43.174Z INFO  electrs::index] indexing 2000 blocks: [1..2000]
 [2021-11-09T07:09:44.665Z INFO  electrs::chain] chain updated: tip=00000000dfd5d65c9d8561b4b8f60a63018fe3933ecb131fb37f905f87da951a, height=2000
@@ -767,8 +769,8 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 #HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
 #HiddenServiceVersion 3
 #HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 50001 127.0.0.1:50001
-#HiddenServicePort 50002 127.0.0.1:50002
+#HiddenServicePort 50021 127.0.0.1:50021
+#HiddenServicePort 50022 127.0.0.1:50022
 ```
 
 * Reload the Tor configuration to apply changes
@@ -819,8 +821,8 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 50001       ALLOW IN    Anywhere          # allow Electrs TCP from anywhere
-> [X] 50002       ALLOW IN    Anywhere          # allow Electrs SSL from anywhere
+> [Y] 50021       ALLOW IN    Anywhere          # allow Electrs TCP from anywhere
+> [X] 50022       ALLOW IN    Anywhere          # allow Electrs SSL from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "`yes`" and enter
@@ -833,8 +835,8 @@ sudo ufw delete X
 
 |  Port |  Protocol |       Use      |
 | :---: | :-------: | :------------: |
-| 50001 |    TCP    |  Default port  |
-| 50002 | TCP (SSL) | Encrypted port |
+| 50021 |    TCP    |  Default port  |
+| 50022 | TCP (SSL) | Encrypted port |
 
 [^1]: Check this
 

@@ -367,7 +367,7 @@ cp .env .env.local
 nano .env.local
 ```
 
-* Edit the following line to match with the next. Save and exit
+* Uncomment and edit the following line to match with the next. Save and exit
 
 ```
 ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'

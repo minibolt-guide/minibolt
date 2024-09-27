@@ -1,7 +1,7 @@
 ---
 description: >-
-  Build your own "DIY" Bitcoin & Lightning full node on a personal computer. No
-  need to trust anyone else.
+  Build your own "DIY" Bitcoin & Lightning full node, and other stuff on a
+  personal computer. No need to trust anyone else.
 ---
 
 # MiniBolt

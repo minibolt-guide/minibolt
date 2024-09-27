@@ -120,8 +120,8 @@ sudo nginx -t
 Expected output:
 
 ```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 * Reload the Nginx configuration to apply changes
@@ -209,14 +209,14 @@ Installation can take some time, be patient. There might be a lot of confusing o
 **Example** of expected output:
 
 ```
-> Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-amd64-83/binding.node
-> added 480 packages from 307 contributors and audited 482 packages in 570.14s
->
-> 43 packages are looking for funding
->   run `npm fund` for details
->
-> found 12 vulnerabilities (8 moderate, 4 high)
->   run `npm audit fix` to fix them, or `npm audit` for details
+Installed to /home/btcrpcexplorer/btc-rpc-explorer/node_modules/node-sass/vendor/linux-amd64-83/binding.node
+added 480 packages from 307 contributors and audited 482 packages in 570.14s
+
+43 packages are looking for funding
+  run `npm fund` for details
+
+found 12 vulnerabilities (8 moderate, 4 high)
+  run `npm audit fix` to fix them, or `npm audit` for details
 ```
 
 * Check the correct installation by requesting the version
@@ -325,7 +325,7 @@ WantedBy=multi-user.target
 sudo systemctl enable btcrpcexplorer
 ```
 
-* Prepare "btcrpcexplorer" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
+* Prepare "btcrpcexplorer" monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
 journalctl -fu btcrpcexplorer
@@ -403,14 +403,14 @@ Jul 18 11:08:35 minibolt npm[140461]: 2023-07-18T11:08:35.135Z btcexp:app Networ
 * Ensure the service is working and listening at the default `3002` port and the HTTPS `4000` port
 
 ```bash
-sudo ss -tulpn | grep 'LISTEN.*\(4000\|3002\)'
+sudo ss -tulpn | grep -E '(:4000|:3002)'
 ```
 
 Expected output:
 
 ```
-> tcp   LISTEN 0      511          0.0.0.0:4000       0.0.0.0:*    users:(("nginx",pid=992796,fd=6),("nginx",pid=992795,fd=6),("nginx",pid=992794,fd=6),("nginx",pid=992793,fd=6),("nginx",pid=992792,fd=6))
-> tcp   LISTEN 0      511        127.0.0.1:3002       0.0.0.0:*    users:(("node",pid=1241652,fd=26))
+tcp   LISTEN 0      511          0.0.0.0:4000       0.0.0.0:*    users:(("nginx",pid=992796,fd=6),("nginx",pid=992795,fd=6),("nginx",pid=992794,fd=6),("nginx",pid=992793,fd=6),("nginx",pid=992792,fd=6))
+tcp   LISTEN 0      511        127.0.0.1:3002       0.0.0.0:*    users:(("node",pid=1241652,fd=26))
 ```
 
 {% hint style="success" %}
@@ -527,7 +527,7 @@ RPC Terminal / Browser require authentication. Set an authentication password vi
 ```
 {% endcode %}
 
-\--> Remember to give them the **`password [D]`** if you added password protection in the reference step
+\-> Remember to give them the **`password [D]`** if you added password protection in the reference step
 {% endhint %}
 
 {% hint style="info" %}
@@ -573,7 +573,7 @@ sudo cat /var/lib/tor/hidden_service_btcrpcexplorer/hostname
 **Example** of expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
@@ -719,8 +719,8 @@ sudo nginx -t
 Expected output:
 
 ```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 * Reload the Nginx configuration to apply changes
@@ -738,7 +738,7 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 4000       ALLOW IN    Anywhere      # allow BTC RPC Explorer SSL from anywhere
+[Y] 4000       ALLOW IN    Anywhere      # allow BTC RPC Explorer SSL from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "`yes`"
