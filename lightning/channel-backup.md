@@ -250,11 +250,13 @@ df -h /mnt/static-channel-backup-external
 
 ### Enable the local backup function in the script
 
-* Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit
+* With user `admin`, edit the script
 
 ```sh
-sudo nano /usr/local/bin/scb-backup --linenumbers
+sudo nano +14 /usr/local/bin/scb-backup --linenumbers
 ```
+
+* Enable the local backup in the script by changing the variable value for `LOCAL_BACKUP_ENABLED` at line 14 to `true`. Save and exit
 
 ```
 LOCAL_BACKUP_ENABLED=true
@@ -299,6 +301,8 @@ Generating public/private rsa key pair.
 cat ~/.ssh/id_rsa.pub
 ```
 
+Example of expected output:
+
 ```
 ssh-rsa 1234abcd... lnd@minibolt
 ```
@@ -312,11 +316,11 @@ ssh-rsa 1234abcd... lnd@minibolt
 * Set up global Git configuration values (the name and email are required but can be dummy values)
 
 ```sh
-git config user.name "MiniBolt"
+git config --global user.name "MiniBolt"
 ```
 
 ```bash
-git config user.email "minibolt@dummyemail.com"
+git config --global user.email "minibolt@dummyemail.com"
 ```
 
 * **(Optional)** Add this step if you want to preserve your privacy with GitHub servers if not, jump to the next step directly -> (`cd ~/.lnd`)
@@ -357,11 +361,13 @@ exit
 
 ### Enable the remote backup function in the script
 
-* Enable the remote backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` line 15 to `true`. Save and exit
+* With user `admin`, edit the script
 
 ```sh
-sudo nano /usr/local/bin/scb-backup --linenumbers
+sudo nano +15 /usr/local/bin/scb-backup --linenumbers
 ```
+
+* Enable the local backup in the script by changing the variable value for `REMOTE_BACKUP_ENABLED` at line 15 to `true`. Save and exit
 
 ```
 REMOTE_BACKUP_ENABLED=true
@@ -466,12 +472,12 @@ Jul 25 17:32:34 minibolt scb-backup[401749]: Watches established.
 </details>
 
 {% hint style="warning" %}
-If you get the next error:
+Finally, you get the next error:
 
 ```
-Nov 05 23:18:43 ramix scb-backup[1710686]: Pushing changes to remote repository...
-Nov 05 23:18:43 ramix scb-backup[1711268]: error: src refspec main does not match any
-Nov 05 23:18:43 ramix scb-backup[1711268]: error: failed to push some refs to 'github.com:<YourGitHubUsername>/remote-lnd-backup.git
+Nov 05 23:18:43 minibolt scb-backup[1710686]: Pushing changes to remote repository...
+Nov 05 23:18:43 minibolt scb-backup[1711268]: error: src refspec main does not match any
+Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to 'github.com:<YourGitHubUsername>/remote-lnd-backup.git
 ```
 
 \-> Edit line 41  [in the script](channel-backup.md#create-script) with the following command:&#x20;
@@ -484,7 +490,7 @@ Replace the content: `"git push --set-upstream origin`**`main`**`"`
 
 To:`"git push --set-upstream origin`**`master`**`"`
 
-And finaly try again with the following command:&#x20;
+And finally, try again with the following command:&#x20;
 
 ```bash
 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup
