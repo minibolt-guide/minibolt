@@ -91,7 +91,7 @@ sudo ufw enable
 Expected output:
 
 ```
-> Firewall is active and enabled on system startup
+Firewall is active and enabled on system startup
 ```
 
 * Check if the UFW is properly configured and active
@@ -178,7 +178,7 @@ nginx -v
 **Example** of expected output:
 
 ```
-> nginx version: nginx/1.18.0 (Ubuntu)
+nginx version: nginx/1.18.0 (Ubuntu)
 ```
 
 * Create a self-signed SSL/TLS certificate (valid for 10 years)
@@ -271,8 +271,8 @@ sudo nginx -t
 Expected output:
 
 ```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 * Reload Nginx to apply the configuration
@@ -291,10 +291,10 @@ journalctl -fu nginx
 
 Expected output:
 
-<pre><code><strong>> Jun 04 18:21:09 minibolt systemd[1]: Starting A high performance web server and a reverse proxy server...
-</strong>> Jun 04 18:21:09 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
-> Jun 04 18:25:18 minibolt systemd[1]: Reloading A high performance web server and a reverse proxy server...
-> Jun 04 18:25:18 minibolt systemd[1]: Reloaded A high performance web server and a reverse proxy server.
+<pre><code><strong>Jun 04 18:21:09 minibolt systemd[1]: Starting A high performance web server and a reverse proxy server...
+</strong>Jun 04 18:21:09 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
+Jun 04 18:25:18 minibolt systemd[1]: Reloading A high performance web server and a reverse proxy server...
+Jun 04 18:25:18 minibolt systemd[1]: Reloaded A high performance web server and a reverse proxy server.
 </code></pre>
 
 {% hint style="info" %}

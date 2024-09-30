@@ -46,7 +46,7 @@ node -v
 **Example** of expected output:
 
 ```
-> v18.16.0
+v18.16.0
 ```
 
 * Check if you have already installed NPM
@@ -58,7 +58,7 @@ npm -v
 **Example** of expected output:
 
 ```
-> 9.5.1
+9.5.1
 ```
 
 {% hint style="info" %}

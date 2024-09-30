@@ -256,21 +256,12 @@ ln -s /data/bitcoin /home/bitcoin/.bitcoin
 * Check the symbolic link has been created correctly
 
 ```bash
-ls -la
+ls -la .bitcoin
 ```
 
 Expected output:
 
-<pre><code>total 32
-drwxr-xr-x 3 bitcoin bitcoin 4096 Nov  7 19:33 .
-drwxr-xr-x 4 root    root    4096 Nov  7 19:32 ..
--rw------- 1 bitcoin bitcoin  135 Nov  7 19:33 .bash_history
--rw-r--r-- 1 bitcoin bitcoin  220 Nov  7 19:32 .bash_logout
--rw-r--r-- 1 bitcoin bitcoin 3523 Nov  7 19:32 .bashrc
-lrwxrwxrwx 1 bitcoin bitcoin   13 Nov  7 19:32 <a data-footnote-ref href="#user-content-fn-2">.bitcoin -> /data/bitcoin</a>
-drwxr-xr-x 3 bitcoin bitcoin 4096 Nov  7 19:33 .local
--rw-r--r-- 1 bitcoin bitcoin 1670 Nov  7 19:32 .mkshrc
--rw-r--r-- 1 bitcoin bitcoin  807 Nov  7 19:32 .profile
+<pre><code>lrwxrwxrwx 1 bitcoin bitcoin   13 Nov  7 19:32 <a data-footnote-ref href="#user-content-fn-2">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 
 ### Generate access credentials
@@ -512,32 +503,31 @@ sudo systemctl start bitcoind
 
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu bitcoind</code> ⬇️</summary>
 
-```
-> 2022-11-24T18:08:04Z Bitcoin Core version v24.0.1.0 (release build)
-> 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -upnp=0
-> 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -natpmp=0
-> 2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -discover=0
-> 2022-11-24T18:08:04Z Using the 'sse4(1way),sse41(4way),avx2(8way)' SHA256 implementation
-> 2022-11-24T18:08:04Z Using RdRand as an additional entropy source
-> 2022-11-24T18:08:04Z Default data directory /home/bitcoin/.bitcoin
-> 2022-11-24T18:08:04Z Using data directory /home/bitcoin/.bitcoin
-> 2022-11-24T18:08:04Z Config file: /home/bitcoin/.bitcoin/bitcoin.conf
-> 2022-11-24T18:08:04Z Config file arg: blockfilterindex="1"
-> 2022-11-24T18:08:04Z Config file arg: coinstatsindex="1"
-> 2022-11-24T18:08:04Z Config file arg: i2pacceptincoming="1"
-> 2022-11-24T18:08:04Z Config file arg: i2psam="127.0.0.1:7656"
-> 2022-11-24T18:08:04Z Config file arg: listen="1"
-> 2022-11-24T18:08:04Z Config file arg: listenonion="1"
-> 2022-11-24T18:08:04Z Config file arg: peerblockfilters="1"
-> 2022-11-24T18:08:04Z Config file arg: peerbloomfilters="1"
-> 2022-11-24T18:08:04Z Config file arg: proxy="127.0.0.1:9050"
-> 2022-11-24T18:08:04Z Config file arg: rpcauth=****
-> 2022-11-24T18:08:04Z Config file arg: server="1"
-> 2022-11-24T18:08:04Z Config file arg: txindex="1"
+<pre><code>2022-11-24T18:08:04Z Bitcoin Core version v24.0.1.0 (release build)
+2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -upnp=0
+2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -natpmp=0
+2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -discover=0
+2022-11-24T18:08:04Z Using the 'sse4(1way),sse41(4way),avx2(8way)' SHA256 implementation
+2022-11-24T18:08:04Z Using RdRand as an additional entropy source
+2022-11-24T18:08:04Z Default data directory /home/bitcoin/.bitcoin
+2022-11-24T18:08:04Z Using data directory /home/bitcoin/.bitcoin
+2022-11-24T18:08:04Z Config file: /home/bitcoin/.bitcoin/bitcoin.conf
+<strong>2022-11-24T18:08:04Z Config file arg: blockfilterindex="1"
+</strong>2022-11-24T18:08:04Z Config file arg: coinstatsindex="1"
+2022-11-24T18:08:04Z Config file arg: i2pacceptincoming="1"
+2022-11-24T18:08:04Z Config file arg: i2psam="127.0.0.1:7656"
+2022-11-24T18:08:04Z Config file arg: listen="1"
+2022-11-24T18:08:04Z Config file arg: listenonion="1"
+2022-11-24T18:08:04Z Config file arg: peerblockfilters="1"
+2022-11-24T18:08:04Z Config file arg: peerbloomfilters="1"
+2022-11-24T18:08:04Z Config file arg: proxy="127.0.0.1:9050"
+2022-11-24T18:08:04Z Config file arg: rpcauth=****
+2022-11-24T18:08:04Z Config file arg: server="1"
+2022-11-24T18:08:04Z Config file arg: txindex="1"
 [...]
-> 2022-11-24T18:09:04Z Synchronizing blockheaders, height: 4000 (~0.56%)
+2022-11-24T18:09:04Z Synchronizing blockheaders, height: 4000 (~0.56%)
 [...]
-```
+</code></pre>
 
 </details>
 
@@ -570,21 +560,12 @@ exit
 * Check symbolic link have been created correctly
 
 ```bash
-ls -la
+ls -la .bitcoin
 ```
 
 Expected output:
 
-<pre><code>drwxr-xr-x 11 root  root   4096 Oct 26 19:19 ..
-<strong>-rw-rw-r-- 1 admin admin 12020 Nov  7 09:51 .bash_aliases
-</strong>-rw------- 1 admin admin 51959 Nov  7 12:19 .bash_history
--rw-r--r-- 1 admin admin   220 Nov  7 20:25 .bash_logout
--rw-r--r-- 1 admin admin  3792 Nov  7 07:56 .bashrc
-lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-5">.bitcoin -> /data/bitcoin</a>
--rw-r--r-- 1 admin admin   807 Nov  7  2023 .profile
-drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
--rw-r--r-- 1 admin admin   208 Nov  7 19:32 .wget-hsts
--rw------- 1 admin admin   116 Nov  7 19:41 .Xauthority
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-5">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 
 {% hint style="warning" %}
@@ -592,7 +573,7 @@ drwx------ 2 admin admin  4096 Nov  7  2023 .ssh
 \
 If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-6)[^6]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
-1. Delete the failed created symbolic link
+1. With user `admin`, delete the failed created symbolic link
 
 ```bash
 sudo rm -r .bitcoin
@@ -604,14 +585,19 @@ sudo rm -r .bitcoin
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-3. Check the symbolic link has been created correctly this time and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-7)[^7]
+3. Check the symbolic link has been created correctly this time and you now have the expected output
 
 ```bash
-ls -la
+ls -la .bitcoin
 ```
+
+Expected output:
+
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-7">.bitcoin -> /data/bitcoin</a>
+</code></pre>
 {% endhint %}
 
-* Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. Take note of them, later you might need it
+* Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. **Take note of them**, later you might need it
 
 {% code overflow="wrap" %}
 ```sh
@@ -622,8 +608,8 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 **Example** of expected output:
 
 ```
-> "address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
-> "address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
+"address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
+"address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
 ```
 
 * Check the correct enablement of the I2P and Tor networks
@@ -736,7 +722,7 @@ ots --version
 
 **Example** of expected output:
 
-<pre><code><strong>> v0.7.1
+<pre><code><strong>v0.7.1
 </strong></code></pre>
 
 {% hint style="info" %}
@@ -822,8 +808,8 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 **Example** of expected output:
 
 ```
-> "address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
-> "address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
+"address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
+"address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
 ```
 
 ### The manual page for bitcoin-cli
@@ -1177,7 +1163,7 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Symbolic link
+[^2]: Check this
 
 [^3]: Replace
 
@@ -1187,7 +1173,7 @@ sudo ufw delete X
 
 [^6]: Symbolic link
 
-[^7]: Symbolic link
+[^7]: Check this
 
 [^8]: RPC port
 

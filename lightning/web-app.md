@@ -43,7 +43,7 @@ node -v
 **Example** of expected output:
 
 ```
-> v16.14.2
+v16.14.2
 ```
 
 * Check the NPM version
@@ -55,7 +55,7 @@ npm -v
 **Example** of expected output:
 
 ```
-> 8.19.3
+8.19.3
 ```
 
 {% hint style="info" %}
@@ -106,8 +106,8 @@ sudo nginx -t
 Expected output:
 
 ```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 * Reload NGINX configuration to apply changes
@@ -350,7 +350,7 @@ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 **Example** of expected output:
 
 ```
-> "version": "0.13.19",
+"version": "0.13.19",
 ```
 
 ## Configuration
@@ -602,13 +602,13 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 * Ensure the service is working and listening at the default `3000` port and the HTTPS `4002` port
 
 ```bash
-sudo ss -tulpn | grep -v 'dotnet' | grep 'LISTEN.*\(4002\|3000\)'
+sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4002|:3000)'
 ```
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0      511          0.0.0.0:4002       0.0.0.0:*    users:(("nginx",pid=992796,fd=7),("nginx",pid=992795,fd=7),("nginx",pid=992794,fd=7),("nginx",pid=992793,fd=7),("nginx",pid=992792,fd=7))
-</strong>> tcp   LISTEN 0      511                *:3000             *:*    users:(("next-router-wor",pid=1405797,fd=32))
+<pre><code><strong>tcp   LISTEN 0      511          0.0.0.0:4002       0.0.0.0:*    users:(("nginx",pid=992796,fd=7),("nginx",pid=992795,fd=7),("nginx",pid=992794,fd=7),("nginx",pid=992793,fd=7),("nginx",pid=992792,fd=7))
+</strong>tcp   LISTEN 0      511                *:3000             *:*    users:(("next-router-wor",pid=1405797,fd=32))
 </code></pre>
 
 {% hint style="success" %}
@@ -650,7 +650,7 @@ sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
 Expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
@@ -1017,7 +1017,7 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
+[X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
 ```
 
 * Delete the two Thunderhub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)

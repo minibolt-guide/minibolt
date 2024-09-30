@@ -63,19 +63,19 @@ sudo systemctl restart bitcoind
 * Check Bitcoin Core is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 2833
+sudo ss -tulpn | grep bitcoind | grep 2833
 ```
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">28332</a>      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=20))
-> tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-2">28333</a>      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=22))
+<pre><code>tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">28332</a>      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=20))
+tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-2">28333</a>      0.0.0.0:*    users:(("bitcoind",pid=773834,fd=22))
 </code></pre>
 
 ### Install PostgreSQL
 
 {% hint style="warning" %}
-You may want to use the bbolt database backend instead of PostgreSQL, if yes, jump to the [next step](lightning-client.md#installation) and follow the [Use bbolt database backend](lightning-client.md#use-the-bbolt-database-backend) section and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
+You may want to use the bbolt database backend instead of PostgreSQL (more easy installation/configuration, low performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)), if yes, jump to the [next step](lightning-client.md#installation) and follow the [Use bbolt database backend](lightning-client.md#use-the-bbolt-database-backend) section and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
 {% endhint %}
 
 * With user `admin`, check if you already have PostgreSQL installed
@@ -87,7 +87,7 @@ psql -V
 **Example** of expected output:
 
 ```
-> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
 {% hint style="info" %}
@@ -163,7 +163,7 @@ sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
 **Example** of expected output:
 
 ```
-> lnd-linux-amd64-v0.16.3-beta.tar.gz: OK
+lnd-linux-amd64-v0.16.3-beta.tar.gz: OK
 ```
 
 ### Signature check
@@ -180,12 +180,12 @@ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/
 
 Expected output:
 
-<pre data-full-width="false"><code><strong>>   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-</strong>>                                  Dload  Upload   Total   Spent    Left  Speed
-> 100  6900  100  6900    0     0  19676      0 --:--:-- --:--:-- --:--:-- 19714
-> gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" <a data-footnote-ref href="#user-content-fn-3">imported</a>
-> gpg: Total number processed: 1
-> gpg:              unchanged: 1
+<pre data-full-width="false"><code><strong>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+</strong>                                  Dload  Upload   Total   Spent    Left  Speed
+100  6900  100  6900    0     0  19676      0 --:--:-- --:--:-- --:--:-- 19714
+gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" <a data-footnote-ref href="#user-content-fn-3">imported</a>
+gpg: Total number processed: 1
+gpg:              unchanged: 1
 </code></pre>
 
 * Verify the signature of the text file containing the checksums for the application
@@ -196,13 +196,13 @@ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 
 **Example** of expected output:
 
-<pre><code>> gpg: Signature made Mon 13 Nov 2023 11:45:38 PM UTC
-> gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
-> gpg: <a data-footnote-ref href="#user-content-fn-4">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
-> gpg: WARNING: This key is not certified with a trusted signature!
-> gpg:          There is no indication that the signature belongs to the owner.
-> Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
->      Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
+<pre><code>gpg: Signature made Mon 13 Nov 2023 11:45:38 PM UTC
+gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
+gpg: <a data-footnote-ref href="#user-content-fn-4">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
+     Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
 </code></pre>
 
 ### Timestamp check
@@ -219,11 +219,11 @@ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasb
 
 **Example** of expected output:
 
-<pre><code>> Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-> Got 1 attestation(s) from https://btc.calendar.catallaxy.com
-> Got 1 attestation(s) from https://finney.calendar.eternitywall.com
-> Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-> <a data-footnote-ref href="#user-content-fn-5">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-6">765521 attests existence as of 2022-12-01 UTC</a>
+<pre><code>Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+<a data-footnote-ref href="#user-content-fn-5">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-6">765521 attests existence as of 2022-12-01 UTC</a>
 </code></pre>
 
 {% code overflow="wrap" %}
@@ -234,11 +234,11 @@ ots --no-cache verify manifest-v$VERSION-beta.txt.ots -f manifest-v$VERSION-beta
 
 **Example** of expected output:
 
-<pre><code>> Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-> Got 1 attestation(s) from https://btc.calendar.catallaxy.com
-> Got 1 attestation(s) from https://finney.calendar.eternitywall.com
-> Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-> <a data-footnote-ref href="#user-content-fn-7">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-8">829257 attests existence as of 2024-02-06 UTC</a>
+<pre><code>Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+<a data-footnote-ref href="#user-content-fn-7">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-8">829257 attests existence as of 2024-02-06 UTC</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -278,7 +278,7 @@ lnd --version
 **Example** of expected output:
 
 ```
-> lnd version 0.16.3-beta commit=v0.16.3-beta
+lnd version 0.16.3-beta commit=v0.16.3-beta
 ```
 
 * **(Optional)** Clean the LND files of the `tmp` folder
@@ -330,32 +330,22 @@ sudo chown -R lnd:lnd /data/lnd
 sudo su - lnd
 ```
 
-* Create symbolic links pointing to the LND and bitcoin data directories
+* Create symbolic links pointing to the lnd and bitcoin data directories
 
 ```sh
-ln -s /data/lnd /home/lnd/.lnd
-```
-
-```sh
-ln -s /data/bitcoin /home/lnd/.bitcoin
+ln -s /data/lnd /home/lnd/.lnd && ln -s /data/bitcoin /home/lnd/.bitcoin
 ```
 
 * Check symbolic links have been created correctly
 
 ```bash
-ls -la
+ls -la .lnd .bitcoin
 ```
 
 Expected output:
 
-<pre><code>total 20
-drwxr-x--- 2 lnd  lnd  4096 Jul 15 20:57 .
-drwxr-xr-x 7 root root 4096 Jul 15 20:54 ..
--rw-r--r-- 1 lnd  lnd   220 Jul 15 20:54 .bash_logout
--rw-r--r-- 1 lnd  lnd  3771 Jul 15 20:54 .bashrc
-lrwxrwxrwx 1 lnd  lnd    13 Jul 15 20:57 <a data-footnote-ref href="#user-content-fn-9">.bitcoin -> /data/bitcoin</a>
-lrwxrwxrwx 1 lnd  lnd     9 Jul 15 20:56 <a data-footnote-ref href="#user-content-fn-10">.lnd -> /data/lnd</a>
--rw-r--r-- 1 lnd  lnd   807 Jul 15 20:54 .profile
+<pre><code>lrwxrwxrwx 1 lnd lnd 13 Jul 21  2023 <a data-footnote-ref href="#user-content-fn-9">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 lnd lnd  9 Jul 21  2023 <a data-footnote-ref href="#user-content-fn-10">.lnd -> /data/lnd</a>
 </code></pre>
 
 ### Wallet password
@@ -810,7 +800,7 @@ exit
 * Check that LND is running and related ports listening
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep lnd
+sudo ss -tulpn | grep lnd
 ```
 
 Expected output:
@@ -1054,7 +1044,7 @@ go version
 **Example** of expected output:
 
 ```
-> go version go1.21.10 linux/amd64
+go version go1.21.10 linux/amd64
 ```
 
 {% hint style="info" %}
@@ -1372,8 +1362,8 @@ The `[WRN]` logs indicate that LND has detected an existing old bbolt database a
 
 ```
 [...]
-> [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/chain/bitcoin/mainnet/wallet.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
-> [WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/graph/mainnet/channel.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
+[WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/chain/bitcoin/mainnet/wallet.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
+[WRN] LTND: Found existing bbolt database file in /home/lnd/.lnd/data/graph/mainnet/channel.db while using database type postgres. Existing data will NOT be migrated to postgres automatically!
 [...]
 ```
 
@@ -1387,7 +1377,7 @@ Pay attention to this `[INF]` significant log to confirm you are using PostgreSQ
 
 ```
 [...]
-> [INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
+[INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
 [...]
 ```
 {% endhint %}
@@ -1596,9 +1586,9 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^8]: (**Example)**
 
-[^9]: Symbolic link
+[^9]: Check this
 
-[^10]: Symbolic link
+[^10]: Check this
 
 [^11]: (Uncomment and customize the value)
 

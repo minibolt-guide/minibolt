@@ -127,12 +127,12 @@ By OS:
 * **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
 
 ```sh
-sudo ss -tulpn | grep tor | grep LISTEN
+sudo ss -tulpn | grep tor
 ```
 
 Expected output:
 
-```sh
+```
 tcp   LISTEN 0  4096   127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=1847,fd=6))
 tcp   LISTEN 0  4096   127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=1847,fd=7))
 ```
@@ -154,7 +154,7 @@ sudo cat /var/lib/tor/hidden_service_electrs/hostname
 **Example** of expected output:
 
 ```
-> ab...yz.onion
+ab...yz.onion
 ```
 
 * For Fulcrum
@@ -166,7 +166,7 @@ sudo cat /var/lib/tor/hidden_service_fulcrum/hostname
 **Example** of expected output:
 
 ```
-> ab...yz.onion.onion
+ab...yz.onion.onion
 ```
 
 Now, execute Electrum Wallet choosing the correct way depending on your OS (replace "9050" with "9150" if you choose to run the Tor Browser)

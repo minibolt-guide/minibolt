@@ -22,10 +22,20 @@ You are now on the command line of your own Bitcoin node. Let's start with the c
 
 We will use the primary user `admin` instead of `temp` to make this guide more universal.
 
-* Create a new user called `admin` with your `password [A]`
+* Create a new user called `admin` with your `password [A]` when password ask you
 
 ```sh
 sudo adduser --gecos "" admin
+```
+
+**Example** of expected output:
+
+```
+Adding user `admin' ...
+Adding new group `admin' (1001) ...
+Adding new user `admin' (1001) with group `admin' ...
+Creating home directory `/home/admin' ...
+Copying files from `/etc/skel' ...
 ```
 
 * Make this new user a superuser by adding it to the `sudo` and old `temp` user groups
@@ -50,7 +60,7 @@ sudo userdel -rf temp
 Expected output:
 
 ```
-> userdel: temp mail spool (/var/mail/temp) not found
+userdel: temp mail spool (/var/mail/temp) not found
 ```
 
 {% hint style="info" %}
@@ -108,7 +118,7 @@ sudo hdparm -t --direct /dev/sda
 **Example** of expected output:
 
 ```
-> Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
+Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
 ```
 
 {% hint style="success" %}
@@ -124,7 +134,7 @@ sudo hdparm -t --direct /dev/sdb
 **Example** of expected output:
 
 ```
-> Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
+Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
 ```
 
 {% hint style="success" %}
@@ -142,10 +152,10 @@ sudo mkdir /data
 ```
 
 {% hint style="info" %}
-Remember that the before command is not necessary if you previously followed [Case 1](../bonus/system/store-data-secondary-disk.md#case-1-during-the-ubuntu-server-guided-installation) of [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, which involves storing the data in a secondary disk. This is because the **("data")** folder has already been created. If the prompt shows you: `mkdir: cannot create directory '/data': File exists` probably is that. Then ignore it and follow with the next command 🔽
+Remember that the before command is unnecessary if you previously followed [Case 1](../bonus/system/store-data-secondary-disk.md#case-1-during-the-ubuntu-server-guided-installation) of [Store data in a secondary disk](../bonus/system/store-data-secondary-disk.md) bonus guide, which involves storing the data in a secondary disk. This is because the **("data")** folder has already been created. If the prompt shows you: `mkdir: cannot create directory '/data': File exists` probably is that. Then ignore it and follow with the next command 🔽
 {% endhint %}
 
-* Assing to the `admin` user as the owner of the **`(/data)`** folder
+* Assing to the `admin` user as the owner of the **`/data`** folder
 
 ```sh
 sudo chown admin:admin /data

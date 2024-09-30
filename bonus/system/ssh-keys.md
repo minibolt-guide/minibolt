@@ -63,7 +63,9 @@ When you're prompted to "Enter a file in which to save the key", press Enter to 
 ssh-copy-id admin@minibolt
 ```
 
-💡 If you are on macOS and encounter an error, you might need to install `ssh-copy-id` first by running the following command on your Mac's command line
+{% hint style="info" %}
+If you are on macOS and encounter an error, you might need to install `ssh-copy-id` first by running the following command on your Mac's command line
+{% endhint %}
 
 ```sh
 brew install ssh-copy-id
@@ -155,6 +157,14 @@ chmod 700 .ssh
 
 ```sh
 curl https://github.com/<username>.keys >> .ssh/authorized_keys
+```
+
+Expected output:
+
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   725  100   725    0     0   1984      0 --:--:-- --:--:-- --:--:--  1986
 ```
 
 * Ensure that your SSH keys have been imported correctly in "authorized\_keys" file, and press `Ctrl-X` to exit

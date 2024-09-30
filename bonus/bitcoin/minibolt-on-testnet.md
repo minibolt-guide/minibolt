@@ -144,9 +144,8 @@ sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
 
 **Example** of expected output:
 
-```
-> abcdefg..............xyz.onion
-```
+<pre><code><strong>abcdefg..............xyz.onion
+</strong></code></pre>
 
 {% hint style="info" %}
 You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 60001 (TCP) or 60002 (SSL)
@@ -292,18 +291,16 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 
 ### Bitcoin: [Electrs](electrs.md)
 
-Follow the complete guide from the beginning, when you arrive at the ["Firewall & reverse proxy section"](electrs.md#firewall-and-reverse-proxy), follow the next steps:
-
-[Firewall & reverse proxy](electrs.md#firewall-and-reverse-proxy)
+Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
 
 * Configure the Firewall to allow incoming requests
 
 ```sh
-sudo ufw allow 60002/tcp comment 'allow Electrs SSL from anywhere'
+sudo ufw allow 60022/tcp comment 'allow Electrs SSL from anywhere'
 ```
 
 ```sh
-sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
+sudo ufw allow 60021/tcp comment 'allow Electrs TCP from anywhere'
 ```
 
 * Create the `electrs-reverse-proxy.conf` file
@@ -312,14 +309,14 @@ sudo ufw allow 60001/tcp comment 'allow Electrs TCP from anywhere'
 sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
 ```
 
-* Replace the mainnet ports `50001/50002` with the `60001/60001` testnet ports
+* Replace the mainnet ports `50021/50022` with the `60021/60022` testnet ports
 
 ```nginx
 upstream electrs {
-  server 127.0.0.1:60001;
+  server 127.0.0.1:60021;
 }
 server {
-  listen 60002 ssl;
+  listen 60022 ssl;
   proxy_pass electrs;
 }
 ```
@@ -348,11 +345,10 @@ nano /data/electrs/electrs.conf
 # Bitcoin Core settings
 <strong>network = "testnet"
 </strong>cookie_file = "/data/bitcoin/testnet3/.cookie"
-skip_block_download_wait = true
 
 # Electrs settings
-electrum_rpc_addr = "0.0.0.0:60001"
-server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node testnet!"
+electrum_rpc_addr = "0.0.0.0:60021"
+server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node Testnet!"
 </code></pre>
 
 [Remote access over Tor](electrs.md#remote-access-over-tor-optional)
@@ -363,15 +359,15 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 sudo nano /etc/tor/torrc
 ```
 
-* Edit the torrc file and replace ports to `60001/60002` to match with testnet mode
+* Edit the torrc file and replace ports to `60021/60022` to match with testnet mode
 
 ```
 # Hidden Service Electrs Testnet TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 60001 127.0.0.1:60001
-HiddenServicePort 60002 127.0.0.1:60002
+HiddenServicePort 60021 127.0.0.1:60021
+HiddenServicePort 60022 127.0.0.1:60022
 ```
 
 * Reload the Tor configuration and get your connection addresses
@@ -387,7 +383,7 @@ sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
 **Example** of expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 {% hint style="success" %}
@@ -403,5 +399,5 @@ Here we are going to describe only what ports differ from the mainnet mode:
 | 18333 |    TCP    |            P2P testnet port            |
 | 18334 |    TCP    |       P2P testnet secondary port       |
 | 18332 |    TCP    |            RPC testnet port            |
-| 60001 |    TCP    |      Electrum server testnet port      |
-| 60002 | TCP (SSL) | Electrum server testnet encrypted port |
+| 60021 |    TCP    |      Electrum server testnet port      |
+| 60022 | TCP (SSL) | Electrum server testnet encrypted port |

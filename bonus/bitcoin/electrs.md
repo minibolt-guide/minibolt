@@ -182,7 +182,7 @@ rustc --version
 Expected output:
 
 ```
-> rustc 1.71.0 (8ede3aae2 2023-07-12)
+rustc 1.71.0 (8ede3aae2 2023-07-12)
 ```
 
 * And cargo installed
@@ -194,7 +194,7 @@ cargo -V
 Expected output:
 
 ```
-> cargo 1.71.0 (cfd3bbd8f 2023-06-08)
+cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="warning" %}
@@ -240,8 +240,8 @@ sudo nginx -t
 Expected output:
 
 ```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 * Reload the Nginx configuration to apply changes
@@ -275,7 +275,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=0.10.5
+VERSION=0.10.6
 ```
 
 * Download the source code and go to the `electrs` folder
@@ -309,14 +309,14 @@ git verify-tag v$VERSION
 
 Expected output:
 
-<pre><code>> gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
-> gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
-> gpg:                issuer "me@romanzey.de"
-> gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Roman Zeyde &#x3C;me@romanzey.de>" [unknown]
-> gpg:                 aka "Roman Zeyde &#x3C;roman.zeyde@gmail.com>" [unknown]
-> gpg: WARNING: This key is not certified with a trusted signature!
-> gpg:          There is no indication that the signature belongs to the owner.
-> Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
+<pre><code>gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
+gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
+gpg:                issuer "me@romanzey.de"
+gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Roman Zeyde &#x3C;me@romanzey.de>" [unknown]
+gpg:                 aka "Roman Zeyde &#x3C;roman.zeyde@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
 </code></pre>
 
 * Now compile the source code into an executable binary
@@ -387,7 +387,7 @@ electrs --version
 **Example** of expected output:
 
 ```
-> v0.10.0
+v0.10.0
 ```
 
 * **(Optional)** Delete the temporal `electrs` folder
@@ -396,7 +396,7 @@ electrs --version
 sudo rm -r /tmp/electrs
 ```
 
-{% hint style="info" %}
+{% hint style="success" %}
 If you come to update this is the final step
 {% endhint %}
 
@@ -576,26 +576,26 @@ Electrs will now index the Bitcoin blockchain to provide all necessary informati
 * Ensure electrs service is working and listening at the default TCP `50021` port and the monitoring `14224` port (not used on MiniBolt)
 
 ```sh
-sudo ss -tulpn | grep LISTEN | grep electrs
+sudo ss -tulpn | grep electrs
 ```
 
 Expected output:
 
-```bash
-> tcp   LISTEN 0      128          0.0.0.0:50021      0.0.0.0:*    users:(("electrs",pid=54749,fd=4))
-> tcp   LISTEN 0      128        127.0.0.1:14224      0.0.0.0:*    users:(("electrs",pid=54749,fd=3))
+```
+tcp   LISTEN 0      128          0.0.0.0:50021      0.0.0.0:*    users:(("electrs",pid=54749,fd=4))
+tcp   LISTEN 0      128        127.0.0.1:14224      0.0.0.0:*    users:(("electrs",pid=54749,fd=3))
 ```
 
 * And the SSL `50002` port
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep 50022
+sudo ss -tulpn | grep 50022
 ```
 
 Expected output:
 
 ```
-> tcp   LISTEN 0   511   0.0.0.0:50022   0.0.0.0:*    users:(("nginx",pid=719,fd=5),("nginx",pid=718,fd=5),("nginx",pid=717,fd=5),("nginx",pid=716,fd=5),("nginx",pid=715,fd=5))
+tcp   LISTEN 0   511   0.0.0.0:50022   0.0.0.0:*    users:(("nginx",pid=719,fd=5),("nginx",pid=718,fd=5),("nginx",pid=717,fd=5),("nginx",pid=716,fd=5),("nginx",pid=715,fd=5))
 ```
 
 {% hint style="info" %}
@@ -640,7 +640,7 @@ sudo cat /var/lib/tor/hidden_service_electrs_tcp_ssl/hostname
 Expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 * You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50022 (SSL)` or `50021 (TCP)`
@@ -669,7 +669,7 @@ sudo systemctl restart btcrpcexplorer
 
 ## Upgrade
 
-* First, ensure that you have the latest Rustc version following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the Rustup + Cargo bonus guide
+* First, ensure that you have the latest Rustc version following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-+-cargo.md)
 * Follow the complete [Build from the source code](electrs.md#build-from-the-source-code) section
 * When you finish, restart Electrs to apply the new version
 
@@ -802,8 +802,8 @@ sudo nginx -t
 Expected output:
 
 ```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 * Reload the Nginx configuration to apply changes
@@ -821,8 +821,8 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 50021       ALLOW IN    Anywhere          # allow Electrs TCP from anywhere
-> [X] 50022       ALLOW IN    Anywhere          # allow Electrs SSL from anywhere
+[Y] 50021       ALLOW IN    Anywhere          # allow Electrs TCP from anywhere
+[X] 50022       ALLOW IN    Anywhere          # allow Electrs SSL from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "`yes`" and enter

@@ -105,7 +105,7 @@ sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 8433
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">8433</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=18))
+<pre><code>tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">8433</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=18))
 </code></pre>
 
 ## Installation
@@ -195,7 +195,7 @@ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 
 **Example** of expected output:
 
-<pre><code><strong>> <a data-footnote-ref href="#user-content-fn-3">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
+<pre><code><strong><a data-footnote-ref href="#user-content-fn-3">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
 </strong></code></pre>
 
 * Extract
@@ -297,20 +297,13 @@ ln -s /data/fulcrum /home/fulcrum/.fulcrum
 * Check symbolic link has been created correctly
 
 ```bash
-ls -la
+ls -la .fulcrum
 ```
 
 Expected output:
 
-<pre><code>total 24
-drwxr-x--- 2 fulcrum fulcrum 4096 Jul 15 07:59 .
-drwxr-xr-x 6 root    root    4096 Jul 15 07:56 ..
--rw------- 1 fulcrum fulcrum   24 Jul 15 07:59 .bash_history
--rw-r--r-- 1 fulcrum fulcrum  220 Jul 15 07:56 .bash_logout
--rw-r--r-- 1 fulcrum fulcrum 3771 Jul 15 07:56 .bashrc
-lrwxrwxrwx 1 fulcrum fulcrum   13 Jul 15 07:59 <a data-footnote-ref href="#user-content-fn-4">.fulcrum -> /data/fulcrum</a>
--rw-r--r-- 1 fulcrum fulcrum  807 Jul 15 07:56 .profile
-</code></pre>
+<pre><code><strong>lrwxrwxrwx 1 fulcrum fulcrum 13 Jul 27 17:06 <a data-footnote-ref href="#user-content-fn-4">.fulcrum -> /data/fulcrum</a>
+</strong></code></pre>
 
 * Change to the fulcrum data folder
 
@@ -850,6 +843,6 @@ Filename            Type                Size           Used    Priority
 
 [^3]: That's it!
 
-[^4]: Symbolic link
+[^4]: Check this
 
 [^5]: Accommodate this

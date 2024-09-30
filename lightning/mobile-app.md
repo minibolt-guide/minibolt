@@ -57,7 +57,7 @@ sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
 
 Expected output:
 
-<pre><code>> tcp   LISTEN 0      4096         0.0.0.0:<a data-footnote-ref href="#user-content-fn-1">8080</a>       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+<pre><code>tcp   LISTEN 0      4096         0.0.0.0:<a data-footnote-ref href="#user-content-fn-1">8080</a>       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
 </code></pre>
 
 ### Configure Firewall
@@ -164,7 +164,7 @@ sudo cat /var/lib/tor/hidden_service_lnd_rest/hostname
 **Example** expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 * Save the onion address in a safe place (e.g., password manager)
@@ -266,7 +266,7 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 8080           ALLOW IN    Anywhere          # allow LND REST from anywhere
+[Y] 8080           ALLOW IN    Anywhere          # allow LND REST from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "`yes`"

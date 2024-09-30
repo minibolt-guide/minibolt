@@ -154,7 +154,7 @@ dotnet --version
 **Example** of expected output:
 
 ```
-> 6.0.411
+6.0.411
 ```
 
 * Delete the installation script
@@ -180,7 +180,7 @@ psql -V
 **Example** of expected output:
 
 ```
-> psql (PostgreSQL) 16.3 (Ubuntu 16.3-1.pgdg22.04+1)
+psql (PostgreSQL) 16.3 (Ubuntu 16.3-1.pgdg22.04+1)
 ```
 
 {% hint style="info" %}
@@ -358,7 +358,7 @@ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 **Example** of expected output:
 
 ```
-> <Version>2.4.3</Version>
+<Version>2.4.3</Version>
 ```
 
 * Create the data folder and navigate to it
@@ -519,13 +519,13 @@ Jul 05 17:50:23 minibolt run.sh[2808966]: info: NBXplorer.Events: BTC: New block
 * Ensure NBXplorer is running and listening on the default port `24444`
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep NBXplorer
+sudo ss -tulpn | grep NBXplorer
 ```
 
 Expected output:
 
 ```
-> tcp   LISTEN 0   512    127.0.0.1:24444    0.0.0.0:*    users:(("NBXplorer",pid=2808966,fd=176))
+tcp   LISTEN 0   512    127.0.0.1:24444    0.0.0.0:*    users:(("NBXplorer",pid=2808966,fd=176))
 ```
 
 {% hint style="success" %}
@@ -672,7 +672,7 @@ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 **Example** of expected output:
 
 ```
-> <Version>1.12.0</Version>
+<Version>1.12.0</Version>
 ```
 
 * Create the data folder and enter it
@@ -725,7 +725,7 @@ sudo nano /etc/systemd/system/btcpay.service
 
 * Paste the following configuration. Save and exit
 
-<pre><code># MiniBolt: systemd unit for BTCpay server
+<pre><code># MiniBolt: systemd unit for BTCPay Server
 # /etc/systemd/system/btcpay.service
 
 <strong>[Unit]
@@ -810,13 +810,13 @@ Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Connected to Web
 * Ensure the BTCPay Server is running and listening on the default port `23000`
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep 23000
+sudo ss -tulpn | grep 23000
 ```
 
 Expected output:
 
 ```
-> tcp   LISTEN 0   512        0.0.0.0:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
+tcp   LISTEN 0   512        0.0.0.0:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
 ```
 
 Now point your browser, `"http://minibolt.local:23000"` (or your node IP address) like `"http://192.168.0.20:23000"`
@@ -866,7 +866,7 @@ sudo cat /var/lib/tor/hidden_service_btcpay/hostname
 **Example** of expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 * With the [Tor browser](https://www.torproject.org/), you can access this onion address from any device
@@ -897,12 +897,12 @@ sudo systemctl restart lnd
 * Ensure the REST port is now binding to the `0.0.0.0` host instead of `127.0.0.1`
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
+sudo ss -tulpn | grep lnd | grep 8080
 ```
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
+<pre><code><strong>tcp   LISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*    users:(("lnd",pid=774047,fd=32))
 </strong></code></pre>
 
 * Stop BTCPay Server before making changes
@@ -1045,7 +1045,7 @@ dotnet --version
 **Example** of expected output:
 
 ```
-> 6.0.411
+6.0.411
 ```
 
 * Delete the installation script
@@ -1179,7 +1179,7 @@ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 **Example** of expected output:
 
 ```
-> <Version>2.4.3</Version>
+<Version>2.4.3</Version>
 ```
 
 * Go back to the `admin` user
@@ -1298,7 +1298,7 @@ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 **Example** of expected output:
 
 ```
-> <Version>1.12.0</Version>
+<Version>1.12.0</Version>
 ```
 
 * Go back to the `admin` user
@@ -1358,7 +1358,7 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 23000       ALLOW IN    Anywhere          # allow BTCPay Server from anywhere
+[Y] 23000       ALLOW IN    Anywhere          # allow BTCPay Server from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with `yes`

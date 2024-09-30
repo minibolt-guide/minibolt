@@ -33,13 +33,13 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=1.22.5
+VERSION=1.23.1
 ```
 
 * Set a temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=904b924d435eaea086515bc63235b192ea441bd8c9b198c507e85009e6e4c7f0
+SHA256=49bbb517cfa9eee677e1e7897f7cf9cfdbcf49e05f61984a2789136de359f9bd
 ```
 
 * Get the latest binary of the [official repository](https://go.dev/dl/)
@@ -56,7 +56,7 @@ echo "$SHA256 go$VERSION.linux-amd64.tar.gz" | sha256sum --check
 
 **Example** of expected output:
 
-<pre><code><strong>> go1.21.10.linux-amd64.tar.gz: OK
+<pre><code><strong>go1.21.10.linux-amd64.tar.gz: OK
 </strong></code></pre>
 
 * Extract and install Go in the `/usr/local` directory
@@ -92,7 +92,7 @@ go version
 **Example** of expected output:
 
 ```
-> go version go1.21.10 linux/amd64
+go version go1.21.10 linux/amd64
 ```
 
 * **(Optional)** Delete the file of the temporary folder to be immediately ready for the next update
@@ -118,13 +118,13 @@ cd /tmp
 * Set a temporary version environment variable with the new value, to the installation
 
 ```bash
-VERSION=1.22.3
+VERSION=1.23.1
 ```
 
 * Set the new temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=8920ea521bad8f6b7bc377b4824982e011c19af27df88a815e3586ea895f1b36
+SHA256=49bbb517cfa9eee677e1e7897f7cf9cfdbcf49e05f61984a2789136de359f9bd
 ```
 
 * Get the latest binary of the [official repository](https://go.dev/dl/)
@@ -142,7 +142,7 @@ echo "$SHA256 go$VERSION.linux-amd64.tar.gz" | sha256sum --check
 **Example** of expected output:
 
 ```
-> go1.22.3.linux-amd64.tar.gz: OK
+go1.22.3.linux-amd64.tar.gz: OK
 ```
 
 * Extract and install Go in the `/usr/local` directory
@@ -198,7 +198,7 @@ go version
 Expected output:
 
 ```
-> -bash: /usr/local/go/bin/go: No such file or directory
+-bash: /usr/local/go/bin/go: No such file or directory
 ```
 
 Next new session you will obtain this command when you try `go version` command:

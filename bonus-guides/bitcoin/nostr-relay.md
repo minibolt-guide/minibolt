@@ -81,7 +81,7 @@ rustc --version
 **Example** of expected output:
 
 ```
-> rustc 1.71.0 (8ede3aae2 2023-07-12)
+rustc 1.71.0 (8ede3aae2 2023-07-12)
 ```
 
 * Also Cargo
@@ -93,7 +93,7 @@ cargo -V
 **Example** of expected output:
 
 ```
-> cargo 1.71.0 (cfd3bbd8f 2023-06-08)
+cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="info" %}
@@ -115,7 +115,7 @@ psql -V
 **Example** of expected output:
 
 ```
-> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
 {% hint style="info" %}
@@ -221,7 +221,7 @@ nostr-rs-relay -V
 **Example** of expected output:
 
 ```
-> nostr-rs-relay 0.8.9
+nostr-rs-relay 0.8.9
 ```
 
 {% hint style="info" %}
@@ -436,13 +436,13 @@ Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.338012Z  I
 * Ensure the service is working and listening at the default `8880` port
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep nostr-rs-relay
+sudo ss -tulpn | grep nostr-rs-relay
 ```
 
 Expected output:
 
 ```
-> tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=138820,fd=24))
+tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=138820,fd=24))
 ```
 
 ### Cloudflare tunnel

@@ -289,8 +289,8 @@ ssh-keygen -t rsa -b 4096
 * When prompted, press "Enter" to confirm the default SSH directory and press "Enter" again to not set up a passphrase
 
 ```
-> Generating public/private rsa key pair.
-> [...]
+Generating public/private rsa key pair.
+[...]
 ```
 
 * Display the public key and take note
@@ -300,7 +300,7 @@ cat ~/.ssh/id_rsa.pub
 ```
 
 ```
-> ssh-rsa 1234abcd... lnd@minibolt
+ssh-rsa 1234abcd... lnd@minibolt
 ```
 
 * Go back to the GitHub repository webpage
@@ -339,13 +339,13 @@ git clone git@github.com:<YourGitHubUsername>/remote-lnd-backup.git
 **Example** of expected output:
 
 ```
-> Cloning into 'remote-lnd-backup'...
-> The authenticity of host 'github.com (140.82.121.3)' can't be established.
-> ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
-> This key is not known by any other names
-> Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-> Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
-> warning: You appear to have cloned an empty repository.
+Cloning into 'remote-lnd-backup'...
+The authenticity of host 'github.com (140.82.121.3)' can't be established.
+ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+warning: You appear to have cloned an empty repository.
 [...]
 ```
 
@@ -500,7 +500,7 @@ ls -la /mnt/static-channel-backup-external
 **Example** of expected output:
 
 ```
-> -rwxr-xr-x 1 lnd  lnd  14011 Feb  5 10:59 channel-20220205-105949.backup
+-rwxr-xr-x 1 lnd  lnd  14011 Feb  5 10:59 channel-20220205-105949.backup
 ```
 
 * **If you enabled the remote backup**, check your GitHub repository (in the `[ <> Code ]` tab). It should now contain the latest timestamped backup file

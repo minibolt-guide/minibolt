@@ -51,7 +51,7 @@ You will need several passwords, and it's easiest to write them all down in the 
 [ E ] ThunderHub password
 ```
 
-![](../images/preparations\_xkcd.png)
+![](../.gitbook/assets/password\_strength.png)
 
 If you need inspiration for creating your passwords: the [xkcd: Password Strength](https://xkcd.com/936/) comic is funny and contains a lot of truth. Store a copy of your passwords somewhere safe (preferably in an open-source password manager like [KeePassXC](https://keepassxc.org/)), or whatever password manager you're already using, and keep your original notes out of sight once your system is up and running.
 

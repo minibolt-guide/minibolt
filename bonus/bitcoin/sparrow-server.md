@@ -84,13 +84,13 @@ gpg --verify sparrow-$VERSION-manifest.txt.asc
 **Example** of expected output:
 
 ```
-> gpg: assuming signed data in 'sparrow-1.8.4-manifest.txt'
-> gpg: Signature made Thu Mar  7 16:47:57 2024 UTC
-> gpg:                using RSA key D4D0D3202FC06849A257B38DE94618334C674B40
-> gpg: Good signature from "Craig Raw <craig@sparrowwallet.com>" [unknown]
-> gpg: WARNING: This key is not certified with a trusted signature!
-> gpg:          There is no indication that the signature belongs to the owner.
-> Primary key fingerprint: D4D0 D320 2FC0 6849 A257  B38D E946 1833 4C67 4B40
+gpg: assuming signed data in 'sparrow-1.8.4-manifest.txt'
+gpg: Signature made Thu Mar  7 16:47:57 2024 UTC
+gpg:                using RSA key D4D0D3202FC06849A257B38DE94618334C674B40
+gpg: Good signature from "Craig Raw <craig@sparrowwallet.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: D4D0 D320 2FC0 6849 A257  B38D E946 1833 4C67 4B40
 ```
 
 ```sh
@@ -100,7 +100,7 @@ sha256sum --check sparrow-$VERSION-manifest.txt --ignore-missing
 Example of expected output:
 
 ```
-> sparrow-server-2.0.0-x86_64.tar.gz: OK
+sparrow-server-2.0.0-x86_64.tar.gz: OK
 ```
 
 * If everything is correct, unpack Sparrow
@@ -140,7 +140,7 @@ Sparrow --version
 **Example** of expected output:
 
 ```
-> Sparrow Wallet 1.7.6
+Sparrow Wallet 1.7.6
 ```
 
 ## Run

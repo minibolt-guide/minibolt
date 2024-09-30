@@ -71,9 +71,8 @@ ls -la bitcoin.pdf
 
 Expected output:
 
-```
-> -rw-rw-r-- 1 admin admin 184292 Jul 25 21:08 bitcoin.pdf
-```
+<pre><code><strong>-rw-rw-r-- 1 admin admin 184292 Jul 25 21:08 bitcoin.pdf
+</strong></code></pre>
 
 ### How does this work?
 

@@ -150,7 +150,7 @@ rustc --version
 **Example** of expected output:
 
 ```
-> rustc 1.71.0 (8ede3aae2 2023-07-12)
+rustc 1.71.0 (8ede3aae2 2023-07-12)
 ```
 
 * And cargo
@@ -162,7 +162,7 @@ cargo -V
 **Example** of expected output:
 
 ```
-> cargo 1.71.0 (cfd3bbd8f 2023-06-08)
+cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 ## Upgrade

@@ -32,32 +32,33 @@ Difficulty: Medium
 sudo apt update && sudo apt full-upgrade
 ```
 
-* create the file repository configuration
-
-{% code overflow="wrap" %}
-```bash
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-```
-{% endcode %}
-
 * Import the repository signing key
 
 {% code overflow="wrap" %}
 ```bash
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo install -d /usr/share/postgresql-common/pgdg
 ```
 {% endcode %}
+
+```bash
+sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+```
 
 Expected output:
 
 ```
-> Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
-OK
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  4812  100  4812    0     0   5453      0 --:--:-- --:--:-- --:--:--  5449
 ```
 
-{% hint style="info" %}
-You can ignore the `W: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8))` message
-{% endhint %}
+* Create the repository configuration file
+
+{% code overflow="wrap" %}
+```bash
+sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+```
+{% endcode %}
 
 * Update the package lists and install the latest version of PostgreSQL. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
@@ -74,19 +75,19 @@ psql -V
 **Example** of expected output:
 
 ```
-> psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
 * Ensure PostgreSQL is running and listening on the default port `5432`
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep postgres
+sudo ss -tulpn | grep postgres
 ```
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=2532748,fd=7))
-</strong>> tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
+<pre><code><strong>tcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=2532748,fd=7))
+</strong>tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
 </code></pre>
 
 * You can monitor general logs by the systemd journal. You can exit monitoring at any time with `Ctrl-C`
@@ -104,14 +105,14 @@ May 31 13:51:11 minibolt systemd[1]: Finished PostgreSQL RDBMS.
 * And the sub-instance and specific cluster logs. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
-journalctl -fu postgresql@16-main
+journalctl -fu postgresql@17-main
 ```
 
 **Example** of expected output:
 
 ```
-May 31 13:51:18 minibolt systemd[1]: Starting PostgreSQL Cluster 16-main...
-May 31 13:51:21 minibolt systemd[1]: Started PostgreSQL Cluster 16-main.
+May 31 13:51:18 minibolt systemd[1]: Starting PostgreSQL Cluster 17-main...
+May 31 13:51:21 minibolt systemd[1]: Started PostgreSQL Cluster 17-main.
 ```
 
 ### Create data folder
@@ -119,12 +120,12 @@ May 31 13:51:21 minibolt systemd[1]: Started PostgreSQL Cluster 16-main.
 * Create the dedicated PostgreSQL data folder
 
 ```bash
-sudo mkdir /data/postgresdb
+sudo mkdir -p /data/postgresdb/17
 ```
 
 * Assign as the owner to the `postgres` user
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo chown postgres:postgres /data/postgresdb
+<pre class="language-bash"><code class="lang-bash"><strong>sudo chown -R postgres:postgres /data/postgresdb
 </strong></code></pre>
 
 * Assign permissions of the data folder only to the `postgres` user
@@ -135,7 +136,7 @@ sudo mkdir /data/postgresdb
 * With user `postgres`, create a new cluster on the dedicated folder
 
 ```bash
-sudo -u postgres /usr/lib/postgresql/16/bin/initdb -D /data/postgresdb
+sudo -u postgres /usr/lib/postgresql/17/bin/initdb -D /data/postgresdb/17
 ```
 
 <details>
@@ -146,18 +147,18 @@ sudo -u postgres /usr/lib/postgresql/16/bin/initdb -D /data/postgresdb
 The files belonging to this database system will be owned by user "postgres".
 This user must also own the server process.
 
-The database cluster will be initialized with locale "en_GB.UTF-8".
+The database cluster will be initialized with locale "en_US.UTF-8".
 The default database encoding has accordingly been set to "UTF8".
 The default text search configuration will be set to "english".
 
 Data page checksums are disabled.
 
-fixing permissions on existing directory /data/postgresdb ... ok
+fixing permissions on existing directory /data/postgresdb17 ... ok
 creating subdirectories ... ok
 selecting dynamic shared memory implementation ... posix
-selecting default max_connections ... 100
-selecting default shared_buffers ... 128MB
-selecting default time zone ... Europe/Madrid
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Etc/UTC
 creating configuration files ... ok
 running bootstrap script ... ok
 performing post-bootstrap initialization ... ok
@@ -168,7 +169,7 @@ initdb: hint: You can change this by editing pg_hba.conf or using the option -A,
 
 Success. You can now start the database server using:
 
-    /usr/lib/postgresql/16/bin/pg_ctl -D /data/postgresdb -l logfile start
+    /usr/lib/postgresql/17/bin/pg_ctl -D /data/postgresdb/17 -l logfile start
 ```
 
 </details>
@@ -176,12 +177,12 @@ Success. You can now start the database server using:
 * Edit the PostgreSQL data directory on configuration, to redirect the store to the new location
 
 ```bash
-sudo nano +42 /etc/postgresql/16/main/postgresql.conf --linenumbers
+sudo nano +42 /etc/postgresql/17/main/postgresql.conf --linenumbers
 ```
 
-* Replace the `line 42` with `/var/lib/postgresql/16/main` to the next. Save and exit
+* Replace the `line 42` with `/var/lib/postgresql/17/main` to the next. Save and exit
 
-<pre><code><strong>data_directory = '/data/postgresdb'
+<pre><code><strong>data_directory = '/data/postgresdb/17'
 </strong></code></pre>
 
 * Restart PostgreSQL to apply changes and monitor the correct status of the main instance and sub-instance monitoring sessions before
@@ -207,18 +208,31 @@ Nov 08 11:51:13 minibolt systemd[1]: Finished PostgreSQL RDBMS.
 * You can monitor the PostgreSQL sub-instance by the systemd journal and check log output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
-journalctl -fu postgresql@16-main
+journalctl -fu postgresql@17-main
 ```
 
 **Example** of the expected output:
 
 ```
-Nov 08 11:51:10 minibolt systemd[1]: Stopping PostgreSQL Cluster 16-main...
-Nov 08 11:51:11 minibolt systemd[1]: postgresql@16-main.service: Succeeded.
-Nov 08 11:51:11 minibolt systemd[1]: Stopped PostgreSQL Cluster 16-main.
-Nov 08 11:51:11 minibolt systemd[1]: postgresql@16-main.service: Consumed 1h 10min 8.677s CPU time.
-Nov 08 11:51:11 minibolt systemd[1]: Starting PostgreSQL Cluster 16-main...
-Nov 08 11:51:13 minibolt systemd[1]: Started PostgreSQL Cluster 16-main.
+Nov 08 11:51:10 minibolt systemd[1]: Stopping PostgreSQL Cluster 17-main...
+Nov 08 11:51:11 minibolt systemd[1]: postgresql@17-main.service: Succeeded.
+Nov 08 11:51:11 minibolt systemd[1]: Stopped PostgreSQL Cluster 17-main.
+Nov 08 11:51:11 minibolt systemd[1]: postgresql@17-main.service: Consumed 1h 10min 8.677s CPU time.
+Nov 08 11:51:11 minibolt systemd[1]: Starting PostgreSQL Cluster 17-main...
+Nov 08 11:51:13 minibolt systemd[1]: Started PostgreSQL Cluster 17-main.
+```
+
+* You can check if the cluster is on status "online" by
+
+```bash
+pg_lsclusters
+```
+
+Expected output:
+
+```
+Ver Cluster Port Status Owner    Data directory       Log file
+17  main    5432 online postgres /data/postgresdb/17  /var/log/postgresql/postgresql-17-main.log
 ```
 
 {% hint style="info" %}
@@ -240,13 +254,14 @@ Removed /etc/systemd/system/multi-user.target.wants/postgresql.service.
 * Ensure PostgreSQL is listening on the default relational database port
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep postgres
+sudo ss -tulpn | grep postgres
 ```
 
 Expected output:
 
 ```
-tcp   LISTEN 0      200            127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=1538218,fd=6))
+tcp   LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*    users:(("postgres",pid=3249848,fd=7))
+tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=3249848,fd=6))
 ```
 
 ### Create a PostgreSQL user account
@@ -255,6 +270,16 @@ tcp   LISTEN 0      200            127.0.0.1:5432       0.0.0.0:*    users:(("po
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo -u postgres psql -c "CREATE ROLE admin WITH LOGIN CREATEDB PASSWORD 'admin';"
 </strong></code></pre>
+
+Expected output:
+
+```
+CREATE ROLE
+```
+
+{% hint style="success" %}
+Congrats! You have PostgreSQL ready to use as a database backend by another software
+{% endhint %}
 
 ## Extras (optional)
 

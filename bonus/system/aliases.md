@@ -85,17 +85,17 @@ showmainversion
 <summary>Example of expected output ⬇️</summary>
 
 ```
-> The installed versions of the services are as follows:
-> Bitcoin Core version v23.0.0
-> lnd version 0.15.3-beta commit=v0.15.3-beta
-> BTC RPC Explorer: "version": "3.3.0",
-> Electrs: v0.9.9
-> RTL: "version": "0.12.3",
-> Tor version 0.4.7.10.
-> NPM: v8.15.0
-> NodeJS: v16.17.1
-> htop 3.0.5
-> nginx version: nginx/1.18.0 (Ubuntu)
+The installed versions of the services are as follows:
+Bitcoin Core version v23.0.0
+lnd version 0.15.3-beta commit=v0.15.3-beta
+BTC RPC Explorer: "version": "3.3.0",
+Electrs: v0.9.9
+RTL: "version": "0.12.3",
+Tor version 0.4.7.10.
+NPM: v8.15.0
+NodeJS: v16.17.1
+htop 3.0.5
+nginx version: nginx/1.18.0 (Ubuntu)
 ```
 
 </details>

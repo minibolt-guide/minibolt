@@ -70,7 +70,7 @@ rustc --version
 **Example** of expected output:
 
 ```
-> rustc 1.71.0 (8ede3aae2 2023-07-12)
+rustc 1.71.0 (8ede3aae2 2023-07-12)
 ```
 
 * And cargo installed
@@ -82,7 +82,7 @@ cargo -V
 **Example** of expected output:
 
 ```
-> cargo 1.71.0 (cfd3bbd8f 2023-06-08)
+cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="info" %}
@@ -234,7 +234,7 @@ Take note of your network requester address **\<requesteraddress>**
 **Example** of expected output:
 
 ```
-> nym-network-requester 1.1.24
+nym-network-requester 1.1.24
 ```
 
 * Exit from the nym user session
@@ -433,7 +433,7 @@ Address of this client: GwFEXSpQP1VFZwDdYRkuRTUpQ28v3zvZbq3mtQnNELwr.EeAiN8mySPw
 **Example** of expected output:
 
 ```
-> nym-socks5-client 1.1.24
+nym-socks5-client 1.1.24
 ```
 
 * Exit from the nym user session
@@ -555,13 +555,13 @@ Jun 25 21:19:31 minibolt nym-socks5-client[1776937]:  2023-06-25T19:19:31.394Z I
 * Ensure the service is working and listening at the default `1080` port
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep nym-socks5
+sudo ss -tulpn | grep nym-socks5
 ```
 
 Expected output:
 
 ```
-> tcp  LISTEN 0  1024  0.0.0.0:1080  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
+tcp  LISTEN 0  1024  0.0.0.0:1080  0.0.0.0:*  users:(("nym-socks5-clie",pid=3610164,fd=16))
 ```
 
 * Delete the NYM compilation folder to be ready for the next update and free up space
@@ -968,11 +968,11 @@ sudo su - nym
 ./nym-network-requester -V
 ```
 
-```
-> nym-network-requester 1.1.24
-```
+Example of expected output:
 
-**Example** of expected output:
+```
+nym-network-requester 1.1.24
+```
 
 * Init again the network requester to update the `config.toml` file if needed
 
@@ -1012,8 +1012,10 @@ sudo su - nym
 ./nym-socks5-client -V
 ```
 
+Example of expected output:
+
 ```
->  nym-socks5-client 1.1.24
+nym-socks5-client 1.1.24
 ```
 
 **Example** of expected output:

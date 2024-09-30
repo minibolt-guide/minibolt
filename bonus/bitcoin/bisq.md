@@ -80,7 +80,7 @@ bitcoin-cli getnetworkinfo | grep address.*onion
 **Example** of expected output:
 
 ```
-> "address": "123...abc.onion:8333"
+"address": "123...abc.onion:8333"
 ```
 
 ### Configure Firewall

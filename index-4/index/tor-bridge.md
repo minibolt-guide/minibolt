@@ -56,8 +56,8 @@ tor --version
 
 **Example** of expected output:
 
-```sh
-> Tor version 0.4.7.10.
+```
+Tor version 0.4.7.10.
 [...]
 ```
 
@@ -234,9 +234,9 @@ You can check the status of your bridge relay at https://bridges.torproject.org/
 
 ```
 [...]
-> Now checking whether IPv4 ORPort <IP ADDRESS:<TODO1>> is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
-> Self-testing indicates your ORPort <IP ADDRES:<TODO1>> is reachable from the outside. > Excellent. Publishing server descriptor.
-> Performing bandwidth self-test...done
+Now checking whether IPv4 ORPort <IP ADDRESS:<TODO1>> is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
+Self-testing indicates your ORPort <IP ADDRES:<TODO1>> is reachable from the outside. > Excellent. Publishing server descriptor.
+Performing bandwidth self-test...done
 [...]
 ```
 
@@ -247,7 +247,7 @@ About **3 hours** after you start your relay, it should appear on [Relay Search]
 * Ensure that the Tor port related to the bridge and the Obfs4proxy service are working and listening at the the ports selected
 
 ```bash
-sudo ss -tulpn | grep 'LISTEN.*\(tor\|obfs4proxy\)'
+sudo ss -tulpn | grep '\(tor\|obfs4proxy\)'
 ```
 
 **Example** of expected output:
@@ -459,11 +459,9 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [...]
-> [W] <TODO1>           ALLOW IN    Anywhere           # allow OR port Tor bridge from anywhere
-> [X] <TODO1> (v6)      ALLOW IN    Anywhere (v6)      # allow OR port Tor bridge from anywhere
-> [Y] <TODO2>           ALLOW IN    Anywhere           # allow obsf4 port Tor bridge from anywhere
-> [Z] <TODO2> (v6)      ALLOW IN    Anywhere (v6)      # allow obsf4 port Tor bridge from anywhere
+[...]
+[W] <TODO1>           ALLOW IN    Anywhere           # allow OR port Tor bridge from anywhere
+[Y] <TODO2>           ALLOW IN    Anywhere           # allow obsf4 port Tor bridge from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "yes"
