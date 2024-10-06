@@ -49,8 +49,16 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 ## Replace the parameter
 startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
+
 ## Add the parameter
 testnet=1
+
+## Delete the parameter
+bind=127.0.0.1
+
+## Add the parameter (at the end of the file)...
+[test]
+bind=127.0.0.1
 ```
 
 * When you finish the [Running Bitcoin](../../bitcoin/bitcoin/bitcoin-client.md#running-bitcoind) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder

@@ -28,9 +28,10 @@ While a personal computer is the best choice, this guide works with other comput
 
 You need the following hardware:
 
-* CPU Intel/AMD processor (2010+ gen), with 2+ GB RAM (only Bitcoin), 4+ GB RAM is recommended (Bitcoin + Lightning + bonus)
+* CPU Intel/AMD processor (2010+ gen)
+* 2+ GB RAM (only Bitcoin), 4+ GB RAM is recommended (Bitcoin + Lightning + bonus)
 * Internal storage: SSD 2+ TB is recommended
-* USB/SD drive: 4+ GB
+* Pen drive USB/SD drive: 4+ GB
 * Temporary monitor screen or TV
 * Temporary keyboard USB/PS2
 

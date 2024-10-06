@@ -202,7 +202,26 @@ Primary key fingerprint: ...
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
 
 ```sh
-tar -xvf bitcoin-$VERSION.tar.gz
+tar -xzvf bitcoin-$VERSION.tar.gz
+```
+
+**Example of expected output:**
+
+```
+bitcoin-28.0/
+bitcoin-28.0/.cirrus.yml
+bitcoin-28.0/.editorconfig
+bitcoin-28.0/.gitattributes
+bitcoin-28.0/.github/
+bitcoin-28.0/.github/ISSUE_TEMPLATE/
+bitcoin-28.0/.github/ISSUE_TEMPLATE/bug.yml
+bitcoin-28.0/.github/ISSUE_TEMPLATE/config.yml
+bitcoin-28.0/.github/ISSUE_TEMPLATE/feature_request.yml
+bitcoin-28.0/.github/ISSUE_TEMPLATE/good_first_issue.yml
+bitcoin-28.0/.github/ISSUE_TEMPLATE/gui_issue.yml
+bitcoin-28.0/.github/PULL_REQUEST_TEMPLATE.md
+bitcoin-28.0/.github/workflows/
+[..]
 ```
 
 ### **Build it from the source code**

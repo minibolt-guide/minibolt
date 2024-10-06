@@ -458,7 +458,6 @@ skip_block_download_wait = true
 
 # Logging
 log_filters = "INFO"
-timestamp = true
 ```
 
 * Exit `electrs` user session to return to the `admin` user session

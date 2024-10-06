@@ -29,10 +29,10 @@ We use Ubuntu Server LTS (Long Term Support) OS, without a graphical user interf
 To flash the operating system **(.iso file)** to the pen drive, we will use the [Balena Etcher](https://www.balena.io/etcher/) application:
 
 * Go to the website and [download](https://etcher.balena.io/#download-etcher) the correct binary according to your OS
-* Direct download Ubuntu Server **22.04.5** LTS by clicking [here](https://releases.ubuntu.com/22.04.5/ubuntu-22.04.5-live-server-amd64.iso)
+* Direct download Ubuntu Server <mark style="color:red;">**22.04.5 LTS**</mark> by clicking [here](https://releases.ubuntu.com/22.04.5/ubuntu-22.04.5-live-server-amd64.iso)
 
 {% hint style="warning" %}
-MiniBolt has currently been tested using **Ubuntu Server 22.04.5 LTS (Jammy Jellyfish)**, it has not been tested on other distributions or versions and there is no guarantee that it will work well on them
+<mark style="color:red;">Attention!!</mark> MiniBolt has currently been tested using Ubuntu Server <mark style="color:red;">**22.04.5 LTS**</mark> (<mark style="color:red;">**Jammy**</mark> Jellyfish), it has not been tested on other distributions or versions and there is no guarantee that it will work well on them
 {% endhint %}
 
 * **Start** the **Balena Etcher**
@@ -138,7 +138,7 @@ Very IMPORTANT step!
 ⌛ Wait until the installation finishes, when it happens, **\[Reboot now]** will appear. Select it and press **enter**
 {% endhint %}
 
-**15.** When the prompt shows you **"Please remove the installation medium, then press ENTER"**, extract the pen drive of the PC and press **enter** finally.
+**15.** When the prompt shows you **"Please remove the installation medium, then press ENTER"**, extract the pen drive of the PC and press **enter.**
 
 {% hint style="success" %}
 Now the PC should reboot and show you the prompt to log in. You can disconnect the keyboard and the screen of the MiniBolt node, and proceed to connect remotely from your regular computer to continue with the installation
@@ -147,5 +147,5 @@ Now the PC should reboot and show you the prompt to log in. You can disconnect t
 <figure><img src="../.gitbook/assets/demo-install-os.gif" alt=""><figcaption><p>GIF showing an example of Ubuntu installation using automatic (DHCP)</p></figcaption></figure>
 
 {% hint style="info" %}
-The GIF before is only a recreation of a scenario made with a virtual machine, (**VBOX\_HARDDISK\_**...) is the **example name** for the name of the disk. In your case, this probably will not match exactly
+The GIF before is only a recreation of a scenario made with a virtual machine, (**VBOX\_HARDDISK\_**...) is the **example name** for the disk's name. In your case, this probably will not match exactly
 {% endhint %}
