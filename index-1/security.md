@@ -298,7 +298,7 @@ Jun 04 18:25:18 minibolt systemd[1]: Reloaded A high performance web server and 
 </code></pre>
 
 {% hint style="info" %}
-You can monitor Nginx error logs by entering this command. Exit with `Ctrl + C`
+**(Optional)** You can monitor Nginx error logs by entering the next command. Exit with `Ctrl + C`
 {% endhint %}
 
 ```bash
