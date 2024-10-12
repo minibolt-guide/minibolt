@@ -30,8 +30,6 @@ layout:
 * [Bitcoin Core](bitcoin-client.md)
 * \~ 130GB of free storage for the database
 
-Fulcrum is a replacement for [Electrs](../../bonus/bitcoin/electrs.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop Electrs doing `sudo systemctl stop electrs` if you have installed it.
-
 ## Introduction
 
 #### Bitcoin with hardware wallets
@@ -45,7 +43,7 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 ## Preparations
 
 {% hint style="warning" %}
-Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync)
+Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section
 {% endhint %}
 
 ### Install dependencies

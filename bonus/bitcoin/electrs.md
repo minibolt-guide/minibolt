@@ -36,9 +36,7 @@ Difficulty: Medium
 
 ## Preparations
 
-Make sure that you have [reduced the database cache of Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md#activate-mempool--reduce-dbcache-after-a-full-sync) after a full sync.
-
-Electrs is a replacement for a [Fulcrum](../../bitcoin/bitcoin/electrum-server.md), these two services cannot be run at the same time (due to the same standard ports used), remember to stop or [uninstall](../../bitcoin/bitcoin/electrum-server.md#uninstall) Fulcrum by doing `"sudo systemctl stop fulcrum"`.
+\-> Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
 
 ### Install dependencies
 

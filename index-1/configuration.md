@@ -82,7 +82,9 @@ sudo apt update && sudo apt full-upgrade
 ```
 
 {% hint style="info" %}
-Do this regularly every few months for security-related updates. If during the update process, a banner appears asking you, "Which services should be restarted?" you can press ENTER and take note of the services that will be restarted, marked with `[*]`. Example 🔽
+\-> Do this regularly for security-related updates
+
+\-> If during the update process, a banner appears asking you, "Which services should be restarted?" you can press ENTER and take note of the services that will be restarted, marked with `[*]`. Example 🔽
 {% endhint %}
 
 ![](../images/update-action.PNG)

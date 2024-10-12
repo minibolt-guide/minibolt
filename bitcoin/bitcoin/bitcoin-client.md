@@ -41,7 +41,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=27.1
+VERSION=28.0
 ```
 
 * Get the latest binaries and signatures
@@ -113,8 +113,8 @@ Primary key fingerprint:...
 ### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time\_stamp\_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.1/SHA256SUMS.ots) the checksum file
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.1/SHA256SUMS) its timestamp proof
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-28.0/SHA256SUMS.ots) the checksum file
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-28.0/SHA256SUMS) its timestamp proof
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
 * In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box
 * In the next box, drop or upload the `SHA256SUMS` file
@@ -317,7 +317,7 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 * Enter the complete next configuration. Save and exit
 
-{% hint style="warning" %}
+{% hint style="danger" %}
 Remember to replace the whole line starting with `"rpcauth"` the connection string you just generated
 {% endhint %}
 
@@ -339,6 +339,9 @@ txindex=1
 # Append comment to the user agent string
 uacomment=MiniBolt node
 
+# Suppress a breaking RPC change that may prevent LND from starting up
+deprecatedrpc=warnings
+
 # Disable integrated wallet
 disablewallet=1
 
@@ -347,7 +350,7 @@ debug=tor
 debug=i2p
 
 # Assign to the cookie file read permission to the Bitcoin group users
-startupnotify=chmod g+r /home/bitcoin/.bitcoin/.cookie
+rpccookieperms=group
 
 # Disable debug.log
 nodebuglogfile=1
@@ -381,10 +384,7 @@ i2psam=127.0.0.1:7656
 # Connections
 rpcauth=<a data-footnote-ref href="#user-content-fn-3">&#x3C;replace with your own auth line generated in the previous step></a>
 
-# Initial block download optimizations (set dbcache size in megabytes 
-# (4 to 16384, default: 300) according to the available RAM of your device,
-# recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048)
-# Remember to comment after IBD (Initial Block Download)!
+# Initial block download optimizations
 dbcache=<a data-footnote-ref href="#user-content-fn-4">2048</a>
 blocksonly=1
 </code></pre>
@@ -441,10 +441,12 @@ After=network-online.target
 [Service]
 ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind.pid \
                                   -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
-                                  -datadir=/home/bitcoin/.bitcoin
+                                  -datadir=/home/bitcoin/.bitcoin \
+                                  -startupnotify='systemd-notify --ready' \
+                                  -shutdownnotify='systemd-notify --status="Stopping"'
 # Process management
 ####################
-Type=exec
+Type=notify
 NotifyAccess=all
 PIDFile=/run/bitcoind/bitcoind.pid
 
@@ -905,7 +907,7 @@ sudo rm -r /tmp/bitcoin
 
 ## Upgrade
 
-The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not been already changed in this guide.
+The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide.
 
 * Login as `admin` user and change to the temporary directory
 
@@ -916,7 +918,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=27.1
+VERSION=28.0
 ```
 
 * Download binary, checksum, signature files, and timestamp file
@@ -1167,7 +1169,11 @@ sudo ufw delete X
 
 [^3]: Replace
 
-[^4]: Accommodate this&#x20;
+[^4]: \-> Set `dbcache` size in megabytes (4 to 16384, default: 300) according to the available RAM of your device.&#x20;
+
+    \-> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
+
+    \-> Remember to comment after IBD (Initial Block Download)
 
 [^5]: Symbolic link
 
