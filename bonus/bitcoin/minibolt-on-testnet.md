@@ -14,7 +14,7 @@ layout:
 
 # MiniBolt on Testnet
 
-You can run your MiniBolt node on testnet to develop and experiment with new applications, without putting real money at risk. This bonus guide highlights all configuration changes compared to the main guide.
+You can run your MiniBolt node on **Testnet4** to develop and experiment with new applications, without putting real money at risk. This bonus guide highlights all configuration changes compared to the main guide.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -38,69 +38,138 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ## Bitcoin
 
-### [Bitcoin client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+### [Bitcoin client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) (mainnet + testnet simultaneous mode)
 
 * Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
 
 ```bash
-nano /home/bitcoin/.bitcoin/bitcoin.conf
+nano /home/bitcoin/.bitcoin/bitcoin-testnet4.conf
 ```
 
-* Stay tuned to replace and add the next lines on the `"bitcoin.conf"` file
+* Stay tuned to replace and add the next lines on the `bitcoin.conf` file
 
 ```
 ## Replace the parameter
-uacomment=MiniBolt Testnet node
-
-## Replace the parameter
-startupnotify=chmod g+r /home/bitcoin/.bitcoin/testnet3/.cookie
+uacomment=MiniBolt Testnet4 node
 
 ## Add the parameter
-testnet=1
+testnet4=1
 
 ## Delete the parameter
 bind=127.0.0.1
 
 ## Add the next 2 lines at the end of the file
-[test]
+[testnet4]
 bind=127.0.0.1
 ```
 
-* When you finish the [Run](../../bitcoin/bitcoin/bitcoin-client.md#run) section, with the user `admin` provides read and execute permissions to the Bitcoin group for the testnet folder
+* When you finish the [Run](../../bitcoin/bitcoin/bitcoin-client.md#run) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
 
 ```bash
-sudo chmod g+rx /data/bitcoin/testnet3
+sudo chmod g+rx /data/bitcoin/testnet4
 ```
 
 {% hint style="warning" %}
-**Attention:** the step before is critical**!** to allow the Bitcoin Core dependencies to access the `.cookie` file and startup without problems
+**Attention:** the step before is critical to allow the Bitcoin Core dependencies to access the `.cookie` file and startup without problems
 {% endhint %}
+
+* When you arrive at the [Create systemd service](../../bitcoin/bitcoin/bitcoin-client.md#create-systemd-service), create a new systemd file configuration for Testnet4
+
+```bash
+sudo nano /etc/systemd/system/bitcoind-testnet4.service
+```
+
+* Include this content
+
+```
+# MiniBolt: systemd unit for bitcoind
+# /etc/systemd/system/bitcoind-testnet4.service
+
+[Unit]
+Description=Bitcoin Core Daemon (Testnet4)
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind-testnet4.pid \
+                                  -conf=/home/bitcoin/.bitcoin/bitcoin-testnet4.conf \
+                                  -datadir=/home/bitcoin/.bitcoin \
+                                  -startupnotify='systemd-notify --ready' \
+                                  -shutdownnotify='systemd-notify --status="Stopping"'
+# Process management
+####################
+Type=notify
+NotifyAccess=all
+PIDFile=/run/bitcoind/bitcoind-testnet4.pid
+
+Restart=on-failure
+TimeoutStartSec=infinity
+TimeoutStopSec=600
+
+# Directory creation and permissions
+####################################
+User=bitcoin
+Group=bitcoin
+RuntimeDirectory=bitcoind
+RuntimeDirectoryMode=0710
+UMask=0027
+
+# Hardening measures
+####################
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
+```
+
+* Enable autoboot **(optional)**
+
+```bash
+sudo systemctl enable bitcoind-testnet4
+```
+
+* Prepare “bitcoind” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+
+```bash
+journalctl -fu bitcoind-testnet4
+```
+
+* When you arrive at the [Run](../../bitcoin/bitcoin/bitcoin-client.md#run) section, start the service with this
+
+```bash
+sudo systemctl start bitcoind-testnet4
+```
 
 {% hint style="success" %}
 The rest of the Bitcoin client guide is the same as the mainnet mode
 {% endhint %}
 
-### [Electrum server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md)
+### [Electrum server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md) (only testnet mode)
 
 Follow the complete Electrum server guide from the beginning, when you arrive at the ["Configure Firewall"](../../bitcoin/bitcoin/electrum-server.md#configure-firewall) section:
 
 [Configure Firewall](../../bitcoin/bitcoin/electrum-server.md#configure-firewall)
 
-* Replace the next lines to 60001/60002 ports, to match with the Testnet mode
+* Replace the next lines to 40001/40002 ports, to match with the Testnet mode
 
 ```sh
-sudo ufw allow 60001/tcp comment 'allow Fulcrum Testnet TCP from anywhere'
+sudo ufw allow 40001/tcp comment 'allow Fulcrum Testnet4 TCP from anywhere'
 ```
 
 ```sh
-sudo ufw allow 60002/tcp comment 'allow Fulcrum Testnet SSL from anywhere'
+sudo ufw allow 40002/tcp comment 'allow Fulcrum Testnet4 SSL from anywhere'
 ```
 
-* When you arrive at the ["Data directory"](../../bitcoin/bitcoin/electrum-server.md#data-directory) section, on the _"Download the custom Fulcrum banner based on MiniBolt..." step, d_ownload the Fulcrum testnet banner instead of the mainnet banner
+* When you arrive at the ["Data directory"](../../bitcoin/bitcoin/electrum-server.md#data-directory) section, on the..."Download the custom Fulcrum banner based on MiniBolt ..." step, d\_ownload the Fulcrum testnet banner instead of the mainnet banner
 
 {% code overflow="wrap" %}
 ```bash
-wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner-testnet.txt
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fulcrum-banner-testnet4.txt
 ```
 {% endcode %}
 
@@ -114,15 +183,15 @@ nano /data/fulcrum/fulcrum.conf
 
 ```
 # Bitcoin Core settings
-bitcoind = 127.0.0.1:18332
-rpccookie = /data/bitcoin/testnet3/.cookie
+bitcoind = 127.0.0.1:48332
+rpccookie = /data/bitcoin/testnet4/.cookie
 
 # Fulcrum server general settings
-ssl = 0.0.0.0:60002
-tcp = 0.0.0.0:60001
+ssl = 0.0.0.0:40002
+tcp = 0.0.0.0:40001
 
 # Banner
-banner = /data/fulcrum/fulcrum-banner-testnet.txt
+banner = /data/fulcrum/fulcrum-banner-testnet4.txt
 ```
 
 [Remote access over Tor](../../bitcoin/bitcoin/electrum-server.md#remote-access-over-tor)
@@ -133,16 +202,16 @@ banner = /data/fulcrum/fulcrum-banner-testnet.txt
 sudo nano /etc/tor/torrc
 ```
 
-* Replace ports to 60001/60002 to match with testnet mode
+* Replace ports to 40001/40002 to match with testnet mode
 
 ```
 ############### This section is just for location-hidden services ###
-# Hidden Service Fulcrum Testnet TCP & SSL
-HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/
+# Hidden Service Fulcrum Testnet4 TCP & SSL
+HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_testnet4_tcp_ssl/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 60001 127.0.0.1:60001
-HiddenServicePort 60002 127.0.0.1:60002
+HiddenServicePort 40001 127.0.0.1:40001
+HiddenServicePort 40002 127.0.0.1:40002
 ```
 
 * Reload the Tor configuration and get your connection addresses
@@ -152,23 +221,28 @@ sudo systemctl reload tor
 ```
 
 ```sh
-sudo cat /var/lib/tor/hidden_service_fulcrum_testnet_tcp_ssl/hostname
+sudo cat /var/lib/tor/hidden_service_fulcrum_testnet4_tcp_ssl/hostname
 ```
 
 **Example** of expected output:
 
-<pre><code><strong>abcdefg..............xyz.onion
-</strong></code></pre>
+```
+abcdefg..............xyz.onion
+```
 
 {% hint style="info" %}
-You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 60001 (TCP) or 60002 (SSL)
+You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port 40001 (TCP) or 40002 (SSL)
 {% endhint %}
 
 {% hint style="success" %}
 The rest of the **Fulcrum** guide is the same as the mainnet mode
 {% endhint %}
 
-### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md)
+### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md) (not Testnet4 compatible)
+
+{% hint style="danger" %}
+### &#x20;Not Testnet4 compatible yet, the next steps are not valid!
+{% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../bitcoin/bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
 
@@ -188,7 +262,11 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 
 ## Lightning
 
-### [Lightning client: LND](../../lightning/lightning-client.md)
+### [Lightning client: LN](../../lightning/lightning-client.md)
+
+{% hint style="danger" %}
+### Not Testnet4 compatible yet, the next steps are not valid!
+{% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the [Configur](../../lightning/lightning-client.md#configuration)[ation](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
@@ -241,6 +319,10 @@ The rest of the **Lightning Clien**t guide is the same as the mainnet mode
 
 ### [Channel backup](../../lightning/channel-backup.md)
 
+{% hint style="danger" %}
+### Not Testnet4 compatible yet, the next steps are not valid!
+{% endhint %}
+
 * Follow the complete guide from the beginning, when you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
 
 ```sh
@@ -268,6 +350,10 @@ The rest of the **Channel Backup guide** is the same as the mainnet mode
 
 ### [Web app: ThunderHub](../../lightning/web-app.md)
 
+{% hint style="danger" %}
+### Not Testnet4 compatible, the next steps are not valid!
+{% endhint %}
+
 * Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace the next parameter to match with the testnet mode on the `.env.local` file
 
 ```
@@ -286,6 +372,10 @@ The rest of the **Web app: Thunderhub** is the same as the mainnet mode
 
 ### [Mobile app: Zeus](../../lightning/mobile-app.md)
 
+{% hint style="danger" %}
+### Not Testnet4 compatible yet, the next steps are not valid!
+{% endhint %}
+
 * Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match with the next
 
 For **example**, to generate a QR code for a Wireguard VPN connection, enter this command:
@@ -303,6 +393,10 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 ## Bonus section
 
 ### Bitcoin: [Electrs](electrs.md)
+
+{% hint style="danger" %}
+### Not Testnet4 compatible yet, the next steps are not valid!
+{% endhint %}
 
 Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
 
@@ -409,8 +503,10 @@ Here we are going to describe only what ports differ from the mainnet mode:
 
 |  Port |  Protocol |                   Use                  |
 | :---: | :-------: | :------------------------------------: |
-| 18333 |    TCP    |            P2P testnet port            |
-| 18334 |    TCP    |       P2P testnet secondary port       |
-| 18332 |    TCP    |            RPC testnet port            |
-| 60021 |    TCP    |      Electrum server testnet port      |
-| 60022 | TCP (SSL) | Electrum server testnet encrypted port |
+| 48333 |    TCP    |            P2P Testnet4 port           |
+| 48334 |    TCP    |       P2P Testnet4 secondary port      |
+| 48332 |    TCP    |            RPC Testnet4 port           |
+| 40001 |    TCP    |          Electrs Testnet4 port         |
+| 40002 | TCP (SSL) | Electrs server Testnet4 encrypted port |
+| 40021 |    TCP    |          Electrs Testnet4 port         |
+| 40022 | TCP (SSL) | Electrs server Testnet4 encrypted port |
