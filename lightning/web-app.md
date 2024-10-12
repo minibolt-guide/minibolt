@@ -341,6 +341,10 @@ Route (pages)                              Size     First Load JS
 
 </details>
 
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+{% endhint %}
+
 * Check the correct installation by requesting the version
 
 ```bash

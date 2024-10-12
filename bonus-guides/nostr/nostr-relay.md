@@ -16,6 +16,10 @@ layout:
 
 A [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with support for the entire relay protocol and data persistence using PostgreSQL or SQLite.
 
+{% hint style="warning" %}
+Difficulty: Medium
+{% endhint %}
+
 <figure><img src="../../.gitbook/assets/nostr-relay-gif.gif" alt=""><figcaption></figcaption></figure>
 
 ## What is Nostr?
@@ -205,6 +209,10 @@ If the prompt shows you this error:
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
 You need to type **`rustup default stable`** and wait for the process to finish, then try again the command before
+{% endhint %}
+
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Install it

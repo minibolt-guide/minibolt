@@ -14,11 +14,11 @@ layout:
 
 # Rustup + Cargo
 
+Rustup is a tool that allows you to easily install, update, and uninstall Rust, and it also includes Cargo, the Rust build tool, and package manage. With Rustup, you can manage your Rust toolchain and dependencies efficiently, making it a convenient choice for Rust developers.
+
 {% hint style="success" %}
 Difficulty: Easy
 {% endhint %}
-
-Rustup is a tool that allows you to easily install, update, and uninstall Rust, and it also includes Cargo, the Rust build tool, and package manage. With Rustup, you can manage your Rust toolchain and dependencies efficiently, making it a convenient choice for Rust developers.
 
 <figure><img src="../../.gitbook/assets/rust-logo.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -134,6 +134,10 @@ source "$HOME/.cargo/env"
 ```
 
 </details>
+
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+{% endhint %}
 
 * Configure your current shell to reload your PATH environment variable to include Cargo's bin directory (`$HOME/.cargo/bin`)
 

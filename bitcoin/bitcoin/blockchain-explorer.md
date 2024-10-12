@@ -206,6 +206,10 @@ npm install
 Installation can take some time, be patient. There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
 {% endhint %}
 
+{% hint style="warning" %}
+**Not to run** the `npm audit fix` command, which could break the original code!!
+{% endhint %}
+
 **Example** of expected output:
 
 ```

@@ -56,7 +56,7 @@ Make sure that you have [reduced the database cache of Bitcoin Core](bitcoin-cli
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Make sure that all necessary software packages are installed
+* Make sure that all necessary software packages are installed. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install libssl-dev
@@ -100,7 +100,7 @@ sudo systemctl restart bitcoind
 * Check Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep bitcoind | grep 8433
+sudo ss -tulpn | grep bitcoind | grep 8433
 ```
 
 Expected output:

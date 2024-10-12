@@ -163,7 +163,7 @@ We use Ngnix to encrypt the communication with SSL/TLS (Transport Layer Security
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install Ngnix
+* Install Ngnix. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install nginx

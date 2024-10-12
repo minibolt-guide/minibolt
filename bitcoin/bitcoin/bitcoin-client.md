@@ -26,9 +26,9 @@ Bitcoin Core will download the full Bitcoin blockchain, and validate all transac
 
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md#preparations) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
+💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
 
-💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md#preparations) skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-patch-ordisrespector) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user) section.
+💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-ordisrespector-patch) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
 
 ### Download binaries
 
@@ -71,7 +71,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 **Example** of expected output:
 
 ```
-> bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
+bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ```
 
 ### Signature check
@@ -89,12 +89,12 @@ curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | 
 Expected output:
 
 ```
-> gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
-> gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
-> gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
-> gpg: Total number processed: 1
-> gpg:               imported: 1
-> gpg: no ultimately trusted keys found
+gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
+gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: no ultimately trusted keys found
 [...]
 ```
 
@@ -106,15 +106,15 @@ gpg --verify SHA256SUMS.asc
 
 * Check that at least a few signatures show the following text
 
-<pre><code>> gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature from</a>...
-> Primary key fingerprint:...
+<pre><code>gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature from</a>...
+Primary key fingerprint:...
 </code></pre>
 
 ### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time\_stamp\_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.0/SHA256SUMS.ots) the checksum file
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.0/SHA256SUMS) its timestamp proof
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.1/SHA256SUMS.ots) the checksum file
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-27.1/SHA256SUMS) its timestamp proof
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
 * In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box
 * In the next box, drop or upload the `SHA256SUMS` file
@@ -299,8 +299,8 @@ All commands entered are stored in the bash history. But we don't want the passw
 **Example** of expected output:
 
 ```
-> String to be appended to bitcoin.conf:
-> rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa
+String to be appended to bitcoin.conf:
+rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa
 ```
 
 * Copy the `rpcauth` line, we'll need to paste it into the Bitcoin config file
@@ -330,7 +330,7 @@ Remember to accommodate the `"dbcache"` parameter depending on your hardware. Re
 {% endhint %}
 
 <pre><code># MiniBolt: bitcoind configuration
-# /home/bitcoin/.bitcoin/bitcoin.conf
+# /data/bitcoin/bitcoin.conf
 
 # Bitcoin daemon
 server=1
@@ -674,22 +674,22 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
-* As user `admin`, edit the `bitcoin.conf` file
-
 {% hint style="info" %}
-Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work. Save and exit
+Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work
 {% endhint %}
+
+* As user `admin`, edit the `bitcoin.conf` file
 
 ```sh
 sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Comment the following lines (adding a `#` at the beginning)
+* Comment the following lines by adding a `#` at the beginning. Save and exit
 
 ```
+#assumevalid=0
 #dbcache=2048
 #blocksonly=1
-#assumevalid=0
 ```
 
 * Restart Bitcoin Core for the settings to take effect

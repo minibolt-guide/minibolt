@@ -349,6 +349,10 @@ Time Elapsed 00:00:41.43
 
 </details>
 
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+{% endhint %}
+
 * Check the correct installation
 
 ```bash
@@ -663,6 +667,10 @@ MSBuild version 17.3.2+561848881 for .NET
 
 </details>
 
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+{% endhint %}
+
 * Check the correct installation
 
 ```bash
@@ -706,7 +714,9 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 </code></pre>
 
 {% hint style="info" %}
-If you want to connect your Lightning LND node to BTCpay too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
+\-> If you want to connect your Lightning LND node to BTCPay Server too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
+
+\-> The `socksendpoint=127.0.0.1:9050` parameter is optional but recommended to increase your privacy, if you want to delete, comment with # before it or delete it directly
 {% endhint %}
 
 * Go back to the `admin` user

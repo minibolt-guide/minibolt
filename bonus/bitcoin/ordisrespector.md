@@ -364,7 +364,7 @@ make -j$(nproc)
 ```
 
 {% hint style="info" %}
-This process can take quite a long time, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 ### **Install**

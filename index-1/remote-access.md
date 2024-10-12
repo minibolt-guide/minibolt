@@ -41,7 +41,7 @@ PING 192.168.1.147 (192.168.1.147) 56(84) bytes of data.
 64 bytes from 192.168.1.147: icmp_seq=4 ttl=64 time=1.58 ms
 ```
 
-* If `ping` command fails or does not return anything, you need to manually look for your PC
+* If  the`ping` command fails or does not return anything, you need to manually look for your PC
 * You should now be able to reach your PC, with the IP address like `192.168.x.xxx`
 
 ## Access with Secure Shell
@@ -90,7 +90,6 @@ ls -la
 ```
 
 ```
-> example system response
 # This is a comment, don't enter this on the command line
 ```
 

@@ -104,7 +104,7 @@ $DEBUG_LEVEL is 0
 </details>
 
 {% hint style="info" %}
-This could take time depending on your system performance, be patient
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Install it
@@ -369,6 +369,10 @@ info: installing component 'rustfmt'
 ```
 
 </details>
+
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+{% endhint %}
 
 * Install it
 

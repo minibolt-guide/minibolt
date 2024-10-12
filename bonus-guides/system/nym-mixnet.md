@@ -14,11 +14,11 @@ layout:
 
 # NYM mixnet
 
+The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity.
+
 {% hint style="danger" %}
 This project is in a testing phase, which means that it could fail on numerous occasions and in cases of use, be conscious of this before starting this guide
 {% endhint %}
-
-The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity.
 
 {% hint style="warning" %}
 Difficulty: Intermediate
@@ -136,7 +136,7 @@ This process can take quite **a long time**, 10-15 minutes or more, depending on
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
-You need to type "**`rustup default stable"`** and wait for the process to finish, then try again the command before
+You need to type **`rustup default stable`** and wait for the process to finish, then try again the command before
 
 Also, that could help [Upgrade Rust](rustup-+-cargo.md#upgrade) to the latest version
 {% endhint %}

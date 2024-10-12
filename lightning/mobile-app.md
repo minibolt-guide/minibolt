@@ -52,7 +52,7 @@ sudo systemctl restart lnd
 * Ensure the gRPC proxy port is now binding to the `0.0.0.0` host instead of `127.0.0.1`
 
 ```bash
-sudo ss -tulpn | grep LISTEN | grep lnd | grep 8080
+sudo ss -tulpn | grep lnd | grep 8080
 ```
 
 Expected output:
@@ -97,7 +97,7 @@ wget https://github.com/LN-Zap/lndconnect/releases/download/v$VERSION/lndconnect
 * Extract
 
 ```sh
-tar -xvf lndconnect-linux-amd64-v$VERSION.tar.gz
+tar -xzvf lndconnect-linux-amd64-v$VERSION.tar.gz
 ```
 
 * Install it

@@ -44,7 +44,7 @@ It is called "Tor" for "The Onion Router": information is routed through many ho
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install dependency
+* Install dependency. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install apt-transport-https
@@ -83,7 +83,7 @@ wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8C
 exit
 ```
 
-* Update the apt repository, and install Tor and Tor Debian keyring. Press "y" and "enter"
+* Update the apt repository, and install Tor and Tor Debian keyring. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt update && sudo apt install tor deb.torproject.org-keyring
@@ -98,7 +98,7 @@ tor --version
 **Example** of expected output:
 
 ```
-> Tor version 0.4.7.13.
+Tor version 0.4.7.13.
 [...]
 ```
 
@@ -231,7 +231,7 @@ Importing signing key
 Adding APT repository
 ```
 
-* Update the apt repository and install i2pd as any other software package. Press "y" and "enter"
+* Update the apt repository and install i2pd as any other software package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt update && sudo apt install i2pd
@@ -245,7 +245,7 @@ i2pd --version
 
 **Example** of expected output:
 
-<pre><code><strong>> i2pd version 2.44.0 (0.9.56)
+<pre><code><strong>i2pd version 2.44.0 (0.9.56)
 </strong>[...]
 </code></pre>
 
@@ -507,7 +507,7 @@ sudo apt update && sudo apt upgrade
 
 ### Uninstall Tor
 
-* With user `admin`, enter the next command, and "`y`" when the prompt asks you if you want to continue
+* With user `admin`, enter the next command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
@@ -524,7 +524,7 @@ The following packages will be REMOVED:
 
 ### Uninstall I2P
 
-* With user `admin`, enter the next command, and "`y`" when the prompt asks you if you want to continue
+* With user `admin`, enter the next command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt autoremove i2pd && sudo apt purge i2pd

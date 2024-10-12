@@ -91,7 +91,7 @@ Do this regularly every few months for security-related updates. If during the u
 It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press `ENTER` to confirm
 {% endhint %}
 
-* To be able to use the `minibolt` hostname instead of the IP address, we must install this necessary software package
+* To be able to use the `minibolt` hostname instead of the IP address, we must install this necessary software package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install avahi-daemon
@@ -121,10 +121,6 @@ sudo hdparm -t --direct /dev/sda
 Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
 ```
 
-{% hint style="success" %}
-If the measured speeds are more than 150 MB/s, you're good
-{% endhint %}
-
 * If you installed a **secondary disk**, check and measure the speed with the next command, if not, skip it
 
 ```sh
@@ -138,7 +134,7 @@ Timing O_DIRECT disk reads: 932 MB in 3.00 seconds = 310.23 MB/sec
 ```
 
 {% hint style="success" %}
-If the measured speeds are more than 100 MB/s, you're good but is recommended more for a better experience
+If the measured speeds are more than 150 MB/s, you're good but it is recommended more for a better experience
 {% endhint %}
 
 ## Data directory
