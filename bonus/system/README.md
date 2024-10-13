@@ -49,7 +49,7 @@ layout:
 
 ### Resilience
 
-* [**Tor Obfs4 Bridge**](../../index-4/index/tor-bridge.md) - run an obfs4 bridge to help censored users connect to the Tor network
+* [**Tor obfs4 bridge**](../../index-4/index/tor-bridge.md) - run an obfs4 bridge to help censored users connect to the Tor network
 
 ### Hardware
 

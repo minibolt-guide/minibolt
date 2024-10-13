@@ -31,9 +31,9 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 {% hint style="info" %}
 > <mark style="color:red;">**Advice:**</mark>
 >
-> For the moment, this guide will touch only the case of an **only testnet mode** situation, in the future, we will study adding the case of configuration to enable the parallel/simultaneous mode (`mainnet+testnet` in the same device) in an extra section in this guide.
+> For the moment, this guide will touch only the case of simultaneous mode situation for Bitcoin Core, in the future, we will study adding the case of configuration to enable the parallel/simultaneous mode (`mainnet+testnet` in the same device)
 
-> The services mentioned in this guide are those that have been tested using testnet configuration and these worked fine. Later, in the next versions of this guide, we will go to adding other process to adapt other services to the testnet mode.
+> The services mentioned in this guide are those that have been tested using testnet configuration and these worked fine. Later, in the next versions of this guide, we will go to adding other process to adapt other services to the testnet mode
 {% endhint %}
 
 ## Bitcoin
@@ -145,6 +145,10 @@ journalctl -fu bitcoind-testnet4
 sudo systemctl start bitcoind-testnet4
 ```
 
+{% hint style="info" %}
+Use the flag `--testnet4` when you use the `bitcoin-cli` commands, e.g `bitcoin-cli --testnet4 -netinfo`
+{% endhint %}
+
 {% hint style="success" %}
 The rest of the Bitcoin client guide is the same as the mainnet mode
 {% endhint %}
@@ -199,7 +203,7 @@ banner = /data/fulcrum/fulcrum-banner-testnet4.txt
 * When you arrive at the[ remote access over the Tor section](../../bitcoin/bitcoin/electrum-server.md#remote-access-over-tor), edit the torrc file
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc
 ```
 
 * Replace ports to 40001/40002 to match with testnet mode
@@ -241,7 +245,7 @@ The rest of the **Fulcrum** guide is the same as the mainnet mode
 ### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md) (not Testnet4 compatible)
 
 {% hint style="danger" %}
-### &#x20;Not Testnet4 compatible yet, the next steps are not valid!
+#### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../bitcoin/bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
@@ -262,10 +266,10 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 
 ## Lightning
 
-### [Lightning client: LN](../../lightning/lightning-client.md)
+### [Lightning client: LND](../../lightning/lightning-client.md)
 
 {% hint style="danger" %}
-### Not Testnet4 compatible yet, the next steps are not valid!
+#### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the [Configur](../../lightning/lightning-client.md#configuration)[ation](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
@@ -274,11 +278,14 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 nano /data/lnd/lnd.conf
 ```
 
-* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet=true` to enable LND in testnet mode
+* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet=true` to enable LND in testnet mode and add the location of the `bitcoin-testnet3.conf` in the `[Bitcoind]` section
 
 ```
 [Bitcoin]
 bitcoin.testnet=true
+
+[Bitcoind]
+bitcoind.config=/data/bitcoin/bitcoin-testnet3.conf
 ```
 
 {% hint style="info" %}
@@ -320,7 +327,7 @@ The rest of the **Lightning Clien**t guide is the same as the mainnet mode
 ### [Channel backup](../../lightning/channel-backup.md)
 
 {% hint style="danger" %}
-### Not Testnet4 compatible yet, the next steps are not valid!
+#### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
@@ -351,7 +358,7 @@ The rest of the **Channel Backup guide** is the same as the mainnet mode
 ### [Web app: ThunderHub](../../lightning/web-app.md)
 
 {% hint style="danger" %}
-### Not Testnet4 compatible, the next steps are not valid!
+#### Not Testnet4 compatible, the next steps are not valid!
 {% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace the next parameter to match with the testnet mode on the `.env.local` file
@@ -373,7 +380,7 @@ The rest of the **Web app: Thunderhub** is the same as the mainnet mode
 ### [Mobile app: Zeus](../../lightning/mobile-app.md)
 
 {% hint style="danger" %}
-### Not Testnet4 compatible yet, the next steps are not valid!
+#### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match with the next
@@ -395,7 +402,7 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 ### Bitcoin: [Electrs](electrs.md)
 
 {% hint style="danger" %}
-### Not Testnet4 compatible yet, the next steps are not valid!
+#### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
 Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
@@ -463,7 +470,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 * When you arrive at the [Remote access over Tor](electrs.md#remote-access-over-tor-optional) section
 
 ```sh
-sudo nano /etc/tor/torrc
+sudo nano +63 /etc/tor/torrc
 ```
 
 * Edit the torrc file and replace ports to `60021/60022` to match with testnet mode

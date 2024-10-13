@@ -741,19 +741,18 @@ To update the OpenTimestamps client, simply exec `sudo pip3 install --upgrade op
 sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Add these lines to the end of the file
+* Add these lines at the end of the file
 
-```
-# Slow devices optimizations
-## Limit the number of max peers connections
-maxconnections=40
+<pre><code># Slow devices optimizations
+## Limit the number of max peer connections
+<a data-footnote-ref href="#user-content-fn-11">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-maxuploadtarget=5000
+<a data-footnote-ref href="#user-content-fn-12">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
 rpcworkqueue=256
-```
+</code></pre>
 
 * Comment these lines
 
@@ -979,7 +978,7 @@ gpg: no ultimately trusted keys found
 [...]
 ```
 
-* Verify the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
+* Verify the checksums file is cryptographically signed using the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
 
 ```sh
 gpg --verify SHA256SUMS.asc
@@ -1169,11 +1168,11 @@ sudo ufw delete X
 
 [^3]: Replace
 
-[^4]: \-> Set `dbcache` size in megabytes (4 to 16384, default: 300) according to the available RAM of your device.&#x20;
+[^4]: \-> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.&#x20;
 
     \-> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
 
-    \-> Remember to comment after IBD (Initial Block Download)
+    \-> Remember to comment or delete this parameter after IBD (Initial Block Download)
 
 [^5]: Symbolic link
 
@@ -1186,3 +1185,7 @@ sudo ufw delete X
 [^9]: P2P main port
 
 [^10]: P2P secondary port
+
+[^11]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+
+[^12]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
