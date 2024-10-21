@@ -549,7 +549,7 @@ It's possible to use the Tor proxy of the node from another device in the same l
 * With `admin` user, edit the Tor file
 
 ```bash
-sudo nano /etc/tor/torrc --linenumbers
+sudo nano -l /etc/tor/torrc
 ```
 
 * Replace the existing line 18 to this
