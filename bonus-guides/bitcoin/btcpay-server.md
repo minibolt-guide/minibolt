@@ -520,6 +520,8 @@ Jul 05 17:50:23 minibolt run.sh[2808966]: info: NBXplorer.Events: BTC: New block
 
 </details>
 
+#### Validation
+
 * Ensure NBXplorer is running and listening on the default port `24444`
 
 ```bash
@@ -816,6 +818,8 @@ Jul 05 18:01:14 minibolt run.sh[2810276]: info: PayServer:      Connected to Web
 ```
 
 </details>
+
+#### Validation
 
 * Ensure the BTCPay Server is running and listening on the default port `23000`
 

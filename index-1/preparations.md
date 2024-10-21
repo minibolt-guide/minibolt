@@ -50,6 +50,7 @@ You will need several passwords, and it's easiest to write them all down in the 
 [ C ] LND wallet password
 [ D ] BTC-RPC-Explorer password (optional)
 [ E ] ThunderHub password
+[ F ] i2pd webconsole password (optional)
 ```
 
 ![](../.gitbook/assets/password\_strength.png)

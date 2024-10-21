@@ -315,24 +315,75 @@ If you wanted to expose 2 services or more, that is to say, you ingressed more t
 
 Experiments have shown that QUIC transfers on high-bandwidth connections can be limited by the size of the UDP receive and send buffer.
 
-* With user `admin`, increase the maximum buffer size by editing the next file to add kernel parameters
+* With user `admin`, create a file to add these parameters and increase the maximum buffer size
 
 ```bash
-sudo nano /etc/sysctl.conf
+sudo nano /etc/sysctl.d/99-custom.conf
 ```
 
-* Here are the lines you’ll want to add at the end of the file. Save and exit
+* Add the next lines. Save and exit
 
 ```
+# Increase the maximum buffer size (Cloudflare optimization)
 net.core.rmem_max=2500000
 net.core.wmem_max=2500000
 ```
 
-* Then apply the changes with
+* Apply the changes
 
 ```bash
 sudo sysctl --system
 ```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+* Applying /etc/sysctl.d/10-console-messages.conf ...
+kernel.printk = 4 4 1 7
+* Applying /etc/sysctl.d/10-ipv6-privacy.conf ...
+net.ipv6.conf.all.use_tempaddr = 2
+net.ipv6.conf.default.use_tempaddr = 2
+* Applying /etc/sysctl.d/10-kernel-hardening.conf ...
+kernel.kptr_restrict = 1
+* Applying /etc/sysctl.d/10-magic-sysrq.conf ...
+kernel.sysrq = 176
+* Applying /etc/sysctl.d/10-network-security.conf ...
+net.ipv4.conf.default.rp_filter = 2
+net.ipv4.conf.all.rp_filter = 2
+* Applying /etc/sysctl.d/10-ptrace.conf ...
+kernel.yama.ptrace_scope = 1
+* Applying /etc/sysctl.d/10-zeropage.conf ...
+vm.mmap_min_addr = 65536
+* Applying /usr/lib/sysctl.d/50-default.conf ...
+kernel.core_uses_pid = 1
+net.ipv4.conf.default.rp_filter = 2
+net.ipv4.conf.default.accept_source_route = 0
+sysctl: setting key "net.ipv4.conf.all.accept_source_route": Invalid argument
+net.ipv4.conf.default.promote_secondaries = 1
+sysctl: setting key "net.ipv4.conf.all.promote_secondaries": Invalid argument
+net.ipv4.ping_group_range = 0 2147483647
+net.core.default_qdisc = fq_codel
+fs.protected_hardlinks = 1
+fs.protected_symlinks = 1
+fs.protected_regular = 1
+fs.protected_fifos = 1
+* Applying /usr/lib/sysctl.d/50-pid-max.conf ...
+kernel.pid_max = 4194304
+* Applying /etc/sysctl.d/99-custom.conf ...
+net.core.rmem_max = 2500000
+net.core.wmem_max = 2500000
+* Applying /usr/lib/sysctl.d/99-protect-links.conf ...
+fs.protected_fifos = 1
+fs.protected_hardlinks = 1
+fs.protected_regular = 2
+fs.protected_symlinks = 1
+* Applying /etc/sysctl.d/99-sysctl.conf ...
+* Applying /etc/sysctl.conf ...
+```
+
+</details>
 
 {% hint style="info" %}
 These parameters would increase the maximum send and receive buffer size to roughly 2.5 MB
@@ -424,7 +475,9 @@ Jul 10 18:20:43 minibolt cloudflared[3405663]: 2023-07-10T16:20:43Z INF Register
 You should see the service properly running as if it were a local connection
 {% endhint %}
 
-Ensure Cloudflared is listening on the random port assigned:
+### Validation
+
+* Ensure Cloudflared is listening on the random port assigned
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo ss -tulpn | grep cloudflared
 </strong></code></pre>

@@ -78,6 +78,8 @@ psql -V
 psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
+#### Validation
+
 * Ensure PostgreSQL is running and listening on the default port `5432`
 
 ```bash

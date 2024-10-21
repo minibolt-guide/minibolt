@@ -449,6 +449,8 @@ Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.338012Z  I
 
 </details>
 
+### Validation
+
 * Ensure the service is working and listening at the default `8880` port
 
 ```bash
@@ -463,7 +465,7 @@ tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=
 
 ### Cloudflare tunnel
 
-Follow the [Cloudflare Tunnel bonus guide](nostr-relay.md#cloudflare-tunnel), when you arrive at the [Configuration file section](../system/cloudflare-tunnel.md#create-a-configuration-file), add the next `# Nostr relay` lines to ingress the related ingress rule
+Follow the [Cloudflare Tunnel bonus guide](../system/cloudflare-tunnel.md), when you arrive at the [Configuration file section](../system/cloudflare-tunnel.md#configuration), add the next `# Nostr relay` lines to ingress the related ingress rule
 
 ```bash
 nano /home/admin/.cloudflared/config.yml
@@ -506,8 +508,8 @@ journalctl -fu cloudflared
 
 {% tabs %}
 {% tab title="Method 1" %}
-* Go to the [nostr.watch](https://nostr.watch) website to check and test the relay connection
-* Access to the URL, replacing `<relay.domain.com>` with your Nostr relay URL: `https://nostr.watch/relay/relay.domain.com,` example: [https://nostr.watch/relay/relay.damus.io](https://nostr.watch/relay/relay.damus.io)
+* Go to the [nostr.watch](https://legacy.nostr.watch) website to check and test the relay connection
+* Access to the URL, replacing `<relay.domain.com>` with your Nostr relay URL: `https://legacy.nostr.watch/relay/relay.domain.com,` example: [https://legacy.nostr.watch/relay/relay.damus.io](https://legacy.nostr.watch/relay/relay.damus.io)
 
 Expected output:
 
@@ -1002,7 +1004,7 @@ sudo rm /usr/local/bin/nostr-rs-relay
 | :--: | :------: | :----------: |
 | 8880 |    TCP   | Default port |
 
-[^1]: **\<Edit>**
+[^1]: **\<Edit>** This information will be get later on the [Cloudflare tunnel](nostr-relay.md#cloudflare-tunnel) section
 
 [^2]: **\<Edit>**
 

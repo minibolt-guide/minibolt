@@ -797,7 +797,9 @@ There is a dedicated [guide](channel-backup.md) to making an automatic backup
 exit
 ```
 
-* Check that LND is running and related ports listening
+### Validation
+
+* Check that LND is running and related ports are listening
 
 ```bash
 sudo ss -tulpn | grep lnd

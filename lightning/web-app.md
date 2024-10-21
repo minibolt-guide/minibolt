@@ -597,11 +597,7 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 
 </details>
 
-{% hint style="info" %}
-> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface
-
-> Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
-{% endhint %}
+### Validation
 
 * Ensure the service is working and listening at the default `3000` port and the HTTPS `4002` port
 
@@ -615,8 +611,14 @@ Expected output:
 </strong>tcp   LISTEN 0      511                *:3000             *:*    users:(("next-router-wor",pid=1405797,fd=32))
 </code></pre>
 
+{% hint style="info" %}
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface
+
+> Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
+{% endhint %}
+
 {% hint style="success" %}
-Congrats**!** You now have a LND node manager Web app: Thunderhub up and running
+Congrats**!** You now have  ThunderHub up and running
 {% endhint %}
 
 ## Extras (optional)

@@ -32,7 +32,7 @@ To flash the operating system **(.iso file)** to the pen drive, we will use the 
 * Direct download Ubuntu Server <mark style="color:red;">**22.04.5 LTS**</mark> by clicking [here](https://releases.ubuntu.com/22.04.5/ubuntu-22.04.5-live-server-amd64.iso)
 
 {% hint style="warning" %}
-<mark style="color:red;">Attention!!</mark> MiniBolt has currently been tested using Ubuntu Server <mark style="color:red;">**22.04.5 LTS**</mark> (<mark style="color:red;">**Jammy**</mark> Jellyfish), it has not been tested on other distributions or versions and there is no guarantee that it will work well on them
+<mark style="color:red;">**Attention!!**</mark> MiniBolt has currently been tested using Ubuntu Server <mark style="color:red;">**22.04.5 LTS**</mark> (<mark style="color:red;">**Jammy**</mark> Jellyfish), it has not been tested on other distributions or versions and there is no guarantee that it will work well on them. The steps may differ from the guide, and **support won’t be facilitated in the provided groups.**
 {% endhint %}
 
 * **Start** the **Balena Etcher**
@@ -93,7 +93,7 @@ The router reserves the IP address of the device for a time after going out, but
 
 **6.** Leave the empty next option if you don't want to use an HTTP proxy to access it. Press **\[done]**
 
-**7.** If you don't want to use an alternative mirror for Ubuntu, leave it empty and press **\[done]** directly
+**7.** If you don't want to use an alternative mirror for Ubuntu (more common), leave it empty and press **\[done]** directly
 
 **8.** Configure a **guided storage layout**, with 2 options:
 

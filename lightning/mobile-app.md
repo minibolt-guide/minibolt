@@ -49,6 +49,8 @@ restlisten=0.0.0.0:8080
 sudo systemctl restart lnd
 ```
 
+#### Validation
+
 * Ensure the gRPC proxy port is now binding to the `0.0.0.0` host instead of `127.0.0.1`
 
 ```bash

@@ -49,7 +49,7 @@ layout:
 
 ### Resilience
 
-* [**Tor obfs4 bridge**](../../index-4/index/tor-bridge.md) - run an obfs4 bridge to help censored users connect to the Tor network
+* [**Tor services: bridges & relays**](../../index-4/index/tor-bridge.md) - collaborate to provide anonymous, censorship-resistant internet access by routing traffic through decentralized nodes
 
 ### Hardware
 

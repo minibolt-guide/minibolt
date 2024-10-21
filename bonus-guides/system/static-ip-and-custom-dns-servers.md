@@ -14,7 +14,7 @@ layout:
 
 # Static IP & custom DNS servers
 
-stepsSet a static IP address and custom DNS nameservers for your MiniBolt.
+Set a static IP address and custom DNS nameservers for your MiniBolt.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -48,25 +48,32 @@ Wait for the router to automatically assign the IP address to your MiniBolt node
 >
 > > **Gateway:** you router IP, eg. 192.168.1.1
 >
-> > **Name servers:** DNS servers choosen, eg. same of gateway (192.168.1.1,192.168.1.1) (your ISP DNS) or Cloudflare DNS server (1.1.1.1,1.0.0.1) <- **(recommended)**
+> > **Name servers:** DNS servers choosen (<mark style="color:red;">**important!**</mark>), eg. same of gateway (192.168.1.1,192.168.1.1) (your ISP DNS) or Custom DNS server (recommended): Cloudflare (1.1.1.1,1.0.0.1) or another, check the next annotations
 >
 > > **Search domains:** \<left blank>
 
 {% hint style="info" %}
-This is **only** an **example** if your local network IP range is `192.168.1.0-255,` because for this case, the router assigned to the device the IP address **192.168.1.29**, but could be **192.168.0.29** (`192.168.0.0-255)`, then you will need to set this instead:
+This is **only** an **example** if your local network IP range is `192.168.1.0-255`, because for this case, the router assigned to the device the IP address **192.168.1.29**, but it could be **192.168.0.29** (`192.168.0.0-255)`, then you will need to set this instead:
 
 > **Subnet:** 192.168.0.0/24
 
 > **Gateway:** 192.168.0.1
 {% endhint %}
 
+{% hint style="danger" %}
+In this step, you must set DNS name servers too, otherwise, the host will be offline and will not be able to connect to the Internet
+{% endhint %}
+
 {% hint style="info" %}
-In this step, you can set DNS name servers too, for this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1/1.0.0.1) but you could set [others](https://www.quad9.net/service/service-addresses-and-features)
+For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1,1.0.0.1) but you could put other privacy-focused DNS like:
+
+* [Quad9](https://quad9.net/): 9.9.9.9,149.112.112.112
+* [MullvadDNS](https://mullvad.net/en/help/dns-over-https-and-dns-over-tls): 194.242.2.2
 {% endhint %}
 
 ### Option 2: After Ubuntu Server installation (by command line)
 
-After having done the [1.3 Remote access](remote-access.md) section, you could want to set a static IP address to your MiniBolt by the command line.
+After doing the [1.3 Remote access](remote-access.md) section, you could want to set a static IP address to your MiniBolt by the command line.
 
 #### Preparations
 
@@ -104,7 +111,7 @@ Definitions in the case of before:
 > > ```
 >
 > > ```
-> > <gateway> = 192.168.1.1 (this case) -> case 192.168.0.147, choose 192.168.0.1
+> > <gateway> = 192.168.1.1 (this case) -> case 192.168.0.X, choose 192.168.0.1
 > > ```
 
 {% hint style="info" %}
@@ -119,18 +126,17 @@ resolvectl status
 
 **Example** of expected output (more common):
 
-```
-Global
+<pre><code>Global
        Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
 resolv.conf mode: stub
 
 Link 2 (eno1)
     Current Scopes: DNS
          Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
-Current DNS Server: 192.168.1.1
-       DNS Servers: 192.168.1.1
+Current DNS Server: <a data-footnote-ref href="#user-content-fn-2">192.168.1.1</a>
+       DNS Servers: <a data-footnote-ref href="#user-content-fn-3">192.168.1.1</a>
         DNS Domain: home
-```
+</code></pre>
 
 In the case of before:
 
@@ -180,7 +186,10 @@ Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>, \<nameserver2>** <
 \
 You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**) whatever you want, including the default one set in the DNS server of your router (normally DNS servers of your ISP), in this last case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**.
 
-For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1,1.0.0.1) <-- (recommended), but you could set [others](https://www.quad9.net/service/service-addresses-and-features)
+For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1,1.0.0.1) <- (recommended), but you could set others privacy-focused servers:
+
+* [Quad9](https://quad9.net/): 9.9.9.9,149.112.112.112
+* [MullvadDNS](https://mullvad.net/en/help/dns-over-https-and-dns-over-tls): 194.242.2.2
 {% endhint %}
 
 <details>
@@ -253,42 +262,40 @@ resolvectl status
 
 <summary>Example of expected output ⬇️</summary>
 
-```
-Global
+<pre><code>Global
        Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
 resolv.conf mode: stub
 
 Link 2 (eno1)
     Current Scopes: DNS
          Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
-Current DNS Server: 1.1.1.1
-       DNS Servers: 1.1.1.1 1.0.0.1
+Current DNS Server: <a data-footnote-ref href="#user-content-fn-4">1.1.1.1</a>
+       DNS Servers: <a data-footnote-ref href="#user-content-fn-5">1.1.1.1</a> <a data-footnote-ref href="#user-content-fn-6">1.0.0.1</a>
 [...]
-```
+</code></pre>
 
 </details>
 
 Or if you prefer:
 
 ```bash
-sudo networkctl status
+networkctl status
 ```
 
 <details>
 
 <summary>Example of expected output ⬇️</summary>
 
-```
-●        State: routable
+<pre><code>●        State: routable
   Online state: online
        Address: 192.168.1.71 on eno1
                 10.0.1.1 on wg0
                 fe80::1e69:7aff:feac:8129 on eno1
        Gateway: 192.168.1.1 on eno1
-           DNS: 1.1.1.1
-                1.0.0.1
+           DNS: <a data-footnote-ref href="#user-content-fn-7">1.1.1.1</a>
+                <a data-footnote-ref href="#user-content-fn-8">1.0.0.1</a>
            NTP: 10.28.64.1
-```
+</code></pre>
 
 </details>
 
@@ -296,7 +303,7 @@ sudo networkctl status
 
 If you go to change the router you could want to enable or check if you have enabled the a**utomatic (DHCP) mode** configuration to avoid problems
 
-We will use Netplan with the `systemd-networkd` renderer backend
+We will use Netplan with the `systemd-networkd` renderer backend (default on Ubuntu Server)
 
 * Edit the content of the next file
 
@@ -338,3 +345,17 @@ You have gone back to the **automatic (DHCP) mode** configuration successfully
 {% endhint %}
 
 [^1]: \<interface>
+
+[^2]: Check this
+
+[^3]: Check this
+
+[^4]: Check this
+
+[^5]: Check this
+
+[^6]: Check this
+
+[^7]: Check this
+
+[^8]: Check this

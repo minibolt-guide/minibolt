@@ -322,7 +322,7 @@ Remember to replace the whole line starting with `"rpcauth"` the connection stri
 {% endhint %}
 
 {% hint style="warning" %}
-Remember to accommodate the `"dbcache"` parameter depending on your hardware. Recommended: dbcache=1/2 x total RAM available, e.g: 4GB RAM -> dbcache=2048
+Remember to accommodate the "`dbcache`" parameter depending on your hardware. Recommended: dbcache=1/2 x total RAM available, e.g: 4GB RAM -> dbcache=2048
 {% endhint %}
 
 {% hint style="info" %}
@@ -613,6 +613,8 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 "address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
 "address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
 ```
+
+### Validation
 
 * Check the correct enablement of the I2P and Tor networks
 
