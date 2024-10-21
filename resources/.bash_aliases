@@ -187,7 +187,10 @@ alias enablebtcpay='sudo systemctl enable btcpay'
 alias enablecloudflared='sudo systemctl enable cloudflared'
 alias enablenostrelay='sudo systemctl enable nostr-relay'
 alias enablepostgres='sudo systemctl enable postgresql'
-alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql'
+alias enablebitcoindtest4='sudo systemctl enable bitcoind-testnet4'
+alias enableobfs4bridge='sudo systemctl enable tor@obfs4bridge'
+alias enableguardmidrelay='sudo systemctl enable tor@guardmidrelay'
+alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
 
 ########################
 # START BONUS SERVICES #
@@ -202,6 +205,9 @@ alias startbtcpay='sudo systemctl start btcpay'
 alias startcloudflared='sudo systemctl start cloudflared'
 alias startnostrelay='sudo systemctl start nostr-relay'
 alias startpostgres='sudo systemctl start postgresql'
+alias startbitcoindtest4='sudo systemctl start bitcoind-testnet4'
+alias startobfs4bridge='sudo systemctl start tor@obfs4bridge'
+alias startguardmidrelay='sudo systemctl start tor@guardmidrelay'
 
 #########################
 # STATUS BONUS SERVICES #
@@ -216,8 +222,11 @@ alias statusbtcpay='sudo systemctl status btcpay'
 alias statuscloudflared='sudo systemctl status cloudflared'
 alias statusnostrelay='sudo systemctl status nostr-relay'
 alias statuspostgres='sudo systemctl status postgresql'
+alias statusbitcoindtest4='sudo systemctl status bitcoind-testnet4'
+alias statusobfs4bridge='sudo systemctl status tor@obfs4bridge'
+alias statusguardmidrelay='sudo systemctl status tor@guardmidrelay'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
-  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql'
+  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
 
 #######################
 # STOP BONUS SERVICES #
@@ -232,7 +241,10 @@ alias stopbtcpay='sudo systemctl stop btcpay'
 alias stopcloudflared='sudo systemctl stop cloudflared'
 alias stopnostrelay='sudo systemctl stop nostr-relay'
 alias stopostgres='sudo systemctl stop postgresql'
-alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql'
+alias stopbitcoindtest4='sudo systemctl stop bitcoind-testnet4'
+alias stopobfs4bridge='sudo systemctl stop tor@obfs4bridge'
+alias stopguardmidrelay='sudo systemctl stop tor@guardmidrelay'
+alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
 
 ###################################
 # DISABLE AUTOBOOT BONUS SERVICES #
@@ -246,7 +258,10 @@ alias disablebtcpay='sudo systemctl disable btcpay'
 alias disablecloudflared='sudo systemctl disable cloudflared'
 alias disablenostrelay='sudo systemctl disable nostr-relay'
 alias disablepostgres='sudo systemctl disable postgresql'
-alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql'
+alias disablebitcoindtest4='sudo systemctl disable bitcoind-testnet4'
+alias disableobfs4bridge='sudo systemctl disable tor@obfs4bridge'
+alias disableguardmidrelay='sudo systemctl disable tor@guardmidrelay'
+alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
 
 #######################
 # BONUS SERVICES LOGS #
@@ -261,6 +276,9 @@ alias btcpaylogs='journalctl -fu btcpay'
 alias cloudflaredlogs='journalctl -fu cloudflared'
 alias nostrelaylogs='journalctl -fu nostr-relay'
 alias postgreslogs='journalctl -fu postgresql'
+alias bitcoindtest4logs='journalctl -fu bitcoind-testnet4'
+alias obfs4bridgelogs='journalctl -fu tor@obfs4bridge'
+alias guardmidrelaylogs='journalctl -fu tor@guardmidrelay'
 
 #################
 #  LND Testnet  #
