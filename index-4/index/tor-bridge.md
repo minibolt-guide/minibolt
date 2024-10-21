@@ -24,15 +24,15 @@ _USE WITH CAUTION - For this guide to work properly, you will need to open ports
 Difficulty: Medium
 {% endhint %}
 
-## Obsf4 bridge
-
-The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called [obfs4](https://gitlab.com/yawning/obfs4), a special kind of bridge, to address this by adding a layer of obfuscation.
-
 <div data-full-width="false">
 
 <img src="../../.gitbook/assets/tor_bridge_midguard_relay_pan.png" alt="" width="563">
 
 </div>
+
+## Obsf4 bridge
+
+The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called [obfs4](https://gitlab.com/yawning/obfs4), a special kind of bridge, to address this by adding a layer of obfuscation.
 
 We will create a separate instance for the **obfs4 bridge** and **Guard/Middle relay** instead of using the default Tor instance, this ensures improved security, flexibility, and resource management. By isolating that, you reduce the risk of exposing sensitive services in case of a compromise, as the bridge acts as a shield against censorship circumvention techniques. Additionally, running it separately allows for fine-tuned configuration and resource allocation, ensuring optimal performance without interference from other services running on the default instance, which could cause conflicts or degrade performance.
 
