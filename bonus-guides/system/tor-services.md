@@ -527,7 +527,7 @@ sudo ufw status verbose
 ```
 
 {% hint style="info" %}
-Reverts router NAT configuration following the same [Configure Firewall & Router (NAT) ](tor-bridge.md#configure-firewall-and-router-nat)previous step but this time deleting the configuration setting
+Reverts router NAT configuration following the same [Configure Firewall & Router (NAT) ](tor-services.md#configure-firewall-and-router-nat)previous step but this time deleting the configuration setting
 {% endhint %}
 
 ## Guard/Middle relay
@@ -545,7 +545,7 @@ Guard and middle relays usually do not receive abuse complaints. However, all re
 A non-exit Tor relay requires minimal maintenance efforts and bandwidth usage can be highly customized in the Tor configuration. The so called "exit policy" of the relay decides if it is a relay allowing clients to exit or not. A non-exit relay does not allow exiting in its exit policy.
 
 {% hint style="warning" %}
-**Important:** If you are running a relay from home with a single static IP address and are concerned about your IP being blocked by certain online services, consider running a bridge like the before [Obfs4 bridge](tor-bridge.md#obsf4-bridge) or a Tor [snowflake proxy](https://community.torproject.org/relay/setup/snowflake/) (not covered in this guide yet) instead. This alternative can help prevent your non-Tor traffic from being mistakenly blocked as though it's coming from a Tor relay.
+**Important:** If you are running a relay from home with a single static IP address and are concerned about your IP being blocked by certain online services, consider running a bridge like the before [Obfs4 bridge](tor-services.md#obsf4-bridge) or a Tor [snowflake proxy](https://community.torproject.org/relay/setup/snowflake/) (not covered in this guide yet) instead. This alternative can help prevent your non-Tor traffic from being mistakenly blocked as though it's coming from a Tor relay.
 {% endhint %}
 
 ## Requirements
@@ -960,7 +960,7 @@ sudo ufw status verbose
 ```
 
 {% hint style="info" %}
-Reverts router NAT configuration following the same [Configure Firewall & ](tor-bridge.md#configure-firewall-and-router-nat-1)[Router (NAT) ](tor-bridge.md#configure-firewall-and-router-nat-1)previous step but this time deleting the configuration setting
+Reverts router NAT configuration following the same [Configure Firewall & ](tor-services.md#configure-firewall-and-router-nat-1)[Router (NAT) ](tor-services.md#configure-firewall-and-router-nat-1)previous step but this time deleting the configuration setting
 {% endhint %}
 
 ## Extras (optional)
@@ -981,7 +981,7 @@ sudo apt install nyx
 {% tab title="For the obfs4 bridge" %}
 * Add the user `admin` to the `_tor-obfs4bridge` group
 
-```
+```bash
 sudo adduser admin _tor-obfs4bridge
 ```
 {% endtab %}
@@ -989,7 +989,7 @@ sudo adduser admin _tor-obfs4bridge
 {% tab title="For the Guard/Middle relay" %}
 * Add the user `admin` to the `_tor-guardminrelay` group
 
-```
+```bash
 sudo adduser admin _tor-guardmidrelay
 ```
 {% endtab %}
@@ -997,7 +997,7 @@ sudo adduser admin _tor-guardmidrelay
 {% tab title="For the default instance" %}
 * Add the user `admin` to the `debian-tor` group
 
-```
+```bash
 sudo adduser admin debian-tor
 ```
 {% endtab %}
@@ -1141,7 +1141,7 @@ Oct 18 21:31:35 minibolt Tor[1081477]: new bridge descriptor 'Obfs4Bridge' (fres
 ```
 
 {% hint style="info" %}
-You can [install Nyx](tor-bridge.md#nyx) too on the MiniBolt or external node, realizing that you must follow the "`For the default instance`" case in all sections where there is a choice
+You can [install Nyx](tor-services.md#nyx) too on the MiniBolt or external node, realizing that you must follow the "`For the default instance`" case in all sections where there is a choice
 {% endhint %}
 
 * You can monitor obfs4 bridge logs with

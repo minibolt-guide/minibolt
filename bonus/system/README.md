@@ -49,7 +49,7 @@ layout:
 
 ### Resilience
 
-* [**Tor services: bridges & relays**](../../index-4/index/tor-bridge.md) - collaborate to provide anonymous, censorship-resistant internet access by routing traffic through decentralized nodes
+* [**Tor services: bridges & relays**](../../bonus-guides/system/tor-services.md) - collaborate to provide anonymous, censorship-resistant internet access by routing traffic through decentralized nodes
 
 ### Hardware
 
