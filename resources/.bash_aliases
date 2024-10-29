@@ -50,7 +50,7 @@ alias sshlogshistory='sudo tail --lines 500 /var/log/auth.log | grep sshd'
 
 # NETWORK
 alias whatsLISTEN='echo The follows services are listening: ; \
-  sudo ss -tulpn | grep LISTEN'
+  sudo ss -tulpn'
 alias publicip='echo Your public real IP is: ; \
     curl icanhazip.com'
 
