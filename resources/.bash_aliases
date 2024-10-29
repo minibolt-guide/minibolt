@@ -62,7 +62,8 @@ alias publicip='echo Your public real IP is: ; \
 # ENABLE AUTOBOOT MAIN SERVICES #
 #################################
 
-alias enabletor='sudo systemctl enable tor'
+alias enabletormain='sudo systemctl enable tor'
+alias enabletordefault='sudo systemctl enable tor@default'
 alias enablei2p='sudo systemctl enable i2pd'
 alias enablebitcoind='sudo systemctl enable bitcoind'
 alias enablefulcrum='sudo systemctl enable fulcrum'
@@ -76,7 +77,8 @@ alias enableallmain='sudo systemctl enable tor i2pd bitcoind fulcrum btcrpcexplo
 # START MAIN SERVICES #
 #######################
 
-alias startor='sudo systemctl start tor'
+alias startormain='sudo systemctl start tor'
+alias startordefault='sudo systemctl start tor@default'
 alias starti2p='sudo systemctl start i2pd'
 alias startbitcoind='sudo systemctl start bitcoind'
 alias startfulcrum='sudo systemctl start fulcrum'
@@ -90,7 +92,8 @@ alias startallmain='sudo systemctl start tor i2pd bitcoind fulcrum btcrpcexplore
 # SERVICE MAIN STATUS #
 #######################
 
-alias statustor='sudo systemctl status tor'
+alias statustormain='sudo systemctl status tor'
+alias statustordefault='sudo systemctl status tor@default'
 alias statusi2p='sudo systemctl status i2pd'
 alias statusbitcoind='sudo systemctl status bitcoind'
 alias statusfulcrum='sudo systemctl status fulcrum'
@@ -105,7 +108,8 @@ alias statusallmain='echo The status of the main services is as follows, press t
 # STOP MAIN SERVICES #
 ######################
 
-alias stoptor='sudo systemctl stop tor'
+alias stoptormain='sudo systemctl stop tor'
+alias stoptordefault='sudo systemctl stop tor@default'
 alias stopi2p='sudo systemctl stop i2pd'
 alias stopbitcoind='sudo systemctl stop bitcoind'
 alias stopfulcrum='sudo systemctl stop fulcrum'
@@ -119,7 +123,8 @@ alias stopallmain='sudo systemctl stop btcrpcexplorer fulcrum scb-backup thunder
 # DISABLE AUTOBOOT MAIN SERVICES #
 ##################################
 
-alias disabletor='sudo systemctl disable tor'
+alias disabletormain='sudo systemctl disable tor'
+alias disabletordefault='sudo systemctl tor@default'
 alias disablei2p='sudo systemctl disable i2pd'
 alias disablebitcoind='sudo systemctl disable bitcoind'
 alias disablefulcrum='sudo systemctl disable fulcrum'
@@ -133,7 +138,8 @@ alias disableallmain='sudo systemctl disable bitcoind fulcrum btcrpcexplorer lnd
 # MAIN SERVICES LOGS #
 ######################
 
-alias torlogs='journalctl -fu tor@default'
+alias tormainlogs='journalctl -fu tor'
+alias tordefaultlogs='journalctl -fu tor@default'
 alias i2plogs='sudo tail -f /var/log/i2pd/i2pd.log'
 alias bitcoindlogs='journalctl -fu bitcoind.service'
 alias fulcrumlogs='journalctl -fu fulcrum'
@@ -188,7 +194,7 @@ alias enablecloudflared='sudo systemctl enable cloudflared'
 alias enablenostrelay='sudo systemctl enable nostr-relay'
 alias enablepostgres='sudo systemctl enable postgresql'
 alias enablebitcoindtest4='sudo systemctl enable bitcoind-testnet4'
-alias enableobfs4bridge='sudo systemctl enable tor@obfs4bridge'
+alias enabletorobfs4bridge='sudo systemctl enable tor@obfs4bridge'
 alias enableguardmidrelay='sudo systemctl enable tor@guardmidrelay'
 alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
 
@@ -206,7 +212,7 @@ alias startcloudflared='sudo systemctl start cloudflared'
 alias startnostrelay='sudo systemctl start nostr-relay'
 alias startpostgres='sudo systemctl start postgresql'
 alias startbitcoindtest4='sudo systemctl start bitcoind-testnet4'
-alias startobfs4bridge='sudo systemctl start tor@obfs4bridge'
+alias starttorobfs4bridge='sudo systemctl start tor@obfs4bridge'
 alias startguardmidrelay='sudo systemctl start tor@guardmidrelay'
 
 #########################
@@ -223,7 +229,7 @@ alias statuscloudflared='sudo systemctl status cloudflared'
 alias statusnostrelay='sudo systemctl status nostr-relay'
 alias statuspostgres='sudo systemctl status postgresql'
 alias statusbitcoindtest4='sudo systemctl status bitcoind-testnet4'
-alias statusobfs4bridge='sudo systemctl status tor@obfs4bridge'
+alias statustorobfs4bridge='sudo systemctl status tor@obfs4bridge'
 alias statusguardmidrelay='sudo systemctl status tor@guardmidrelay'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
   sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
@@ -242,7 +248,7 @@ alias stopcloudflared='sudo systemctl stop cloudflared'
 alias stopnostrelay='sudo systemctl stop nostr-relay'
 alias stopostgres='sudo systemctl stop postgresql'
 alias stopbitcoindtest4='sudo systemctl stop bitcoind-testnet4'
-alias stopobfs4bridge='sudo systemctl stop tor@obfs4bridge'
+alias stoptorobfs4bridge='sudo systemctl stop tor@obfs4bridge'
 alias stopguardmidrelay='sudo systemctl stop tor@guardmidrelay'
 alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
 
@@ -259,7 +265,7 @@ alias disablecloudflared='sudo systemctl disable cloudflared'
 alias disablenostrelay='sudo systemctl disable nostr-relay'
 alias disablepostgres='sudo systemctl disable postgresql'
 alias disablebitcoindtest4='sudo systemctl disable bitcoind-testnet4'
-alias disableobfs4bridge='sudo systemctl disable tor@obfs4bridge'
+alias disabletorobfs4bridge='sudo systemctl disable tor@obfs4bridge'
 alias disableguardmidrelay='sudo systemctl disable tor@guardmidrelay'
 alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
 
@@ -277,11 +283,11 @@ alias cloudflaredlogs='journalctl -fu cloudflared'
 alias nostrelaylogs='journalctl -fu nostr-relay'
 alias postgreslogs='journalctl -fu postgresql'
 alias bitcoindtest4logs='journalctl -fu bitcoind-testnet4'
-alias obfs4bridgelogs='journalctl -fu tor@obfs4bridge'
+alias torbfs4bridgelogs='journalctl -fu tor@obfs4bridge'
 alias guardmidrelaylogs='journalctl -fu tor@guardmidrelay'
 
 #################
-#  LND Testnet  #
+#  LND Testnet  # (PENDING UPDATE)
 #################
 
 alias lntestunlock='lncli --network testnet unlock'
@@ -302,7 +308,7 @@ alias lntestaddinvoice='lncli --network testnet addinvoice'
 alias lntestaddAMPinvoice30d='lncli --network testnet addinvoice --amp'
 
 ##########################
-# LND Testnet Watchtower #
+# LND Testnet Watchtower # (PENDING UPDATE)
 ##########################
 alias lntestwtclientinfo='lncli --network testnet wtclient towers'
 alias lntestwtserverinfo='lncli --network testnet tower info'
