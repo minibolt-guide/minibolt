@@ -212,7 +212,7 @@ alias startcloudflared='sudo systemctl start cloudflared'
 alias startnostrelay='sudo systemctl start nostr-relay'
 alias startpostgres='sudo systemctl start postgresql'
 alias startbitcoindtest4='sudo systemctl start bitcoind-testnet4'
-alias starttorobfs4bridge='sudo systemctl start tor@obfs4bridge'
+alias startorobfs4bridge='sudo systemctl start tor@obfs4bridge'
 alias startguardmidrelay='sudo systemctl start tor@guardmidrelay'
 
 #########################
@@ -283,7 +283,7 @@ alias cloudflaredlogs='journalctl -fu cloudflared'
 alias nostrelaylogs='journalctl -fu nostr-relay'
 alias postgreslogs='journalctl -fu postgresql'
 alias bitcoindtest4logs='journalctl -fu bitcoind-testnet4'
-alias torbfs4bridgelogs='journalctl -fu tor@obfs4bridge'
+alias torobfs4bridgelogs='journalctl -fu tor@obfs4bridge'
 alias guardmidrelaylogs='journalctl -fu tor@guardmidrelay'
 
 #################
