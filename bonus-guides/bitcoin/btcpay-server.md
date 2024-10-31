@@ -53,7 +53,6 @@ Expected output
 
 ```
 Rule added
-Rule added (v6)
 ```
 
 ### Create the btcpay user & group
@@ -226,13 +225,13 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.7
+VERSION=2.5.9
 ```
 
 * Download the NBXplorer source code and enter the folder
 
 ```bash
-git clone --branch v$VERSION https://github.com/dgarage/NBXplorer.git
+git clone --branch v$VERSION https://github.com/dgarage/NBXplorer.git && cd NBXplorer
 ```
 
 <details>
@@ -267,17 +266,13 @@ Turn off this advice by setting config variable advice.detachedHead to false
 
 </details>
 
-```bash
-cd NBXplorer
-```
-
 * Modify NBXplorer run script
 
 ```bash
-nano run.sh
+nano +3 run.sh
 ```
 
-* Comment existing line
+* Comment the existing line
 
 ```
 #dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
@@ -289,10 +284,10 @@ nano run.sh
 /home/btcpay/.dotnet/dotnet run --no-launch-profile --no-build -c Release --project "NBXplorer/NBXplorer.csproj" -- $@
 ```
 
-* Modify NBXplorer build script
+* Modify the NBXplorer build script
 
 ```bash
-nano build.sh
+nano +3 build.sh
 ```
 
 * Comment next line
@@ -365,6 +360,8 @@ head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version
 <Version>2.4.3</Version>
 ```
 
+### NBXplorer configuration
+
 * Create the data folder and navigate to it
 
 <pre class="language-sh"><code class="lang-sh"><strong>mkdir -p ~/.nbxplorer/Main
@@ -379,8 +376,6 @@ cd ~/.nbxplorer/Main
 ```bash
 nano settings.config
 ```
-
-### NBXplorer configuration
 
 * Add the entire next lines. Save and exit
 
@@ -535,7 +530,7 @@ tcp   LISTEN 0   512    127.0.0.1:24444    0.0.0.0:*    users:(("NBXplorer",pid=
 ```
 
 {% hint style="success" %}
-You have NBxplorer running and prepared for the BTCpay server to use it
+You have NBXplorer running and prepared for the BTCpay server to use it
 {% endhint %}
 
 ### Install BTCPay Server
@@ -555,14 +550,16 @@ cd src
 * Set variable environment version
 
 ```bash
-VERSION=1.13.3
+VERSION=2.0.0
 ```
 
-* Clone the BTCPay Server official GitHub repository
+* Clone the BTCPay Server official GitHub repository and enter the folder
 
+{% code overflow="wrap" %}
 ```bash
-git clone --branch v$VERSION https://github.com/btcpayserver/btcpayserver
+git clone --branch v$VERSION https://github.com/btcpayserver/btcpayserver && cd btcpayserver
 ```
+{% endcode %}
 
 <details>
 
@@ -596,16 +593,10 @@ Turn off this advice by setting config variable advice.detachedHead to false
 
 </details>
 
-* Go to the `btcpayserver` folder
-
-```bash
-cd btcpayserver
-```
-
 * Modify BTCPay Server run script
 
 ```bash
-nano run.sh
+nano +4 run.sh
 ```
 
 * Comment next line
@@ -623,7 +614,7 @@ nano run.sh
 * Modify the BTCPay Server build script
 
 ```bash
-nano build.sh
+nano +3 build.sh
 ```
 
 * Comment next line
@@ -685,13 +676,13 @@ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 <Version>1.12.0</Version>
 ```
 
+### BTCPay Server configuration
+
 * Create the data folder and enter it
 
 ```bash
 mkdir -p ~/.btcpayserver/Main && cd ~/.btcpayserver/Main
 ```
-
-### BTCPay Server configuration
 
 * Create a new config file
 
@@ -706,12 +697,12 @@ nano settings.config
 
 # Server settings
 <strong>bind=0.0.0.0
-</strong>socksendpoint=127.0.0.1:9050
+</strong><a data-footnote-ref href="#user-content-fn-1">socksendpoint=127.0.0.1:9050</a>
 
 # Database
 ## NBXplorer
 explorer.postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=nbxplorer;
-## BTCpay server
+## BTCPay Server
 postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 </code></pre>
 
@@ -1097,7 +1088,7 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.5
+VERSION=2.5.9
 ```
 
 * Fetch the changes of the wish latest tag
@@ -1231,7 +1222,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=1.13.5
+VERSION=2.0.0
 ```
 
 * Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
@@ -1271,6 +1262,43 @@ If the prompt shows you: `fatal: Need to specify how to reconcile divergent bran
 
 ```bash
 git config pull.rebase false
+```
+{% endhint %}
+
+{% hint style="info" %}
+If the prompts show you logs like these:
+
+```
+Auto-merging BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj
+CONFLICT (content): Merge conflict in BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj
+```
+
+* With the user `admin` (type `exit`), you need to delete the BTCPay Server source code:
+
+```bash
+sudo rm -r /home/btcpay/src/btcpayserver
+```
+
+* Follow again the [Install BTCPay Server](btcpay-server.md#install-btcpay-server) section
+* Return to the user `admin` and start BTCPay Server
+
+```bash
+sudo systemctl start btcpayserver
+```
+
+The prompt shows you logs like these:
+
+```
+[...]
+Oct 30 16:26:42 minibolt run.sh[3307655]: info: BTCPayServer.Hosting.MigrationStartupTask: Running the migration scripts...
+Oct 30 16:26:44 minibolt run.sh[3307655]: info: Microsoft.EntityFrameworkCore.Migrations: Applying migration '20231219031609_translationsmigration'.
+Oct 30 16:26:44 minibolt run.sh[3307655]: info: Microsoft.EntityFrameworkCore.Migrations: Applying migration '20240304003640_addinvoicecolumns'.
+Oct 30 16:26:44 minibolt run.sh[3307655]: info: Microsoft.EntityFrameworkCore.Migrations: Applying migration '20240317024757_payments_refactor'.
+Oct 30 16:26:44 minibolt run.sh[3307655]: info: Microsoft.EntityFrameworkCore.Migrations: Applying migration '20240325095923_RemoveCustodian'.
+[...]
+Oct 30 16:26:48 minibolt run.sh[3307655]: info: BTCPayServer.HostedServices.InvoiceBlobMigratorHostedService: Migrating from the beginning
+Oct 30 16:26:48 minibolt run.sh[3307655]: info: BTCPayServer.HostedServices.PaymentRequestsMigratorHostedService: Migrating from the beginning
+[...]
 ```
 {% endhint %}
 
@@ -1421,3 +1449,5 @@ sudo -u postgres psql -c "DROP DATABASE nbxplorer;" && sudo -u postgres psql -c 
 |  5432 |    TCP   |   PostgreSQL default port  |
 | 24444 |    TCP   |   NBXplorer default port   |
 | 23000 |    TCP   | BTCPay Server default port |
+
+[^1]: \<Optional>

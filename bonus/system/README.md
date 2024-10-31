@@ -44,7 +44,7 @@ layout:
 ### Security
 
 * [**SSH Keys**](ssh-keys.md) - a safe way to SSH authentification in your system
-* [**WireGuard VPN**](wireguard-vpn.md) - set up a WireGuard Virtual Private Network to securely log into your node remotely
+* [**WireGuard VPN**](wireguard-vpn.md) - set up a WireGuard Virtual Private Network to securely access your node services remotely
 * [**Cloudflare Tunnel**](../../bonus-guides/system/cloudflare-tunnel.md) - provides you with a secure way to connect your resources to Cloudflare without a publicly routable IP address
 
 ### Resilience

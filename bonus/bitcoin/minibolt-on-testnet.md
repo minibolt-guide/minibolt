@@ -414,7 +414,7 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 
 ## Bonus section
 
-### Bitcoin: [Electrs](electrs.md)
+### Bitcoin: [Electrs](electrs.md) (only testnet mode)
 
 {% hint style="danger" %}
 #### Not Testnet4 compatible yet, the next steps are not valid!
@@ -422,30 +422,20 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 
 Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
 
-* Configure the Firewall to allow incoming requests
-
-```sh
-sudo ufw allow 60022/tcp comment 'allow Electrs SSL from anywhere'
-```
-
-```sh
-sudo ufw allow 60021/tcp comment 'allow Electrs TCP from anywhere'
-```
-
 * Create the `electrs-reverse-proxy.conf` file
 
 ```sh
 sudo nano /etc/nginx/streams-enabled/electrs-reverse-proxy.conf
 ```
 
-* Replace the mainnet ports `50021/50022` with the `60021/60022` testnet ports
+* Replace the mainnet ports `50021/50022` with the `40021/40022` testnet4 ports
 
 ```nginx
 upstream electrs {
-  server 127.0.0.1:60021;
+  server 127.0.0.1:40021;
 }
 server {
-  listen 60022 ssl;
+  listen 40022 ssl;
   proxy_pass electrs;
 }
 ```
@@ -460,6 +450,16 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
+* Configure the Firewall to allow incoming requests
+
+```sh
+sudo ufw allow 40022/tcp comment 'allow Electrs Testnet4 SSL from anywhere'
+```
+
+```sh
+sudo ufw allow 40021/tcp comment 'allow Electrs Testnet4 TCP from anywhere'
+```
+
 [Configuration](electrs.md#configuration)
 
 * When you arrive at the [Configuration](electrs.md#configuration) section, replace it with the next lines
@@ -468,16 +468,16 @@ sudo systemctl reload nginx
 nano /data/electrs/electrs.conf
 ```
 
-<pre><code># MiniBolt: electrs testnet configuration
+<pre><code># MiniBolt: electrs testnet4 configuration
 # /data/electrs/electrs.conf
 
 # Bitcoin Core settings
-<strong>network = "testnet"
-</strong>cookie_file = "/data/bitcoin/testnet3/.cookie"
+<strong>network = "testnet4"
+</strong>cookie_file = "/data/bitcoin/testnet4/.cookie"
 
 # Electrs settings
-electrum_rpc_addr = "0.0.0.0:60021"
-server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node Testnet!"
+electrum_rpc_addr = "0.0.0.0:40021"
+server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node Testnet4!"
 </code></pre>
 
 [Remote access over Tor](electrs.md#remote-access-over-tor-optional)
@@ -488,15 +488,15 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 sudo nano +63 /etc/tor/torrc
 ```
 
-* Edit the torrc file and replace ports to `60021/60022` to match with testnet mode
+* Edit the torrc file and replace ports to `40021/40022` to match with testnet4 mode
 
 ```
-# Hidden Service Electrs Testnet TCP & SSL
-HiddenServiceDir /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/
+# Hidden Service Electrs Testnet4 TCP & SSL
+HiddenServiceDir /var/lib/tor/hidden_service_electrs_testnet4_tcp_ssl/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 60021 127.0.0.1:60021
-HiddenServicePort 60022 127.0.0.1:60022
+HiddenServicePort 40021 127.0.0.1:40021
+HiddenServicePort 40022 127.0.0.1:40022
 ```
 
 * Reload the Tor configuration and get your connection addresses
@@ -506,7 +506,7 @@ sudo systemctl reload tor
 ```
 
 ```sh
-sudo cat /var/lib/tor/hidden_service_electrs_testnet_tcp_ssl/hostname
+sudo cat /var/lib/tor/hidden_service_electrs_testnet4_tcp_ssl/hostname
 ```
 
 **Example** of expected output:
@@ -516,7 +516,7 @@ abcdefg..............xyz.onion
 ```
 
 {% hint style="success" %}
-The rest of the **Channel Backup guide** is the same as the mainnet mode
+The rest of the **Electrs guide** is the same as the mainnet mode
 {% endhint %}
 
 ## Port reference
@@ -528,7 +528,7 @@ Here we are going to describe only what ports differ from the mainnet mode:
 | 48333 |    TCP    |            P2P Testnet4 port           |
 | 48334 |    TCP    |       P2P Testnet4 secondary port      |
 | 48332 |    TCP    |            RPC Testnet4 port           |
-| 40001 |    TCP    |          Electrs Testnet4 port         |
-| 40002 | TCP (SSL) | Electrs server Testnet4 encrypted port |
+| 40001 |    TCP    |          Fulcrum Testnet4 port         |
+| 40002 | TCP (SSL) | Fulcrum server Testnet4 encrypted port |
 | 40021 |    TCP    |          Electrs Testnet4 port         |
 | 40022 | TCP (SSL) | Electrs server Testnet4 encrypted port |

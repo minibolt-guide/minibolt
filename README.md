@@ -6,7 +6,7 @@ description: >-
 
 # MiniBolt
 
-<figure><img src="images/minibolt-home-screen.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/minibolt-home-screen-og.png" alt=""><figcaption></figcaption></figure>
 
 Build your own "do-everything-yourself" Bitcoin & Lightning node, and other stuff on a personal computer, making you sovereign.
 

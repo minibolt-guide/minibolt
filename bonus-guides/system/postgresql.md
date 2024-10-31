@@ -40,9 +40,11 @@ sudo install -d /usr/share/postgresql-common/pgdg
 ```
 {% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
 sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
 ```
+{% endcode %}
 
 Expected output:
 
@@ -310,7 +312,7 @@ Type `\q` command and enter to exit PostgreSQL CLI and exit to come back to the 
 
 * Type the next command and enter
 
-```bash
+```sql
 \du
 ```
 
@@ -328,7 +330,7 @@ Type `\q` command and enter to exit PostgreSQL CLI and exit to come back to the 
 
 * Type the next command and enter
 
-```bash
+```sql
 \l
 ```
 
@@ -353,7 +355,7 @@ Type `\q` command and enter to exit PostgreSQL CLI and exit to come back to the 
 
 * Connect to a specific database, type the next command, and enter. The prompt should change to the name of the database. Example: `lndb=#`
 
-```bash
+```sql
 \c <NAMEOFDATABASE>
 ```
 
@@ -363,19 +365,19 @@ Replace `<NAMEOFDATABASE`> to the specific name of the database
 
 **Example:**
 
-```bash
+```sql
 \c lndb
 ```
 
 **Expected output:**
 
 ```
-> You are now connected to database "lndb" as user "postgres".
+You are now connected to database "lndb" as user "postgres".
 ```
 
 * List tables
 
-```bash
+```sql
 \dt
 ```
 
@@ -425,7 +427,7 @@ SELECT pg_size_pretty(pg_database_size('lndb'));
 
 * Enter a specific database with
 
-```bash
+```sql
 \c <NAMEOFDATABASE>
 ```
 
@@ -485,7 +487,7 @@ DROP DATABASE lndb;
 #### Expected output:
 
 ```
-> DROP DATABASE
+DROP DATABASE
 ```
 
 #### Delete a table inside of a specific database
@@ -496,7 +498,7 @@ Stop the service related to this database before the action, i.e: `sudo systemct
 
 * Enter a specific database with
 
-```bash
+```sql
 \c <NAMEOFDATABASE>
 ```
 
@@ -506,7 +508,7 @@ Replace `<NAMEOFDATABASE>` to the specific name of the database
 
 **Example:**
 
-```bash
+```sql
 \c lndb
 ```
 
@@ -526,7 +528,7 @@ Replace `<NAMEOFTABLE>` to the specific name of the table
 
 Example:
 
-```bash
+```sql
 DROP TABLE towerclientdb_kv;
 ```
 

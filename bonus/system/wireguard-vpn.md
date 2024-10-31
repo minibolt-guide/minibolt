@@ -17,7 +17,7 @@ layout:
     visible: true
 ---
 
-# WireGuard: a simple yet fast VPN
+# WireGuard VPN
 
 The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis)
 
@@ -167,7 +167,7 @@ curl -i -s \
 sudo chmod 700 /opt/dynamic-ip-refresh.sh
 ```
 
-* Create a crontab entry for root to run it every 2 minutes. Type `"1"` and press enter to choose the "nano" editor
+* Create a crontab entry for the root to run every 5 minutes. Type `"1"` and press enter to choose the "nano" editor
 
 ```sh
 sudo crontab -e
@@ -176,7 +176,7 @@ sudo crontab -e
 * Add the next line at the end of the file. Save and exit
 
 ```
-*/2 * * * *     /opt/dynamic-ip-refresh.sh
+*/5 * * * *     /opt/dynamic-ip-refresh.sh
 ```
 
 {% hint style="info" %}
