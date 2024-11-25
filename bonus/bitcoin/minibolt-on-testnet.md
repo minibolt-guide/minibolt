@@ -14,7 +14,7 @@ layout:
 
 # MiniBolt on Testnet
 
-You can run your MiniBolt node on **Testnet4** to develop and experiment with new applications, without putting real money at risk. This bonus guide highlights all configuration changes compared to the main guide.
+You can run your RaMiX node on **Testnet4** to develop and experiment with new applications without risking real money. This bonus guide highlights all configuration changes compared to the main guide.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -332,7 +332,7 @@ lncli --network=testnet --tlscertpath /data/lnd/tls.cert.tmp create
 ```
 
 {% hint style="info" %}
-Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash\_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
+Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
 {% endhint %}
 
 {% hint style="success" %}
@@ -416,10 +416,6 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 
 ### Bitcoin: [Electrs](electrs.md) (only testnet mode)
 
-{% hint style="danger" %}
-#### Not Testnet4 compatible yet, the next steps are not valid!
-{% endhint %}
-
 Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
 
 * Create the `electrs-reverse-proxy.conf` file
@@ -488,7 +484,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 sudo nano +63 /etc/tor/torrc
 ```
 
-* Edit the torrc file and replace ports to `40021/40022` to match with testnet4 mode
+* Edit the torrc file and replace ports to `40021/40022` to match with the testnet4 mode
 
 ```
 # Hidden Service Electrs Testnet4 TCP & SSL

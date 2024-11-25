@@ -225,7 +225,7 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.9
+VERSION=2.5.12
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -550,7 +550,7 @@ cd src
 * Set variable environment version
 
 ```bash
-VERSION=2.0.0
+VERSION=2.0.3
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -707,9 +707,9 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 </code></pre>
 
 {% hint style="info" %}
-\-> If you want to connect your Lightning LND node to BTCPay Server too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
+-> If you want to connect your Lightning LND node to BTCPay Server too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
 
-\-> The `socksendpoint=127.0.0.1:9050` parameter is optional but recommended to increase your privacy, if you want to delete, comment with # before it or delete it directly
+-> The `socksendpoint=127.0.0.1:9050` parameter is optional but recommended to increase your privacy, if you want to delete, comment with # before it or delete it directly
 {% endhint %}
 
 * Go back to the `admin` user
@@ -1088,10 +1088,10 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.9
+VERSION=2.5.12
 ```
 
-* Fetch the changes of the wish latest tag
+* Fetch the changes of the latest wish tag
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>git pull https://github.com/dgarage/NBXplorer.git v$VERSION
 </strong></code></pre>
@@ -1120,6 +1120,8 @@ git config user.email "minibolt@dummyemail.com"
 ```bash
 git config user.name "MiniBolt"
 ```
+
+-> And try again the last command
 {% endhint %}
 
 {% hint style="info" %}
@@ -1222,7 +1224,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.0.0
+VERSION=2.0.3
 ```
 
 * Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
@@ -1255,6 +1257,8 @@ git config user.email "minibolt@dummyemail.com"
 ```bash
 git config user.name "MiniBolt"
 ```
+
+-> And try again the last command
 {% endhint %}
 
 {% hint style="info" %}
@@ -1263,6 +1267,8 @@ If the prompt shows you: `fatal: Need to specify how to reconcile divergent bran
 ```bash
 git config pull.rebase false
 ```
+
+-> And try again the last command
 {% endhint %}
 
 {% hint style="info" %}
@@ -1279,7 +1285,7 @@ CONFLICT (content): Merge conflict in BTCPayServer.Abstractions/BTCPayServer.Abs
 sudo rm -r /home/btcpay/src/btcpayserver
 ```
 
-* Follow again the [Install BTCPay Server](btcpay-server.md#install-btcpay-server) section
+* Follow the [Install BTCPay Server](btcpay-server.md#install-btcpay-server) section again
 * Return to the user `admin` and start BTCPay Server
 
 ```bash

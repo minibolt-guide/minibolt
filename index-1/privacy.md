@@ -26,11 +26,7 @@ True, it's only your IP address that is revealed, but using services like [iploc
 
 ## Tor Project
 
-<div align="left">
-
-<img src="../images/tor-logo.png" alt="" width="166">
-
-</div>
+<div align="left"><img src="../images/tor-logo.png" alt="" width="166"></div>
 
 We use Tor, a free software built by the [Tor Project](https://www.torproject.org). It allows you to anonymize internet traffic by routing it through a network of nodes, hiding your location and usage profile.
 
@@ -203,18 +199,14 @@ Removed /etc/systemd/system/multi-user.target.wants/tor.service.
 {% endhint %}
 
 {% hint style="info" %}
-\-> If you want to **avoid your ISP knowing you are using Tor**, follow the [**Add obfs4 bridge to the default Tor instance**](../bonus-guides/system/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) section on the Tor services bonus guide to use ofbs4 bridges
+-> If you want to **avoid your ISP knowing you are using Tor**, follow the [**Add obfs4 bridge to the default Tor instance**](../bonus-guides/system/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) section on the Tor services bonus guide to use ofbs4 bridges
 
-\-> You can host [**your Tor obfs4 bridge**](../bonus-guides/system/tor-services.md#obsf4-bridge) or connect to an external one as mentioned before
+-> You can host [**your Tor obfs4 bridge**](../bonus-guides/system/tor-services.md#obsf4-bridge) or connect to an external one as mentioned before
 {% endhint %}
 
 ## I2P Project
 
-<div align="left">
-
-<img src="../images/i2pd.png" alt="" width="150">
-
-</div>
+<div align="left"><img src="../images/i2pd.png" alt="" width="150"></div>
 
 [I2P](https://geti2p.net/en/) is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted, participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
 
@@ -546,16 +538,22 @@ ssh HOSTNICKNAME
 
 It's possible to use the Tor proxy of the node from another device in the same local network (e.g your regular computer)
 
-* With `admin` user, edit the Tor file
+* With `admin` user, edit the torrc file
 
 ```bash
-sudo nano -l /etc/tor/torrc
+sudo nano +18 /etc/tor/torrc -l
 ```
 
 * Replace the existing line 18 to this
 
 ```
 SocksPort 0.0.0.0:9050
+```
+
+* Add down the next line (on line 19). Save and exit
+
+```
+SocksPort unix:/run/tor/socks WorldWritable
 ```
 
 * Reload the Tor configuration to apply changes
@@ -578,10 +576,9 @@ sudo ss -tulpn | grep tor
 
 Expected output:
 
-```
-tcp   LISTEN 0      4096         0.0.0.0:9050       0.0.0.0:*    users:(("tor",pid=2162,fd=6))
+<pre><code>tcp   LISTEN 0      4096        <a data-footnote-ref href="#user-content-fn-1">0.0.0.0</a>:9050       0.0.0.0:*    users:(("tor",pid=2162,fd=6))
 tcp   LISTEN 0      4096       127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=2162,fd=7))
-```
+</code></pre>
 
 {% hint style="info" %}
 You can use this connection from another device in the same local network for example to navigate using a standard browser, without using the Tor browser
@@ -591,7 +588,7 @@ You can use this connection from another device in the same local network for ex
 
 Go to Settings > General > Network Settings > Push to the "Settings" button
 
-Edit the screen to match with this, replacing SOCKS Host, with your node local IP address:
+Edit the screen to match with this, replacing SOCKS Host, with your node's local IP address:
 
 <figure><img src="../.gitbook/assets/tor-proxy-browser.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -605,11 +602,28 @@ Also, you can use the Tor proxy connection to reach clearnet or third-party addr
 
 ## Upgrade Tor and I2P
 
-The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/\~purplei2p/+archive/ubuntu/i2pd). To upgrade type this command:
+The latest release can be found on the [official Tor web page](https://gitweb.torproject.org/tor.git/plain/ChangeLog) or the [unofficial GitHub page](https://github.com/torproject/tor/tags) and for I2P on the [PPA page](https://launchpad.net/~purplei2p/+archive/ubuntu/i2pd). To upgrade type this command:
 
 ```sh
 sudo apt update && sudo apt upgrade
 ```
+
+{% hint style="info" %}
+If during the I2P update the prompts show you the next:
+
+```
+apt-listchanges: News
+---------------------
+
+i2pd (2.53.0-1) unstable; urgency=medium
+
+  i2pd binary moved from /usr/sbin to /usr/bin. Please check your scripts if you used the old path.
+
+ -- r4sas <r4sas@i2pmail.org>  Fri, 19 Jul 2024 16:00:00 +0000
+```
+
+Simply press `Ctrl + X` and then the update will continue
+{% endhint %}
 
 ## Uninstall
 
@@ -674,9 +688,9 @@ sudo systemctl start tor
 ```
 
 {% hint style="info" %}
-\-> If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to
+-> If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to
 
-\-> If not, try using [obfs4 bridges](../bonus-guides/system/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs4 bridges could help to avoid this censorship
+-> If not, try using [obfs4 bridges](../bonus-guides/system/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs4 bridges could help to avoid this censorship
 {% endhint %}
 
 **Example** of Tor censorship output:
@@ -742,3 +756,5 @@ sudo systemctl restart i2pd
 | 9050 |    TCP   |     Default SOCKS port     |
 | 9051 |    TCP   |    Default control port    |
 | 7656 |    TCP   | Default I2P SAM proxy port |
+
+[^1]: Check this

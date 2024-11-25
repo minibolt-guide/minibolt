@@ -57,7 +57,7 @@ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.co
 ```
 {% endcode %}
 
-* Run update and install Node.js + NPM using the apt package manager. Press 'y' and enter
+* Run update and install Node.js + NPM using the apt package manager
 
 ```sh
 sudo apt update && sudo apt install nodejs

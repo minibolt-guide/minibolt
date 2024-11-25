@@ -19,11 +19,7 @@ layout:
 
 We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network Daemon by [Lightning Labs](https://lightning.engineering/).
 
-<div align="center">
-
-<img src="../images/lightning-network-daemon-logo.png" alt="">
-
-</div>
+<div align="center"><img src="../images/lightning-network-daemon-logo.png" alt=""></div>
 
 ## Requirements
 
@@ -180,12 +176,13 @@ curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/
 
 Expected output:
 
-<pre data-full-width="false"><code><strong>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-</strong>                                  Dload  Upload   Total   Spent    Left  Speed
-100  6900  100  6900    0     0  19676      0 --:--:-- --:--:-- --:--:-- 19714
-gpg: key 372CBD7633C61696: "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" <a data-footnote-ref href="#user-content-fn-3">imported</a>
+<pre data-full-width="false"><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1306  100  1306    0     0   2958      0 --:--:-- --:--:-- --:--:--  2961
+gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
+gpg: key DC42612E89237182: public key "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" <a data-footnote-ref href="#user-content-fn-3">imported</a>
 gpg: Total number processed: 1
-gpg:              unchanged: 1
+gpg:               imported: 1
 </code></pre>
 
 * Verify the signature of the text file containing the checksums for the application
@@ -196,13 +193,13 @@ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 
 **Example** of expected output:
 
-<pre><code>gpg: Signature made Mon 13 Nov 2023 11:45:38 PM UTC
-gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
+<pre><code>gpg: Signature made Tue 22 Oct 2024 11:30:56 PM UTC
+gpg:                using EDDSA key 296212681AADF05656A2CDEE90525F7DEEE0AD86
 gpg: <a data-footnote-ref href="#user-content-fn-4">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
-     Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
+Primary key fingerprint: A5B6 1896 952D 9FDA 83BC  054C DC42 612E 8923 7182
+     Subkey fingerprint: 2962 1268 1AAD F056 56A2  CDEE 9052 5F7D EEE0 AD86
 </code></pre>
 
 ### Timestamp check
@@ -377,13 +374,13 @@ nano /data/lnd/lnd.conf
 * Paste the following content. Save and exit
 
 {% hint style="warning" %}
-\-> Replace `<YOUR_FANCY_ALIAS>` with your preferred alias e.g: `SatoshiLNnode`⚡. Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ [https://emojikeyboard.top/](https://emojikeyboard.top/)
+-> Replace `<YOUR_FANCY_ALIAS>` with your preferred alias e.g: `SatoshiLNnode`⚡. Up to 32 UTF-8 characters, accepts emojis i.e ⚡🧡​ [https://emojikeyboard.top/](https://emojikeyboard.top/)
 
-\-> Replace `#ff9900` with your preferred color. You can choose the color you want at [https://www.color-hex.com/](https://www.color-hex.com/)
+-> Replace `#ff9900` with your preferred color. You can choose the color you want at [https://www.color-hex.com/](https://www.color-hex.com/)
 
-\-> Uncomment and replace #minchansize=20000[^11] with your preferred minimum incoming channel size
+-> Uncomment and replace #minchansize=20000[^11] with your preferred minimum incoming channel size
 
-\-> Uncomment and replace #bitcoin.feerate=1[^12] / #bitcoin.basefee=1000[^13] with your preferred channels fees
+-> Uncomment and replace #bitcoin.feerate=1[^12] / #bitcoin.basefee=1000[^13] with your preferred channels fees
 {% endhint %}
 
 <pre><code># MiniBolt: lnd configuration
@@ -628,7 +625,7 @@ or 'n' to create a new seed (Enter y/x/n):
 ```
 
 {% hint style="info" %}
-\-> Now, you could have 2 possible scenarios, follow the proper steps depending on your case⬇️
+-> Now, you could have 2 possible scenarios, follow the proper steps depending on your case⬇️
 {% endhint %}
 
 {% tabs %}
@@ -671,7 +668,7 @@ These 24 words are all that you need (and the `channel.backup` file in case of d
 
 **Write these 24 words down manually on a piece of paper and store it in a safe place**
 
-You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard\_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
+You can use a simple piece of paper, write them on the custom themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
 {% endhint %}
 
 {% hint style="danger" %}
@@ -1024,7 +1021,7 @@ Continue with the guide on the [Create systemd service](lightning-client.md#crea
 {% hint style="danger" %}
 Attention: this process is very risky, supposedly this [software is in an experimental state](https://github.com/lightninglabs/lndinit/pull/21) which could damage your existing LND database. **Act at your own risk**❗
 
-\-> It is recommended to start from scratch by closing all existing channels, rather than a migration to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
+-> It is recommended to start from scratch by closing all existing channels, rather than a migration to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
 {% endhint %}
 
 #### Install dependencies
@@ -1371,7 +1368,7 @@ The `[WRN]` logs indicate that LND has detected an existing old bbolt database a
 
 
 
-\-> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
+-> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
 
 
 

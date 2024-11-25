@@ -36,7 +36,7 @@ Difficulty: Medium
 
 ## Preparations
 
-\-> Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
+-> Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
 
 ### Install dependencies
 
@@ -273,7 +273,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=0.10.6
+VERSION=0.10.7
 ```
 
 * Download the source code and go to the `electrs` folder
@@ -611,7 +611,7 @@ Electrs must first fully index the blockchain and compact its database before yo
 
 To use your Electrum server when you're on the go, you can easily create a Tor hidden service. This way, you can connect the BitBoxApp or Electrum wallet remotely, or even share the connection details with friends and family. Note that the remote device needs to have Tor installed as well.
 
-* Wwith the user `admin`, edit the `torrc` file
+* With the user `admin`, edit the `torrc` file
 
 ```sh
 sudo nano +63 /etc/tor/torrc --linenumbers
@@ -683,7 +683,7 @@ sudo systemctl restart btcrpcexplorer
 sudo systemctl restart electrs
 ```
 
-* Check logs and pay attention to the next log if that attends to the new version installed
+* Check logs and pay attention to the next log if that attends to the new version installed and no error logs
 
 ```bash
 journalctl -fu electrs
@@ -745,7 +745,7 @@ sudo rm /etc/systemd/system/electrs.service
 
 ### Delete user & group
 
-* Ensure you are logged in with the user `admin`. Delete the electrs user.\
+* Ensure you are logged in with the user `admin`. Delete the `electrs` user.\
   Don't worry about `userdel: electrs mail spool (/var/mail/electrs) not found` output, the uninstall has been successful
 
 ```bash

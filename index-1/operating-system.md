@@ -61,7 +61,7 @@ It should display a **"Flash Complete!"** message after
 * Press the key quickly to **enter THE BIOS setup** or directly to the **boot menu** to select the **pen drive as the 1st boot priority device** (normally, F9, Esc, F12, or Supr keys)
 
 {% hint style="info" %}
-In this step, you might want to take advantage of activating the **Restore on AC** / **After power failure** or similar in the BIOS setup.&#x20;
+In this step, you might want to activate the **Restore on AC** / **After power failure** or similar in the BIOS setup.&#x20;
 
 Normally found in **Advanced** -> **Power** / **ACPI Configuration**, switching to **Last State / Memory** or similar (System power on depends on the status before AC lost) or **Power ON / Full on** or similar (Always power on the system when AC back) depends on your preference.&#x20;
 
@@ -85,10 +85,10 @@ Use the **UP**, **DOWN,** and **ENTER** keys of your keyboard to navigate to the
 **5.** Select the interface network connection that you choose to use **(Ethernet recommended)** and **take note of your IP** obtained automatically through DHCP. (Normally 192.168.x.xx). Press **\[done]**
 
 {% hint style="info" %}
-The router reserves the IP address of the device for a time after going out, but If the device goes out some time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node. Go to the [Static IP & custom DNS servers](../bonus-guides/system/static-ip-and-custom-dns-servers.md) bonus guide for further instructions on how to do this.
+The router reserves the IP address of the device for a time after going out (i.e. after power failure), but if the device goes out some time, the next time that the device starts, the router could assign a different IP and you could lose access to your node temporary. To avoid this, you need to set a static IP on your node, avoiding the delivery decision of the DHCP server of the router. Go to the [Static IP & custom DNS servers](../bonus-guides/system/static-ip-and-custom-dns-servers.md) bonus guide for further instructions on [how to do this](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-at-the-beginning-during-the-ubuntu-server-installation-gui).
 
 \
-🚨 <mark style="color:red;">**Be careful by setting this!**</mark> If you change routers, the new router may not work in the same IP address range as the old router, the MiniBolt will not register and will be **completely offline**. To avoid this, follow the [Set the DCHP (automatic) configuration](../bonus-guides/system/static-ip-and-custom-dns-servers.md#set-the-automatic-dhcp-mode-configuration-by-command-line) section of the bonus guide to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want after the change of the router, reconfigure the static IP address again following the [Option 2](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-after-ubuntu-server-installation-by-command-line) section.
+🚨 <mark style="color:red;">**Be careful by setting the static IP!**</mark> If you change the router, the new one may not work in the same IP address range as the old one, the MiniBolt will not register and will be **completely offline**. To avoid this, previously to the change, follow the [Set the DCHP (automatic) configuration section](../bonus-guides/system/static-ip-and-custom-dns-servers.md#set-the-automatic-dhcp-mode-configuration-by-command-line) of the bonus guide to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want, after the change of the router, reconfigure the static IP address again following the [Option 2](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-after-ubuntu-server-installation-by-command-line) section.
 {% endhint %}
 
 **6.** Leave the empty next option if you don't want to use an HTTP proxy to access it. Press **\[done]**
@@ -109,7 +109,7 @@ The router reserves the IP address of the device for a time after going out, but
 
 **10.** Keep selecting **\[Skip for now],** when the **\[Upgrade to Ubuntu Pro]** section appears you press **enter** on the **done** button
 
-**11.** The username **`admin`** is reserved for use by the system, to use in the first place, so we are going to create a **temporary user** called "temp" which we will **delete later**. Complete the profile configuration form with the following
+**11.** The username **`admin`** is reserved for use by the system, to use in the first place, so we are going to create a **temporary user** called "`temp`" which we will **delete later**. Complete the profile configuration form with the following
 
 {% hint style="danger" %}
 Very IMPORTANT step!
@@ -124,7 +124,7 @@ Very IMPORTANT step!
 ```
 {% endcode %}
 
-**12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key, and down to select the \[d**one]** box and press **enter** again
+**12.** Press **enter** to check **"Install OpenSSH server"** by pressing the **enter** key, and down to select the **\[done]** box and press **enter** again
 
 {% hint style="danger" %}
 Very IMPORTANT step!

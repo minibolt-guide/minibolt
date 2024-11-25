@@ -25,11 +25,7 @@ This project is in a testing phase, which means that it could fail on numerous o
 Difficulty: Intermediate
 {% endhint %}
 
-<div data-full-width="false">
-
-<figure><img src="../../.gitbook/assets/nym-build-structure.png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div data-full-width="false"><figure><img src="../../.gitbook/assets/nym-build-structure.png" alt=""><figcaption></figcaption></figure></div>
 
 <figure><img src="../../.gitbook/assets/nym-mixnet.gif" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -111,7 +107,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=nym-binaries-v2024.11-wedel
+VERSION=nym-binaries-v2024.13-magura
 ```
 
 * Clone the latest version of the source code from the GitHub repository and go to the nym folder
@@ -131,9 +127,9 @@ This process can take quite **a long time**, 10-15 minutes or more, depending on
 {% endhint %}
 
 {% hint style="info" %}
-\-> Don't worry about possible "`warning:...`" logs, it is aimed at application developers
+-> Don't worry about possible "`warning:...`" logs, it is aimed at application developers
 
-\-> If the prompt shows you this error:
+-> If the prompt shows you this error:
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
@@ -146,7 +142,7 @@ Also, that could help [Upgrade Rust](rustup-+-cargo.md#upgrade) to the latest ve
 If you come to update, this is the final step, go back to the [Upgrade section](nym-mixnet.md#upgrade) to continue
 {% endhint %}
 
-### Install network Requester
+### Install network requester
 
 ### Create the nym user
 
@@ -500,7 +496,7 @@ ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode
 ExecStart=/home/nym/nym-socks5-client run --id bitcoin --fastmode --open-proxy true
 ```
 
-\-> This one before is necessary to add if you want to use it to [proxy Bitcoin Core](nym-mixnet.md#proxying-bitcoin-core)
+-> This one before is necessary to add if you want to use it to [proxy Bitcoin Core](nym-mixnet.md#proxying-bitcoin-core)
 {% endhint %}
 
 * Enable autoboot **(optional)**
@@ -664,15 +660,7 @@ Or directly on the interface; on the top menu, go to **Tools** --> **Network** -
 >
 > > Port: 1080
 
-<div>
-
-<figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure>
-
- 
-
-<figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure>
-
-</div>
+<div><figure><img src="../../.gitbook/assets/electrum-nym-proxy.PNG" alt=""><figcaption><p>Electrum SOCKS5 proxy configuration</p></figcaption></figure> <figure><img src="../../.gitbook/assets/electrum-nym-proxy-nodes.webp" alt=""><figcaption><p>Electrum servers connected using NYM mixnet</p></figcaption></figure></div>
 
 2. If you have your node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
@@ -702,11 +690,7 @@ Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/bitcoin/desktop-wallet
 >
 > > Proxy URL: 127.0.0.1 -> Port: 1080
 
-<div align="center" data-full-width="false">
-
-<figure><img src="../../.gitbook/assets/proxy-server-nym.png" alt="" width="563"><figcaption></figcaption></figure>
-
-</div>
+<div align="center" data-full-width="false"><figure><img src="../../.gitbook/assets/proxy-server-nym.png" alt="" width="563"><figcaption></figcaption></figure></div>
 
 2. If you have your node and you only want to proxy all third-party connections (price servers, Whirlpool, etc.) using the NYM mixnet
 
@@ -758,7 +742,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 #### Blockstream Green
 
-Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green\_qt/releases) for your OS and install it.
+Download the [Blockstream Greenwallet app](https://github.com/Blockstream/green_qt/releases) for your OS and install it.
 
 Go to **App Settings ->** Navigate to **Network ->** switch "**Connect through a proxy**"
 
@@ -793,15 +777,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 Go to **Settings** -> **Network Settings** -> **Enable Tor proxy,** check **"Enable Tor proxy"** and type in the "Proxy address" box:`127.0.0.1` and in the "Port" box: `1080`. Above, enable "Connect to Electrum server", select "Mainnet server", keep the public Nunchuk address server by default, or click on the "Reset" button. Leave the rest of the boxes blank and finally click on "Save network settings".
 
-<div>
-
-<figure><img src="../../.gitbook/assets/nunckuk_nym_settings.PNG" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../../.gitbook/assets/nunckuk_nym.PNG" alt="" width="375"><figcaption></figcaption></figure>
-
-</div>
+<div><figure><img src="../../.gitbook/assets/nunckuk_nym_settings.PNG" alt=""><figcaption></figcaption></figure> <figure><img src="../../.gitbook/assets/nunckuk_nym.PNG" alt="" width="375"><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
 If you have installed the NYM socks5 client installed in a machine inside of your local network, you can point the service to its IP address **instead of localhost** (127.0.0.1), e.g. `192.168.1.94:1080`
@@ -887,15 +863,7 @@ Scan [**this QR code**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.co
 Save, switch "Use proxy" again
 {% endhint %}
 
-<div>
-
-<figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div><figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-available.jpg" alt=""><figcaption></figcaption></figure> <figure><img src="../../.gitbook/assets/telegram-app-nym-proxy-connected.jpg" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="warning" %}
 **Notice**: This app **consumes significant data and battery** when connected to the mixnet network. Please be aware that prolonged usage may result in increased data usage and reduced battery life. This is primarily due to the constant emission of false packets by the app
