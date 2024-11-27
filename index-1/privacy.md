@@ -463,7 +463,7 @@ You also need to have Tor installed on your regular computer where you start the
 
 * **Windows**:
 
-To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/bitcoin/desktop-wallet.md#preparations-on-your-computer) section of the Desktop Wallet guide.
+To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/bitcoin/desktop-signing-app-sparrow.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
 * PuTTy:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
@@ -597,7 +597,7 @@ Click on the OK button, and try to navigate to some clearnet domain like [https:
 {% hint style="info" %}
 You can also go to this [website](https://check.torproject.org/) and see "_Congratulations. This browser is configured to use Tor."_
 
-Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Check out the [Desktop wallet: Sparrow wallet](../bitcoin/bitcoin/desktop-wallet.md) guide to get instructions.
+Also, you can use the Tor proxy connection to reach clearnet or third-party address connection on Sparrow wallet. Check out the [Desktop wallet: Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) guide to get instructions.
 {% endhint %}
 
 ## Upgrade Tor and I2P

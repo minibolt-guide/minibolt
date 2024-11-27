@@ -20,7 +20,7 @@
   * [2.1 Bitcoin client: Bitcoin Core](bitcoin/bitcoin/bitcoin-client.md)
   * [2.2 Electrum Server: Fulcrum](bitcoin/bitcoin/electrum-server.md)
   * [2.3 Blockchain explorer: BTC RPC Explorer](bitcoin/bitcoin/blockchain-explorer.md)
-  * [2.4 Desktop wallet: Sparrow wallet](bitcoin/bitcoin/desktop-wallet.md)
+  * [2.4 Desktop signing app: Sparrow Wallet](bitcoin/bitcoin/desktop-signing-app-sparrow.md)
 
 ## ⚡ Lightning
 

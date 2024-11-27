@@ -19,11 +19,7 @@ layout:
 
 [Fulcrum](https://github.com/cculianu/Fulcrum) is a fast & nimble SPV server for Bitcoin created by [Calin Culianu](https://github.com/cculianu). It can be used as an alternative to Electrs because of its performance, as we can see in Craig Raw's [comparison](https://www.sparrowwallet.com/docs/server-performance.html) of servers.
 
-<div data-full-width="false">
-
-<figure><img src="../../.gitbook/assets/Fulcrum_logo" alt="" width="375"><figcaption></figcaption></figure>
-
-</div>
+<div data-full-width="false"><figure><img src="../../.gitbook/assets/Fulcrum_logo" alt="" width="375"><figcaption></figcaption></figure></div>
 
 ## Requirements
 
@@ -452,14 +448,10 @@ sudo systemctl start fulcrum
 
 **Example** of expected output on the first terminal with `journalctl -fu fulcrum` ⬇️
 
-<div data-full-width="false">
-
-<figure><img src="../../.gitbook/assets/fulcrum-index.PNG" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div data-full-width="false"><figure><img src="../../.gitbook/assets/fulcrum-index.PNG" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="info" %}
-> Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~1.5 - 4 days or more, depending on the hardware. Only proceed with the [Blockchain explorer: BTC RPC Explorer](blockchain-explorer.md) and [Desktop Wallet Section](desktop-wallet.md) once Fulcrum is ready.
+> Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~1.5 - 4 days or more, depending on the hardware. Only proceed with the [Blockchain explorer: BTC RPC Explorer](blockchain-explorer.md) and [Desktop Wallet Section](desktop-signing-app-sparrow.md) once Fulcrum is ready.
 
 > Fulcrum will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
 {% endhint %}
@@ -485,9 +477,9 @@ sudo rm -r /data/fulcrum/fulcrum_db/*
 sudo systemctl start fulcrum
 ```
 
-\-> You should see the logs of the [Run process](electrum-server.md#run) before again
+-> You should see the logs of the [Run process](electrum-server.md#run) before again
 
-\-> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
+-> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
 {% endhint %}
 
 * When you see logs like this `SrvMgr: starting 3 services ...`, which means that Fulcrum is fully indexed
@@ -522,7 +514,7 @@ tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",
 ```
 
 {% hint style="success" %}
-Congrats! Now you have a high-performance and self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](blockchain-explorer.md) or connect your [Desktop wallet: Sparrow wallet](desktop-wallet.md) or [Electrum Wallet ](../../bonus/bitcoin/electrum-wallet-desktop.md)[Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md)
+Congrats! Now you have a high-performance and self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](blockchain-explorer.md) or connect your [Desktop signing app: Sparrow Wallet](desktop-signing-app-sparrow.md) or [Electrum Wallet ](../../bonus/bitcoin/electrum-wallet-desktop.md)[Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md)
 {% endhint %}
 
 ## Extras (optional)

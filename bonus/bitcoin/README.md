@@ -25,15 +25,11 @@ layout:
 
 * [**Electrs**](electrs.md) - an efficient re-implementation of Electrum Server in Rust
 
-### Wallets
+### Signing apps
 
-#### Desktop wallets
+#### Desktop
 
 * [**Electrum Wallet Desktop**](electrum-wallet-desktop.md) - a feature-rich desktop wallet for power-users
-
-#### CLI wallets
-
-* [**Sparrow Server**](sparrow-server.md) - a stripped down version of Sparrow that can be run on systems without displays
 
 ### Decentralized exchange
 
@@ -50,7 +46,7 @@ layout:
 
 ### Testnet
 
-* [**Running a Testnet MiniBolt Node**](minibolt-on-testnet.md) - configure your MiniBolt for use on testnet
+* [**Running a Testnet MiniBolt node**](minibolt-on-testnet.md) - configure your MiniBolt for use on testnet
 
 ### Payment processors
 

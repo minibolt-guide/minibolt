@@ -14,7 +14,7 @@ layout:
 
 # MiniBolt on Testnet
 
-You can run your RaMiX node on **Testnet4** to develop and experiment with new applications without risking real money. This bonus guide highlights all configuration changes compared to the main guide.
+You can run your MiniBolt node on **Testnet4** to develop and experiment with new applications without risking real money. This bonus guide highlights all configuration changes compared to the main guide.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -38,7 +38,11 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 
 ## Bitcoin
 
-### [Bitcoin client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) (mainnet + testnet simultaneous mode)
+### [Bitcoin client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+
+{% hint style="info" %}
+### Mainnet + testnet simultaneous mode
+{% endhint %}
 
 * Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
 
@@ -153,7 +157,11 @@ Use the flag `--testnet4` when you use the `bitcoin-cli` commands, e.g `bitcoin-
 The rest of the Bitcoin client guide is the same as the mainnet mode
 {% endhint %}
 
-### [Electrum server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md) (only testnet mode)
+### [Electrum server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md)
+
+{% hint style="info" %}
+### Only testnet mode
+{% endhint %}
 
 Follow the complete Electrum server guide from the beginning, when you arrive at the ["Configure Firewall"](../../bitcoin/bitcoin/electrum-server.md#configure-firewall) section:
 
@@ -257,7 +265,7 @@ You should now be able to connect to your Fulcrum server remotely via Tor using 
 The rest of the **Fulcrum** guide is the same as the mainnet mode
 {% endhint %}
 
-### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md) (not Testnet4 compatible)
+### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md)
 
 {% hint style="danger" %}
 #### Not Testnet4 compatible yet, the next steps are not valid!
@@ -414,7 +422,11 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 
 ## Bonus section
 
-### Bitcoin: [Electrs](electrs.md) (only testnet mode)
+### Bitcoin: [Electrs](electrs.md)
+
+{% hint style="info" %}
+### Only testnet mode
+{% endhint %}
 
 Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
 

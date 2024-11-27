@@ -15,9 +15,9 @@ layout:
     visible: true
 ---
 
-# 2.4 Desktop wallet: Sparrow wallet
+# 2.4 Desktop signing app: Sparrow Wallet
 
-We install [Sparrow wallet](https://github.com/sparrowwallet/sparrow) on a computer and connect it to your Electrum server on your node for private Bitcoin on-chain transactions.
+We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) on a computer and connect it to your Electrum server on your node for private Bitcoin on-chain transactions.
 
 <figure><img src="../../.gitbook/assets/sparrow_wallet_logo.png" alt=""><figcaption></figcaption></figure>
 
@@ -95,7 +95,7 @@ Let's go back to the wallet and check that it is connected to our own Electrum s
 
 You're set! Sparrow is now configured to connect to your Electrum server from within your local network.
 
-For maximal privacy, we highly recommend that you set up the Tor proxy when using Sparrow within your local network over clearnet. Check the [optional section](desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services) at the end of this guide.
+For maximal privacy, we highly recommend that you set up the Tor proxy when using Sparrow within your local network over clearnet. Check the [optional section](desktop-signing-app-sparrow.md#optional-set-up-a-tor-proxy-for-external-services) at the end of this guide.
 
 ## Sparrow in action
 

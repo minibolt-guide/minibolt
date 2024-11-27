@@ -680,7 +680,7 @@ If you have installed the NYM socks5 client installed in a machine inside of you
 
 #### Sparrow desktop
 
-Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/bitcoin/desktop-wallet.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/bitcoin/desktop-wallet.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
+Follow the [Desktop wallet: Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) until the [(Optional) Set up a Tor proxy for external services](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md#optional-set-up-a-tor-proxy-for-external-services), which could be used for these 2 cases of uses:
 
 1. If you don't have your node and you want to **proxy** all connections (**The Electrum Servers** of the wallet & **third-party server connections**) using the NYM mixnet
 
