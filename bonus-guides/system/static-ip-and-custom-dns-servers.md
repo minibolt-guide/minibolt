@@ -33,7 +33,7 @@ If you don't do this, you will have to attach the monitor screen or television a
 {% endhint %}
 
 {% hint style="info" %}
-In addition, you can customize your DNS servers to improve your privacy, normally your ISP, gives you the router with its own DNS servers configured by default, and this does that you expose all of your navigation trackings to your ISP, affecting seriously your privacy.
+In addition, you can customize your DNS servers to improve your privacy, normally your ISP, gives you the router with its own DNS servers configured by default, and this does that you exposes all of your navigation trackings to your ISP, affecting seriously your privacy.
 {% endhint %}
 
 ## Option 1: At the beginning, during the Ubuntu Server installation GUI
@@ -44,13 +44,13 @@ Wait for the router to automatically assign the IP address to your MiniBolt node
 
 <figure><img src="../../.gitbook/assets/static-ip-dns-gif.gif" alt=""><figcaption><p>GIF example of a Static IP &#x26; custom DNS server configuration</p></figcaption></figure>
 
-> > **Subnet:** your router subnet, e.g 192.168.1.0/24
+> > **Subnet:** your router subnet, e.g **192.168.1.0/24**
 >
-> > **Address**: your assigned local IP address, eg. 192.168.1.29
+> > **Address**: your assigned local IP address, eg. **192.168.1.87**
 >
-> > **Gateway:** you router IP, eg. 192.168.1.1
+> > **Gateway:** you router IP, eg. **192.168.1.1**
 >
-> > **Name servers:** DNS servers choosen (<mark style="color:red;">**important!**</mark>), eg. same of gateway (192.168.1.1,192.168.1.1) (your ISP DNS) or Custom DNS server (recommended): Cloudflare (1.1.1.1,1.0.0.1) or another (Quad9, MullvadDNS, BlahDNS, etc), check the next annotations for more info
+> > **Name servers:** DNS servers choosen (<mark style="color:red;">**important!**</mark>), eg. same of gateway (**192.168.1.1,192.168.1.1**) (your ISP DNS (not recommended)) or **Custom DNS server (recommended)**: Cloudflare (**1.1.1.1,1.0.0.1**) or another (Quad9, MullvadDNS, BlahDNS, etc), check the next annotations for more info
 >
 > > **Search domains:** \<left blank>
 
@@ -96,9 +96,9 @@ Check your configuration, the next output is **only** an **example** of a concre
     inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
 2: <a data-footnote-ref href="#user-content-fn-1">eno1</a>: &#x3C;BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 40:a8:f0:ac:6a:37 brd ff:ff:ff:ff:ff:ff
+    link/ether 42:a5:f1:ab:6f:33 brd ff:ff:ff:ff:ff:ff
     altname enp0s25
-    inet <a data-footnote-ref href="#user-content-fn-2">192.168.1.147</a>/24 metric 100 brd 192.168.1.255 scope global dynamic eno1
+    inet <a data-footnote-ref href="#user-content-fn-2">192.168.1.87</a>/24 metric 100 brd 192.168.1.255 scope global dynamic eno1
        valid_lft 76855sec preferred_lft 76855sec
     inet6 fe80::42a8:f0ff:feac:6a37/64 scope link
        valid_lft forever preferred_lft forever
@@ -111,7 +111,7 @@ Definitions in the case of before:
 > > ```
 >
 > > ```
-> > <ipaddress> = e.g 192.168.1.147
+> > <ipaddress> = e.g 192.168.1.87
 > > ```
 >
 > > ```
@@ -119,7 +119,7 @@ Definitions in the case of before:
 > > ```
 
 {% hint style="info" %}
-Take note of your case data, you will need it later
+**Take note** of your case data, you will need it later
 {% endhint %}
 
 * Check the current DNS server set, typing the next command
@@ -128,7 +128,9 @@ Take note of your case data, you will need it later
 resolvectl status
 ```
 
-**Example** of expected output (more common):
+<details>
+
+<summary><strong>Example</strong> of expected output (more common) ⬇️</summary>
 
 <pre><code>Global
        Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
@@ -142,14 +144,16 @@ Current DNS Server: <a data-footnote-ref href="#user-content-fn-3">192.168.1.1</
         DNS Domain: home
 </code></pre>
 
-In the case of before:
+</details>
+
+In the previous case:
 
 > ```
 > <nameserver1> = 192.168.1.1 ( = <gateway>, the DNS servers of your ISP)
 > ```
 >
 > ```
-> <nameserver2> = (secondary DNS server, not setted in this case)
+> <nameserver2> = (secondary DNS server, not set in this case)
 > ```
 
 #### Configuration
@@ -187,9 +191,9 @@ network:
 ```
 
 {% hint style="info" %}
-Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>, \<nameserver2>** <- (nameservers optional but recommended)**,** and **\<gateway>** to your own data.\
+-> Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>, \<nameserver2>** <- (nameservers optional but recommended)**,** and **\<gateway>** to your own data.\
 \
-You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**) whatever you want, including the default one set in the DNS server of your router (normally DNS servers of your ISP), in this last case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**.
+-> You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**) whatever you want, including the default one set in the DNS server of your router (normally DNS servers of your ISP), in this last case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**.
 
 For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1,1.0.0.1), but you could set other privacy-focused servers like:
 
@@ -255,7 +259,7 @@ Now you have set your static IP address and custom DNS servers
 If you chose a different IP address than the router assigned you at first and has currently, this step could break the current SSH connection, reconnect using the new and chosen IP address
 {% endhint %}
 
-#### Check changes
+#### Validation
 
 * To check the successful IP address change, type the next command
 
@@ -303,12 +307,12 @@ networkctl status
 
 <pre><code>●        State: routable
   Online state: online
-       Address: 192.168.1.71 on eno1
+       Address: <a data-footnote-ref href="#user-content-fn-8">192.168.1.87</a> on eno1
                 10.0.1.1 on wg0
                 fe80::1e69:7aff:feac:8129 on eno1
        Gateway: 192.168.1.1 on eno1
-           DNS: <a data-footnote-ref href="#user-content-fn-8">1.1.1.1</a>
-                <a data-footnote-ref href="#user-content-fn-9">1.0.0.1</a>
+           DNS: <a data-footnote-ref href="#user-content-fn-9">1.1.1.1</a>
+                <a data-footnote-ref href="#user-content-fn-10">1.0.0.1</a>
            NTP: 10.28.64.1
 </code></pre>
 
@@ -324,8 +328,7 @@ sudo netplan status --all
 
 <summary>Example of expected output ⬇️</summary>
 
-```
-     Online state: offline
+<pre><code>     Online state: online
     DNS Addresses: 127.0.0.53 (stub)
        DNS Search: .
 
@@ -336,15 +339,15 @@ sudo netplan status --all
            Routes: ::1 metric 256
 
 ●  2: eno1 ethernet UP (networkd: eno1)
-      MAC Address: 1c:69:7a:ac:81:29 (Realtek Semiconductor Co., Ltd.)
-        Addresses: 192.168.1.71/24 (dhcp)
-                   fe80::1e69:7aff:feac:8129/64 (link)
-           Routes: default via 192.168.1.1 from 192.168.1.71 metric 100 (dhcp)
-                   10.28.64.1 via 192.168.1.1 from 192.168.1.71 metric 100 (dhcp)
-                   192.168.1.0/24 from 192.168.1.71 metric 100 (link)
-                   192.168.1.1 from 192.168.1.71 metric 100 (dhcp, link)
+      MAC Address: 00:0c:19:4f:c6:c9 (Intel Corporation)
+        Addresses: <a data-footnote-ref href="#user-content-fn-11">192.168.1.87</a>/24
+                   fe80::20c:29ff:fe8f:c7c8/64 (link)
+    DNS Addresses: <a data-footnote-ref href="#user-content-fn-12">1.1.1.1</a>
+                   <a data-footnote-ref href="#user-content-fn-13">1.0.0.1</a>
+           Routes: default via 192.168.1.1 (static)
+                   192.168.1.0/24 from 192.168.1.44 (link)
                    fe80::/64 metric 256
-```
+</code></pre>
 
 </details>
 
@@ -356,6 +359,8 @@ If you go to change the router you could want to enable or check if you have ena
 We will use Netplan with the `systemd-networkd` renderer backend (default on Ubuntu Server)
 {% endhint %}
 
+Configuration
+
 * Edit the content of the next file
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/netplan/50-cloud-init.yaml
@@ -366,7 +371,7 @@ We will use Netplan with the `systemd-networkd` renderer backend (default on Ubu
 ```yaml
 network:
   ethernets:
-    <interface>:
+    <interface>
       dhcp4: true
   version: 2
 ```
@@ -396,7 +401,7 @@ This means that changes were successfully applied without breaking the connectio
 sudo netplan get
 ```
 
-* Check the correct application:
+* Check the correct application
 
 ```bash
 sudo netplan status --all
@@ -406,7 +411,7 @@ sudo netplan status --all
 
 <summary>Example of expected output ⬇️</summary>
 
-<pre><code>     Online state: offline
+<pre><code>     Online state: online
     DNS Addresses: 127.0.0.53 (stub)
        DNS Search: .
 
@@ -417,20 +422,24 @@ sudo netplan status --all
            Routes: ::1 metric 256
 
 ●  2: eno1 ethernet UP (networkd: eno1)
-      MAC Address: 1c:69:7a:ac:81:29 (Realtek Semiconductor Co., Ltd.)
-        Addresses: 192.168.1.71/24 (<a data-footnote-ref href="#user-content-fn-10">dhcp</a>)
-                   fe80::1e69:7aff:feac:8129/64 (link)
-           Routes: default via 192.168.1.1 from 192.168.1.71 metric 100 (dhcp)
-                   10.28.64.1 via 192.168.1.1 from 192.168.1.71 metric 100 (dhcp)
-                   192.168.1.0/24 from 192.168.1.71 metric 100 (link)
-                   192.168.1.1 from 192.168.1.71 metric 100 (dhcp, link)
+      MAC Address: 00:1c:26:7f:c7:c9 (Intel Corporation)
+        Addresses: <a data-footnote-ref href="#user-content-fn-14">192.168.1.87</a>/24 (dhcp)
+                   fe80::20c:28ff:fe8f:c7c6/64 (link)
+    DNS Addresses: <a data-footnote-ref href="#user-content-fn-15">1.1.1.1</a>
+                   <a data-footnote-ref href="#user-content-fn-16">1.0.0.1</a>
+           Routes: default via 192.168.1.1 from 192.168.1.44 metric 100 (dhcp)
+                   1.0.0.1 via 192.168.1.1 from 192.168.1.44 metric 100 (dhcp)
+                   1.1.1.1 via 192.168.1.1 from 192.168.1.44 metric 100 (dhcp)
+                   10.25.0.1 via 192.168.1.1 from 192.168.1.44 metric 100 (dhcp)
+                   192.168.1.0/24 from 192.168.1.44 metric 100 (link)
+                   192.168.1.1 from 192.168.1.44 metric 100 (dhcp, link)
                    fe80::/64 metric 256
 </code></pre>
 
 </details>
 
 {% hint style="info" %}
-Check changes are applied correctly following the [same steps](static-ip-and-custom-dns-servers.md#check-changes) as before
+Also, you can check changes are applied correctly following the same [validation](static-ip-and-custom-dns-servers.md#validation) steps as before
 {% endhint %}
 
 {% hint style="success" %}
@@ -441,23 +450,23 @@ You have gone back to the **automatic (DHCP) mode** configuration successfully
 
 ### DoT/DoH + DNSSEC
 
-DNS-over-TLS (DoT) and DNS-over-HTTPS (DoH) do improve security. It encrypts DNS queries, making them resistant to eavesdropping or tampering, ensuring privacy during the transmission of DNS requests. Without encryption, DNS queries are typically sent in plain text, leaving them vulnerable to interception by attackers or third parties. By using these protocols, your DNS traffic is protected from such threats, enhancing the overall security of your network. However, it doesn't prevent all types of DNS-related attacks and should be combined with other security measures like DNSSEC. Ensures that DNS queries are securely encrypted, protecting user privacy and preventing interception or modification of DNS traffic during transmission. Enjoy the privacy and security benefits of DNS-over-HTTPS and DNS-over-TLS — the modern and encrypted DNS protocols.
+DNS-over-TLS (DoT) and DNS-over-HTTPS (DoH) enhance security by encrypting DNS queries, making them resistant to eavesdropping and tampering. This ensures privacy during DNS transmissions, as unencrypted DNS queries are otherwise sent in plain text, leaving them vulnerable to interception by attackers or third parties. These protocols protect DNS traffic from such threats, strengthening network security. However, they do not prevent all types of DNS-related attacks and should be complemented with measures like DNSSEC.
 
-**Reasons for choosing** [**Option 1**](static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) **or** [**Option 2**](static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns)**?**
+**What are the reasons for choosing** [**Option 1**](static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) **or** [**Option 2**](static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns)**?**
 
 [**Option 1: DoT & DNSSEC using `systemd-resolved`**](static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (recommended for **common situations**):&#x20;
 
 * Pre-installed by default in the Ubuntu server.
 * Better suited for securing DNS traffic at the system or network level, offering simpler configurations and better performance for dedicated DNS resolver setups.
+* Run directly over a TLS tunnel without HTTP layering underneath. This may result in a small performance improvement depending on the network environment.
 * Allow enabling DNSSEC verification on the MiniBolt node (from the DNS client), without relying on validation of the selected DNS servers.
 * Traffic is distinguished as DNS over port 853, and may be blocked if the port is restricted.
 
 [**Option 2: DoH using Cloudflare proxy DNS**](static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns) (recommended for **hostile and censor scenarios**):
 
-* Needs to install an external Cloudflare software binary (Cloudflared)
-* Offers greater flexibility, better evasion of network restrictions, and seamless integration with web technologies.
+* Needs to install an external Cloudflare software binary (Cloudflared).
 * Not DNSSEC enabling available, relying on validation of the selected DNS servers.
-* Traffic blends with general HTTPS, making it harder to distinguish and block as it uses the same port.
+* Offers greater flexibility and better evasion of network restrictions. Traffic blends with general HTTPS (port 443), making it harder to distinguish and block as it uses the same port.
 
 #### Option 1: Use DoT & DNSSEC validation with `systemd-resolved`
 
@@ -469,11 +478,11 @@ To avoid DNS servers would be automatically obtained from the DHCP server (route
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
-**-> 2 cases:**
+**-> 2 cases**, depending on whether **you configured a static IP** following the previous sections **or not**:
 
 {% tabs %}
-{% tab title="Static IP setted" %}
-* Replace the content to match the next template by deleting the "nameservers" configuration:
+{% tab title="Case 1: Static IP setted" %}
+* Replace the content to match the next template by deleting the "nameservers" configuration (the next):
 
 ```yaml
       nameservers:
@@ -511,11 +520,11 @@ network:
   version: 2
 ```
 
--> Replace **\<interface>,** **\<ipaddress>** and **\<gateway>** with your data obtained in the [Preparations](static-ip-and-custom-dns-servers.md#preparations) section before
+-> Replace **\<interface>,** **\<ipaddress>** & **\<gateway>** with your data obtained in the previous [Preparations](static-ip-and-custom-dns-servers.md#preparations) section
 {% endtab %}
 
-{% tab title="Dynamic IP setted (DHCP)" %}
-* Replace the content to match this template adding `dhcp4-overrides` and `use-dns: false` flag
+{% tab title="Case 2: Dynamic IP setted (DHCP) (default)" %}
+* Replace the content to match this template adding `dhcp4-overrides` section with `use-dns: false` flag:
 
 ```yaml
 network:
@@ -545,13 +554,25 @@ Do you want to keep these settings?
 Press ENTER before the timeout to accept the new configuration
 ```
 
-This means that changes were successfully applied without breaking the connection, then press `ENTER` to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again.
+-> This means that changes were successfully applied without breaking the connection, then **press `ENTER`** to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again.
 {% endhint %}
 
-* Check the correct configuration previously setted
+* Check the correct configuration previously set
 
 ```bash
 sudo netplan get
+```
+
+* Check if the DNS status of `systemd-networkd` is `offline`
+
+```bash
+sudo netplan status --all | grep Online
+```
+
+Expected output:
+
+```
+Online state: offline
 ```
 
 * Create a `resolved.conf` drop-in directory
@@ -566,7 +587,7 @@ sudo mkdir -p /etc/systemd/resolved.conf.d
 sudo nano /etc/systemd/resolved.conf.d/dns.conf
 ```
 
-* Add the next content
+* Add the next content. Save and exit
 
 ```
 [Resolve]
@@ -576,14 +597,16 @@ DNSOverTLS=yes
 ```
 
 {% hint style="info" %}
-You can choose another different DNS server:
+For this example, we have used Cloudflare DNS, but you can choose another DNS server:
 
 ```
 Quad9: 9.9.9.9#dns.quad9.net 149.112.112.112#dns.quad9.net
-Mullvad: 194.242.2.2#dns.mullvad.net
+MullvadDNS: 194.242.2.2#dns.mullvad.net
 DNS.SB: 185.222.222.222#dot.sb 45.11.45.11#dot.sb
 BlahDNS: 46.250.226.242#dot-sg.blahdns.com 78.46.244.143#dot-de.blahdns.com
 ```
+
+-> Replace `1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com` for your selection
 
 Example:
 
@@ -618,7 +641,7 @@ resolvectl status
 Example of expected output:
 
 <pre><code>Global
-         Protocols: +LLMNR +mDNS <a data-footnote-ref href="#user-content-fn-11">+DNSOverTLS</a> <a data-footnote-ref href="#user-content-fn-12">DNSSEC=allow-downgrade</a>/supported
+         Protocols: +LLMNR +mDNS <a data-footnote-ref href="#user-content-fn-17">+DNSOverTLS</a> <a data-footnote-ref href="#user-content-fn-18">DNSSEC=allow-downgrade</a>/supported
   resolv.conf mode: stub
 Current DNS Server: 1.1.1.1#cloudflare-dns.com
         DNS Servers 1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com
@@ -643,13 +666,32 @@ udp   UNCONN 0      0           127.0.0.53%lo:53        0.0.0.0:*    users:(("sy
 tcp   LISTEN 0      4096        127.0.0.53%lo:53        0.0.0.0:*    users:(("systemd-resolve",pid=845,fd=14))
 ```
 
-* Check if there is traffic on port 853 (DoT default port)
+* Monitor if there is traffic on port 853 (DoT default port). Keep this command running in the terminal
 
 ```bash
 sudo tcpdump -i any port 853 -n
 ```
 
-Example of expected output:
+* [Start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+* Make a DNS query using, in this example  `minibolt.info` domain
+
+```bash
+resolvectl query minibolt.info
+```
+
+Expected output:
+
+<pre><code>minibolt.info: 2a06:98c1:3120::5               -- link: ens33
+               2a06:98c1:3121::5               -- link: ens33
+               188.114.96.5                    -- link: ens33
+               188.114.97.5                    -- link: ens33
+
+-- Information acquired via protocol DNS in 421.0ms.
+-- <a data-footnote-ref href="#user-content-fn-19">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-20">Data was acquired via local or encrypted transport: yes</a>
+<strong>-- Data from: network
+</strong></code></pre>
+
+Example of expected output in the previous terminal with the `tcpdump` command:
 
 ```
 08:58:01.946478 eno1  Out IP 192.168.1.71.50996 > 1.0.0.1.853: Flags [S], seq 479943231, win 64240, options [mss 1460,sackOK,TS val 1530088766 ecr 0,nop,wscale 7,tfo  cookiereq,nop,nop], length 0
@@ -667,26 +709,8 @@ Example of expected output:
 08:58:01.972372 eno1  Out IP 192.168.1.71.50996 > 1.0.0.1.853: Flags [P.], seq 870:960, ack 220, win 501, options [nop,nop,TS val 1530088792 ecr 2664345025], length 90
 ```
 
-* Make a DNS query using, in this example  `minibolt.info` domain
-
-```bash
-resolvectl query minibolt.info
-```
-
-Expected output:
-
-<pre><code>minibolt.info: 2a06:98c1:3120::5               -- link: ens33
-               2a06:98c1:3121::5               -- link: ens33
-               188.114.96.5                    -- link: ens33
-               188.114.97.5                    -- link: ens33
-
--- Information acquired via protocol DNS in 421.0ms.
--- <a data-footnote-ref href="#user-content-fn-13">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-14">Data was acquired via local or encrypted transport: yes</a>
-<strong>-- Data from: network
-</strong></code></pre>
-
 {% hint style="info" %}
-&#x20;-> In this example, we can see that `minibolt.info` has `DNSSEC` enabled, and the response was verified directly on the MiniBolt node (DNS client). This is usually done by the DNS server before forwarding the request to the DNS client, but we do the verification again on our node so as not to trust the DNS server. The DNSSEC response depends if the domain has the DNSSEC enabled or not, if the domain we are querying does not have DNSSEC enabled, the request will fail, so we allow resolution without verification with `DNSSEC=allow-downgrade`. The expected output in this case for `minibolt.info`:
+&#x20;-> In this example, we can see that `minibolt.info` has `DNSSEC` enabled, and the response was verified directly on the MiniBolt node (DNS client). The DNS server usually does this before forwarding the request to the DNS client, but we do the verification again on our node so as not to trust the DNS server. The DNSSEC response depends if the domain has the DNSSEC enabled or not, if the domain we are querying does not have DNSSEC enabled, the request will fail, so we allow resolution without verification with `allow-downgrade`. The expected output in this case for `minibolt.info`:
 
 ```
 Data is authenticated: yes
@@ -719,11 +743,11 @@ To avoid DNS servers would be automatically obtained from the DHCP server (route
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
-**-> 2 cases:**
+**-> 2 cases**, depending on whether **you configured a static IP** following the previous sections **or not**:
 
 {% tabs %}
-{% tab title="Static IP setted" %}
-* Replace the content to match the next template by deleting the "nameservers" configuration:
+{% tab title="Case 1: Static IP setted" %}
+* Replace the content to match the next template by deleting the "nameservers" configuration (the next):
 
 ```yaml
       nameservers:
@@ -764,8 +788,8 @@ network:
 -> Replace **\<interface>,** **\<ipaddress>** and **\<gateway>** with your data obtained in the [Preparations](static-ip-and-custom-dns-servers.md#preparations) section before
 {% endtab %}
 
-{% tab title="Dynamic IP setted (DHCP) (default)" %}
-* Replace the content to match this template adding `dhcp4-overrides` and `use-dns: false` flag
+{% tab title="Case 2: Dynamic IP setted (DHCP) (default)" %}
+* Replace the content to match this template adding `dhcp4-overrides` section with `use-dns: false` flag:
 
 ```yaml
 network:
@@ -795,8 +819,20 @@ Do you want to keep these settings?
 Press ENTER before the timeout to accept the new configuration
 ```
 
-This means that changes were successfully applied without breaking the connection, then press `ENTER` to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again.
+-> This means that changes were successfully applied without breaking the connection, then **press `ENTER`** to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again.
 {% endhint %}
+
+* Check if the DNS status of `systemd-networkd` is `offline`
+
+```bash
+sudo netplan status --all | grep Online
+```
+
+Expected output:
+
+```
+Online state: offline
+```
 
 * Check the correct configuration previously set
 
@@ -878,7 +914,7 @@ For this example, we have configured the default [Cloudflare DoH name servers](h
   * https://doh-sg.blahdns.com/dns-query
   * https://doh-de.blahdns.com/dns-query
 
-Add to the `ExecStart=/usr/local/bin/cloudflared proxy-dns` line, the `--upstream` parameter + the DoH URL related to the DNS server of your selection:
+-> Add to the `ExecStart=/usr/local/bin/cloudflared proxy-dns` line, the `--upstream` parameter + the DoH URL related to the DNS server of your selection:
 
 Example for Quad9:
 
@@ -948,7 +984,7 @@ udp   UNCONN 0      0               127.0.0.1:53         0.0.0.0:*    users:(("c
 tcp   LISTEN 0      4096            127.0.0.1:53         0.0.0.0:*    users:(("cloudflared",pid=23882,fd=8))
 ```
 
-* Check if there is traffic on port 443 (DoH port)
+* Monitor if there is traffic on port 443 (DoH port)
 
 ```bash
 sudo tcpdump -i any port 443 -n
@@ -989,7 +1025,7 @@ Now you have DoH enabled on your MiniBolt node and the DNS queries encrypted
 
 [^1]: \<interface>
 
-[^2]: \<ipaddress>
+[^2]: address>
 
 [^3]: Check this
 
@@ -1014,3 +1050,15 @@ Now you have DoH enabled on your MiniBolt node and the DNS queries encrypted
 [^13]: Check this
 
 [^14]: Check this
+
+[^15]: Check this
+
+[^16]: Check this
+
+[^17]: Check this
+
+[^18]: Check this
+
+[^19]: Check this
+
+[^20]: Check this

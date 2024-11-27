@@ -525,14 +525,11 @@ TimeoutStopSec=3600
 
 # Directory creation and permissions
 ####################################
-RuntimeDirectory=lightningd
-RuntimeDirectoryMode=0710
 User=lnd
 Group=lnd
 
 # Hardening Measures
 ####################
-PrivateTmp=true
 ProtectSystem=full
 NoNewPrivileges=true
 PrivateDevices=true
@@ -635,7 +632,7 @@ or 'n' to create a new seed (Enter y/x/n):
 * Press `n` and enter
 
 {% hint style="info" %}
-If you choose this option, the next step will be choosing the passphrase **(optional -** press enter to proceed without a cipher seed passphrase\*\*)\*\*
+If you choose this option, the next step will be selecting the passphrase (**optional** - press enter to proceed without a cipher seed passphrase)
 {% endhint %}
 
 Expected output:
@@ -783,7 +780,7 @@ Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.361 [INF] LNWL: Finish
 {% endtabs %}
 
 {% hint style="info" %}
-The current state of your channels, however, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing
+However, the current state of your channels, cannot be recreated from this seed. For this, the Static Channel Backup stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing
 
 There is a dedicated [guide](channel-backup.md) to making an automatic backup
 {% endhint %}
