@@ -41,7 +41,7 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 ### [Bitcoin client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 
 {% hint style="info" %}
-### Mainnet + testnet simultaneous mode
+Mainnet + testnet simultaneous mode
 {% endhint %}
 
 * Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
@@ -160,7 +160,7 @@ The rest of the Bitcoin client guide is the same as the mainnet mode
 ### [Electrum server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md)
 
 {% hint style="info" %}
-### Only testnet mode
+Only testnet mode
 {% endhint %}
 
 Follow the complete Electrum server guide from the beginning, when you arrive at the ["Configure Firewall"](../../bitcoin/bitcoin/electrum-server.md#configure-firewall) section:
@@ -425,7 +425,7 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 ### Bitcoin: [Electrs](electrs.md)
 
 {% hint style="info" %}
-### Only testnet mode
+Only testnet mode
 {% endhint %}
 
 Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:

@@ -29,7 +29,7 @@ Difficulty: Easy
 
 ## Introduction
 
-The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56) and [2FakTor](https://github.com/twofaktor).
+The following list of aliases was derived from contributions by [RobClark56](https://github.com/robclark56).
 
 ## Installation
 
@@ -105,7 +105,7 @@ nginx version: nginx/1.18.0 (Ubuntu)
 Follow again the [Set up Aliases](aliases.md#set-up-aliases) section again to overwrite aliases.
 
 {% hint style="info" %}
-You can see if the aliases have a recent update by entering [here](https://github.com/minibolt-guide/minibolt/commits/main/resources/.bash\_aliases)
+You can see if the aliases have a recent update by entering [here](https://github.com/minibolt-guide/minibolt/commits/main/resources/.bash_aliases)
 {% endhint %}
 
 ## Uninstall

@@ -18,6 +18,10 @@ layout:
 The NYM mixnet technology ensures enhanced privacy and anonymity for online communications. It utilizes a decentralized network to encrypt and route data, ensuring that the origin and destination are concealed. By implementing the NYM mixnet, users can protect their online activities and sensitive information, safeguarding their privacy from surveillance and censorship. This advanced networking technology provides a secure environment for transmitting data and maintaining anonymity.
 
 {% hint style="danger" %}
+Notice: This guide is out of maintenance, the following steps may not be correct
+{% endhint %}
+
+{% hint style="danger" %}
 This project is in a testing phase, which means that it could fail on numerous occasions and in cases of use, be conscious of this before starting this guide
 {% endhint %}
 
