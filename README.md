@@ -98,7 +98,11 @@ tcp://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50001
 Fulcrum - testnet4 (🧅onion):
 
 ```url
-tcp://ytdq3p63rqvwyqkjn6wdugmmd3b57zbr7xyuvwdogcsrqa6njgbzv5id.onion:60001
+tcp://cp5hjh5qalej2inaei2xrl3vitzcwfawvvhnrl7gtbsb3eke5wq6isad.onion:40001
+```
+
+```url
+ssl://cp5hjh5qalej2inaei2xrl3vitzcwfawvvhnrl7gtbsb3eke5wq6isad.onion:40002
 ```
 {% endtab %}
 
