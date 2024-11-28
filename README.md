@@ -75,6 +75,58 @@ We aim to keep the core of this guide well-maintained and up-to-date:
 Feel free to join the many other contributors if you see something that can be improved!
 {% endhint %}
 
+## Resources
+
+<table data-view="cards"><thead><tr><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>🗺️ <a href="https://bit.ly/minibolt-ramix_netmap">Network map</a></td><td><a href=".gitbook/assets/networkmap_icon.png">networkmap_icon.png</a></td><td><a href="https://bit.ly/minibolt-ramix_netmap">https://bit.ly/minibolt-ramix_netmap</a></td></tr><tr><td>🛣️ <a href="https://github.com/orgs/minibolt-guide/projects/1">Roadmap</a></td><td><a href=".gitbook/assets/roadmap_icon.png">roadmap_icon.png</a></td><td><a href="https://github.com/orgs/minibolt-guide/projects/1">https://github.com/orgs/minibolt-guide/projects/1</a></td></tr><tr><td>📋 <a href="https://www.reddit.com/r/minibolt/comments/zmrtdk/minibolt_resources_list_of_the_minibolt_corebonus/">Guides list</a></td><td><a href=".gitbook/assets/list.png">list.png</a></td><td><a href="https://www.reddit.com/r/minibolt/comments/zmrtdk/minibolt_resources_list_of_the_minibolt_corebonus/">https://www.reddit.com/r/minibolt/comments/zmrtdk/minibolt_resources_list_of_the_minibolt_corebonus/</a></td></tr></tbody></table>
+
+## Free Services
+
+{% tabs %}
+{% tab title="Nostr relay" %}
+```url
+wss://relay.minibolt.info
+```
+{% endtab %}
+
+{% tab title="Electrum server" %}
+Fulcrum - mainnet (🧅onion):
+
+```url
+tcp://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50001
+```
+
+Fulcrum - testnet4 (🧅onion):
+
+```url
+tcp://ytdq3p63rqvwyqkjn6wdugmmd3b57zbr7xyuvwdogcsrqa6njgbzv5id.onion:60001
+```
+{% endtab %}
+
+{% tab title="Explorer" %}
+BTC RPC Explorer - mainnet (🚾clearnet):
+
+```url
+https://explorer.minibolt.info
+```
+
+BTC RPC Explorer - mainnet (🧅onion):
+
+```url
+http://rzcj4r2p6wterkto5prigsplq6iva5bqhcxr7y3d6w4hoc3uwizpp5qd.onion
+```
+{% endtab %}
+
+{% tab title="Lightning Watchtower" %}
+Lightning Watchtower server - mainnet (🧅onion):
+
+{% code overflow="wrap" %}
+```url
+02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b@zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
 ## Rating
 
 All guides are rated with labels to help you assess their difficulty and whether they are tested against the most recent version of the main guide.
