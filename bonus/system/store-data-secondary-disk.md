@@ -19,7 +19,7 @@ layout:
 
 # Store data in a secondary disk
 
-If you want to use a different disk to store data (blockchain and other databases) independently of the disk of the system, you can follow these instructions.
+If you want to use a different disk to store data (blockchain and other databases) independently of the system's disk, you can follow these instructions.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -31,7 +31,7 @@ Difficulty: Easy
 
 When you arrive at the **"Guided storage configuration"** **(step 8)** on the [Ubuntu server installation](broken-reference/), follow the next steps:
 
-**8.2.** Pay attention to checking **"Custom storage layout"** instead of ~~Use an entire disk~~, select \[**Done]** and press **enter**
+**8.2.** Pay attention to checking **"Custom storage layout"** instead of ~~Use an entire disk~~, select **\[Done]** and press **ENTER**
 
 📝 Under **AVAILABLE DEVICES** you will see both drives you installed on the PC, identify each one by **drive model name** and **storage**
 
@@ -39,17 +39,17 @@ When you arrive at the **"Guided storage configuration"** **(step 8)** on the [U
 It is recommended to choose the **smallest size drive** for the system and the **bigger size drive** for the data storage **`/data`** (blockchain, databases, etc)
 {% endhint %}
 
-> **8.2.1.** Select the section where appeared the **MODEL** of the **primary disk** between `"[]"` and press **enter** -> Select **"Use As Boot Device"** and press **enter** again
+> **8.2.1.** Select the section where appeared the **MODEL** of the **primary disk** between `"[]"` and press **enter** -> Select **"Use As Boot Device"** and press **ENTER** again
 
 {% hint style="info" %}
-This will select this storage as the boot disk and create automatically a new partition for the **"BIOS grub spacer"** on it.
+This will select this storage as the boot disk and automatically create a new partition for the **"BIOS grub spacer"** on it.
 {% endhint %}
 
 > **8.2.2.** Select the **"free space"** section of the same device, and select **"Add GPT Partition"**. Ensure the format is selected as **`"ext4"`**, select **`"/"`** in the dropdown as mount point, select **"Create"** and press **enter**
 
-> **8.2.3.** Now select the **"free space"** of the **secondary disk** on "AVAILABLE DEVICES" section -> **Add GPT partition**. Ensure the format is selected as `"ext4"`, select **"Other"** in the dropdown, type `/data` to assign to the new **"/data"** folder, select \[**Create]** and press enter
+> **8.2.3.** Now select the **"free space"** of the **secondary disk** on "AVAILABLE DEVICES" section -> **Add GPT partition**. Ensure the format is selected as `"ext4"`, select **"Other"** in the dropdown, type `/data` to assign to the new **"/data"** folder, select **\[Create]** and press enter
 
-**9.** Select \[**Done]** and press enter. Confirm destructive action warning banner hitting \[**Continue]**
+**9.** Select **\[Done]** and press enter. Confirm destructive action warning banner hitting **\[Continue]**
 
 {% hint style="danger" %}
 **This will delete all existing data on the disks, including existing partitions!**
@@ -84,20 +84,20 @@ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 **Example** of expected output without existing partitions:
 
 ```
-NAME          MOUNTPOINT UUID       FSTYPE   SIZE    LABEL  MODEL
-sdb                                          931.5G         Samsung SSD 870
+NAME          MOUNTPOINT UUID       FSTYPE     SIZE    LABEL  MODEL
+sdb                                          931.5G           Secondary_SSD
 ```
 
-Example of expected output with existing partitions:
+**Example** of expected output with existing partitions:
 
 ```
-NAME          MOUNTPOINT UUID              FSTYPE   SIZE    LABEL  MODEL
-sdb                                                 931.5G         Samsung SSD 870
-sdb1                     2219-782E         ext4     931.5G
+NAME          MOUNTPOINT UUID              FSTYPE       SIZE    LABEL  MODEL
+sdb                                                   931.5G           Secondary_SSD
+└─sdb1                   2219-782E           ext4     931.5G
 ```
 
 {% hint style="info" %}
-Here we will see if the new disk has been detected by the system and what unit name has been assigned to it. Normally `sda` is the name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: Samsung SSD 870"
+Here we will see if the system has detected the new disk and what unit name has been assigned to it. Normally `sda` is the name assigned for the primary disk and `sdb` for the secondary disk, but your case could be different, pay attention to the "MODEL" column to identify each one, e.g: Samsung SSD 870"
 {% endhint %}
 
 ### **Delete the existing partition & create a new one**
@@ -108,23 +108,63 @@ Here we will see if the new disk has been detected by the system and what unit n
 sudo fdisk /dev/sdb
 ```
 
-* Now we select the option wished pressing the option letter and enter
-  * Press **`"n"`** to create a new partition and then enter. Press `enter` until the prompt show **(Command (m for help))** again
+-> **2 cases**, depending on whether your drive contains partitions or not:
 
-> **Case 1:** if you had existing partition/s, the prompt will show you **"All space for primary partitions is in use"**, you will need to type **`d`** and press enter until the prompt shows you **"Partition X has been deleted",** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
+{% tabs %}
+{% tab title="Case 1: doesn't contain existing partitions" %}
+If you don't see any "sdb**X**" partition in the previous step, i.e `sdb1`:
 
-> **Case 2:** if you had existing partition/s, the prompt will show you **"Partition #1 contains an ext4 signature"** **"Do you want to remove the signature? \[Y]es/\[N]o"**, type **`Y`** and press enter until the prompt shows you **"The signature will be removed by a write command",** if not, press enter until the prompt shows you **"Created a new partition X of type 'Linux filesystem'"** and...
+* Press **`"n"`** to create a new partition and then press ENTER until the prompt shows you:&#x20;
 
-* Finally, don't forget, to type **`w`** to automatically write on disk and exit
+```
+Created a new partition X of type 'Linux filesystem'
+(Command (m for help)) again
+```
+{% endtab %}
+
+{% tab title="Case 2: contain existing partitions" %}
+If you have an existing partition "sdb**X**" in the previous step, i.e `sdb1`:
+
+* Press **`"d"`** to delete the existing partitions and then press ENTER until the prompt shows you:
+
+```
+Partition X has been deleted
+(Command (m for help)) again
+```
+
+{% hint style="info" %}
+If you have more than one partition, repeat the before step until there are none left
+{% endhint %}
+
+* Press **`"n"`** to create a new partition and then press ENTER until the prompt shows:
+
+```
+Created a new partition X of type 'Linux filesystem'
+(Command (m for help)) again
+```
+{% endtab %}
+{% endtabs %}
+
+-> Finally, don't forget, to type **`w`**  and **ENTER** to write table to disk and exit
 
 {% hint style="info" %}
 This will create a new partition called probably **`"sdb1"`**
 {% endhint %}
 
-* Finally, format the new partition to `"Ext4"` and obtain the **UUID**
+* Format the partition with the **Ext4** system file (replace`[NAME]` to your partition name, e.g. `sdb1`)
 
 ```sh
-sudo mkfs.ext4 /dev/[NAME_P]
+sudo mkfs.ext4 /dev/[NAME]
+```
+
+{% hint style="danger" %}
+**Attention: this will delete all existing data on the external drive!**
+{% endhint %}
+
+**Example** of command:
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
 ```
 
 **Example** of expected output:
@@ -137,14 +177,14 @@ Superblock backups stored on blocks:
 </code></pre>
 
 {% hint style="info" %}
-Take note of your **UUID** e.g _**dafc3c67-c6e5-4eaa-8840-adaf604c85db**_ and the partition name of your secondary disk (normally **"sdb1"**)
+Take note of the `Filesystem UUID` -> i.e: _dafc3c67-c6e5-4eaa-8840-adaf604c85db_, you will need this more later
 {% endhint %}
 
 ### **Mount the secondary disk**
 
 The secondary disk is then attached to the file system and becomes available as a regular folder (this is called “mounting”).
 
-* List the block devices once more and copy the new partitions `UUID` into a text editor on your main machine
+* List the block devices one more time to ensure that UUID has been assigned
 
 ```sh
 lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
@@ -152,21 +192,31 @@ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 
 **Example** of expected output:
 
-```
-NAME        MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL  MODEL
-sdb                                                                931.5G        Samsung SSD 870
-└─sdb1                 3aab0952-3ed4-4652-b203-d994c4fdff20 ext4   931.5G
-```
+<pre><code>NAME        MOUNTPOINT UUID                                        FSTYPE      SIZE LABEL  MODEL
+sda                                                                          126.8G        Primary_SSD
+└─sda1                      3aab0952-3ed4-4652-b203-d994c4fdff20     ext4    126.8G
+sdb                                                                          931.5G        Secondary_SSD
+└─sdb1                 <a data-footnote-ref href="#user-content-fn-2">dafc3c67-c6e5-4eaa-8840-adaf604c85db</a>     ext4    931.5G
+</code></pre>
 
-* Edit the `"fstab"` file and add the following as a new line **at the end**, replacing `<yourUUID>` with your own `UUID`
+{% hint style="info" %}
+Copy the new partition `UUID` into a text editor on your regular machine
+{% endhint %}
+
+* Edit the `fstab` file
 
 ```sh
 sudo nano /etc/fstab
 ```
 
-```
-UUID=<yourUUID> /data ext4 defaults 0 2
-```
+* Add the following as a new line **at the end of the file**
+
+<pre><code>UUID=<a data-footnote-ref href="#user-content-fn-3">&#x3C;yourUUID></a> /data ext4 defaults 0 2
+</code></pre>
+
+{% hint style="info" %}
+Replace `<yourUUID>` with your `UUID` obtained before
+{% endhint %}
 
 * Create the data directory as a mount point
 
@@ -174,19 +224,19 @@ UUID=<yourUUID> /data ext4 defaults 0 2
 sudo mkdir /data
 ```
 
-* Assign as the owner to the `admin` user
+* Assing to the `admin` user as the owner of the **`/data`** folder
 
 ```sh
 sudo chown admin:admin /data
 ```
 
-* Mount all disks and check the file system
+* Mount all drives
 
 ```sh
 sudo mount -a
 ```
 
-* Is “/data” listed?
+* Check the file system. Is `/data` listed?
 
 ```sh
 df -h /data
@@ -196,8 +246,23 @@ df -h /data
 
 ```
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/sdb1       938G   77M  891G   1% /data
+/dev/sdb1       931G   77M  891G   1% /data
 ```
+
+Or check the mount point using `lsblk`
+
+```
+lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
+```
+
+Example of expected output:
+
+<pre><code>NAME        MOUNTPOINT     UUID                                 FSTYPE   SIZE LABEL  MODEL
+sda                                                                    126.8G        Primary_SSD
+└─sda1      /              15af9b1d-ca7c-441f-b101-c1a0cf76a062 ext4   126.8G
+<strong>sdb                                                                    931.5G        Secondary_SSD
+</strong>└─sdb1      /data          15af9b1d-ca7c-441f-b101-c1a0cf76a062 ext4   931.5G
+</code></pre>
 
 * Check measure the speed of your secondary drive with
 
@@ -214,3 +279,7 @@ Now you can continue with the Security section of the guide, press [here](../../
 {% endhint %}
 
 [^1]: Note this
+
+[^2]: Take note of this
+
+[^3]: Replace this

@@ -14,7 +14,7 @@ layout:
 
 # System Overview
 
-To get a quick overview of the system status, you can use [a shell script](https://github.com/minibolt-guide/system\_overview) that gathers the most relevant data about the service on the main guide.
+To get a quick overview of the system status, you can use [a shell script](https://github.com/minibolt-guide/system_overview) that gathers the most relevant data about the service on the main guide.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -24,7 +24,7 @@ Difficulty: Easy
 
 ### Acknowledgments <a href="#acknowledgments" id="acknowledgments"></a>
 
-This is a fork of the [minibolt\_info](https://github.com/rmnscb/minibolt\_info) repository, the main developer of this project is [rmnscb](https://github.com/rmnscb), a member of the MiniBolt community, all the merits go to him. Thank you for your contribution 🧡🫂
+This is a fork of the [minibolt\_info](https://github.com/rmnscb/minibolt_info) repository, the main developer of this project is [rmnscb](https://github.com/rmnscb), a member of the MiniBolt community, all the merits go to him. Thank you for your contribution 🧡🫂
 
 ## Installation
 
@@ -36,7 +36,7 @@ This is a fork of the [minibolt\_info](https://github.com/rmnscb/minibolt\_info)
 sudo apt install jq net-tools netcat
 ```
 
-### Install
+### Install script
 
 * Go to the temporary folder
 
@@ -53,7 +53,7 @@ git clone https://github.com/minibolt-guide/system_overview && cd system_overvie
 {% endcode %}
 
 {% hint style="info" %}
-You can inspect the scripts to make sure it does not do bad things, by going to the [GitHub repository](https://github.com/minibolt-guide/system\_overview)
+You can inspect the scripts to make sure it does not do bad things, by going to the [GitHub repository](https://github.com/minibolt-guide/system_overview)
 {% endhint %}
 
 * Install it to the system
@@ -79,9 +79,9 @@ minibolt.sh
 {% hint style="info" %}
 > You should see a loading process, and if you have an `admin` user password set, the prompt should ask you for this. Enter the `password [A]` and enter
 
-> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-optional-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
+> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
 
-> ✅ Finally, the terminal shows you something like [the cover photo of this bonus guide](https://v2.minibolt.info/bonus-guides/system/system-overview) 🎨
+> ✅ Finally, the terminal shows you something like [the cover photo of this bonus guide](system-overview.md) 🎨
 {% endhint %}
 
 ## Extras (optional)
@@ -99,7 +99,7 @@ echo "minibolt.sh" >> ~/.bashrc
 {% hint style="info" %}
 Now log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell) you can see the process of exec script before the prompt shows you.
 
-> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-optional-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
+> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
 
 > If you’re in a hurry, you can always press `Ctrl`-`C` to skip the script
 {% endhint %}
@@ -204,7 +204,7 @@ sudo rm -r /tmp/system_overview
 
 ## Upgrade
 
-To upgrade, follow the complete [Installation process](system-overview.md#install) and [Run](system-overview.md#run) again
+To upgrade, follow the complete [Install](system-overview.md#install)[ script](system-overview.md#install-script) and [Run](system-overview.md#run) sections again
 
 ## Uninstall
 

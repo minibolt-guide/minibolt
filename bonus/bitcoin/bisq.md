@@ -27,7 +27,7 @@ Difficulty: Easy
 {% endhint %}
 
 {% hint style="warning" %}
-Attention: This guide is only valid for Bisq v1.x.x. Bisq v2.x.x radically changes its operation in terms of the network and many steps in the guide may not match and may not be valid or necessary
+Attention: This guide is only valid for Bisq v1.x.x, Bisq v2.x.x radically changes its operation in terms of the network and many steps in the guide may not match, not be valid, or necessary
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/logo_bisq.png" alt=""><figcaption></figcaption></figure>
@@ -94,7 +94,7 @@ sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
 ## Installation
 
 * [Download ](https://bisq.network/downloads/)Bisq on your personal computer using the appropriate binary for your OS
-* Verify the downloaded binary following [Bisq guidelines](https://bisq.wiki/Downloading\_and\_installing)
+* Verify the downloaded binary following [Bisq guidelines](https://bisq.wiki/Downloading_and_installing)
 * Once you've verified the integrity of the downloaded Bisq binary, install it on your personal computer but do NOT launch Bisq yet!
 
 ## Connect Bisq to your node
@@ -161,7 +161,7 @@ Congrats! Bisq is now connected to your node
 
 This section will highlight key configuration options focusing on privacy and security only.
 
-For the national currency account and trading configuration options, please refer to the Bisq [website](https://bisq.network/getting-started/) and [wiki](https://bisq.wiki/Main\_Page)
+For the national currency account and trading configuration options, please refer to the Bisq [website](https://bisq.network/getting-started/) and [wiki](https://bisq.wiki/Main_Page)
 
 ### Bitcoin Explorer
 

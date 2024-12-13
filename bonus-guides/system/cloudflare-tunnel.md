@@ -97,7 +97,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=2024.11.1
+VERSION=2024.12.1
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -236,7 +236,7 @@ CONNECTOR ID                         CREATED              ARCHITECTURE VERSION  
 * Now assign a CNAME record that points traffic to your tunnel subdomain
 
 {% hint style="info" %}
-> If you want to tunnel only a specific service, you can choose the final subdomain for that service, for example, if you going to expose only the `BTC RPC Explorer`, choose `explorer.<domain.com>` or if you want to expose only the `BTCpay Server`, choose `btcpay.<domain.com>`
+> If you want to tunnel only a specific service, you can choose the final subdomain for that service, for example, if you going to expose only the `BTC RPC Explorer`, choose `explorer.<domain.com>` or if you want to expose only the `BTCPay Server`, choose `btcpay.<domain.com>`
 
 > Replace **`<UUID>`** for your one obtained before
 {% endhint %}

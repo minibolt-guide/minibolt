@@ -28,17 +28,20 @@ While a personal computer is the best choice, this guide works with other comput
 
 You need the following hardware:
 
-* CPU Intel/AMD processor (2010+ gen)
-* 2+ GB RAM (only Bitcoin), 4+ GB RAM is recommended (Bitcoin + Lightning + bonus)
-* Internal storage: SSD 2+ TB is recommended
-* Pen drive USB/SD drive: 4+ GB
-* Temporary monitor screen or TV
-* Temporary keyboard USB/PS2
+* CPU Intel/AMD processor (2010+ gen).
+* 2+ GB RAM (only Bitcoin), 4+ GB RAM is recommended (Bitcoin + Lightning + bonus).
+* Internal storage: SSD SATA/NVMe **2+ TB** is recommended.
+* Pen drive USB/SD drive: **4+ GB.**
+* Temporary monitor screen or TV.
+* Temporary keyboard USB/PS2.
 
 You might also want to get this optional hardware:
 
-* UPS (uninterruptible power supply)
-* A small USB thumb drive or microSD card to create regular local backups of your Lightning channels
+* UPS (uninterruptible power supply).
+  * Suggestions:
+    * For router + node (same room): [Salicru SPS 500 ONE](https://www.salicru.com/gb-en/sps-one-1.html) \~ 50-60€
+    * Only for the router (separate rooms): [SPS NET2](https://www.salicru.com/gb-en/sps-net2-1.html) \~ 50€
+* A small USB thumb drive or microSD card (**1+ GB**) to create regular local backups of your Lightning channels.
 
 ## Write down your passwords
 
@@ -53,7 +56,7 @@ You will need several passwords, and it's easiest to write them all down in the 
 [ F ] i2pd webconsole password (optional)
 ```
 
-![](../.gitbook/assets/password\_strength.png)
+![](../.gitbook/assets/password_strength.png)
 
 If you need inspiration for creating your passwords: the [xkcd: Password Strength](https://xkcd.com/936/) comic is funny and contains a lot of truth. Store a copy of your passwords somewhere safe (preferably in an open-source password manager like [KeePassXC](https://keepassxc.org/)), or whatever password manager you're already using, and keep your original notes out of sight once your system is up and running.
 
