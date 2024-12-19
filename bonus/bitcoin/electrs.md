@@ -589,7 +589,7 @@ tcp   LISTEN 0      128          0.0.0.0:50021      0.0.0.0:*    users:(("electr
 tcp   LISTEN 0      128        127.0.0.1:14224      0.0.0.0:*    users:(("electrs",pid=54749,fd=3))
 ```
 
-* And the SSL `50002` port
+* And the SSL `50022` port
 
 ```bash
 sudo ss -tulpn | grep 50022
