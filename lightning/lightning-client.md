@@ -113,7 +113,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=0.18.3
+VERSION=0.18.4
 ```
 
 * Download the application, checksums, and signature
@@ -193,7 +193,7 @@ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 
 **Example** of expected output:
 
-<pre><code>gpg: Signature made Tue 22 Oct 2024 11:30:56 PM UTC
+<pre><code>gpg: Signature made Wed 18 Dec 2024 07:56:51 PM UTC
 gpg:                using EDDSA key 296212681AADF05656A2CDEE90525F7DEEE0AD86
 gpg: <a data-footnote-ref href="#user-content-fn-4">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
@@ -818,7 +818,7 @@ We interact with LND using the application `lncli`. At the moment, only the user
 ln -s /data/lnd /home/admin/.lnd
 ```
 
-* Check symbolic link has been created correctly
+* Check that the symbolic link has been created correctly
 
 ```bash
 ls -la /home/admin
@@ -860,6 +860,12 @@ drwx------  2 admin admin  4096 Jul 11 20:47 .ssh
 sudo chmod -R g+X /data/lnd/data/
 ```
 
+* And allow it to read the file `admin.macaroon`
+
+```bash
+sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
+```
+
 * Check if you can use `lncli` with the `admin` user by querying LND for information
 
 ```sh
@@ -869,7 +875,7 @@ lncli getinfo
 ## LND in action
 
 {% hint style="success" %}
-&#x20;Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real Bitcoin to your MiniBolt, you have "skin in the game"
+Now your Lightning node is ready. This is also the point of no return. Up until now, you can just start over. Once you send real Bitcoin to your MiniBolt, you have "skin in the game"
 {% endhint %}
 
 {% hint style="info" %}
@@ -884,19 +890,11 @@ Watchtowers are other Lightning nodes that can monitor your channels for you. If
 
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them. It's good practice to add a few watchtowers, just to be on the safe side.
 
-* With user `admin`, add the [Lightning Network+ watchtower](https://lightningnetwork.plus/watchtower) Tor address as a first example
+* With user `admin`, add the Tor address of the [official MiniBolt Watchtower Server](../#free-services) as a first example
 
 {% code overflow="wrap" %}
 ```bash
-lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911
-```
-{% endcode %}
-
-* Or the clearnet address
-
-{% code overflow="wrap" %}
-```bash
-lncli wtclient add 023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf@34.216.52.158:9911
+lncli wtclient add 02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b@zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911
 ```
 {% endcode %}
 

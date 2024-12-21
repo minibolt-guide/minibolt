@@ -97,7 +97,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=2024.12.1
+VERSION=2024.12.2
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -501,7 +501,7 @@ sudo systemctl stop cloudflared
 cloudflared --version
 ```
 
-* Follow again the [installation section](cloudflare-tunnel.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the [latest](https://github.com/cloudflare/cloudflared/releases) if it has not already been changed in this guide
+* Follow again the [Installation section](cloudflare-tunnel.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the [latest](https://github.com/cloudflare/cloudflared/releases) if it has not already been changed in this guide
 * Start Cloudflared again
 
 ```bash

@@ -42,7 +42,7 @@ You can obtain more info about nostr on these additional resources:
 * [awesome-nostr](https://www.nostr.net/)
 * [use-nostr](https://usenostr.org/)
 * [Nostr.how](https://nostr.how/en/what-is-nostr)
-* [gzuuus slideshow](https://www.canva.com/design/DAFcs32eM7k/1twoK\_IqInXQm5txlZBLCg/view)
+* [gzuuus slideshow](https://www.canva.com/design/DAFcs32eM7k/1twoK_IqInXQm5txlZBLCg/view)
 * [nostr.com](https://nostr.com/)
 
 ## Requirements
@@ -347,7 +347,7 @@ Uncomment and replace only the next line:
 
 > data\_directory = "/data/nostr/rs-relay/db"
 
-\-> More details and additional steps on the exclusive [extra section](nostr-relay.md#use-the-default-sqlite-database-backend)
+-> More details and additional steps on the exclusive [extra section](nostr-relay.md#use-the-default-sqlite-database-backend)
 {% endhint %}
 
 > > **Required same as next (\*):**
@@ -367,7 +367,7 @@ Uncomment and replace only the next line:
 > > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-12)[^12]
 
 {% hint style="info" %}
-If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://twofaktor.github.io/logo\_circle%2BB.png](https://twofaktor.github.io/logo\_circle%2BB.png)), or replace it with your own info
+If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://twofaktor.github.io/logo\_circle%2BB.png](https://twofaktor.github.io/logo_circle%2BB.png)), or replace it with your own info
 {% endhint %}
 
 ### **Create systemd service**
@@ -504,7 +504,7 @@ journalctl -fu cloudflared
 
 ### Check relay connection
 
-\-> 3 different methods ⬇️
+-> 3 different methods ⬇️
 
 {% tabs %}
 {% tab title="Method 1" %}
@@ -688,25 +688,6 @@ Now, you can use Alby to log in to compatible web clients using NIP-07 \[**Login
 If you prefer to generate your key pair, you can mine them using the [Rana tool](https://github.com/grunch/rana) and the Minibolt node.
 
 **Be careful when doing this**, as it will use all the available resources of the machine and could render other important applications you are running unusable. Gracefully shutdown them before starting this process
-{% endhint %}
-
-### Broadcast the past events to your new relay (optional)
-
-If you want all your past events to be accessible through your new relay, you can back them up by following these instructions:
-
-* Go to [metadata.nostr.com](https://metadata.nostr.com) website, log in **\[Load My Profile]**, and click on **\[Relays]**
-*   Add your new Nostr relay **`[wss://relay.domain.com]`** address to the list of preferred relays in your profile (in the empty box below), select the **read+write** option, and click the **\[Update]** button.
-
-    You can take the opportunity to add more preferred relays to your profile to also push events to them, selected from this [list](https://nostr.watch/relays/find), or use [Nosy](https://nosy.tigerville.no/) to find the top relays of those who follow you or you follow and try to connect to them and don't forget any events of your contact network
-* Go to [nostryfied.amethyst.social](https://nostryfied.amethyst.social) webpage and log in **\[Get from extension] (Alby)**, or manually enter the \[npub...] of your Nostr profile
-* Click the **\[Backup & Broadcast]** button...
-
-<figure><img src="../../.gitbook/assets/broadcast-relay.png" alt="" width="319"><figcaption></figcaption></figure>
-
-{% hint style="info" %}
-Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr.
-
-Optionally, you can save a copy of all your events locally as you'll have the download option.
 {% endhint %}
 
 ### Nostr clients
@@ -1014,7 +995,7 @@ sudo rm /usr/local/bin/nostr-rs-relay
 
 [^5]: **\<Uncomment> & \<Edit>**
 
-[^6]: **\<Uncomment> & \<Edit> with** [**https://twofaktor.github.io/logo\_circle%2BB.png**](https://twofaktor.github.io/logo\_circle%2BB.png) **if you want**
+[^6]: **\<Uncomment> & \<Edit> with** [**https://twofaktor.github.io/logo\_circle%2BB.png**](https://twofaktor.github.io/logo_circle%2BB.png) **if you want**
 
 [^7]: **\<Uncomment>**
 

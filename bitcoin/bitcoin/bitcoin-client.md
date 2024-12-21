@@ -339,9 +339,6 @@ txindex=1
 # Append comment to the user agent string
 uacomment=MiniBolt node
 
-# Suppress a breaking RPC change that may prevent LND from starting up
-deprecatedrpc=warnings
-
 # Disable integrated wallet
 disablewallet=1
 

@@ -295,20 +295,20 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 #### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
-* Follow the complete guide from the beginning, when you arrive at the [Configur](../../lightning/lightning-client.md#configuration)[ation](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
+* Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
 ```bash
 nano /data/lnd/lnd.conf
 ```
 
-* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet=true` to enable LND in testnet mode and add the location of the `bitcoin-testnet3.conf` in the `[Bitcoind]` section
+* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet4=true` to enable LND in testnet mode and add the location of the `bitcoin-testnet4.conf` in the `[Bitcoind]` section
 
 ```
 [Bitcoin]
-bitcoin.testnet=true
+bitcoin.testnet4=true
 
 [Bitcoind]
-bitcoind.config=/data/bitcoin/bitcoin-testnet3.conf
+bitcoind.config=/data/bitcoin/bitcoin-testnet4.conf
 ```
 
 {% hint style="info" %}
@@ -318,29 +318,37 @@ If you use [Ordirespector](ordisrespector.md) on testnet, add the next lines at 
 ```
 [fee]
 # Use external fee estimator
-fee.url=https://nodes.lightning.computer/fees/v1/btctestnet-fee-estimates.json
+fee.url=https://nodes.lightning.computer/fees/v1/btctestnet4-fee-estimates.json
 ```
 
 * When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace `ExecStop` parameter to this
 
 ```
-ExecStop=/usr/local/bin/lncli --network=testnet stop
+ExecStop=/usr/local/bin/lncli --network=testnet4 stop
 ```
 
 {% hint style="info" %}
-When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet, same with the LND mainnet peer suggested to open the channel and send a payment
+When you arrive at the [Watchtower client](../../lightning/lightning-client.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet4, same with the LND mainnet peer suggested to open the channel and send a payment
 {% endhint %}
 
 **Interacting with the LND daemon**
 
-* Note that when interacting with the LND daemon, you'll need to use the `"--network testnet"` flag. Example:
+* Note that when interacting with the LND daemon, you'll need to use the `"--network=testnet4"` flag. Example:
 
 ```sh
-lncli --network=testnet --tlscertpath /data/lnd/tls.cert.tmp create
+lncli --network=testnet4 --tlscertpath /data/lnd/tls.cert.tmp create
+```
+
+#### Allow user "admin" to work with LND
+
+* Note that when you arrive at this section, you need to replace the command: `sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon` to the next
+
+```bash
+sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet4/admin.macaroon
 ```
 
 {% hint style="info" %}
-Note that it has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
+It has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
 {% endhint %}
 
 {% hint style="success" %}
