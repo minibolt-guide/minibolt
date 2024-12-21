@@ -300,12 +300,12 @@ Take note and backup this public key in your preferred password manager (Bitward
 sudo nano /etc/wireguard/wg0.conf
 ```
 
-* Write the following content and replace only **`<Your_Server_Private_Key>`** with the data previously obtained. **`<Your_Client_Public_Key>`** will be replaced later when we get the public key from our client, keep alert to replace it later in [part 2 of the server configuration](wireguard-vpn.md#server-configuration-part-2)
+* Write the following content
 
-<pre><code># MiniBolt: Wireguard configuration
+<pre><code># MiniBolt: WireGuard VPN server configuration
 # /etc/wireguard/wg0.conf
 
-## Server configuration (Minibolt node)
+## Server configuration (MiniBolt node)
 [Interface]
 PrivateKey = <a data-footnote-ref href="#user-content-fn-7">&#x3C;Your_Server_Private_Key></a>
 Address = 10.0.0.1/24
@@ -313,7 +313,7 @@ ListenPort = 51820
 </code></pre>
 
 {% hint style="info" %}
-Replace **`"<Your_Server_Private_Key>"`**
+Replace only **`<Your_Server_Private_Key>`** with the data previously obtained
 {% endhint %}
 
 * Enable autoboot on startup **(optional, but recommended)**
@@ -390,7 +390,10 @@ sudo nano /etc/wireguard/wg0.conf
 
 * Write the following contents to the `wg0.conf` file
 
-<pre><code>## Client configuration
+<pre><code># MiniBolt: WireGuard VPN client configuration
+# /etc/wireguard/wg0.conf
+
+## Client configuration
 [Interface]
 PrivateKey = <a data-footnote-ref href="#user-content-fn-8">&#x3C;Your_Client_Private_Key></a>
 Address = 10.0.0.2/32
@@ -436,10 +439,10 @@ sudo nano /etc/wireguard/wg0.conf
 
 * Replace the existing **`<Your_Client_Public_Key>`** parameter with your one
 
-<pre><code># MiniBolt: Wireguard configuration
+<pre><code># MiniBolt: Wireguard server configuration
 # /etc/wireguard/wg0.conf
 
-## Server configuration (Minibolt node)
+## Server configuration (MiniBolt node)
 [Interface]
 PrivateKey = <a data-footnote-ref href="#user-content-fn-11">&#x3C;Your_Server_Private_Key></a>
 Address = 10.0.0.1/24
