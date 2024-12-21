@@ -390,7 +390,7 @@ sudo nano /etc/wireguard/wg0.conf
 
 * Write the following contents to the `wg0.conf` file
 
-<pre><code># MiniBolt: WireGuard VPN client configuration
+<pre><code># MiniBolt: WireGuard VPN client configuration (e.g Laptop)
 # /etc/wireguard/wg0.conf
 
 ## Client configuration
@@ -439,7 +439,7 @@ sudo nano /etc/wireguard/wg0.conf
 
 * Replace the existing **`<Your_Client_Public_Key>`** parameter with your one
 
-<pre><code># MiniBolt: Wireguard server configuration
+<pre><code># MiniBolt: WireGuard VPN server configuration
 # /etc/wireguard/wg0.conf
 
 ## Server configuration (MiniBolt node)
@@ -650,7 +650,68 @@ Try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin
 
 ### Configure additional clients
 
--> For each additional client, you must install the WireGuard VPN software in each of them, and [generate a new client key pair](wireguard-vpn.md#generate-client-key-pair) following the property section and all client configuration-related sections ([Install WireGuard VPN on the client](wireguard-vpn.md#install-wireguard-vpn-on-the-client), [Part 1](wireguard-vpn.md#client-configuration-part-1) and [Part 2](wireguard-vpn.md#client-configuration-part-2)).
+-> For each additional client, you must follow the next sections for each one:
+
+* The entire (with subitems) [Install WireGuard VPN on the client section](wireguard-vpn.md#install-wireguard-vpn-on-the-client)
+
+<details>
+
+<summary>Example of WireGuard additional clients configuration for multiple clients case -> <a href="wireguard-vpn.md#client-configuration-part-1">Client configuration (part 1)</a> section ⬇️</summary>
+
+```
+# MiniBolt: WireGuard VPN client configuration (e.g Phone)
+# /etc/wireguard/wg0.conf
+
+## Client configuration
+[Interface]
+PrivateKey = <Your_Client2_Private_Key>
+Address = 10.0.0.3/32
+
+## Server configuration (MiniBolt node)
+[Peer]
+PublicKey = <Your_Server_Public_Key>
+AllowedIPs = 10.0.0.1/32
+Endpoint = <yourdomain>:51820
+```
+
+</details>
+
+* [Server configuration (part 2) section](wireguard-vpn.md#server-configuration-part-2). Take into account increasing the number of IPs for each client, inside the IP address range: `10.0.0.3`, `10.0.0.4`, `10.0.0.5` ...
+
+<details>
+
+<summary>Example of WireGuard server configuration for multiple clients ⬇️</summary>
+
+```
+# MiniBolt: WireGuard VPN server configuration
+# /etc/wireguard/wg0.conf
+
+## Server configuration (MiniBolt node)
+[Interface]
+PrivateKey = <Your_Server_Private_Key>
+Address = 10.0.0.1/24
+ListenPort = 51820
+
+## Clients configuration
+## Laptop
+[Peer]
+PublicKey = <Your_Client_Public_Key>
+AllowedIPs = 10.0.0.2/32
+
+## Phone
+[Peer]
+PublicKey = <Your_Client2_Public_Key>
+AllowedIPs = 10.0.0.3/32
+
+## Tablet
+[Peer]
+PublicKey = <Your_Client3_Public_Key>
+AllowedIPs = 10.0.0.4/32
+```
+
+</details>
+
+* [Client configuration (part 2)](wireguard-vpn.md#client-configuration-part-2)
 
 ### Configure additional servers
 
