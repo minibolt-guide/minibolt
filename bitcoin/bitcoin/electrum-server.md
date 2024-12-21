@@ -676,7 +676,7 @@ Filename               Type            Size            Used            Priority
 
 ## Upgrade
 
-Follow the complete [Download and set up Fulcrum](electrum-server.md#download-and-set-up-fulcrum) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
+Follow the complete [Download and set up Fulcrum](electrum-server.md#download-binaries) section replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide.
 
 * Restart the service to apply the changes
 
