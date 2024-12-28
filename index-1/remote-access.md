@@ -107,6 +107,4 @@ ls -la
 
 ## Port reference
 
-| Port | Protocol |           Use           |
-| :--: | :------: | :---------------------: |
-|  22  |    TCP   | Default SSH server port |
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="0Dtj2LXvt9nn" label="TCP" color="blue"></option><option value="RIwrLmda5GHC" label="SSL" color="blue"></option><option value="NygQ2xeoPwWF" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">22</td><td><span data-option="0Dtj2LXvt9nn">TCP</span></td><td align="center">Default SSH server port</td></tr></tbody></table>

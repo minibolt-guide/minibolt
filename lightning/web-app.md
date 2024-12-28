@@ -1034,9 +1034,6 @@ sudo ufw delete X
 
 ## Port reference
 
-| Port |  Protocol |           Use          |
-| :--: | :-------: | :--------------------: |
-| 3000 |    TCP    |    Default HTTP port   |
-| 4002 | TCP (SSL) | HTTPS port (encrypted) |
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3000</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4002</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr></tbody></table>
 
 [^1]: Default password unless defined in account

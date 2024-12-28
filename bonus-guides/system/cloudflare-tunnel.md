@@ -536,8 +536,6 @@ Processing triggers for man-db (2.10.2-1) ...
 
 ## Port reference
 
-|  Port  | Protocol |     Use     |
-| :----: | :------: | :---------: |
-| Random |    TCP   | Random port |
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="fvPqH8XB8K9x" label="TCP" color="blue"></option><option value="RXaWGWFxPiEP" label="SSL" color="blue"></option><option value="zcFKV2AkzRl4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">Random</td><td><span data-option="fvPqH8XB8K9x">TCP</span></td><td align="center">Random port</td></tr></tbody></table>
 
 [^1]: Random port

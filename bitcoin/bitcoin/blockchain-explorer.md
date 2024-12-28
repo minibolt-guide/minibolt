@@ -62,9 +62,9 @@ npm -v
 ```
 
 {% hint style="info" %}
-\-> If the "`node -v"` output is **`>=18`**, you can move to the next section.
+-> If the "`node -v"` output is **`>=18`**, you can move to the next section.
 
-\-> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
+-> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 * Update and upgrade your OS
@@ -533,7 +533,7 @@ RPC Terminal / Browser require authentication. Set an authentication password vi
 ```
 {% endcode %}
 
-\-> Remember to give them the **`password [D]`** if you added password protection in the reference step
+-> Remember to give them the **`password [D]`** if you added password protection in the reference step
 {% endhint %}
 
 {% hint style="info" %}
@@ -755,7 +755,4 @@ sudo ufw delete X
 
 ## Port reference
 
-| Port |  Protocol |           Use          |
-| :--: | :-------: | :--------------------: |
-| 3002 |    TCP    |    Default HTTP port   |
-| 4000 | TCP (SSL) | HTTPS port (encrypted) |
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="Y6T21FHnnCsO" label="TCP" color="blue"></option><option value="mjMppURefbOV" label="SSL" color="blue"></option><option value="sthlT2JmYCAj" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3002</td><td><span data-option="Y6T21FHnnCsO">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4000</td><td><span data-option="mjMppURefbOV">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr></tbody></table>

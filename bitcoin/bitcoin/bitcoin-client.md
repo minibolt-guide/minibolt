@@ -1156,11 +1156,7 @@ sudo ufw delete X
 
 ## Port reference
 
-| Port | Protocol |          Use         |
-| :--: | :------: | :------------------: |
-| 8333 |    TCP   |   Default P2P port   |
-| 8332 |    TCP   |   Default RPC port   |
-| 8334 |    TCP   | Default P2P Tor port |
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="ukHb12cRZxp1" label="TCP" color="blue"></option><option value="Xd1yhX3dgwCx" label="SSL" color="blue"></option><option value="DxH2k0YKIhG7" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8333</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default P2P port</td></tr><tr><td align="center">8332</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default RPC port</td></tr><tr><td align="center">8334</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default P2P Tor port</td></tr></tbody></table>
 
 [^1]: Check this
 

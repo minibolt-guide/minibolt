@@ -539,12 +539,4 @@ The rest of the **Electrs guide** is the same as the mainnet mode
 
 Here we are going to describe only what ports differ from the mainnet mode:
 
-|  Port |  Protocol |                   Use                  |
-| :---: | :-------: | :------------------------------------: |
-| 48333 |    TCP    |            P2P Testnet4 port           |
-| 48334 |    TCP    |       P2P Testnet4 secondary port      |
-| 48332 |    TCP    |            RPC Testnet4 port           |
-| 40001 |    TCP    |          Fulcrum Testnet4 port         |
-| 40002 | TCP (SSL) | Fulcrum server Testnet4 encrypted port |
-| 40021 |    TCP    |          Electrs Testnet4 port         |
-| 40022 | TCP (SSL) | Electrs server Testnet4 encrypted port |
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="r72xqe5kee4m" label="TCP" color="blue"></option><option value="27pYzFjkBNZz" label="SSL" color="blue"></option><option value="CQbhYp3TNADL" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">48333</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 port</td></tr><tr><td align="center">48334</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 secondary port</td></tr><tr><td align="center">48332</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">RPC Testnet4 port</td></tr><tr><td align="center">40001</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Fulcrum Testnet4 port</td></tr><tr><td align="center">40002</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Fulcrum server Testnet4 encrypted port</td></tr><tr><td align="center">40021</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Electrs Testnet4 port</td></tr><tr><td align="center">40022</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Electrs server Testnet4 encrypted port</td></tr></tbody></table>
