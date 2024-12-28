@@ -536,7 +536,7 @@ Processing triggers for man-db (2.10.2-1) ...
 
 ## Port reference
 
-|  Post  | Protocol |     Use     |
+|  Port  | Protocol |     Use     |
 | :----: | :------: | :---------: |
 | Random |    TCP   | Random port |
 
