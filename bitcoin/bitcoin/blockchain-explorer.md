@@ -156,9 +156,8 @@ sudo adduser btcrpcexplorer bitcoin
 
 * Change to the new `btcrpcexplorer` user
 
-```sh
-sudo su - btcrpcexplorer
-```
+<pre class="language-sh"><code class="lang-sh"><strong>sudo su - btcrpcexplorer
+</strong></code></pre>
 
 * Import the GPG key of the developer
 
@@ -591,8 +590,6 @@ abcdefg..............xyz.onion
 
 ## Upgrade
 
-Updating to a [new release](https://github.com/janoside/btc-rpc-explorer/releases) is straightforward, but make sure to check out the [change log](https://github.com/janoside/btc-rpc-explorer/blob/master/CHANGELOG.md) first.
-
 * With `admin` user, stop the service
 
 ```sh
@@ -605,36 +602,16 @@ sudo systemctl stop btcrpcexplorer
 sudo su - btcrpcexplorer
 ```
 
-* Set a temporary version environment variable to the installation
-
-```bash
-VERSION=3.4.0
-```
-
 * Go to the `btc-rpc-explorer` folder
 
 ```sh
 cd btc-rpc-explorer
 ```
 
-* Fetch the latest GitHub repository information
+* Update the repository with the latest commits
 
 ```sh
-git fetch
-```
-
-```sh
-git reset --hard HEAD
-```
-
-* Display the release tags (use the latest in this example)
-
-```sh
-git tag
-```
-
-```sh
-git checkout v$VERSION
+git pull origin $(git rev-parse --abbrev-ref HEAD)
 ```
 
 * Install dependencies
