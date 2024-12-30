@@ -910,9 +910,9 @@ Expected output:
 {
     "towers": [
         {
-            "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
+            "pubkey": "02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b",
             "addresses": [
-                "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
+                "zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911"
             ],
             "active_session_candidate": true,
             "num_sessions": 0,
@@ -943,16 +943,16 @@ Same you can connect as a watchtower client to other watchtower servers, you cou
 lncli tower info
 ```
 
-Expected output:
+**Example** of expected output:
 
 ```
 {
-  "pubkey": "023bad37e5795654cecc69b43599da8bd5789ac633c098253f60494bde602b60bf",
+  "pubkey": "02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b",
   "listeners": [
       "[::]:9911"
   ],
   "uris": [
-      "iiu4epqzm6cydqhezueenccjlyzrqeruntlzbx47mlmdgfwgtrll66qd.onion:9911"
+      "zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911"
   ]
 }
 ```

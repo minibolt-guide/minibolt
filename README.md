@@ -84,7 +84,7 @@ Feel free to join the many other contributors if you see something that can be i
 {% tabs %}
 {% tab title="Nostr relay" %}
 {% hint style="info" %}
-Use a Nostr client to connect
+Use [a Nostr client](bonus-guides/nostr/nostr-relay.md#nostr-clients) to connect
 {% endhint %}
 
 <pre class="language-url"><code class="lang-url"><strong>wss://relay.minibolt.info

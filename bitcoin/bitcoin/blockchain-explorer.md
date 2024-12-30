@@ -160,39 +160,44 @@ sudo adduser btcrpcexplorer bitcoin
 sudo su - btcrpcexplorer
 ```
 
-* Set a temporary version environment variable to the installation
-
-<pre class="language-bash"><code class="lang-bash"><strong>VERSION=3.4.0
-</strong></code></pre>
-
 * Import the GPG key of the developer
 
 ```bash
 curl https://github.com/janoside.gpg | gpg --import
 ```
 
+**Example** of expected output:
+
+```
+gpg: /home/btcrpcexplorer/.gnupg/trustdb.gpg: trustdb created
+gpg: key B326ACF51F317B69: public key "Dan Janosik <dan@47.io>" imported
+gpg: key 846311D3D259BFF1: public key "Dan Janosik <dan@47.io>" imported
+gpg: key 70C0B166321C0AF8: public key "Dan Janosik <dan@47.io>" imported
+gpg: Total number processed: 3
+gpg:               imported: 3
+```
+
 * Download the source code directly from GitHub and go to the `btc-rpc-explorer` folder
 
 {% code overflow="wrap" %}
 ```sh
-git clone --branch v$VERSION https://github.com/janoside/btc-rpc-explorer.git && cd btc-rpc-explorer
+git clone https://github.com/janoside/btc-rpc-explorer.git && cd btc-rpc-explorer
 ```
 {% endcode %}
 
 * Verify the release
 
 ```bash
-git verify-commit v$VERSION
+git verify-commit $(git rev-parse HEAD)
 ```
 
 **Example** of expected output:
 
 ```
-gpg: Signature made Wed Jun 14 15:18:11 2023 CEST
+gpg: Signature made Mon 16 Dec 2024 03:23:58 PM UTC
 gpg:                using EDDSA key 4D841E6E6B1B68EBFAB4A9E670C0B166321C0AF8
-gpg: Good signature from "Dan Janosik <dan@47.io>" [unknown]
-gpg: WARNING: This key is not certified with a trusted signature!
-gpg:          There is no indication that the signature belongs to the owner.
+gpg: Good signature from "Dan Janosik <dan@47.io>" [expired]
+gpg: Note: This key has expired!
 Primary key fingerprint: 4D84 1E6E 6B1B 68EB FAB4  A9E6 70C0 B166 321C 0AF8
 ```
 
@@ -231,7 +236,7 @@ found 12 vulnerabilities (8 moderate, 4 high)
 **Example** of expected output:
 
 ```
-> "version": "3.4.0",
+"version": "3.4.0",
 ```
 
 ## Configuration
@@ -259,7 +264,7 @@ Activate any setting by removing the `#` at the beginning of the line or editing
 BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
 ```
 
-* To get address balances, either an Electrum server or an external service is necessary. Your local Electrum server can provide address transaction lists, balances, and more
+* An Electrum server or an external service is necessary to get address balances. Your local Electrum server can provide address transaction lists, balances, and more
 
 ```
 # Uncomment & replace the value of these lines
@@ -286,7 +291,7 @@ exit
 
 ### Create systemd service
 
-Now we'll make sure our blockchain explorer starts as a service on the PC so that it's always running.
+Now we'll ensure our blockchain explorer starts as a service on the PC so that it's always running.
 
 * As user `admin`, create the service file
 
