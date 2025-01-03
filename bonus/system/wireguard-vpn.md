@@ -94,7 +94,7 @@ If you have a contracted static IP with your ISP, log in to the MiniBolt directl
 ## freemyip.com setup
 
 * Go to freemyip.com (Free dynamic DNS provider) by clicking here -> [https://freemyip.com/](https://freemyip.com/)
-* This provider does not require registration - simply enter your desired domain name in this box and click on the <nobr>**`CHECK AVAILABILITY`**</nobr> button, i.e. `myfreedns`.freemyip.com
+* This provider does not require registration - simply enter your desired domain name in this box and click on the "**`CHECK AVAILABILITY`**" button, i.e. `myfreedns`.freemyip.com
 
 <figure><img src="../../.gitbook/assets/freemyip_start.png" alt=""><figcaption></figcaption></figure>
 
