@@ -125,7 +125,7 @@ In this case:
 
 ### Dynamic IP script
 
-Now we'll write a Bash script for MiniBolt that will periodically poll its IP and send it to the DDNS service. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** from the previous step.
+Now we'll write a Bash script for MiniBolt that will periodically poll its IP and send it to the DDNS service. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** from the previous [freemyip.com setup](wireguard-vpn.md#freemyip.com-setup) step.
 
 * As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to MiniBolt
 * Create the next folder to locate the script
