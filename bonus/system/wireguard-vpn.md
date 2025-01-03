@@ -98,7 +98,7 @@ If you have a contracted static IP with your ISP, log in to the MiniBolt directl
 
 <figure><img src="../../.gitbook/assets/freemyip_start.png" alt=""><figcaption></figcaption></figure>
 
-* If the domain is available, a screen like below will appear. Click on the <nobr>**`CLAIM IT!`**</nobr> button. If not, a message "**This domain name is not available :(**" will appear - try again with another one, going again to -> [https://freemyip.com](https://freemyip.com/main).
+* If the domain is available, a screen like below will appear. Click on the "**`CLAIM IT!`**" button. If not, a message "**This domain name is not available :(**" will appear - try again with another one, going again to -> [https://freemyip.com](https://freemyip.com/main).
 
 <figure><img src="../../.gitbook/assets/freemyip_available.png" alt=""><figcaption></figcaption></figure>
 
