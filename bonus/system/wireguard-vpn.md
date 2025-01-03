@@ -748,7 +748,7 @@ Port forwarding allows you to direct incoming traffic from the WAN side (identif
 * **External port:** 51820
 
 {% hint style="info" %}
--> This parameter should be different (51821) if multiple external ports need to be converted <!--ROUTED?--> to the same port number used by the server on the LAN side, e.g.: different WireGuard VPN servers on the same LAN. More on this in the [Configure additional servers section](wireguard-vpn.md#configure-additional-servers)
+-> This parameter should be different (51821) if multiple external ports need to be routed to the same port number used by the server on the LAN side, e.g.: different WireGuard VPN servers on the same LAN. More on this in the [Configure additional servers section](wireguard-vpn.md#configure-additional-servers)
 {% endhint %}
 
 * **Internal port** _(optional in some cases):_ 51820
