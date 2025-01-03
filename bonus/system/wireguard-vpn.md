@@ -19,7 +19,7 @@ layout:
 
 # WireGuard VPN
 
-been The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis)
+The following guide was derived from contributions by [Pantamis](https://github.com/Pantamis)
 
 [WireGuard](https://www.wireguard.com) is a VPN you can set up to access your MiniBolt from the outside. It makes it easier to run services on your node without exposing its ports to the public Internet. It has support on all major computer OS; and apps for Android and iOS. The only requirement is to forward a UDP port from your home router to the MiniBolt node.
 
@@ -33,7 +33,7 @@ Difficulty: Hard
 
 ## Why use WireGuard and trade-off
 
-A VPN is an encrypted tunnel between two computers over the internet. In our case, MiniBolt will play the role of the server, and you will be able to access your home network from outside with configured client devices. Several trade-offs are using a VPN versus using Tor.
+A VPN is an encrypted tunnel between two computers over the internet. In our case, MiniBolt will play the role of the server, and you will be able to access your home network remotely with configured client devices. There are several trade-offs to consider when using a VPN versus Tor.
 
 **Advantages:**
 
@@ -44,7 +44,7 @@ A VPN is an encrypted tunnel between two computers over the internet. In our cas
 **Disadvantages:**
 
 * However, a VPN is not anonymous, a spy can see that you send encrypted traffic to your home router, but he cannot know what you are doing.
-* WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which allows telling that you are using WireGuard VPN.
+* WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which reveals you are using WireGuard VPN.
 * You need to open one port on your router.
 
 ![](../../images/wireguard-VPN.png)
@@ -55,10 +55,10 @@ Before starting with the installation proper, you need to:
 
 1. Figure out if your Internet Service Provider (ISP) uses [Carrier-Grade NAT](https://superuser.com/questions/713422/how-would-i-test-to-see-if-im-behind-carrier-grade-or-regular-nat). If that's the case **you have no way of doing port forwarding**, and you'll need to contact them asking to **put you out of CG-NAT** (this means giving your router a dedicated public IP). Most ISPs do this on request or charge a small fee to allocate a public IP just for you.
 2. Figure out the public IP of your home network. If you have a **static public IP** it'll simplify the setup, but it's not mandatory. There are plenty of websites that show you your public IP. One such site is [https://freemyip.com/checkip](https://freemyip.com/checkip).
-3. Forward the `"51820"` port and `"UDP"` protocol of your router to the local IP of your MiniBolt. This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, in the extra [Port forwarding section](wireguard-vpn.md#port-forwarding), you can show a few instructions to do this for the most common cases.
+3. Forward the `"51820"` port and `"UDP"` protocol of your router to the local IP of your MiniBolt. This procedure changes from router to router so we can't be very specific, but involves logging into your router's administrative web interface (usually at [http://192.168.1.1](http://192.168.1.1) or [http://192.168.0.1](http://192.168.0.1)) and finding the relevant settings page. See [portforward.com](https://portforward.com) for directions on how to port forward with your NAT/router device. The configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, instructions for common scenarios can be found in the extra [Port forwarding section](wireguard-vpn.md#port-forwarding).
 
 {% hint style="info" %}
-In the next steps, we will create different keys, IDs, passwords, and others, remember to take note of all of those in your preferred password manager (Bitwarden, Keypass) or an offline document paper:
+In the next steps, we will create different keys, IDs, passwords, and others; remember to take note of all of those in your preferred password manager (Bitwarden, Keypass) or an offline document paper:
 
 **Server keys:**
 
@@ -88,25 +88,25 @@ To fix this, we can maintain a DNS record that always points to your latest IP, 
 Now we are going to execute a universal way of configuring our IP by updating it to the dynamic DNS provider using the MiniBolt node via a script, but this job can be done by your router, especially if we are not sure that we are going to have MiniBolt running 24/7. Go to the [Use your router’s DDNS preconfigured provider](wireguard-vpn.md#use-your-routers-ddns-preconfigured-provider) extra section to get directions.
 
 {% hint style="info" %}
-If you have a contracted static IP on your ISP, log in to the MiniBolt directly, go to the [Configure Firewall section](wireguard-vpn.md#configure-firewall), and continue with the guide
+If you have a contracted static IP with your ISP, log in to the MiniBolt directly, go to the [Configure Firewall section](wireguard-vpn.md#configure-firewall), and continue with the guide
 {% endhint %}
 
 ## freemyip.com setup
 
 * Go to freemyip.com (Free dynamic DNS provider) by clicking here -> [https://freemyip.com/](https://freemyip.com/)
-* This provider does not need registration, only enter your desired domain name in this box and click on the "**`CHECK AVAILABILITY`**" button, i.e. `myfreedns`.freemyip.com
+* This provider does not require registration - simply enter your desired domain name in this box and click on the "**`CHECK AVAILABILITY`**" button, i.e. `myfreedns`.freemyip.com
 
 <figure><img src="../../.gitbook/assets/freemyip_start.png" alt=""><figcaption></figcaption></figure>
 
-* If the domain is available, a screen like this will appear to you. If not a text "**`This domain name is not available :(`**" will show you, try again with another one, going again to -> [https://freemyip.com](https://freemyip.com/main). Click on the "**`CLAIM IT!`**" button
+* If the domain is available, a screen like below will appear. Click on the "**`CLAIM IT!`**" button. If not, a message "**This domain name is not available :(**" will appear - try again with another one, going again to -> [https://freemyip.com](https://freemyip.com/main).
 
 <figure><img src="../../.gitbook/assets/freemyip_available.png" alt=""><figcaption></figcaption></figure>
 
-* If all is good a new screen with "**Domain was added :)**" will appear to you
+* If all is good a new screen with "**Domain was added :)**" will appear
 
 <figure><img src="../../.gitbook/assets/freemyip_domain_added.png" alt=""><figcaption></figcaption></figure>
 
-* Take note of the URL that appears to you on "**Use this URL to update your IP:...**", you will need this for the next steps
+* Take note of the URL that appears under "**Use this URL to update your IP:**" - you will need this for the next steps
 
 Example of URL:
 
@@ -125,7 +125,7 @@ In this case:
 
 ### Dynamic IP script
 
-Now we'll write a Bash script for MiniBolt that will periodically poll its IP and send it to the DDNS service. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** from the freemyip.com setup step before.
+Now we'll write a Bash script for MiniBolt that will periodically poll its IP and send it to the DDNS service. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** from the previous [freemyip.com setup](wireguard-vpn.md#freemyip.com-setup) step.
 
 * As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to MiniBolt
 * Create the next folder to locate the script
@@ -140,13 +140,13 @@ sudo mkdir -p /opt/freemyip
 sudo nano /opt/freemyip/freemyip.sh
 ```
 
-* Enter the next content, taking into account replacing what is necessary
+* Enter the following content, replacing what is necessary
 
 <pre data-overflow="wrap"><code>echo url="https://freemyip.com/update?=<a data-footnote-ref href="#user-content-fn-3">&#x3C;YOUR_SECRET_TOKEN></a>&#x26;domain=<a data-footnote-ref href="#user-content-fn-4">&#x3C;yourdomain></a>&#x26;verbose=yes" | curl -k -o /opt/freemyip/freemyip.log -K -
 </code></pre>
 
 {% hint style="info" %}
-Replace **`"<YOUR_SECRET_TOKEN>"`** and  **`"<yourdomain>"`** to the before created. Save and exit
+Replace **`"<YOUR_SECRET_TOKEN>"`** and  **`"<yourdomain>"`** to the previously obtained items. Save and exit
 {% endhint %}
 
 Example of content:
@@ -157,7 +157,7 @@ echo url="https://freemyip.com/update?token=c6f3c463d065aca81ebde774&domain=myfr
 ```
 {% endcode %}
 
-* After creating the script, make it executable and restrict access to it (because it contains sensitive data)
+* After creating the script, make it executable and restrict access (because it contains sensitive data)
 
 ```sh
 sudo chmod 700 /opt/freemyip/freemyip.sh
@@ -197,7 +197,7 @@ crontab: installing new crontab
 
 #### Validation
 
-* Monitor the logs to check if the first push of the IP has been successfully sent to the DDNS provider
+* Monitor the logs to check if the initial push of the IP has been successfully sent to the DDNS provider
 
 ```bash
 sudo tail -F /opt/freemyip/freemyip.sh
@@ -211,7 +211,7 @@ OKtail: /opt/freedns/freedns.log: file truncated
 OKtail: /opt/freedns/freedns.log: file truncated
 ```
 
-The next updates will be these if they don't change:
+Unless they change the following updates will be:
 
 ```
 IP <youpublicIP> didn't change. No need to update record.
@@ -262,13 +262,13 @@ sudo apt install wireguard
 
 ### Generate server key pair
 
-* Now we are going to generate our server key pair. The following command is to generate a private key
+* Now we are going to generate our server key pair. The following command will generate a private key
 
 ```sh
 wg genkey | tee private_key
 ```
 
-Private key _**example expected output**_, we'll call **`"<Your_Server_Private_Key>"`** from now on
+Private key _**example**_ expected ouput, we'll call **`"<Your_Server_Private_Key>"`** from now on
 
 ```
 e.g: mJFGKxeQqxafyDdLDEDHRml6rDJUs7JZte3uqfJBQ0Q=
@@ -326,21 +326,21 @@ sudo systemctl enable wg-quick@wg0.service
 This will **turn it on permanently**, and also **start it automatically** when MiniBolt reboots. We won't do this on the client because we want it to be able to connect to the VPN selectively
 {% endhint %}
 
-* Delete the `private_key` and `public_key` files, but ensure before you take note of the server's keys in your preferred password manager
+* Delete the `private_key` and `public_key` files, but before, ensure you take note of the server's keys in your preferred password manager
 
 ```sh
 sudo rm /home/admin/private_key && rm /home/admin/public_key
 ```
 
 {% hint style="info" %}
-Keep the MiniBolt SSH session open in the terminal to come back later
+Keep the MiniBolt SSH session open in the terminal to come back to later
 {% endhint %}
 
 ## Install WireGuard VPN on the client
 
-Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS. Here, we'll assume your client is a Linux desktop OS; because it is the most similar to setting up the server, but you can see [Mobile](wireguard-vpn.md#install-and-configure-the-wireguard-vpn-client-on-a-mobile-phone) or [Windows](wireguard-vpn.md#install-and-configure-the-wireguard-vpn-client-on-windows) configurations in the extra section.
+Now, on your client (on a regular computer, regular mobile, tablet, etc...), start by visiting [WireGuard's installation page](https://www.wireguard.com/install) and download and install the relevant version of WireGuard for your OS. Here, we'll assume your client is a Linux desktop OS, because it is the most similar to setting up the server, but you can see [Mobile](wireguard-vpn.md#install-and-configure-the-wireguard-vpn-client-on-a-mobile-phone) or [Windows](wireguard-vpn.md#install-and-configure-the-wireguard-vpn-client-on-windows) configurations in the extra section.
 
-* On your Linux regular computer, for instance, you do this by simply installing the **`"Wireguard VPN"`** package
+* On your regular Linux computer, for instance, you do this by simply installing the **`"Wireguard VPN"`** package
 
 ```sh
 sudo apt install wireguard
@@ -348,7 +348,7 @@ sudo apt install wireguard
 
 ### Generate client key pair
 
-* Now we are going to generate our client key pair. The following command is to generate a private key
+* Now we are going to generate our client key pair. The following command will generate a private key
 
 ```sh
 wg genkey | tee private_key
@@ -408,11 +408,11 @@ Endpoint = <a data-footnote-ref href="#user-content-fn-10">&#x3C;yourdomain></a>
 {% hint style="info" %}
 A few things to note here:
 
-> Replace the `"PrivateKey"` parameter designed as **`<Your_Client_Private_Key>`** by created previous step.
+> Replace the `"PrivateKey"` parameter generated as **`<Your_Client_Private_Key>`** by previous step.
 
-> Replace the `"PublicKey"` parameter designed as **`<Your_Server_Public_Key>`** by the public key of MiniBolt created on the [generate key pair](wireguard-vpn.md#generate-server-key-pair) section.
+> Replace the `"PublicKey"` parameter generated as **`<Your_Server_Public_Key>`** from the public key of MiniBolt created in the [generate key pair](wireguard-vpn.md#generate-server-key-pair) section.
 
-> Replace hte `"Endpoint"` parameter designed as **`<yourdomain>`** by created in [freemyip.com setup section](wireguard-vpn.md#freemyip.com-setup).
+> Replace the `"Endpoint"` parameter generated as **`<yourdomain>`** in [freemyip.com setup section](wireguard-vpn.md#freemyip.com-setup).
 {% endhint %}
 
 * Now you can delete the `private_key` and `public_key` files from the disk, but make sure you have noted this previously
@@ -422,7 +422,7 @@ sudo rm /home/<yourusername>/private_key && rm /home/<yourusername>/public_key
 ```
 
 {% hint style="info" %}
-Keep this terminal open to come back later
+Keep this terminal open to come back to later
 {% endhint %}
 
 ## Server configuration (part 2)
@@ -435,9 +435,9 @@ Now return to the MiniBolt node to allow access to the newly created Wireguard V
 sudo nano /etc/wireguard/wg0.conf
 ```
 
--> Now we are going to complete the previous parameter **`<Your_Client_Public_Key>`** that we left pending to complete before with the created in the **"**[**Generate client key pair**](wireguard-vpn.md#generate-client-key-pair)**"** section
+-> Now we are going to complete the previous parameter **`<Your_Client_Public_Key>`** that we created and left pending in the **"**[**Generate client key pair**](wireguard-vpn.md#generate-client-key-pair)**"** section
 
-* Replace the existing **`<Your_Client_Public_Key>`** parameter with your one
+* Replace the existing **`<Your_Client_Public_Key>`** parameter with yours
 
 <pre><code># MiniBolt: WireGuard VPN server configuration
 # /etc/wireguard/wg0.conf
@@ -523,7 +523,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-Try to create a [new SSH session](../../index-1/remote-access.md#access-with-secure-shell) to the MiniBolt, using this time the VPN IP instead of the local IP address
+Try to create a [new SSH session](../../index-1/remote-access.md#access-with-secure-shell) to the MiniBolt, this time using the VPN IP instead of the local IP address
 {% endhint %}
 
 ```sh
@@ -531,7 +531,7 @@ ssh admin@10.0.0.1
 ```
 
 {% hint style="info" %}
-Try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), and open your favorite browser, using this time the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
+Open your favorite browser and try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), this time using the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
 {% endhint %}
 
 * Check the VPN client status using
@@ -573,7 +573,7 @@ Expected output:
 
 Entering all information about the Wireguard VPN Client into a mobile phone is particularly cumbersome. A nice feature of the mobile Wireguard apps is that they can import the full configuration for a tunnel through a QR code format.
 
-* To do that you need to install the `qrencode` package on your regular computer with Linux and Wireguard VPN client installed as we explained previously in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* To do that you need to install the `qrencode` package on your regular Linux computer with Wireguard VPN client installed as we explained previously in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install qrencode
@@ -583,13 +583,13 @@ sudo apt install qrencode
 Now, you can convert the "**`wg0.conf`**" file to a QR code if you want
 {% endhint %}
 
-* Change to the root user temporary
+* Temporarily change to the root user
 
 ```sh
 sudo su
 ```
 
-* Generate the QR code related to the same Wireguard VPN client `"wg0.conf"` configurated on the [client configuration](wireguard-vpn.md#client-configuration-part-1) section
+* Generate the QR code associated with the same Wireguard VPN client `"wg0.conf"` configured in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section
 
 ```sh
 qrencode -t ansiutf8 < /etc/wireguard/wg0.conf
@@ -602,7 +602,7 @@ exit
 ```
 
 {% hint style="info" %}
-Keep the MiniBolt SSH session open in the terminal to come back later and scan the QR code, or take a screenshot or snip, with your favorite tool
+Keep the MiniBolt SSH session open in the terminal to come back later and scan the QR code, or take a screenshot or snip with your favorite tool
 {% endhint %}
 
 * Install the Wireguard VPN client for the mobile version and start it
@@ -617,42 +617,42 @@ Link to [Google Play Store](https://play.google.com/store/apps/details?id=com.wi
 {% endtab %}
 {% endtabs %}
 
-1. Hit on **(+)** button
-2. Select the **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Press `ALLOW`
+1. Tap on **(+)** button
+2. Select the **"SCAN FROM QR CODE"** option. It will ask for camera permission, then you should be able to scan your code. Tap `ALLOW`
 3. Scan the QR code generated previously
-4. Type a **name** for the tunnel, e.g. "MiniBoltWG", and hit on **"Create tunnel"**
-5. Press on the **switch at the right** to activate the Wireguard tunnel. Press **OK** to accept the connection request
+4. Type a **name** for the tunnel, e.g. "MiniBoltWG", and tap on **"Create tunnel"**
+5. **Toggle the switch** to the right to activate the Wireguard tunnel. Tap **OK** to accept the connection request
 
 {% hint style="info" %}
--> You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of the "`wg0.conf`" configured on the [client configuration](wireguard-vpn.md#client-configuration-part-1) section.&#x20;
+-> You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of the "`wg0.conf`" configured in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section.&#x20;
 
--> Select **"CREATE FROM SCRATCH"** instead of "SCAN FROM QR CODE" on the second step, fill out the form, and hit on the diskette icon on the top right to save and follow the same steps from **4**
+-> Select **"CREATE FROM SCRATCH"** instead of "SCAN FROM QR CODE" on the second step, fill out the form, and tap on the diskette icon on the top right to save and follow the same steps from **4.**
 {% endhint %}
 
 ### Install & configure the WireGuard VPN Client on Windows
 
 * Download and install the [Wireguard VPN Windows version](https://download.wireguard.com/windows-client/wireguard-installer.exe)
-* Hit on the little arrow down on the bottom left and select **"Add empty tunnel"**
+* Click on the little down-arrow on the bottom left and select **"Add empty tunnel"**
 
 ![](../../.gitbook/assets/wireguardVPN_windows.png)
 
-* Paste the entire content of the client configuration "`wg0.conf`" file in the big text box and push on **"Save"**
+* Paste the entire content of the client configuration "`wg0.conf`" file in the big text box and click on **"Save"**
 * Click on the **"Activate"** button to enable the VPN connection
-* Test it by trying to create a [new SSH session](../../index-1/remote-access.md#access-with-secure-shell) to the MiniBolt, using this time the VPN IP instead of the local IP address:
+* Test it by trying to create a [new SSH session](../../index-1/remote-access.md#access-with-secure-shell) to the MiniBolt, this time using the VPN IP instead of the local IP address:
 
 ```sh
 ssh admin@10.0.0.1
 ```
 
 {% hint style="info" %}
-Try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), and open your favorite browser, using this time the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
+Open your favorite browser and try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), this time using the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
 {% endhint %}
 
 ### Configure additional clients
 
 -> For each additional client, you must follow the next sections for each one:
 
-* The entire (with subitems) [Install WireGuard VPN on the client section](wireguard-vpn.md#install-wireguard-vpn-on-the-client)
+* The entire (with subitems) [Install WireGuard VPN on the client](wireguard-vpn.md#install-wireguard-vpn-on-the-client) section
 
 <details>
 
@@ -676,7 +676,7 @@ Endpoint = <yourdomain>:51820
 
 </details>
 
-* [Server configuration (part 2) section](wireguard-vpn.md#server-configuration-part-2). Take into account increasing the number of IPs for each client, inside the IP address range: `10.0.0.3`, `10.0.0.4`, `10.0.0.5` ...
+* [Server configuration (part 2)](wireguard-vpn.md#server-configuration-part-2) section. Take into account increasing the number of IPs for each client, inside the IP address range: `10.0.0.3`, `10.0.0.4`, `10.0.0.5` ...
 
 <details>
 
@@ -718,20 +718,20 @@ AllowedIPs = 10.0.0.4/32
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`. You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
 
 * Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server, and `10.0.1.2`, `10.0.1.3`, `10.0.1.4` ..., for the clients in this case
-* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port on the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-14)[^14]
+* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port in the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-14)[^14]
 
 ### Use your router’s DDNS preconfigured provider
 
-Some routers have support for Dynamic DNS providers like NOIP or dynDNS, out of the box, and you just need to select the right option (NoIP, dynDNS, or similar). It would be a great idea if your MiniBolt server won't be running 24/7.
+Some routers have support for Dynamic DNS providers like NOIP or dynDNS out of the box, and you simply need to select the right option (NoIP, dynDNS, or similar). It would be a great idea if your MiniBolt server won't be running 24/7.
 
 If your router does not have your DDNS provider preconfigured, the configuration procedure will depend on the specific type of router which is why we can't provide a tutorial for all of them. However, most of the time it boils down to entering the following details in your router configuration.
 
-🔍 Search for some section called dynDNS, DDNS, Dynamic DNS, or similar, and set them with these instructions:
+🔍 Search for a section called dynDNS, DDNS, Dynamic DNS, or similar, and configure with these instructions:
 
-* **Provider/Service:** select on the drop-down the name of the provider, e.g. noip, www.no-ip.com, dynDNS, etc
-* **Domain name/hostname:** subdomain you want to update, e.g. `<yourdomain>` previously created on the [freemyip.com setup section](wireguard-vpn.md#freemyip.com-setup)
-* **Username:** selected username or email (depending on the provider) of the previously created on the [freemyip.com setup section](wireguard-vpn.md#freemyip.com-setup)
-* **Password/Token secret:** password selected for your DDNS provider account or Token secret (depending on the provider) previously created on the [freemyip.com setup section](wireguard-vpn.md#freemyip.com-setup)
+* **Provider/Service:** select from the drop-down the name of the provider, e.g. noip, www.no-ip.com, dynDNS, etc
+* **Domain name/hostname:** subdomain you want to update, e.g. `<yourdomain>` previously created in the [freemyip.com setup](wireguard-vpn.md#freemyip.com-setup) section
+* **Username:** selected username or email (depending on the provider) previously created in the [freemyip.com setup](wireguard-vpn.md#freemyip.com-setup) section
+* **Password/Token secret:** password selected for your DDNS provider account or Token secret (depending on the provider) previously created in the [freemyip.com setup section](wireguard-vpn.md#freemyip.com-setup)
 
 {% hint style="success" %}
 Save and apply changes
@@ -739,16 +739,16 @@ Save and apply changes
 
 ### Port forwarding
 
-Port forwarding, allows you to direct incoming traffic from the WAN side (identified by Protocol and External port) to your MiniBolt with the private IP address on the LAN side.
+Port forwarding allows you to direct incoming traffic from the WAN side (identified by Protocol and External port) to your MiniBolt with the private IP address on the LAN side.
 
-🔍 Search for some section called NAT/PAT, Virtual Servers, Port forwarding, or similar and set these parameters:
+🔍 Search for a section called NAT/PAT, Virtual Servers, Port forwarding, or similar, and set these parameters:
 
 * **Server name/Rule name/Custom service name:** e.g MiniBoltWG
 * **Service** (_some cases_): Other
 * **External port:** 51820
 
 {% hint style="info" %}
--> This parameter should be different (51821) if different external ports need to be converted to the same port number used by the server on the LAN side, e.g.: different WireGuard VPN servers on the same LAN. More on the [Configure additional servers section](wireguard-vpn.md#configure-additional-servers)
+-> This parameter should be different (51821) if multiple external ports need to be routed to the same port number used by the server on the LAN side, e.g.: different WireGuard VPN servers on the same LAN. More on this in the [Configure additional servers section](wireguard-vpn.md#configure-additional-servers)
 {% endhint %}
 
 * **Internal port** _(optional in some cases):_ 51820
