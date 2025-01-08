@@ -148,13 +148,13 @@ Current DNS Server: <a data-footnote-ref href="#user-content-fn-3">192.168.1.1</
 
 In the previous case:
 
-> ```
-> <nameserver1> = 192.168.1.1 ( = <gateway>, the DNS servers of your ISP)
-> ```
+> > ```
+> > <nameserver1> = 192.168.1.1 ( = <gateway>, the DNS servers of your ISP)
+> > ```
 >
-> ```
-> <nameserver2> = (secondary DNS server, not set in this case)
-> ```
+> > ```
+> > <nameserver2> = (secondary DNS server, not set in this case)
+> > ```
 
 #### Configuration
 
@@ -170,6 +170,10 @@ We will use Netplan with the `systemd-networkd` renderer backend
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/netplan/50-cloud-init.yaml
 </strong></code></pre>
+
+{% hint style="info" %}
+The name of the file could be different in your case. If the file is empty when you type the next command, press Ctrl + X to exit, and enter the next command to show the real name of your file `ls /etc/netplan`. Replace the name of the `.yaml` file in the previous command and try again, this time it should have content
+{% endhint %}
 
 * Replace the content to match this template
 
@@ -366,6 +370,10 @@ Configuration
 <pre class="language-bash"><code class="lang-bash"><strong>sudo nano /etc/netplan/50-cloud-init.yaml
 </strong></code></pre>
 
+{% hint style="info" %}
+The name of the file could be different in your case. If the file is empty when you type the next command, press Ctrl + X to exit, and enter the next command to show the real name of your file `ls /etc/netplan`. Replace the name of the `.yaml` file in the previous command and try again, this time it should have content
+{% endhint %}
+
 * Replace the content to match this template, replacing **\<interface>** with your data obtained in the [Preparations](static-ip-and-custom-dns-servers.md#preparations) section before
 
 ```yaml
@@ -478,11 +486,15 @@ To avoid DNS servers would be automatically obtained from the DHCP server (route
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
+{% hint style="info" %}
+The name of the file could be different in your case. If the file is empty when you type the next command, press Ctrl + X to exit, and enter the next command to show the real name of your file `ls /etc/netplan`. Replace the name of the `.yaml` file in the previous command and try again, this time it should have content
+{% endhint %}
+
 **-> 2 cases**, depending on whether **you configured a static IP** following the previous sections **or not**:
 
 {% tabs %}
 {% tab title="Case 1: Static IP setted" %}
-* Replace the content to match the next template by deleting the "nameservers" configuration (the next):
+* Replace the content to match the next template by deleting the "nameservers" configuration section (the next):
 
 ```yaml
       nameservers:
@@ -492,7 +504,7 @@ sudo nano /etc/netplan/50-cloud-init.yaml
         search: []
 ```
 
-Template:
+Final result template:
 
 ```yaml
 network:
@@ -506,7 +518,9 @@ network:
   version: 2
 ```
 
-Example:
+-> Replace **\<interface>,** **\<ipaddress>** and **\<gateway>** with your data obtained in the previous [Preparations](static-ip-and-custom-dns-servers.md#preparations) section
+
+Final result example:
 
 ```yaml
 network:
@@ -519,17 +533,36 @@ network:
         via: 192.168.1.1
   version: 2
 ```
-
--> Replace **\<interface>,** **\<ipaddress>** & **\<gateway>** with your data obtained in the previous [Preparations](static-ip-and-custom-dns-servers.md#preparations) section
 {% endtab %}
 
 {% tab title="Case 2: Dynamic IP setted (DHCP) (default)" %}
 * Replace the content to match this template adding `dhcp4-overrides` section with `use-dns: false` flag:
 
 ```yaml
+            dhcp4-overrides:
+                use-dns: false
+```
+
+Template:
+
+```yaml
 network:
     ethernets:
         <interface>:
+            dhcp4: true
+            dhcp4-overrides:
+                use-dns: false
+    version: 2
+```
+
+-> Replace **\<interface>** with your data obtained in the previous [Preparations](static-ip-and-custom-dns-servers.md#preparations) section
+
+Example:
+
+```yaml
+network:
+    ethernets:
+        eno1:
             dhcp4: true
             dhcp4-overrides:
                 use-dns: false
@@ -552,9 +585,17 @@ WARNING:root:Cannot call Open vSwitch: ovsdb-server.service is not running.
 Do you want to keep these settings?
 
 Press ENTER before the timeout to accept the new configuration
+
+Changes will revert in 116 seconds
 ```
 
 -> This means that changes were successfully applied without breaking the connection, then **press `ENTER`** to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again.
+
+Expected output:
+
+```
+Configuration accepted.
+```
 {% endhint %}
 
 * Check the correct configuration previously set
@@ -691,6 +732,26 @@ Expected output:
 <strong>-- Data from: network
 </strong></code></pre>
 
+{% hint style="info" %}
+&#x20;-> In this example, we can see that `minibolt.info` it has `DNSSEC` enabled, and the response was verified directly on the MiniBolt node (DNS client).
+
+The DNS server usually does this before forwarding the request to the DNS client, but we do the verification again on our node so as not to trust the DNS server.
+
+The DNSSEC response depends if the domain has the DNSSEC enabled or not, if the domain we are querying does not have DNSSEC enabled, the request will fail, so we allow resolution without verification with `allow-downgrade`.
+
+The expected output in this case for `minibolt.info`:
+
+```
+Data is authenticated: yes
+```
+
+-> With the following output, we can verify that the request to the DNS servers for `minibolt.info` was successfully encrypted using `DoT`:
+
+```
+Data was acquired via local or encrypted transport
+```
+{% endhint %}
+
 Example of expected output in the previous terminal with the `tcpdump` command:
 
 ```
@@ -708,20 +769,6 @@ Example of expected output in the previous terminal with the `tcpdump` command:
 08:58:01.972355 eno1  Out IP 192.168.1.71.50996 > 1.0.0.1.853: Flags [P.], seq 846:870, ack 220, win 501, options [nop,nop,TS val 1530088792 ecr 2664345025], length 24
 08:58:01.972372 eno1  Out IP 192.168.1.71.50996 > 1.0.0.1.853: Flags [P.], seq 870:960, ack 220, win 501, options [nop,nop,TS val 1530088792 ecr 2664345025], length 90
 ```
-
-{% hint style="info" %}
-&#x20;-> In this example, we can see that `minibolt.info` has `DNSSEC` enabled, and the response was verified directly on the MiniBolt node (DNS client). The DNS server usually does this before forwarding the request to the DNS client, but we do the verification again on our node so as not to trust the DNS server. The DNSSEC response depends if the domain has the DNSSEC enabled or not, if the domain we are querying does not have DNSSEC enabled, the request will fail, so we allow resolution without verification with `allow-downgrade`. The expected output in this case for `minibolt.info`:
-
-```
-Data is authenticated: yes
-```
-
--> With the following output, we can verify that the request to the DNS servers for `minibolt.info` was successfully encrypted using `DoT`:
-
-```
-Data was acquired via local or encrypted transport
-```
-{% endhint %}
 
 {% hint style="success" %}
 Now you have DoT enabled on your MiniBolt node to encrypt the DNS queries and DNSSEC to verify them

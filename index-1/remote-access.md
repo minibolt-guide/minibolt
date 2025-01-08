@@ -68,10 +68,10 @@ Install and start the SSH client for your operating system:
 Note, connection details:
 
 ```
-> hostname: your MiniBolt IP address like: 192.168.x.xxx
-> port: 22
-> username: temp
-> password: password [A]
+hostname: your MiniBolt IP address like: 192.168.x.xxx
+port: 22
+username: temp
+password: password [A]
 ```
 {% endhint %}
 

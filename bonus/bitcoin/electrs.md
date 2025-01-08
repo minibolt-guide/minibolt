@@ -273,7 +273,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=0.10.7
+VERSION=0.10.8
 ```
 
 * Download the source code and go to the `electrs` folder
