@@ -166,7 +166,7 @@ sudo apt update && sudo apt full-upgrade
 * Install Ngnix. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
-sudo apt install nginx
+sudo apt install nginx nginx-extras
 ```
 
 * Check the correct installation
