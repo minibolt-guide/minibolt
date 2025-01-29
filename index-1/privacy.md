@@ -452,7 +452,7 @@ sudo cat /var/lib/tor/hidden_service_ssh_server/hostname
 **Example** of expected output:
 
 ```
-> abcdefg..............xyz.onion
+abcdefg..............xyz.onion
 ```
 
 * Save the Tor address in a secure location, e.g. your password manager
@@ -567,7 +567,7 @@ sudo systemctl reload tor
 * Configure the firewall to allow incoming Tor connections from anywhere
 
 ```bash
-sudo ufw allow 9050/tcp comment 'allow Tor socks5 from anywhere'
+sudo ufw allow 9050/tcp comment 'allow Tor SOCKS5 from anywhere'
 ```
 
 * Ensure that the Tor service is working and listening at the default ports `9050` on the `0.0.0.0`

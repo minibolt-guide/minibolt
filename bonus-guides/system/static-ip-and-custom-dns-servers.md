@@ -688,7 +688,7 @@ Current DNS Server: 1.1.1.1#cloudflare-dns.com
         DNS Servers 1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com
 
 Link 2 (ens33)
-Current Scopes: LLMNR/IPv4 LLMNR/IPv6
+Current Scopes: <a data-footnote-ref href="#user-content-fn-19">LLMNR/IPv4 LLMNR/IPv6</a>
      Protocols: -DefaultRoute +LLMNR -mDNS +DNSOverTLS DNSSEC=allow-downgrade/supported
 </code></pre>
 
@@ -728,7 +728,7 @@ Expected output:
                188.114.97.5                    -- link: ens33
 
 -- Information acquired via protocol DNS in 421.0ms.
--- <a data-footnote-ref href="#user-content-fn-19">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-20">Data was acquired via local or encrypted transport: yes</a>
+-- <a data-footnote-ref href="#user-content-fn-20">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-21">Data was acquired via local or encrypted transport: yes</a>
 <strong>-- Data from: network
 </strong></code></pre>
 
@@ -1106,6 +1106,8 @@ Now you have DoH enabled on your MiniBolt node and the DNS queries encrypted
 
 [^18]: Check this
 
-[^19]: Check this
+[^19]: Also valid "none"
 
 [^20]: Check this
+
+[^21]: Check this

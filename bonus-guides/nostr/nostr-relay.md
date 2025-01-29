@@ -588,7 +588,7 @@ After=network-online.target
 [Continue](nostr-relay.md#run) with the guide, the rest of the steps are the same as PostgreSQL use
 {% endhint %}
 
-### Create your nostr key pair
+### Create your Nostr key pair
 
 * Download and install the Alby Browser extension:
   * For Firefox-based browser:
