@@ -83,7 +83,7 @@ sudo su - btcpay
 
 {% code overflow="wrap" %}
 ```bash
-wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+wget https://builds.dotnet.microsoft.com/dotnet/scripts/v1/dotnet-install.sh
 ```
 {% endcode %}
 
@@ -110,13 +110,13 @@ VERSION=8.0
 <summary>Example of expected output ⬇️</summary>
 
 ```
-dotnet-install: Attempting to download using aka.ms link https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.417/dotnet-sdk-6.0.417-linux-x64.tar.gz
-dotnet-install: Remote file https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.417/dotnet-sdk-6.0.417-linux-x64.tar.gz size is 186250370 bytes.
-dotnet-install: Extracting zip from https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.417/dotnet-sdk-6.0.417-linux-x64.tar.gz
-dotnet-install: Downloaded file size is 186250370 bytes.
+dotnet-install: Attempting to download using aka.ms link https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.405/dotnet-sdk-8.0.405-linux-x64.tar.gz
+dotnet-install: Remote file https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.405/dotnet-sdk-8.0.405-linux-x64.tar.gz size is 212982818 bytes.
+dotnet-install: Extracting archive from https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.405/dotnet-sdk-8.0.405-linux-x64.tar.gz
+dotnet-install: Downloaded file size is 212982818 bytes.
 dotnet-install: The remote and local file sizes are equal.
-dotnet-install: Installed version is 6.0.417
-dotnet-install: Adding to current process PATH: `/home/btcpay/.dotnet`. Note: This change will be visible only when sourcing script.
+dotnet-install: Installed version is 8.0.405
+dotnet-install: Adding to current process PATH: `/home/admin/.dotnet`. Note: This change will be visible only when sourcing script.
 dotnet-install: Note that the script does not resolve dependencies during installation.
 dotnet-install: To check the list of dependencies, go to https://learn.microsoft.com/dotnet/core/install, select your operating system and check the "Dependencies" section.
 dotnet-install: Installation finished successfully.
@@ -153,7 +153,7 @@ dotnet --version
 **Example** of expected output:
 
 ```
-6.0.411
+8.0.405
 ```
 
 * Delete the installation script
