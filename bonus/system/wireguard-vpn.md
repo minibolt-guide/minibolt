@@ -125,9 +125,9 @@ In this case:
 
 ### Dynamic IP script
 
-Now we'll write a Bash script for MiniBolt that will periodically poll its IP and send it to the DDNS service. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** from the previous [freemyip.com setup](wireguard-vpn.md#freemyip.com-setup) step.
+Now we'll write a Bash script for RaMiX that will periodically poll its IP and send it to the DDNS service. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** from the previous [freemyip.com setup](wireguard-vpn.md#freemyip.com-setup) step.
 
-* As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to MiniBolt
+* As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to RaMiX
 * Create the next folder to locate the script
 
 ```bash
@@ -140,14 +140,13 @@ sudo mkdir -p /opt/freemyip
 sudo nano /opt/freemyip/freemyip.sh
 ```
 
-* Enter the following content, replacing what is necessary
+* Enter the following content, replacing what is necessary: "\<YOUR\_SECRET\_TOKEN>" and **"**\<yourdomain>"
 
-<pre data-overflow="wrap"><code>echo url="https://freemyip.com/update?=<a data-footnote-ref href="#user-content-fn-3">&#x3C;YOUR_SECRET_TOKEN></a>&#x26;domain=<a data-footnote-ref href="#user-content-fn-4">&#x3C;yourdomain></a>&#x26;verbose=yes" | curl -k -o /opt/freemyip/freemyip.log -K -
-</code></pre>
-
-{% hint style="info" %}
-Replace **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** to the previously obtained items. Save and exit
-{% endhint %}
+{% code overflow="wrap" %}
+```
+echo url="https://freemyip.com/update?=<YOUR_SECRET_TOKEN>&domain=<yourdomain>&verbose=yes" | curl -k -o /opt/freemyip/freemyip.log -K -
+```
+{% endcode %}
 
 Example of content:
 
@@ -173,15 +172,16 @@ sudo crontab -e
 
 Expected output:
 
-<pre><code>no crontab for root - using an empty one
+```
+no crontab for root - using an empty one
 
 Select an editor.  To change later, run 'select-editor'.
-  1. /bin/nano        &#x3C;---- easiest
+  1. /bin/nano        <---- easiest
   2. /usr/bin/vim.tiny
   3. /bin/ed
 
-Choose 1-3 [1]: <a data-footnote-ref href="#user-content-fn-5">1</a>
-</code></pre>
+Choose 1-3 [1]: 1
+```
 
 * Add the next line at the end of the file to run the script every 2 minutes. Save and exit
 
@@ -219,9 +219,9 @@ Unless they change the following updates will be:
 IP <yourpublicIP> didn't change. No need to update record.
 ```
 
-* Check the successful association `<yourpublicIP> <-> <yourdomain>`
+* Check the successful association `<yourpublicIP>` <-> `<yourdomain>`
 
-<pre class="language-bash"><code class="lang-bash">host <a data-footnote-ref href="#user-content-fn-6">&#x3C;yourdomain></a>
+<pre class="language-bash"><code class="lang-bash">getent hosts <a data-footnote-ref href="#user-content-fn-3">&#x3C;yourdomain></a>
 </code></pre>
 
 Expected output:
@@ -309,7 +309,7 @@ sudo nano /etc/wireguard/wg0.conf
 
 ## Server configuration (MiniBolt node)
 [Interface]
-PrivateKey = <a data-footnote-ref href="#user-content-fn-7">&#x3C;Your_Server_Private_Key></a>
+PrivateKey = <a data-footnote-ref href="#user-content-fn-4">&#x3C;Your_Server_Private_Key></a>
 Address = 10.0.0.1/24
 ListenPort = 51820
 </code></pre>
@@ -397,14 +397,14 @@ sudo nano /etc/wireguard/wg0.conf
 
 ## Client configuration
 [Interface]
-PrivateKey = <a data-footnote-ref href="#user-content-fn-8">&#x3C;Your_Client_Private_Key></a>
+PrivateKey = <a data-footnote-ref href="#user-content-fn-5">&#x3C;Your_Client_Private_Key></a>
 Address = 10.0.0.2/32
 
 ## Server configuration (MiniBolt node)
 [Peer]
-PublicKey = <a data-footnote-ref href="#user-content-fn-9">&#x3C;Your_Server_Public_Key></a>
+PublicKey = <a data-footnote-ref href="#user-content-fn-6">&#x3C;Your_Server_Public_Key></a>
 AllowedIPs = 10.0.0.1/32
-Endpoint = <a data-footnote-ref href="#user-content-fn-10">&#x3C;yourdomain></a>:51820
+Endpoint = <a data-footnote-ref href="#user-content-fn-7">&#x3C;yourdomain></a>:51820
 </code></pre>
 
 {% hint style="info" %}
@@ -446,13 +446,13 @@ sudo nano /etc/wireguard/wg0.conf
 
 ## Server configuration (MiniBolt node)
 [Interface]
-PrivateKey = <a data-footnote-ref href="#user-content-fn-11">&#x3C;Your_Server_Private_Key></a>
+PrivateKey = <a data-footnote-ref href="#user-content-fn-8">&#x3C;Your_Server_Private_Key></a>
 Address = 10.0.0.1/24
 ListenPort = 51820
 
-<a data-footnote-ref href="#user-content-fn-12">## Client configuration</a>
+<a data-footnote-ref href="#user-content-fn-9">## Client configuration</a>
 [Peer]
-PublicKey = <a data-footnote-ref href="#user-content-fn-13">&#x3C;Your_Client_Public_Key></a>
+PublicKey = <a data-footnote-ref href="#user-content-fn-10">&#x3C;Your_Client_Public_Key></a>
 AllowedIPs = 10.0.0.2/32
 </code></pre>
 
@@ -720,7 +720,7 @@ AllowedIPs = 10.0.0.4/32
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`. You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
 
 * Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server, and `10.0.1.2`, `10.0.1.3`, `10.0.1.4` ..., for the clients in this case
-* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port in the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-14)[^14]
+* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port in the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-11)[^11]
 
 ### Use your router’s DDNS preconfigured provider
 
@@ -775,7 +775,7 @@ Save and apply changes
 
 [^4]: Replace
 
-[^5]: Type 1 and ENTER
+[^5]: Replace
 
 [^6]: Replace
 
@@ -783,14 +783,8 @@ Save and apply changes
 
 [^8]: Replace
 
-[^9]: Replace
+[^9]: Add this new section
 
 [^10]: Replace
 
-[^11]: Replace
-
-[^12]: Add this new section
-
-[^13]: Replace
-
-[^14]: Change this
+[^11]: Change this
