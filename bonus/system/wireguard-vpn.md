@@ -146,7 +146,7 @@ sudo nano /opt/freemyip/freemyip.sh
 </code></pre>
 
 {% hint style="info" %}
-Replace **`"<YOUR_SECRET_TOKEN>"`** and  **`"<yourdomain>"`** to the previously obtained items. Save and exit
+Replace **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** to the previously obtained items. Save and exit
 {% endhint %}
 
 Example of content:
@@ -163,7 +163,7 @@ echo url="https://freemyip.com/update?token=c6f3c463d065aca81ebde774&domain=myfr
 sudo chmod 700 /opt/freemyip/freemyip.sh
 ```
 
-* Edit the crontab&#x20;
+* Edit the crontab
 
 ```sh
 sudo crontab -e
@@ -183,10 +183,10 @@ Select an editor.  To change later, run 'select-editor'.
 Choose 1-3 [1]: <a data-footnote-ref href="#user-content-fn-5">1</a>
 </code></pre>
 
-* Add the next line at the end of the file to run the script every 5 minutes. Save and exit
+* Add the next line at the end of the file to run the script every 2 minutes. Save and exit
 
 ```
-*/5 * * * *     /opt/freemyip/freemyip.sh
+*/2 * * * *     /opt/freemyip/freemyip.sh
 ```
 
 Expected output:
@@ -200,26 +200,28 @@ crontab: installing new crontab
 * Monitor the logs to check if the initial push of the IP has been successfully sent to the DDNS provider
 
 ```bash
-sudo tail -F /opt/freemyip/freemyip.sh
+sudo tail -F /opt/freemyip/freemyip.log
 ```
 
-Wait 5 minutes to see "`OK`" outputs. Expected output:
+Wait 2 minutes to see "`OK`" outputs. Expected output:
 
 ```
+tail: cannot open '/opt/freemyip/freemyip.log' for reading: No such file or directory
+tail: '/opt/freemyip/freemyip.log' has appeared;  following new file
 OK
-OKtail: /opt/freedns/freedns.log: file truncated
-OKtail: /opt/freedns/freedns.log: file truncated
+OKtail: /opt/freemyip/freemyip.log: file truncated
+OKtail: /opt/freemyip/freemyip.log: file truncated
 ```
 
 Unless they change the following updates will be:
 
 ```
-IP <youpublicIP> didn't change. No need to update record.
+IP <yourpublicIP> didn't change. No need to update record.
 ```
 
 * Check the successful association `<yourpublicIP> <-> <yourdomain>`
 
-<pre><code>host <a data-footnote-ref href="#user-content-fn-6">&#x3C;yourdomain></a>
+<pre class="language-bash"><code class="lang-bash">host <a data-footnote-ref href="#user-content-fn-6">&#x3C;yourdomain></a>
 </code></pre>
 
 Expected output:
@@ -231,7 +233,7 @@ Expected output:
 Example of expected output:
 
 ```
-12.34.567.890  myfreedns.freemyip.com
+12.34.567.890  <myfreemyip>.freemyip.com
 ```
 
 ### Configure Firewall
@@ -624,7 +626,7 @@ Link to [Google Play Store](https://play.google.com/store/apps/details?id=com.wi
 5. **Toggle the switch** to the right to activate the Wireguard tunnel. Tap **OK** to accept the connection request
 
 {% hint style="info" %}
--> You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of the "`wg0.conf`" configured in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section.&#x20;
+-> You could create a Wireguard VPN client connection manually from scratch filling in the form with the content of the "`wg0.conf`" configured in the [client configuration](wireguard-vpn.md#client-configuration-part-1) section.
 
 -> Select **"CREATE FROM SCRATCH"** instead of "SCAN FROM QR CODE" on the second step, fill out the form, and tap on the diskette icon on the top right to save and follow the same steps from **4.**
 {% endhint %}
