@@ -716,12 +716,6 @@ Nostr public key mining tool.
 
 [GitHub](https://github.com/grunch/rana)
 {% endtab %}
-
-{% tab title="URL Shortener" %}
-A free URL shortener service enabled by the NOSTR protocol, that is fast and fuss-free, stripped of all bells and whistles, no gimmicks—it just works!
-
-[Web](https://w3.do/) | [GitHub](https://github.com/jinglescode/nostr-url-shortener)
-{% endtab %}
 {% endtabs %}
 
 {% tabs %}
@@ -734,7 +728,7 @@ A Nostr-based application to create, manage, and discover link lists, show notes
 {% tab title="Highlighter" %}
 Discover and share curated insights by people you trust.
 
-Highlight, share, discover, comment and earn on any text via the nostr network. Books, articles, tweets, anything!
+Highlight, share, discover, comment, and earn on any text via the nostr network. Books, articles, tweets, anything!
 
 [Web](https://highlighter.com)
 {% endtab %}
@@ -766,7 +760,7 @@ Nostr Nests is an audio space for chatting, brainstorming, debating, jamming, mi
 {% endtab %}
 
 {% tab title="Habla.news" %}
-Habla allows you to read, write, curate and monetize long form content over Nostr, a censorship-resistant protocol for social media that uses long form nostr content.
+Habla allows you to read, write, curate, and monetize long-form content over Nostr, a censorship-resistant protocol for social media that uses long-form nostr content.
 
 [Web](https://habla.news) | [GitHub](https://github.com/verbiricha/habla.news)
 {% endtab %}
@@ -782,13 +776,13 @@ Amethyst brings the best social network to your Android phone.
 
 {% tabs %}
 {% tab title="Password Manager (Vault)" %}
-A free, open source, and decentralized password manager, powered by NOSTR.
+A free, open-source, and decentralized password manager, powered by NOSTR.
 
 [Chrome-based extension](https://chrome.google.com/webstore/detail/vault/namadahddjnkmjgdnncdlhioopmjiflm) | [GitHub](nostr-relay.md#first-https-github.com-jinglescode-nostr-password-manager)
 {% endtab %}
 
 {% tab title="njump" %}
-njump is a HTTP Nostr gateway that allows you to browse profiles, notes and relays; it is an easy way to preview a resource and then open it with your preferred client.
+njump is a HTTP Nostr gateway that allows you to browse profiles, notes, and relays; it is an easy way to preview a resource and then open it with your preferred client.
 
 [Web](https://njump.me/) | [GitHub](https://github.com/fiatjaf/njump)
 {% endtab %}
