@@ -273,7 +273,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=0.10.8
+VERSION=0.10.9
 ```
 
 * Download the source code and go to the `electrs` folder
@@ -290,14 +290,13 @@ curl https://romanzey.de/pgp.txt | gpg --import
 
 Expected output:
 
-```
->   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
->                                    Dload  Upload   Total   Spent    Left  Speed
-> 100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
-> gpg: key 87CAE5FA46917CBB: public key "Roman Zeyde <me@romanzey.de>" imported
-> gpg: Total number processed: 1
-> gpg:               imported: 1
-```
+<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+<strong>                                   Dload  Upload   Total   Spent    Left  Speed
+</strong>100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
+gpg: key 87CAE5FA46917CBB: public key "Roman Zeyde &#x3C;me@romanzey.de>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+</code></pre>
 
 * Verify the release
 
@@ -457,6 +456,10 @@ electrum_rpc_addr = "0.0.0.0:50021"
 db_dir = "/data/electrs/db"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
 skip_block_download_wait = true
+
+# Allow concurrent DB background operations. i.e. for 4 threads max use.
+# Customize with your available threads.
+db_parallelism=4
 
 # Logging
 log_filters = "INFO"
