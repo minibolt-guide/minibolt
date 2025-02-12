@@ -365,7 +365,7 @@ ssl = 0.0.0.0:50002
 tcp = 0.0.0.0:50001
 peering = false
 
-# Set utxo-cache according to your device performance,
+# Set utxo-cache according to your device performance (only apply on initial indexing)
 # recommended: utxo-cache=1/2 x RAM available e.g: 4GB RAM -> utxo-cache=2000
 utxo-cache = <a data-footnote-ref href="#user-content-fn-5">2000</a>
 
@@ -599,7 +599,7 @@ Get more information about this command in the official documentation [section](
 * Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware
 
 ```
-## Slow device first-time start optimizations
+## Slow device optimizations
 bitcoind_timeout = 600
 bitcoind_clients = 1
 worker_threads = 1

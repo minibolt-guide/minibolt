@@ -25,7 +25,7 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 * [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
 * Others
-  * [PostgreSQL](../bonus-guides/system/postgresql.md)
+  * [PostgreSQ](../bonus-guides/system/postgresql.md)
   * [Go!](../bonus-guides/system/go.md) **(optional)**
 
 ## Preparations
@@ -113,7 +113,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=0.18.4
+VERSION=0.18.5
 ```
 
 * Download the application, checksums, and signature
