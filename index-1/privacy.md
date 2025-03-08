@@ -465,17 +465,17 @@ You also need to have Tor installed on your regular computer where you start the
 
 To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/bitcoin/desktop-signing-app-sparrow.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
-* PuTTy:
-  * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for Putty, but this time type the `.onion` address on the hostname.
+* PuTTY:
+  * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for PuTTY, but this time type the `.onion` address on the hostname.
     * Go to the "Connection" tab -> Proxy, select "Socks5" as proxy type, on Proxy hostname, type "localhost", port "9050".
-    * Press the button OPEN, when a "PuTTy security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
+    * Press the button OPEN, when a "PuTTY security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 * MobaXterm:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
   * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
   * Press the button OK, when a "Connexion to..." banner appears press the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 
 {% hint style="info" %}
-If you are using PuTTy and fail to connect to your PC by setting port 9050 in the PuTTy proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150
+If you use PuTTY and fail to connect to your PC by setting port 9050 in the PuTTY proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150
 {% endhint %}
 
 * **Linux**:
@@ -753,6 +753,6 @@ sudo systemctl restart i2pd
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="R45vFWjozrnP" label="TCP" color="blue"></option><option value="dG3sAn1EEZfR" label="SSL" color="blue"></option><option value="ceqHkY4KSaBT" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">9050</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default SOCKS port</td></tr><tr><td align="center">9051</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default control port</td></tr><tr><td align="center">7656</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default I2P SAM proxy port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="R45vFWjozrnP" label="TCP" color="blue"></option><option value="dG3sAn1EEZfR" label="SSL" color="blue"></option><option value="ceqHkY4KSaBT" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">9050</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default SOCKS port</td></tr><tr><td align="center">9051</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default control port</td></tr><tr><td align="center">7656</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default I2P SAM proxy port</td></tr><tr><td align="center">7070</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default I2Pd web console port</td></tr><tr><td align="center">7071</td><td><span data-option="dG3sAn1EEZfR">SSL</span></td><td align="center">I2Pd web console SSL port</td></tr></tbody></table>
 
 [^1]: Check this

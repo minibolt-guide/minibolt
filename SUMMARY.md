@@ -46,7 +46,6 @@
   * [Cloudflare tunnel](bonus-guides/system/cloudflare-tunnel.md)
   * [Tor services: bridges & relays](bonus-guides/system/tor-services.md)
   * [Store data in a secondary disk](bonus/system/store-data-secondary-disk.md)
-  * [NYM mixnet](bonus-guides/system/nym-mixnet.md)
 * [🟠 ₿itcoin](bonus/bitcoin/README.md)
   * [Electrs](bonus/bitcoin/electrs.md)
   * [Electrum Wallet Desktop](bonus/bitcoin/electrum-wallet-desktop.md)

@@ -17,7 +17,7 @@ layout:
 
 # 3.1 Lightning client: LND
 
-We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network Daemon by [Lightning Labs](https://lightning.engineering/).
+We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network Daemon, by [Lightning Labs](https://lightning.engineering/).
 
 <div align="center"><img src="../images/lightning-network-daemon-logo.png" alt=""></div>
 
@@ -25,7 +25,7 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 * [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
 * Others
-  * [PostgreSQ](../bonus-guides/system/postgresql.md)
+  * [PostgreSQL](../bonus-guides/system/postgresql.md)
   * [Go!](../bonus-guides/system/go.md) **(optional)**
 
 ## Preparations
@@ -195,7 +195,7 @@ gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 
 <pre><code>gpg: Signature made Wed 18 Dec 2024 07:56:51 PM UTC
 gpg:                using EDDSA key 296212681AADF05656A2CDEE90525F7DEEE0AD86
-gpg: <a data-footnote-ref href="#user-content-fn-4">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
+gpg: <a data-footnote-ref href="#user-content-fn-3">Good signature</a> from "Olaoluwa Osuntokun &#x3C;laolu32@gmail.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: A5B6 1896 952D 9FDA 83BC  054C DC42 612E 8923 7182
@@ -220,7 +220,7 @@ ots --no-cache verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasb
 Got 1 attestation(s) from https://btc.calendar.catallaxy.com
 Got 1 attestation(s) from https://finney.calendar.eternitywall.com
 Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-<a data-footnote-ref href="#user-content-fn-5">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-6">765521 attests existence as of 2022-12-01 UTC</a>
+<a data-footnote-ref href="#user-content-fn-3">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-4">765521 attests existence as of 2022-12-01 UTC</a>
 </code></pre>
 
 {% code overflow="wrap" %}
@@ -235,7 +235,7 @@ ots --no-cache verify manifest-v$VERSION-beta.txt.ots -f manifest-v$VERSION-beta
 Got 1 attestation(s) from https://btc.calendar.catallaxy.com
 Got 1 attestation(s) from https://finney.calendar.eternitywall.com
 Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-<a data-footnote-ref href="#user-content-fn-7">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-8">829257 attests existence as of 2024-02-06 UTC</a>
+<a data-footnote-ref href="#user-content-fn-3">Success!</a> Bitcoin block <a data-footnote-ref href="#user-content-fn-4">829257 attests existence as of 2024-02-06 UTC</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -341,8 +341,8 @@ ls -la .lnd .bitcoin
 
 Expected output:
 
-<pre><code>lrwxrwxrwx 1 lnd lnd 13 Jul 21  2023 <a data-footnote-ref href="#user-content-fn-9">.bitcoin -> /data/bitcoin</a>
-lrwxrwxrwx 1 lnd lnd  9 Jul 21  2023 <a data-footnote-ref href="#user-content-fn-10">.lnd -> /data/lnd</a>
+<pre><code>lrwxrwxrwx 1 lnd lnd 13 Jul 21  2023 <a data-footnote-ref href="#user-content-fn-3">.bitcoin -> /data/bitcoin</a>
+lrwxrwxrwx 1 lnd lnd  9 Jul 21  2023 <a data-footnote-ref href="#user-content-fn-3">.lnd -> /data/lnd</a>
 </code></pre>
 
 ### Wallet password
@@ -378,9 +378,9 @@ nano /data/lnd/lnd.conf
 
 -> Replace `#ff9900` with your preferred color. You can choose the color you want at [https://www.color-hex.com/](https://www.color-hex.com/)
 
--> Uncomment and replace #minchansize=20000[^11] with your preferred minimum incoming channel size
+-> Uncomment and replace #minchansize=20000[^5] with your preferred minimum incoming channel size
 
--> Uncomment and replace #bitcoin.feerate=1[^12] / #bitcoin.basefee=1000[^13] with your preferred channels fees
+-> Uncomment and replace #bitcoin.feerate=1[^5] / #bitcoin.basefee=1000[^5] with your preferred channels fees
 {% endhint %}
 
 <pre><code># MiniBolt: lnd configuration
@@ -388,11 +388,11 @@ nano /data/lnd/lnd.conf
 
 [Application Options]
 # The alias your node will use, which can be up to 32 UTF-8 characters in length
-alias=<a data-footnote-ref href="#user-content-fn-14">&#x3C;YOUR_FANCY_ALIAS></a>
+alias=<a data-footnote-ref href="#user-content-fn-6">&#x3C;YOUR_FANCY_ALIAS></a>
 
 # The color of the node in hex format, used to customize node appearance in 
 # intelligence services
-color=<a data-footnote-ref href="#user-content-fn-15">#ff9900</a>
+color=<a data-footnote-ref href="#user-content-fn-6">#ff9900</a>
 
 # Automatically unlock wallet with the password in this file
 wallet-unlock-password-file=/data/lnd/password.txt
@@ -410,11 +410,11 @@ tlsdisableautofill=true
 ## Channel settings
 # (Optional) Minimum channel size. Uncomment and set whatever you want
 # (default: 20000 sats)
-<a data-footnote-ref href="#user-content-fn-16">#minchansize=20000</a>
+<a data-footnote-ref href="#user-content-fn-5">#minchansize=20000</a>
 
 ## (Optional) High fee environment settings
-<a data-footnote-ref href="#user-content-fn-17">#max-commit-fee-rate-anchors=</a><a data-footnote-ref href="#user-content-fn-18">10</a>
-<strong><a data-footnote-ref href="#user-content-fn-19">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-20">0.5</a>
+<a data-footnote-ref href="#user-content-fn-7">#max-commit-fee-rate-anchors=</a><a data-footnote-ref href="#user-content-fn-7">10</a>
+<strong><a data-footnote-ref href="#user-content-fn-8">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-8">0.5</a>
 </strong>
 ## Communication
 accept-keysend=true
@@ -434,12 +434,12 @@ bitcoin.node=bitcoind
 
 # Fee settings - default LND base fee = 1000 (mSat), fee rate = 1 (ppm)
 # You can choose whatever you want e.g ZeroFeeRouting (0,0) or ZeroBaseFee (0,X)
-<a data-footnote-ref href="#user-content-fn-21">#bitcoin.basefee=1000</a>
-<a data-footnote-ref href="#user-content-fn-22">#bitcoin.feerate=1</a>
+<a data-footnote-ref href="#user-content-fn-5">#bitcoin.basefee=1000</a>
+<a data-footnote-ref href="#user-content-fn-5">#bitcoin.feerate=1</a>
 
 # (Optional) Specify the CLTV delta we will subtract from a forwarded HTLC's timelock value
 # (default: 80)
-<a data-footnote-ref href="#user-content-fn-23">#bitcoin.timelockdelta=8</a><a data-footnote-ref href="#user-content-fn-24">0</a>
+<a data-footnote-ref href="#user-content-fn-9">#bitcoin.timelockdelta=8</a><a data-footnote-ref href="#user-content-fn-10">0</a>
 
 [protocol]
 protocol.wumbo-channels=true
@@ -452,7 +452,7 @@ wtclient.active=true
 
 # (Optional) Specify the fee rate with which justice transactions will be signed
 # (default: 10 sat/byte)
-<a data-footnote-ref href="#user-content-fn-25">#wtclient.sweep-fee-rate=10</a>
+<a data-footnote-ref href="#user-content-fn-5">#wtclient.sweep-fee-rate=10</a>
 
 [watchtower]
 ## Watchtower server settings
@@ -462,17 +462,17 @@ watchtower.active=true
 routing.strictgraphpruning=true
 
 [db]
-## Database
+## Database selection
 db.backend=postgres
 
 [postgres]
 db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
 db.postgres.timeout=0
 
-## High fee environment setting (Optional)
+## (Optional) High fee environment settings
 # (default: CONSERVATIVE) Uncomment the next 2 lines
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-26">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-11">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [tor]
 tor.active=true
@@ -841,7 +841,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-27">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-12">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -1123,7 +1123,7 @@ May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: System
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.612 [INF] LTND: Gracefully shutting down.
 May 30 20:45:02 minibolt lnd[314082]: 2024-05-30 20:45:02.615 [INF] WTWR: Stopping watchtower
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Succeeded.
-May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-28">Stopped Lightning Network Daemon.</a>
+May 30 20:45:02 minibolt systemd[1]: <a data-footnote-ref href="#user-content-fn-3">Stopped Lightning Network Daemon.</a>
 May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU time.
 </code></pre>
 
@@ -1461,12 +1461,12 @@ lncli wallet accounts list | grep -B 3 "m/84"
 Example of expected output:
 
 <pre><code>            "address_type":  "TAPROOT_PUBKEY",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-29">xpub........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-13">xpub........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/86'/0'/0'",
 ------------------------
             "address_type":  "WITNESS_PUBKEY_HASH",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-30">zpub.........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-14">zpub.........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
@@ -1566,56 +1566,24 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^3]: Check this
 
-[^4]: Check this
+[^4]: (**Example)**
 
-[^5]: Check this
+[^5]: (Uncomment and customize the value)
 
-[^6]: (**Example)**
+[^6]: (Customize)
 
-[^7]: Check this
+[^7]: This is the maximum fee rate in sat/vbyte that will be used for commitments of channels of the anchors type. Increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria** (default: 10 sat/byte)
 
-[^8]: (**Example)**
+[^8]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
 
-[^9]: Check this
+[^9]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^10]: Check this
+[^10]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved onchain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^11]: (Uncomment and customize the value)
+[^11]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value** (default: CONSERVATIVE)
 
-[^12]: (Uncomment and customize the value)
+[^12]: Symbolic link
 
-[^13]: (Uncomment and customize the value)
+[^13]: Your Taproot master public key
 
-[^14]: (Customize)
-
-[^15]: (Customize)
-
-[^16]: (Uncomment and customize the value)
-
-[^17]: This is the maximum fee rate in sat/vbyte that will be used for commitments of channels of the anchors type. Increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria** (default: 10 sat/byte)
-
-[^18]: This is the maximum fee rate in sat/vbyte that will be used for commitments of channels of the anchors type. Increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria** (default: 10 sat/byte)
-
-[^19]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
-
-[^20]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
-
-[^21]: (Uncomment and customize the value)
-
-[^22]: (Uncomment and customize the value)
-
-[^23]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
-
-[^24]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved onchain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
-
-[^25]: (Uncomment and customize the value)
-
-[^26]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value** (default: CONSERVATIVE)
-
-[^27]: Symbolic link
-
-[^28]: Check this
-
-[^29]: Your Taproot master public key
-
-[^30]: Your SegWit master public key
+[^14]: Your SegWit master public key
