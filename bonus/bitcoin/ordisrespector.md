@@ -65,7 +65,7 @@ sudo apt update && sudo apt full-upgrade
 
 {% code overflow="wrap" %}
 ```shell
-sudo apt install automake autotools-dev bison bsdmainutils build-essential cmake curl libtool patch pkg-config python3 xz-utils --no-install-recommends
+sudo apt install automake autotools-dev bison bsdmainutils build-essential cmake libtool pkg-config --no-install-recommends
 ```
 {% endcode %}
 
