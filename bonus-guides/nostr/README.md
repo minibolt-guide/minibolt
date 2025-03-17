@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# 🟣 Nostr
+# 🦩 Nostr
 
 ## Bonus Section: Nostr guides
 

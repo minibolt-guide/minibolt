@@ -55,6 +55,5 @@
   * [Download the bitcoin whitepaper](bonus/bitcoin/white-paper.md)
   * [MiniBolt on Testnet](bonus/bitcoin/minibolt-on-testnet.md)
   * [BTCPay Server](bonus-guides/bitcoin/btcpay-server.md)
-  * [Sparrow Server](bonus/bitcoin/sparrow-server.md)
-* [🟣 Nostr](bonus-guides/nostr/README.md)
+* [🦩 Nostr](bonus-guides/nostr/README.md)
   * [Nostr relay](bonus-guides/nostr/nostr-relay.md)
