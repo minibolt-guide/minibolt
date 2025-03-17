@@ -172,7 +172,7 @@ gpg: no ultimately trusted keys found
 * Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
 
 ```sh
-gpg --verify SHA256SUMS.asc SHA256SUMS.asc
+gpg --verify SHA256SUMS.asc SHA256SUMS
 ```
 
 * Check that at least a few signatures show the following text
