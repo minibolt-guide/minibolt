@@ -60,20 +60,6 @@ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
 wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 ```
 
-### Checksum check
-
-* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
-
-```sh
-sha256sum --ignore-missing --check SHA256SUMS
-```
-
-**Example** of expected output:
-
-```
-bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
-```
-
 ### Signature check
 
 Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
@@ -101,7 +87,7 @@ gpg: no ultimately trusted keys found
 * Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
 
 ```sh
-gpg --verify SHA256SUMS.asc
+gpg --verify SHA256SUMS.asc SHA256SUMS
 ```
 
 * Check that at least a few signatures show the following text
@@ -109,6 +95,20 @@ gpg --verify SHA256SUMS.asc
 <pre><code>gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature from</a>...
 Primary key fingerprint:...
 </code></pre>
+
+### Checksum check
+
+* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you
+
+```sh
+sha256sum --ignore-missing --check SHA256SUMS
+```
+
+**Example** of expected output:
+
+```
+bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
+```
 
 ### Timestamp check
 
@@ -261,7 +261,7 @@ ls -la .bitcoin
 
 Expected output:
 
-<pre><code>lrwxrwxrwx 1 bitcoin bitcoin   13 Nov  7 19:32 <a data-footnote-ref href="#user-content-fn-2">.bitcoin -> /data/bitcoin</a>
+<pre><code>lrwxrwxrwx 1 bitcoin bitcoin   13 Nov  7 19:32 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 
 ### Generate access credentials
@@ -380,10 +380,10 @@ proxy=unix:/run/tor/socks
 i2psam=127.0.0.1:7656
 
 # Connections
-rpcauth=<a data-footnote-ref href="#user-content-fn-3">&#x3C;replace with your own auth line generated in the previous step></a>
+rpcauth=<a data-footnote-ref href="#user-content-fn-2">&#x3C;replace with your own auth line generated in the previous step></a>
 
 # Initial block download optimizations
-dbcache=<a data-footnote-ref href="#user-content-fn-4">2048</a>
+dbcache=<a data-footnote-ref href="#user-content-fn-3">2048</a>
 blocksonly=1
 </code></pre>
 
@@ -565,13 +565,13 @@ ls -la .bitcoin
 
 Expected output:
 
-<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-5">.bitcoin -> /data/bitcoin</a>
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-4">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 
 {% hint style="warning" %}
 **Troubleshooting note:**\
 \
-If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-6)[^6]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-4)[^4]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
 1. With user `admin`, delete the failed created symbolic link
 
@@ -593,7 +593,7 @@ ls -la .bitcoin
 
 Expected output:
 
-<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-7">.bitcoin -> /data/bitcoin</a>
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 {% endhint %}
 
@@ -642,9 +642,9 @@ sudo ss -tulpn | grep bitcoind
 
 Expected output:
 
-<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-9">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-10">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
 tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
 </code></pre>
 
@@ -745,9 +745,9 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
-<a data-footnote-ref href="#user-content-fn-11">maxconnections</a>=40
+<a data-footnote-ref href="#user-content-fn-8">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-<a data-footnote-ref href="#user-content-fn-12">maxuploadtarget</a>=5000
+<a data-footnote-ref href="#user-content-fn-9">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
@@ -1160,28 +1160,22 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Check this
+[^2]: Replace
 
-[^3]: Replace
-
-[^4]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.&#x20;
+[^3]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.&#x20;
 
     -> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
 
     -> Remember to comment or delete this parameter after IBD (Initial Block Download)
 
-[^5]: Symbolic link
+[^4]: Symbolic link
 
-[^6]: Symbolic link
+[^5]: RPC port
 
-[^7]: Check this
+[^6]: P2P main port
 
-[^8]: RPC port
+[^7]: Default P2P Tor port
 
-[^9]: P2P main port
+[^8]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
 
-[^10]: Default P2P Tor port
-
-[^11]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
-
-[^12]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+[^9]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>

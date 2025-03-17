@@ -51,11 +51,7 @@ There is no mention of data storage on the chain and only financial transactions
 
 ## Preparations
 
-{% hint style="info" %}
-You enter commands and the PC answers by printing the results below your command. The system response is marked with the `">"` character
-{% endhint %}
-
-* With `admin` user, update and upgrade your OS
+* With `admin` user, update and upgrade your OS. Press "y" and enter or directly enter when the prompt asks you
 
 ```sh
 sudo apt update && sudo apt full-upgrade
@@ -138,8 +134,6 @@ Calendar https://finney.calendar.eternitywall.com: Pending confirmation in Bitco
 Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
 Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
 ```
-
-
 
 -> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next ones
 {% endhint %}
@@ -226,16 +220,10 @@ bitcoin-28.1/.github/workflows/
 
 ### **Build it from the source code**
 
-* Enter to the Bitcoin Core source code folder
+* Enter the Bitcoin Core source code folder and execute the `autogen.sh` script
 
 ```sh
-cd bitcoin-$VERSION
-```
-
-* Execute the `autogen.sh` script
-
-```sh
-./autogen.sh
+cd bitcoin-$VERSION && ./autogen.sh
 ```
 
 Expected output:
