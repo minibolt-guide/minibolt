@@ -65,7 +65,7 @@ sudo apt update && sudo apt full-upgrade
 
 {% code overflow="wrap" %}
 ```shell
-sudo apt install autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config libzmq3-dev --no-install-recommends
+sudo apt install automake autotools-dev bison bsdmainutils build-essential cmake libtool pkg-config --no-install-recommends
 ```
 {% endcode %}
 
@@ -144,20 +144,6 @@ Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in 
 -> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next ones
 {% endhint %}
 
-### **Checksum check**
-
-* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
-
-```sh
-sha256sum --ignore-missing --check SHA256SUMS
-```
-
-**Example** of expected output:
-
-```
-bitcoin-26.0.tar.gz: OK
-```
-
 ### **Signature check**
 
 Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
@@ -186,7 +172,7 @@ gpg: no ultimately trusted keys found
 * Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
 
 ```sh
-gpg --verify SHA256SUMS.asc
+gpg --verify SHA256SUMS.asc SHA256SUMS
 ```
 
 * Check that at least a few signatures show the following text
@@ -199,7 +185,21 @@ Primary key fingerprint: ...
 [...]
 ```
 
-* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
+### **Checksum check**
+
+* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning)
+
+```sh
+sha256sum --ignore-missing --check SHA256SUMS
+```
+
+**Example** of expected output:
+
+```
+bitcoin-28.1.tar.gz: OK
+```
+
+* If you're satisfied with the signature, checksum, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
 
 ```sh
 tar -xzvf bitcoin-$VERSION.tar.gz
@@ -208,73 +208,23 @@ tar -xzvf bitcoin-$VERSION.tar.gz
 **Example of expected output:**
 
 ```
-bitcoin-28.0/
-bitcoin-28.0/.cirrus.yml
-bitcoin-28.0/.editorconfig
-bitcoin-28.0/.gitattributes
-bitcoin-28.0/.github/
-bitcoin-28.0/.github/ISSUE_TEMPLATE/
-bitcoin-28.0/.github/ISSUE_TEMPLATE/bug.yml
-bitcoin-28.0/.github/ISSUE_TEMPLATE/config.yml
-bitcoin-28.0/.github/ISSUE_TEMPLATE/feature_request.yml
-bitcoin-28.0/.github/ISSUE_TEMPLATE/good_first_issue.yml
-bitcoin-28.0/.github/ISSUE_TEMPLATE/gui_issue.yml
-bitcoin-28.0/.github/PULL_REQUEST_TEMPLATE.md
-bitcoin-28.0/.github/workflows/
+bitcoin-28.1/
+bitcoin-28.1/.cirrus.yml
+bitcoin-28.1/.editorconfig
+bitcoin-28.1/.gitattributes
+bitcoin-28.1/.github/
+bitcoin-28.1/.github/ISSUE_TEMPLATE/
+bitcoin-28.1/.github/ISSUE_TEMPLATE/bug.yml
+bitcoin-28.1/.github/ISSUE_TEMPLATE/config.yml
+bitcoin-28.1/.github/ISSUE_TEMPLATE/feature_request.yml
+bitcoin-28.1/.github/ISSUE_TEMPLATE/good_first_issue.yml
+bitcoin-28.1/.github/ISSUE_TEMPLATE/gui_issue.yml
+bitcoin-28.1/.github/PULL_REQUEST_TEMPLATE.md
+bitcoin-28.1/.github/workflows/
 [..]
 ```
 
 ### **Build it from the source code**
-
-* Build BerkeleyDB 4.8 to allow for legacy wallets, necessary to use JoinMarket, Electrum Personal Server, and possibly other tools
-
-{% code overflow="wrap" %}
-```bash
-wget -O bdb.sh https://raw.githubusercontent.com/bitcoin/bitcoin/aef8b4f43b0c4300aa6cf2c5cf5c19f55e73499c/contrib/install_db4.sh
-```
-{% endcode %}
-
-* Assign execute permissions
-
-```bash
-chmod +x bdb.sh
-```
-
-* Execute the `bdb.sh` script
-
-```bash
-./bdb.sh bitcoin-$VERSION
-```
-
-Expected output:
-
-```
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 21.7M  100 21.7M    0     0  12.2M      0  0:00:01  0:00:01 --:--:-- 12.2M
-db-4.8.30.NC.tar.gz: OK
-db-4.8.30.NC/
-db-4.8.30.NC/btree/
-db-4.8.30.NC/btree/bt_compress.c
-db-4.8.30.NC/btree/bt_compact.c
-db-4.8.30.NC/btree/bt_compare.c
-db-4.8.30.NC/btree/btree_autop.c
-db-4.8.30.NC/btree/bt_conv.c
-db-4.8.30.NC/btree/bt_curadj.c
-db-4.8.30.NC/btree/bt_cursor.c
-db-4.8.30.NC/btree/bt_delete.c
-db-4.8.30.NC/btree/bt_method.c
-db-4.8.30.NC/btree/bt_open.c
-db-4.8.30.NC/btree/bt_put.c
-db-4.8.30.NC/btree/bt_rec.c
-db-4.8.30.NC/btree/bt_reclaim.c
-db-4.8.30.NC/btree/bt_recno.c
-db-4.8.30.NC/btree/bt_rsearch.c
-db-4.8.30.NC/btree/bt_search.c
-db-4.8.30.NC/btree/bt_split.c
-db-4.8.30.NC/btree/bt_stat.c
-[...]
-```
 
 * Enter to the Bitcoin Core source code folder
 
@@ -312,21 +262,108 @@ libtoolize: copying file 'build-aux/ltmain.sh'
 [...]
 ```
 
-* The next command will configure the Berkeley DB path, set the next environment variable
+* The next command will download and build all Bitcoin Core dependencies
 
 ```bash
-export BDB_PREFIX="/tmp/bitcoin-$VERSION/db4"
+make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
+```
+
+Expected output:
+
+```
+make: Entering directory '/tmp/bitcoin-28.1/depends'
+Fetching boost_1_81_0.tar.gz from https://archives.boost.io/release/1.81.0/source/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  133M  100  133M    0     0  39.0M      0  0:00:03  0:00:03 --:--:-- 39.0M
+/tmp/bitcoin-28.1/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
+Extracting boost...
+/tmp/bitcoin-28.1/depends/sources/boost_1_81_0.tar.gz: OK
+Preprocessing boost...
+Configuring boost...
+Building boost...
+Staging boost...
+Postprocessing boost...
+Caching boost...
+Fetching libevent-2.1.12-stable.tar.gz from https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1075k  100 1075k    0     0  1117k      0 --:--:-- --:--:-- --:--:-- 3812k
+/tmp/bitcoin-28.1/depends/work/download/libevent-2.1.12-stable/libevent-2.1.12-stable.tar.gz.temp: OK
+Extracting libevent...
+/tmp/bitcoin-28.1/depends/sources/libevent-2.1.12-stable.tar.gz: OK
+Preprocessing libevent...
+patching file CMakeLists.txt
+patching file cmake/AddEventLibrary.cmake
+patching file CMakeLists.txt
+Configuring libevent...
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found Git: /usr/bin/git (found version "2.34.1") 
+fatal: not a git repository (or any of the parent directories): .git
+-- Performing Test check_c_compiler_flag__Wall
+-- Performing Test check_c_compiler_flag__Wall - Success
+-- Performing Test check_c_compiler_flag__Wextra
+-- Performing Test check_c_compiler_flag__Wextra - Success
+[...]
 ```
 
 * Pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
 ```sh
 ./configure \
-   BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" \
+  CONFIG_SITE=depends/x86_64-pc-linux-gnu/share/config.site \
   --disable-bench \
+  --disable-fuzz-binary \
+  --disable-gui-tests \
   --disable-maintainer-mode \
   --disable-tests \
   --with-gui=no
+```
+
+Expected output:
+
+```
+configure: loading site script depends/x86_64-pc-linux-gnu/share/config.site
+checking for x86_64-pc-linux-gnu-pkg-config... /usr/bin/pkg-config --static
+checking pkg-config is at least version 0.9.0... yes
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for x86_64-pc-linux-gnu-strip... strip
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for gawk... no
+checking for mawk... mawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking whether make supports nested variables... (cached) yes
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether g++ -m64 accepts -g... yes
+checking for g++ -m64 option to enable C++11 features... none needed
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of g++ -m64... gcc3
+checking whether g++ -m64 supports C++20 features with -std=c++20... yes
+checking for x86_64-pc-linux-gnu-g++... g++ -m64 -std=c++20
+checking whether the compiler supports GNU Objective C++... no
+checking whether g++ -m64 -std=c++20 accepts -g... no
+checking dependency style of g++ -m64 -std=c++20... gcc3
+checking how to print strings... printf
+checking for x86_64-pc-linux-gnu-gcc... gcc -m64
+checking whether the compiler supports GNU C... yes
+checking whether gcc -m64 accepts -g... yes
+[...]
 ```
 
 ### **Apply the "Ordisrespector" patch**
@@ -384,8 +421,8 @@ bitcoin-cli --version
 The following output is just an **example** of one of the versions:
 
 ```
-Bitcoin Core version v24.1.0
-Copyright (C) 2009-2022 The Bitcoin Core developers
+Bitcoin Core version v28.1.0
+Copyright (C) 2009-2024 The Bitcoin Core developers
 [...]
 ```
 
@@ -403,7 +440,7 @@ cd ..
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm -r bitcoin-$VERSION bdb.sh bitcoin-$VERSION.tar.gz db-4.8.30.NC.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
+sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
 ```
 {% endcode %}
 
