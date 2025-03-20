@@ -322,13 +322,13 @@ sudo nano /home/nostr/rs-relay/config.toml
 >
 > > [name = "\<nametotherelay>"](#user-content-fn-2)[^2]
 >
-> > [description = "\<descriptionrelay>"](#user-content-fn-3)[^3]
+> > [description = "\<descriptionrelay>"](#user-content-fn-2)[^2]
 >
-> > [pubkey = "\<yournostrhexpubkey>"](#user-content-fn-4)[^4]
+> > [pubkey = "\<yournostrhexpubkey>"](#user-content-fn-3)[^3]
 >
-> > [contact = "\<yourcontact>"](#user-content-fn-5)[^5]
+> > [contact = "\<yourcontact>"](#user-content-fn-3)[^3]
 >
-> > [relay\_icon = "\<yourelayiconURL>"](#user-content-fn-6)[^6]
+> > [relay\_icon = "\<yourelayiconURL>"](#user-content-fn-4)[^4]
 
 {% hint style="info" %}
 If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this
@@ -354,17 +354,17 @@ Uncomment and replace only the next line:
 > >
 > > **(\*)** click on the parameter to get action to do **(\<Edit>** or **\<Uncomment>**)
 >
-> > [favicon = "favicon.ico"](#user-content-fn-7)[^7]
+> > [favicon = "favicon.ico"](#user-content-fn-5)[^5]
 >
-> > [engine = "postgres"](#user-content-fn-8)[^8]
+> > [engine = "postgres"](#user-content-fn-3)[^3]
 >
-> > [connection = "postgresql://admin:admin@localhost:5432/nostrelay"](#user-content-fn-9)[^9]
+> > [connection = "postgresql://admin:admin@localhost:5432/nostrelay"](#user-content-fn-3)[^3]
 >
-> > [address = "127.0.0.1"](#user-content-fn-10)[^10]
+> > [address = "127.0.0.1"](#user-content-fn-2)[^2]
 >
-> > [port = 8880](#user-content-fn-11)[^11]
+> > [port = 8880](#user-content-fn-2)[^2]
 >
-> > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-12)[^12]
+> > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-5)[^5]
 
 {% hint style="info" %}
 If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://twofaktor.github.io/logo\_circle%2BB.png](https://twofaktor.github.io/logo_circle%2BB.png)), or replace it with your own info
@@ -480,7 +480,7 @@ credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
 ingress:
 
 # Nostr relay
-  - hostname: relay.<a data-footnote-ref href="#user-content-fn-13">&#x3C;domain.com></a>
+  - hostname: relay.<a data-footnote-ref href="#user-content-fn-6">&#x3C;domain.com></a>
     service: ws://localhost:8880
 
   - service: http_status:404
@@ -807,17 +807,17 @@ If you want all your past events to be accessible through your new relay, you ca
 * Go to [metadata.nostr.com](https://metadata.nostr.com) website, log in **\[Load My Profile]**, and click on **\[Relays]**
 * Add your new Nostr relay **`[wss://relay.domain.com]`** address to the list of preferred relays in your profile (in the empty box below), select the **read+write** option, and click the **\[Update]** button.
 
-You can take the opportunity to add more preferred relays to your profile to also push events to them, selected from this [list](https://nostr.watch/relays/find), or use [Nosy](https://nosy.tigerville.no/) to find the top relays of those who follow you or you follow and try to connect to them and don't forget any events of your contact network
+You can take the opportunity to add more preferred relays to your profile to also push events to them, selected from this [list](https://legacy.nostr.watch/relays/find), or use [Nosy](https://nosy.tigerville.no/) to find the top relays of those who follow you or you follow and try to connect to them and don't forget any events of your contact network
 
-* Go to [nostryfied.amethyst.social](https://nostryfied.amethyst.social) webpage and log in **\[Get from extension] (Alby)**, or manually enter the \[npub...] of your Nostr profile
+* Go to the [NostrSync](https://nostrsync.vercel.app/) webpage and log in **\[Get from extension] (Alby)**, or manually enter the \[npub...] of your Nostr profile
 * Click the **\[Backup & Broadcast]** button...
 
-<figure><img src="../../.gitbook/assets/broadcast-relay.png" alt="" width="319"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/broadcast-relay.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr.
 
-Optionally, you can save a copy of all your events locally as you'll have the download option.
+Optionally, you can save a copy of all your events locally as a banner will appear after fetching the events from the relays. These can be restored later using the \[Restore] button and broadcasting again to the relays.
 {% endhint %}
 
 ## Upgrade
@@ -1001,24 +1001,10 @@ sudo rm /usr/local/bin/nostr-rs-relay
 
 [^2]: **\<Edit>**
 
-[^3]: **\<Edit>**
+[^3]: **\<Uncomment> & \<Edit>**
 
-[^4]: **\<Uncomment> & \<Edit>**
+[^4]: **\<Uncomment> & \<Edit> with** [**https://twofaktor.github.io/logo\_circle%2BB.png**](https://twofaktor.github.io/logo_circle%2BB.png) **if you want**
 
-[^5]: **\<Uncomment> & \<Edit>**
+[^5]: **\<Uncomment>**
 
-[^6]: **\<Uncomment> & \<Edit> with** [**https://twofaktor.github.io/logo\_circle%2BB.png**](https://twofaktor.github.io/logo_circle%2BB.png) **if you want**
-
-[^7]: **\<Uncomment>**
-
-[^8]: **\<Uncomment> & \<Edit>**
-
-[^9]: **\<Uncomment> & \<Edit>**
-
-[^10]: **\<Edit>**
-
-[^11]: **\<Edit>**
-
-[^12]: **\<Uncomment>**
-
-[^13]: Here your personal domain
+[^6]: Here your personal domain
