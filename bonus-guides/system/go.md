@@ -12,9 +12,9 @@ layout:
     visible: true
 ---
 
-# Go!
+# Go
 
-[Go](https://github.com/golang/go)[!](https://github.com/golang/go) is an agent-based programming language in the tradition of logic-based programming languages like Prolog designed at Google.
+[Go](https://github.com/golang/go) is an agent-based programming language in the tradition of logic-based programming languages like Prolog designed at Google.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -33,13 +33,13 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=1.23.5
+VERSION=1.24.1
 ```
 
 * Set a temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=cbcad4a6482107c7c7926df1608106c189417163428200ce357695cc7e01d091
+SHA256=cb2396bae64183cdccf81a9a6df0aea3bce9511fc21469fb89a0c00470088073
 ```
 
 * Get the latest binary of the [official repository](https://go.dev/dl/)
@@ -118,13 +118,13 @@ cd /tmp
 * Set a temporary version environment variable with the new value, to the installation
 
 ```bash
-VERSION=1.23.5
+VERSION=1.24.1
 ```
 
 * Set the new temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=cbcad4a6482107c7c7926df1608106c189417163428200ce357695cc7e01d091
+SHA256=cb2396bae64183cdccf81a9a6df0aea3bce9511fc21469fb89a0c00470088073
 ```
 
 * Get the latest binary of the [official repository](https://go.dev/dl/)

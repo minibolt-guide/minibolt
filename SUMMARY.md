@@ -39,7 +39,7 @@
   * [Static IP & custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
   * [Node + NPM](bonus/system/nodejs-npm.md)
   * [Rustup + Cargo](bonus-guides/system/rustup-+-cargo.md)
-  * [Go!](bonus-guides/system/go.md)
+  * [Go](bonus-guides/system/go.md)
   * [PostgreSQL](bonus-guides/system/postgresql.md)
   * [Login with SSH keys](bonus/system/ssh-keys.md)
   * [WireGuard VPN](bonus/system/wireguard-vpn.md)

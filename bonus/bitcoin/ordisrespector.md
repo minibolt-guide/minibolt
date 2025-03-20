@@ -501,30 +501,8 @@ Transaction not in mempool
 ```
 
 {% hint style="info" %}
-The before information indicates that the filter is working properly
+Previous information indicates that the filter is working properly
 {% endhint %}
-
-### **Add Ordisrespector node peers (optional)**
-
-Add the [Bitcoin Barcelona node](https://bitcoinbarcelona.xyz/servicios_bbo) as a peer in your node, or Ordisrespector runners community peers that shared their public addresses, in this way, it is easier to invade the network with Ordisrespector node runners.
-
-* Edit and add to the `bitcoin.conf` file, the next line/s at the end of the file
-
-```sh
-sudo nano /data/bitcoin/bitcoin.conf
-```
-
-If you have enabled the Tor network
-
-```
-addnode=.....2pk5umz5vieqwcp3ead.onion:8333
-```
-
-If you have enabled the I2P network, add this line as well
-
-```
-addnode=.....3q5hw6625xyqekprljz6uasa.b32.i2p:0
-```
 
 ### Add an external fee estimator to the LND
 

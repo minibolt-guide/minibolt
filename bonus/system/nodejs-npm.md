@@ -129,6 +129,6 @@ sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
 
 {% code overflow="wrap" %}
 ```sh
-sudo apt purge nodejs && sudo rm -r /etc/apt/sources.list.d/nodesource.list
+sudo apt autoremove nodejs --purge && sudo rm /etc/apt/sources.list.d/nodesource.list
 ```
 {% endcode %}

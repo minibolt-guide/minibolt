@@ -148,7 +148,7 @@ For improved security, we will create a new user `btcrpcexplorer` that will run 
 sudo adduser --disabled-password --gecos "" btcrpcexplorer
 ```
 
-* Add `btcrpcexplorer` user to the "bitcoin" group, allowing to the `btcrpcexplorer` user read the bitcoind `.cookie` file
+* Add `btcrpcexplorer` user to the "bitcoin" group, allowing the `btcrpcexplorer` user read the bitcoind `.cookie` file
 
 ```bash
 sudo adduser btcrpcexplorer bitcoin
@@ -192,13 +192,12 @@ git verify-commit $(git rev-parse HEAD)
 
 **Example** of expected output:
 
-```
-gpg: Signature made Mon 16 Dec 2024 03:23:58 PM UTC
+<pre><code>gpg: Signature made Mon 16 Dec 2024 03:23:58 PM UTC
 gpg:                using EDDSA key 4D841E6E6B1B68EBFAB4A9E670C0B166321C0AF8
-gpg: Good signature from "Dan Janosik <dan@47.io>" [expired]
+gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Dan Janosik &#x3C;dan@47.io>" [expired]
 gpg: Note: This key has expired!
 Primary key fingerprint: 4D84 1E6E 6B1B 68EB FAB4  A9E6 70C0 B166 321C 0AF8
-```
+</code></pre>
 
 * Install all dependencies using NPM
 
@@ -738,3 +737,5 @@ sudo ufw delete X
 ## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="Y6T21FHnnCsO" label="TCP" color="blue"></option><option value="mjMppURefbOV" label="SSL" color="blue"></option><option value="sthlT2JmYCAj" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3002</td><td><span data-option="Y6T21FHnnCsO">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4000</td><td><span data-option="mjMppURefbOV">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr></tbody></table>
+
+[^1]: Check this
