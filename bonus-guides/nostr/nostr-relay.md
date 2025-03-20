@@ -800,6 +800,26 @@ Find the top relays of those who follow you or you follow.
 {% endtab %}
 {% endtabs %}
 
+### Broadcast the past events to your new relay
+
+If you want all your past events to be accessible through your new relay, you can back them up by following these instructions:
+
+* Go to [metadata.nostr.com](https://metadata.nostr.com) website, log in **\[Load My Profile]**, and click on **\[Relays]**
+* Add your new Nostr relay **`[wss://relay.domain.com]`** address to the list of preferred relays in your profile (in the empty box below), select the **read+write** option, and click the **\[Update]** button.
+
+You can take the opportunity to add more preferred relays to your profile to also push events to them, selected from this [list](https://nostr.watch/relays/find), or use [Nosy](https://nosy.tigerville.no/) to find the top relays of those who follow you or you follow and try to connect to them and don't forget any events of your contact network
+
+* Go to [nostryfied.amethyst.social](https://nostryfied.amethyst.social) webpage and log in **\[Get from extension] (Alby)**, or manually enter the \[npub...] of your Nostr profile
+* Click the **\[Backup & Broadcast]** button...
+
+<figure><img src="../../.gitbook/assets/broadcast-relay.png" alt="" width="319"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr.
+
+Optionally, you can save a copy of all your events locally as you'll have the download option.
+{% endhint %}
+
 ## Upgrade
 
 * With user `admin`, stop `nostr-rs-relay` service
