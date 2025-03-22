@@ -81,8 +81,9 @@ sudo nano /data/bitcoin/bitcoin.conf
 * Add the following lines to the `"# Connections"` section. Save and exit
 
 ```
-# Enable ZMQ blockhash notification (for Fulcrum)
+# Enable ZMQ blockhash & txhash notification (for Fulcrum)
 zmqpubhashblock=tcp://127.0.0.1:8433
+zmqpubhashtx=tcp://127.0.0.1:9332
 ```
 
 * Restart Bitcoin Core to apply changes
@@ -117,7 +118,7 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```sh
-VERSION=1.11.1
+VERSION=1.12.0
 ```
 
 * Download the application, checksums, and signature
@@ -166,7 +167,7 @@ gpg:              unchanged: 1
 * Verify the signature of the text file containing the checksums for the application
 
 ```sh
-gpg --verify Fulcrum-$VERSION-shasums.txt.asc
+gpg --verify Fulcrum-$VERSION-shasums.txt.asc Fulcrum-$VERSION-shasums.txt
 ```
 
 Expected output:
@@ -296,7 +297,7 @@ ls -la .fulcrum
 
 Expected output:
 
-<pre><code><strong>lrwxrwxrwx 1 fulcrum fulcrum 13 Jul 27 17:06 <a data-footnote-ref href="#user-content-fn-4">.fulcrum -> /data/fulcrum</a>
+<pre><code><strong>lrwxrwxrwx 1 fulcrum fulcrum 13 Jul 27 17:06 <a data-footnote-ref href="#user-content-fn-2">.fulcrum -> /data/fulcrum</a>
 </strong></code></pre>
 
 * Change to the fulcrum data folder
@@ -364,10 +365,11 @@ key = /data/fulcrum/key.pem
 ssl = 0.0.0.0:50002
 tcp = 0.0.0.0:50001
 peering = false
+zmq_allow_hashtx = true
 
 # Set utxo-cache according to your device performance (only apply on initial indexing)
 # recommended: utxo-cache=1/2 x RAM available e.g: 4GB RAM -> utxo-cache=2000
-utxo-cache = <a data-footnote-ref href="#user-content-fn-5">2000</a>
+utxo-cache = <a data-footnote-ref href="#user-content-fn-4">2000</a>
 
 # Banner
 banner = /data/fulcrum/fulcrum-banner.txt
@@ -493,6 +495,7 @@ Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Starting li
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Service started, listening for connections on 0.0.0.0:50002
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Starting listener service for AdminSrv 127.0.0.1:8000 ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Service started, listening for connections on 127.0.0.1:8000
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller> Starting ZMQ Notifier (hashtx) ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller> Starting ZMQ Notifier (hashblock) ...
 [...]
 ```
@@ -831,6 +834,4 @@ Filename            Type                Size           Used    Priority
 
 [^3]: That's it!
 
-[^4]: Check this
-
-[^5]: Accommodate this
+[^4]: Accommodate this

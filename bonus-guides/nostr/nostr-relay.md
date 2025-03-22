@@ -744,6 +744,12 @@ Nostr Nests is an audio space for chatting, brainstorming, debating, jamming, mi
 
 [Web](https://nostrnests.com) | [Git](https://gitlab.com/jam-systems/jam)
 {% endtab %}
+
+{% tab title="URL Shortener" %}
+A free URL shortener service enabled by the NOSTR protocol, that is fast and fuss-free, stripped of all bells and whistles, no gimmicks—it just works!
+
+[Web](https://w3.do/) | [GitHub](https://github.com/jinglescode/nostr-url-shortener)
+{% endtab %}
 {% endtabs %}
 
 {% tabs %}
