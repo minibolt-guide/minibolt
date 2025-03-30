@@ -70,7 +70,7 @@ Installing [`inotify-tools`](https://github.com/inotify-tools/inotify-tools) all
 
 We will use it to monitor the `channel.backup` file and detect updates by LND each time a channel is opened or closed.
 
-* With user `admin`, install `inotify-tools`
+* With user `admin`, install `inotify-tools`. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install inotify-tools
@@ -171,7 +171,7 @@ Follow this section if you want a local backup. If you only want a remote backup
 
 ### Storage device size
 
-The `channel.backup` file is very small in size (<<1 MB) so even the smallest USB thumbdrive or microSD card will do the job.
+The `channel.backup` file is very small in size (<<1 MB), so even the smallest USB thumbdrive or microSD card will do the job.
 
 ### Formatting
 
@@ -272,7 +272,7 @@ Follow this section if you want a remote backup. If you already set up a local b
 
 ### Create a GitHub repository
 
-* Go to [GitHub](https://github.com/), sign up for a new user account, or log in with an existing one. If you don't want GitHub to know your identity and IP address about your Lightning node, it is recommended to create a new account even if you have an existing one, and use [Tor Browser](https://www.torproject.org/download/) for this and follow the steps
+* Go to [GitHub](https://github.com/), sign up for a new user account, or log in with an existing one. If you don't want GitHub to know your identity and IP address about your Lightning node, it is recommended to create a new account even if you have an existing one, and use [Tor Browser](https://www.torproject.org/download/) for this, and follow the steps
 * Create a [new repository](https://github.com/new)
   * Type the following repository name: `remote-lnd-backup`
   * Select "Private" (rather than the default "Public")

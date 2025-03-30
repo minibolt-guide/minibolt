@@ -181,11 +181,15 @@ ExtORPort auto
 ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy --enableLogging --logLevel=INFO
 
 ORPort <a data-footnote-ref href="#user-content-fn-1">&#x3C;TODO1></a> IPv4Only
-ServerTransportListenAddr obfs4 0.0.0.0:<a data-footnote-ref href="#user-content-fn-2">&#x3C;TODO2></a>
+ServerTransportListenAddr obfs4 0.0.0.0:<a data-footnote-ref href="#user-content-fn-1">&#x3C;TODO2></a>
 
 #### obfs4 bridge relay info
 ContactInfo &#x3C;address@email.com>
 Nickname &#x3C;PickANickname>
+
+# Don't self-test, to minimise exposure.
+# Make sure you open the port correctly and it is reachable from the outside.
+AssumeReachable 1
 </code></pre>
 
 <details>
@@ -331,7 +335,7 @@ Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: Configured to measure statistic
 Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: You are running a new relay. Thanks for helping the Tor network! If you wish to know what will happen in the upcoming weeks regarding its usage, have a                        look at https://blog.torproject.org/lifecycle-of-a-new-relay
 Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: It looks like I need to generate and sign a new medium-term signing key, because I don't have one. To do that, I need to load (or create) the permanent                        master identity key. If the master identity key was not moved or encrypted with a passphrase, this will be done automatically and no further action is required. Otherwise, provide the necessary data using 'tor                        --keygen' to do it manually.
 Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: Your Tor server's identity key fingerprint is 'Ofbs4bridge 2F40A126FA438E01F44D628557A216A2EF7EB5F7'
-Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: Your Tor bridge's hashed identity key fingerprint is 'Ofbs4bridge <a data-footnote-ref href="#user-content-fn-3">29CA77BDCA7C00A7079CDDC0258A4DE0F1170157</a>'
+Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: Your Tor bridge's hashed identity key fingerprint is 'Ofbs4bridge <a data-footnote-ref href="#user-content-fn-2">29CA77BDCA7C00A7079CDDC0258A4DE0F1170157</a>'
 Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: Your Tor server's identity key ed25519 fingerprint is 'Ofbs4bridge aCFadrH6GzZuFUG-YjmMw1EsMTKevx7ZJaZA4usbUWA'
 Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: You can check the status of your bridge relay at https://bridges.torproject.org/status?id=29CA77BDCA7C00A7079CDDC0258A4DE0F1170157
 Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: Bootstrapped 0% (starting): Starting
@@ -422,10 +426,10 @@ sudo ss -tulpn | grep '\(tor\|obfs4proxy\)'
 <pre><code>tcp   LISTEN 0      4096         0.0.0.0:9050       0.0.0.0:*    users:(("tor",pid=975075,fd=6))
 tcp   LISTEN 0      4096       127.0.0.1:39149      0.0.0.0:*    users:(("tor",pid=206525,fd=8))
 tcp   LISTEN 0      4096       127.0.0.1:9051       0.0.0.0:*    users:(("tor",pid=975075,fd=7))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-4">9052</a>       0.0.0.0:*    users:(("tor",pid=206525,fd=6))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-3">9052</a>       0.0.0.0:*    users:(("tor",pid=206525,fd=6))
 tcp   LISTEN 0      4096       127.0.0.1:44105      0.0.0.0:*    users:(("obfs4proxy",pid=975077,fd=7))
-tcp   LISTEN 0      4096         0.0.0.0:<a data-footnote-ref href="#user-content-fn-5">2016</a>       0.0.0.0:*    users:(("tor",pid=206525,fd=7))
-tcp   LISTEN 0      4096               *:<a data-footnote-ref href="#user-content-fn-6">2008</a>             *:*    users:(("obfs4proxy",pid=206526,fd=7))
+tcp   LISTEN 0      4096         0.0.0.0:<a data-footnote-ref href="#user-content-fn-3">2016</a>       0.0.0.0:*    users:(("tor",pid=206525,fd=7))
+tcp   LISTEN 0      4096               *:<a data-footnote-ref href="#user-content-fn-3">2008</a>             *:*    users:(("obfs4proxy",pid=206526,fd=7))
 </code></pre>
 
 * If you want to connect to your bridge manually, you will need to know the bridge's obfs4 certificate
@@ -827,7 +831,7 @@ Oct 20 14:03:48 minibolt Tor-guardmidrelay[15079]: Parsing GEOIP IPv6 file /usr/
 Oct 20 14:03:48 minibolt Tor-guardmidrelay[15079]: Configured to measure statistics. Look for the *-stats files that will first be written to the data directory in 24 hours from now.
 Oct 20 14:03:48 minibolt Tor-guardmidrelay[15079]: You are running a new relay. Thanks for helping the Tor network! If you wish to know what will happen in the upcoming weeks regarding its usage, have a look at https://blog.torproject.org/lifecycle-of-a-new-relay
 Oct 20 14:03:48 minibolt Tor-guardmidrelay[15079]: It looks like I need to generate and sign a new medium-term signing key, because I don't have one. To do that, I need to load (or create) the permanent master identity key. If the master identity key was not moved or encrypted with a passphrase, this will be done automatically and no further action is required. Otherwise, provide the necessary data using 'tor --keygen' to do it manually.
-Oct 20 14:03:49 minibolt Tor-guardmidrelay[15079]: Your Tor server's identity key fingerprint is 'Guard/Mid_Relay <a data-footnote-ref href="#user-content-fn-7">8D4FE09E8CF58EEB437A6A7FB36B09D7D8D24389</a>'
+Oct 20 14:03:49 minibolt Tor-guardmidrelay[15079]: Your Tor server's identity key fingerprint is 'Guard/Mid_Relay <a data-footnote-ref href="#user-content-fn-4">8D4FE09E8CF58EEB437A6A7FB36B09D7D8D24389</a>'
 Oct 20 14:03:49 minibolt Tor-guardmidrelay[15079]: Your Tor server's identity key ed25519 fingerprint is 'Guard/Mid_Relay 70zFBIVtdMEyHOilWfb5GyXRAxxnsepchNZE7StSp2k'
 Oct 20 14:03:49 minibolt Tor-guardmidrelay[15079]: Bootstrapped 0% (starting): Starting
 Oct 20 14:03:49 minibolt Tor-guardmidrelay[15079]: Starting with guard context "default"
@@ -894,8 +898,8 @@ sudo ss -tulpn | grep tor
 
 **Example** of expected output:
 
-<pre><code>tcp   LISTEN 0      4096              0.0.0.0:<a data-footnote-ref href="#user-content-fn-8">9001</a>      0.0.0.0:*    users:(("tor",pid=15332,fd=7))
-tcp   LISTEN 0      4096            127.0.0.1:<a data-footnote-ref href="#user-content-fn-9">9051</a>      0.0.0.0:*    users:(("tor",pid=14928,fd=15))
+<pre><code>tcp   LISTEN 0      4096              0.0.0.0:<a data-footnote-ref href="#user-content-fn-3">9001</a>      0.0.0.0:*    users:(("tor",pid=15332,fd=7))
+tcp   LISTEN 0      4096            127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">9051</a>      0.0.0.0:*    users:(("tor",pid=14928,fd=15))
 tcp   LISTEN 0      4096            127.0.0.1:9050      0.0.0.0:*    users:(("tor",pid=14928,fd=6))
 tcp   LISTEN 0      4096            127.0.0.1:9053      0.0.0.0:*    users:(("tor",pid=15332,fd=6))
 </code></pre>
@@ -1186,11 +1190,11 @@ sudo nano /etc/tor/torrc
 This is an example for: \~ 30 GB/day \* 30 days = 900 GB for BandwidthMax <1 TB tx+rx, replace with your election
 
 <pre><code>#### Guard/Middle relay limit total sum bandwidth
-<a data-footnote-ref href="#user-content-fn-10">AccountingStart</a> day 12:00
-<a data-footnote-ref href="#user-content-fn-11">AccountingMax</a> 30 GBytes
-<a data-footnote-ref href="#user-content-fn-12">AccountingRule</a> sum
-<a data-footnote-ref href="#user-content-fn-13">RelayBandwidthRate </a>1 MBytes
-<a data-footnote-ref href="#user-content-fn-14">RelayBandwidthBurst</a> 1 MBytes
+<a data-footnote-ref href="#user-content-fn-6">AccountingStart</a> day 12:00
+<a data-footnote-ref href="#user-content-fn-7">AccountingMax</a> 30 GBytes
+<a data-footnote-ref href="#user-content-fn-8">AccountingRule</a> sum
+<a data-footnote-ref href="#user-content-fn-9">RelayBandwidthRate </a>1 MBytes
+<a data-footnote-ref href="#user-content-fn-10">RelayBandwidthBurst</a> 1 MBytes
 </code></pre>
 
 {% hint style="info" %}
@@ -1253,33 +1257,25 @@ journalctl -fu tor@default
 
 [^1]: Replace
 
-[^2]: Replace
+[^2]: The obfs4 bridge fingerprint to search on the [Relay search](https://metrics.torproject.org/rs.html) Tor service
 
-[^3]: The obfs4 bridge fingerprint to search on the [Relay search](https://metrics.torproject.org/rs.html) Tor service
+[^3]: Check this
 
-[^4]: Check this
+[^4]: The Guard/Middle relay fingerprint to search on the [Relay search](https://metrics.torproject.org/rs.html) Tor service
 
-[^5]: Check this
+[^5]: Control port
 
-[^6]: Check this
+[^6]: When the accounting period resets
 
-[^7]: The Guard/Middle relay fingerprint to search on the [Relay search](https://metrics.torproject.org/rs.html) Tor service
+[^7]: This specifies the maximum amount of data your relay will send during an accounting period, and the maximum amount of data your relay will receive during an accounting period
 
-[^8]: Check this
-
-[^9]: Control port
-
-[^10]: When the accounting period resets
-
-[^11]: This specifies the maximum amount of data your relay will send during an accounting period, and the maximum amount of data your relay will receive during an accounting period
-
-[^12]: Controls whether Tor tracks only incoming traffic, only outgoing traffic, or both, when applying bandwidth usage limits set with accounting options like `AccountingMax`. (Default: **max**)
+[^8]: Controls whether Tor tracks only incoming traffic, only outgoing traffic, or both, when applying bandwidth usage limits set with accounting options like `AccountingMax`. (Default: **max**)
 
     * **`sum`**: It counts both incoming and outgoing traffic (common on VPS)
     * **`in`**: It only counts incoming traffic.
     * **`out`**: It only counts outgoing traffic.
     * **`max`**: calculate using the higher of either the sent or received bytes.
 
-[^13]: Controls the amount of bandwidth your Tor relay or bridge can consistently use to relay traffic
+[^9]: Controls the amount of bandwidth your Tor relay or bridge can consistently use to relay traffic
 
-[^14]: Lets your Tor relay or bridge use more bandwidth than the sustained limit during brief spikes in traffic, allowing it to handle sudden increases in demand without immediately throttling
+[^10]: Lets your Tor relay or bridge use more bandwidth than the sustained limit during brief spikes in traffic, allowing it to handle sudden increases in demand without immediately throttling

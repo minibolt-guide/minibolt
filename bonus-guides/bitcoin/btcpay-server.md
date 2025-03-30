@@ -515,6 +515,16 @@ Jul 05 17:50:23 minibolt run.sh[2808966]: info: NBXplorer.Events: BTC: New block
 
 </details>
 
+{% hint style="info" %}
+Ignore the next warning log:
+
+```
+warn: NBXplorer.Indexer.BTC: BTC: Your NBXplorer server is not whitelisted by your node, you should add "whitelist=127.0.0.1" to the configuration file of your node. (Or use whitebind)
+```
+
+-> It's a wrong warning since we connected to Bitcoin Core locally,  so there is no point in having to whitelist the connection.
+{% endhint %}
+
 #### Validation
 
 * Ensure NBXplorer is running and listening on the default port `24444`
@@ -547,7 +557,7 @@ sudo su - btcpay
 cd src
 ```
 
-* Set variable environment version
+* Set the variable environment version
 
 ```bash
 VERSION=2.0.7
@@ -836,46 +846,6 @@ You can now create the first account to access the dashboard using a real (recom
 
 ## Extras (optional)
 
-### Remote access over Tor
-
-You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCPay Server with the Tor browser from any device.
-
-* With the user `admin`, edit the `torrc` file
-
-```bash
-sudo nano +63 /etc/tor/torrc --linenumbers
-```
-
-* Add the following lines to the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
-
-```
-# Hidden Service BTCPay Server
-HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:23000
-```
-
-* Reload the Tor configuration
-
-```bash
-sudo systemctl reload tor
-```
-
-* Get your connection address
-
-```bash
-sudo cat /var/lib/tor/hidden_service_btcpay/hostname
-```
-
-**Example** of expected output:
-
-```
-abcdefg..............xyz.onion
-```
-
-* With the [Tor browser](https://www.torproject.org/), you can access this onion address from any device
-
 ### Connect to your LND internal node
 
 #### Configure LND
@@ -966,6 +936,95 @@ sudo systemctl start btcpay
 
 {% hint style="info" %}
 Monitor logs with `journalctl -fu btcpay` to ensure that all is running well
+{% endhint %}
+
+### Remote access over Tor
+
+You can easily do so by adding a Tor hidden service on the MiniBolt and accessing the BTCPay Server with the Tor browser from any device.
+
+* With the user `admin`, edit the `torrc` file
+
+```bash
+sudo nano +63 /etc/tor/torrc --linenumbers
+```
+
+* Add the following lines to the `location hidden services` section, below `## This section is just for location-hidden services ##` in the torrc file. Save and exit
+
+```
+# Hidden Service BTCPay Server
+HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
+HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
+HiddenServicePort 80 127.0.0.1:23000
+```
+
+* Reload the Tor configuration
+
+```bash
+sudo systemctl reload tor
+```
+
+* Get your connection address
+
+```bash
+sudo cat /var/lib/tor/hidden_service_btcpay/hostname
+```
+
+**Example** of expected output:
+
+```
+abcdefg..............xyz.onion
+```
+
+* With the [Tor browser](https://www.torproject.org/), you can access this onion address from any device
+
+### Use Cloudflare tunnel to expose publicly
+
+You may want to expose your BTCPay Server publicly using a clearnet address. To do this, follow the next steps:
+
+* Follow the [Cloudflare tunnel](../networking/cloudflare-tunnel.md) guide to install and create the Cloudflare tunnel from your MiniBolt to Cloudflare
+* When you finish the "[Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name)" section, you can skip the "[Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic)" section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
+* Click on the **\[+ Add record]** button
+
+<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+> Select the **CNAME** type
+
+> Type the selected subdomain (i.e service name "btcpay") as the **Name** field
+
+> Type the tunnel `<UUID>`  of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
+
+> Ensure you enable the switch on the `Proxy status` field to be "Proxied"
+
+Click on the \[Save] button to save the new DNS registry
+{% endhint %}
+
+* If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
+* Edit the`config.yml`
+
+<pre class="language-bash"><code class="lang-bash"><strong>sudo nano /home/admin/.cloudflared/config.yml
+</strong></code></pre>
+
+* Add the next lines to the `config.yml`
+
+<pre><code># BTCPay Server
+  - hostname: <a data-footnote-ref href="#user-content-fn-2">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-3">&#x3C;domain.com></a>
+    service: http://localhost:23000
+</code></pre>
+
+{% hint style="info" %}
+> You can choose the subdomain you want; the above information is an example, but keep in mind to use the port `23000` and always maintaining the "`- service: http_status:404`" line at the end of the file
+{% endhint %}
+
+* Restart Cloudflared to apply changes
+
+```bash
+sudo systemctl restart cloudflared
+```
+
+{% hint style="info" %}
+Try to access the newly created public access to the service by going to the `https://<subdomain>. <domain.com>`, i.e, `https://btcpay.domain.com`
 {% endhint %}
 
 ## Upgrade
@@ -1453,3 +1512,9 @@ sudo -u postgres psql -c "DROP DATABASE nbxplorer;" && sudo -u postgres psql -c 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="rkiNy94w5TMP" label="TCP" color="blue"></option><option value="kp1yVZsvp7BD" label="SSL" color="blue"></option><option value="1NWHw2jvEWNw" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">24444</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">NBXplorer default port</td></tr><tr><td align="center">23000</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">BTCPay Server default port</td></tr></tbody></table>
 
 [^1]: \<Optional>
+
+[^2]: Replace with the selected name of your service\
+    i.e: `explorer`
+
+[^3]: Replace with your domain\
+    i.e: `domain.com`

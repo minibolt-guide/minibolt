@@ -326,7 +326,7 @@ Type `\q` command and enter to exit PostgreSQL CLI and exit to come back to the 
  postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS
 ```
 
-#### List the global existing databases
+#### List the existing global databases
 
 * Type the next command and enter
 
@@ -351,7 +351,7 @@ Type `\q` command and enter to exit PostgreSQL CLI and exit to come back to the 
 (8 rows)
 ```
 
-#### List tables inside of a specific database
+#### List tables inside a specific database
 
 * Connect to a specific database, type the next command, and enter. The prompt should change to the name of the database. Example: `lndb=#`
 
@@ -466,7 +466,39 @@ SELECT pg_size_pretty(pg_total_relation_size('channeldb_kv'));
 (1 row)
 ```
 
-#### **Detele** a specific database
+#### **Show if there is content inside a table**
+
+Get a quick view of the data stored in a table without having to retrieve all the records. Useful after a data migration, for example.
+
+* Enter a specific database
+
+```
+\c <NAMEOFDATABASE>
+```
+
+Example:
+
+```bash
+\c lndb
+```
+
+* Type the next command to make a request and obtain the data
+
+```sql
+ SELECT * FROM <NAMEOFTABLE> LIMIT 10;
+```
+
+{% hint style="info" %}
+Replace `<NAMEOFTABLE>` to the specific name of the database
+{% endhint %}
+
+#### **Example:**
+
+```sql
+ SELECT * FROM channeldb_kv LIMIT 10;
+```
+
+#### **Delete** a specific database
 
 * Type the next command and enter
 
@@ -490,7 +522,7 @@ DROP DATABASE lndb;
 DROP DATABASE
 ```
 
-#### Delete a table inside of a specific database
+#### Delete a table inside a specific database
 
 {% hint style="warning" %}
 Stop the service related to this database before the action, i.e: `sudo systemctl stop lnd`
@@ -526,11 +558,37 @@ DROP TABLE <NAMEOFTABLE>;
 Replace `<NAMEOFTABLE>` to the specific name of the table
 {% endhint %}
 
+{% hint style="danger" %}
+Warning: this command is especially dangerous, do it at your own risk
+{% endhint %}
+
 Example:
 
 ```sql
 DROP TABLE towerclientdb_kv;
 ```
+
+#### Delete existing users
+
+* In some hypothetical situation, you might want to delete an existing user of PostgreSQL. Type the next command
+
+```sql
+DROP ROLE <user>;
+```
+
+{% hint style="info" %}
+Replace `<user>` to the desired user
+{% endhint %}
+
+Example:
+
+```sql
+DROP ROLE admin;
+```
+
+{% hint style="danger" %}
+Warning: this command is especially dangerous, do it at your own risk
+{% endhint %}
 
 ## Upgrade
 
@@ -544,7 +602,7 @@ sudo apt update && sudo apt full-upgrade
 
 ## Uninstall
 
-### Uninstall PostgreSQL package and configuration
+### Uninstall the PostgreSQL package and configuration
 
 * With user `admin`, stop and disable the postgres service
 

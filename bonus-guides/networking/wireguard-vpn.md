@@ -309,7 +309,7 @@ sudo nano /etc/wireguard/wg0.conf
 
 ## Server configuration (MiniBolt node)
 [Interface]
-PrivateKey = <a data-footnote-ref href="#user-content-fn-4">&#x3C;Your_Server_Private_Key></a>
+PrivateKey = <a data-footnote-ref href="#user-content-fn-3">&#x3C;Your_Server_Private_Key></a>
 Address = 10.0.0.1/24
 ListenPort = 51820
 </code></pre>
@@ -397,14 +397,14 @@ sudo nano /etc/wireguard/wg0.conf
 
 ## Client configuration
 [Interface]
-PrivateKey = <a data-footnote-ref href="#user-content-fn-5">&#x3C;Your_Client_Private_Key></a>
+PrivateKey = <a data-footnote-ref href="#user-content-fn-3">&#x3C;Your_Client_Private_Key></a>
 Address = 10.0.0.2/32
 
 ## Server configuration (MiniBolt node)
 [Peer]
-PublicKey = <a data-footnote-ref href="#user-content-fn-6">&#x3C;Your_Server_Public_Key></a>
+PublicKey = <a data-footnote-ref href="#user-content-fn-3">&#x3C;Your_Server_Public_Key></a>
 AllowedIPs = 10.0.0.1/32
-Endpoint = <a data-footnote-ref href="#user-content-fn-7">&#x3C;yourdomain></a>:51820
+Endpoint = <a data-footnote-ref href="#user-content-fn-3">&#x3C;yourdomain></a>:51820
 </code></pre>
 
 {% hint style="info" %}
@@ -446,13 +446,13 @@ sudo nano /etc/wireguard/wg0.conf
 
 ## Server configuration (MiniBolt node)
 [Interface]
-PrivateKey = <a data-footnote-ref href="#user-content-fn-8">&#x3C;Your_Server_Private_Key></a>
+PrivateKey = <a data-footnote-ref href="#user-content-fn-3">&#x3C;Your_Server_Private_Key></a>
 Address = 10.0.0.1/24
 ListenPort = 51820
 
-<a data-footnote-ref href="#user-content-fn-9">## Client configuration</a>
+<a data-footnote-ref href="#user-content-fn-4">## Client configuration</a>
 [Peer]
-PublicKey = <a data-footnote-ref href="#user-content-fn-10">&#x3C;Your_Client_Public_Key></a>
+PublicKey = <a data-footnote-ref href="#user-content-fn-3">&#x3C;Your_Client_Public_Key></a>
 AllowedIPs = 10.0.0.2/32
 </code></pre>
 
@@ -720,7 +720,7 @@ AllowedIPs = 10.0.0.4/32
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`. You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
 
 * Another additional server would define it for example as `10.0.1.1/24` where `10.0.1.1` would be the additional server, and `10.0.1.2`, `10.0.1.3`, `10.0.1.4` ..., for the clients in this case
-* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port in the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-11)[^11]
+* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g **51821**, and point your Wireguard VPN Client to the **51821** port in the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-5)[^5]
 
 ### Use your router’s DDNS preconfigured provider
 
@@ -763,6 +763,22 @@ Port forwarding allows you to direct incoming traffic from the WAN side (identif
 Save and apply changes
 {% endhint %}
 
+## Upgrade
+
+* To upgrade, use the package manager by typing this command. If there is an update pending, you will be automatically prompted to update. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+## Uninstall
+
+* To uninstall, use the package manager by typing this command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```bash
+sudo apt autoremove wireguard --purge
+```
+
 ## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="c0IJxo3AKKne" label="TCP" color="blue"></option><option value="wLavrizzjlR4" label="SSL" color="blue"></option><option value="aWKU3FdmHGlF" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">51820</td><td><span data-option="aWKU3FdmHGlF">UDP</span></td><td align="center">Default port</td></tr></tbody></table>
@@ -773,18 +789,6 @@ Save and apply changes
 
 [^3]: Replace
 
-[^4]: Replace
+[^4]: Add this new section
 
-[^5]: Replace
-
-[^6]: Replace
-
-[^7]: Replace
-
-[^8]: Replace
-
-[^9]: Add this new section
-
-[^10]: Replace
-
-[^11]: Change this
+[^5]: Change this

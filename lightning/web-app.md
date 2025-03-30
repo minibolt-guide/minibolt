@@ -371,7 +371,7 @@ cp .env .env.local
 nano .env.local
 ```
 
-* Uncomment and edit the following line to match with the next. Save and exit
+* Uncomment and edit the following line to match the next. Save and exit
 
 ```
 ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
@@ -406,7 +406,7 @@ Enable auto-backups:
 backupsEnabled: true
 ```
 
-Enable-auto healthchecks:
+Enable auto healthchecks:
 
 ```
 healthCheckPingEnabled: true
@@ -474,7 +474,7 @@ WantedBy=multi-user.target
 sudo systemctl enable thunderhub
 ```
 
-* Prepare "thunderhub" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
+* Prepare "thunderhub" monitoring by the systemd journal and check the log output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
 journalctl -fu thunderhub

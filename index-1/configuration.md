@@ -70,7 +70,7 @@ To change the system configuration and files that don't belong to the user "admi
 ## Login with SSH keys (optional)
 
 {% hint style="info" %}
-Now, you can start to access it without a password by following the [SSH keys bonus guide](../bonus/system/ssh-keys.md)
+Now, you can start to access it without a password by following the [SSH keys bonus guide](../bonus-guides/security/ssh-keys.md)
 {% endhint %}
 
 ## System update
@@ -82,9 +82,9 @@ sudo apt update && sudo apt full-upgrade
 ```
 
 {% hint style="info" %}
-\-> Do this regularly for security-related updates
+-> Do this regularly for security-related updates
 
-\-> If during the update process, a banner appears asking you, "Which services should be restarted?" you can press ENTER and take note of the services that will be restarted, marked with `[*]`. Example 🔽
+-> If during the update process, a banner appears asking you, "Which services should be restarted?" you can press ENTER and take note of the services that will be restarted, marked with `[*]`. Example 🔽
 {% endhint %}
 
 ![](../images/update-action.PNG)

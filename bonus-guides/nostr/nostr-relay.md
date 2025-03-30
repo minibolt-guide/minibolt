@@ -47,7 +47,7 @@ You can obtain more info about nostr on these additional resources:
 
 ## Requirements
 
-* [Cloudflare tunnel](../system/cloudflare-tunnel.md)
+* [Cloudflare tunnel](../networking/cloudflare-tunnel.md)
 * Others
   * [PostgreSQL](../system/postgresql.md)
   * [Rustup + Cargo](../system/rustup-+-cargo.md)
@@ -465,7 +465,7 @@ tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=
 
 ### Cloudflare tunnel
 
-Follow the [Cloudflare Tunnel bonus guide](../system/cloudflare-tunnel.md), when you arrive at the [Configuration file section](../system/cloudflare-tunnel.md#configuration), add the next `# Nostr relay` lines to ingress the related ingress rule
+Follow the [Cloudflare Tunnel bonus guide](../networking/cloudflare-tunnel.md), when you arrive at the [Configuration file section](../networking/cloudflare-tunnel.md#configuration), add the next `# Nostr relay` lines to ingress the related ingress rule
 
 ```bash
 nano /home/admin/.cloudflared/config.yml

@@ -271,16 +271,16 @@ The rest of the **Fulcrum** guide is the same as the mainnet mode
 #### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
-* Follow the complete guide from the beginning, when you arrive at the [Configuration section](../../bitcoin/bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
+* Follow the complete guide from the beginning. When you arrive at the [Configuration section](../../bitcoin/bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for mainnet. Edit **`.env`** file
 
 ```sh
 nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
 ```
-BTCEXP_BITCOIND_PORT=18332
-BTCEXP_BITCOIND_COOKIE=/data/bitcoin/testnet3/.cookie
-BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:60001
+BTCEXP_BITCOIND_PORT=48332
+BTCEXP_BITCOIND_COOKIE=/data/bitcoin/testnet4/.cookie
+BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:40001
 ```
 
 {% hint style="success" %}
@@ -291,9 +291,7 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 
 ### [Lightning client: LND](../../lightning/lightning-client.md)
 
-{% hint style="danger" %}
-#### Not Testnet4 compatible yet, the next steps are not valid!
-{% endhint %}
+
 
 * Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
@@ -321,9 +319,11 @@ If you use [Ordirespector](ordisrespector.md) on testnet, add the next lines at 
 fee.url=https://nodes.lightning.computer/fees/v1/btctestnet4-fee-estimates.json
 ```
 
-* When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace `ExecStop` parameter to this
+* When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace the next lines
 
 ```
+Requires=bitcoind-testnet4.service postgresql.service
+After=bitcoind-testnet4.service postgresql.service
 ExecStop=/usr/local/bin/lncli --network=testnet4 stop
 ```
 
@@ -357,11 +357,7 @@ The rest of the **Lightning Clien**t guide is the same as the mainnet mode
 
 ### [Channel backup](../../lightning/channel-backup.md)
 
-{% hint style="danger" %}
-#### Not Testnet4 compatible yet, the next steps are not valid!
-{% endhint %}
-
-* Follow the complete guide from the beginning, when you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
+* Follow the complete guide from the beginning. When you arrive at the ["Create script"](../../lightning/channel-backup.md#create-script) section, create the script
 
 ```sh
 sudo nano /usr/local/bin/scb-backup --linenumbers
@@ -376,10 +372,10 @@ SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
 {% hint style="info" %}
 **If you have a mainnet node running on another device** and you want to use the same GitHub account for the testnet channel backups:
 
-* Change this line on the script to this for example: `REMOTE_BACKUP_DIR="/data/lnd/remote-lnd-testnet-backup"`
-* When you arrive at the ["Create a GitHub repository"](../../lightning/channel-backup.md#create-a-github-repository) section, change the name of the GitHub repo to for example: "`remote-lnd-testnet-backup"`
+* Change this line in the script to this, for example: `REMOTE_BACKUP_DIR="/data/lnd/remote-lnd-testnet-backup"`
+* When you arrive at the ["Create a GitHub repository"](../../lightning/channel-backup.md#create-a-github-repository) section, change the name of the GitHub repo to, for example: "`remote-lnd-testnet-backup`"
 * When you arrive at the ["Clone the repository to your node"](../../lightning/channel-backup.md#clone-the-repository-to-your-node) section, replace the command with: `git clone git@github.com:<YourGitHubUsername>/remote-lnd-testnet-backup.git`
-* When you arrive at the ["GitHub test"](../../lightning/channel-backup.md#github-test) section, replace the command to: `cd remote-lnd-testnet-backup`
+* When you arrive at the ["GitHub test"](../../lightning/channel-backup.md#github-test) section, replace the command with: `cd remote-lnd-testnet-backup`
 {% endhint %}
 
 {% hint style="success" %}
@@ -388,17 +384,15 @@ The rest of the **Channel Backup guide** is the same as the mainnet mode
 
 ### [Web app: ThunderHub](../../lightning/web-app.md)
 
-{% hint style="danger" %}
-#### Not Testnet4 compatible, the next steps are not valid!
-{% endhint %}
 
-* Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace the next parameter to match with the testnet mode on the `.env.local` file
+
+* Follow the complete guide from the beginning. When you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace the next parameter to match the testnet mode in the `.env.local` file
 
 ```
 MEMPOOL_URL='https://mempool.space/testnet'
 ```
 
-* And replace the next parameter on the `thubConfig.yaml` file
+* And replace the next parameter in the `thubConfig.yaml` file
 
 ```
 macaroonPath: /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
@@ -414,18 +408,18 @@ The rest of the **Web app: Thunderhub** is the same as the mainnet mode
 #### Not Testnet4 compatible yet, the next steps are not valid!
 {% endhint %}
 
-* Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match with the next
+* Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match the next
 
 For **example**, to generate a QR code for a Wireguard VPN connection, enter this command:
 
 {% code overflow="wrap" %}
 ```sh
-lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet/admin.macaroon --nocert
+lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/home/admin/.lnd/data/chain/bitcoin/testnet4/admin.macaroon --nocert
 ```
 {% endcode %}
 
 {% hint style="info" %}
-Be careful to add `--nocert` parameter only to the onion and Wireguard VPN network, the local network could be shared with more devices and you should use a valid certificate to encrypt the connection, so don't add that parameter in this case
+Be careful to add `--nocert` parameter only to the onion and Wireguard VPN network, the local network could be shared with more devices, and you should use a valid certificate to encrypt the connection, so don't add that parameter in this case
 {% endhint %}
 
 ## Bonus section
@@ -436,7 +430,7 @@ Be careful to add `--nocert` parameter only to the onion and Wireguard VPN netwo
 Only testnet mode
 {% endhint %}
 
-Follow the complete guide from the beginning, when you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
+Follow the complete guide from the beginning. When you arrive at the [Reverse proxy & Firewall](electrs.md#reverse-proxy-and-firewall) section, follow the next steps:
 
 * Create the `electrs-reverse-proxy.conf` file
 
@@ -504,7 +498,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 sudo nano +63 /etc/tor/torrc
 ```
 
-* Edit the torrc file and replace ports to `40021/40022` to match with the testnet4 mode
+* Edit the torrc file and replace the ports to `40021/40022` to match with the testnet4 mode
 
 ```
 # Hidden Service Electrs Testnet4 TCP & SSL

@@ -140,7 +140,7 @@ Link 2 (eno1)
     Current Scopes: DNS
          Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
 Current DNS Server: <a data-footnote-ref href="#user-content-fn-3">192.168.1.1</a>
-       DNS Servers: <a data-footnote-ref href="#user-content-fn-4">192.168.1.1</a>
+       DNS Servers: <a data-footnote-ref href="#user-content-fn-3">192.168.1.1</a>
         DNS Domain: home
 </code></pre>
 
@@ -292,8 +292,8 @@ resolv.conf mode: stub
 Link 2 (eno1)
     Current Scopes: DNS
          Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
-Current DNS Server: <a data-footnote-ref href="#user-content-fn-5">1.1.1.1</a>
-       DNS Servers: <a data-footnote-ref href="#user-content-fn-6">1.1.1.1</a> <a data-footnote-ref href="#user-content-fn-7">1.0.0.1</a>
+Current DNS Server: <a data-footnote-ref href="#user-content-fn-3">1.1.1.1</a>
+       DNS Servers: <a data-footnote-ref href="#user-content-fn-3">1.1.1.1</a> <a data-footnote-ref href="#user-content-fn-3">1.0.0.1</a>
 [...]
 </code></pre>
 
@@ -311,12 +311,12 @@ networkctl status
 
 <pre><code>●        State: routable
   Online state: online
-       Address: <a data-footnote-ref href="#user-content-fn-8">192.168.1.87</a> on eno1
+       Address: <a data-footnote-ref href="#user-content-fn-3">192.168.1.87</a> on eno1
                 10.0.1.1 on wg0
                 fe80::1e69:7aff:feac:8129 on eno1
        Gateway: 192.168.1.1 on eno1
-           DNS: <a data-footnote-ref href="#user-content-fn-9">1.1.1.1</a>
-                <a data-footnote-ref href="#user-content-fn-10">1.0.0.1</a>
+           DNS: <a data-footnote-ref href="#user-content-fn-3">1.1.1.1</a>
+                <a data-footnote-ref href="#user-content-fn-3">1.0.0.1</a>
            NTP: 10.28.64.1
 </code></pre>
 
@@ -344,10 +344,10 @@ sudo netplan status --all
 
 ●  2: eno1 ethernet UP (networkd: eno1)
       MAC Address: 00:0c:19:4f:c6:c9 (Intel Corporation)
-        Addresses: <a data-footnote-ref href="#user-content-fn-11">192.168.1.87</a>/24
+        Addresses: <a data-footnote-ref href="#user-content-fn-3">192.168.1.87</a>/24
                    fe80::20c:29ff:fe8f:c7c8/64 (link)
-    DNS Addresses: <a data-footnote-ref href="#user-content-fn-12">1.1.1.1</a>
-                   <a data-footnote-ref href="#user-content-fn-13">1.0.0.1</a>
+    DNS Addresses: <a data-footnote-ref href="#user-content-fn-3">1.1.1.1</a>
+                   <a data-footnote-ref href="#user-content-fn-3">1.0.0.1</a>
            Routes: default via 192.168.1.1 (static)
                    192.168.1.0/24 from 192.168.1.44 (link)
                    fe80::/64 metric 256
@@ -431,10 +431,10 @@ sudo netplan status --all
 
 ●  2: eno1 ethernet UP (networkd: eno1)
       MAC Address: 00:1c:26:7f:c7:c9 (Intel Corporation)
-        Addresses: <a data-footnote-ref href="#user-content-fn-14">192.168.1.87</a>/24 (dhcp)
+        Addresses: <a data-footnote-ref href="#user-content-fn-3">192.168.1.87</a>/24 (dhcp)
                    fe80::20c:28ff:fe8f:c7c6/64 (link)
-    DNS Addresses: <a data-footnote-ref href="#user-content-fn-15">1.1.1.1</a>
-                   <a data-footnote-ref href="#user-content-fn-16">1.0.0.1</a>
+    DNS Addresses: <a data-footnote-ref href="#user-content-fn-3">1.1.1.1</a>
+                   <a data-footnote-ref href="#user-content-fn-3">1.0.0.1</a>
            Routes: default via 192.168.1.1 from 192.168.1.44 metric 100 (dhcp)
                    1.0.0.1 via 192.168.1.1 from 192.168.1.44 metric 100 (dhcp)
                    1.1.1.1 via 192.168.1.1 from 192.168.1.44 metric 100 (dhcp)
@@ -682,13 +682,13 @@ resolvectl status
 Example of expected output:
 
 <pre><code>Global
-         Protocols: +LLMNR +mDNS <a data-footnote-ref href="#user-content-fn-17">+DNSOverTLS</a> <a data-footnote-ref href="#user-content-fn-18">DNSSEC=allow-downgrade</a>/supported
+         Protocols: +LLMNR +mDNS <a data-footnote-ref href="#user-content-fn-3">+DNSOverTLS</a> <a data-footnote-ref href="#user-content-fn-3">DNSSEC=allow-downgrade</a>/supported
   resolv.conf mode: stub
 Current DNS Server: 1.1.1.1#cloudflare-dns.com
         DNS Servers 1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com
 
 Link 2 (ens33)
-Current Scopes: <a data-footnote-ref href="#user-content-fn-19">LLMNR/IPv4 LLMNR/IPv6</a>
+Current Scopes: <a data-footnote-ref href="#user-content-fn-4">LLMNR/IPv4 LLMNR/IPv6</a>
      Protocols: -DefaultRoute +LLMNR -mDNS +DNSOverTLS DNSSEC=allow-downgrade/supported
 </code></pre>
 
@@ -728,7 +728,7 @@ Expected output:
                188.114.97.5                    -- link: ens33
 
 -- Information acquired via protocol DNS in 421.0ms.
--- <a data-footnote-ref href="#user-content-fn-20">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-21">Data was acquired via local or encrypted transport: yes</a>
+-- <a data-footnote-ref href="#user-content-fn-3">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-5">Data was acquired via local or encrypted transport: yes</a>
 <strong>-- Data from: network
 </strong></code></pre>
 
@@ -778,7 +778,7 @@ Now you have DoT enabled on your MiniBolt node to encrypt the DNS queries and DN
 
 #### Requirements
 
-* [Cloudflared](cloudflare-tunnel.md)
+* [Cloudflared](../networking/cloudflare-tunnel.md)
 
 #### Preparations
 
@@ -887,7 +887,7 @@ Online state: offline
 sudo netplan get
 ```
 
-* Follow only the [Installation section](cloudflare-tunnel.md#installation) of the Cloudflare tunnel guide, and come back to continue with the next steps
+* Follow only the [Installation section](../networking/cloudflare-tunnel.md#installation) of the Cloudflare tunnel guide, and come back to continue with the next steps
 * Stop and disable `systemd-resolved` service to avoid conflicts
 
 ```bash
@@ -1076,38 +1076,6 @@ Now you have DoH enabled on your MiniBolt node and the DNS queries encrypted
 
 [^3]: Check this
 
-[^4]: Check this
+[^4]: Also valid "none"
 
 [^5]: Check this
-
-[^6]: Check this
-
-[^7]: Check this
-
-[^8]: Check this
-
-[^9]: Check this
-
-[^10]: Check this
-
-[^11]: Check this
-
-[^12]: Check this
-
-[^13]: Check this
-
-[^14]: Check this
-
-[^15]: Check this
-
-[^16]: Check this
-
-[^17]: Check this
-
-[^18]: Check this
-
-[^19]: Also valid "none"
-
-[^20]: Check this
-
-[^21]: Check this

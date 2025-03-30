@@ -79,7 +79,7 @@ minibolt.sh
 {% hint style="info" %}
 > You should see a loading process, and if you have an `admin` user password set, the prompt should ask you for this. Enter the `password [A]` and enter
 
-> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
+> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../security/ssh-keys.md#disable-admin-password-request-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
 
 > ✅ Finally, the terminal shows you something like [the cover photo of this bonus guide](system-overview.md) 🎨
 {% endhint %}
@@ -99,7 +99,7 @@ echo "minibolt.sh" >> ~/.bashrc
 {% hint style="info" %}
 Now log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell) you can see the process of exec script before the prompt shows you.
 
-> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../../bonus/system/ssh-keys.md#disable-admin-password-request-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
+> To avoid the prompt asking you to enter the user admin password before the script load, follow [this section](../security/ssh-keys.md#disable-admin-password-request-caution). ⚠️**Taking into account that it carries a security risk** ⚠️
 
 > If you’re in a hurry, you can always press `Ctrl`-`C` to skip the script
 {% endhint %}

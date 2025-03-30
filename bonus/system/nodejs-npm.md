@@ -35,13 +35,13 @@ Difficulty: Easy
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Change to a temporary directory which is cleared on reboot
+* Change to a temporary directory that is cleared on reboot
 
 ```bash
 cd /tmp
 ```
 
-* Set the environment variable of the version
+* Set the environment variable for the version
 
 ```bash
 VERSION=22
@@ -61,13 +61,13 @@ curl -fsSL https://deb.nodesource.com/setup_$VERSION.x -o nodesource_setup.sh
 sudo -E bash nodesource_setup.sh
 ```
 
-* Update the package manager and install Node.js + NPM
+* Update the package manager and install Node.js + NPM. Press "**y**" and `enter` or directly `enter` if the prompt asks you
 
 ```sh
 sudo apt update && sudo apt install nodejs
 ```
 
-* Check the correct installation of nodejs
+* Check the correct installation of Node.js
 
 ```sh
 node -v
@@ -105,13 +105,69 @@ rm nodesource_setup.sh
 sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
 ```
 
-* To upgrade type this command
+* To upgrade, type this command
 
 ```sh
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Check the correct installation to the latest release
+* Check the correct installation of the latest release
+
+```bash
+node -v && npm -v
+```
+
+* Start BTC RPC Explorer & Thunderhub again
+
+```bash
+sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
+```
+
+### Upgrade to major version
+
+* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + Thunderhub
+
+```bash
+sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
+```
+
+* Change to a temporary directory that is cleared on reboot
+
+```bash
+cd /tmp
+```
+
+* Set the environment variable for the version
+
+```bash
+VERSION=22
+```
+
+{% hint style="info" %}
+Here is important that you change the environment variable to the immediately higher LTS version, for example: `20 > 22`
+{% endhint %}
+
+* We will use the NodeSource Node.js Binary Distributions [repository](https://github.com/nodesource/distributions) instructions. Download the setup script
+
+{% code overflow="wrap" %}
+```sh
+curl -fsSL https://deb.nodesource.com/setup_$VERSION.x -o nodesource_setup.sh
+```
+{% endcode %}
+
+* Run the setup script
+
+```bash
+sudo -E bash nodesource_setup.sh
+```
+
+* Update the package manager and install Node.js + NPM. Press "**y**" and `enter` or directly `enter` if the prompt asks you
+
+```sh
+sudo apt update && sudo apt install nodejs
+```
+
+* Check the correct installation of the latest release
 
 ```bash
 node -v && npm -v
@@ -125,7 +181,7 @@ sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
 
 ## Uninstall
 
-* To uninstall type this command and press "**y**" and "**enter**" when needed
+* To uninstall, type this command and press "**y**" and "**enter**" when needed
 
 {% code overflow="wrap" %}
 ```sh

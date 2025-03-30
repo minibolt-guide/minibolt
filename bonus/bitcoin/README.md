@@ -4,6 +4,7 @@ nav_order: 2000
 parent: Bonus Section
 has_children: false
 has_toc: false
+icon: bitcoin-sign
 layout:
   title:
     visible: true
@@ -17,7 +18,7 @@ layout:
     visible: true
 ---
 
-# 🟠 ₿itcoin
+# ₿itcoin
 
 ## Bonus Section: ₿itcoin guides
 
@@ -44,10 +45,10 @@ layout:
 
 * [**Download the white paper**](white-paper.md) - download the Bitcoin white paper directly from your blockchain data
 
-### Testnet
-
-* [**Running a Testnet MiniBolt node**](minibolt-on-testnet.md) - configure your MiniBolt for use on testnet
-
 ### Payment processors
 
 * [**BTCPay Server**](../../bonus-guides/bitcoin/btcpay-server.md) - a free and open-source Bitcoin payment processor that allows you to accept Bitcoin without fees or intermediaries
+
+### Testnet
+
+* [**Running a Testnet MiniBolt node**](minibolt-on-testnet.md) - configure your MiniBolt for use on testnet

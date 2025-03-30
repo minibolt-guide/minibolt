@@ -187,7 +187,7 @@ lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
 {% endtab %}
 
 {% tab title="Wireguard VPN connection (recommended) " %}
-After following the [Wireguard VPN bonus guide](../bonus/system/wireguard-vpn.md) set the `--host` parameter address with the private Wireguard VPN IP address. e.g. 10.0.0.1
+After following the [Wireguard VPN bonus guide](../bonus-guides/networking/wireguard-vpn.md) set the `--host` parameter address with the private Wireguard VPN IP address. e.g. 10.0.0.1
 
 ```bash
 lndconnect --host=10.0.0.1 --port=8080 --nocert
