@@ -167,7 +167,7 @@ Follow the complete Electrum server guide from the beginning, when you arrive at
 
 [Configure Firewall](../../bitcoin/bitcoin/electrum-server.md#configure-firewall)
 
-* Replace the next lines to 40001/40002 ports, to match with the Testnet mode
+* Replace the next lines with 40001/40002 ports, to match the Testnet mode
 
 ```sh
 sudo ufw allow 40001/tcp comment 'allow Fulcrum Testnet4 TCP from anywhere'
@@ -177,7 +177,7 @@ sudo ufw allow 40001/tcp comment 'allow Fulcrum Testnet4 TCP from anywhere'
 sudo ufw allow 40002/tcp comment 'allow Fulcrum Testnet4 SSL from anywhere'
 ```
 
-* When you arrive at the ["Data directory"](../../bitcoin/bitcoin/electrum-server.md#data-directory) section, on the..."Download the custom Fulcrum banner based on MiniBolt ..." step, d\_ownload the Fulcrum testnet banner instead of the mainnet banner
+* When you arrive at the ["Data directory"](../../bitcoin/bitcoin/electrum-server.md#data-directory) section, on the..."Download the custom Fulcrum banner based on MiniBolt ..." step, download the Fulcrum testnet banner instead of the mainnet banner
 
 {% code overflow="wrap" %}
 ```bash
@@ -187,7 +187,7 @@ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fu
 
 [Configuration](../../bitcoin/bitcoin/electrum-server.md#configuration)
 
-* In the next [Configuration](../../bitcoin/bitcoin/electrum-server.md#configuration) step, stay tuned to **replace** the next lines on the `fulcrum.conf` file, to match with the testnet mode
+* In the next [Configuration](../../bitcoin/bitcoin/electrum-server.md#configuration) step, stay tuned to **replace** the next lines on the `fulcrum.conf` file, to match the testnet mode
 
 ```sh
 nano /data/fulcrum/fulcrum.conf
@@ -283,6 +283,13 @@ BTCEXP_BITCOIND_COOKIE=/data/bitcoin/testnet4/.cookie
 BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:40001
 ```
 
+* When you arrive at the [Create systemd service](../../bitcoin/bitcoin/blockchain-explorer.md#create-systemd-service) section, edit the `btcrpcexplorer.service` file and replace the next lines
+
+```
+Requires=bitcoind-testnet4.service fulcrum.service
+After=bitcoind-testnet4.service fulcrum.service
+```
+
 {% hint style="success" %}
 The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 {% endhint %}
@@ -291,7 +298,9 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 
 ### [Lightning client: LND](../../lightning/lightning-client.md)
 
-
+{% hint style="danger" %}
+#### Not Testnet4 compatible yet, the next steps are not valid!
+{% endhint %}
 
 * Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
@@ -324,6 +333,7 @@ fee.url=https://nodes.lightning.computer/fees/v1/btctestnet4-fee-estimates.json
 ```
 Requires=bitcoind-testnet4.service postgresql.service
 After=bitcoind-testnet4.service postgresql.service
+
 ExecStop=/usr/local/bin/lncli --network=testnet4 stop
 ```
 
@@ -384,8 +394,6 @@ The rest of the **Channel Backup guide** is the same as the mainnet mode
 
 ### [Web app: ThunderHub](../../lightning/web-app.md)
 
-
-
 * Follow the complete guide from the beginning. When you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace the next parameter to match the testnet mode in the `.env.local` file
 
 ```
@@ -404,9 +412,7 @@ The rest of the **Web app: Thunderhub** is the same as the mainnet mode
 
 ### [Mobile app: Zeus](../../lightning/mobile-app.md)
 
-{% hint style="danger" %}
-#### Not Testnet4 compatible yet, the next steps are not valid!
-{% endhint %}
+
 
 * Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match the next
 
@@ -490,6 +496,13 @@ electrum_rpc_addr = "0.0.0.0:40021"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node Testnet4!"
 </code></pre>
 
+* When you arrive at the [Create systemd service](electrs.md#create-systemd-service) section, edit the `btcrpcexplorer.service` file and replace the next lines
+
+```
+Requires=bitcoind-testnet4.service
+After=bitcoind-testnet4.service
+```
+
 [Remote access over Tor](electrs.md#remote-access-over-tor-optional)
 
 * When you arrive at the [Remote access over Tor](electrs.md#remote-access-over-tor-optional) section
@@ -498,7 +511,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 sudo nano +63 /etc/tor/torrc
 ```
 
-* Edit the torrc file and replace the ports to `40021/40022` to match with the testnet4 mode
+* Edit the `torrc` file and replace the ports with `40021/40022` to match with the testnet4 mode
 
 ```
 # Hidden Service Electrs Testnet4 TCP & SSL
