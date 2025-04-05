@@ -463,46 +463,7 @@ Expected output:
 tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=138820,fd=24))
 ```
 
-### Cloudflare tunnel
-
-Follow the [Cloudflare Tunnel bonus guide](../networking/cloudflare-tunnel.md), when you arrive at the [Configuration file section](../networking/cloudflare-tunnel.md#configuration), add the next `# Nostr relay` lines to ingress the related ingress rule
-
-```bash
-nano /home/admin/.cloudflared/config.yml
-```
-
-<pre><code># MiniBolt: cloudflared configuration
-# /home/admin/.cloudflared/config.yml
-
-tunnel: &#x3C;UUID>
-credentials-file: /home/admin/.cloudflared/&#x3C;UUID>.json
-
-ingress:
-
-# Nostr relay
-  - hostname: relay.<a data-footnote-ref href="#user-content-fn-6">&#x3C;domain.com></a>
-    service: ws://localhost:8880
-
-  - service: http_status:404
-</code></pre>
-
-{% hint style="warning" %}
-Remember to keep `- service: http_status:404` line at the end of the file
-{% endhint %}
-
-* Restart the Cloudflared service
-
-```bash
-sudo systemctl restart cloudflared
-```
-
-* Check the Cloudflared logs to ensure all is still OK
-
-```bash
-journalctl -fu cloudflared
-```
-
-### Check relay connection
+### Check the relay connection
 
 -> 3 different methods ⬇️
 
@@ -549,6 +510,12 @@ sudo apt install sqlite3 libsqlite3-dev
 mkdir -p /data/nostr/rs-relay/db
 ```
 
+* Copy-paste the configuration file template to the folder
+
+```bash
+sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/db
+```
+
 * Assign as the owner to the `nostr` user
 
 ```bash
@@ -568,7 +535,7 @@ data_directory = "/data/nostr/rs-relay/db"
 ```
 
 {% hint style="info" %}
-Ignore the next lines related to the PostgreSQL **(not uncomment or edit)**:
+Ignore the next lines related to the PostgreSQL **(do not uncomment or edit)**:
 
 ```
 engine = "postgres"
@@ -594,7 +561,7 @@ After=network-online.target
   * For Firefox-based browser:
     * [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/alby/)
     * [Librewolf](https://addons.mozilla.org/en-US/firefox/addon/alby/)
-    * [Tor browser](https://addons.mozilla.org/en-US/firefox/addon/alby/) <- Follow [this guide](https://guides.getalby.com/alby-guides/alby-browser-extension/faqs/can-i-use-alby-with-the-tor-browser) to enable the Alby extension using the Tor browser
+    * [Tor browser](https://addons.mozilla.org/en-US/firefox/addon/alby/) <- Follow [this guide](https://guides.getalby.com/user-guide/alby-account-and-browser-extension/alby-browser-extension/faqs-alby-extension/can-i-use-alby-with-the-tor-browser) to enable the Alby extension using the Tor browser
   * For Chromium based-browser:
     * [Chrome](https://chrome.google.com/webstore/detail/alby-bitcoin-lightning-wa/iokeahhehimjnekafflcihljlcjccdbe)
     * [Brave](https://chrome.google.com/webstore/detail/alby-bitcoin-lightning-wa/iokeahhehimjnekafflcihljlcjccdbe)
@@ -826,6 +793,110 @@ Please **wait patiently** until all processes are finished. This might take some
 Optionally, you can save a copy of all your events locally as a banner will appear after fetching the events from the relays. These can be restored later using the \[Restore] button and broadcasting again to the relays.
 {% endhint %}
 
+### Remote access over Tor <a href="#remote-access-over-tor" id="remote-access-over-tor"></a>
+
+To use your Nostr relay when you're on the go, you can easily create a Tor hidden service.
+
+* With the user `admin`, edit the `torrc` file
+
+```bash
+sudo nano +63 /etc/tor/torrc --linenumbers
+```
+
+* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```
+# Hidden Service Nostr relay
+HiddenServiceDir /var/lib/tor/hidden_service_nostr_relay/
+HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1 
+HiddenServicePort 80 127.0.0.1:8880
+```
+
+* Reload the Tor configuration to apply changes
+
+```bash
+sudo systemctl reload tor
+```
+
+* Get your Onion address
+
+```
+sudo cat /var/lib/tor/hidden_service_nostr_relay/hostname
+```
+
+Expected output:
+
+```
+abcdefg..............xyz.onion
+```
+
+{% hint style="info" %}
+You should now be able to connect to your Nostr relay remotely via Tor using your hostname. eg: `ws://abcdefg..............xyz.onion`
+{% endhint %}
+
+#### **Allow Insecure WebSocket Connections in Firefox (incl. Tor)**
+
+This is necessary to access you `ws://` URL, since Tor does not use `wss://` due to the Tor network being encrypted by design
+
+* Go to the browser configuration by typing `about:config` in the address bar. Press the button: "Accept the Risk and Continue" when it shows you.
+* Type `network.websocket.allowInsecureFromHTTPS` on the search bar
+* Set `network.websocket.allowInsecureFromHTTPS` to `true`
+
+<figure><img src="../../.gitbook/assets/websocket_allowInsecureFromHTTPS_nostr_relay.png" alt=""><figcaption></figcaption></figure>
+
+### Use Cloudflare tunnel to expose publicly <a href="#use-cloudflare-tunnel-to-expose-publicly" id="use-cloudflare-tunnel-to-expose-publicly"></a>
+
+You may want to expose your Nostr relay publicly using a clearnet address. To do this, follow the next steps:
+
+* Follow the [Cloudflare tunnel](../networking/cloudflare-tunnel.md) guide to install and create the Cloudflare tunnel from your MiniBolt to Cloudflare
+* When you finish the "[Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name)" section, you can skip the "[Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic)" section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
+* Click on the **\[+ Add record]** button
+
+<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+> Select the **CNAME** type on the drop down
+
+> Type the selected subdomain (i.e service name "relay") as the **Name** field
+
+> Type the tunnel `<UUID>` of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
+
+> Ensure you enable the switch on the `Proxy status` field to be "Proxied"
+
+Click on the **\[Save]** button to save the new DNS registry
+{% endhint %}
+
+*   If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
+
+
+* Edit the`config.yml`
+
+```bash
+sudo nano /home/admin/.cloudflared/config.yml
+```
+
+* Add the next lines to the `config.yml`
+
+<pre><code># Nostr relay
+  - hostname: <a data-footnote-ref href="#user-content-fn-6">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-7">&#x3C;domain.com></a>
+    service: http://localhost:8880
+</code></pre>
+
+{% hint style="info" %}
+> You can choose the subdomain you want; the above information is an example, but keep in mind to use the port `8880` and always maintaining the "`- service: http_status:404`" line at the end of the file
+{% endhint %}
+
+* Restart Cloudflared to apply changes
+
+```bash
+sudo systemctl restart cloudflared
+```
+
+{% hint style="info" %}
+Try to access the newly created public access to the service by going to the `wss://<subdomain>. <domain.com>`, i.e, `wss://relay.domain.com`
+{% endhint %}
+
 ## Upgrade
 
 * With user `admin`, stop `nostr-rs-relay` service
@@ -1013,4 +1084,6 @@ sudo rm /usr/local/bin/nostr-rs-relay
 
 [^5]: **\<Uncomment>**
 
-[^6]: Here your personal domain
+[^6]: Replace with the selected name of your service i.e: `relay`
+
+[^7]: Replace with your domain i.e: `domain.com`

@@ -834,7 +834,13 @@ Expected output:
 tcp   LISTEN 0   512        0.0.0.0:23000   0.0.0.0:*    users:(("dotnet",pid=2811744,fd=320))
 ```
 
-Now point your browser, `"http://minibolt.local:23000"` (or your node IP address) like `"http://192.168.0.20:23000"`
+{% hint style="success" %}
+When you follow the "[Use Cloudflare tunnel to expose publicly](btcpay-server.md#use-cloudflare-tunnel-to-expose-publicly)" section, point your browser to your publicly exposed BTCPay Server, i.e: `btcpay.domain.com`
+{% endhint %}
+
+{% hint style="danger" %}
+We do not yet have a way to secure the local connection, and it is not recommended to access the TCP (unencrypted connection)`"http://minibolt.local:23000"` (or your node IP address) like `"http://192.168.0.20:23000"`
+{% endhint %}
 
 {% hint style="info" %}
 You can now create the first account to access the dashboard using a real (recommended) or a dummy email + password
@@ -850,7 +856,7 @@ You can now create the first account to access the dashboard using a real (recom
 
 #### Configure LND
 
-* Stay logged as `admin` user, and configure LND to allow LND REST from anywhere editing the `lnd.conf` file
+* Stay logged with the`admin` user, and configure LND to allow LND REST from anywhere by editing the `lnd.conf` file
 
 ```bash
 sudo nano /data/lnd/lnd.conf

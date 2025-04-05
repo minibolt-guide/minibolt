@@ -594,17 +594,266 @@ Warning: this command is especially dangerous, do it at your own risk
 
 The latest release can be found on the [official PostgreSQL web page](https://www.postgresql.org/ftp/source/).
 
-* To upgrade, type this command
+* To upgrade, type this command. Press "y" and enter or directly enter when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
 ```
 
+### Migrate to a major version <a href="#upgrade-to-major-version" id="upgrade-to-major-version"></a>
+
+* With user `admin`, ensure you followed [the previous Upgrade](postgresql.md#upgrade) section
+
+#### **PostgreSQL server migration**
+
+* Stop all existing clusters
+
+```bash
+sudo systemctl stop postgresql@16-main postgresql@17-main
+```
+
+* Create a new database destination folder for the new v17 cluster, ready for migration from v16
+
+{% hint style="info" %}
+This could change in the future with the next releases, for example, you will need to replace v16 with v17 and v17 with v18
+{% endhint %}
+
+```bash
+sudo mkdir /data/postgresdb/17
+```
+
+* Assign the owner as the postgres user
+
+```bash
+sudo chown postgres:postgres /data/postgresdb/17
+```
+
+* Assign the correct permissions
+
+```bash
+sudo chmod 700 /data/postgresdb/17
+```
+
+* Delete the cluster created by default for v17
+
+```bash
+sudo -u postgres pg_dropcluster 17 main
+```
+
+* Update the systemd
+
+```bash
+sudo systemctl daemon-reload
+```
+
+* Start the migration with the PostgreSQL migration tool
+
+```
+sudo -u postgres pg_upgradecluster 16 main /data/postgresdb/17
+```
+
+{% hint style="info" %}
+⌛ This may take a lot of time depending on the existing database size (the nostr relay database especially) and your machine's performance; it is recommended to use [tmux](https://github.com/tmux/tmux). Wait until the prompt shows up again
+{% endhint %}
+
+<details>
+
+<summary>Example of expected output 👇</summary>
+
+```
+Restarting old cluster with restricted connections...
+Notice: extra pg_ctl/postgres options given, bypassing systemctl for start operation
+Creating new PostgreSQL cluster 17/main ...
+/usr/lib/postgresql/17/bin/initdb -D /data/postgresdb/17 --auth-local peer --auth-host scram-sha-256 --no-instructions --encoding UTF8 --lc-collate en_US.UTF-8 --lc-ctype en_US.UTF-8 --locale-provider libc
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.UTF-8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+[...]
+Starting upgraded cluster on port 5432...
+Warning: the cluster will not be running as a systemd service. Consider using systemctl:
+  sudo systemctl start postgresql@17-main
+Running finish phase upgrade hook scripts ...
+vacuumdb: processing database "postgres": Generating minimal optimizer statistics (1 target)
+vacuumdb: processing database "template1": Generating minimal optimizer statistics (1 target)
+vacuumdb: processing database "postgres": Generating medium optimizer statistics (10 targets)
+vacuumdb: processing database "template1": Generating medium optimizer statistics (10 targets)
+vacuumdb: processing database "postgres": Generating default (full) optimizer statistics
+vacuumdb: processing database "template1": Generating default (full) optimizer statistics
+
+Success. Please check that the upgraded cluster works. If it does,
+you can remove the old cluster with
+    pg_dropcluster 16 main
+
+Ver Cluster Port Status Owner    Data directory      Log file
+16  main    5433 down   postgres /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
+Ver Cluster Port Status Owner    Data directory      Log file
+17  main    5432 online postgres /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+```
+
+</details>
+
+* Reload the systemd again
+
+```bash
+sudo systemctl daemon-reload
+```
+
+* List the clusters to show the state
+
+```bash
+pg_lsclusters
+```
+
+Example of expected output:
+
+```
+Ver Cluster Port Status  Owner     Data directory      Log file
+16  main    5433 down   <unknown> /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
+17  main    5432 online  <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+```
+
+{% hint style="info" %}
+> Don't worry about the output of the "Owner" column
+
+> Note how the old 16 cluster has automatically gone into status "down" after the migration
+{% endhint %}
+
+* Stop the version 17 cluster using the `pg_ctlcluster` tool, to then be able to run it and manage it with `systemd`
+
+```bash
+sudo pg_ctlcluster 17 main stop
+```
+
+* List the clusters again to show the state
+
+```bash
+pg_lsclusters
+```
+
+Example of expected output:
+
+```
+Ver Cluster Port Status Owner     Data directory      Log file
+16  main    5433 down   <unknown> /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
+17  main    5432 down   <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+```
+
+{% hint style="info" %}
+Note how the version 17 cluster has gone into status "down"
+{% endhint %}
+
+* Start the new version 17 cluster with systemd
+
+```bash
+sudo systemctl start postgresql@17-main
+```
+
+* Monitor the logs of the PostgreSQL version 17 cluster to ensure that it is working fine with `systemd.` Press Ctrl + C to continue with the steps
+
+```bash
+journalctl -fu postgresql@17-main
+```
+
+Example of expected output:
+
+```
+minibolt systemd[1]: Starting PostgreSQL Cluster 17-main...
+minibolt systemd[1]: Started PostgreSQL Cluster 17-main.
+```
+
+* List the clusters again to show the state
+
+```bash
+pg_lsclusters
+```
+
+Example of expected output:
+
+```
+Ver Cluster Port Status Owner     Data directory      Log file
+16  main    5433 down   <unknown> /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
+17  main    5432 online <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+```
+
+{% hint style="info" %}
+Note how the version 17 cluster has come back into the status "online"
+{% endhint %}
+
+* Delete the version 16 (old and disused) cluster
+
+```bash
+sudo pg_dropcluster 16 main
+```
+
+* List again the clusters to check the correct deletion
+
+```bash
+pg_lsclusters
+```
+
+Example of expected output:
+
+```
+Ver Cluster Port Status Owner     Data directory      Log file
+17  main    5432 online <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+```
+
+{% hint style="info" %}
+Note how it no longer appears in version 16 (old and disused) cluster
+{% endhint %}
+
+#### **Check the PostgreSQL server version in use**
+
+* With the user `admin`, enter the psql (PostgreSQL CLI)
+
+```bash
+sudo -u postgres psql
+```
+
+* Enter the next command to get the server version
+
+```sql
+SELECT version();
+```
+
+Example of expected output:
+
+<pre><code>                                                              version
+-----------------------------------------------------------------------------------------------------------------------------------
+PostgreSQL <a data-footnote-ref href="#user-content-fn-1">17.2</a> (Ubuntu 17.2-1.pgdg22.04+1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, 64-bit
+(1 row)
+</code></pre>
+
+{% hint style="info" %}
+Check the previous version in use is now PostgreSQL 17.2 (the latest and current version of the PostgreSQL server at this moment)
+{% endhint %}
+
+* Come back to the `admin` user bash prompt
+
+```sql
+/q
+```
+
+* Delete unnecessary packages. Press "y" and enter, or directly enter when the prompt asks you
+
+```bash
+sudo apt autoremove
+```
+
+{% hint style="success" %}
+That's it! You have updated PostgreSQL to the major version immediately higher
+{% endhint %}
+
 ## Uninstall
 
 ### Uninstall the PostgreSQL package and configuration
 
-* With user `admin`, stop and disable the postgres service
+* With user `admin`, stop and disable the PostgreSQL service
 
 ```bash
 sudo systemctl stop postgresql && sudo systemctl disable postgresql
@@ -653,3 +902,5 @@ sudo rm -rf /data/postgresdb
 ## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="cJHzxcH6LkT8" label="TCP" color="blue"></option><option value="dS4cpQA3v9DQ" label="SSL" color="blue"></option><option value="gBPUaCLnXFI8" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">5432</td><td><span data-option="cJHzxcH6LkT8">TCP</span></td><td align="center">Default relational DB port</td></tr></tbody></table>
+
+[^1]: Check this

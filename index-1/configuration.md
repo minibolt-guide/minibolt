@@ -73,6 +73,89 @@ To change the system configuration and files that don't belong to the user "admi
 Now, you can start to access it without a password by following the [SSH keys bonus guide](../bonus-guides/security/ssh-keys.md)
 {% endhint %}
 
+## Uninstall Snap (optional)
+
+Ubuntu Server comes with snap preinstalled by default. However, since we don't plan to use it, it can be safely removed without impacting system functionality. Uninstalling snap is a straightforward process that will help keep our MiniBolt clean and optimized for the applications you actually need.
+
+* List the Snap existing pre-installed packages
+
+```bash
+snap list
+```
+
+Expected output:
+
+```
+Name    Version        Rev    Tracking       Publisher   Notes
+core20  20241206       2496   latest/stable  canonical✓  base
+lxd     5.0.4-497fe1e  31333  5.0/stable/…   canonical✓  -
+snapd   2.67           23545  latest/stable  canonical✓  snapd
+```
+
+* Delete the Snap&#x20;
+
+```bash
+sudo snap remove lxd && sudo snap remove core20 && sudo snap remove snapd
+```
+
+Expected output:
+
+```
+lxd removed
+core20 removed
+snapd removed
+```
+
+* Check if the packages have been deleted successfully
+
+```
+snap list
+```
+
+Expected output:
+
+```
+No snaps are installed yet. Try 'snap install hello-world'.
+```
+
+* Stop and disable the `snapd.service` & `snapd.socket` processes
+
+```bash
+sudo systemctl stop snapd snapd.socket && sudo systemctl disable snapd snapd.socket
+```
+
+Expected output:
+
+```
+Removed /etc/systemd/system/multi-user.target.wants/snapd.service.
+Removed /etc/systemd/system/sockets.target.wants/snapd.socket.
+```
+
+* To uninstall, use the package manager by typing this command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```bash
+sudo apt autoremove snapd --purge
+```
+
+Expected output:
+
+```
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages will be REMOVED:
+  snapd* squashfs-tools* ubuntu-server-minimal*
+0 upgraded, 0 newly installed, 3 to remove and 7 not upgraded.
+After this operation, 110 MB disk space will be freed.
+Do you want to continue? [Y/n]Y
+```
+
+* Delete the residual folders
+
+```bash
+sudo rm -r /root/snap
+```
+
 ## System update
 
 * Update the operating system and all installed software packages
