@@ -18,4 +18,4 @@ layout:
 
 ### Relays
 
-* [**Nostr relay**](nostr-relay.md) - a nostr relay written in Rust with support for the entire relay protocol and data persistence using PostgreSQL or SQLite
+* [**Nostr relay in Rust**](nostr-relay.md) - a nostr relay written in Rust with support for the entire relay protocol and data persistence using PostgreSQL or SQLite

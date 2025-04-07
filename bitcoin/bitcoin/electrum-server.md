@@ -355,9 +355,6 @@ Remember to accommodate the `"utxo-cache"` parameter depending on your hardware.
 bitcoind = 127.0.0.1:8332
 rpccookie = /data/bitcoin/.cookie
 
-## Admin Script settings
-admin = 8000
-
 ## Fulcrum server general settings
 datadir = /data/fulcrum/fulcrum_db
 cert = /data/fulcrum/cert.pem
@@ -411,14 +408,13 @@ StartLimitIntervalSec=20
 
 [Service]
 ExecStart=/usr/local/bin/Fulcrum /data/fulcrum/fulcrum.conf
-ExecStop=/usr/local/bin/FulcrumAdmin -p 8000 stop
 
 User=fulcrum
 Group=fulcrum
 
 # Process management
 ####################
-Type=exec
+Type=simple
 KillSignal=SIGINT
 TimeoutStopSec=300
 
@@ -484,17 +480,15 @@ sudo systemctl start fulcrum
 -> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
 {% endhint %}
 
-* When you see logs like this `SrvMgr: starting 3 services ...`, which means that Fulcrum is fully indexed
+* When you see logs like this `SrvMgr: starting 2 services ...`, which means that Fulcrum is fully indexed
 
 ```
 [...]
-Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.705] SrvMgr: starting 3 services ...
+Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.705] SrvMgr: starting 2 services ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Starting listener service for TcpSrv 0.0.0.0:50001 ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Service started, listening for connections on 0.0.0.0:50001
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Starting listener service for SslSrv 0.0.0.0:50002 ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.706] Service started, listening for connections on 0.0.0.0:50002
-Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Starting listener service for AdminSrv 127.0.0.1:8000 ...
-Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] Service started, listening for connections on 127.0.0.1:8000
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller> Starting ZMQ Notifier (hashtx) ...
 Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller> Starting ZMQ Notifier (hashblock) ...
 [...]
@@ -502,7 +496,7 @@ Jun 09 10:28:56 minibolt Fulcrum[3345722]: [2024-06-09 10:28:56.707] <Controller
 
 ### Validation
 
-* Ensure the service is working and listening at the default `50002` & `50001` ports and the `8000` admin port
+* Ensure the service is working and listening at the default `50002` & `50001` ports
 
 ```sh
 sudo ss -tulpn | grep Fulcrum
@@ -513,7 +507,6 @@ Expected output:
 ```
 tcp   LISTEN 0      50        0.0.0.0:50001      0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=185))
 tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=204))
-tcp   LISTEN 0      50      127.0.0.1:8000       0.0.0.0:*    users:(("Fulcrum",pid=1821,fd=206))
 ```
 
 {% hint style="success" %}
@@ -560,34 +553,6 @@ abcdefg..............xyz.onion
 ```
 
 * You should now be able to connect to your Fulcrum server remotely via Tor using your hostname and port `50001` (TCP) or `50002` (SSL)
-
-### Admin Script: FulcrumAdmin
-
-Fulcrum comes with an admin script. The admin service is used for sending special control commands to the server, such as stopping the server. You may send commands to Fulcrum using this script.
-
-* Type the next command to see a list of possible subcommands that you can send to Fulcrum
-
-```sh
-FulcrumAdmin -h
-```
-
-Expected output:
-
-```
-usage: FulcrumAdmin [-h] -p port [-j] [-H [host]]
-                  {addpeer,ban,banpeer,bitcoind_throttle...
-[...]
-```
-
-* Type the next command to get complete server information
-
-```sh
-FulcrumAdmin -p 8000 getinfo
-```
-
-{% hint style="info" %}
-Get more information about this command in the official documentation [section](https://github.com/cculianu/Fulcrum#admin-script-fulcrumadmin)
-{% endhint %}
 
 ### Slow devices mode
 

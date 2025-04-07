@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Nostr relay
+# Nostr relay in Rust
 
 A [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with support for the entire relay protocol and data persistence using PostgreSQL or SQLite.
 
@@ -835,7 +835,7 @@ abcdefg..............xyz.onion
 You should now be able to connect to your Nostr relay remotely via Tor using your hostname. eg: `ws://abcdefg..............xyz.onion`
 {% endhint %}
 
-#### **Allow Insecure WebSocket Connections in Firefox (incl. Tor)**
+#### **Allow insecure WebSocket connections in Firefox-based browsers**
 
 This is necessary to access you `ws://` URL, since Tor does not use `wss://` due to the Tor network being encrypted by design
 

@@ -52,7 +52,7 @@
   * [BTCPay Server](bonus-guides/bitcoin/btcpay-server.md)
   * [MiniBolt on Testnet](bonus/bitcoin/minibolt-on-testnet.md)
 * [🦩 Nostr](bonus-guides/nostr/README.md)
-  * [Nostr relay](bonus-guides/nostr/nostr-relay.md)
+  * [Nostr relay in Rust](bonus-guides/nostr/nostr-relay.md)
 * [🛡️ Security](bonus-guides/security/README.md)
   * [Login with SSH keys](bonus-guides/security/ssh-keys.md)
 * [🌐 Networking](bonus-guides/networking/README.md)

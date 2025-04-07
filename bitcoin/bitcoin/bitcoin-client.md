@@ -213,7 +213,7 @@ The Bitcoin Core application will run in the background as a daemon and use the 
 sudo adduser --gecos "" --disabled-password bitcoin
 ```
 
-* Add the user `admin` to the group "bitcoin" as well
+* Add the user `admin` to the group "bitcoin"
 
 ```bash
 sudo adduser admin bitcoin

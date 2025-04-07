@@ -85,8 +85,16 @@ Feel free to join the many other contributors if you see something that can be i
 Use [a Nostr client](bonus-guides/nostr/nostr-relay.md#nostr-clients) to connect
 {% endhint %}
 
+Nostr relay in Rust (🚾clearnet):
+
 <pre class="language-url"><code class="lang-url"><strong>wss://relay.minibolt.info
 </strong></code></pre>
+
+Nostr relay in Rust (🧅onion):
+
+```url
+ws://xib7qeea6f5nz3ueko4kwcsddpvggdray4nhagcvofbioot3n2qrapid.onion
+```
 {% endtab %}
 
 {% tab title="Electrum server" %}

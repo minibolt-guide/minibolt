@@ -71,7 +71,7 @@ tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-conten
 ### Install PostgreSQL
 
 {% hint style="warning" %}
-You may want to use the bbolt database backend instead of PostgreSQL (more easy installation/configuration, low performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)), if yes, jump to the [next step](lightning-client.md#installation) and follow the [Use bbolt database backend](lightning-client.md#use-the-bbolt-database-backend) section and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
+You may want to use the bbolt database backend instead of PostgreSQL (easier installation/configuration, lower performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)), if yes, jump to the [next step](lightning-client.md#installation) and follow the [Use the default bbolt database backend](lightning-client.md#use-the-default-bbolt-database-backend) section, and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
 {% endhint %}
 
 * With user `admin`, check if you already have PostgreSQL installed
@@ -295,7 +295,7 @@ If you come to [update](lightning-client.md#upgrade) this is the final step
 sudo adduser --disabled-password --gecos "" lnd
 ```
 
-* Add the `lnd` user to the groups "bitcoin" and "debian-tor", allowing the `btcrpcexplorer` user reads the bitcoind `.cookie` file and to use the control port to configure Tor directly
+* Add the `lnd` user to the groups "bitcoin" and "debian-tor", allowing the `lnd` user reads the bitcoind `.cookie` file and to use the control port to configure Tor directly
 
 ```sh
 sudo usermod -a -G bitcoin,debian-tor lnd
