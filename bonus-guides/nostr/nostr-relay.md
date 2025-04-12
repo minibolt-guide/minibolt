@@ -897,7 +897,7 @@ sudo systemctl restart cloudflared
 Try to access the newly created public access to the service by going to the `wss://<subdomain>. <domain.com>`, i.e, `wss://relay.domain.com`
 {% endhint %}
 
-#### Add an exception on Cloudflare to allow Nostr relay connections from Tor
+#### Add an exception on Cloudflare to allow incoming connections from Tor
 
 1. Go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site
 2. Drop down the `Security` submenu -> Click on `Security rules` -> `Create Rule` -> `Custom rules`
