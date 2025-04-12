@@ -922,7 +922,7 @@ Display the related log events to ensure this rule is being applied correctly:
 Replace `<relay.domain.com>` to your proper subdomain relay
 {% endhint %}
 
-2. Push again on the `[+ Add filter]` button: On the dropdown `Action` -> `equals` -> `Skip` click on `[Apply]`
+3. Push again on the `[+ Add filter]` button: On the dropdown `Action` -> `equals` -> `Skip` click on `[Apply]`
 
 <figure><img src="../../.gitbook/assets/action_filter_relay_cloudflare.png" alt=""><figcaption></figcaption></figure>
 
