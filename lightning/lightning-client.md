@@ -876,7 +876,15 @@ sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 * Check if you can use `lncli` with the `admin` user by querying LND for information
 
 ```sh
-lncli getinfo
+lncli getinfo | grep -A2 '"uris":'
+```
+
+Example of expected output:
+
+```
+"uris":  [
+        "030f289f0f921cd33cc3435dc5f5tc2a6a65bb0297327d43e82562aded20df74b7@zscl5v323mngmeyu33wyrlkqyc3emaiv7pdezxjfrtu5qegedvmrtpud.onion:9735"
+    ],
 ```
 
 ## LND in action
@@ -969,7 +977,7 @@ This watchtower server service is not recommended to activate if you have a slow
 {% endhint %}
 
 {% hint style="info" %}
-Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line. Anyway, if you want to explore the lncli, you have some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
+Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line. Anyway, if you want to explore the `lncli`, you have some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
 {% endhint %}
 
 ## Extras (optional)

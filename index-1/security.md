@@ -305,12 +305,42 @@ Jun 04 18:25:18 minibolt systemd[1]: Reloaded A high performance web server and 
 sudo tail -f /var/log/nginx/error.log
 ```
 
+### Upgrade
+
+* To upgrade, with the user `admin` type this command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+### Uninstall
+
+* With the user `admin` stopping the`nginx.service`
+
+```purebasic
+sudo systemctl stop nginx
+```
+
+* Type this command to use the package manager and uninstall it. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```bash
+sudo apt autoremove nginx
+```
+
+* Clean the system's residual files
+
+{% code overflow="wrap" %}
+```bash
+sudo rm -rf /etc/nginx && sudo rm -f /etc/ssl/certs/nginx-selfsigned.crt && sudo rm -f /etc/ssl/private/nginx-selfsigned.key
+```
+{% endcode %}
+
 ## Extras (optional)
 
 ### [Enable DoT + DNSSEC / DoH](../bonus-guides/system/static-ip-and-custom-dns-servers.md#dot-doh--dnssec)
 
 {% hint style="info" %}
-For privacy and security reasons, you could want to enable [Option 1: DoT (DNS over TLS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) or [Option 2: DoH (DNS over HTTPS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns) to encrypt DNS requests from your MiniBolt to the selected DNS servers, and validate the authenticity and ensure the integrity of DNS responses by enabling [**DNSSEC**](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved).&#x20;
+For privacy and security reasons, you could want to enable [Option 1: DoT (DNS over TLS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) or [Option 2: DoH (DNS over HTTPS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns) to encrypt DNS requests from your MiniBolt to the selected DNS servers, and validate the authenticity and ensure the integrity of DNS responses by enabling [DNSSEC](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved).&#x20;
 
-Note: you can only **enable DNSSEC** validation if you follow the [Option 1](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (**recommended**)
+Note: you can only **enable DNSSEC** validation if you follow [Option 1](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (**recommended**)
 {% endhint %}

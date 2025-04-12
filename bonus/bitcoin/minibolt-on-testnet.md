@@ -59,12 +59,14 @@ uacomment=MiniBolt Testnet4 node
 ## Add the parameter
 testnet4=1
 
-## Delete the parameter
+## Delete the next parameters
 bind=127.0.0.1
+bind=127.0.0.1=onion
 
-## Add the next 2 lines at the end of the file
+## Add the next lines at the end of the file
 [testnet4]
 bind=127.0.0.1
+bind=127.0.0.1=onion
 ```
 
 * When you finish the [Run](../../bitcoin/bitcoin/bitcoin-client.md#run) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder

@@ -40,33 +40,50 @@ Attention: This guide is only valid for Bisq v1.x.x, Bisq v2.x.x radically chang
 
 The guide will show you how to:
 
-1. Configure BTC Core allowing Bisq to run its SPV wallet
+1. Configure BTC Core to allow Bisq to run its SPV wallet
 2. Install Bisq on your personal computer
-3. Connect Bisq to your Bitcoin Core own node in your local network or via remote Tor and depending on your OS personal computer
+3. Connect Bisq to your Bitcoin Core node in your local network or via remote Tor, and depending on your OS and  personal computer
 4. Securely set up Bisq
 
 ## Preparations
 
 ### Configure Bitcoin Core
 
-* To connect Bisq from your personal computer in your local network, with the user `admin`, comment, or delete the `bind=127.0.0.1` line of the `bitcoin.conf` file. Save and exit
+* To connect Bisq from your personal computer in your local network, with the user `admin`, edit the `bitcoin.conf` file
 
 ```bash
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-<pre><code><strong>#bind=127.0.0.1
+* Replace the `bind=127.0.0.1` line with the next to allow connections from anywhere
+
+<pre><code><strong>bind=0.0.0.0
 </strong></code></pre>
 
-* Add `peerbloomfilters=1` to activate bloom filters and whitelist our P2P connection
+Or add under `bind=127.0.0.1` line this line, to allow connections only from devices in the same local network (**recommended option** to improve the security)
+
+<pre><code>bind=<a data-footnote-ref href="#user-content-fn-1">192.168.x.x</a>
+</code></pre>
+
+{% hint style="info" %}
+Remember to replace `192.168.x.x` with your MiniBolt local IP, i.e `192.168.1.43`
+{% endhint %}
+
+* Add `peerbloomfilters=1` to activate the bloom filters and whitelist our P2P connection. Save and exit
 
 ```
 # Support filtering of blocks and transactions with bloom filters
 peerbloomfilters=1
 
-# Whitelist our Wireguard VPN & local network P2P connection
+# Whitelist our local network & Wireguard VPN P2P connections
 whitelist=bloomfilter@192.168.0.0/16
 whitelist=bloomfilter@10.0.0.0/16
+```
+
+* Restart Bitcoin Core to apply changes
+
+```bash
+sudo systemctl restart bitcoind
 ```
 
 ### Obtain your Bitcoin Core `onion` address
@@ -223,3 +240,5 @@ sudo ufw status numbered
 ```sh
 sudo ufw delete X
 ```
+
+[^1]: Replace with your IP

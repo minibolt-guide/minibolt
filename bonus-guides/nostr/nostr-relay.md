@@ -897,6 +897,39 @@ sudo systemctl restart cloudflared
 Try to access the newly created public access to the service by going to the `wss://<subdomain>. <domain.com>`, i.e, `wss://relay.domain.com`
 {% endhint %}
 
+#### Add an exception on Cloudflare to allow Nostr relay connections from Tor
+
+1. Go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site
+2. Drop down the `Security` submenu -> Click on `Security rules` -> `Create Rule` -> `Custom rules`
+3. Fill the fields like this:
+
+<figure><img src="../../.gitbook/assets/nostr_relay_allow_tor.png" alt=""><figcaption></figcaption></figure>
+
+4. Click on the `[Save]` button to apply changes
+
+#### Validation
+
+Display the related log events to ensure this rule is being applied correctly:
+
+&#x20;1\. On the `Security` submenu -> Click on `Analytics` -> `Events` (Tab)
+
+2. Add the next filters by pushing on the `[+ Add filter]` button:
+   1. On the dropdown `Host` -> `equals` -> `<relay.domain.com>` click on `[Apply]`
+
+<div align="center"><figure><img src="../../.gitbook/assets/host_filter_relay_cloudflare.png" alt="" width="482"><figcaption></figcaption></figure></div>
+
+{% hint style="info" %}
+Replace `<relay.domain.com>` to your proper subdomain relay
+{% endhint %}
+
+2. Push again on the `[+ Add filter]` button: On the dropdown `Action` -> `equals` -> `Skip` click on `[Apply]`
+
+<figure><img src="../../.gitbook/assets/action_filter_relay_cloudflare.png" alt=""><figcaption></figcaption></figure>
+
+Example of expected output:
+
+<figure><img src="../../.gitbook/assets/samplelogs_action_filter_relay_cloudflare.png" alt=""><figcaption><p>Sampled logs</p></figcaption></figure>
+
 ## Upgrade
 
 * With user `admin`, stop `nostr-rs-relay` service
@@ -912,7 +945,7 @@ sudo systemctl stop nostr-relay
 **This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If there are no changes, jump directly to the next **"Start `nostr-rs-relay` service again" >**`sudo systemctl start nostr-relay` step
 {% endhint %}
 
-Here 2 cases depending on your chosen database backend:
+Here are 2 cases depending on your chosen database backend:
 
 {% tabs %}
 {% tab title="Case 1: PostgreSQL database backend" %}

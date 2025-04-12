@@ -33,27 +33,27 @@ Sparrow wallet is an excellent software wallet to use with your MiniBolt: it's r
 You can also use the following alternatives instead of Sparrow Wallet, according to your preferences and needs:
 
 * BitBoxApp: wallet for users of BitBox hardware wallets
-* [Electrum Wallet Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md): a well-established poweruser wallet
+* [Electrum Wallet Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md): a well-established power user wallet
 * [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin Core)
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5): wallet for users of Trezor hardware wallets
 
-We will connect Sparrow wallet to our own Electrum server as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
+We will connect the Sparrow wallet to our own Electrum server as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
 
 ![](../../images/sparrow-stages.png)
 
 We will set up Sparrow to connect to Fulcrum within your local network. There is also an optional section at the end that explains how to connect Sparrow to Fulcrum using Tor for when you're on the move.
 
-Sparrow also connects to a couple of external services to get the Bitcoin price and communicate with the Whirlpool server during CoinJoin operations. By default, it uses clearnet which leaks your computer IP address to these services and degrades your privacy. However, Sparrow can also connect to them using a Tor proxy. There is an optional section at the end that explains how to set this proxy up.
+Sparrow also connects to a couple of external services to get the Bitcoin price and communicate with the Whirlpool server during CoinJoin operations. By default, it uses clearnet, which leaks your computer IP address to these services and degrades your privacy. However, Sparrow can also connect to them using a Tor proxy. There is an optional section at the end that explains how to set this proxy up.
 
 ## Installation
 
-On your local computer, download, verify, and install Sparrow wallet.
+On your local computer, download, verify, and install the Sparrow wallet.
 
 * [Using the instructions on this page](https://www.sparrowwallet.com/download/)
   * Download the required version for your OS
   * Download the manifest and manifest signature files
   * Verify the release
-  * Install Sparrow wallet
+  * Install the Sparrow wallet
 
 ## Local connection
 
@@ -70,11 +70,11 @@ We now configure Sparrow to connect to your node within your local network.
 * Click on the "Private Electrum" tab
 * On the "URL" line, paste `minibolt.local` or your node IP (e.g., `192.168.X.XXX`) in the first box and `50002` in the second box
 * Enable SSL by clicking on the slider
-* Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
+* Click on "Test Connection". A green tick should appear on the button, and you should see something similar to the following output:
 
 ```
-> Connected to Fulcrum x.x.x on protocol version...
-> [...]
+Connected to Fulcrum x.x.x on protocol version...
+[...]
 ```
 
 ![](../../images/sparrow-electrum-no-proxy.png)
@@ -82,7 +82,7 @@ We now configure Sparrow to connect to your node within your local network.
 If there is a connection error message, try the following troubleshooting:
 
 * Make sure that your computer is not connected to any "guest" WiFi network at home. A "guest" WiFi network prevents the computer from connecting to any other devices on the local network, such as your node.
-* If you have used Sparrow wallet before on this computer, try to connect again after deleting the existing certificates that are stored within the `certs` folder:
+* If you have used the Sparrow wallet before on this computer, try to connect again after deleting the existing certificates that are stored within the `certs` folder:
   * On Windows: `C:\Users\<username>\AppData\Roaming\Sparrow\certs`
   * On macOS: `~/.sparrow/certs`
   * On Linux: `~/.sparrow/certs`
@@ -91,7 +91,7 @@ Let's go back to the wallet and check that it is connected to our own Electrum s
 
 * Close the server configuration window
 * Check the icon in the bottom right corner of the wallet window ![status icon](../../images/sparrow-server-icon.png)
-  * The icon should be a blue slider button and a mouse over should display "Connected to \[...] at height \[...]"
+  * The icon should be a blue slider button, and a mouse over should display "Connected to \[...] at height \[...]"
 
 You're set! Sparrow is now configured to connect to your Electrum server from within your local network.
 
@@ -99,13 +99,13 @@ For maximal privacy, we highly recommend that you set up the Tor proxy when usin
 
 ## Sparrow in action
 
-Congratulations, you have now a Bitcoin desktop wallet, capable of securing your Bitcoin, running with your own trustless Bitcoin full node! Sparrow is a powerful wallet that allows you to use the most advanced features for securing your bitcoins and preserving your privacy.
+Congratulations, you now have a Bitcoin desktop wallet, capable of securing your Bitcoin, running with your own trustless Bitcoin full node! Sparrow is a powerful wallet that allows you to use the most advanced features for securing your bitcoins and preserving your privacy.
 
 With Sparrow, you can:
 
 * Connect any hardware wallet
 * Send and receive bitcoins
-* Have full control throughout the transaction creation and signing process: coin control, PSBT, labeling, byte level transaction viewer...
+* Have full control throughout the transaction creation and signing process: coin control, PSBT, labeling, byte-level transaction viewer...
 * Create batched transactions to save on miner fees
 * Create multisig wallets for improved security
 * Coinjoin your coins for improved privacy
@@ -130,58 +130,60 @@ sudo cat /var/lib/tor/hidden_service_fulcrum_tcp_ssl/hostname
 Expected output:
 
 ```
-> abcd...1234.onion
+abcd...1234.onion
 ```
 
 ### Sparrow configuration
 
 * Open Sparrow
 * Navigate to the server configuration page by hitting `Ctrl`+`P`, or `Cmd`+`,` on OSX, then click on "Server"
-* Click on the "Private Electrum" tab. If you've already had an existing clearnet connection, click on "Edit Existing Connection".
+* Click on the "Private Electrum" tab. If you already have an existing Clearnet connection, click on "Edit Existing Connection."
 * On the "URL" line, paste your Tor hidden service connection address (e.g. "abcd...1234.onion") in the first box and `50002` in the second box
 * Enable SSL by clicking on the slider
-* Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output:
+* Click on "Test Connection". A green tick should appear on the button, and you should see something similar to the following output:
 
 ```
-> Connected to Fulcrum x.x.x on protocol version ...
-> [...]
+Connected to Fulcrum x.x.x on protocol version ...
+[...]
 ```
 
 ![](../../images/sparrow-electrum-tor-no-proxy.png)
 
-You're set! Sparrow is now configured to connect to your node over Tor and you can use it wherever you are.
+{% hint style="success" %}
+You're set! Sparrow is now configured to connect to your node over Tor, and you can use it wherever you are
+{% endhint %}
 
 ### (Optional) Set up a Tor proxy for external services
 
-If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin, etc - even transaction broadcasting is then done via an external service (like blockstream.info) over Tor for additional privacy. Where-ever possible, the onion URLs of these services are used.
+If a Tor proxy is configured in Sparrow, all external connections use Tor. This includes rate fetching, coinjoin, etc. Even transaction broadcasting is done via an external service (like blockstream.info) over Tor for additional privacy. Wherever possible, the onion URLs of these services are used.
 
-Sparrow can be configured to use an internal (bundled) or external Tor proxy. To use the internal proxy, an onion Electrum server URL must be specified, and the 'Use Proxy' toggle must be off. Therefore, the following section only applies if you connect to your Electrum server using the local IP address within your local network (e.g., `minibolt.local` or `192.168.X.XXX`). If you're using a Tor onion address to connect to your node, then Sparrow is already using the internal proxy and there is nothing else to be done!
+Sparrow can be configured to use an internal (bundled) or external Tor proxy. To use the internal proxy, an onion Electrum server URL must be specified, and the 'Use Proxy' toggle must be off. Therefore, the following section only applies if you connect to your Electrum server using the local IP address within your local network (e.g., `minibolt.local` or `192.168.X.XXX`). If you're using a Tor onion address to connect to your node, then Sparrow is already using the internal proxy, and there is nothing else to be done!
 
 If you're using a local connection, we recommend that you set up this external Tor proxy as described below for maximal privacy.
 
 ### Preparations on your computer
 
-For Sparrow Wallet to connect to the external services via Tor, Tor has to be running on your computer. You can run the Tor Browser and use port 9150 on localhost or else run Tor as a background service and use port 9050.
+For Sparrow Wallet to connect to the external services via Tor, Tor has to be running on your computer. You can run the Tor Browser and use port 9150 on localhost, or else run Tor as a background service and use port 9050.
 
 By OS:
 
 * **Windows**: download, install, and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
-  * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
+  * By default, when you have Tor Browser running, the Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run a background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation, and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 * **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default port `9050`
 
 ```sh
-sudo ss -tulpn | grep LISTEN | grep tor
+sudo ss -tulpn | grep tor
 ```
 
 Expected output:
 
-<pre><code><strong>> tcp   LISTEN 0  4096   127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=1847,fd=6))
+<pre><code><strong>tcp   LISTEN 0  4096   127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=1847,fd=6))
 </strong></code></pre>
 
 * **macOS**: download, verify, install, and run [Tor Browser](https://www.torproject.org/)
   * The application must be started manually when you want to connect over Tor
-  * By default, when you have Tor Browser running, Tor proxy is available on port 9150, use this port instead of `9050` port
+  * By default, when you have Tor Browser running, the Tor proxy is available on port 9150, use this port instead of `9050` port
 
 ### Server configuration
 
@@ -189,12 +191,12 @@ Expected output:
 * Navigate to the server configuration page by hitting `Ctrl`+`P`, or `Cmd`+`,` on OSX, then click on "Server"
 * Click on the "Private Electrum" tab. If you already have an existing clearnet connection, click on "Edit Existing Connection".
 * Enable the Tor proxy by clicking on the "Use proxy" slider
-* On the "Proxy URL" line, enter `localhost` or `127.0.0.1` in the first box and either `9150` or `9050` in the second box depending if you run the Tor Browser or Tor as a background service.
-* Click on "Test Connection". A green tick should appear on the button and you should see something similar to the following output
+* On the "Proxy URL" line, enter `localhost` or `127.0.0.1` in the first box and either `9150` or `9050` in the second box, depending on whether you run the Tor Browser or Tor as a background service.
+* Click on "Test Connection". A green tick should appear on the button, and you should see something similar to the following output
 
 ```
-> Connected to Fulcrum x.x.x on protocol version ...
-> [...]
+Connected to Fulcrum x.x.x on protocol version ...
+[...]
 ```
 
 ![](../../images/sparrow-tor-proxy.png)
@@ -207,12 +209,14 @@ Now, let's go back to the wallet and check that the proxy is working properly.
 
 * Close the server configuration window
 * Check the two icons in the bottom right corner of the wallet window ![status icons](../../images/sparrow-server-proxy-icons.png)
-  * The first icon should be grey, not red; and a mouse hover should display "External Tor proxy enabled"
+  * The first icon should be grey, not red, and a mouse hover should display "External Tor proxy enabled"
 
-You're set! Sparrow Wallet is now configured to use the Tor proxy when fetching the Bitcoin price and when communicating with the Whirlpool server during CoinJoins.
+{% hint style="success" %}
+You're set! Sparrow Wallet is now configured to use the Tor proxy when fetching the Bitcoin price and Paynym
+{% endhint %}
 
 {% hint style="danger" %}
-**Troubleshooting note:** For those who already had Sparrow installed on their systems with old server connections, is needed to clear the pre-existing cert of the certs folder. Follow these instructions:
+**Troubleshooting note:** For those who already had Sparrow installed on their systems with old server connections, it is needed to clear the pre-existing cert from the certs folder. Follow these instructions:
 {% endhint %}
 
 1. Shut down Sparrow if it's running

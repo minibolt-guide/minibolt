@@ -253,7 +253,7 @@ sudo su - bitcoin
 ln -s /data/bitcoin /home/bitcoin/.bitcoin
 ```
 
-* Check the symbolic link has been created correctly
+* Check that the symbolic link has been created correctly
 
 ```bash
 ls -la .bitcoin
@@ -326,7 +326,11 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 {% endhint %}
 
 {% hint style="info" %}
-**(Optional)** Modify the `"uacomment"` value to your preference if you want
+**(Optional):**
+
+-> Modify the `"uacomment"` value to your preference if you want
+
+-> If you have another **full-synced MiniBolt node on the same local network**, you can **accelerate the IBD** by following [the dedicated extra section](bitcoin-client.md#accelerate-the-ibd)
 {% endhint %}
 
 <pre><code># MiniBolt: bitcoind configuration
@@ -337,7 +341,7 @@ server=1
 txindex=1
 
 # Append comment to the user agent string
-uacomment=MiniBolt node
+uacomment=<a data-footnote-ref href="#user-content-fn-2">MiniBolt node</a>
 
 # Disable integrated wallet
 disablewallet=1
@@ -380,10 +384,10 @@ proxy=unix:/run/tor/socks
 i2psam=127.0.0.1:7656
 
 # Connections
-rpcauth=<a data-footnote-ref href="#user-content-fn-2">&#x3C;replace with your own auth line generated in the previous step></a>
+rpcauth=<a data-footnote-ref href="#user-content-fn-3">&#x3C;replace with your own auth line generated in the previous step></a>
 
 # Initial block download optimizations
-dbcache=<a data-footnote-ref href="#user-content-fn-3">2048</a>
+dbcache=<a data-footnote-ref href="#user-content-fn-4">2048</a>
 blocksonly=1
 </code></pre>
 
@@ -565,13 +569,13 @@ ls -la .bitcoin
 
 Expected output:
 
-<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-4">.bitcoin -> /data/bitcoin</a>
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-5">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 
 {% hint style="warning" %}
 **Troubleshooting note:**\
 \
-If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-4)[^4]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-5)[^5]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
 1. With user `admin`, delete the failed created symbolic link
 
@@ -585,7 +589,7 @@ sudo rm -r .bitcoin
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-3. Check the symbolic link has been created correctly this time and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-4)[^4]. If yes, continue with the guide, if not, try again
+3. Check the symbolic link has been created correctly this time and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-5)[^5]. If yes, continue with the guide, if not, try again
 
 ```bash
 ls -la .bitcoin
@@ -642,9 +646,9 @@ sudo ss -tulpn | grep bitcoind
 
 Expected output:
 
-<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-5">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
 tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
 </code></pre>
 
@@ -745,9 +749,9 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
-<a data-footnote-ref href="#user-content-fn-8">maxconnections</a>=40
+<a data-footnote-ref href="#user-content-fn-9">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-<a data-footnote-ref href="#user-content-fn-9">maxuploadtarget</a>=5000
+<a data-footnote-ref href="#user-content-fn-10">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
@@ -909,6 +913,164 @@ nano /tmp/bitcoin/share/examples/bitcoin.conf
 ```bash
 sudo rm -r /tmp/bitcoin
 ```
+
+### Accelerate the IBD
+
+If you already have another fully-synced MiniBolt node on your local network, connecting directly to it can greatly accelerate synchronization by bypassing Tor’s added latency and bandwidth constraints. Local connections offer lower latency and higher throughput, delivering data—such as blockchain history—more reliably while reducing potential connectivity issues.&#x20;
+
+{% hint style="info" %}
+To get this, you will need a **full-sync** MiniBolt node on the same local network
+{% endhint %}
+
+You will need a **full-sync local MiniBolt node**
+
+**On the full-sync local MiniBolt node:**
+
+#### Configure Firewall
+
+* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
+
+```sh
+sudo ufw allow 8333/tcp comment 'allow incoming connections to Bitcoin Core from anywhere'
+```
+
+#### Configure Bitcoin Core
+
+To allow incoming connections from another node in the same local network, follow the next steps:
+
+* With the user `admin`, edit the `bitcoin.conf` file
+
+```bash
+sudo nano /data/bitcoin/bitcoin.conf
+```
+
+* **Replace** the `bind=127.0.0.1` line with the next to allow connections from anywhere
+
+<pre><code><strong>bind=0.0.0.0
+</strong></code></pre>
+
+Or **add** under `bind=127.0.0.1`, the next line to **allow connections only from devices in the same local network** (**recommended option** to improve the security)
+
+<pre><code>bind=<a data-footnote-ref href="#user-content-fn-11">192.168.x.x</a>
+</code></pre>
+
+{% hint style="info" %}
+Remember to replace `192.168.x.x` with your MiniBolt local IP, i.e `192.168.1.43`
+{% endhint %}
+
+* Restart Bitcoin Core to apply changes
+
+```bash
+sudo systemctl restart bitcoind
+```
+
+**On the new MiniBolt node:**
+
+* With the user `admin`, edit the `bitcoin.conf` file
+
+```bash
+sudo nano /data/bitcoin/bitcoin.conf
+```
+
+* Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit
+
+<pre><code> connect=<a data-footnote-ref href="#user-content-fn-12">&#x3C;localip></a>:8333
+</code></pre>
+
+{% hint style="info" %}
+Remember to replace `<localip>` with the real node IP, e.g: `192.168.1.43`
+{% endhint %}
+
+* Restart Bitcoin Core to apply changes
+
+```bash
+sudo systemctl restart bitcoind
+```
+
+#### Validation
+
+{% hint style="info" %}
+Pay attention to the Bitcoin Core logs (`journalctl -fu bitcoind`), a similar log to this should appear at some point:
+
+```
+New outbound-full-relay v2 peer connected: version: 70016, blocks=76637, peer=260
+```
+
+-> You can also check this by typing this command:
+
+```bash
+bitcoin-cli -netinfo 4 | grep manual
+```
+
+**Example** of expected output:
+
+```
+out manual onion  2    209    240    5   12   49   99      1016        384 281 mdiwdyjucocysdvx5dk2iyo5wsav3ehyiggegzfk3ezfcce6nstp4nid.onion:8333  70016/Satoshi:28.1.0
+out manual   i2p  1    401    939    1   49  418           1019        455 271 axxwcwzsqw42hjbpzupvffvdsjvniyt5apyt53sdxijqy6y6pdha.b32.i2p:0       70016/Satoshi:28.1.0
+```
+{% endhint %}
+
+### Improve the Reliability
+
+Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring Bitcoin Core with both onion and i2p addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
+
+{% hint style="info" %}
+To get this, you will need a **full-sync** node peers like the official MiniBolt project node (later, it is suggested)
+{% endhint %}
+
+#### Configure Bitcoin Core
+
+* With the user `admin`, edit the `bitcoin.conf` file
+
+```bash
+sudo nano /data/bitcoin/bitcoin.conf
+```
+
+* Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Core on MiniBolt. Save and exit
+
+<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-13">abcdefg..............xyz.onion</a>>:8333
+addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-13">abcdefg..............xyz.b32</a>>.i2p:0
+</code></pre>
+
+{% hint style="info" %}
+Remember to replace the `<abcdefg..............xyz.onion>` and `<abcdefg..............xyz.b32>` with the desired addresses of your node peer/s.
+
+**-> Suggestion**: If you want, you can use the next official MiniBolt addresses:
+
+```
+addnode=xdtk6tie5srguvz262xpyukkd7m3z3vvvy5xx5ccyg5f64fzop6hoiad.onion:8333
+addnode=etehks5xyh32nyjldpyeckk3nwpanivqhrzhsoracwqjxtk5apgq.b32.i2p:0
+```
+{% endhint %}
+
+* Restart Bitcoin Core to apply changes
+
+```bash
+sudo systemctl restart bitcoind
+```
+
+#### Validation
+
+{% hint style="info" %}
+Pay attention to the Bitcoin Core logs (`journalctl -fu bitcoind`), a similar log to this should appear at some point:
+
+```
+New outbound-full-relay v2 peer connected: version: 70016, blocks=76637, peer=260
+```
+
+-> You can also check this by typing this command:
+
+```bash
+bitcoin-cli -netinfo 4 | grep manual
+```
+
+**Example** of expected output:
+
+```
+out manual onion  2    209    240    5   12   49   99      1016        384 281 mdiwdyjucocysdvx5dk2iyo5wsav3ehyiggegzfk3ezfcce6nstp4nid.onion:8333 70016/Satoshi:28.1.0
+out manual   i2p  1    401    939    1   49  418           1019        455 271 axxwcwzsqw42hjbpzupvffvdsjvniyt5apyt53sdxijqy6y6pdha.b32.i2p:0       70016/Satoshi:28.1.0
+```
+{% endhint %}
 
 ## Upgrade
 
@@ -1147,14 +1309,14 @@ sudo ufw status numbered
 Expected output:
 
 ```
-> [Y] 8333       ALLOW IN    Anywhere            # allow Bitcoin Core from anywhere
+[Y] 8333       ALLOW IN    Anywhere            # allow Bitcoin Core P2P from anywhere
 ```
 
 {% hint style="info" %}
 If you don't have any rule matched with this, you don't have to do anything, you are OK
 {% endhint %}
 
-* Delete the rule with the correct number and confirm with "`yes`"
+* Delete the rule with the correct number and confirm by typing "`yes`" and enter
 
 ```bash
 sudo ufw delete X
@@ -1162,26 +1324,34 @@ sudo ufw delete X
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="ukHb12cRZxp1" label="TCP" color="blue"></option><option value="Xd1yhX3dgwCx" label="SSL" color="blue"></option><option value="DxH2k0YKIhG7" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8333</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default P2P port</td></tr><tr><td align="center">8332</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default RPC port</td></tr><tr><td align="center">8334</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default P2P Tor port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="ukHb12cRZxp1" label="TCP" color="blue"></option><option value="Xd1yhX3dgwCx" label="SSL" color="blue"></option><option value="DxH2k0YKIhG7" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8332</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default Bitcoin Core RPC port</td></tr><tr><td align="center">8333</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default Bitcoin Core P2P port</td></tr><tr><td align="center">8334</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default Bitcoin Core P2P Tor port</td></tr></tbody></table>
 
 [^1]: Check this
 
-[^2]: Replace
+[^2]: Change for your selection if you want
 
-[^3]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.&#x20;
+[^3]: Replace
+
+[^4]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.&#x20;
 
     -> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
 
     -> Remember to comment or delete this parameter after IBD (Initial Block Download)
 
-[^4]: Symbolic link
+[^5]: Symbolic link
 
-[^5]: RPC port
+[^6]: RPC port
 
-[^6]: P2P main port
+[^7]: P2P main port
 
-[^7]: Default P2P Tor port
+[^8]: Default P2P Tor port
 
-[^8]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+[^9]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
 
-[^9]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+[^10]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+
+[^11]: Replace with your IP
+
+[^12]: Replace with the local IP of the remote node e.g, `192.168.1.43`
+
+[^13]: Replace with the desire address of the peer
