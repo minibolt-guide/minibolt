@@ -61,7 +61,7 @@ sudo apt update && sudo apt full-upgrade
 
 {% code overflow="wrap" %}
 ```shell
-sudo apt install automake autotools-dev bison bsdmainutils build-essential cmake libtool pkg-config --no-install-recommends
+sudo apt install build-essential cmake pkg-config --no-install-recommends
 ```
 {% endcode %}
 
@@ -76,7 +76,7 @@ cd /tmp
 * Set the next environment variable
 
 ```sh
-VERSION=28.1
+VERSION=29.0
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -190,7 +190,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 **Example** of expected output:
 
 ```
-bitcoin-28.1.tar.gz: OK
+bitcoin-29.0.tar.gz: OK
 ```
 
 * If you're satisfied with the signature, checksum, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
@@ -202,71 +202,47 @@ tar -xzvf bitcoin-$VERSION.tar.gz
 **Example of expected output:**
 
 ```
-bitcoin-28.1/
-bitcoin-28.1/.cirrus.yml
-bitcoin-28.1/.editorconfig
-bitcoin-28.1/.gitattributes
-bitcoin-28.1/.github/
-bitcoin-28.1/.github/ISSUE_TEMPLATE/
-bitcoin-28.1/.github/ISSUE_TEMPLATE/bug.yml
-bitcoin-28.1/.github/ISSUE_TEMPLATE/config.yml
-bitcoin-28.1/.github/ISSUE_TEMPLATE/feature_request.yml
-bitcoin-28.1/.github/ISSUE_TEMPLATE/good_first_issue.yml
-bitcoin-28.1/.github/ISSUE_TEMPLATE/gui_issue.yml
-bitcoin-28.1/.github/PULL_REQUEST_TEMPLATE.md
-bitcoin-28.1/.github/workflows/
+bitcoin-29.0/
+bitcoin-29.0/.cirrus.yml
+bitcoin-29.0/.editorconfig
+bitcoin-29.0/.gitattributes
+bitcoin-29.0/.github/
+bitcoin-29.0/.github/ISSUE_TEMPLATE/
+bitcoin-29.0/.github/ISSUE_TEMPLATE/bug.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/config.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/feature_request.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/good_first_issue.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/gui_issue.yml
+bitcoin-29.0/.github/PULL_REQUEST_TEMPLATE.md
+bitcoin-29.0/.github/workflows/
 [..]
 ```
 
 ### **Build it from the source code**
 
-* Enter the Bitcoin Core source code folder and execute the `autogen.sh` script
+* Enter the Bitcoin Core source code folder
 
 ```sh
-cd bitcoin-$VERSION && ./autogen.sh
+cd bitcoin-$VERSION
 ```
 
-Expected output:
+* Build all Bitcoin Core dependencies
 
-```
-libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
-libtoolize: copying file 'build-aux/ltmain.sh'
-libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'build-aux/m4'.
-libtoolize: copying file 'build-aux/m4/libtool.m4'
-libtoolize: copying file 'build-aux/m4/ltoptions.m4'
-libtoolize: copying file 'build-aux/m4/ltsugar.m4'
-libtoolize: copying file 'build-aux/m4/ltversion.m4'
-libtoolize: copying file 'build-aux/m4/lt~obsolete.m4'
-configure.ac:39: installing 'build-aux/ar-lib'
-configure.ac:37: installing 'build-aux/compile'
-configure.ac:24: installing 'build-aux/config.guess'
-configure.ac:24: installing 'build-aux/config.sub'
-configure.ac:27: installing 'build-aux/install-sh'
-configure.ac:27: installing 'build-aux/missing'
-Makefile.am: installing 'build-aux/depcomp'
-parallel-tests: installing 'build-aux/test-driver'
-libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
-libtoolize: copying file 'build-aux/ltmain.sh'
-[...]
-```
-
-* The next command will download and build all Bitcoin Core dependencies
-
-```bash
+```sh
 make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
 ```
 
 Expected output:
 
 ```
-make: Entering directory '/tmp/bitcoin-28.1/depends'
+make: Entering directory '/tmp/bitcoin-29.0/depends'
 Fetching boost_1_81_0.tar.gz from https://archives.boost.io/release/1.81.0/source/
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  133M  100  133M    0     0  39.0M      0  0:00:03  0:00:03 --:--:-- 39.0M
-/tmp/bitcoin-28.1/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
+/tmp/bitcoin-29.0/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
 Extracting boost...
-/tmp/bitcoin-28.1/depends/sources/boost_1_81_0.tar.gz: OK
+/tmp/bitcoin-29.0/depends/sources/boost_1_81_0.tar.gz: OK
 Preprocessing boost...
 Configuring boost...
 Building boost...
@@ -278,9 +254,9 @@ Fetching libevent-2.1.12-stable.tar.gz from https://github.com/libevent/libevent
                                  Dload  Upload   Total   Spent    Left  Speed
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
 100 1075k  100 1075k    0     0  1117k      0 --:--:-- --:--:-- --:--:-- 3812k
-/tmp/bitcoin-28.1/depends/work/download/libevent-2.1.12-stable/libevent-2.1.12-stable.tar.gz.temp: OK
+/tmp/bitcoin-29.0/depends/work/download/libevent-2.1.12-stable/libevent-2.1.12-stable.tar.gz.temp: OK
 Extracting libevent...
-/tmp/bitcoin-28.1/depends/sources/libevent-2.1.12-stable.tar.gz: OK
+/tmp/bitcoin-29.0/depends/sources/libevent-2.1.12-stable.tar.gz: OK
 Preprocessing libevent...
 patching file CMakeLists.txt
 patching file cmake/AddEventLibrary.cmake
@@ -304,53 +280,40 @@ fatal: not a git repository (or any of the parent directories): .git
 * Pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
 
 ```sh
-./configure \
-  CONFIG_SITE=depends/x86_64-pc-linux-gnu/share/config.site \
-  --disable-bench \
-  --disable-fuzz-binary \
-  --disable-gui-tests \
-  --disable-maintainer-mode \
-  --disable-tests \
-  --with-gui=no
+BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_TX=OFF \
+  -DBUILD_UTIL=OFF \
+  -DBUILD_WALLET_TOOL=OFF \
+  -DINSTALL_MAN=OFF \
+  -DWITH_BDB=ON \
+  -DWITH_ZMQ=ON \
+  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
 ```
 
 Expected output:
 
 ```
-configure: loading site script depends/x86_64-pc-linux-gnu/share/config.site
-checking for x86_64-pc-linux-gnu-pkg-config... /usr/bin/pkg-config --static
-checking pkg-config is at least version 0.9.0... yes
-checking build system type... x86_64-pc-linux-gnu
-checking host system type... x86_64-pc-linux-gnu
-checking for a BSD-compatible install... /usr/bin/install -c
-checking whether build environment is sane... yes
-checking for x86_64-pc-linux-gnu-strip... strip
-checking for a race-free mkdir -p... /usr/bin/mkdir -p
-checking for gawk... no
-checking for mawk... mawk
-checking whether make sets $(MAKE)... yes
-checking whether make supports nested variables... yes
-checking whether to enable maintainer-specific portions of Makefiles... no
-checking whether make supports nested variables... (cached) yes
-checking whether the C++ compiler works... yes
-checking for C++ compiler default output file name... a.out
-checking for suffix of executables... 
-checking whether we are cross compiling... no
-checking for suffix of object files... o
-checking whether the compiler supports GNU C++... yes
-checking whether g++ -m64 accepts -g... yes
-checking for g++ -m64 option to enable C++11 features... none needed
-checking whether make supports the include directive... yes (GNU style)
-checking dependency style of g++ -m64... gcc3
-checking whether g++ -m64 supports C++20 features with -std=c++20... yes
-checking for x86_64-pc-linux-gnu-g++... g++ -m64 -std=c++20
-checking whether the compiler supports GNU Objective C++... no
-checking whether g++ -m64 -std=c++20 accepts -g... no
-checking dependency style of g++ -m64 -std=c++20... gcc3
-checking how to print strings... printf
-checking for x86_64-pc-linux-gnu-gcc... gcc -m64
-checking whether the compiler supports GNU C... yes
-checking whether gcc -m64 accepts -g... yes
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Setting build type to "RelWithDebInfo" as none was specified
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /tmp/bitcoin-29.0/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17") 
+-- Found BerkeleyDB: /tmp/bitcoin-29.0/depends/x86_64-pc-linux-gnu/lib/libdb_cxx-4.8.a (found suitable version "4.8.30", minimum required is "4.8") 
+-- Found ZeroMQ: /tmp/bitcoin-29.0/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
 [...]
 ```
 
@@ -385,7 +348,7 @@ git apply ordisrespector.patch
 * Enter the command to compile
 
 ```sh
-make -j$(nproc)
+cmake --build build -j $(nproc)
 ```
 
 {% hint style="info" %}
@@ -397,7 +360,15 @@ This process can take quite **a long time**, 10-15 minutes or more, depending on
 * Enter the next command to install the new binaries precompiled for yourself on the OS
 
 ```sh
-sudo make install
+sudo cmake --install build
+```
+
+Expected output:
+
+```
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /usr/local/bin/bitcoind
+-- Installing: /usr/local/bin/bitcoin-cli
 ```
 
 * Check the correct installation requesting the output of the version
@@ -409,7 +380,7 @@ bitcoin-cli --version
 The following output is just an **example** of one of the versions:
 
 ```
-Bitcoin Core version v28.1.0
+Bitcoin Core version v29.0.0
 Copyright (C) 2009-2024 The Bitcoin Core developers
 [...]
 ```
@@ -429,14 +400,6 @@ cd ..
 {% code overflow="wrap" %}
 ```bash
 sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
-```
-{% endcode %}
-
-* **(Optional)** Delete no needed binaries before installed by `make install` command
-
-{% code overflow="wrap" %}
-```bash
-sudo rm /usr/local/bin/bitcoin-tx /usr/local/bin/bitcoin-wallet /usr/local/bin/bitcoin-util
 ```
 {% endcode %}
 
