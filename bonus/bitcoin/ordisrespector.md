@@ -220,7 +220,13 @@ bitcoin-29.0/.github/workflows/
 
 ### **Build it from the source code**
 
-* Enter the Bitcoin Core source code folder and build all Bitcoin Core dependencies
+* Enter the Bitcoin Core source code folder
+
+```sh
+cd bitcoin-$VERSION
+```
+
+* Build all Bitcoin Core dependencies
 
 ```sh
 make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
