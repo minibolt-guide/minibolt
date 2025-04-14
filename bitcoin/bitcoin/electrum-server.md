@@ -709,7 +709,7 @@ sudo rm -rf /data/fulcrum/
 * Delete the binaries installed
 
 ```bash
-sudo rm /usr/local/bin/Fulcrum && sudo rm /usr/local/bin/FulcrumAdmin
+sudo rm /usr/local/bin/Fulcrum
 ```
 
 ### Uninstall Tor hidden service
