@@ -363,6 +363,14 @@ This process can take quite **a long time**, 10-15 minutes or more, depending on
 sudo cmake --install build
 ```
 
+Expected output:
+
+```
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /usr/local/bin/bitcoind
+-- Installing: /usr/local/bin/bitcoin-cli
+```
+
 * Check the correct installation requesting the output of the version
 
 ```sh
