@@ -61,7 +61,7 @@ sudo apt update && sudo apt full-upgrade
 
 {% code overflow="wrap" %}
 ```shell
-sudo apt install automake autotools-dev bison bsdmainutils build-essential cmake libtool pkg-config --no-install-recommends
+sudo apt install build-essential cmake pkg-config --no-install-recommends
 ```
 {% endcode %}
 
