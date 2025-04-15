@@ -854,7 +854,19 @@ This extra section is valid if you compiled it from the source code using the [O
 {% endhint %}
 
 * Follow the complete [Installation progress before](bitcoin-client.md#installation) or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
-* With user `admin`, go to the temporary folder
+* With user `admin`, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you
+
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
+* Install the next dependency packages
+
+```bash
+sudo apt install build-essential cmake pkg-config --no-install-recommends
+```
+
+* Go to the temporary folder
 
 ```bash
 cd /tmp
@@ -863,31 +875,45 @@ cd /tmp
 * Set a temporary version environment variable to the installation
 
 ```bash
-VERSION=28.1
+VERSION=29.0
 ```
 
-* Clone the source code from GitHub
+* Clone the source code from GitHub and enter the bitcoin folder
 
 ```bash
-git clone --branch v$VERSION https://github.com/bitcoin/bitcoin.git
+git clone --branch v$VERSION https://github.com/bitcoin/bitcoin.git && cd bitcoin
+```
+
+* Build all Bitcoin Core dependencies
+
+```bash
+make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
+```
+
+* Pre-configuring the installation, we will discard some features and include others. Enter the complete next command in the terminal and press `ENTER`
+
+```bash
+cmake -B build \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_TX=OFF \
+  -DBUILD_UTIL=OFF \
+  -DBUILD_WALLET_TOOL=OFF \
+  -DINSTALL_MAN=OFF \
+  -DWITH_BDB=ON \
+  -DWITH_ZMQ=ON \
+  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
 ```
 
 * Copy-paste the bitcoind binary file existing on your OS to the source code folder
 
 ```bash
-cp /usr/local/bin/bitcoind /tmp/bitcoin/src/
-```
-
-* Go to the `devtools` folder
-
-```bash
-cd bitcoin/contrib/devtools
+cp /usr/local/bin/bitcoind /tmp/bitcoin/build/bin/
 ```
 
 * Exec the `gen-bitcoin-conf` script to generate the file
 
 ```bash
-sudo ./gen-bitcoin-conf.sh
+sudo ./contrib/devtools/gen-bitcoin-conf.sh
 ```
 
 Expected output:
