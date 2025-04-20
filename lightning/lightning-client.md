@@ -26,7 +26,6 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 * [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
 * Others
   * [PostgreSQL](../bonus-guides/system/postgresql.md)
-  * [Go!](../bonus-guides/system/go.md) **(optional)**
 
 ## Preparations
 
@@ -1029,87 +1028,162 @@ Continue with the guide on the [Create systemd service](lightning-client.md#crea
 ### Migrate an existing bbolt database to PostgreSQL
 
 {% hint style="danger" %}
-Attention: this process is very risky, supposedly this [software is in an experimental state](https://github.com/lightninglabs/lndinit/pull/21), which could damage your existing LND database. **Act at your own risk**❗
-
--> It is recommended to start from scratch by closing all existing channels, rather than a migration, to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
-{% endhint %}
-
-#### Install dependencies
-
-* With user `admin`, install the next dependencies packages. Press `enter` when the prompt asks you
-
-```bash
-sudo apt install build-essential
-```
-
-#### Install Go!
-
-* With user `admin`, verify that you've installed Go by typing the following command
-
-```bash
-go version
-```
-
-**Example** of expected output:
-
-```
-go version go1.21.10 linux/amd64
-```
-
-{% hint style="info" %}
-If you obtain "**command not found**" outputs, you need to follow the [Go! bonus guide installation progress](../bonus-guides/system/go.md#installation) to install it and then come back to continue with the guide
+Attention:  It is recommended to start from scratch by closing all existing channels, rather than a migration, to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
 {% endhint %}
 
 #### Install lndinit
 
-* With user `admin`, go to the temporary folder
+* We'll download, verify, and install `lndinit`. With the user `admin`, navigate to the temporary directory
 
 ```bash
 cd /tmp
 ```
 
-* Clone the `migrate-db` branch of the lndinit, from the official repository of the Minibolt and enter the lndinit folder
+* Set a temporary version environment variable for the installation
+
+```bash
+VERSION=0.1.26
+```
+
+* Download the application, checksums, and signature
 
 {% code overflow="wrap" %}
 ```bash
-git clone --branch migrate-db https://github.com/minibolt-guide/lndinit.git && cd lndinit
+wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/lndinit-linux-amd64-v$VERSION-beta.tar.gz
 ```
 {% endcode %}
 
-* Compile it
-
+{% code overflow="wrap" %}
 ```bash
-make install
+wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
 ```
+{% endcode %}
 
-{% hint style="info" %}
-This process can take quite a long time, 5-10 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
-{% endhint %}
-
-* Install it
-
+{% code overflow="wrap" %}
 ```bash
-sudo install -m 0755 -o root -g root -t /usr/local/bin /home/admin/go/bin/lndinit
+wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.sig.ots
 ```
+{% endcode %}
 
-* Check the correct installation
+{% code overflow="wrap" %}
+```bash
+wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.sig
+```
+{% endcode %}
+
+#### Checksum check <a href="#checksum-check" id="checksum-check"></a>
+
+* Verify the signed checksum against the actual checksum of your download
 
 ```bash
-lndinit -v
+sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
 ```
 
 **Example** of expected output:
 
 ```
-2024-05-30 23:00:15.666 LNDINIT: Version 0.1.4-beta commit=, debuglevel=debug
-2024-05-30 23:00:15.668 LNDINIT: Config error: Please specify one command of: gen-password, gen-seed, init-wallet, load-secret, migrate-db, store-secret or wait-ready
+lndinit-linux-amd64-v0.1.26-beta.tar.gz: OK
 ```
 
-**(Optional)** Delete the installation files
+#### Signature check <a href="#signature-check" id="signature-check"></a>
+
+Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
+
+* Get the public key from a LND developer, who signed the manifest file, and add it to your GPG keyring
 
 ```bash
-sudo rm -r /tmp/lndinit
+curl https://keybase.io/guggero/pgp_keys.asc | gpg --import
 ```
+
+Expected output:
+
+<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 19417  100 19417    0     0   1799      0  0:00:10  0:00:10 --:--:--  4130
+gpg: key 8E4256593F177720: 1 signature not checked due to a missing key
+gpg: key 8E4256593F177720: "Oliver Gugger &#x3C;gugger@gmail.com>" <a data-footnote-ref href="#user-content-fn-3">imported</a>
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+</code></pre>
+
+* Verify the signature of the text file containing the checksums for the application
+
+```bash
+gpg --verify manifest-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
+```
+
+**Example** of expected output:
+
+<pre><code>gpg: Signature made Tue 15 Apr 2025 05:16:09 PM UTC
+gpg:                using RSA key F4FC70F07310028424EFC20A8E4256593F177720
+gpg: <a data-footnote-ref href="#user-content-fn-3">Good signature</a> from "Oliver Gugger &#x3C;gugger@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: F4FC 70F0 7310 0284 24EF  C20A 8E42 5659 3F17 7720
+</code></pre>
+
+#### Timestamp check <a href="#timestamp-check" id="timestamp-check"></a>
+
+We can also check that the manifest file was in existence around the time of the release using its timestamp.
+
+* Let's verify that the timestamp of the file matches the release date
+
+```bash
+ots --no-cache verify manifest-v$VERSION-beta.sig.ots -f manifest-v$VERSION-beta.sig
+```
+
+**Example** of expected output:
+
+<pre><code>Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+<a data-footnote-ref href="#user-content-fn-3">Success</a>! Bitcoin block 892581 attests existence as of 2025-04-15 UTC
+</code></pre>
+
+{% hint style="info" %}
+Check that the date of the timestamp is close to the [release date](https://github.com/lightninglabs/lndinit/releases) of the lndinit binary
+{% endhint %}
+
+* Having verified the integrity and authenticity of the release binary, we can safely
+
+```bash
+tar -xzvf lndinit-linux-amd64-v$VERSION-beta.tar.gz
+```
+
+**Example** of expected output:
+
+```
+lndinit-linux-amd64-v0.1.26-beta/lndinit
+lndinit-linux-amd64-v0.1.26-beta/
+```
+
+#### Binaries installation <a href="#binaries-installation" id="binaries-installation"></a>
+
+-> 2 options, depending on whether you want to use it only once or make a permanent installation:
+
+{% tabs %}
+{% tab title="1. Temporary use (recommended)" %}
+In this case, only go to [the next step](lightning-client.md#migrate-bbolt-database-to-postgresql)
+{% endtab %}
+
+{% tab title="2. Permanent installation" %}
+* Install the binaries on the OS
+
+{% code overflow="wrap" %}
+```bash
+sudo install -m 0755 -o root -g root -t /usr/local/bin lndinit-linux-amd64-v$VERSION-beta/lndinit
+```
+{% endcode %}
+
+* (Optional) Clean the lndinit files of the `tmp` folder
+
+{% code overflow="wrap" %}
+```bash
+sudo rm -r lndinit-linux-arm64-v$VERSION-beta && sudo rm lndinit-linux-arm64-v$VERSION-beta.tar.gz && sudo rm manifest-v$VERSION-beta.sig && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.sig.ots
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 #### Migrate bbolt database to PostgreSQL
 
@@ -1119,7 +1193,7 @@ sudo rm -r /tmp/lndinit
 sudo systemctl stop lnd
 ```
 
-* Confirm and ensure that LND is stopped successfully by monitoring logs
+* Confirm and ensure that LND is stopped successfully by monitoring the logs
 
 ```bash
 journalctl -fu lnd
@@ -1145,185 +1219,102 @@ May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU t
 * Previously followed:
   1. [Install PostgreSQL section](lightning-client.md#install-postgresql)
   2. [Create PostgreSQL database section](lightning-client.md#create-postgresql-database)
-* Exec the migration and wait to finish it
+* Depending on whether you selected on the [Binaries installation section](lightning-client.md#binaries-installation-1) the [option 1](lightning-client.md#id-1.-temporary-use-recomended) or [2](lightning-client.md#id-2.-permanet-installation):
+
+{% tabs %}
+{% tab title="1. For temporary use option (recommended)" %}
+- Execute the migration and wait to finish
 
 ```bash
-sudo lndinit -v migrate-db \
+sudo ./lndinit --debuglevel info migrate-db \
+      --chunk-size=200000000 \
+      --force-verify-db \
       --source.bolt.data-dir /home/admin/.lnd/data \
-      --source.bolt.tower-dir /home/admin/.lnd/data/watchtower \
-      --source.bolt.network=mainnet \
-      --dest.backend postgres \
+      --source.bolt.tower-dir /home/admin/.lnd/data \
       --dest.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable \
       --dest.postgres.timeout=0
 ```
+
+{% hint style="info" %}
+This process could take a few minutes, depending on the database size. When the prompt comes back to show you that the migration is finished successfully
+{% endhint %}
+{% endtab %}
+
+{% tab title="2. For permanent installation option" %}
+* Execute the migration and wait to finish
+
+```bash
+sudo lndinit --debuglevel info migrate-db \
+      --chunk-size=200000000 \
+      --force-verify-db \
+      --source.bolt.data-dir /home/admin/.lnd/data \
+      --source.bolt.tower-dir /home/admin/.lnd/data \
+      --dest.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable \
+      --dest.postgres.timeout=0
+```
+
+{% hint style="info" %}
+This process could take a few minutes, depending on the database size. When the prompt comes back to show you that the migration is finished successfully
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 <details>
 
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-2024-04-17 14:07:41.277 LNDINIT: Version 0.1.4-beta commit=, debuglevel=debug
-2024-04-17 14:07:41.279 LNDINIT: Migrating DB with prefix channeldb
-2024-04-17 14:07:41.279 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/graph/mainnet/channel.db for prefix 'channeldb'
-2024-04-17 14:07:41.370 LNDINIT: Opened source DB
-2024-04-17 14:07:41.370 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'channeldb'
-2024-04-17 14:07:41.394 LNDINIT: Opened destination DB
-2024-04-17 14:07:41.394 LNDINIT: Checking tombstone marker on source DB
-2024-04-17 14:07:41.394 LNDINIT: Checking if migration was already applied to target DB
-2024-04-17 14:07:41.401 LNDINIT: Starting the migration to the target backend
-2024-04-17 14:07:41.402 LNDINIT: Copying top-level bucket 'alias-bucket'
-2024-04-17 14:07:41.409 LNDINIT: Committing bucket 'alias-bucket'
-2024-04-17 14:07:41.411 LNDINIT: Copying top-level bucket 'base-bucket'
-2024-04-17 14:07:41.413 LNDINIT: Committing bucket 'base-bucket'
-2024-04-17 14:07:41.415 LNDINIT: Copying top-level bucket 'chan-id-bucket'
-2024-04-17 14:07:41.417 LNDINIT: Committing bucket 'chan-id-bucket'
-2024-04-17 14:07:41.481 LNDINIT: Copying top-level bucket 'circuit-adds'
-2024-04-17 14:07:41.483 LNDINIT: Committing bucket 'circuit-adds'
-2024-04-17 14:07:41.484 LNDINIT: Copying top-level bucket 'circuit-fwd-log'
-2024-04-17 14:07:41.486 LNDINIT: Committing bucket 'circuit-fwd-log'
-2024-04-17 14:07:41.487 LNDINIT: Copying top-level bucket 'circuit-keystones'
-2024-04-17 14:07:41.489 LNDINIT: Committing bucket 'circuit-keystones'
-2024-04-17 14:07:41.490 LNDINIT: Copying top-level bucket 'close-summaries'
-2024-04-17 14:07:41.492 LNDINIT: Committing bucket 'close-summaries'
-2024-04-17 14:07:41.493 LNDINIT: Copying top-level bucket 'closed-chan-bucket'
-2024-04-17 14:07:41.495 LNDINIT: Committing bucket 'closed-chan-bucket'
-2024-04-17 14:07:41.496 LNDINIT: Copying top-level bucket 'confirm-hints'
-2024-04-17 14:07:41.497 LNDINIT: Committing bucket 'confirm-hints'
-2024-04-17 14:07:41.499 LNDINIT: Copying top-level bucket 'edge-index'
-2024-04-17 14:07:41.500 LNDINIT: Committing bucket 'edge-index'
-2024-04-17 14:07:41.501 LNDINIT: Copying top-level bucket 'fwd-packages'
-2024-04-17 14:07:41.503 LNDINIT: Committing bucket 'fwd-packages'
-2024-04-17 14:07:41.504 LNDINIT: Copying top-level bucket 'graph-edge'
-2024-04-17 14:07:58.418 LNDINIT: Committing bucket 'graph-edge'
-2024-04-17 14:08:08.332 LNDINIT: Copying top-level bucket 'graph-meta'
-2024-04-17 14:08:08.337 LNDINIT: Committing bucket 'graph-meta'
-2024-04-17 14:08:08.834 LNDINIT: Copying top-level bucket 'graph-node'
-2024-04-17 14:08:11.346 LNDINIT: Committing bucket 'graph-node'
-2024-04-17 14:08:13.710 LNDINIT: Copying top-level bucket 'historical-chan-bucket'
-2024-04-17 14:08:13.713 LNDINIT: Committing bucket 'historical-chan-bucket'
-2024-04-17 14:08:13.727 LNDINIT: Copying top-level bucket 'invoice-alias-bucket'
-2024-04-17 14:08:13.728 LNDINIT: Committing bucket 'invoice-alias-bucket'
-2024-04-17 14:08:13.733 LNDINIT: Copying top-level bucket 'invoices'
-2024-04-17 14:08:13.737 LNDINIT: Committing bucket 'invoices'
-2024-04-17 14:08:13.742 LNDINIT: Copying top-level bucket 'message-store'
-2024-04-17 14:08:13.743 LNDINIT: Committing bucket 'message-store'
-2024-04-17 14:08:13.748 LNDINIT: Copying top-level bucket 'metadata'
-2024-04-17 14:08:13.750 LNDINIT: Committing bucket 'metadata'
-2024-04-17 14:08:13.754 LNDINIT: Copying top-level bucket 'missioncontrol-results'
-2024-04-17 14:08:13.756 LNDINIT: Committing bucket 'missioncontrol-results'
-2024-04-17 14:08:13.760 LNDINIT: Copying top-level bucket 'network-result-store-bucket'
-2024-04-17 14:08:13.762 LNDINIT: Committing bucket 'network-result-store-bucket'
-2024-04-17 14:08:13.767 LNDINIT: Copying top-level bucket 'next-payment-id-key'
-2024-04-17 14:08:13.768 LNDINIT: Committing bucket 'next-payment-id-key'
-2024-04-17 14:08:13.773 LNDINIT: Copying top-level bucket 'nib'
-2024-04-17 14:08:13.774 LNDINIT: Committing bucket 'nib'
-2024-04-17 14:08:13.779 LNDINIT: Copying top-level bucket 'open-chan-bucket'
-2024-04-17 14:08:13.780 LNDINIT: Committing bucket 'open-chan-bucket'
-2024-04-17 14:08:13.782 LNDINIT: Copying top-level bucket 'outpoint-bucket'
-2024-04-17 14:08:13.783 LNDINIT: Committing bucket 'outpoint-bucket'
-2024-04-17 14:08:13.784 LNDINIT: Copying top-level bucket 'pay-addr-index'
-2024-04-17 14:08:13.786 LNDINIT: Committing bucket 'pay-addr-index'
-2024-04-17 14:08:13.787 LNDINIT: Copying top-level bucket 'payments-index-bucket'
-2024-04-17 14:08:13.788 LNDINIT: Committing bucket 'payments-index-bucket'
-2024-04-17 14:08:13.790 LNDINIT: Copying top-level bucket 'peers-bucket'
-2024-04-17 14:08:13.791 LNDINIT: Committing bucket 'peers-bucket'
-2024-04-17 14:08:13.792 LNDINIT: Copying top-level bucket 'set-id-index'
-2024-04-17 14:08:13.793 LNDINIT: Committing bucket 'set-id-index'
-2024-04-17 14:08:13.794 LNDINIT: Copying top-level bucket 'spend-hints'
-2024-04-17 14:08:13.796 LNDINIT: Committing bucket 'spend-hints'
-2024-04-17 14:08:13.797 LNDINIT: Copying top-level bucket 'sweeper-tx-hashes'
-2024-04-17 14:08:13.798 LNDINIT: Committing bucket 'sweeper-tx-hashes'
-2024-04-17 14:08:13.803 LNDINIT: Migrating DB with prefix macaroondb
-2024-04-17 14:08:13.803 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/chain/bitcoin/mainnet/macaroons.db for prefix 'macaroondb'
-2024-04-17 14:08:13.804 LNDINIT: Opened source DB
-2024-04-17 14:08:13.804 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'macaroondb'
-2024-04-17 14:08:13.878 LNDINIT: Opened destination DB
-2024-04-17 14:08:13.878 LNDINIT: Checking tombstone marker on source DB
-2024-04-17 14:08:13.878 LNDINIT: Checking if migration was already applied to target DB
-2024-04-17 14:08:13.881 LNDINIT: Starting the migration to the target backend
-2024-04-17 14:08:13.881 LNDINIT: Copying top-level bucket 'macrootkeys'
-2024-04-17 14:08:13.887 LNDINIT: Committing bucket 'macrootkeys'
-2024-04-17 14:08:13.900 LNDINIT: Migrating DB with prefix decayedlogdb
-2024-04-17 14:08:13.900 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/graph/mainnet/sphinxreplay.db for prefix 'decayedlogdb'
-2024-04-17 14:08:13.900 LNDINIT: Opened source DB
-2024-04-17 14:08:13.900 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'decayedlogdb'
-2024-04-17 14:08:14.762 LNDINIT: Opened destination DB
-2024-04-17 14:08:14.762 LNDINIT: Checking tombstone marker on source DB
-2024-04-17 14:08:14.762 LNDINIT: Checking if migration was already applied to target DB
-2024-04-17 14:08:14.768 LNDINIT: Starting the migration to the target backend
-2024-04-17 14:08:14.768 LNDINIT: Copying top-level bucket 'batch-replay'
-2024-04-17 14:08:14.776 LNDINIT: Committing bucket 'batch-replay'
-2024-04-17 14:08:14.782 LNDINIT: Copying top-level bucket 'shared-hash'
-2024-04-17 14:08:14.786 LNDINIT: Committing bucket 'shared-hash'
-2024-04-17 14:08:14.811 LNDINIT: Migrating DB with prefix towerclientdb
-2024-04-17 14:08:14.811 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/graph/mainnet/wtclient.db for prefix 'towerclientdb'
-2024-04-17 14:08:14.812 LNDINIT: Opened source DB
-2024-04-17 14:08:14.812 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'towerclientdb'
-2024-04-17 14:08:14.956 LNDINIT: Opened destination DB
-2024-04-17 14:08:14.956 LNDINIT: Checking tombstone marker on source DB
-2024-04-17 14:08:14.956 LNDINIT: Checking if migration was already applied to target DB
-2024-04-17 14:08:14.963 LNDINIT: Starting the migration to the target backend
-2024-04-17 14:08:14.963 LNDINIT: Copying top-level bucket 'client-channel-detail-bucket'
-2024-04-17 14:08:14.970 LNDINIT: Committing bucket 'client-channel-detail-bucket'
-2024-04-17 14:08:14.975 LNDINIT: Copying top-level bucket 'client-channel-id-index'
-2024-04-17 14:08:14.978 LNDINIT: Committing bucket 'client-channel-id-index'
-2024-04-17 14:08:14.983 LNDINIT: Copying top-level bucket 'client-closable-sessions-bucket'
-2024-04-17 14:08:14.986 LNDINIT: Committing bucket 'client-closable-sessions-bucket'
-2024-04-17 14:08:14.991 LNDINIT: Copying top-level bucket 'client-session-bucket'
-2024-04-17 14:08:14.994 LNDINIT: Committing bucket 'client-session-bucket'
-2024-04-17 14:08:14.999 LNDINIT: Copying top-level bucket 'client-session-id-index'
-2024-04-17 14:08:15.002 LNDINIT: Committing bucket 'client-session-id-index'
-2024-04-17 14:08:15.007 LNDINIT: Copying top-level bucket 'client-session-key-index-bucket'
-2024-04-17 14:08:15.010 LNDINIT: Committing bucket 'client-session-key-index-bucket'
-2024-04-17 14:08:15.015 LNDINIT: Copying top-level bucket 'client-tower-bucket'
-2024-04-17 14:08:15.017 LNDINIT: Committing bucket 'client-tower-bucket'
-2024-04-17 14:08:15.022 LNDINIT: Copying top-level bucket 'client-tower-index-bucket'
-2024-04-17 14:08:15.025 LNDINIT: Committing bucket 'client-tower-index-bucket'
-2024-04-17 14:08:15.030 LNDINIT: Copying top-level bucket 'client-tower-to-session-index-bucket'
-2024-04-17 14:08:15.032 LNDINIT: Committing bucket 'client-tower-to-session-index-bucket'
-2024-04-17 14:08:15.037 LNDINIT: Copying top-level bucket 'metadata-bucket'
-2024-04-17 14:08:15.043 LNDINIT: Committing bucket 'metadata-bucket'
-2024-04-17 14:08:15.061 LNDINIT: Migrating DB with prefix towerserverdb
-2024-04-17 14:08:15.061 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/watchtower/bitcoin/mainnet/watchtower.db for prefix 'towerserverdb'
-2024-04-17 14:08:15.061 LNDINIT: Opened source DB
-2024-04-17 14:08:15.061 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'towerserverdb'
-2024-04-17 14:08:15.144 LNDINIT: Opened destination DB
-2024-04-17 14:08:15.144 LNDINIT: Checking tombstone marker on source DB
-2024-04-17 14:08:15.144 LNDINIT: Checking if migration was already applied to target DB
-2024-04-17 14:08:15.149 LNDINIT: Starting the migration to the target backend
-2024-04-17 14:08:15.149 LNDINIT: Copying top-level bucket 'lookout-tip-bucket'
-2024-04-17 14:08:15.155 LNDINIT: Committing bucket 'lookout-tip-bucket'
-2024-04-17 14:08:15.161 LNDINIT: Copying top-level bucket 'metadata-bucket'
-2024-04-17 14:08:15.166 LNDINIT: Committing bucket 'metadata-bucket'
-2024-04-17 14:08:15.168 LNDINIT: Copying top-level bucket 'sessions-bucket'
-2024-04-17 14:08:15.171 LNDINIT: Committing bucket 'sessions-bucket'
-2024-04-17 14:08:15.173 LNDINIT: Copying top-level bucket 'update-index-bucket'
-2024-04-17 14:08:15.175 LNDINIT: Committing bucket 'update-index-bucket'
-2024-04-17 14:08:15.177 LNDINIT: Copying top-level bucket 'updates-bucket'
-2024-04-17 14:08:15.180 LNDINIT: Committing bucket 'updates-bucket'
-2024-04-17 14:08:15.192 LNDINIT: Migrating DB with prefix walletdb
-2024-04-17 14:08:15.193 LNDINIT: Opening bbolt backend at /home/admin/.lnd/data/chain/bitcoin/mainnet/wallet.db for prefix 'walletdb'
-2024-04-17 14:08:15.213 LNDINIT: Opened source DB
-2024-04-17 14:08:15.213 LNDINIT: Opening postgres backend at postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable with prefix 'walletdb'
-2024-04-17 14:08:15.299 LNDINIT: Opened destination DB
-2024-04-17 14:08:15.299 LNDINIT: Checking tombstone marker on source DB
-2024-04-17 14:08:15.300 LNDINIT: Checking if migration was already applied to target DB
-2024-04-17 14:08:15.304 LNDINIT: Starting the migration to the target backend
-2024-04-17 14:08:15.304 LNDINIT: Copying top-level bucket 'waddrmgr'
-2024-04-17 14:08:15.809 LNDINIT: Committing bucket 'waddrmgr'
-2024-04-17 14:08:15.815 LNDINIT: Copying top-level bucket 'wtxmgr'
-2024-04-17 14:08:15.828 LNDINIT: Committing bucket 'wtxmgr'
-2024-04-17 14:08:15.833 LNDINIT: Creating 'wallet created' marker
-2024-04-17 14:08:15.835 LNDINIT: Committing 'wallet created' marker
+2025-04-19 15:36:04.541 [INF]: LNDINIT Version 0.1.26-beta commit=v0.1.26-beta, debuglevel=info
+2025-04-19 15:36:04.543 [INF]: LNDINIT Attempting to migrate DB with prefix `channeldb`
+2025-04-19 15:36:04.543 [INF]: LNDINIT Opening bolt backend at /home/admin/.lnd/data/graph/mainnet/channel.db for prefix 'channeldb'
+2025-04-19 15:36:04.544 [INF]: LNDINIT Opened source DB with prefix `channeldb` successfully
+2025-04-19 15:36:04.544 [INF]: LNDINIT Opening postgres backend at `postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable` with prefix `channeldb`
+2025-04-19 15:36:04.621 [INF]: LNDINIT Opened destination DB with prefix `channeldb` successfully
+2025-04-19 15:36:04.621 [INF]: LNDINIT Checking tombstone marker on source DB and migrated marker on destination DB with prefix `channeldb`
+2025-04-19 15:36:04.629 [INF]: LNDINIT Checking DB version of source DB (channel.db)
+2025-04-19 15:36:04.644 [INF]: LNDINIT Opened meta db at path: /home/admin/.lnd/data/channeldb-migration-meta.db
+2025-04-19 15:36:04.644 [INF] MIGKV-channeldb: LNDINIT Migrating database with prefix `channeldb`
+2025-04-19 15:36:04.644 [INF] MIGKV-channeldb: LNDINIT No previous migration state found, starting fresh
+2025-04-19 15:36:04.649 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: 0x43f08bdab050e35b567c864b91f47f50ae725ae2de53bcfbbaf284da00000000741137146110d360c09ed86c73d235f57b93a6b7ad050dd431f9603d9e28112800000001
+2025-04-19 15:36:04.653 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: alias-alloc-bucket
+2025-04-19 15:36:04.655 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: alias-bucket
+2025-04-19 15:36:04.659 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: base-bucket
+2025-04-19 15:36:04.663 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: chan-id-bucket
+2025-04-19 15:36:04.666 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: channelOpeningState
+2025-04-19 15:36:04.667 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: circuit-adds
+2025-04-19 15:36:04.668 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: circuit-fwd-log
+2025-04-19 15:36:04.669 [INF] MIGKV-channeldb: LNDINIT Migrating root bucket: circuit-keystones
+[...]
+2025-04-19 16:05:44.288 [INF]: LNDINIT Attempting to migrate DB with prefix `neutrinodb`
+2025-04-19 16:05:44.288 [INF]: LNDINIT Opening bolt backend at /home/admin/.lnd/data/chain/bitcoin/mainnet/neutrino.db for prefix 'neutrinodb'
+2025-04-19 16:05:44.288 [WRN]: LNDINIT Skipping optional DB neutrinodb: not found
+2025-04-19 16:05:44.288 [INF]: LNDINIT !!!Migration of all mandatory db parts completed successfully!!!
+2025-04-19 16:05:44.288 [INF]: LNDINIT Migrated DBs: [channeldb macaroondb decayedlogdb towerclientdb towerserverdb walletdb]
 ```
 
 </details>
 
-{% hint style="info" %}
-This process could take a few minutes depending on the size of the database. When the prompt comes back to show you, that the migration is finished successfully
-{% endhint %}
+* (Optional) If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the lndinit files of the `tmp` folder
 
-* Now follow the [Configured](lightning-client.md#configuration) section `lnd.conf`, to use the PostgreSQL database as the backend, paying attention to the next section
+{% code overflow="wrap" %}
+```bash
+sudo rm -r lndinit-linux-arm64-v$VERSION-beta && sudo rm lndinit-linux-arm64-v$VERSION-beta.tar.gz && sudo rm manifest-v$VERSION-beta.sig && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.sig.ots
+```
+{% endcode %}
+
+* Now, follow the [Configured](lightning-client.md#configuration) section `lnd.conf`, to use the PostgreSQL database as the backend, replace or comment with "`#`" the `# Database` section about the bbolt database backend
+
+```
+[bolt]
+## Database
+# Set the next value to false to disable auto-compact DB
+# and fast boot and comment the next line
+db.bolt.auto-compact=true
+# Uncomment to do DB compact at every LND reboot (default: 168h)
+#db.bolt.auto-compact-min-age=0h
+```
+
+* To this
 
 ```
 # Database
@@ -1367,7 +1358,7 @@ journalctl -fu lnd
 ```
 
 {% hint style="info" %}
-The `[WRN]` logs indicate that LND has detected an existing old bbolt database and It will not be migrated to postgres automatically, but we already migrated it before 😏
+-> The `[WRN]` logs indicate that LND has detected an existing old bbolt database and it will not be migrated to PostgreSQL automatically, but we already migrated it before 😏
 
 ```
 [...]
@@ -1382,7 +1373,7 @@ The `[WRN]` logs indicate that LND has detected an existing old bbolt database a
 
 
 
-Pay attention to this `[INF]` significant log to confirm you are using PostgreSQL now
+-> Pay attention to this `[INF]` significant log to confirm you are using PostgreSQL now
 
 ```
 [...]
@@ -1392,30 +1383,18 @@ Pay attention to this `[INF]` significant log to confirm you are using PostgreSQ
 {% endhint %}
 
 {% hint style="info" %}
-Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md) or using `lncli` with commands like `lncli listchannels / lncli listunspent / lncli wtclient towers` and see if everything is as you left it before the migration
+Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md), or using `lncli` with commands like `lncli listchannels / lncli listunspent / lncli wtclient towers` and see if everything is as you left it before the migration
 {% endhint %}
 
 #### (Optional) Delete old bbolt files database
 
-* With user `admin`, change to the `lnd` user
-
-```bash
-sudo su - lnd
-```
-
-* Detele the old bbolt database files
+* With user `admin`, detele the old bbolt database files
 
 {% code overflow="wrap" %}
 ```bash
-rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db && rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db.last-compacted && rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db && rm /data/lnd/data/graph/mainnet/* && rm /data/lnd/data/watchtower/bitcoin/mainnet/*
+sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db && sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db* && sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db.last-compacted && sudo rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db && sudo rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db* && sudo rm /data/lnd/data/graph/mainnet/* && sudo rm /data/lnd/data/watchtower/bitcoin/mainnet/*
 ```
 {% endcode %}
-
-* Return to the `admin` user
-
-```bash
-exit
-```
 
 ### Some useful lncli commands
 
