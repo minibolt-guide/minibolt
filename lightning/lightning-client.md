@@ -1179,7 +1179,7 @@ sudo install -m 0755 -o root -g root -t /usr/local/bin lndinit-linux-amd64-v$VER
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm -r lndinit-linux-arm64-v$VERSION-beta && sudo rm lndinit-linux-arm64-v$VERSION-beta.tar.gz && sudo rm manifest-v$VERSION-beta.sig && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.sig.ots
+sudo rm -r lndinit-linux-amd64-v$VERSION-beta && sudo rm lndinit-linux-amd64-v$VERSION-beta.tar.gz && sudo rm manifest-v$VERSION-beta.sig && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.sig.ots
 ```
 {% endcode %}
 {% endtab %}
@@ -1223,7 +1223,13 @@ May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU t
 
 {% tabs %}
 {% tab title="1. For temporary use option (recommended)" %}
-- Execute the migration and wait to finish
+- Go to the lndinit folder
+
+```bash
+cd lndinit-linux-amd64-v$VERSION-beta
+```
+
+* Execute the migration and wait to finish
 
 ```bash
 sudo ./lndinit --debuglevel info migrate-db \
@@ -1296,13 +1302,16 @@ This process could take a few minutes, depending on the database size. When the 
 
 * (Optional) If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the lndinit files of the `tmp` folder
 
-{% code overflow="wrap" %}
-```bash
-sudo rm -r lndinit-linux-arm64-v$VERSION-beta && sudo rm lndinit-linux-arm64-v$VERSION-beta.tar.gz && sudo rm manifest-v$VERSION-beta.sig && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.sig.ots
-```
-{% endcode %}
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo rm -r /tmp/lndinit-linux-amd64-v$VERSION-beta &#x26;&#x26; sudo rm /tmp/lndinit-linux-amd64-v$VERSION-beta.tar.gz &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.txt &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig.ots
+</strong></code></pre>
 
-* Now, follow the [Configured](lightning-client.md#configuration) section `lnd.conf`, to use the PostgreSQL database as the backend, replace or comment with "`#`" the `# Database` section about the bbolt database backend
+* Now, edit the `lnd.conf` configuration dile to use the PostgreSQL database as the backend
+
+```bash
+sudo nano /data/lnd/lnd.conf
+```
+
+* Replace or comment with "`#`" the `# Database` section about the bbolt database backend
 
 ```
 [bolt]
@@ -1326,7 +1335,7 @@ db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
 db.postgres.timeout=0
 ```
 
-* With user admin, edit the [systemd service file](lightning-client.md#create-systemd-service)
+* Edit the [systemd service file](lightning-client.md#create-systemd-service)
 
 ```bash
 sudo nano /etc/systemd/system/lnd.service
