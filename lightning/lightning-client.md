@@ -1401,7 +1401,7 @@ Ensure you still have your node in the same situation before the migration using
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db && sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db* && sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db.last-compacted && sudo rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db && sudo rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db* && sudo rm /data/lnd/data/graph/mainnet/* && sudo rm /data/lnd/data/watchtower/bitcoin/mainnet/*
+sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db && sudo rm /data/lnd/data/chain/bitcoin/mainnet/macaroons.db* && sudo rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db && sudo rm /data/lnd/data/chain/bitcoin/mainnet/wallet.db* && sudo rm /data/lnd/data/graph/mainnet/* && sudo rm /data/lnd/data/watchtower/bitcoin/mainnet/*
 ```
 {% endcode %}
 
