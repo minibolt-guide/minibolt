@@ -1305,7 +1305,7 @@ This process could take a few minutes, depending on the database size. When the 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo rm -r /tmp/lndinit-linux-amd64-v$VERSION-beta &#x26;&#x26; sudo rm /tmp/lndinit-linux-amd64-v$VERSION-beta.tar.gz &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.txt &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig.ots
 </strong></code></pre>
 
-* Now, edit the `lnd.conf` configuration dile to use the PostgreSQL database as the backend
+* Now, edit the `lnd.conf` configuration file to use the PostgreSQL database as the backend
 
 ```bash
 sudo nano /data/lnd/lnd.conf
