@@ -648,7 +648,7 @@ Click on the **\[Nostr Settings]** box to obtain your private key if you don't h
 <figure><img src="../../.gitbook/assets/private-key-nostr.PNG" alt="" width="290"><figcaption></figcaption></figure>
 
 {% hint style="success" %}
-Now, you can use Alby to log in to compatible web clients using NIP-07 \[**Login from extension]**
+Now, you can use Alby to log in to compatible web clients using NIP-07 **\[Login from extension]**
 {% endhint %}
 
 {% hint style="info" %}

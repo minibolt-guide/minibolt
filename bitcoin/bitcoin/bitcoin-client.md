@@ -1036,7 +1036,7 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 ```
 {% endhint %}
 
-### Improve the Reliability
+### Improve the reliability
 
 Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring Bitcoin Core with both onion and i2p addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
 
@@ -1081,7 +1081,7 @@ sudo systemctl restart bitcoind
 Pay attention to the Bitcoin Core logs (`journalctl -fu bitcoind`), a similar log to this should appear at some point:
 
 ```
-New outbound-full-relay v2 peer connected: version: 70016, blocks=76637, peer=260
+New manual v2 peer connected: version: 70016, blocks=79633, peer=4
 ```
 
 -> You can also check this by typing this command:
