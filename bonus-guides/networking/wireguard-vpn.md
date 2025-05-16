@@ -144,7 +144,7 @@ sudo nano /opt/freemyip/freemyip.sh
 
 {% code overflow="wrap" %}
 ```
-echo url="https://freemyip.com/update?=<YOUR_SECRET_TOKEN>&domain=<yourdomain>&verbose=yes" | curl -k -o /opt/freemyip/freemyip.log -K -
+echo url="https://freemyip.com/update?token=<YOUR_SECRET_TOKEN>&domain=<yourdomain>&verbose=yes" | curl -k -o /opt/freemyip/freemyip.log -K -
 ```
 {% endcode %}
 
