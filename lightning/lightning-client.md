@@ -33,7 +33,7 @@ The installation of LND is straightforward, but the application is quite powerfu
 
 ### Configure Bitcoin Core
 
-Before running LND, we need to set up settings in the Bitcoin Core configuration file to enable the LND RPC connection.
+Before running LND, we need to configure settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
 * Login as user `admin`, edit the `bitcoin.conf` file
 
@@ -86,7 +86,7 @@ psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide installation progress](../bonus-guides/system/postgresql.md#installation) to install it and then come back to continue with the guide
+If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide installation progress](../bonus-guides/system/postgresql.md#installation) to install it and then return to continue with the guide
 {% endhint %}
 
 #### Create PostgreSQL database
@@ -241,7 +241,7 @@ Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
 Check that the date of the timestamp is close to the [release date](https://github.com/lightningnetwork/lnd/releases) of the LND binary
 {% endhint %}
 
-* Having verified the integrity and authenticity of the release binary, we can safely
+* Having verified the integrity and authenticity of the release binary, we can safely proceed
 
 ```sh
 tar -xzvf lnd-linux-amd64-v$VERSION-beta.tar.gz
@@ -265,7 +265,7 @@ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v$VERSION
 ```
 {% endcode %}
 
-* Ensure you are installed by running the version command
+* Verify installation by running the version command
 
 ```sh
 lnd --version
@@ -294,7 +294,7 @@ If you come to [update](lightning-client.md#upgrade) this is the final step
 sudo adduser --disabled-password --gecos "" lnd
 ```
 
-* Add the `lnd` user to the groups "bitcoin" and "debian-tor", allowing the `lnd` user reads the bitcoind `.cookie` file and to use the control port to configure Tor directly
+* Add the `lnd` user to the groups "bitcoin" and "debian-tor", allowing the `lnd` user to read the bitcoind `.cookie` file and to use the control port to configure Tor directly
 
 ```sh
 sudo usermod -a -G bitcoin,debian-tor lnd
@@ -321,7 +321,7 @@ Done.
 sudo mkdir /data/lnd
 ```
 
-* Assign as owner the `lnd` user
+* Assign the `lnd` user as owner
 
 ```sh
 sudo chown -R lnd:lnd /data/lnd
@@ -353,7 +353,7 @@ lrwxrwxrwx 1 lnd lnd  9 Jul 21  2023 <a data-footnote-ref href="#user-content-fn
 
 ### Wallet password
 
-LND includes a Bitcoin wallet that manages your onchain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your PC, or store the password somewhere on the node.
+LND includes a Bitcoin wallet that manages your onchain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your node, or store the password somewhere on the node.
 
 For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically.
 
@@ -363,7 +363,7 @@ For this initial setup, we choose the easy route: we store the password in a fil
 nano /data/lnd/password.txt
 ```
 
-* Tighten access privileges and make the file readable only for the user `lnd`
+* Tighten access privileges to make the file readable only for the user `lnd`
 
 ```sh
 chmod 600 /data/lnd/password.txt
@@ -414,7 +414,7 @@ tlsautorefresh=true
 tlsdisableautofill=true
 
 ## Channel settings
-# (Optional) Minimum channel size. Uncomment and set whatever you want
+# (Optional) Minimum channel size. Uncomment and set to your preference
 # (default: 20000 sats)
 <a data-footnote-ref href="#user-content-fn-5">#minchansize=20000</a>
 
@@ -487,7 +487,7 @@ tor.streamisolation=true
 </code></pre>
 
 {% hint style="info" %}
-This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf) with all possible options if you want to add something special
+This is a standard configuration. Check the official LND [sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf) for all possible options if you want to add something special
 {% endhint %}
 
 * Exit of the `lnd` user session to return to the `admin` user session
@@ -498,7 +498,7 @@ exit
 
 ### Create systemd service
 
-Now, let's set up LND to start automatically on system startup.
+Now, let's configure LND to start automatically on system startup.
 
 * As user `admin`, create LND systemd unit
 
@@ -506,7 +506,7 @@ Now, let's set up LND to start automatically on system startup.
 sudo nano /etc/systemd/system/lnd.service
 ```
 
-* Enter the following complete content. Save and exit
+* Enter the following content. Save and exit
 
 ```
 # MiniBolt: systemd unit for lnd
@@ -647,7 +647,7 @@ Expected output:
 </strong>Input your passphrase if you wish to encrypt it (or press enter to proceed without a cipher seed passphrase):
 </code></pre>
 
-* Type the passphrase and press enter \[the prompt will request you to enter your `password [C]` one more time (`Confirm password:`)] or if you choose not to use the passphrase press enter simply
+* Type the passphrase and press enter \[the prompt will request you to enter your `password [C]` one more time (`Confirm password:`)] or if you choose not to use the passphrase press simply enter
 
 **Example** of expected output:
 
@@ -667,7 +667,7 @@ lnd successfully initialized!
 ```
 
 {% hint style="warning" %}
-These 24 words are all that you need (and the `channel.backup` file in case of disaster recovery) to restore the Bitcoin onchain wallet and possibly UTXOs blocked
+These 24 words are all that you need (and the `channel.backup` file in case of disaster recovery) to restore the Bitcoin onchain wallet and possibly blocked UTXOs
 
 **Write these 24 words down manually on a piece of paper and store them in a safe place**
 
@@ -729,7 +729,7 @@ Input your cipher seed passphrase (press enter if your seed doesn't have a passp
 * If you used a passphrase, enter it, if not, press enter again directly
 
 {% hint style="info" %}
-If you were wrong with the passphrase, don't worry, LND shows you the next log and will not run: `[lncli] rpc error: code = Unknown desc = invalid passphrase`, recheck, and try again, if not, the prompt shows you the next
+If you entered the passphrase incorrectly, don't worry, LND shows you the following log and will not run: `[lncli] rpc error: code = Unknown desc = invalid passphrase`. Recheck, and try again. If not, the prompt shows you the following
 {% endhint %}
 
 Expected output:
@@ -761,7 +761,7 @@ Generating fresh cipher seed...
 lnd successfully initialized!
 ```
 
-Return to the first terminal with `journalctl -f -u lnd`. Search to the next lines to ensure LND already entered the RECOVERY MODE and go out of this ⬇️
+Return to the first terminal with `journalctl -f -u lnd`. Locate the following lines to verify LND properly enabled RECOVERY MODE ⬇️
 
 <pre><code><strong>[...]
 </strong>Jun 05 15:05:16 minibolt lnd[124224]: 2024-06-05 15:05:16.248 [INF] LNWL: Opened wallet
@@ -786,9 +786,9 @@ Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.361 [INF] LNWL: Finish
 {% endtabs %}
 
 {% hint style="info" %}
-However, the current state of your channels, cannot be recreated from this seed. For this, the Static Channel Backup is stored `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` is updated for each channel opening and closing
+However, the current state of your channels cannot be recreated from this seed. For this, the Static Channel Backup is stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` and updated for each channel opening and closing
 
-There is a dedicated [guide](channel-backup.md) to making an automatic backup
+There is a dedicated [guide](channel-backup.md) for generating an automatic backup
 {% endhint %}
 
 * Return to the `admin` user
@@ -893,14 +893,14 @@ Now your Lightning node is ready. This is also the point of no return. Up until 
 {% endhint %}
 
 {% hint style="info" %}
-The next commands can be entered in any new session without keeping a specific terminal open with logs, but I recommend keeping this just in case any log could give extra information about the command you just entered
+Subsequent commands can be entered in new sessions without needing to keep this terminal open for logs. However, retaining this session is recommended in case logs provide additional context for the preceding command.
 {% endhint %}
 
 ### Watchtower client
 
-Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
+Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
-Watchtowers are other Lightning nodes that can monitor your channels for you. If they detect such bad behavior, they can react on your behalf and send a punishing transaction to close this channel. In this case, all channel funds will be sent to your LND on-chain wallet.
+Watchtowers are other Lightning nodes that can monitor your channels for you. If they detect such bad behavior, they can react on your behalf by sending a punishing transaction to close this channel. In this case, all channel funds will be sent to your LND on-chain wallet.
 
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them. It's good practice to add a few watchtowers, just to be on the safe side.
 
@@ -944,14 +944,14 @@ lncli wtclient remove <pubkey>
 ```
 
 {% hint style="info" %}
-Monitor logs with `journalctl -fu lnd` to check the watchtower client is working fine, it should show you after a while, the next logs ⬇️
+Monitor logs with `journalctl -fu lnd` to verify the watchtower client is working correctly. The following logs should be shown after a period of time ⬇️
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/lnd-watchtower_log.PNG" alt=""><figcaption></figcaption></figure>
 
 ### Watchtower server
 
-Same you can connect as a watchtower client to other watchtower servers, and you could give the same service by running an altruistic watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
+Similarly you can connect as a watchtower client to other watchtower servers, and you could provide the same service by running an altruistic watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
 ```sh
 lncli tower info
@@ -972,18 +972,18 @@ lncli tower info
 ```
 
 {% hint style="warning" %}
-This watchtower server service is not recommended to activate if you have a slow device without high-performance features. If yes, consider disabling it by commenting or deleting the line `watchtower.active=true` of the `lnd.conf` file
+This watchtower server service is not recommended to activate if you have a slow device without high-performance features. If so, consider disabling it by commenting or deleting the line `watchtower.active=true` in the `lnd.conf` file
 {% endhint %}
 
 {% hint style="info" %}
-Almost all of the following steps could be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with intuitive and visual UI to manage the Lightning Node, instead of using the command line. Anyway, if you want to explore the `lncli`, you have some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
+Almost all of the following steps can be ran with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with an intuitive and visual UI to manage the Lightning Node, instead of using the command line. If you still want to explore the use of `lncli`, there are some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
 {% endhint %}
 
 ## Extras (optional)
 
 ### Use the default bbolt database backend
 
-Once you have skipped the before section of the [PostgreSQL installation](lightning-client.md#install-postgresql), and when you arrive at the [Configuration section](lightning-client.md#configuration), modify `lnd.conf` file
+Once you have skipped the previous section of the [PostgreSQL installation](lightning-client.md#install-postgresql), and when you arrive at the [Configuration section](lightning-client.md#configuration), modify `lnd.conf` file
 
 * With user `lnd`, edit `lnd.conf`
 
@@ -991,7 +991,7 @@ Once you have skipped the before section of the [PostgreSQL installation](lightn
 nano /data/lnd/lnd.conf
 ```
 
-* Replace `# Database` section about the PostgreSQL database backend
+* Replace `# Database` section pertaining to the PostgreSQL database backend
 
 ```
 [db]
@@ -1022,7 +1022,7 @@ exit
 ```
 
 {% hint style="info" %}
-Continue with the guide on the [Create systemd service](lightning-client.md#create-systemd-service) section
+Continue with the guide in the [Create systemd service](lightning-client.md#create-systemd-service) section
 {% endhint %}
 
 ### Migrate an existing bbolt database to PostgreSQL
@@ -1033,7 +1033,7 @@ Attention:  It is recommended to start from scratch by closing all existing chan
 
 #### Install lndinit
 
-* We'll download, verify, and install `lndinit`. With the user `admin`, navigate to the temporary directory
+* We'll download, verify, and install `lndinit`. With the user `admin`. Navigate to the temporary directory
 
 ```bash
 cd /tmp
@@ -1175,7 +1175,7 @@ sudo install -m 0755 -o root -g root -t /usr/local/bin lndinit-linux-amd64-v$VER
 ```
 {% endcode %}
 
-* (Optional) Clean the lndinit files of the `tmp` folder
+* (Optional) Clean the lndinit files in the `tmp` folder
 
 {% code overflow="wrap" %}
 ```bash
@@ -1219,7 +1219,7 @@ May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU t
 * Previously followed:
   1. [Install PostgreSQL section](lightning-client.md#install-postgresql)
   2. [Create PostgreSQL database section](lightning-client.md#create-postgresql-database)
-* Depending on whether you selected on the [Binaries installation section](lightning-client.md#binaries-installation-1) the [option 1](lightning-client.md#id-1.-temporary-use-recomended) or [2](lightning-client.md#id-2.-permanet-installation):
+* Depending on whether you selected in the [Binaries installation section](lightning-client.md#binaries-installation-1) the [option 1](lightning-client.md#id-1.-temporary-use-recomended) or [2](lightning-client.md#id-2.-permanet-installation):
 
 {% tabs %}
 {% tab title="1. For temporary use option (recommended)" %}
@@ -1229,7 +1229,7 @@ May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU t
 cd lndinit-linux-amd64-v$VERSION-beta
 ```
 
-* Execute the migration and wait to finish
+* Execute the migration and wait for completion
 
 ```bash
 sudo ./lndinit --debuglevel info migrate-db \
@@ -1242,7 +1242,7 @@ sudo ./lndinit --debuglevel info migrate-db \
 ```
 
 {% hint style="info" %}
-This process could take a few minutes, depending on the database size. When the prompt comes back to show you that the migration is finished successfully
+This process could take a few minutes, depending on the database size. The prompt returns after the logs indicate a successful migration
 {% endhint %}
 {% endtab %}
 
@@ -1260,7 +1260,7 @@ sudo lndinit --debuglevel info migrate-db \
 ```
 
 {% hint style="info" %}
-This process could take a few minutes, depending on the database size. When the prompt comes back to show you that the migration is finished successfully
+This process could take a few minutes, depending on the database size. The prompt returns after the logs indicate a successful migration
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -1300,7 +1300,7 @@ This process could take a few minutes, depending on the database size. When the 
 
 </details>
 
-* (Optional) If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the lndinit files of the `tmp` folder
+* (Optional) If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the lndinit files in the `tmp` folder
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo rm -r /tmp/lndinit-linux-amd64-v$VERSION-beta &#x26;&#x26; sudo rm /tmp/lndinit-linux-amd64-v$VERSION-beta.tar.gz &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.txt &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig.ots
 </strong></code></pre>
@@ -1311,7 +1311,7 @@ This process could take a few minutes, depending on the database size. When the 
 sudo nano /data/lnd/lnd.conf
 ```
 
-* Replace or comment with "`#`" the `# Database` section about the bbolt database backend
+* Replace or comment with "`#`" the `# Database` section pertaining to the bbolt database backend
 
 ```
 [bolt]
@@ -1341,7 +1341,7 @@ db.postgres.timeout=0
 sudo nano /etc/systemd/system/lnd.service
 ```
 
-* Replace the next lines to include the `postgres.service` dependency
+* Replace the following lines to include the `postgres.service` dependency
 
 ```
 Requires=bitcoind.service postgresql.service
@@ -1360,14 +1360,14 @@ sudo systemctl daemon-reload
 sudo systemctl start lnd
 ```
 
-* Monitor the LND logs to ensure all is working correctly with the new PostgreSQL database backend successfully migrated
+* Monitor the LND logs to ensure all is working correctly with the new, successfully migrated PostgreSQL database backend
 
 ```bash
 journalctl -fu lnd
 ```
 
 {% hint style="info" %}
--> The `[WRN]` logs indicate that LND has detected an existing old bbolt database and it will not be migrated to PostgreSQL automatically, but we already migrated it before 😏
+-> The `[WRN]` logs indicate that LND has detected an existing, old bbolt database and it will not be migrated to PostgreSQL automatically, but we already migrated it before 😏
 
 ```
 [...]
@@ -1382,7 +1382,7 @@ journalctl -fu lnd
 
 
 
--> Pay attention to this `[INF]` significant log to confirm you are using PostgreSQL now
+-> Pay attention to this significant `[INF]` log to confirm you are now using PostgreSQL
 
 ```
 [...]
@@ -1423,13 +1423,13 @@ The flags `--memo` |`--amt` & `--expiry` are optional. The default expiry time w
 Copy the output `[lnbc...]` of the "payment\_request": "`lnbc...`". Transform your output payment request into a QR code, embed it on your website, or add it to your social media. LibreOffice has built-in functionality, and there are plenty of freely available online tools
 {% endhint %}
 
-#### -> Pay an AMP invoice (both sender and receiver nodes have to have AMP enabled)
+#### -> Pay an AMP invoice (both sender and receiver nodes need to have AMP enabled)
 
 ```sh
 lncli payinvoice --amt <amount> <amp invoice>
 ```
 
-#### -> Send payment to node without invoice using AMP invoice (both sender and receiver nodes have to have AMP enabled)
+#### -> Send payment to node without invoice using AMP invoice (both sender and receiver nodes need to have AMP enabled)
 
 ```sh
 lncli sendpayment --dest <destination public key> --amt <amount> --amp
@@ -1449,7 +1449,7 @@ Payment status: SUCCEEDED, preimage: 7c7c34c655eaea4f683db53f22ca2f5256758eb260f
 ```
 
 {% hint style="info" %}
-If you want to send a circular payment to yourself, add the next flag at the end of the command:`--allow_self_payment`
+If you want to send a circular payment to yourself, add this flag at the end of the command:`--allow_self_payment`
 {% endhint %}
 
 #### -> Extract the SegWit and Taproot master public key of your onchain LND wallet
@@ -1484,7 +1484,7 @@ Upgrading LND can lead to some issues. **Always** read the [LND release notes](h
 lnd --version
 ```
 
-* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not been already changed in this guide **(acting behind your responsibility)**
+* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not been already changed in this guide **(acting behind your responsibility)**
 * Restart LND to apply the new version
 
 ```sh
