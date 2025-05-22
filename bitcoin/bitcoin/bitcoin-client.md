@@ -340,6 +340,12 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 server=1
 txindex=1
 
+# Disable cjdns network
+onlynet=onion
+onlynet=i2p
+onlynet=ipv4
+onlynet=ipv6
+
 # Append comment to the user agent string
 uacomment=<a data-footnote-ref href="#user-content-fn-2">MiniBolt node</a>
 
@@ -350,7 +356,7 @@ disablewallet=1
 debug=tor
 debug=i2p
 
-# Assign to the cookie file read permission to the Bitcoin group users
+# Assign read permission to the Bitcoin group users to the cookie file
 rpccookieperms=group
 
 # Disable debug.log
@@ -367,7 +373,7 @@ blockfilterindex=1
 # Serve compact block filters to peers per BIP 157
 peerblockfilters=1
 
-# Maintain coinstats index used by the gettxoutsetinfo RPC
+# Maintain the coinstats index used by the gettxoutsetinfo RPC
 coinstatsindex=1
 
 # Network
@@ -392,17 +398,7 @@ blocksonly=1
 </code></pre>
 
 {% hint style="info" %}
-**(Optional)** If you checked on the [Check IPv6 availability](../../index-1/security.md#check-ipv6-availability) section and you don't have IPv6 available, you can discard `cjdns` of the Bitcoin Core by adding the next lines at the end of the configuration file:
-
-```
-# Disable cjdns network
-onlynet=onion
-onlynet=i2p
-onlynet=ipv4
-onlynet=ipv6
-```
-
--> This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options or generate one yourself following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
+This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options, or generate one yourself following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
 {% endhint %}
 
 * Set permissions for only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)

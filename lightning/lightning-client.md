@@ -109,10 +109,10 @@ sudo -u postgres createdb -O admin lndb
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=0.18.5
+VERSION=0.19.0
 ```
 
 * Download the application, checksums, and signature
@@ -404,6 +404,9 @@ color=<a data-footnote-ref href="#user-content-fn-6">#ff9900</a>
 wallet-unlock-password-file=/data/lnd/password.txt
 wallet-unlock-allow-create=true
 
+# Do not archive the history of the channel.backup file
+no-backup-archive=true
+
 # The TLS private key will be encrypted to the node's seed
 tlsencryptkey=true
 
@@ -420,8 +423,8 @@ tlsdisableautofill=true
 
 ## (Optional) High fee environment settings
 <a data-footnote-ref href="#user-content-fn-7">#max-commit-fee-rate-anchors=</a><a data-footnote-ref href="#user-content-fn-7">10</a>
-<strong><a data-footnote-ref href="#user-content-fn-8">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-8">0.5</a>
-</strong>
+<a data-footnote-ref href="#user-content-fn-8">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-8">0.5</a>
+
 ## Communication
 accept-keysend=true
 accept-amp=true
@@ -451,6 +454,7 @@ bitcoin.node=bitcoind
 protocol.wumbo-channels=true
 protocol.option-scid-alias=true
 protocol.simple-taproot-chans=true
+protocol.zero-conf=true
 
 [wtclient]
 ## Watchtower client settings
@@ -1028,7 +1032,7 @@ Continue with the guide in the [Create systemd service](lightning-client.md#crea
 ### Migrate an existing bbolt database to PostgreSQL
 
 {% hint style="danger" %}
-Attention:  It is recommended to start from scratch by closing all existing channels, rather than a migration, to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
+Attention: It is recommended to start from scratch by closing all existing channels, rather than a migration, to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
 {% endhint %}
 
 #### Install lndinit
@@ -1376,11 +1380,7 @@ journalctl -fu lnd
 [...]
 ```
 
-
-
 -> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
-
-
 
 -> Pay attention to this significant `[INF]` log to confirm you are now using PostgreSQL
 
@@ -1484,7 +1484,7 @@ Upgrading LND can lead to some issues. **Always** read the [LND release notes](h
 lnd --version
 ```
 
-* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not been already changed in this guide **(acting behind your responsibility)**
+* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**
 * Restart LND to apply the new version
 
 ```sh
@@ -1513,7 +1513,7 @@ sudo systemctl disable lnd
 sudo rm /etc/systemd/system/lnd.service
 ```
 
-### &#x20;Delete user & group&#x20;
+### Delete user & group
 
 * Delete lnd user's group
 
