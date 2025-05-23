@@ -455,6 +455,7 @@ protocol.wumbo-channels=true
 protocol.option-scid-alias=true
 protocol.simple-taproot-chans=true
 protocol.zero-conf=true
+protocol.rbf-coop-close=true
 
 [wtclient]
 ## Watchtower client settings
