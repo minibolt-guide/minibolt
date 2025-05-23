@@ -300,10 +300,6 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 
 ### [Lightning client: LND](../../lightning/lightning-client.md)
 
-{% hint style="danger" %}
-#### Not Testnet4 compatible yet, the next steps are not valid!
-{% endhint %}
-
 * Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/lightning-client.md#configuration) section, edit `lnd.conf`
 
 ```bash
@@ -318,16 +314,6 @@ bitcoin.testnet4=true
 
 [Bitcoind]
 bitcoind.config=/data/bitcoin/bitcoin-testnet4.conf
-```
-
-{% hint style="info" %}
-If you use [Ordirespector](ordisrespector.md) on testnet, add the next lines at the end of the file:
-{% endhint %}
-
-```
-[fee]
-# Use external fee estimator
-fee.url=https://nodes.lightning.computer/fees/v1/btctestnet4-fee-estimates.json
 ```
 
 * When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace the next lines
@@ -378,7 +364,7 @@ sudo nano /usr/local/bin/scb-backup --linenumbers
 * Replace the `line 18` in the script to match with the testnet path
 
 ```
-SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet/channel.backup"
+SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet4/channel.backup"
 ```
 
 {% hint style="info" %}
@@ -399,13 +385,13 @@ The rest of the **Channel Backup guide** is the same as the mainnet mode
 * Follow the complete guide from the beginning. When you arrive at the [Configuration](../../lightning/web-app.md#configuration) section, replace the next parameter to match the testnet mode in the `.env.local` file
 
 ```
-MEMPOOL_URL='https://mempool.space/testnet'
+MEMPOOL_URL='https://mempool.space/testnet4'
 ```
 
 * And replace the next parameter in the `thubConfig.yaml` file
 
 ```
-macaroonPath: /data/lnd/data/chain/bitcoin/testnet/admin.macaroon
+macaroonPath: /data/lnd/data/chain/bitcoin/testnet4/admin.macaroon
 ```
 
 {% hint style="success" %}
@@ -413,8 +399,6 @@ The rest of the **Web app: Thunderhub** is the same as the mainnet mode
 {% endhint %}
 
 ### [Mobile app: Zeus](../../lightning/mobile-app.md)
-
-
 
 * Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match the next
 
