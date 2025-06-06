@@ -510,7 +510,7 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 ```
 # Reject data in transactions
-datacarriersize=0
+datacarriers=0
 permitbaremultisig=0
 ```
 

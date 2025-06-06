@@ -92,15 +92,16 @@ zmqpubhashtx=tcp://127.0.0.1:9332
 sudo systemctl restart bitcoind
 ```
 
-* Check Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port
+* Check if Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port and `zmqpubhashtx` on the `9332` port
 
 ```bash
-sudo ss -tulpn | grep bitcoind | grep 8433
+sudo ss -tulpn | grep -E '(:8433|:9332)'
 ```
 
 Expected output:
 
-<pre><code>tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">8433</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=18))
+<pre><code>tcp   LISTEN 0      100            127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">9332</a>       0.0.0.0:*    users:(("bitcoind",pid=2915785,fd=21))
+tcp   LISTEN 0      100            127.0.0.1:<a data-footnote-ref href="#user-content-fn-1">8433</a>       0.0.0.0:*    users:(("bitcoind",pid=2915785,fd=19))
 </code></pre>
 
 ## Installation
@@ -109,7 +110,7 @@ Expected output:
 
 We have our Bitcoin Core configuration file set up and can move on to the next part of the Fulcrum installation.
 
-* Login as `admin` user and change to a temporary directory which is cleared on reboot
+* Login as `admin` user and change to a temporary directory, which is cleared on reboot
 
 ```sh
 cd /tmp
@@ -173,7 +174,7 @@ gpg --verify Fulcrum-$VERSION-shasums.txt.asc Fulcrum-$VERSION-shasums.txt
 Expected output:
 
 <pre data-overflow="wrap"><code>[...]
-gpg: <a data-footnote-ref href="#user-content-fn-2">Good signature</a> from "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" [unknown]
+gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg: There is no indication that the signature belongs to the owner.
 Primary key fingerprint: D465 135F 97D0 047E 18E9  9DC3 2181 0A54 2031 C02C
@@ -190,7 +191,7 @@ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 
 **Example** of expected output:
 
-<pre><code><strong><a data-footnote-ref href="#user-content-fn-3">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
+<pre><code><strong><a data-footnote-ref href="#user-content-fn-2">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
 </strong></code></pre>
 
 * Extract
@@ -297,7 +298,7 @@ ls -la .fulcrum
 
 Expected output:
 
-<pre><code><strong>lrwxrwxrwx 1 fulcrum fulcrum 13 Jul 27 17:06 <a data-footnote-ref href="#user-content-fn-2">.fulcrum -> /data/fulcrum</a>
+<pre><code><strong>lrwxrwxrwx 1 fulcrum fulcrum 13 Jul 27 17:06 <a data-footnote-ref href="#user-content-fn-1">.fulcrum -> /data/fulcrum</a>
 </strong></code></pre>
 
 * Change to the fulcrum data folder
@@ -366,7 +367,7 @@ zmq_allow_hashtx = true
 
 # Set utxo-cache according to your device performance (only apply on initial indexing)
 # recommended: utxo-cache=1/2 x RAM available e.g: 4GB RAM -> utxo-cache=2000
-utxo-cache = <a data-footnote-ref href="#user-content-fn-4">2000</a>
+utxo-cache = <a data-footnote-ref href="#user-content-fn-3">2000</a>
 
 # Banner
 banner = /data/fulcrum/fulcrum-banner.txt
@@ -793,10 +794,8 @@ Filename            Type                Size           Used    Priority
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="c7bSQ5JNyEzd" label="TCP" color="blue"></option><option value="sTSvdCtBoTFb" label="SSL" color="blue"></option><option value="hMCHv9SJMWRX" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50001</td><td><span data-option="c7bSQ5JNyEzd">TCP</span></td><td align="center">TCP port</td></tr><tr><td align="center">50002</td><td><span data-option="sTSvdCtBoTFb">SSL</span></td><td align="center">SSL port</td></tr><tr><td align="center">8000</td><td><span data-option="c7bSQ5JNyEzd">TCP</span></td><td align="center">Admin port</td></tr></tbody></table>
 
-[^1]: zmqpubhashblock port
+[^1]: Check this
 
-[^2]: Check this
+[^2]: That's it!
 
-[^3]: That's it!
-
-[^4]: Accommodate this
+[^3]: Accommodate this
