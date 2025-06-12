@@ -225,7 +225,7 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.26
+VERSION=2.5.27
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -560,7 +560,7 @@ cd src
 * Set the variable environment version
 
 ```bash
-VERSION=2.1.1
+VERSION=2.1.4
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -1153,7 +1153,7 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.26
+VERSION=2.5.27
 ```
 
 * Fetch the changes of the latest wish tag
@@ -1293,7 +1293,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.1.1
+VERSION=2.1.2
 ```
 
 * Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications

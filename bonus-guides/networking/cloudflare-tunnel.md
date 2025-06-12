@@ -94,10 +94,10 @@ Keep this Cloudflare session open, we will add and modify some registries to con
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=2025.5.0
+VERSION=2025.6.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)

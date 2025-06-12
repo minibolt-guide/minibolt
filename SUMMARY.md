@@ -57,5 +57,5 @@
   * [Login with SSH keys](bonus-guides/security/ssh-keys.md)
 * [🌐 Networking](bonus-guides/networking/README.md)
   * [WireGuard VPN](bonus-guides/networking/wireguard-vpn.md)
-  * [Tor services: bridges & relays](bonus-guides/networking/tor-services.md)
   * [Cloudflare tunnel](bonus-guides/networking/cloudflare-tunnel.md)
+  * [Tor services: bridges & relays](bonus-guides/networking/tor-services.md)
