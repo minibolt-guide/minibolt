@@ -478,7 +478,7 @@ sudo systemctl restart bitcoind
 
 ### Add an external fee estimator to the LND
 
-By applying a spam and arbitrary data filter to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without spam and arbitrary data filter applied
+By applying a spam and arbitrary data filter to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without a spam or arbitrary data filter applied.
 
 * With user admin, stop LND if you have installed
 
