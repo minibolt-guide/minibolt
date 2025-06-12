@@ -55,4 +55,4 @@ layout:
 
 ### Alternative Bitcoin Clients
 
-* [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md) - an advanced Bitcoin Core fork with extra tools for enhanced functionality and rejecting spam and arbitrary data
+* [**Bitcoin Knots**](../../bonus-guides/bitcoin/bitcoin-knots.md) - an advanced Bitcoin Core fork with extra tools for enhanced functionality and rejecting spam and arbitrary data

@@ -16,7 +16,7 @@ layout:
 
 [**Bitcoin Knots**](https://bitcoinknots.org/) is a community-driven fork of Bitcoin Core that offers advanced features, experimental options, and enhanced configurability. It includes additional consensus and networking parameters—such as stronger spam filtering and custom block processing rules—designed for power users and developers seeking deeper control over their Bitcoin node.
 
-<div data-full-width="false"><figure><img src="../../.gitbook/assets/Bitcoin-Knots-Logo-1.png" alt=""><figcaption></figcaption></figure></div>
+<div data-full-width="false"><figure><img src="../../.gitbook/assets/Bitcoin-Knots-Logo.png" alt=""><figcaption></figcaption></figure></div>
 
 ### Preparations
 
@@ -29,7 +29,7 @@ sudo apt update && sudo apt full-upgrade
 ### Option 1: Using precompiled binaries
 
 {% hint style="info" %}
-### Option recommended for non-advanced users
+#### Option recommended for non-advanced users
 {% endhint %}
 
 #### Installation
@@ -174,7 +174,7 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 ### Option 2: Compiling from source code
 
 {% hint style="info" %}
-### Option recommended for advanced users and users who want to improve the censorship resistance of their Bitcoin Knots
+#### Option recommended for advanced users and users who want to improve the censorship resistance of their Bitcoin Knots
 {% endhint %}
 
 * Install the next dependency packages
@@ -478,7 +478,7 @@ sudo systemctl restart bitcoind
 
 ### Add an external fee estimator to the LND
 
-By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
+By applying a spam and arbitrary data filter to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without spam and arbitrary data filter applied
 
 * With user admin, stop LND if you have installed
 
@@ -509,7 +509,7 @@ sudo systemctl start lnd
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/28.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
 
-Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code: [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if it has not already been changed in this guide. Continue until you&#x20;
+Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code: [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if it has not already been changed in this guide. Continue until you
 
 {% hint style="info" %}
 Remember to restart the Bitcoin Core to apply the new version with `sudo systemctl restart bitcoind`
