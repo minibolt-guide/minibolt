@@ -91,7 +91,7 @@ If you obtain "**command not found**" outputs, you need to follow the [PostgreSQ
 
 #### Create PostgreSQL database
 
-* With user `admin`, create a new database with the `postgres` user and assign as the owner to the `admin` user
+* With user `admin`, create a new database with the `postgres` user and assign it as the owner to the `admin` user
 
 {% code overflow="wrap" %}
 ```bash
@@ -112,7 +112,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=0.19.0
+VERSION=0.19.1
 ```
 
 * Download the application, checksums, and signature
@@ -165,7 +165,7 @@ lnd-linux-amd64-v0.16.3-beta.tar.gz: OK
 
 Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
 
-* Get the public key from a LND developer, who signed the manifest file, and add it to your GPG keyring
+* Get the public key from a LND developer who signed the manifest file, and add it to your GPG keyring
 
 {% code overflow="wrap" %}
 ```bash
@@ -353,11 +353,11 @@ lrwxrwxrwx 1 lnd lnd  9 Jul 21  2023 <a data-footnote-ref href="#user-content-fn
 
 ### Wallet password
 
-LND includes a Bitcoin wallet that manages your onchain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your node, or store the password somewhere on the node.
+LND includes a Bitcoin wallet that manages your onchain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your node or store the password somewhere on the node.
 
 For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically.
 
-* Still as user `lnd`, create a text file and enter your LND wallet `password [C]`. **Password should have at least 8 characters.** Save and exit
+* Still as user `lnd`, create a text file and enter your LND wallet `password [C]`. **The password should have at least 8 characters.** Save and exit
 
 ```sh
 nano /data/lnd/password.txt
@@ -903,7 +903,7 @@ Subsequent commands can be entered in new sessions without needing to keep this 
 
 ### Watchtower client
 
-Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer time, for instance due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
+Lightning channels need to be monitored to prevent malicious behavior by your channel peers. If your MiniBolt goes down for a longer time, for instance, due to a hardware problem, a node on the other side of one of your channels might try to close the channel with an earlier channel balance that is better for them.
 
 Watchtowers are other Lightning nodes that can monitor your channels for you. If they detect such bad behavior, they can react on your behalf by sending a punishing transaction to close this channel. In this case, all channel funds will be sent to your LND on-chain wallet.
 
@@ -956,7 +956,7 @@ Monitor logs with `journalctl -fu lnd` to verify the watchtower client is workin
 
 ### Watchtower server
 
-Similarly you can connect as a watchtower client to other watchtower servers, and you could provide the same service by running an altruistic watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
+Similarly, you can connect as a watchtower client to other watchtower servers, and you could provide the same service by running an altruistic watchtower server. **This was previously activated** in the `lnd.conf`, and you can see the information about it by typing the following command and sharing it with your peers.
 
 ```sh
 lncli tower info
@@ -981,7 +981,7 @@ This watchtower server service is not recommended to activate if you have a slow
 {% endhint %}
 
 {% hint style="info" %}
-Almost all of the following steps can be ran with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with an intuitive and visual UI to manage the Lightning Node, instead of using the command line. If you still want to explore the use of `lncli`, there are some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
+Almost all of the following steps can be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with an intuitive and visual UI to manage the Lightning Node, instead of using the command line. If you still want to explore the use of `lncli`, there are some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
 {% endhint %}
 
 ## Extras (optional)
@@ -1430,7 +1430,7 @@ Copy the output `[lnbc...]` of the "payment\_request": "`lnbc...`". Transform yo
 lncli payinvoice --amt <amount> <amp invoice>
 ```
 
-#### -> Send payment to node without invoice using AMP invoice (both sender and receiver nodes need to have AMP enabled)
+#### -> Send payment to the node without invoice using AMP invoice (both sender and receiver nodes need to have AMP enabled)
 
 ```sh
 lncli sendpayment --dest <destination public key> --amt <amount> --amp
