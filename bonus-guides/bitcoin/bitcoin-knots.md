@@ -14,25 +14,33 @@ layout:
 
 # Bitcoin Knots
 
+[**Bitcoin Knots**](https://bitcoinknots.org/) is a community-driven fork of Bitcoin Core that offers advanced features, experimental options, and enhanced configurability. It includes additional consensus and networking parameters—such as stronger spam filtering and custom block processing rules—designed for power users and developers seeking deeper control over their Bitcoin node.
+
 <div data-full-width="false"><figure><img src="../../.gitbook/assets/Bitcoin-Knots-Logo-1.png" alt=""><figcaption></figcaption></figure></div>
 
-## Preparations
+### Preparations
 
-{% hint style="info" %}
-You enter commands and the PC answers by printing the results below your command. The system response is marked with the `">"` character
-{% endhint %}
-
-* With `admin` user, update and upgrade your OS
+* With `admin` user, update, and upgrade your OS
 
 ```sh
 sudo apt update && sudo apt full-upgrade
 ```
 
-## Using precompiled binaries
+### Option 1: Using precompiled binaries
 
+{% hint style="info" %}
+### Option recommended for non-advanced users
+{% endhint %}
+
+#### Installation
+
+* Go to the temporary folder
+
+```bash
 cd /tmp
+```
 
-* Set the next environment variableS
+* Set the next environment variables
 
 ```sh
 VERSION=28.1.knots20250305 && BRANCH=28.x
@@ -40,15 +48,11 @@ VERSION=28.1.knots20250305 && BRANCH=28.x
 
 * Get the latest binaries and signatures
 
+{% code overflow="wrap" %}
 ```sh
 wget https://bitcoinknots.org/files/$BRANCH/$VERSION/bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
-
-///
-
-```sh
-wget https://bitcoinknots.org/files/$BRANCH/$VERSION/bitcoin-$VERSION-aarch64-linux-gnu.tar.gz
-```
+{% endcode %}
 
 ```sh
 wget https://bitcoinknots.org/files/$BRANCH/$VERSION/SHA256SUMS
@@ -58,7 +62,7 @@ wget https://bitcoinknots.org/files/$BRANCH/$VERSION/SHA256SUMS
 wget https://bitcoinknots.org/files/$BRANCH/$VERSION/SHA256SUMS.asc
 ```
 
-### **Checksum check**
+#### **Checksum check**
 
 * Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you
 
@@ -72,7 +76,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 bitcoin-28.1.knots20250305.tar.gz: OK
 ```
 
-### **Signature check**
+#### **Signature check**
 
 Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
@@ -138,14 +142,14 @@ bitcoin-28.0/.github/workflows/
 [..]
 ```
 
-### Binaries installation
+#### Binaries installation
 
 * Install it
 
 <pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitcoin-cli bitcoin-$VERSION/bin/bitcoind
 </strong></code></pre>
 
-* Check the correct installation requesting the output of the version
+* Check the correct installation by requesting the output of the version
 
 ```sh
 bitcoind --version
@@ -167,11 +171,13 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 ```
 {% endcode %}
 
-----
+### Option 2: Compiling from source code
 
-## Compiling from source code
+{% hint style="info" %}
+### Option recommended for advanced users and users who want to improve the censorship resistance of their Bitcoin Knots
+{% endhint %}
 
-* Install the next dependencies packages
+* Install the next dependency packages
 
 {% code overflow="wrap" %}
 ```shell
@@ -179,15 +185,15 @@ sudo apt install autoconf automake build-essential libboost-filesystem-dev libbo
 ```
 {% endcode %}
 
-## Installation
+#### Installation
 
-* Change to the temporary directory which is cleared on reboot
+* Change to the temporary directory, which is cleared on reboot
 
 ```sh
 cd /tmp
 ```
 
-* Set the next environment variableS
+* Set the next environment variables
 
 ```sh
 VERSION=28.1.knots20250305 && BRANCH=28.x
@@ -207,7 +213,7 @@ wget https://bitcoinknots.org/files/$BRANCH/$VERSION/SHA256SUMS
 wget https://bitcoinknots.org/files/$BRANCH/$VERSION/SHA256SUMS.asc
 ```
 
-### **Checksum check**
+#### **Checksum check**
 
 * Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you
 
@@ -221,7 +227,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 bitcoin-28.1.knots20250305.tar.gz: OK
 ```
 
-### **Signature check**
+#### **Signature check**
 
 Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
@@ -262,7 +268,7 @@ Primary key fingerprint: ...
 [...]
 ```
 
-* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
+* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install it, and check the version
 
 ```sh
 tar -xzvf bitcoin-$VERSION.tar.gz
@@ -287,9 +293,9 @@ bitcoin-28.0/.github/workflows/
 [..]
 ```
 
-### **Build it from the source code**
+#### **Build it from the source code**
 
-* Enter to the Bitcoin Core source code folder
+* Enter the Bitcoin Core source code folder
 
 ```sh
 cd bitcoin-$VERSION
@@ -335,17 +341,21 @@ libtoolize: copying file 'build-aux/ltmain.sh'
   --with-gui=no
 ```
 
-### **Apply the UA patch**
+#### **Apply the UA patch (optional)**
 
 {% hint style="info" %}
-Skip this step if you want only to build Bitcoin Core from the source code but not apply the UA patch
+This patch removes the Bitcoin Knots reference from the **user agent** to make it look like Bitcoin Core, improving its censorship resistance
+{% endhint %}
+
+{% hint style="info" %}
+Skip this step if you want only to build Bitcoin Knots from the source code, but not apply the user agent patch
 {% endhint %}
 
 * Download the UA patch
 
 {% code overflow="wrap" %}
 ```bash
-wget https://raw.githubusercontent.com/twofaktor/twofaktor.github.io/refs/heads/main/mod-ua-knots.patch
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/refs/heads/main/resources/mod-ua-knots.patch
 ```
 {% endcode %}
 
@@ -361,7 +371,7 @@ nano mod-ua-knots.patch
 git apply mod-ua-knots.patch
 ```
 
-### **Build**
+#### **Build**
 
 * Enter the command to compile
 
@@ -370,10 +380,10 @@ make -j$(nproc)
 ```
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again. You can use [Tmux](https://github.com/tmux/tmux) to leave it in the background
 {% endhint %}
 
-### **Install**
+#### **Install**
 
 * Enter the next command to install the new binaries precompiled for yourself on the OS
 
@@ -381,7 +391,7 @@ This process can take quite **a long time**, 10-15 minutes or more, depending on
 sudo make install
 ```
 
-* Check the correct installation requesting the output of the version
+* Check the correct installation by requesting the output of the version
 
 ```sh
 bitcoin-cli --version
@@ -396,7 +406,7 @@ Copyright (C) 2009-2022 The Bitcoin Core developers
 ```
 
 {% hint style="info" %}
-Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps
+Now you can continue with the installation process of the Bitcoin Client: Bitcoin Core, by following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section from now on, or if you already have it installed, only continue with the next steps
 {% endhint %}
 
 * Return to the `tmp` folder
@@ -413,7 +423,7 @@ sudo rm -r bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc
 ```
 {% endcode %}
 
-* **(Optional)** Delete no needed binaries before installed by `make install` command
+* **(Optional)** Delete unnecesary binaries before installing `make install` command
 
 {% code overflow="wrap" %}
 ```bash
@@ -427,7 +437,7 @@ sudo rm /usr/local/bin/bitcoin-tx /usr/local/bin/bitcoin-wallet /usr/local/bin/b
 sudo systemctl restart bitcoind
 ```
 
-* Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl+C and continue
+* Monitor the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl+C and continue
 
 ```sh
 journalctl -fu bitcoind
@@ -435,59 +445,40 @@ journalctl -fu bitcoind
 
 ## Extras (optional)
 
-### **How to detect Ordinals transactions**
+### Enforce spam and arbitrary data rejection
 
 {% hint style="info" %}
-After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: _**"Imported mempool transactions from disk: ..."**_. A rather high indicator of "failed" imported transactions may have appeared, which is a good sign, it's the filter is taking effect and rejecting the Ordinals transactions after to apply the patch
+Configuring `bitcoin.conf` with targeted Bitcoin Knots parameters enhance the network’s ability to block spam and arbitrary data
 {% endhint %}
 
-* Go to the public mempool.space [clearnet](https://mempool.space) or [Tor](http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion) link official web page
-* Click on the first mempool candidate block in the green/yellow color blocks
+* With the user admin, edit the `bitcoin.conf` file
 
-![](../../images/ordisrespector-mempool-blocks.png)
-
-* Put the pointer above the cube's dynamic graphic at the bottom right, and find transactions with for example **0.00010000 BTC**, **0.00005000 BTC**, **0.00000546 BTC**, **0.00000330 BTC**, **0.000005386 BTC**... output amount, or similar recurrency amount and click on the cube of the transaction to do a second verification
-
-![](../../images/ordisrespector-mempool-cube-tx.png)
-
-* Look for "Taproot", "Segwit", "RBF" and "CPFP" tags (this last doesn't always appear)
-
-![](../../images/ordisrespector-mempool-space-tx.png)
-
-### **Check the Ordisrespector filter working on your mempool**
-
-* Click on the "copy to the clipboard" icon to copy the transaction ID `(<txid>)`, and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool), in a BTC RPC Explorer running on a MiniBolt environment, go to [https://minibolt.local:4000](https://minibolt.local:4000)
-* Search the `"<txid>"` on the browser of your own Bitcoin Explorer
-
-_**Mempool space**_ expected output:
-
-![](../../images/ordisrespector-mempool-notfound.PNG)
-
-_**BTC RPC Explorer**_ expected output:
-
-![](../../images/ordisrespector-btcrpcexplorer-notfound.png)
-
-Or if you prefer, check directly through the Bitcoin Core CLI command, doing
-
-```sh
-bitcoin-cli getmempoolentry <txid>
+```bash
+sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-Expected output:
+* Add the next parameters to the end of the file. Save and exit
 
 ```
-error code: -5
-error message:
-Transaction not in mempool
+# No relay or mine data carrier transactions
+datacarrier=0
+
+# Refuse to relay or mine transactions involving non-bitcoin tokens
+rejecttokens=1
+
+# Fee rate (in BTC/kvB) used to define dust
+dustrelayfee=0.00010
 ```
 
-{% hint style="info" %}
-The before information indicates that the filter is working properly
-{% endhint %}
+* Restart Bitcoin Core to apply changes
+
+```bash
+sudo systemctl restart bitcoind
+```
 
 ### Add an external fee estimator to the LND
 
-By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network and with it the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
+By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
 
 * With user admin, stop LND if you have installed
 
@@ -516,9 +507,9 @@ sudo systemctl start lnd
 
 ## Upgrade
 
-The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
+The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/28.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
 
-Go to the [Installation section](ordisrespector.md#installation), and replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide. Continue until complete the entire [Installation section](ordisrespector.md#installation)
+Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code: [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if it has not already been changed in this guide. Continue until you&#x20;
 
 {% hint style="info" %}
 Remember to restart the Bitcoin Core to apply the new version with `sudo systemctl restart bitcoind`
@@ -526,21 +517,8 @@ Remember to restart the Bitcoin Core to apply the new version with `sudo systemc
 
 ## Uninstall
 
-To uninstall Bitcoin Core with the Ordisrespector patch applied, follow the entire Bitcoin Core [uninstall section](../../bitcoin/bitcoin/bitcoin-client.md#uninstall)
+To uninstall Bitcoin Knots, follow the entire Bitcoin Client: Bitcoin Core [uninstall section](../../bitcoin/bitcoin/bitcoin-client.md#uninstall)
 
 ## Port reference
 
-Same as the [Bitcoin Core section](../../bitcoin/bitcoin/bitcoin-client.md#port-reference)
-
----
-
-bitcoin.conf Knots config:
-
-# Relay and mine data carrier transactions
-datacarrier=0
-
-# Refuse to relay or mine transactions involving non-bitcoin tokens
-rejecttokens=1
-
-# Fee rate (in BTC/kvB) used to define dust
-dustrelayfee=0.00010
+Same as the [Bitcoin Client: Bitcoin Core section](../../bitcoin/bitcoin/electrum-server.md#port-reference)
