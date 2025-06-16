@@ -80,7 +80,7 @@ bitcoin-28.1.knots20250305.tar.gz: OK
 
 Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and automatically imports all signatures from [the Bitcoin Knots release attestations (Guix) repository](https://github.com/bitcoinknots/guix.sigs)
 
 {% code overflow="wrap" %}
 ```bash
@@ -92,12 +92,18 @@ curl -s "https://api.github.com/repos/bitcoinknots/guix.sigs/contents/builder-ke
 
 ```
 [...]
-gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+gpg: directory '/home/admin/.gnupg' created
+gpg: keybox '/home/admin/.gnupg/pubring.kbx' created
+gpg: key 2EBB056FD847F8A7: 12 signatures not checked due to missing keys
 gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
-gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
+gpg: key 2EBB056FD847F8A7: public key "Stephan Oeste (it) <it@oeste.de>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1
 gpg: no ultimately trusted keys found
+gpg: key 57FF9BDBCC301009: 54 signatures not checked due to missing keys
+gpg: key 57FF9BDBCC301009: public key "Sjors Provoost <sjors@sprovoost.nl>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
 [...]
 ```
 
@@ -117,7 +123,7 @@ Primary key fingerprint: ...
 [...]
 ```
 
-* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
+* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Knots source code, install it, and check the version
 
 ```sh
 tar -xzvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
@@ -158,8 +164,9 @@ bitcoind --version
 The following output is just an **example** of one of the versions:
 
 ```
-Bitcoin Core version v24.1.0
-Copyright (C) 2009-2022 The Bitcoin Core developers
+Bitcoin Knots daemon version v28.1.knots20250305
+Copyright (C) 2009-2025 The Bitcoin Knots developers
+Copyright (C) 2009-2025 The Bitcoin Core developers
 [...]
 ```
 
@@ -177,7 +184,7 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 #### Option recommended for advanced users and users who want to improve the censorship resistance of their Bitcoin Knots
 {% endhint %}
 
-* Install the next dependency packages
+* Install the next dependency packages. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 {% code overflow="wrap" %}
 ```shell
@@ -231,7 +238,7 @@ bitcoin-28.1.knots20250305.tar.gz: OK
 
 Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and automatically imports all signatures from [the Bitcoin Knots release attestations (Guix) repository](https://github.com/bitcoinknots/guix.sigs)
 
 {% code overflow="wrap" %}
 ```bash
@@ -243,12 +250,18 @@ curl -s "https://api.github.com/repos/bitcoinknots/guix.sigs/contents/builder-ke
 
 ```
 [...]
-gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+gpg: directory '/home/admin/.gnupg' created
+gpg: keybox '/home/admin/.gnupg/pubring.kbx' created
+gpg: key 2EBB056FD847F8A7: 12 signatures not checked due to missing keys
 gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
-gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
+gpg: key 2EBB056FD847F8A7: public key "Stephan Oeste (it) <it@oeste.de>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1
 gpg: no ultimately trusted keys found
+gpg: key 57FF9BDBCC301009: 54 signatures not checked due to missing keys
+gpg: key 57FF9BDBCC301009: public key "Sjors Provoost <sjors@sprovoost.nl>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
 [...]
 ```
 
@@ -268,7 +281,7 @@ Primary key fingerprint: ...
 [...]
 ```
 
-* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core source code, install it, and check the version
+* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Knots source code, install it, and check the version
 
 ```sh
 tar -xzvf bitcoin-$VERSION.tar.gz
@@ -295,7 +308,7 @@ bitcoin-28.0/.github/workflows/
 
 #### **Build it from the source code**
 
-* Enter the Bitcoin Core source code folder
+* Enter the bitcoin source code folder
 
 ```sh
 cd bitcoin-$VERSION
@@ -400,8 +413,9 @@ bitcoin-cli --version
 The following output is just an **example** of one of the versions:
 
 ```
-Bitcoin Core version v24.1.0
-Copyright (C) 2009-2022 The Bitcoin Core developers
+Bitcoin Knots RPC client version v28.1.knots20250305
+Copyright (C) 2009-2025 The Bitcoin Knots developers
+Copyright (C) 2009-2025 The Bitcoin Core developers
 [...]
 ```
 
@@ -419,11 +433,11 @@ cd ..
 
 {% code overflow="wrap" %}
 ```bash
-sudo rm -r bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc
+sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc
 ```
 {% endcode %}
 
-* **(Optional)** Delete unnecesary binaries before installing `make install` command
+* **(Optional)** Delete unnecessary binaries before installing `make install` command
 
 {% code overflow="wrap" %}
 ```bash
@@ -431,13 +445,13 @@ sudo rm /usr/local/bin/bitcoin-tx /usr/local/bin/bitcoin-wallet /usr/local/bin/b
 ```
 {% endcode %}
 
-* If you have an existing Bitcoin Core installation without Ordisrespector applied, restart it using systemd and start a new instance with the Ordisrespector patch applied
+* If you have an existing Bitcoin Knots installation without the UA patch applied, restart it using systemd and start a new instance with the UA patch applied
 
 ```sh
 sudo systemctl restart bitcoind
 ```
 
-* Monitor the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl+C and continue
+* Monitor the systemd journal and check the logging output. You can exit monitoring at any time with `Ctrl+ C` and continue
 
 ```sh
 journalctl -fu bitcoind
@@ -507,12 +521,12 @@ sudo systemctl start lnd
 
 ## Upgrade
 
-The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/28.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
+The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Knots project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/28.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
 
-Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code: [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if it has not already been changed in this guide. Continue until you
+Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code - [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch if they have not already been changed in this guide. Continue until you complete the entire Installation section.
 
 {% hint style="info" %}
-Remember to restart the Bitcoin Core to apply the new version with `sudo systemctl restart bitcoind`
+Remember to restart the Bitcoin Knots to apply the new version with `sudo systemctl restart bitcoind`
 {% endhint %}
 
 ## Uninstall

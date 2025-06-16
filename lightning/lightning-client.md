@@ -407,6 +407,9 @@ wallet-unlock-allow-create=true
 # Do not archive the history of the channel.backup file
 no-backup-archive=true
 
+# The maximum number of incoming pending channels permitted per peer
+maxpendingchannels=5
+
 # The TLS private key will be encrypted to the node's seed
 tlsencryptkey=true
 

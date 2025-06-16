@@ -24,7 +24,7 @@ Difficulty: Medium
 
 ## What is Nostr?
 
-Nostr is a straightforward and open protocol for global, decentralized, and censorship-resistant social media. It offers numerous advantages for users and is completely free, requiring no ID or third-party verification to begin connecting with like-minded individuals and expanding your community. While nostr is sometimes confused as just another social media platform, it goes beyond that. Explore the resources provided here to discover its significant potential.
+Nostr is a straightforward and open protocol for global, decentralized, and censorship-resistant social media. It offers numerous advantages for users and is completely free, requiring no ID or third-party verification to begin connecting with like-minded individuals and expanding your community. While nostr is sometimes confused as just another social media platform, it goes beyond that. Explore the resources provided here to discover their significant potential.
 
 This protocol is based on relays. Relays are servers that can be operated by anyone. By opening a persistent connection with the server, clients (or apps) can push and pull events in real-time.
 
@@ -107,7 +107,7 @@ If you obtain "**command not found**" output, you need to follow the [Rustup + C
 ### Install PostgreSQL
 
 {% hint style="info" %}
-Skip this step if you want to use the SQLite database, go directly to the [next section](nostr-relay.md#installation)
+Skip this step if you want to use the SQLite database; go directly to the [next section](nostr-relay.md#installation)
 {% endhint %}
 
 * Check if you already have PostgreSQL installed
@@ -128,7 +128,7 @@ If you obtain "**command not found**" outputs, you need to follow the [PostgreSQ
 
 #### Create PostgreSQL database
 
-* With user `admin`, create a new database with the `postgres` user and assign as the owner to the `admin` user
+* With user `admin`, create a new database with the `postgres` user and assign it as the owner to the `admin` user
 
 {% code overflow="wrap" %}
 ```bash
@@ -144,7 +144,7 @@ sudo -u postgres createdb -O admin nostrelay
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```bash
 VERSION=0.9.0
@@ -216,7 +216,7 @@ If the prompt shows you this error:
 
 `error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured. help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.`
 
-You need to type **`rustup default stable`** and wait for the process to finish, then try again the command before
+You need to type **`rustup default stable`** and wait for the process to finish, then try the command again before
 {% endhint %}
 
 {% hint style="info" %}
@@ -241,7 +241,7 @@ nostr-rs-relay 0.8.9
 ```
 
 {% hint style="info" %}
-If you come to update this is the final step, continue with the indications of the [Upgrade section](nostr-relay.md#upgrade)
+If you come to update, this is the final step. Continue with the indications of the [Upgrade section](nostr-relay.md#upgrade)
 {% endhint %}
 
 ### Create the nostr user
@@ -268,7 +268,7 @@ Copying files from `/etc/skel' ...
 sudo su - nostr
 ```
 
-* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own or skip this step not to provide any (remember to leave the`favicon.ico`commented on the configuration file)
+* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own, or skip this step, not to provide any (remember to leave the`favicon.ico`commented on the configuration file)
 
 {% code overflow="wrap" %}
 ```bash
@@ -290,7 +290,7 @@ exit
 
 ## Configuration
 
-* Copy-paste the configuration file template to the before-created folder
+* Copy-paste the configuration file template into the before-created folder
 
 ```bash
 sudo cp /tmp/nostr-rs-relay/config.toml /home/nostr/rs-relay/
@@ -308,7 +308,7 @@ sudo chown nostr:nostr /home/nostr/rs-relay/config.toml
 sudo rm -r /tmp/nostr-rs-relay
 ```
 
-* Edit the config file, uncomment, and replace the needed information on the next parameters. Save and exit
+* Edit the config file, uncomment, and replace the needed information in the next parameters. Save and exit
 
 ```bash
 sudo nano /home/nostr/rs-relay/config.toml
@@ -331,13 +331,13 @@ sudo nano /home/nostr/rs-relay/config.toml
 > > [relay\_icon = "\<yourelayiconURL>"](#user-content-fn-4)[^4]
 
 {% hint style="info" %}
-If you don't have pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this
+If you don't have a pubkey generated yet, you can follow the [Create your nostr key pair](nostr-relay.md#create-your-nostr-key-pair) section and then continue with this
 
 You can use [this tool](https://nostrdebug.com/converter/) to convert your "npub" pubkey to hexadecimal format
 {% endhint %}
 
 {% hint style="info" %}
-If you want to use the default SQLite database backend, pay attention to **not including the next lines** (not uncomment):
+If you want to use the default SQLite database backend, pay attention to **not including the next lines** (do not uncomment):
 
 > engine = "postgres"
 
@@ -347,7 +347,7 @@ Uncomment and replace only the next line:
 
 > data\_directory = "/data/nostr/rs-relay/db"
 
--> More details and additional steps on the exclusive [extra section](nostr-relay.md#use-the-default-sqlite-database-backend)
+-> More details and additional steps in the exclusive [extra section](nostr-relay.md#use-the-default-sqlite-database-backend)
 {% endhint %}
 
 > > **Required same as next (\*):**
@@ -367,7 +367,7 @@ Uncomment and replace only the next line:
 > > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-5)[^5]
 
 {% hint style="info" %}
-If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://twofaktor.github.io/logo\_circle%2BB.png](https://twofaktor.github.io/logo_circle%2BB.png)), or replace it with your own info
+If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://blossom.minibolt.info/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png](https://blossom.minibolt.info/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png)), or replace it with your info
 {% endhint %}
 
 ### **Create systemd service**
@@ -451,7 +451,7 @@ Jun 07 10:49:45 minibolt nostr-rs-relay[2604788]: 2024-06-07T10:49:45.338012Z  I
 
 ### Validation
 
-* Ensure the service is working and listening at the default `8880` port
+* Ensure the service is working and listening on the default `8880` port
 
 ```bash
 sudo ss -tulpn | grep nostr-rs-relay
@@ -469,7 +469,7 @@ tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=
 
 {% tabs %}
 {% tab title="Method 1" %}
-* Go to the [nostr.watch](https://legacy.nostr.watch) website to check and test the relay connection
+* Go to the [nostr.watch](https://legacy.nostr.watch) the website to check and test the relay connection
 * Access to the URL, replacing `<relay.domain.com>` with your Nostr relay URL: `https://legacy.nostr.watch/relay/relay.domain.com,` example: [https://legacy.nostr.watch/relay/relay.damus.io](https://legacy.nostr.watch/relay/relay.damus.io)
 
 Expected output:
@@ -486,7 +486,7 @@ Go to the [websocketking.com](https://websocketking.com/) website, type in the W
 {% endtab %}
 
 {% tab title="Method 3" %}
-Go to the [https://nostrdebug.com/relay](https://nostrdebug.com/relay) website, type in the box your Nostr relay URL e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button. You should see the status "✅ **Connected**" on the history
+Go to the [https://nostrdebug.com/relay](https://nostrdebug.com/relay) website, type in the box your Nostr relay URL, e.g. `wss://relay.domain.com`, and click on the **\[Connect]** button. You should see the status "✅ **Connected**" in the history
 
 <figure><img src="../../.gitbook/assets/relay-connected-nostr-debug.PNG" alt="" width="478"><figcaption></figcaption></figure>
 {% endtab %}
@@ -516,7 +516,7 @@ mkdir -p /data/nostr/rs-relay/db
 sudo cp /tmp/nostr-rs-relay/config.toml /data/nostr/rs-relay/db
 ```
 
-* Assign as the owner to the `nostr` user
+* Assign the owner to the `nostr` user
 
 ```bash
 sudo chown -R nostr:nostr /data/nostr
@@ -535,7 +535,7 @@ data_directory = "/data/nostr/rs-relay/db"
 ```
 
 {% hint style="info" %}
-Ignore the next lines related to the PostgreSQL **(do not uncomment or edit)**:
+Ignore the next lines related to PostgreSQL **(do not uncomment or edit)**:
 
 ```
 engine = "postgres"
@@ -565,7 +565,7 @@ After=network-online.target
   * For Chromium based-browser:
     * [Chrome](https://chrome.google.com/webstore/detail/alby-bitcoin-lightning-wa/iokeahhehimjnekafflcihljlcjccdbe)
     * [Brave](https://chrome.google.com/webstore/detail/alby-bitcoin-lightning-wa/iokeahhehimjnekafflcihljlcjccdbe)
-* After installation, the browser automatically redirects you to choose the password to unlock Alby. Click on the \[**Next]** button
+* After installation, the browser automatically redirects you to choose a password to unlock Alby. Click on the \[**Next]** button
 
 <figure><img src="../../.gitbook/assets/pass-alby.PNG" alt="" width="334"><figcaption></figcaption></figure>
 
@@ -585,11 +585,11 @@ Select a strong password for the Alby extension (this password is for encrypting
 
 <figure><img src="../../.gitbook/assets/alby-create.PNG" alt=""><figcaption></figcaption></figure>
 
-* If you selected to **log in**, you need to provide the **email and password** or select a **one-time login code method** that you chose
+* If you selected to **log in**, you need to provide the **email and password,** or select a **one-time login code method** that you chose
 
 <figure><img src="../../.gitbook/assets/login-onetime-alby.PNG" alt=""><figcaption></figcaption></figure>
 
-* Click on **\[Start buzzin' with Alby]**. Pin the Alby extension to the browser toolbar, if you want
+* Click on **\[Start buzzin' with Alby]**. Pin the Alby extension to the browser toolbar if you want
 
 <figure><img src="../../.gitbook/assets/start-alby.png" alt="" width="305"><figcaption></figcaption></figure>
 
@@ -614,19 +614,19 @@ You will see the nostr public & private keys in the property section:
 <figure><img src="../../.gitbook/assets/nostr-public-key-alby.PNG" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Click on the **\[Nostr Settings]** box to **obtain your private key and backup on your password manager app**, you will need it for mobile clients (e.g. Amethyst) where you will need to enter manually. Example:
+Click on the **\[Nostr Settings]** box to **obtain your private key and backup on your password manager app**; you will need it for mobile clients (e.g. Amethyst), where you will need to enter it manually. Example:
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/private-key-nostr.PNG" alt="" width="290"><figcaption></figcaption></figure>
 
-* If you selected **Import a Nostr account,** you can import using the **Nostr private key** or **Recovery phrase**
+* If you selected **Import a Nostr account,** you can import using the **Nostr private key** or the **Recovery phrase**
 
 <figure><img src="../../.gitbook/assets/private-key-method-import-alby.PNG" alt="" width="375"><figcaption></figcaption></figure>
 
-* If you selected the Nostr private key, fill in the "**Nostr Private key**" box with your private key, it will derivate you the "**Nostr Public Key"**, check if correct
+* If you selected the Nostr private key, fill in the "**Nostr Private key**" box with your private key, it will derive for you the "**Nostr Public Key"**, check if correct
 
 {% hint style="info" %}
-If you see this banner when you enter the "**Nostr Settings**" section, this means that you should backup carefully the private key, because the existing seeds that you have are not compatible with Alby only the private key
+If you see this banner when you enter the "**Nostr Settings**" section, this means that you should backup carefully the private key, because the existing seeds that you have are not compatible with Alby, only the private key
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/advice-private-key-imported.PNG" alt=""><figcaption></figcaption></figure>
@@ -642,7 +642,7 @@ You will see the **Nostr Public key** in the property section, check if correct:
 <figure><img src="../../.gitbook/assets/nostr-public-key-alby.PNG" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Click on the **\[Nostr Settings]** box to obtain your private key if you don't have yet:
+Click on the **\[Nostr Settings]** box to obtain your private key if you haven't yet:
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/private-key-nostr.PNG" alt="" width="290"><figcaption></figcaption></figure>
@@ -765,12 +765,6 @@ Tool for migrating your entire past Twitter activity to Nostr.
 
 [Web](https://exit.pub/)
 {% endtab %}
-
-{% tab title="Nosy" %}
-Find the top relays of those who follow you or you follow.
-
-[Web](https://nosy.tigerville.no/)
-{% endtab %}
 {% endtabs %}
 
 ### Broadcast the past events to your new relay
@@ -780,7 +774,7 @@ If you want all your past events to be accessible through your new relay, you ca
 * Go to [metadata.nostr.com](https://metadata.nostr.com) website, log in **\[Load My Profile]**, and click on **\[Relays]**
 * Add your new Nostr relay **`[wss://relay.domain.com]`** address to the list of preferred relays in your profile (in the empty box below), select the **read+write** option, and click the **\[Update]** button.
 
-You can take the opportunity to add more preferred relays to your profile to also push events to them, selected from this [list](https://legacy.nostr.watch/relays/find), or use [Nosy](https://nosy.tigerville.no/) to find the top relays of those who follow you or you follow and try to connect to them and don't forget any events of your contact network
+You can take the opportunity to add more preferred relays to your profile to also push events to them, selected from this [list](https://legacy.nostr.watch/relays/find)
 
 * Go to the [NostrSync](https://nostrsync.vercel.app/) webpage and log in **\[Get from extension] (Alby)**, or manually enter the \[npub...] of your Nostr profile
 * Click the **\[Backup & Broadcast]** button...
@@ -788,9 +782,9 @@ You can take the opportunity to add more preferred relays to your profile to als
 <figure><img src="../../.gitbook/assets/broadcast-relay.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey meaning the interactions you've had on Nostr.
+Please **wait patiently** until all processes are finished. This might take some time, depending on the number of events you've published on Nostr with that pubkey, meaning the interactions you've had on Nostr.
 
-Optionally, you can save a copy of all your events locally as a banner will appear after fetching the events from the relays. These can be restored later using the \[Restore] button and broadcasting again to the relays.
+Optionally, you can save a copy of all your events locally, as a banner will appear after fetching the events from the relays. These can be restored later using the \[Restore] button and broadcasting again to the relays.
 {% endhint %}
 
 ### Remote access over Tor <a href="#remote-access-over-tor" id="remote-access-over-tor"></a>
