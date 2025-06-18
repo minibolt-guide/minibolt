@@ -69,14 +69,10 @@ bind=127.0.0.1
 bind=127.0.0.1=onion
 ```
 
-{% hint style="warning" %}
-**Attention:** the next step is critical to allow the Bitcoin Core dependencies to access the `.cookie` file and start up without problems
-{% endhint %}
+* Set permissions for only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)
 
-* When you finish the [Run](../../bitcoin/bitcoin/bitcoin-client.md#run) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
-
-```bash
-sudo chmod g+rx /data/bitcoin/testnet4
+```sh
+chmod 640 /home/bitcoin/.bitcoin/bitcoin-testnet4.conf
 ```
 
 * When you arrive at the [Create systemd service](../../bitcoin/bitcoin/bitcoin-client.md#create-systemd-service), create a new systemd file configuration for Testnet4
@@ -88,7 +84,7 @@ sudo nano /etc/systemd/system/bitcoind-testnet4.service
 * Include this content
 
 ```
-# MiniBolt: systemd unit for bitcoind
+# RaMiX: systemd unit for bitcoind
 # /etc/systemd/system/bitcoind-testnet4.service
 
 [Unit]
@@ -149,6 +145,16 @@ journalctl -fu bitcoind-testnet4
 
 ```bash
 sudo systemctl start bitcoind-testnet4
+```
+
+{% hint style="warning" %}
+**Attention:** the next step is critical to allow the Bitcoin Core dependencies to access the `.cookie` file and start up without problems
+{% endhint %}
+
+* When you finish the [Run](../../bitcoin/bitcoin/bitcoin-client.md#run) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
+
+```bash
+sudo chmod g+rx /data/bitcoin/testnet4
 ```
 
 {% hint style="info" %}
