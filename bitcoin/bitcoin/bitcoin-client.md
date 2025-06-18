@@ -28,17 +28,17 @@ We download the latest Bitcoin Core binary (the application) and compare this fi
 
 💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
 
-💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-ordisrespector-patch) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
+💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-ordisrespector-patch) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
 
 ### Download binaries
 
-* Login as `admin` and change to a temporary directory which is cleared on reboot
+* Login as `admin` and change to a temporary directory, which is cleared on reboot
 
 ```sh
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```sh
 VERSION=29.0
@@ -181,7 +181,7 @@ If you want to install the manual page for `bitcoin-cli`, follow [the manual pag
 <pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitcoin-cli bitcoin-$VERSION/bin/bitcoind
 </strong></code></pre>
 
-* Check the correct installation requesting the output of the version
+* Check the correct installation by requesting the output of the version
 
 ```sh
 bitcoind --version
@@ -227,7 +227,7 @@ sudo adduser bitcoin debian-tor
 
 ### Create data folder
 
-Bitcoin Core uses by default the folder `.bitcoin` in the user's home. Instead of creating this directory, we create a data directory in the general data location `/data` and link to it.
+Bitcoin Core uses, by default, the folder `.bitcoin` in the user's home. Instead of creating this directory, we create a data directory in the general data location `/data` and link to it.
 
 * Create the Bitcoin data folder
 
@@ -235,7 +235,7 @@ Bitcoin Core uses by default the folder `.bitcoin` in the user's home. Instead o
 mkdir /data/bitcoin
 ```
 
-* Assign as the owner to the `bitcoin` user
+* Assign the owner to the `bitcoin` user
 
 ```sh
 sudo chown bitcoin:bitcoin /data/bitcoin
@@ -266,13 +266,13 @@ Expected output:
 
 ### Generate access credentials
 
-For other programs to query Bitcoin Core they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Core to accept a password, hash it, and compare it to the stored hash, while it is not possible to retrieve the original password.
+For other programs to query Bitcoin Core, they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Core to accept a password, hash it, and compare it to the stored hash, while it is not possible to retrieve the original password.
 
 Another option to get access credentials is through the `.cookie` file in the Bitcoin data directory. This is created automatically and can be read by all users who are members of the "bitcoin" group.
 
 Bitcoin Core provides a simple Python program to generate the configuration line for the config file.
 
-* Enter to the bitcoin folder
+* Enter the bitcoin folder
 
 ```sh
 cd .bitcoin
@@ -309,7 +309,7 @@ rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b275583488
 
 Now, the configuration file `bitcoind` needs to be created. We'll also set the proper access permissions.
 
-* Still as the user `"bitcoin"`, creates the `bitcoin.conf` file
+* Still, as the user `"bitcoin"`, creates the `bitcoin.conf` file
 
 ```bash
 nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -532,7 +532,7 @@ sudo systemctl start bitcoind
 </details>
 
 {% hint style="info" %}
-Monitor the log file for a few minutes to see if it works. Logs like the next, indicate that the initial start-up process has been successful:
+Monitor the log file for a few minutes to see if it works. Logs like the next indicate that the initial start-up process has been successful:
 
 ```
 New block-relay-only v1 peer connected: version: 70016, blocks=2948133, peer=68
@@ -557,7 +557,7 @@ exit
 ```
 
 * Log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell)
-* Check symbolic link have been created correctly
+* Check symbolic link has been created correctly
 
 ```bash
 ls -la .bitcoin
@@ -585,7 +585,7 @@ sudo rm -r .bitcoin
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-3. Check the symbolic link has been created correctly this time and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-5)[^5]. If yes, continue with the guide, if not, try again
+3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-5)[^5]. If yes, continue with the guide; if not, try again
 
 ```bash
 ls -la .bitcoin
@@ -677,7 +677,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
 {% hint style="info" %}
-Bitcoin Core will then just use the default cache size of 450 MiB instead of your setting RAM setup. If `blocksonly=1` is left uncommented it will prevent Electrum Server from receiving RPC fee data and will not work
+Bitcoin Core will then just use the default cache size of 450 MiB instead of your RAM setup. If `blocksonly=1` is left uncommented, it will prevent Electrum Server from receiving RPC fee data and will not work
 {% endhint %}
 
 * As user `admin`, edit the `bitcoin.conf` file
@@ -686,7 +686,7 @@ Bitcoin Core will then just use the default cache size of 450 MiB instead of you
 sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Comment the following lines by adding a `#` at the beginning. Save and exit
+* Comment on the following lines by adding a `#` at the beginning. Save and exit
 
 ```
 #assumevalid=0
@@ -702,7 +702,7 @@ sudo systemctl restart bitcoind
 
 ## OpenTimestamps client
 
-When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps, when installing additional programs (e.g. LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
+When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps when installing additional programs (e.g, LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
 
 * As user `admin`, install dependencies
 
@@ -728,7 +728,7 @@ ots --version
 </strong></code></pre>
 
 {% hint style="info" %}
-To update the OpenTimestamps client, simply exec: `sudo pip3 install --upgrade opentimestamps-client`
+To update the OpenTimestamps client, simply execute: `sudo pip3 install --upgrade opentimestamps-client`
 {% endhint %}
 
 ## Extras (optional)
@@ -754,7 +754,7 @@ rpcthreads=128
 rpcworkqueue=256
 </code></pre>
 
-* Comment these lines
+* Comment on these lines
 
 ```
 #coinstatsindex=1
@@ -762,7 +762,7 @@ rpcworkqueue=256
 ```
 
 {% hint style="info" %}
-Realize that with `maxuploadtarget` parameter enabled you will need to whitelist the connection to [Electrs](../../bonus/bitcoin/electrs.md) and [Bisq](../../bonus/bitcoin/bisq.md) by adding these parameters to `bitcoin.conf`:
+Realize that with `maxuploadtarget` parameter enabled, you will need to whitelist the connection to [Electrs](../../bonus/bitcoin/electrs.md) and [Bisq](../../bonus/bitcoin/bisq.md) by adding these parameters to `bitcoin.conf`:
 
 For Electrs:
 
@@ -797,7 +797,7 @@ sudo rm /data/bitcoin/onion_v3_private_key && /data/bitcoin/i2p_private_key
 sudo systemctl start bitcoind
 ```
 
-* If you want to monitor the bitcoind logs and the starting progress, type `journalctl -fu bitcoind` in a separate SSH session
+* If you want to monitor the bitcoind logs and the startup progress, type `journalctl -fu bitcoind` in a separate SSH session
 * Wait a minute to identify your newly generated addresses with
 
 {% code overflow="wrap" %}
@@ -815,10 +815,10 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 
 ### The manual page for bitcoin-cli
 
-* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine so that they can be consulted offline, they can be installed from the directory
+* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine, so that they can be consulted offline, they can be installed from the directory
 
 {% hint style="info" %}
-If you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) this section is not needed because man pages are installed by default, type directly `man bitcoin-cli` command to see the man pages
+If you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), this section is not needed because man pages are installed by default, type directly `man bitcoin-cli` command to see the man pages
 {% endhint %}
 
 ```sh
@@ -833,7 +833,7 @@ gzip *
 sudo cp * /usr/share/man/man1/
 ```
 
-* Now you can read the docs doing
+* Now you can read the docs while doing
 
 ```sh
 man bitcoin-cli
@@ -849,7 +849,7 @@ Now come back to the section [Binaries installation](bitcoin-client.md#binaries-
 This extra section is valid if you compiled it from the source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
 {% endhint %}
 
-* Follow the complete [Installation progress before](bitcoin-client.md#installation) or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
+* Follow the complete [Installation progress before](bitcoin-client.md#installation), or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
 * With user `admin`, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you
 
 ```bash
@@ -868,7 +868,7 @@ sudo apt install build-essential cmake pkg-config --no-install-recommends
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```bash
 VERSION=29.0
@@ -971,7 +971,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 <pre><code><strong>bind=0.0.0.0
 </strong></code></pre>
 
-Or **add** under `bind=127.0.0.1`, the next line to **allow connections only from devices in the same local network** (**recommended option** to improve the security)
+Or **add** under `bind=127.0.0.1`, the next line allows **connections only from devices in the same local network** (**recommended option** to improve security)
 
 <pre><code>bind=<a data-footnote-ref href="#user-content-fn-11">192.168.x.x</a>
 </code></pre>
@@ -1034,10 +1034,10 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 ### Improve the reliability
 
-Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring Bitcoin Core with both onion and i2p addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
+Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client with both onion and i2p addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
 
 {% hint style="info" %}
-To get this, you will need a **full-sync** node peers like the official MiniBolt project node (later, it is suggested)
+To get this, you will need a **full-sync** node peer like the official MiniBolt project node (later, it is suggested)
 {% endhint %}
 
 #### Configure Bitcoin Core
@@ -1104,7 +1104,7 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoin/
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```sh
 VERSION=29.0
@@ -1168,7 +1168,7 @@ gpg: no ultimately trusted keys found
 [...]
 ```
 
-* Verify the checksums file is cryptographically signed using the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
+* Verify that the checksums file is cryptographically signed using the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
 
 ```sh
 gpg --verify SHA256SUMS.asc SHA256SUMS
@@ -1213,7 +1213,7 @@ Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in 
 
 
 
--> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next ones
+-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next step
 {% endhint %}
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
@@ -1244,7 +1244,7 @@ Copyright (C) 2009-2022 The Bitcoin Core developers
 [...]
 ```
 
-* **(Optional)** Delete installation files of the `/tmp` folder to be ready for the next upgrade
+* **(Optional)** Delete the installation files of the `/tmp` folder to be ready for the next upgrade
 
 {% code overflow="wrap" %}
 ```bash

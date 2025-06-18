@@ -526,7 +526,7 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoink
 Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code - [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch if they have not already been changed in this guide. Continue until you complete the entire Installation section.
 
 {% hint style="info" %}
-Remember to restart the Bitcoin Knots to apply the new version with `sudo systemctl restart bitcoind`
+Remember to restart the Bitcoin Knots to apply the new version with: `sudo systemctl restart bitcoind`
 {% endhint %}
 
 ## Uninstall

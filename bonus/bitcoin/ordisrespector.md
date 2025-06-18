@@ -30,15 +30,15 @@ Difficulty: Medium
 
 ## Context
 
-Why are they an attack on Bitcoin?
+Why is there an attack on Bitcoin?
 
 First of all, we probably should look at what Bitcoin is:
 
 > A Peer-to-Peer Electronic Cash System [(Bitcoin Whitepaper)](https://bitcoin.org/bitcoin.pdf)
 
-There is no mention of data storage on the chain and only financial transactions. Ordinals abuse the Bitcoin timechain which was meant to process financial transactions to store data, and this has some issues, such as:
+There is no mention of data storage on the chain, and only financial transactions. Ordinals abuse the Bitcoin timechain, which was meant to process financial transaction,s to store data, and this has some issues, such as:
 
-* Pushing out financial transactions, such as ones that need immediate confirmation such as force closes with pending HTLCs or a sweep-all TX.
+* Pushing out financial transactions, such as ones that need immediate confirmation, such as force closes with pending HTLCs or a sweep-all TX.
 * Driving up fee rates for the sole reason of inscribing a JPEG.
 * It makes it way more expensive to maintain their node in the long term.
 * It makes them liable for any illegal content in their jurisdiction that they store on their disk and broadcast freely.
@@ -51,13 +51,13 @@ There is no mention of data storage on the chain and only financial transactions
 
 ## Preparations
 
-* With `admin` user, update and upgrade your OS. Press "y" and enter or directly enter when the prompt asks you
+* With `admin` user, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you
 
 ```sh
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install the next dependencies packages
+* Install the next dependency packages
 
 {% code overflow="wrap" %}
 ```shell
@@ -67,7 +67,7 @@ sudo apt install build-essential cmake pkg-config --no-install-recommends
 
 ## Installation
 
-* Change to the temporary directory which is cleared on reboot
+* Change to the temporary directory, which is cleared on reboot
 
 ```sh
 cd /tmp
@@ -106,7 +106,7 @@ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
 * Execute the OTS verification command
 
 {% hint style="warning" %}
-**Skip this step if you stay building a new node**
+**Skip this step if you are building a new node**
 {% endhint %}
 
 ```sh
@@ -135,7 +135,7 @@ Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bi
 Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
 ```
 
--> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next ones
+-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next step
 {% endhint %}
 
 ### **Signature check**
@@ -193,7 +193,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 bitcoin-29.0.tar.gz: OK
 ```
 
-* If you're satisfied with the signature, checksum, and timestamp checks, extract the Bitcoin Core source code, install them, and check the version
+* If you're satisfied with the signature, checksum, and timestamp checks, extract the Bitcoin Core source code, install it, and check the version
 
 ```sh
 tar -xzvf bitcoin-$VERSION.tar.gz
@@ -320,7 +320,7 @@ Expected output:
 ### **Apply the "Ordisrespector" patch**
 
 {% hint style="info" %}
-Skip this step if you want only to build Bitcoin Core from the source code but not apply the Ordisrespector patch
+Skip this step if you want only to build Bitcoin Core from the source code, but not apply the Ordisrespector patch
 {% endhint %}
 
 * Download the Ordisrespector patch
@@ -352,7 +352,7 @@ cmake --build build -j $(nproc)
 ```
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again. You can use [Tmux](https://github.com/tmux/tmux) to leave it in the background
 {% endhint %}
 
 ### **Install**
@@ -371,7 +371,7 @@ Expected output:
 -- Installing: /usr/local/bin/bitcoin-cli
 ```
 
-* Check the correct installation requesting the output of the version
+* Check the correct installation by requesting the output of the version
 
 ```sh
 bitcoin-cli --version
@@ -386,7 +386,7 @@ Copyright (C) 2009-2024 The Bitcoin Core developers
 ```
 
 {% hint style="info" %}
-Now you can continue with the installation progress of the Bitcoin Client following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section or if you already had it installed, only continue with the next steps
+Now you can continue with the installation process of the Bitcoin Client following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section, or if you already have it installed, only continue with the next steps
 {% endhint %}
 
 * Return to the `tmp` folder
@@ -409,7 +409,7 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc SH
 sudo systemctl restart bitcoind
 ```
 
-* Monitor by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl+C and continue
+* Monitor the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl+C and continue
 
 ```sh
 journalctl -fu bitcoind
@@ -417,59 +417,9 @@ journalctl -fu bitcoind
 
 ## Extras (optional)
 
-### **How to detect Ordinals transactions**
-
-{% hint style="info" %}
-After starting Bitcoin Core, wait a few minutes for Bitcoin Core to load the mempool, the indicator for this is the log: _**"Imported mempool transactions from disk: ..."**_. A rather high indicator of "failed" imported transactions may have appeared, which is a good sign, it's the filter is taking effect and rejecting the Ordinals transactions after to apply the patch
-{% endhint %}
-
-* Go to the public mempool.space [clearnet](https://mempool.space) or [Tor](http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion) link official web page
-* Click on the first mempool candidate block in the green/yellow color blocks
-
-![](../../images/ordisrespector-mempool-blocks.png)
-
-* Put the pointer above the cube's dynamic graphic at the bottom right, and find transactions with for example **0.00010000 BTC**, **0.00005000 BTC**, **0.00000546 BTC**, **0.00000330 BTC**, **0.000005386 BTC**... output amount, or similar recurrency amount and click on the cube of the transaction to do a second verification
-
-![](../../images/ordisrespector-mempool-cube-tx.png)
-
-* Look for "Taproot", "Segwit", "RBF" and "CPFP" tags (this last doesn't always appear)
-
-![](../../images/ordisrespector-mempool-space-tx.png)
-
-### **Check the Ordisrespector filter working on your mempool**
-
-* Click on the "copy to the clipboard" icon to copy the transaction ID `(<txid>)`, and paste this on your own Bitcoin Explorer (BTC RPC Explorer / Mempool), in a BTC RPC Explorer running on a MiniBolt environment, go to [https://minibolt.local:4000](https://minibolt.local:4000)
-* Search the `"<txid>"` on the browser of your own Bitcoin Explorer
-
-_**Mempool space**_ expected output:
-
-![](../../images/ordisrespector-mempool-notfound.PNG)
-
-_**BTC RPC Explorer**_ expected output:
-
-![](../../images/ordisrespector-btcrpcexplorer-notfound.png)
-
-Or if you prefer, check directly through the Bitcoin Core CLI command, doing
-
-```sh
-bitcoin-cli getmempoolentry <txid>
-```
-
-Expected output:
-
-```
-error code: -5
-error message:
-Transaction not in mempool
-```
-
-{% hint style="info" %}
-Previous information indicates that the filter is working properly
-{% endhint %}
-
 ### Add an external fee estimator to the LND
 
-By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network and with it the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
+By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
 
 * With user admin, stop LND if you have installed
 
@@ -519,14 +469,14 @@ permitbaremultisig=0
 {% endhint %}
 
 {% hint style="warning" %}
-Attention: with the previous configuration, Whirlpool will not work and either is recommended for mining use
+Attention: with the previous configuration, Whirlpool will not work, and is not recommended for mining use
 {% endhint %}
 
 ## Upgrade
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
 
-Go to the [Installation section](ordisrespector.md#installation), and replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide. Continue until complete the entire [Installation section](ordisrespector.md#installation)
+Go to the [Installation section](ordisrespector.md#installation), and replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide. Continue until you complete the entire [Installation section](ordisrespector.md#installation)
 
 {% hint style="info" %}
 Remember to restart the Bitcoin Core to apply the new version with `sudo systemctl restart bitcoind`
