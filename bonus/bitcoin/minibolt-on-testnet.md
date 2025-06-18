@@ -84,7 +84,7 @@ sudo nano /etc/systemd/system/bitcoind-testnet4.service
 * Include this content
 
 ```
-# RaMiX: systemd unit for bitcoind
+# MiniBolt: systemd unit for bitcoind
 # /etc/systemd/system/bitcoind-testnet4.service
 
 [Unit]
