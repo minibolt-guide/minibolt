@@ -30,7 +30,7 @@ layout:
 
 #### Desktop
 
-* [**Electrum Wallet Desktop**](electrum-wallet-desktop.md) - a feature-rich desktop wallet for power-users
+* [**Electrum Wallet Desktop**](electrum-wallet-desktop.md) - a feature-rich desktop wallet for power users
 
 ### Decentralized exchange
 
@@ -53,6 +53,6 @@ layout:
 
 * [**Running a Testnet MiniBolt node**](minibolt-on-testnet.md) - configure your MiniBolt for use on testnet
 
-### Alternative Bitcoin Clients
+### Bitcoin clients
 
-* [**Bitcoin Knots**](../../bonus-guides/bitcoin/bitcoin-knots.md) - an advanced Bitcoin Core fork with extra tools for enhanced functionality and rejecting spam and arbitrary data
+* [**Bitcoin Knots**](../../bonus-guides/bitcoin/bitcoin-knots.md) - an advanced Bitcoin Core fork with extra tools for enhanced functionality, rejecting spam and arbitrary data
