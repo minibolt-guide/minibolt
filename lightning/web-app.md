@@ -76,7 +76,7 @@ Enable the Nginx reverse proxy to route external encrypted HTTPS traffic interna
 sudo nano /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
 ```
 
-* Paste the complete following configuration. Save and exit
+* Paste the following complete configuration. Save and exit
 
 ```nginx
 server {
@@ -110,7 +110,7 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-* Reload NGINX configuration to apply changes
+* Reload the NGINX configuration to apply changes
 
 ```bash
 sudo systemctl reload nginx
@@ -134,7 +134,7 @@ We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of 
 sudo adduser --disabled-password --gecos "" thunderhub
 ```
 
-* Add `thunderhub` user to the `lnd` group to allow to the user `thunderhub` reading the `admin.macaroon` and `tls.cert` files
+* Add `thunderhub` user to the `lnd` group to allow the user `thunderhub` reading the `admin.macaroon` and `tls.cert` files
 
 ```sh
 sudo adduser thunderhub lnd
@@ -146,10 +146,10 @@ sudo adduser thunderhub lnd
 sudo su - thunderhub
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=0.13.31
+VERSION=0.13.32
 ```
 
 * Import the GPG key of the developer
@@ -383,7 +383,7 @@ ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
 nano thubConfig.yaml
 ```
 
-* Copy and paste the next information
+* Copy and paste the following information
 
 <pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-1">PASSWORD</a>'
 accounts:
@@ -599,7 +599,7 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 
 ### Validation
 
-* Ensure the service is working and listening at the default `3000` port and the HTTPS `4002` port
+* Ensure the service is working and listening on the default `3000` port and the HTTPS `4002` port
 
 ```bash
 sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4002|:3000)'
@@ -663,10 +663,10 @@ abcdefg..............xyz.onion
 
 ### Access to your Amboss node account
 
-* In the "**Home**" screen - "**Quick Actions**" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "**Logged in**" and click again on the Amboss icon "**Go to**". This will open a secondary tab in your browser to access your Amboss account node
+* In the "**Home**" screen - "**Quick Actions**" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "**Logged in**", and click again on the Amboss icon "**Go to**". This will open a secondary tab in your browser to access your Amboss account node
 
 {% hint style="warning" %}
-If you can't do "**Login**", maybe the cause is that you don't have a **public** channel opened yet. **You'll need at least one public channel that has been open for a few days.** Planning to open a public small-size channel to be connected with some Lightning Network peers or directly to the [Amboss node](https://amboss.space/es/node/03006fcf3312dae8d068ea297f58e2bd00ec1ffe214b793eda46966b6294a53ce6). More info on [Amboss docs](https://amboss.tech/docs)
+If you can't do "**Login**", maybe the cause is that you don't have a **public** channel opened yet. **You'll need at least one public channel that has been open for a few days.** Planning to open a small-sized public channel to be connected with some Lightning Network peers or directly to the [Amboss node](https://amboss.space/es/node/03006fcf3312dae8d068ea297f58e2bd00ec1ffe214b793eda46966b6294a53ce6). More info on [Amboss docs](https://amboss.tech/docs)
 {% endhint %}
 
 * Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account), now back to Thunderhub for the next steps
@@ -676,7 +676,7 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 #### Enable automatic backups to Amboss
 
 1. In ThunderHub, from the left sidebar, click on 🌍**Amboss.**
-2. In the **Backups section**, push on the **Push** button to test and push the first backup to Amboss. If all is good, you could enable automatic backups to Amboss, by pushing on **Enable** just above, now the backup file encrypted will be updated automatically on Amboss for every channel opening and closing.
+2. In the **Backups section**, push the **Push** button to test and push the first backup to Amboss. If all is good, you could enable automatic backups to Amboss by pushing on **Enable** just above; now the backup file encrypted will be updated automatically on Amboss for every channel opening and closing.
 3. Go to the Amboss website, [backups section](https://amboss.space/settings?page=backups).
 4. Ensure that the last date of the backup is the same as before.
 
@@ -693,7 +693,7 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 1. In ThunderHub, from the left sidebar, click on 🌍**Amboss.**
 2. Go to the **Healthchecks section** and push the "**Enable**" button to enable automatic healthcheck pings to Amboss.
 3. Now go to the Amboss [Monitoring section](https://amboss.space/settings?page=monitoring), and configure "Healthcheck Settings" as you wish.
-4. Go to the [Notifications section](https://amboss.space/settings?page=notifications) to enable the different notification ways that you wish to be notified.
+4. Go to the [Notifications section](https://amboss.space/settings?page=notifications) to enable the different notification methods that you wish to be notified.
 
 {% hint style="info" %}
 > Feel free to link to the Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account
@@ -711,7 +711,7 @@ Once you have synced the new node, on-chain recovered with seeds, full on-chain 
 2. In this box, enter the complete string text that contains your manually downloaded channels backup file in the step before, or use the string using the content of the latest Amboss automatic backup (recommended) and push again the "**Recover**" button.
 
 {% hint style="info" %}
-All of the channels that you had opened in your old node will be forced closed and they will appear in the "Pending" tab in the "Channels" section until closings are confirmed. Check logs of LND to see how the recovery process is executed and get more information about it
+All of the channels that you had opened in your old node will be forced closed, and they will appear in the "Pending" tab in the "Channels" section until closings are confirmed. Check the logs of LND to see how the recovery process is executed and get more information about it
 {% endhint %}
 
 {% hint style="danger" %}
@@ -743,7 +743,7 @@ cd thunderhub
 * Set the environment variable version
 
 ```bash
-VERSION=0.13.31
+VERSION=0.13.32
 ```
 
 * Pull the changes from GitHub
@@ -909,9 +909,8 @@ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 
 **Example** of expected output:
 
-```
-> "version": "0.13.20",
-```
+<pre><code><strong>"version": "0.13.20",
+</strong></code></pre>
 
 * Exit to go back to the `admin` user
 
@@ -983,13 +982,13 @@ sudo systemctl reload tor
 
 ### Uninstall reverse proxy & FW configuration
 
-* Ensure you are logged in with the user `admin`, delete the reverse proxy config file
+* Ensure you are logged in as the user `admin`, delete the reverse proxy config file
 
 ```bash
 sudo rm /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
 ```
 
-* Delete the simbolic link
+* Delete the symbolic link
 
 ```bash
 sudo rm /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
@@ -1004,8 +1003,8 @@ sudo nginx -t
 Expected output:
 
 ```
-> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-> nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 * Reload the Nginx configuration to apply changes
