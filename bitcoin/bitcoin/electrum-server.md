@@ -30,7 +30,7 @@ layout:
 
 #### Bitcoin with hardware wallets
 
-The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://bitbox.swiss/bitbox02/), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security, privacy and eliminates the need to trust a third party to verify transactions.
+The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://bitbox.swiss/bitbox02/), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security, privacy, and eliminates the need to trust a third party to verify transactions.
 
 Bitcoin Core on the MiniBolt itself is not meant to hold funds.
 
@@ -116,7 +116,7 @@ We have our Bitcoin Core configuration file set up and can move on to the next p
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```sh
 VERSION=1.12.0
