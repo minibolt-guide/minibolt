@@ -91,7 +91,7 @@ Enable the Nginx reverse proxy to route external encrypted HTTPS traffic interna
 sudo nano /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
 ```
 
-* Paste the complete following configuration. Save and exit
+* Paste the following configuration. Save and exit
 
 ```nginx
 server {
@@ -148,7 +148,7 @@ For improved security, we will create a new user `btcrpcexplorer` that will run 
 sudo adduser --disabled-password --gecos "" btcrpcexplorer
 ```
 
-* Add `btcrpcexplorer` user to the "bitcoin" group, allowing the `btcrpcexplorer` user read the bitcoind `.cookie` file
+* Add `btcrpcexplorer` user to the "bitcoin" group, allowing the `btcrpcexplorer` user reads the bitcoind `.cookie` file
 
 ```bash
 sudo adduser btcrpcexplorer bitcoin
@@ -206,7 +206,7 @@ npm install
 ```
 
 {% hint style="info" %}
-Installation can take some time, be patient. There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
+Installation can take some time; be patient. There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
 {% endhint %}
 
 {% hint style="warning" %}
@@ -401,7 +401,7 @@ Jul 18 11:08:35 minibolt npm[140461]: 2023-07-18T11:08:35.135Z btcexp:app Networ
 
 ### Validation
 
-* Ensure the service is working and listening at the default `3002` port and the HTTPS `4000` port
+* Ensure the service is working and listening on the default `3002` port and the HTTPS `4000` port
 
 ```bash
 sudo ss -tulpn | grep -E '(:4000|:3002)'
@@ -666,6 +666,17 @@ git pull origin $(git rev-parse --abbrev-ref HEAD)
 
 ```sh
 npm install
+```
+
+* Check the correct installation by requesting the version
+
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
+</strong></code></pre>
+
+**Example** of expected output:
+
+```
+"version": "3.4.0",
 ```
 
 * Check the correct installation by requesting the version
