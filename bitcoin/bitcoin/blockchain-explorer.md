@@ -441,7 +441,7 @@ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 * **More privacy mode**, no external queries
 
 ```
-# Ucomment these lines
+# Uncomment these lines
 BTCEXP_PRIVACY_MODE=true
 BTCEXP_NO_RATES=true
 ```
@@ -483,7 +483,7 @@ Decide whether you prefer a `light` or `dark` theme by default
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
-* Uncomment and replace this line with your selection. Left uncommented to dark **(default is dark).** Save and exit
+* Uncomment and replace this line with your selection. Leave uncommented to dark **(default is dark).** Save and exit
 
 ```
 BTCEXP_UI_THEME=dark
@@ -505,7 +505,7 @@ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 ```
 
-* Comment this line if it is uncommented **(default value is true)**. Save and exit
+* Comment this line if it is uncommented **(the default value is true)**. Save and exit
 
 ```
 #BTCEXP_SLOW_DEVICE_MODE=false
@@ -666,6 +666,17 @@ git pull origin $(git rev-parse --abbrev-ref HEAD)
 
 ```sh
 npm install
+```
+
+* Check the correct installation by requesting the version
+
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version
+</strong></code></pre>
+
+**Example** of expected output:
+
+```
+"version": "3.4.0",
 ```
 
 * Come back to the `admin` user
