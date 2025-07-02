@@ -2,17 +2,6 @@
 title: Web app
 nav_order: 30
 parent: Lightning
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # 3.3 Web app: ThunderHub
@@ -636,7 +625,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Thunderhub
 HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:3000
 ```
@@ -969,7 +958,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Thunderhub
 #HiddenServiceDir /var/lib/tor/hidden_service_thunderhub/
-#HiddenServiceVersion 3
+#HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 80 127.0.0.1:3000
 ```

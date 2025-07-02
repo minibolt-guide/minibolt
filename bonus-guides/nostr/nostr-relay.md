@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # Nostr relay in Rust
 
 A [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with support for the entire relay protocol and data persistence using PostgreSQL or SQLite.
@@ -802,8 +788,8 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Nostr relay
 HiddenServiceDir /var/lib/tor/hidden_service_nostr_relay/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1 
+HiddenServiceEnableIntroDoSDefense 1
+HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:8880
 ```
 

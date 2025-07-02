@@ -2,17 +2,6 @@
 title: Electrum server
 nav_order: 20
 parent: Bitcoin
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # 2.2 Electrum Server: Fulcrum
@@ -529,7 +518,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Fulcrum TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_tcp_ssl/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 50001 127.0.0.1:50001
 HiddenServicePort 50002 127.0.0.1:50002
@@ -724,7 +713,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Fulcrum TCP & SSL
 #HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_ssl/
-#HiddenServiceVersion 3
+#HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 50001 127.0.0.1:50001
 #HiddenServicePort 50002 127.0.0.1:50002

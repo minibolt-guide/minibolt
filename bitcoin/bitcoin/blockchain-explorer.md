@@ -2,17 +2,6 @@
 title: Blockchain explorer
 nav_order: 40
 parent: Bitcoin
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # 2.3 Blockchain explorer: BTC RPC Explorer
@@ -562,7 +551,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service BTC RPC Explorer
 HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:3002
 ```
@@ -732,7 +721,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service BTC RPC Explorer
 #HiddenServiceDir /var/lib/tor/hidden_service_btcrpcexplorer/
-#HiddenServiceVersion 3
+#HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 80 127.0.0.1:3002
 ```

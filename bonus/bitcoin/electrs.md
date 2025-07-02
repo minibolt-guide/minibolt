@@ -5,17 +5,6 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_children: false
 has_toc: false
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # Electrs
@@ -631,7 +620,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Electrs TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 50021 127.0.0.1:50021
 HiddenServicePort 50022 127.0.0.1:50022
@@ -782,7 +771,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Electrs TCP & SSL
 #HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
-#HiddenServiceVersion 3
+#HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 50021 127.0.0.1:50021
 #HiddenServicePort 50022 127.0.0.1:50022

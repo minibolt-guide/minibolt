@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # 1.6 Privacy
 
 We configure Tor and I2P to run your node anonymously.
@@ -436,7 +422,7 @@ sudo nano +63 /etc/tor/torrc
 ```
 # Hidden Service SSH server
 HiddenServiceDir /var/lib/tor/hidden_service_ssh_server/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 22 127.0.0.1:22
 ```

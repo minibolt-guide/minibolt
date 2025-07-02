@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # BTCPay Server
 
 [BTCPay Server](https://github.com/btcpayserver/btcpayserver) is a free, open-source, and self-hosted Bitcoin payment gateway, which means developers and security auditors can always inspect the code for quality. It enables individuals and businesses to accept Bitcoin payments online or in person without any fees, offering self-sovereignty in the process.
@@ -959,7 +945,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service BTCPay Server
 HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:23000
 ```
@@ -1498,12 +1484,13 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 
 * Comment or remove the btcpay hidden service in the torrc. Save and exit
 
-<pre><code># Hidden Service BTCPay Server
+```
+# Hidden Service BTCPay Server
 #HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
-#HiddenServiceVersion 3
-<strong>#HiddenServicePoWDefensesEnabled 1
-</strong>#HiddenServicePort 80 127.0.0.1:23000
-</code></pre>
+#HiddenServiceEnableIntroDoSDefense 1
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 80 127.0.0.1:23000
+```
 
 * Reload the torrc config
 

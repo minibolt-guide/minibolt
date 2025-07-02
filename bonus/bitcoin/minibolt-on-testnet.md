@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # MiniBolt on Testnet
 
 You can run your MiniBolt node on **Testnet4** to develop and experiment with new applications without risking real money. This bonus guide highlights all configuration changes compared to the main guide.
@@ -241,7 +227,7 @@ sudo nano +63 -l /etc/tor/torrc
 ############### This section is just for location-hidden services ###
 # Hidden Service Fulcrum Testnet4 TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_fulcrum_testnet4_tcp_ssl/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 40001 127.0.0.1:40001
 HiddenServicePort 40002 127.0.0.1:40002
@@ -524,7 +510,7 @@ sudo nano +63 /etc/tor/torrc
 ```
 # Hidden Service Electrs Testnet4 TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_testnet4_tcp_ssl/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 40021 127.0.0.1:40021
 HiddenServicePort 40022 127.0.0.1:40022
