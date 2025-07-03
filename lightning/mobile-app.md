@@ -266,7 +266,7 @@ Expected output:
 sudo ufw delete X
 ```
 
-### Uninstall Tor
+### Uninstall Tor hidden service
 
 You must uninstall the app on your phone and delete the LND REST API on Tor hidden service.
 

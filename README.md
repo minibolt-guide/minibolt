@@ -85,12 +85,12 @@ Feel free to join the many other contributors if you see something that can be i
 Use [a Nostr client](bonus-guides/nostr/nostr-relay.md#nostr-clients) to connect
 {% endhint %}
 
-Nostr relay in Rust (🚾clearnet):
+* Nostr relay in Rust (🚾clearnet):
 
 <pre class="language-url"><code class="lang-url"><strong>wss://relay.minibolt.info
 </strong></code></pre>
 
-Nostr relay in Rust (🧅onion):
+* Nostr relay in Rust (🧅onion):
 
 ```url
 ws://xib7qeea6f5nz3ueko4kwcsddpvggdray4nhagcvofbioot3n2qrapid.onion
@@ -102,13 +102,13 @@ ws://xib7qeea6f5nz3ueko4kwcsddpvggdray4nhagcvofbioot3n2qrapid.onion
 Use a signing app ([Sparrow Wallet](bitcoin/bitcoin/desktop-signing-app-sparrow.md) or [Electrum Wallet desktop](bonus/bitcoin/electrum-wallet-desktop.md)) to connect
 {% endhint %}
 
-Fulcrum - mainnet (🧅onion):
+* Fulcrum - mainnet (🧅onion):
 
 ```url
 tcp://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50001
 ```
 
-Fulcrum - testnet4 (🧅onion):
+* Fulcrum - testnet4 (🧅onion):
 
 ```url
 tcp://bnfpvanrc2g7r5o5kaabbbyjv6ddh46jmasfatrvbbsvjb7cdik5n7ad.onion:40001
@@ -120,41 +120,29 @@ ssl://bnfpvanrc2g7r5o5kaabbbyjv6ddh46jmasfatrvbbsvjb7cdik5n7ad.onion:40002
 {% endtab %}
 
 {% tab title="Explorer" %}
-BTC RPC Explorer - **mainnet** (🚾clearnet):
+* BTC RPC Explorer - **mainnet** (🚾clearnet):
 
--> CLICK to access -> [https://explorer.minibolt.info](https://explorer.minibolt.info) <-
+{% hint style="danger" %}
+Not accessible from EE.UU, Austria, or Germany
+{% endhint %}
 
-BTC RPC Explorer - **mainnet** (🧅onion - Use [Tor browser](https://www.torproject.org/download/)):
+👉 CLICK to access: [https://explorer.minibolt.info](https://explorer.minibolt.info) 👈
+
+* BTC RPC Explorer - **mainnet** (🧅onion - Use [Tor browser](https://www.torproject.org/download/)):
+
+{% hint style="success" %}
+Accessible from **anywhere**
+{% endhint %}
 
 ```url
 http://rzcj4r2p6wterkto5prigsplq6iva5bqhcxr7y3d6w4hoc3uwizpp5qd.onion
 ```
 {% endtab %}
 
-{% tab title="Lightning Watchtower (only LND)" %}
-{% hint style="info" %}
-Use `lncli` to connect to it:
-
-{% code overflow="wrap" %}
-```bash
-lncli wtclient add 02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b@zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911
-```
-{% endcode %}
-{% endhint %}
-
-Lightning Watchtower server - **mainnet** (🧅onion):
-
-{% code overflow="wrap" %}
-```url
-02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b@zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911
-```
-{% endcode %}
-{% endtab %}
-
 {% tab title="Keyserver" %}
 * Hockeypuck OpenPGP Public Keyserver (🚾clearnet):
 
--> CLICK to access -> [https://keyserver.minibolt.info](https://keyserver.minibolt.info) <-
+👉 CLICK to access: [https://keyserver.minibolt.info](https://keyserver.minibolt.info) 👈
 
 * Hockeypuck OpenPGP Public Keyserver (🧅onion - use [Tor browser](https://www.torproject.org/download/)):
 

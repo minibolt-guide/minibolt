@@ -2,17 +2,6 @@
 title: Lightning client
 nav_order: 10
 parent: Lightning
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # 3.1 Lightning client: LND
@@ -912,13 +901,10 @@ Watchtowers are other Lightning nodes that can monitor your channels for you. If
 
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them. It's good practice to add a few watchtowers, just to be on the safe side.
 
-* With user `admin`, add the Tor address of the [official MiniBolt Watchtower Server](../#free-services) as a first example
+* With user `admin`, add any address of Watchtower Server address that someone gives you
 
-{% code overflow="wrap" %}
-```bash
-lncli wtclient add 02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b@zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911
-```
-{% endcode %}
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli wtclient add <a data-footnote-ref href="#user-content-fn-13">pubkey</a>@<a data-footnote-ref href="#user-content-fn-14">addres</a>:9911
+</code></pre>
 
 * If you want to list your towers and active watchtowers
 
@@ -926,13 +912,13 @@ lncli wtclient add 02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a
 lncli wtclient towers
 ```
 
-Expected output:
+Example of expected output:
 
 ```
 {
     "towers": [
         {
-            "pubkey": "02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b",
+            "pubkey": "03ad48b4e41cfce258e2db8d7ec9a194570ca29bebo2897970d1ecc7d1c9a2726c",
             "addresses": [
                 "zm32w2qs2lf6xljnvqnmv6o2xlufsf4g6vfjihyydg4yhxph4fnqcvyd.onion:9911"
             ],
@@ -945,14 +931,14 @@ Expected output:
 }
 ```
 
-* If you want to deactivate an active tower
+* If you want to remove an active tower
 
 ```sh
 lncli wtclient remove <pubkey>
 ```
 
 {% hint style="info" %}
-Monitor logs with `journalctl -fu lnd` to verify the watchtower client is working correctly. The following logs should be shown after a period of time ⬇️
+Monitor logs with `journalctl -fu lnd` to verify the watchtower client is working correctly. The following logs should be shown after some time ⬇️
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/lnd-watchtower_log.PNG" alt=""><figcaption></figcaption></figure>
@@ -969,7 +955,7 @@ lncli tower info
 
 ```
 {
-  "pubkey": "02ad47b4e41cfce258e2db8d7eb9a194570ca29beba2897970d1ecc7d1c9a2726b",
+  "pubkey": "03ad48b4e41cfce258e2db8d7ec9a194570ca29bebo2897970d1ecc7d1c9a2726c",
   "listeners": [
       "[::]:9911"
   ],
@@ -1468,12 +1454,12 @@ lncli wallet accounts list | grep -B 3 "m/84"
 Example of expected output:
 
 <pre><code>            "address_type":  "TAPROOT_PUBKEY",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-13">xpub........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-15">xpub........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/86'/0'/0'",
 ------------------------
             "address_type":  "WITNESS_PUBKEY_HASH",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-14">zpub.........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-16">zpub.........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
@@ -1591,6 +1577,10 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^12]: Symbolic link
 
-[^13]: Your Taproot master public key
+[^13]: Replace
 
-[^14]: Your SegWit master public key
+[^14]: replace
+
+[^15]: Your Taproot master public key
+
+[^16]: Your SegWit master public key
