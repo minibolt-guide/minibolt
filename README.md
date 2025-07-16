@@ -123,7 +123,7 @@ ssl://bnfpvanrc2g7r5o5kaabbbyjv6ddh46jmasfatrvbbsvjb7cdik5n7ad.onion:40002
 * BTC RPC Explorer - **mainnet** (🚾clearnet):
 
 {% hint style="danger" %}
-Not accessible from EE.UU, Austria, or Germany
+Temporary not accessible from EE.UU, Austria, Singapore, or Germany
 {% endhint %}
 
 👉 CLICK to access: [https://explorer.minibolt.info](https://explorer.minibolt.info) 👈

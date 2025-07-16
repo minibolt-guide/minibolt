@@ -151,18 +151,18 @@ sudo adduser btcrpcexplorer bitcoin
 * Import the GPG key of the developer
 
 ```bash
-curl https://github.com/janoside.gpg | gpg --import
+gpg --keyserver keyserver.ubuntu.com --recv-keys B5690EEEBB952194
 ```
 
 **Example** of expected output:
 
 ```
+gpg: directory '/home/btcrpcexplorer/.gnupg' created
+gpg: keybox '/home/btcrpcexplorer/.gnupg/pubring.kbx' created
 gpg: /home/btcrpcexplorer/.gnupg/trustdb.gpg: trustdb created
-gpg: key B326ACF51F317B69: public key "Dan Janosik <dan@47.io>" imported
-gpg: key 846311D3D259BFF1: public key "Dan Janosik <dan@47.io>" imported
-gpg: key 70C0B166321C0AF8: public key "Dan Janosik <dan@47.io>" imported
-gpg: Total number processed: 3
-gpg:               imported: 3
+gpg: key B5690EEEBB952194: public key "GitHub <noreply@github.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
 ```
 
 * Download the source code directly from GitHub and go to the `btc-rpc-explorer` folder
@@ -181,11 +181,12 @@ git verify-commit $(git rev-parse HEAD)
 
 **Example** of expected output:
 
-<pre><code>gpg: Signature made Mon 16 Dec 2024 03:23:58 PM UTC
-gpg:                using EDDSA key 4D841E6E6B1B68EBFAB4A9E670C0B166321C0AF8
-gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Dan Janosik &#x3C;dan@47.io>" [expired]
-gpg: Note: This key has expired!
-Primary key fingerprint: 4D84 1E6E 6B1B 68EB FAB4  A9E6 70C0 B166 321C 0AF8
+<pre><code>gpg: Signature made Wed 09 Jul 2025 19:18:47 CEST
+gpg:                using RSA key B5690EEEBB952194
+gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "GitHub &#x3C;noreply@github.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 9684 79A1 AFF9 27E3 7D1A  566B B569 0EEE BB95 2194
 </code></pre>
 
 * Install all dependencies using NPM
@@ -740,7 +741,7 @@ sudo systemctl reload tor
 sudo rm /etc/nginx/sites-available/btcrpcexplorer-reverse-proxy.conf
 ```
 
-* Delete the simbolic link
+* Delete the symbolic link
 
 ```bash
 sudo rm /etc/nginx/sites-enabled/btcrpcexplorer-reverse-proxy.conf

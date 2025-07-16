@@ -903,7 +903,7 @@ A watchtower can only send such a punishing transaction to your wallet, so you d
 
 * With user `admin`, add any address of Watchtower Server address that someone gives you
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli wtclient add <a data-footnote-ref href="#user-content-fn-13">pubkey</a>@<a data-footnote-ref href="#user-content-fn-14">addres</a>:9911
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli wtclient add <a data-footnote-ref href="#user-content-fn-13">pubkey</a>@<a data-footnote-ref href="#user-content-fn-13">address</a>:9911
 </code></pre>
 
 * If you want to list your towers and active watchtowers
@@ -1454,12 +1454,12 @@ lncli wallet accounts list | grep -B 3 "m/84"
 Example of expected output:
 
 <pre><code>            "address_type":  "TAPROOT_PUBKEY",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-15">xpub........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-14">xpub........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/86'/0'/0'",
 ------------------------
             "address_type":  "WITNESS_PUBKEY_HASH",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-16">zpub.........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-15">zpub.........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
@@ -1579,8 +1579,6 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^13]: Replace
 
-[^14]: replace
+[^14]: Your Taproot master public key
 
-[^15]: Your Taproot master public key
-
-[^16]: Your SegWit master public key
+[^15]: Your SegWit master public key
