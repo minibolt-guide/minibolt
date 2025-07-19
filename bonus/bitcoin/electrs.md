@@ -91,7 +91,7 @@ $DEBUG_LEVEL is 0
 </details>
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take several minutes, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Install it
@@ -198,7 +198,7 @@ In the [Security section](../../index-1/security.md), we already set up Nginx as
 sudo nano /etc/nginx/streams-available/electrs-reverse-proxy.conf
 ```
 
-* Paste the complete following configuration. Save and exit
+* Paste the following complete configuration. Save and exit
 
 ```nginx
 upstream electrs {
@@ -259,10 +259,10 @@ There are no precompiled binaries available for Electrs, so we should compile th
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version of the environment variable for the installation
 
 ```sh
-VERSION=0.10.9
+VERSION=0.10.10
 ```
 
 * Download the source code and go to the `electrs` folder
@@ -416,7 +416,7 @@ sudo adduser electrs bitcoin
 sudo mkdir /data/electrs
 ```
 
-* Assign as the owner to the `electrs` user
+* Assign the owner to the `electrs` user
 
 ```sh
 sudo chown electrs:electrs /data/electrs
@@ -474,7 +474,7 @@ exit
 sudo nano /etc/systemd/system/electrs.service
 ```
 
-* Enter the complete following configuration. Save and exit
+* Enter the following complete configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for electrs
@@ -527,7 +527,7 @@ journalctl -fu electrs
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
@@ -569,12 +569,12 @@ sudo systemctl start electrs
 </details>
 
 {% hint style="success" %}
-Congrats! Now you have a self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md) or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
+Congrats! Now you have a self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
 {% endhint %}
 
 ### Validation
 
-* Ensure electrs service is working and listening at the default TCP `50021` port and the monitoring `14224` port (not used on MiniBolt)
+* Ensure electrs service is working and listening on the default TCP `50021` port and the monitoring `14224` port (not used on MiniBolt)
 
 ```sh
 sudo ss -tulpn | grep electrs
@@ -645,7 +645,7 @@ abcdefg..............xyz.onion
 ```
 
 {% hint style="info" %}
-You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50022 (SSL)` or `50021 (TCP)`
+You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50022 (SSL)` , or `50021 (TCP)`
 {% endhint %}
 
 ### Migrate BTC RPC Explorer to Electrs API connection
@@ -673,7 +673,7 @@ sudo systemctl restart btcrpcexplorer
 
 ## Upgrade
 
-* First, ensure that you have the latest Rustc version following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-+-cargo.md)
+* First, ensure that you have the latest Rustc version, following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-+-cargo.md)
 * Follow the complete [Build from the source code](electrs.md#build-from-the-source-code) section
 * When you finish, restart Electrs to apply the new version
 
@@ -681,7 +681,7 @@ sudo systemctl restart btcrpcexplorer
 sudo systemctl restart electrs
 ```
 
-* Check logs and pay attention to the next log if that attends to the new version installed and no error logs
+* Check logs and pay attention to the next log if that refers to the new version installed and no error logs
 
 ```bash
 journalctl -fu electrs
@@ -729,7 +729,7 @@ Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path:
 sudo systemctl stop electrs
 ```
 
-* Disable autoboot (if eneabled)
+* Disable autoboot (if enabled)
 
 ```bash
 sudo systemctl disable electrs
@@ -743,7 +743,7 @@ sudo rm /etc/systemd/system/electrs.service
 
 ### Delete user & group
 
-* Ensure you are logged in with the user `admin`. Delete the `electrs` user.\
+* Ensure you are logged in as the user `admin`. Delete the `electrs` user.\
   Don't worry about `userdel: electrs mail spool (/var/mail/electrs) not found` output, the uninstall has been successful
 
 ```bash
@@ -752,7 +752,7 @@ sudo userdel -rf electrs
 
 ### Delete data directory
 
-* Delete electrs directory
+* Delete the electrs directory
 
 ```bash
 sudo rm -rf /data/electrs
@@ -760,7 +760,7 @@ sudo rm -rf /data/electrs
 
 ### Uninstall Tor hidden service
 
-* Ensure that you are logged in with the user `admin` , edit the `torrc` config file
+* Ensure that you are logged in as the user `admin` , edit the `torrc` config file
 
 ```bash
 sudo nano +63 /etc/tor/torrc --linenumbers
@@ -785,13 +785,13 @@ sudo systemctl reload tor
 
 ### Uninstall reverse proxy & FW configuration
 
-* Ensure you are logged in with the user `admin`, delete the reverse proxy config file
+* Ensure you are logged in as the user `admin`, delete the reverse proxy config file
 
 ```bash
 sudo rm /etc/nginx/sites-available/electrs-reverse-proxy.conf
 ```
 
-* Delete the simbolic link
+* Delete the symbolic link
 
 ```bash
 sudo rm /etc/nginx/sites-enabled/electrs-reverse-proxy.conf
