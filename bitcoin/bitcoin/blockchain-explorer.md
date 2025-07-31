@@ -151,7 +151,7 @@ sudo adduser btcrpcexplorer bitcoin
 * Import the GPG key of the developer
 
 ```bash
-gpg --keyserver keyserver.ubuntu.com --recv-keys B5690EEEBB952194
+curl https://github.com/janoside.gpg | gpg --import
 ```
 
 **Example** of expected output:
@@ -159,10 +159,15 @@ gpg --keyserver keyserver.ubuntu.com --recv-keys B5690EEEBB952194
 ```
 gpg: directory '/home/btcrpcexplorer/.gnupg' created
 gpg: keybox '/home/btcrpcexplorer/.gnupg/pubring.kbx' created
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  9837  100  9837    0     0  21640      0 --:--:-- --:--:-- --:--:-- 21619
 gpg: /home/btcrpcexplorer/.gnupg/trustdb.gpg: trustdb created
-gpg: key B5690EEEBB952194: public key "GitHub <noreply@github.com>" imported
-gpg: Total number processed: 1
-gpg:               imported: 1
+gpg: key B326ACF51F317B69: public key "Dan Janosik <dan@47.io>" imported
+gpg: key 846311D3D259BFF1: public key "Dan Janosik <dan@47.io>" imported
+gpg: key 70C0B166321C0AF8: public key "Dan Janosik <dan@47.io>" imported
+gpg: Total number processed: 3
+gpg:               imported: 3
 ```
 
 * Download the source code directly from GitHub and go to the `btc-rpc-explorer` folder
@@ -181,12 +186,13 @@ git verify-commit $(git rev-parse HEAD)
 
 **Example** of expected output:
 
-<pre><code>gpg: Signature made Wed 09 Jul 2025 19:18:47 CEST
-gpg:                using RSA key B5690EEEBB952194
-gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "GitHub &#x3C;noreply@github.com>" [unknown]
+<pre><code>gpg: Signature made Mon 28 Jul 2025 05:01:59 PM UTC
+gpg:                using RSA key F579929B39B119CC7B0BB71FB326ACF51F317B69
+gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Dan Janosik &#x3C;dan@47.io>" [unknown]
+gpg:                 aka "keybase.io/danjanosik &#x3C;danjanosik@keybase.io>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: 9684 79A1 AFF9 27E3 7D1A  566B B569 0EEE BB95 2194
+Primary key fingerprint: F579 929B 39B1 19CC 7B0B  B71F B326 ACF5 1F31 7B69
 </code></pre>
 
 * Install all dependencies using NPM

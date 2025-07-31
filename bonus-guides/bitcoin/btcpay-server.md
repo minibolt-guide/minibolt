@@ -546,7 +546,7 @@ cd src
 * Set the variable environment version
 
 ```bash
-VERSION=2.1.6
+VERSION=2.2.0
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -1279,7 +1279,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.1.6
+VERSION=2.2.0
 ```
 
 * Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
