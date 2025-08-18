@@ -83,13 +83,31 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=2025.7.0
+VERSION=2025.8.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>wget https://github.com/cloudflare/cloudflared/releases/download/$VERSION/cloudflared-linux-amd64.deb
 </strong></code></pre>
+
+* Set a temporary SHA256 environment variable to the installation
+
+```bash
+SHA256=564efb418f458006186e438ec3e576c5af3e7497566dce3ca507e8b4cb60cbac
+```
+
+* Check the checksum of the file
+
+```bash
+echo "$SHA256 cloudflared-linux-amd64.deb" | sha256sum --check
+```
+
+**Example** of expected output:
+
+```
+cloudflared-linux-amd64.deb: OK
+```
 
 * Use the deb package manager to install it
 
@@ -116,7 +134,7 @@ sudo rm cloudflared-linux-amd64.deb
 ```
 
 {% hint style="info" %}
-If you come to update this is the final step
+If you come to update, this is the final step
 {% endhint %}
 
 ### Authenticate on Cloudflare and authorize <a href="#id-2-authenticate-cloudflared" id="id-2-authenticate-cloudflared"></a>
@@ -253,6 +271,7 @@ nano /home/admin/.cloudflared/config.yml
 
 tunnel: <a data-footnote-ref href="#user-content-fn-1">&#x3C;UUID></a>
 credentials-file: /home/admin/.cloudflared/<a data-footnote-ref href="#user-content-fn-1">&#x3C;UUID></a>.json
+origincert: /home/admin/.cloudflared/cert.pem
 
 ingress:
 

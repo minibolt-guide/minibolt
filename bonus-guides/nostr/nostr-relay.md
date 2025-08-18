@@ -669,6 +669,12 @@ Nostr public key mining tool.
 
 [GitHub](https://github.com/grunch/rana)
 {% endtab %}
+
+{% tab title="Nosy" %}
+Find the top relays of those who follow you or you follow.
+
+[Web](https://nosy.tigerville.no/)
+{% endtab %}
 {% endtabs %}
 
 {% tabs %}

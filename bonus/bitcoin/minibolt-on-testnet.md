@@ -36,7 +36,7 @@ Mainnet + testnet simultaneous mode
 nano /home/bitcoin/.bitcoin/bitcoin-testnet4.conf
 ```
 
-* Stay tuned to replace and add the next lines on the `bitcoin.conf` file
+* Stay tuned to replace and add the next lines on the `bitcoin-testnet4.conf` file
 
 ```
 ## Replace the parameter
