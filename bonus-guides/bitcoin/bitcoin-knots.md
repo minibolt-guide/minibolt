@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # Bitcoin Knots
 
 [**Bitcoin Knots**](https://bitcoinknots.org/) is a community-driven fork of Bitcoin Core that offers advanced features, experimental options, and enhanced configurability. It includes additional consensus and networking parameters—such as stronger spam filtering and custom block processing rules—designed for power users and developers seeking deeper control over their Bitcoin node.
@@ -43,7 +29,7 @@ cd /tmp
 * Set the next environment variables
 
 ```sh
-VERSION=28.1.knots20250305 && BRANCH=28.x
+VERSION=29.1.knots20250903 && BRANCH=29.x
 ```
 
 * Get the latest binaries and signatures
@@ -494,7 +480,7 @@ sudo systemctl restart bitcoind
 
 By applying a spam and arbitrary data filter to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without a spam or arbitrary data filter applied.
 
-* With user admin, stop LND if you have installed
+* With the user admin, stop LND if you have installed it
 
 ```bash
 sudo systemctl stop lnd
@@ -523,7 +509,7 @@ sudo systemctl start lnd
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Knots project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/28.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention
 
-Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code - [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch if they have not already been changed in this guide. Continue until you complete the entire Installation section.
+Go to the Option 1: Using precompiled binaries - [Installation section](bitcoin-knots.md#installation), or Option 2: Compiling from source code - [Installation section](bitcoin-knots.md#installation-1), depending on the selected option, and replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if they have not already been changed in this guide. Continue until you complete the entire Installation section.
 
 {% hint style="info" %}
 Remember to restart the Bitcoin Knots to apply the new version with: `sudo systemctl restart bitcoind`

@@ -138,7 +138,7 @@ sudo su - thunderhub
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=0.14.2
+VERSION=0.14.3
 ```
 
 * Import the GPG key of the developer
@@ -229,7 +229,7 @@ npm notice
 </details>
 
 {% hint style="info" %}
-**(Optional)** Improve your privacy by opt-out of Next.js [telemetry](https://nextjs.org/telemetry)
+**(Optional)** Improve your privacy by opting out of Next.js [telemetry](https://nextjs.org/telemetry)
 
 ```bash
 npx next telemetry disable
@@ -732,7 +732,7 @@ cd thunderhub
 * Set the environment variable version
 
 ```bash
-VERSION=0.14.2
+VERSION=0.14.3
 ```
 
 * Pull the changes from GitHub
