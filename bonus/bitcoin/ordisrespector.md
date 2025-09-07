@@ -5,17 +5,6 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_children: false
 has_toc: false
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # Ordisrespector spam filter
@@ -76,7 +65,7 @@ cd /tmp
 * Set the next environment variable
 
 ```sh
-VERSION=29.0
+VERSION=29.1
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums

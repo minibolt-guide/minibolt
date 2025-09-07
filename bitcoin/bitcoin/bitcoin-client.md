@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # 2.1 Bitcoin client: Bitcoin Core
 
 We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/), the reference client implementation of the Bitcoin network.
@@ -41,7 +27,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=29.0
+VERSION=29.1
 ```
 
 * Get the latest binaries and signatures
@@ -398,7 +384,7 @@ blocksonly=1
 </code></pre>
 
 {% hint style="info" %}
-This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options, or generate one yourself following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
+This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options, or generate one yourself, following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
 {% endhint %}
 
 * Set permissions for only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)
@@ -407,7 +393,7 @@ This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf]
 chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Exit the `bitcoin` user session to back to the user `admin`
+* Exit the `bitcoin` user session and back to the user `admin`
 
 {% code fullWidth="false" %}
 ```sh
@@ -660,9 +646,9 @@ This process is called IBD (Initial Block Download). This can take between one d
 
 ### Explore bitcoin-cli
 
-If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Core, and play around with `bitcoin-cli` until the blockchain is up-to-date.
+If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Core, and play around with `bitcoin-cli` it until the blockchain is up-to-date.
 
-* [The Little Bitcoin Book](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how"
+* [The Little Bitcoin Book](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how."
 *   [Mastering Bitcoin](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part how to compile from source code):
 
     * You definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
@@ -674,7 +660,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 
 ## Activate mempool & reduce 'dbcache' after a full sync
 
-Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download, now we want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
+Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download now. We want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
 {% hint style="info" %}
 Bitcoin Core will then just use the default cache size of 450 MiB instead of your RAM setup. If `blocksonly=1` is left uncommented, it will prevent Electrum Server from receiving RPC fee data and will not work
@@ -815,7 +801,7 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 
 ### The manual page for bitcoin-cli
 
-* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine, so that they can be consulted offline, they can be installed from the directory
+* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine, so that they can be consulted offline, and they can be installed from the directory
 
 {% hint style="info" %}
 If you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), this section is not needed because man pages are installed by default, type directly `man bitcoin-cli` command to see the man pages
@@ -1107,7 +1093,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=29.0
+VERSION=29.1
 ```
 
 * Download binary, checksum, signature files, and timestamp file
@@ -1181,7 +1167,7 @@ gpg: Good signature from ...
 Primary key fingerprint: ...
 ```
 
-* If you completed the IBD (Initial Block Download), now you can verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
+* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
 
 ```sh
 ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -1262,7 +1248,7 @@ sudo systemctl restart bitcoind
 
 ### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop bitcoind
+* Ensure you are logged in as the user `admin`, stop bitcoind
 
 ```bash
 sudo systemctl stop bitcoind
@@ -1302,7 +1288,7 @@ sudo userdel -rf bitcoin
 sudo groupdel bitcoin
 ```
 
-### Detele data directory
+### Delete data directory
 
 * Delete the complete `bitcoin`directory
 
@@ -1322,7 +1308,7 @@ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
 
 If you followed the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
 
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below)
+* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below)
 
 ```bash
 sudo ufw status numbered
@@ -1335,7 +1321,7 @@ Expected output:
 ```
 
 {% hint style="info" %}
-If you don't have any rule matched with this, you don't have to do anything, you are OK
+If you don't have any rule matched with this, you don't have to do anything; you are OK
 {% endhint %}
 
 * Delete the rule with the correct number and confirm by typing "`yes`" and enter
