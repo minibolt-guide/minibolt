@@ -29,7 +29,7 @@ cd /tmp
 * Set the next environment variables
 
 ```sh
-VERSION=28.1.knots20250305 && BRANCH=28.x
+VERSION=29.1.knots20250903 && BRANCH=29.x
 ```
 
 * Get the latest binaries and signatures
@@ -64,7 +64,7 @@ bitcoin-28.1.knots20250305.tar.gz: OK
 
 #### **Signature check**
 
-Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+Bitcoin releases are signed by several individuals, each using their key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * The next command downloads and automatically imports all signatures from [the Bitcoin Knots release attestations (Guix) repository](https://github.com/bitcoinknots/guix.sigs)
 
