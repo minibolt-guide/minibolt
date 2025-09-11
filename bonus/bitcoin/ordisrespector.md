@@ -221,7 +221,7 @@ cd bitcoin-$VERSION
 make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
 ```
 
-Expected output:
+**Example** of expected output:
 
 ```
 make: Entering directory '/tmp/bitcoin-29.0/depends'

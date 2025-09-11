@@ -71,7 +71,7 @@ exit
 sudo apt update && sudo apt install tor deb.torproject.org-keyring
 ```
 
-* Check Tor has been correctly installed
+* Check that Tor has been correctly installed
 
 ```sh
 tor --version
@@ -85,7 +85,7 @@ Tor version 0.4.7.13.
 ```
 
 {% hint style="info" %}
-Please note that the before version number might change in your case, this is just an example of when the guide was made
+Please note that the version number before might change in your case; this is just an example of when the guide was made
 {% endhint %}
 
 ### **Tor configuration**
@@ -110,7 +110,7 @@ ControlPort 9051
 sudo systemctl reload tor
 ```
 
-* Ensure that the Tor service is working and listening at the default ports `9050` and `9051` on the localhost (127.0.0.1)
+* Ensure that the Tor service is working and listening on the default ports `9050` and `9051` on the localhost (127.0.0.1)
 
 ```sh
 sudo ss -tulpn | grep tor
@@ -127,7 +127,7 @@ tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795
 
 </details>
 
-* **(Optional)** Check the systemd journal to see Tor in real time updates output logs. Ctrl + C to exit
+* **(Optional)** Check the systemd journal to see Tor in real-time updates, output logs. Ctrl + C to exit
 
 ```sh
 journalctl -fu tor@default --since='1 hour ago'
@@ -166,7 +166,7 @@ Nov 13 23:19:20 minibolt systemd[1]: Reloaded tor@default.service - Anonymizing 
 </details>
 
 {% hint style="info" %}
-Not all network traffic is routed over the Tor network, by default some services don't include a proxy SOCKS5 configuration. Anyway, we now have the base to configure sensitive applications to use it
+Not all network traffic is routed over the Tor network; by default, some services don't include a proxy SOCKS5 configuration. Anyway, we now have the base to configure sensitive applications to use it
 {% endhint %}
 
 {% hint style="info" %}
@@ -187,14 +187,14 @@ Removed /etc/systemd/system/multi-user.target.wants/tor.service.
 {% hint style="info" %}
 -> If you want to **avoid your ISP knowing you are using Tor**, follow the [**Add obfs4 bridge to the default Tor instance**](../bonus-guides/networking/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) section on the Tor services bonus guide to use ofbs4 bridges
 
--> You can host [**your Tor obfs4 bridge**](../bonus-guides/networking/tor-services.md#obsf4-bridge) or connect to an external one as mentioned before
+-> You can host [**your Tor obfs4 bridge**](../bonus-guides/networking/tor-services.md#obsf4-bridge) or connect to an external one, as mentioned before
 {% endhint %}
 
 ## I2P Project
 
 <div align="left"><img src="../images/i2pd.png" alt="" width="150"></div>
 
-[I2P](https://geti2p.net/en/) is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted, participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
+[I2P](https://geti2p.net/en/) is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted; participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
 
 I2P client is software used for building and using anonymous I2P networks. Such networks are commonly used for anonymous peer-to-peer applications (filesharing, cryptocurrencies) and anonymous client-server applications (websites, instant messengers, chat-servers).
 
@@ -202,7 +202,7 @@ We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a ful
 
 ### **I2P installation**
 
-* Ensure that you are logged in with the user `admin` and add the i2pd repository
+* Ensure that you are logged in as the user `admin` and add the i2pd repository
 
 ```sh
 wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
@@ -233,7 +233,7 @@ i2pd --version
 </strong>[...]
 </code></pre>
 
-* Ensure that the i2pd service is working and listening at the default ports
+* Ensure that the i2pd service is working and listening on the default ports
 
 ```sh
 sudo ss -tulpn | grep i2pd
@@ -313,7 +313,7 @@ Realize that if you modify the config file, you will need to select "Keep" or re
 sudo nano /etc/nginx/sites-available/i2pd-webconsole-reverse-proxy.conf
 ```
 
-* Paste the complete following configuration. Save and exit
+* following completePaste the complete following configuration. Save and exit
 
 ```nginx
 server {
@@ -394,7 +394,7 @@ tcp   LISTEN 0      4096       127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",
 ```
 
 {% hint style="info" %}
-Now, point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://ramix.local:7071"` (or your node IP address) like `"https://192.168.x.xxx:7071"`. Type the credentials before configurated (`user: i2pd; password: [ F ] i2pd webconsole password`). After that, you should see something similar to the next screenshot
+Now, point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:7071"` (or your node IP address) like `"https://192.168.x.xxx:7071"`. Type the credentials before configurated (`user: i2pd; password: [ F ] i2pd webconsole password`). After that, you should see something similar to the next screenshot
 
 This access is only available from the local network; no Tor or Wireguard VPN is allowed
 {% endhint %}
@@ -411,7 +411,7 @@ If you want to log into your MiniBolt with SSH when you're away, you can easily 
 
 #### **SSH server**
 
-* Ensure that you are logged in with the user `admin` , edit the `torrc` file
+* Ensure that you are logged in as the user `admin` , edit the `torrc` file
 
 ```sh
 sudo nano +63 /etc/tor/torrc
@@ -445,7 +445,7 @@ sudo cat /var/lib/tor/hidden_service_ssh_server/hostname
 abcdefg..............xyz.onion
 ```
 
-* Save the Tor address in a secure location, e.g. your password manager
+* Save the Tor address in a secure location, e.g., your password manager
 
 #### **SSH client**
 
@@ -453,7 +453,7 @@ You also need to have Tor installed on your regular computer where you start the
 
 * **Windows**:
 
-To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/bitcoin/desktop-signing-app-sparrow.md#preparations-on-your-computer) section of the Desktop Wallet guide.
+To enable Tor in the background, follow the same instructions for the [preparations](../bitcoin/bitcoin/desktop-signing-app-sparrow.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
 * PuTTY:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for PuTTY, but this time type the `.onion` address on the hostname.
@@ -461,11 +461,11 @@ To enable Tor in the background follow the same instructions for the [preparatio
     * Press the button OPEN, when a "PuTTY security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 * MobaXterm:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
-  * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
-  * Press the button OK, when a "Connexion to..." banner appears press the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
+  * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, leave it empty, and port "9050".
+  * Press the button OK, when a "Connexion to..." banner appears, press the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 
 {% hint style="info" %}
-If you use PuTTY and fail to connect to your PC by setting port 9050 in the PuTTY proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150
+If you use PuTTY and fail to connect to your PC by setting port 9050 in the PuTTY proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process, it uses port 9150
 {% endhint %}
 
 * **Linux**:
@@ -480,10 +480,10 @@ torsocks ssh admin@abcdefg..............xyz.onion
 ```
 
 {% hint style="info" %}
-When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER
+When the prompt asks you, "Are you sure you want to continue connecting?" type "yes" and press ENTER
 {% endhint %}
 
-* **macOS**: Using `torify` or `torsocks` may not work due to Apple's _System Integrity Protection (SIP)_ which will deny access to `/usr/bin/ssh`.
+* **macOS**: Using `torify` or `torsocks` may not work due to Apple's _System Integrity Protection (SIP),_ which will deny access to `/usr/bin/ssh`.
 
 To work around this, first, make sure Tor is installed and running on your Mac:
 
@@ -528,7 +528,7 @@ ssh HOSTNICKNAME
 
 ### **Use the Tor proxy from another device**
 
-It's possible to use the Tor proxy of the node from another device in the same local network (e.g your regular computer)
+It's possible to use the Tor proxy of the node from another device in the same local network (e.g, your regular computer)
 
 * With `admin` user, edit the torrc file
 
@@ -584,7 +584,7 @@ Edit the screen to match this, replacing `SOCKS Host`, with your node's local IP
 
 <figure><img src="../.gitbook/assets/tor-proxy-browser.png" alt="" width="563"><figcaption></figcaption></figure>
 
--> Click on the **OK** button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info), if it resolves, you are OK.
+-> Click on the **OK** button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info). If it resolves, you are OK.
 
 {% hint style="info" %}
 You can also go to this [website](https://check.torproject.org/) and see "_Congratulations. This browser is configured to use Tor."_
@@ -700,7 +700,7 @@ sudo systemctl start tor
 {% hint style="info" %}
 -> If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to
 
--> If not, try using [obfs4 bridges](../bonus-guides/networking/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs4 bridges could help to avoid this censorship
+-> If not, try using [obfs4 bridges](../bonus-guides/networking/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) and see if that helps. Your ISP, the company's network, your country, etc, could be completely censoring your Tor access; use of obfs4 bridges could help to avoid this censorship
 {% endhint %}
 
 **Example** of Tor censorship output:

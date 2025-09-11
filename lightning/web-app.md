@@ -138,7 +138,7 @@ sudo su - thunderhub
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=0.14.3
+VERSION=0.14.6
 ```
 
 * Import the GPG key of the developer
@@ -732,7 +732,7 @@ cd thunderhub
 * Set the environment variable version
 
 ```bash
-VERSION=0.14.3
+VERSION=0.14.6
 ```
 
 * Pull the changes from GitHub

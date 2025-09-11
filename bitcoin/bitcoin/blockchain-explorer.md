@@ -524,7 +524,7 @@ BTCEXP_DEMO=true
 ```
 
 {% hint style="warning" %}
-You will need to set password authentication following the [Security](blockchain-explorer.md#security) section, if not, a banner shows you this:
+You will need to set password authentication following the [Security](blockchain-explorer.md#security) section; if not, a banner shows you this:
 
 {% code overflow="wrap" %}
 ```
@@ -652,10 +652,24 @@ sudo su - btcrpcexplorer
 cd btc-rpc-explorer
 ```
 
-* Update the repository with the latest commits
+* Fetches changes from the remote repository.
 
+{% code overflow="wrap" %}
 ```sh
-git pull origin $(git rev-parse --abbrev-ref HEAD)
+git fetch origin
+```
+{% endcode %}
+
+* Moves your local branch to the remote commit and discards all uncommitted changes and any local commits that are not present on the remote
+
+```bash
+git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
+```
+
+* Removes untracked files and directories
+
+```bash
+git clean -fd
 ```
 
 * Install dependencies
