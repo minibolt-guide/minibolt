@@ -729,8 +729,8 @@ sudo nano /etc/systemd/system/btcpay.service
 
 <strong>[Unit]
 </strong>Description=BTCPay Server
-Requires=nbxplorer.service postgresql.service lnd.service
-After=nbxplorer.service postgresql.service lnd.service
+Requires=nbxplorer.service postgresql.service
+After=nbxplorer.service postgresql.service
 
 [Service]
 WorkingDirectory=/home/btcpay/src/btcpayserver
@@ -766,7 +766,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ### Running BTCPay Server
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 ```bash
 sudo systemctl start btcpay
@@ -842,7 +842,7 @@ You can now create the first account to access the dashboard using a real (recom
 
 #### Configure LND
 
-* Stay logged with the`admin` user, and configure LND to allow LND REST from anywhere by editing the `lnd.conf` file
+* Stay logged in with the`admin` user, and configure LND to allow LND REST from anywhere by editing the `lnd.conf` file
 
 ```bash
 sudo nano /data/lnd/lnd.conf
@@ -909,10 +909,9 @@ exit
 
 * Modify the next lines of the systemd service file by following [this section](btcpay-server.md#create-btcpay-server-systemd-service), adding the `lnd.service` dependency
 
-```
-Requires=nbxplorer.service lnd.service
-After=nbxplorer.service lnd.service
-```
+<pre><code>Requires=nbxplorer.service postgresql.service <a data-footnote-ref href="#user-content-fn-2">lnd.service</a>
+After=nbxplorer.service postgresql.service <a data-footnote-ref href="#user-content-fn-2">lnd.service</a>
+</code></pre>
 
 * Reload the systemd daemon
 
@@ -1001,7 +1000,7 @@ Click on the \[Save] button to save the new DNS registry
 * Add the next lines to the `config.yml`
 
 <pre><code># BTCPay Server
-  - hostname: <a data-footnote-ref href="#user-content-fn-2">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-3">&#x3C;domain.com></a>
+  - hostname: <a data-footnote-ref href="#user-content-fn-3">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-4">&#x3C;domain.com></a>
     service: http://localhost:23000
 </code></pre>
 
@@ -1514,8 +1513,10 @@ sudo -u postgres psql -c "DROP DATABASE nbxplorer;" && sudo -u postgres psql -c 
 
 [^1]: \<Optional>
 
-[^2]: Replace with the selected name of your service\
+[^2]: Add this
+
+[^3]: Replace with the selected name of your service\
     i.e: `explorer`
 
-[^3]: Replace with your domain\
+[^4]: Replace with your domain\
     i.e: `domain.com`
