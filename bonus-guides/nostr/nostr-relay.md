@@ -701,13 +701,7 @@ Pinstr is a decentralized, free, and open-source social network built on top of 
 {% tab title="Nostr nests" %}
 Nostr Nests is an audio space for chatting, brainstorming, debating, jamming, micro-conferences, and more.
 
-[Web](https://nostrnests.com) | [Git](https://gitlab.com/jam-systems/jam)
-{% endtab %}
-
-{% tab title="URL Shortener" %}
-A free URL shortener service enabled by the NOSTR protocol, that is fast and fuss-free, stripped of all bells and whistles, no gimmicks—it just works!
-
-[Web](https://w3.do/) | [GitHub](https://github.com/jinglescode/nostr-url-shortener)
+[Web](https://nostrnests.com) | [Github](https://gitlab.com/jam-systems/jam)
 {% endtab %}
 {% endtabs %}
 

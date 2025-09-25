@@ -108,7 +108,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=1.12.0
+VERSION=2.0.0
 ```
 
 * Download the application, checksums, and signature
@@ -261,7 +261,7 @@ sudo adduser fulcrum bitcoin
 sudo mkdir -p /data/fulcrum/fulcrum_db
 ```
 
-* Assign as the owner to the `fulcrum` user
+* Assign the owner to the `fulcrum` user
 
 ```sh
 sudo chown -R fulcrum:fulcrum /data/fulcrum/
@@ -279,7 +279,7 @@ sudo su - fulcrum
 ln -s /data/fulcrum /home/fulcrum/.fulcrum
 ```
 
-* Check symbolic link has been created correctly
+* Check that the symbolic link has been created correctly
 
 ```bash
 ls -la .fulcrum
@@ -324,7 +324,7 @@ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fu
 
 ## Configuration
 
-MiniBolt uses SSL as default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may as well need to use TCP for other reasons.
+MiniBolt uses SSL as the default for Fulcrum, but some wallets like BlueWallet do not support SSL over Tor. That's why we use TCP in configurations as well to let the user choose what he needs. You may also need to use TCP for other reasons.
 
 * Create a Fulcrum configuration file
 
@@ -335,7 +335,7 @@ nano /data/fulcrum/fulcrum.conf
 * Enter the following content. Save and exit
 
 {% hint style="warning" %}
-Remember to accommodate the `"utxo-cache"` parameter depending on your hardware. Recommended: utxo-cache=1/2 x RAM available, e.g. 4GB RAM -> utxo-cache=2000
+Remember to accommodate the `db_mem` parameter depending on your hardware
 {% endhint %}
 
 <pre><code># MiniBolt: fulcrum configuration
@@ -354,9 +354,10 @@ tcp = 0.0.0.0:50001
 peering = false
 zmq_allow_hashtx = true
 
-# Set utxo-cache according to your device performance (only apply on initial indexing)
-# recommended: utxo-cache=1/2 x RAM available e.g: 4GB RAM -> utxo-cache=2000
-utxo-cache = <a data-footnote-ref href="#user-content-fn-3">2000</a>
+# Max RocksDB Memory in MiB - DEFAULT: 2048.0
+# (this applies in initial synchronization and daily operation)
+# recommended: db_mem=1/2 x RAM available, e.g, 4GB RAM -> db_mem = 2048.0
+db_mem = <a data-footnote-ref href="#user-content-fn-3">2048.0</a>
 
 # Banner
 banner = /data/fulcrum/fulcrum-banner.txt
@@ -382,7 +383,7 @@ Fulcrum needs to start automatically when booting the system.
 sudo nano /etc/systemd/system/fulcrum.service
 ```
 
-* Enter the complete following configuration. Save and exit
+* Enter the following complete configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for Fulcrum
@@ -418,7 +419,7 @@ WantedBy=multi-user.target
 sudo systemctl enable fulcrum
 ```
 
-* Prepare "fulcrum" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
+* Prepare "fulcrum" monitoring by the systemd journal and check the log output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
 journalctl -fu fulcrum
@@ -554,7 +555,7 @@ abcdefg..............xyz.onion
  sudo nano /data/fulcrum/fulcrum.conf
 ```
 
-* Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM depending on your hardware
+* Uncomment the `db_max_open_files` parameter choosing the appropriate one for 4 GB or 8 GB of RAM, depending on your hardware
 
 ```
 ## Slow device optimizations
@@ -571,7 +572,7 @@ db_mem = 1024.0
 
 #### Install zram-swap
 
-[zram-swap](https://github.com/foundObjects/zram-swap) is a compressed swap in memory and on disk and is necessary for the proper functioning of Fulcrum during the sync process using compressed swap in memory (increase performance when memory usage is high)
+[zram-swap](https://github.com/foundObjects/zram-swap) is a compressed swap in memory and on disk, and is necessary for the proper functioning of Fulcrum during the sync process, using compressed swap in memory (increases performance when memory usage is high)
 
 * With user `admin`, access to the "admin" home folder
 
@@ -579,7 +580,7 @@ db_mem = 1024.0
 cd /home/admin/
 ```
 
-* Clone the repository of GitHub and go to the `zram-swap` folder
+* Clone the repository from GitHub and go to the `zram-swap` folder
 
 ```sh
 git clone https://github.com/foundObjects/zram-swap.git && cd zram-swap
@@ -597,7 +598,7 @@ sudo ./install.sh
 sudo nano /etc/sysctl.conf
 ```
 
-* Add next lines at the end of the file. Save and exit
+* Add the next lines at the end of the file. Save and exit
 
 ```
 vm.vfs_cache_pressure=500
@@ -642,7 +643,7 @@ Follow the complete [Installation section](electrum-server.md#installation) unti
 sudo systemctl restart fulcrum
 ```
 
-* Check logs and pay attention to the next log if that attends to the new version installed
+* Check logs and pay attention to the next log if that refers to the new version installed
 
 ```sh
 journalctl -fu fulcrum
@@ -660,7 +661,7 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 
 ### Uninstall service
 
-* Ensure you are logged in with the user `admin`, stop fulcrum
+* Ensure you are logged in as the user `admin`, stop fulcrum
 
 ```sh
 sudo systemctl stop fulcrum
@@ -704,7 +705,7 @@ sudo rm /usr/local/bin/Fulcrum
 
 ### Uninstall Tor hidden service
 
-* Ensure that you are logged in with the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```sh
 sudo nano +63 /etc/tor/torrc --linenumbers
@@ -727,7 +728,7 @@ sudo systemctl reload tor
 
 ### Uninstall FW configuration
 
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
+* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Fulcrum (e.g., X and Y below)
 
 ```sh
 sudo ufw status numbered
@@ -748,7 +749,7 @@ sudo ufw delete X
 
 ### Uninstall the Zram
 
-* Ensure you are logged in with the user `admin`, navigate to the zram-swap folder, and uninstall
+* Ensure you are logged in as the user `admin`, navigate to the zram-swap folder, and uninstall
 
 ```sh
 cd /home/admin/zram-swap
@@ -766,7 +767,7 @@ sudo rm /etc/default/zram-swap
 sudo rm -rf /home/admin/zram-swap
 ```
 
-* Make sure that the change was done
+* Make sure that the change was made
 
 ```sh
 sudo cat /proc/swaps
