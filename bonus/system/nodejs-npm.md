@@ -4,17 +4,6 @@ parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # Node + NPM

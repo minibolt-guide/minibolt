@@ -5,17 +5,6 @@ parent: Bonus Section
 has_children: false
 has_toc: false
 icon: bitcoin-sign
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # ₿itcoin

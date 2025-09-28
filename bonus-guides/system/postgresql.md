@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # PostgreSQL
 
 PostgreSQL is a powerful, open source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.
@@ -46,7 +32,7 @@ sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail htt
 ```
 {% endcode %}
 
-Expected output:
+**Example** of expected output:
 
 ```
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -68,7 +54,7 @@ sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresq
 sudo apt update && sudo apt install postgresql postgresql-contrib
 ```
 
-* Check the correct installation of the PostgreSQL
+* Check the correct installation of PostgreSQL
 
 ```bash
 psql -V
@@ -94,7 +80,7 @@ Expected output:
 </strong>tcp   LISTEN 0      200            [::1]:5432          [::]:*    users:(("postgres",pid=2532748,fd=6))
 </code></pre>
 
-* You can monitor general logs by the systemd journal. You can exit monitoring at any time with `Ctrl-C`
+* You can monitor general logs with the systemd journal. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
 journalctl -fu postgresql
@@ -109,7 +95,7 @@ May 31 13:51:11 minibolt systemd[1]: Finished PostgreSQL RDBMS.
 * And the sub-instance and specific cluster logs. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
-journalctl -fu postgresql@17-main
+journalctl -fu postgresql@18-main
 ```
 
 **Example** of expected output:
@@ -124,10 +110,10 @@ May 31 13:51:21 minibolt systemd[1]: Started PostgreSQL Cluster 17-main.
 * Create the dedicated PostgreSQL data folder
 
 ```bash
-sudo mkdir -p /data/postgresdb/17
+sudo mkdir -p /data/postgresdb/18
 ```
 
-* Assign as the owner to the `postgres` user
+* Assign the owner to the `postgres` user
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chown -R postgres:postgres /data/postgresdb
 </strong></code></pre>
@@ -137,10 +123,10 @@ sudo mkdir -p /data/postgresdb/17
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chmod -R 700 /data/postgresdb
 </strong></code></pre>
 
-* With user `postgres`, create a new cluster on the dedicated folder
+* With user `postgres`, create a new cluster in the dedicated folder
 
 ```bash
-sudo -u postgres /usr/lib/postgresql/17/bin/initdb -D /data/postgresdb/17
+sudo -u postgres /usr/lib/postgresql/18/bin/initdb -D /data/postgresdb/18
 ```
 
 <details>
@@ -178,15 +164,15 @@ Success. You can now start the database server using:
 
 </details>
 
-* Edit the PostgreSQL data directory on configuration, to redirect the store to the new location
+* Edit the PostgreSQL data directory in the configuration to redirect the store to the new location
 
 ```bash
-sudo nano +42 /etc/postgresql/17/main/postgresql.conf --linenumbers
+sudo nano +42 /etc/postgresql/18/main/postgresql.conf --linenumbers
 ```
 
-* Replace the `line 42` with `/var/lib/postgresql/17/main` to the next. Save and exit
+* Replace the `line 42` with `/var/lib/postgresql/18/main` to the next. Save and exit
 
-<pre><code><strong>data_directory = '/data/postgresdb/17'
+<pre><code><strong>data_directory = '/data/postgresdb/18'
 </strong></code></pre>
 
 * Restart PostgreSQL to apply changes and monitor the correct status of the main instance and sub-instance monitoring sessions before
@@ -194,7 +180,7 @@ sudo nano +42 /etc/postgresql/17/main/postgresql.conf --linenumbers
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl restart postgresql
 </strong></code></pre>
 
-* You can monitor the PostgreSQL main instance by the systemd journal and check the log output. You can exit the monitoring at any time with `Ctrl-C`
+* You can monitor the PostgreSQL main instance using the systemd journal and check the log output. You can exit the monitoring at any time with `Ctrl-C`
 
 ```bash
 journalctl -fu postgresql
@@ -209,10 +195,10 @@ Nov 08 11:51:13 minibolt systemd[1]: Starting PostgreSQL RDBMS...
 Nov 08 11:51:13 minibolt systemd[1]: Finished PostgreSQL RDBMS.
 ```
 
-* You can monitor the PostgreSQL sub-instance by the systemd journal and check log output. You can exit monitoring at any time with `Ctrl-C`
+* You can monitor the PostgreSQL sub-instance using the systemd journal and check log output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
-journalctl -fu postgresql@17-main
+journalctl -fu postgresql@18-main
 ```
 
 **Example** of the expected output:
@@ -226,13 +212,13 @@ Nov 08 11:51:11 minibolt systemd[1]: Starting PostgreSQL Cluster 17-main...
 Nov 08 11:51:13 minibolt systemd[1]: Started PostgreSQL Cluster 17-main.
 ```
 
-* You can check if the cluster is on status "online" by
+* You can check if the cluster is in status "online" by
 
 ```bash
 pg_lsclusters
 ```
 
-Expected output:
+**Example** of expected output:
 
 ```
 Ver Cluster Port Status Owner    Data directory       Log file
@@ -282,7 +268,7 @@ CREATE ROLE
 ```
 
 {% hint style="success" %}
-Congrats! You have PostgreSQL ready to use as a database backend by another software
+Congrats! You have PostgreSQL ready to use as a database backend for another software
 {% endhint %}
 
 ## Extras (optional)
@@ -305,7 +291,7 @@ postgres=#
 ```
 
 {% hint style="info" %}
-Type `\q` command and enter to exit PostgreSQL CLI and exit to come back to the `admin` user
+Type `\q` command and enter to exit PostgreSQL CLI, and exit to come back to the `admin` user
 {% endhint %}
 
 #### List the global existing users and roles associated
@@ -594,10 +580,22 @@ Warning: this command is especially dangerous, do it at your own risk
 
 The latest release can be found on the [official PostgreSQL web page](https://www.postgresql.org/ftp/source/).
 
-* To upgrade, type this command. Press "y" and enter or directly enter when the prompt asks you
+* To upgrade, type this command. Press "y" and enter, or directly enter when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
+```
+
+{% hint style="info" %}
+If a banner like this appears to you, keep selecting "No" and press Enter
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/Screenshot 2025-09-27 000712.png" alt=""><figcaption></figcaption></figure>
+
+* Finally, enter this command to reload the systemctl daemon
+
+```bash
+sudo systemctl daemon-reload
 ```
 
 ### Migrate to a major version <a href="#upgrade-to-major-version" id="upgrade-to-major-version"></a>
@@ -606,54 +604,72 @@ sudo apt update && sudo apt full-upgrade
 
 #### **PostgreSQL server migration**
 
-* Stop all existing clusters
+* Stop all existing PostgreSQL dependencies and subdependencies services, at this moment on MiniBolt
 
 ```bash
-sudo systemctl stop postgresql@16-main postgresql@17-main
+sudo systemctl stop nostr-relay thunderhub lnd scbackup btcpay nbxplorer
 ```
 
-* Create a new database destination folder for the new v17 cluster, ready for migration from v16
+* Stop all existing PostgreSQL clusters and the main cluster
+
+```bash
+sudo systemctl stop postgresql
+```
+
+* Enable data page checksums
+
+{% code overflow="wrap" %}
+```bash
+sudo -u postgres /usr/lib/postgresql/17/bin/pg_checksums -D /data/postgresdb/17 --enable
+```
+{% endcode %}
+
+Example of expected output:
+
+<pre><code>Checksum operation completed
+Files scanned:   2925
+Blocks scanned:  1009194
+Files written:  2423
+Blocks written: 1009149
+pg_checksums: syncing data directory
+pg_checksums: updating control file
+<a data-footnote-ref href="#user-content-fn-1">Checksums enabled in cluster</a>
+</code></pre>
 
 {% hint style="info" %}
-This could change in the future with the next releases, for example, you will need to replace v16 with v17 and v17 with v18
+This could take a moment, depending on your hardware and database size
+{% endhint %}
+
+* Create a new database destination folder for the new v18 cluster, ready for migration from v17
+
+{% hint style="info" %}
+This could change in the future with the next releases, for example, you will need to replace v17 with v18, and v18 with v19, etc.
 {% endhint %}
 
 ```bash
-sudo mkdir /data/postgresdb/17
+sudo mkdir /data/postgresdb/18
 ```
 
 * Assign the owner as the postgres user
 
 ```bash
-sudo chown postgres:postgres /data/postgresdb/17
+sudo chown postgres:postgres /data/postgresdb/18
 ```
 
 * Assign the correct permissions
 
 ```bash
-sudo chmod 700 /data/postgresdb/17
-```
-
-* Delete the cluster created by default for v17
-
-```bash
-sudo -u postgres pg_dropcluster 17 main
-```
-
-* Update the systemd
-
-```bash
-sudo systemctl daemon-reload
+sudo chmod 700 /data/postgresdb/18
 ```
 
 * Start the migration with the PostgreSQL migration tool
 
-```
-sudo -u postgres pg_upgradecluster 16 main /data/postgresdb/17
+```bash
+sudo -u postgres pg_upgradecluster 17 main /data/postgresdb/18
 ```
 
 {% hint style="info" %}
-⌛ This may take a lot of time depending on the existing database size (the nostr relay database especially) and your machine's performance; it is recommended to use [tmux](https://github.com/tmux/tmux). Wait until the prompt shows up again
+⌛ This may take a lot of time depending on the existing database size (the nostr relay database, especially) and your machine's performance; it is recommended to use [tmux](https://github.com/tmux/tmux). Wait until the prompt shows up again
 {% endhint %}
 
 <details>
@@ -661,38 +677,69 @@ sudo -u postgres pg_upgradecluster 16 main /data/postgresdb/17
 <summary>Example of expected output 👇</summary>
 
 ```
+Upgrading cluster 17/main to 18/main ...
+Stopping old cluster...
+Warning: stopping the cluster using pg_ctlcluster will mark the systemd unit as failed. Consider using systemctl:
+  sudo systemctl stop postgresql@17-main
 Restarting old cluster with restricted connections...
 Notice: extra pg_ctl/postgres options given, bypassing systemctl for start operation
-Creating new PostgreSQL cluster 17/main ...
-/usr/lib/postgresql/17/bin/initdb -D /data/postgresdb/17 --auth-local peer --auth-host scram-sha-256 --no-instructions --encoding UTF8 --lc-collate en_US.UTF-8 --lc-ctype en_US.UTF-8 --locale-provider libc
+Creating new PostgreSQL cluster 18/main ...
+/usr/lib/postgresql/18/bin/initdb -D /data/postgresdb/18 --auth-local peer --auth-host scram-sha-256 --no-instructions --encoding UTF8 --lc-collate en_GB.UTF-8 --lc-ctype en_GB.UTF-8 --locale-provider libc --data-checksums
 The files belonging to this database system will be owned by user "postgres".
 This user must also own the server process.
 
-The database cluster will be initialized with locale "en_US.UTF-8".
+The database cluster will be initialized with locale "en_GB.UTF-8".
 The default text search configuration will be set to "english".
 
-Data page checksums are disabled.
+Data page checksums are enabled.
+
+fixing permissions on existing directory /data/postgresdb/18 ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+Warning: systemd does not know about the new cluster yet. Operations like "service postgresql start" will not handle it. To fix, run:
+  sudo systemctl daemon-reload
+
+Copying old configuration files...
+Copying old start.conf...
+Copying old pg_ctl.conf...
+Starting new cluster...
+Notice: extra pg_ctl/postgres options given, bypassing systemctl for start operation
+Running init phase upgrade hook scripts ...
+
+Upgrading databases ...
+/usr/share/postgresql-common/pg_dumpcluster -A /usr/lib/postgresql/18/bin/pg_dumpall -h /var/run/postgresql -p 5432 -Q /usr/lib/postgresql/18/bin/psql -H /var/run/postgresql -P 5433 -U postgres
+SET default_transaction_read_only = off;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+CREATE ROLE "admin";
+ALTER ROLE "admin" WITH NOSUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN NOREPLIC
+ALTER ROLE "postgres" WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATI
+You are now connected to database "template1" as user "postgres".
 
 [...]
-Starting upgraded cluster on port 5432...
-Warning: the cluster will not be running as a systemd service. Consider using systemctl:
-  sudo systemctl start postgresql@17-main
-Running finish phase upgrade hook scripts ...
-vacuumdb: processing database "postgres": Generating minimal optimizer statistics (1 target)
-vacuumdb: processing database "template1": Generating minimal optimizer statistics (1 target)
-vacuumdb: processing database "postgres": Generating medium optimizer statistics (10 targets)
-vacuumdb: processing database "template1": Generating medium optimizer statistics (10 targets)
+
+vacuumdb: processing database "lndb": Generating default (full) optimizer statistics
 vacuumdb: processing database "postgres": Generating default (full) optimizer statistics
 vacuumdb: processing database "template1": Generating default (full) optimizer statistics
+vacuumdb: vacuuming database "lndb"
+vacuumdb: vacuuming database "postgres"
+vacuumdb: vacuuming database "template1"
 
 Success. Please check that the upgraded cluster works. If it does,
 you can remove the old cluster with
-    pg_dropcluster 16 main
+    pg_dropcluster 17 main
 
 Ver Cluster Port Status Owner    Data directory      Log file
-16  main    5433 down   postgres /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
+17  main    5433 down   postgres /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
 Ver Cluster Port Status Owner    Data directory      Log file
-17  main    5432 online postgres /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+18  main    5432 online postgres /data/postgresdb/18 /var/log/postgresql/postgresql-18-main.log
 ```
 
 </details>
@@ -703,33 +750,48 @@ Ver Cluster Port Status Owner    Data directory      Log file
 sudo systemctl daemon-reload
 ```
 
-* List the clusters to show the state
+* Stop the old version cluster using the `pg_ctlcluster` tool, to then be able to run it and manage it with `systemd`
 
 ```bash
-pg_lsclusters
+sudo pg_ctlcluster 18 main stop
 ```
 
-Example of expected output:
+* Monitor the logs of the PostgreSQL version 18 cluster to ensure that it is working fine with `systemd.` Press Ctrl + C to continue with the steps
+
+```bash
+journalctl -fu postgresql@18-main
+```
+
+* To keep an eye on the software movements, [start your SSH program](https://minibolt.minibolt.info/system/system/remote-access#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
+* Start the new version cluster with systemd and PostgreSQL RDBMS (Relational Database Management System)
+
+```bash
+sudo systemctl start postgresql
+```
+
+**Example** of expected output on the first terminal with `journalctl -fu postgresql@18-main`⬇️
 
 ```
-Ver Cluster Port Status  Owner     Data directory      Log file
-16  main    5433 down   <unknown> /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
-17  main    5432 online  <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+minibolt systemd[1]: Starting PostgreSQL Cluster 18-main...
+minibolt systemd[1]: Started PostgreSQL Cluster 18-main.
 ```
+
+* Start all existing PostgreSQL dependencies and subdependencies services, at this moment on MiniBolt
+
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl start nostr-relay lnd thunderhub scbackup nbxplorer btcpay 
+</strong></code></pre>
 
 {% hint style="info" %}
-> Don't worry about the output of the "Owner" column
-
-> Note how the old 16 cluster has automatically gone into status "down" after the migration
+Monitor the logs with `journalctl -fu "X"` to ensure all is running fine with the new PostgreSQL version, e.g, `journalctl -fu lnd`
 {% endhint %}
 
-* Stop the version 17 cluster using the `pg_ctlcluster` tool, to then be able to run it and manage it with `systemd`
+* If all is running fine, we can delete the old and unused cluster
 
 ```bash
-sudo pg_ctlcluster 17 main stop
+sudo pg_dropcluster 17 main
 ```
 
-* List the clusters again to show the state
+* List the clusters to check the correct old cluster deletion and the new one running
 
 ```bash
 pg_lsclusters
@@ -739,72 +801,11 @@ Example of expected output:
 
 ```
 Ver Cluster Port Status Owner     Data directory      Log file
-16  main    5433 down   <unknown> /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
-17  main    5432 down   <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
+18  main    5432 online <unknown> /data/postgresdb/18 /var/log/postgresql/postgresql-18-main.log
 ```
 
 {% hint style="info" %}
-Note how the version 17 cluster has gone into status "down"
-{% endhint %}
-
-* Start the new version 17 cluster with systemd
-
-```bash
-sudo systemctl start postgresql@17-main
-```
-
-* Monitor the logs of the PostgreSQL version 17 cluster to ensure that it is working fine with `systemd.` Press Ctrl + C to continue with the steps
-
-```bash
-journalctl -fu postgresql@17-main
-```
-
-Example of expected output:
-
-```
-minibolt systemd[1]: Starting PostgreSQL Cluster 17-main...
-minibolt systemd[1]: Started PostgreSQL Cluster 17-main.
-```
-
-* List the clusters again to show the state
-
-```bash
-pg_lsclusters
-```
-
-Example of expected output:
-
-```
-Ver Cluster Port Status Owner     Data directory      Log file
-16  main    5433 down   <unknown> /data/postgresdb/16 /var/log/postgresql/postgresql-16-main.log
-17  main    5432 online <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
-```
-
-{% hint style="info" %}
-Note how the version 17 cluster has come back into the status "online"
-{% endhint %}
-
-* Delete the version 16 (old and disused) cluster
-
-```bash
-sudo pg_dropcluster 16 main
-```
-
-* List again the clusters to check the correct deletion
-
-```bash
-pg_lsclusters
-```
-
-Example of expected output:
-
-```
-Ver Cluster Port Status Owner     Data directory      Log file
-17  main    5432 online <unknown> /data/postgresdb/17 /var/log/postgresql/postgresql-17-main.log
-```
-
-{% hint style="info" %}
-Note how it no longer appears in version 16 (old and disused) cluster
+Note that the old version of the cluster is no longer listed, and the new one is running
 {% endhint %}
 
 #### **Check the PostgreSQL server version in use**
@@ -815,7 +816,7 @@ Note how it no longer appears in version 16 (old and disused) cluster
 sudo -u postgres psql
 ```
 
-* Enter the next command to get the server version
+* Enter the next command to check the server version
 
 ```sql
 SELECT version();
@@ -825,7 +826,7 @@ Example of expected output:
 
 <pre><code>                                                              version
 -----------------------------------------------------------------------------------------------------------------------------------
-PostgreSQL <a data-footnote-ref href="#user-content-fn-1">17.2</a> (Ubuntu 17.2-1.pgdg22.04+1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, 64-bit
+ PostgreSQL <a data-footnote-ref href="#user-content-fn-1">18.0</a> (Ubuntu 18.0-1.pgdg22.04+3) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0, 64-bit
 (1 row)
 </code></pre>
 
@@ -836,10 +837,21 @@ Check the previous version in use is now PostgreSQL 17.2 (the latest and current
 * Come back to the `admin` user bash prompt
 
 ```sql
-/q
+\q
 ```
 
-* Delete unnecessary packages. Press "y" and enter, or directly enter when the prompt asks you
+* Check the client version
+
+```bash
+psql -V
+```
+
+Example of expected output:
+
+<pre><code>psql (PostgreSQL) <a data-footnote-ref href="#user-content-fn-1">18.0</a> (Ubuntu 18.0-1.pgdg22.04+3)
+</code></pre>
+
+* Delete unnecessary packages if there are any. Press "y" and enter, or directly enter when the prompt asks you
 
 ```bash
 sudo apt autoremove

@@ -2,17 +2,6 @@
 title: Lightning
 nav_order: 40
 has_children: true
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # 3. Lightning

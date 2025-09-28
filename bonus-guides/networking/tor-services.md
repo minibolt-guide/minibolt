@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # Tor services: bridges & relays
 
 In this guide, we will explain how to build step by step an obfs4 bridge (one of the kinds of Tor bridges) and a Guard/Middle Relay. Collaborate to provide anonymous, censorship-resistant internet access by routing traffic through decentralized nodes.

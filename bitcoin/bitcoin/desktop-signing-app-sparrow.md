@@ -2,17 +2,6 @@
 title: Desktop wallet
 nav_order: 30
 parent: Bitcoin
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
 ---
 
 # 2.4 Desktop signing app: Sparrow Wallet
