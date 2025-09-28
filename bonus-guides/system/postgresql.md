@@ -12,7 +12,7 @@ Difficulty: Medium
 
 ### Install PostgreSQL using the apt package manager
 
-* With user `admin`, update and upgrade your OS
+* With user `admin`, update and upgrade your OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
@@ -63,7 +63,7 @@ psql -V
 **Example** of expected output:
 
 ```
-psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
+psql (PostgreSQL) 17.4 (Debian 17.4-1.pgdg120+2)
 ```
 
 #### Validation
@@ -89,7 +89,8 @@ journalctl -fu postgresql
 **Example** of expected output:
 
 ```
-May 31 13:51:11 minibolt systemd[1]: Finished PostgreSQL RDBMS.
+Mar 26 08:56:51 minibolt systemd[1]: Starting postgresql.service - PostgreSQL RDBMS...
+Mar 26 08:56:51 minibolt systemd[1]: Finished postgresql.service - PostgreSQL RDBMS.
 ```
 
 * And the sub-instance and specific cluster logs. You can exit monitoring at any time with `Ctrl-C`
