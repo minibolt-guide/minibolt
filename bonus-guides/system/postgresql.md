@@ -832,7 +832,7 @@ Example of expected output:
 </code></pre>
 
 {% hint style="info" %}
-Check the previous version in use is now PostgreSQL 17.2 (the latest and current version of the PostgreSQL server at this moment)
+Check the previous version in use is now PostgreSQL 18.0 (the latest and current version of the PostgreSQL server at this moment)
 {% endhint %}
 
 * Come back to the `admin` user bash prompt
