@@ -8,10 +8,10 @@ Difficulty: Easy
 
 <figure><img src="../../.gitbook/assets/static-ip-custom-dns.PNG" alt=""><figcaption></figcaption></figure>
 
-The router reserves the IP address of the device for a time after going out, but if the device goes out some time, the next time that the device starts, the router could assign a different IP and you could lose access to your node. To avoid this, you need to set a static IP to your node.
+The router reserves the IP address of the device for a time after going out, but if the device goes out some time, the next time that the device starts, the router could assign a different IP, and you could lose access to your node. To avoid this, you need to set a static IP to your node.
 
 {% hint style="danger" %}
-**Be careful by setting this!** If you change the router, could be the new router doesn't work in the same IP address range as the old router, the device won't be registered on the local network and will be completely out of the connection.
+**Be careful by setting this!** If you change the router, it could be that the new router doesn't work in the same IP address range as the old router, the device won't be registered on the local network, and will be completely out of the connection.
 
 💡 To avoid this, you will need to **enable the "Automatic (DHCP)" mode before changing the router**, following the [Set the DCHP (automatic) configuration (by command line) section](static-ip-and-custom-dns-servers.md#set-the-automatic-dhcp-mode-configuration-by-command-line) to ensure that the DHCP server auto assigns an IP to the node in the range you are working on, and if you want, after router change, reconfigure the static IP address again following the [Option 2](static-ip-and-custom-dns-servers.md#option-2-after-ubuntu-server-installation-by-command-line) of this guide.
 
@@ -19,14 +19,14 @@ If you don't do this, you will have to attach the monitor screen or television a
 {% endhint %}
 
 {% hint style="info" %}
-In addition, you can customize your DNS servers to improve your privacy, normally your ISP, gives you the router with its own DNS servers configured by default, and this does that you exposes all of your navigation trackings to your ISP, affecting seriously your privacy.
+In addition, you can customize your DNS servers to improve your privacy. Normally, your ISP gives you the router with its own DNS servers configured by default, and this means that you expose all of your navigation tracks to your ISP, seriously affecting your privacy.
 {% endhint %}
 
 ## Option 1: At the beginning, during the Ubuntu Server installation GUI
 
-When you arrive at **step 5** of the [Ubuntu Server installation](../../index-1/operating-system.md#ubuntu-server-installation), you can want to choose set a static IP address and customize the DNS nameserver/s.
+When you arrive at **step 5** of the [Ubuntu Server installation](../../index-1/operating-system.md#ubuntu-server-installation), you may want to choose to set a static IP address and customize the DNS nameserver/s.
 
-Wait for the router to automatically assign the IP address to your MiniBolt node to find out what IP range the node is in, you will be able to assign the same or a different IP in the next step.
+Wait for the router to automatically assign the IP address to your MiniBolt node to find out what IP range the node is in. You will be able to assign the same or a different IP in the next step.
 
 <figure><img src="../../.gitbook/assets/static-ip-dns-gif.gif" alt=""><figcaption><p>GIF example of a Static IP &#x26; custom DNS server configuration</p></figcaption></figure>
 
@@ -49,11 +49,11 @@ This is **only** an **example** if your local network IP range is `192.168.1.0-2
 {% endhint %}
 
 {% hint style="danger" %}
-In this step, you must set DNS name servers too, otherwise, the host will be offline and will not be able to connect to the Internet
+In this step, you must set DNS name servers too; otherwise, the host will be offline and will not be able to connect to the Internet
 {% endhint %}
 
 {% hint style="info" %}
-For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1,1.0.0.1) but you could put other privacy-focused DNS like:
+For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1,1.0.0.1), but you could put other privacy-focused DNS, like:
 
 * [Quad9](https://quad9.net/): 9.9.9.9,149.112.112.112
 * [MullvadDNS](https://mullvad.net/en/help/dns-over-https-and-dns-over-tls): 194.242.2.2
@@ -105,7 +105,7 @@ Definitions in the case of before:
 > > ```
 
 {% hint style="info" %}
-**Take note** of your case data, you will need it later
+**Take note** of your case data; you will need it later
 {% endhint %}
 
 * Check the current DNS server set, typing the next command
@@ -183,7 +183,7 @@ network:
 {% hint style="info" %}
 -> Replace **\<interface>**, **\<ipaddress>**, **\<nameserver1>, \<nameserver2>** <- (nameservers optional but recommended)**,** and **\<gateway>** to your own data.\
 \
--> You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**) whatever you want, including the default one set in the DNS server of your router (normally DNS servers of your ISP), in this last case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**.
+-> You can choose the DNS server (**\<nameserver1> +** **\<nameserver2>**), whatever you want, including the default one set in the DNS server of your router (normally the DNS servers of your ISP). In this last case, you should type the **\<gateway>** address in **\<nameserver1>** and the same in **\<nameserver2>**.
 
 For this example, we have configured [Cloudflare DNS name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (1.1.1.1,1.0.0.1), but you could set other privacy-focused servers like:
 
@@ -232,7 +232,7 @@ Do you want to keep these settings?
 Press ENTER before the timeout to accept the new configuration
 ```
 
-This means that changes were successfully applied without breaking the connection, then press `ENTER` to accept and apply the new configuration, if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again
+This means that changes were successfully applied without breaking the connection, then press `ENTER` to accept and apply the new configuration, if not, don't worry, changes will be reverted after 120 seconds, and you will connect to the MiniBolt again
 {% endhint %}
 
 * Check the correct configuration previously set
@@ -242,11 +242,7 @@ sudo netplan get
 ```
 
 {% hint style="success" %}
-Now you have set your static IP address and custom DNS servers
-{% endhint %}
-
-{% hint style="info" %}
-If you chose a different IP address than the router assigned you at first and has currently, this step could break the current SSH connection, reconnect using the new and chosen IP address
+Now that you have set your static IP address and custom DNS servers, you chose a different IP address than the router assigned you at first, and have currently, this step could break the current SSH connection, reconnect using the new and chosen IP address
 {% endhint %}
 
 #### Validation
@@ -269,7 +265,7 @@ resolvectl status
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 <pre><code>Global
        Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
@@ -293,7 +289,7 @@ networkctl status
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 <pre><code>●        State: routable
   Online state: online
@@ -316,7 +312,7 @@ sudo netplan status --all
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 <pre><code>     Online state: online
     DNS Addresses: 127.0.0.53 (stub)
@@ -344,7 +340,7 @@ sudo netplan status --all
 ## Set the A**utomatic (DHCP) mode** configuration (by command line)
 
 {% hint style="info" %}
-If you go to change the router you could want to enable or check if you have enabled the a**utomatic (DHCP) mode** configuration to avoid problems
+If you go to change the router, you could want to enable or check if you have enabled the a**utomatic (DHCP) mode** configuration to avoid problems
 
 We will use Netplan with the `systemd-networkd` renderer backend (default on Ubuntu Server)
 {% endhint %}
@@ -386,7 +382,7 @@ Do you want to keep these settings?
 Press ENTER before the timeout to accept the new configuration
 ```
 
-This means that changes were successfully applied without breaking the connection, then press `ENTER` to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again
+This means that changes were successfully applied without breaking the connection, then press `ENTER` to accept and apply the new configuration (**`Configuration accepted)`.** If not, don't worry, changes will be reverted after 120 seconds, and you will connect to the MiniBolt again
 {% endhint %}
 
 * Check the correct configuration previously set
@@ -403,7 +399,7 @@ sudo netplan status --all
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 <pre><code>     Online state: online
     DNS Addresses: 127.0.0.53 (stub)
@@ -433,7 +429,7 @@ sudo netplan status --all
 </details>
 
 {% hint style="info" %}
-Also, you can check changes are applied correctly following the same [validation](static-ip-and-custom-dns-servers.md#validation) steps as before
+Also, you can check that changes are applied correctly, following the same [validation](static-ip-and-custom-dns-servers.md#validation) steps as before
 {% endhint %}
 
 {% hint style="success" %}
@@ -459,8 +455,8 @@ DNS-over-TLS (DoT) and DNS-over-HTTPS (DoH) enhance security by encrypting DNS q
 [**Option 2: DoH using Cloudflare proxy DNS**](static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns) (recommended for **hostile and censor scenarios**):
 
 * Needs to install an external Cloudflare software binary (Cloudflared).
-* Not DNSSEC enabling available, relying on validation of the selected DNS servers.
-* Offers greater flexibility and better evasion of network restrictions. Traffic blends with general HTTPS (port 443), making it harder to distinguish and block as it uses the same port.
+* Not DNSSEC enabled, relying on validation of the selected DNS servers.
+* Offers greater flexibility and better evasion of network restrictions. Traffic blends with general HTTPS (port 443), making it harder to distinguish and block, as it uses the same port.
 
 #### Option 1: Use DoT & DNSSEC validation with `systemd-resolved`
 
@@ -473,7 +469,7 @@ sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
 {% hint style="info" %}
-The name of the file could be different in your case. If the file is empty when you type the next command, press Ctrl + X to exit, and enter the next command to show the real name of your file `ls /etc/netplan`. Replace the name of the `.yaml` file in the previous command and try again, this time it should have content
+The name of the file could be different in your case. If the file is empty when you type the next command, press Ctrl + X to exit, and enter the next command to show the real name of your file `ls /etc/netplan`. Replace the name of the `.yaml` file in the previous command and try again; this time, it should have content
 {% endhint %}
 
 **-> 2 cases**, depending on whether **you configured a static IP** following the previous sections **or not**:
@@ -522,7 +518,7 @@ network:
 {% endtab %}
 
 {% tab title="Case 2: Dynamic IP setted (DHCP) (default)" %}
-* Replace the content to match this template adding `dhcp4-overrides` section with `use-dns: false` flag:
+* Replace the content to match this template, adding `dhcp4-overrides` section with `use-dns: false` flag:
 
 ```yaml
             dhcp4-overrides:
@@ -575,7 +571,7 @@ Press ENTER before the timeout to accept the new configuration
 Changes will revert in 116 seconds
 ```
 
--> This means that changes were successfully applied without breaking the connection, then **press `ENTER`** to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again.
+-> This means that changes were successfully applied without breaking the connection, then **press `ENTER`** to accept and apply the new configuration (**`Configuration accepted)`.** If not, don't worry, changes will be reverted after 120 seconds, and you will connect to the MiniBolt again.
 
 Expected output:
 
@@ -686,7 +682,7 @@ Current Scopes: <a data-footnote-ref href="#user-content-fn-4">LLMNR/IPv4 LLMNR/
 sudo ss -tulpn | grep systemd-resolve
 ```
 
-Expected output:
+**Example** of expected output:
 
 ```
 udp   UNCONN 0      0           127.0.0.53%lo:53        0.0.0.0:*    users:(("systemd-resolve",pid=845,fd=13))
@@ -699,14 +695,14 @@ tcp   LISTEN 0      4096        127.0.0.53%lo:53        0.0.0.0:*    users:(("sy
 sudo tcpdump -i any port 853 -n
 ```
 
-* [Start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+* [Start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 * Make a DNS query using, in this example  `minibolt.info` domain
 
 ```bash
 resolvectl query minibolt.info
 ```
 
-Expected output:
+**Example** of expected output:
 
 <pre><code>minibolt.info: 2a06:98c1:3120::5               -- link: ens33
                2a06:98c1:3121::5               -- link: ens33
@@ -723,7 +719,7 @@ Expected output:
 
 The DNS server usually does this before forwarding the request to the DNS client, but we do the verification again on our node so as not to trust the DNS server.
 
-The DNSSEC response depends if the domain has the DNSSEC enabled or not, if the domain we are querying does not have DNSSEC enabled, the request will fail, so we allow resolution without verification with `allow-downgrade`.
+The DNSSEC response depends on whether the domain has DNSSEC enabled or not. If the domain we are querying does not have DNSSEC enabled, the request will fail, so we allow resolution without verification with `allow-downgrade`.
 
 The expected output in this case for `minibolt.info`:
 
@@ -822,7 +818,7 @@ network:
 {% endtab %}
 
 {% tab title="Case 2: Dynamic IP setted (DHCP) (default)" %}
-* Replace the content to match this template adding `dhcp4-overrides` section with `use-dns: false` flag:
+* Replace the content to match this template, adding `dhcp4-overrides` section with `use-dns: false` flag:
 
 ```yaml
 network:
@@ -852,7 +848,7 @@ Do you want to keep these settings?
 Press ENTER before the timeout to accept the new configuration
 ```
 
--> This means that changes were successfully applied without breaking the connection, then **press `ENTER`** to accept and apply the new configuration (**`Configuration accepted.`**), if not, don't worry, changes will be reverted after 120 seconds and you will connect to the MiniBolt again.
+-> This means that changes were successfully applied without breaking the connection, then **press `ENTER`** to accept and apply the new configuration (**`Configuration accepted)`.** If not, don't worry, changes will be reverted after 120 seconds, and you will connect to the MiniBolt again.
 {% endhint %}
 
 * Check if the DNS status of `systemd-networkd` is `offline`
@@ -935,7 +931,7 @@ WantedBy=multi-user.target
 </code></pre>
 
 {% hint style="info" %}
-For this example, we have configured the default [Cloudflare DoH name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (https://1.1.1.1/dns-query,https://1.0.0.1/dns-query) but you could put other privacy-focused DNS like:
+For this example, we have configured the default [Cloudflare DoH name servers](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/) (https://1.1.1.1/dns-query,https://1.0.0.1/dns-query), but you could put other privacy-focused DNS like:
 
 * [Quad9](https://quad9.net/): https://dns.quad9.net/dns-query
 * [MullvadDNS](https://mullvad.net/en/help/dns-over-https-and-dns-over-tls): https://dns.mullvad.net/dns-query
@@ -980,7 +976,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 #### Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
@@ -1010,7 +1006,7 @@ Nov 06 22:55:14 minibolt cloudflared[1687]: 2024-11-06T22:55:14Z INF Starting me
 sudo ss -tulpn | grep cloudflared | grep 53
 ```
 
-Expected output:
+**Example** of expected output:
 
 ```
 udp   UNCONN 0      0               127.0.0.1:53         0.0.0.0:*    users:(("cloudflared",pid=23882,fd=7))
@@ -1023,7 +1019,7 @@ tcp   LISTEN 0      4096            127.0.0.1:53         0.0.0.0:*    users:(("c
 sudo tcpdump -i any port 443 -n
 ```
 
-Example of expected output:
+**Example** of expected output:
 
 ```
 16:52:02.032145 ens33 Out IP 192.168.1.42.34460 > 162.159.36.1.443: Flags [S], seq 330680646, win 64240, options [mss 1460,sackOK,TS val 1651551299 ecr 0,nop,wscale 7], length 0
@@ -1045,7 +1041,7 @@ nslookup minibolt.info
 {% endhint %}
 
 {% hint style="success" %}
-Now you have DoH enabled on your MiniBolt node and the DNS queries encrypted
+Now you have DoH enabled on your MiniBolt node, and the DNS queries are encrypted
 {% endhint %}
 
 ## Port reference
