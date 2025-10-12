@@ -354,7 +354,8 @@ cd build
 cmake .. \
   -DBUILD_BENCH=OFF \
   -DBUILD_TESTS=OFF \
-  -DBUILD_GUI=OFF
+  -DBUILD_GUI=OFF \
+  -DWITH_ZMQ=ON
 ```
 
 Expected output:
