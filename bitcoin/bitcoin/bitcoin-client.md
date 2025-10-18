@@ -27,7 +27,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=29.1
+VERSION=30.0
 ```
 
 * Get the latest binaries and signatures
@@ -325,6 +325,9 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 # Bitcoin daemon
 server=1
 txindex=1
+
+# Set OP_RETURN limit to value before v30
+datacarrier=83
 
 # Disable cjdns network
 onlynet=onion

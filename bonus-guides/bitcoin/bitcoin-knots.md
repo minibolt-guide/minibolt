@@ -29,7 +29,7 @@ cd /tmp
 * Set the next environment variables
 
 ```sh
-VERSION=29.1.knots20250903 && BRANCH=29.x
+VERSION=29.2.knots20251010 && BRANCH=29.x
 ```
 
 * Get the latest binaries and signatures
@@ -144,7 +144,7 @@ bitcoin-28.0/.github/workflows/
 * Check the correct installation by requesting the output of the version
 
 ```sh
-bitcoind --version
+bitcoin-cli --version
 ```
 
 The following output is just an **example** of one of the versions:
@@ -273,7 +273,7 @@ Primary key fingerprint: ...
 tar -xzvf bitcoin-$VERSION.tar.gz
 ```
 
-**Example of expected output:**
+**Example** of expected output:
 
 ```
 bitcoin-28.0/

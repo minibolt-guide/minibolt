@@ -65,7 +65,7 @@ cd /tmp
 * Set the next environment variable
 
 ```sh
-VERSION=29.1
+VERSION=30.0
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -346,7 +346,7 @@ This process can take quite **a long time**, 10-15 minutes or more, depending on
 
 ### **Install**
 
-* Enter the next command to install the new binaries precompiled for yourself on the OS
+* Enter the following command to install the new pre-compiled binaries yourself on the OS
 
 ```sh
 sudo cmake --install build
@@ -410,7 +410,7 @@ journalctl -fu bitcoind
 
 By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied
 
-* With user admin, stop LND if you have installed
+* With the user admin, stop LND if you have installed it
 
 ```bash
 sudo systemctl stop lnd
@@ -454,7 +454,7 @@ permitbaremultisig=0
 ```
 
 {% hint style="info" %}
-[Continue](../../bitcoin/bitcoin/bitcoin-client.md#configuration) with the guide on `Set permissions:..`. step
+[Continue](../../bitcoin/bitcoin/bitcoin-client.md#configuration) with the guide on `Set permissions:..` step
 {% endhint %}
 
 {% hint style="warning" %}
