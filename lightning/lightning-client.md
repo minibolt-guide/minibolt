@@ -1036,7 +1036,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=0.1.26
+VERSION=0.1.33
 ```
 
 * Download the application, checksums, and signature

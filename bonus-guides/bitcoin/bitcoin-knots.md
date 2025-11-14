@@ -29,7 +29,7 @@ cd /tmp
 * Set the next environment variables
 
 ```sh
-VERSION=29.2.knots20251010 && BRANCH=29.x
+VERSION=29.2.knots20251110 && BRANCH=29.x
 ```
 
 * Get the latest binaries and signatures
