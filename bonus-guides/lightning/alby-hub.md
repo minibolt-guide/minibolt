@@ -32,7 +32,7 @@ layout:
 
 In the security section, we set up Nginx as a reverse proxy. Now we can add the AlbyHub configuration.
 
-Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to AlbyHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to Alby Hub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
 * With user `admin`, create the reverse proxy configuration
 
@@ -212,7 +212,7 @@ sudo rm -rf albyhub-Server-Linux-x86_64.tar.bz2 manifest.txt manifest.txt.asc bi
 
 #### Create the albyhub user & group
 
-We do not want to run AlbyHub code alongside bitcoind and lnd because of security reasons. For that, we will create a separate user and run the code as the new user.
+We do not want to run Alby Hub code alongside bitcoind and lnd because of security reasons. For that, we will create a separate user and run the code as the new user.
 
 * Create the `albyhub` user and group
 
@@ -220,7 +220,7 @@ We do not want to run AlbyHub code alongside bitcoind and lnd because of securit
 sudo adduser --gecos "" --disabled-password albyhub
 ```
 
-* Add the Alby Hub user to the lnd group to allow to the user albyhub reading the `admin.macaroon` and `tls.cert` files
+* Add the albyhub user to the lnd group to allow the user albyhub to read the `admin.macaroon` and `tls.cert` files
 
 ```bash
 sudo adduser albyhub lnd
@@ -261,7 +261,7 @@ ls -la .albyhub
 Expected output:
 
 ```
-lrwxrwxrwx 1 lnd lnd 13 Jul 21  2023 .albyhub -> /data/albyhub
+lrwxrwxrwx 1 albyhub albyhub 13 Jul 21  2023 .albyhub -> /data/albyhub
 ```
 
 * Exit the `albyhub` user session to return to the "admin" user session
