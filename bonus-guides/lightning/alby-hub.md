@@ -23,8 +23,8 @@ layout:
 
 ### Requirements
 
-* Bitcoin Core
-* LND
+* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* [LND](../../lightning/lightning-client.md)
 
 ### Preparations
 
@@ -202,7 +202,7 @@ sudo tar -xjvf albyhub-Server-Linux-x86_64.tar.bz2
 </strong><strong>sudo ldconfig
 </strong></code></pre>
 
-* **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation
+* **(Optional)** Delete the installation files of the `tmp` folder to be ready for the next installation
 
 {% code overflow="wrap" %}
 ```bash
@@ -220,7 +220,7 @@ We do not want to run AlbyHub code alongside bitcoind and lnd because of securit
 sudo adduser --gecos "" --disabled-password albyhub
 ```
 
-* Add albyhub user to the lnd group to allow to the user albyhub reading the admin.macaroon and tls.cert files
+* Add the Alby Hub user to the lnd group to allow to the user albyhub reading the `admin.macaroon` and `tls.cert` files
 
 ```bash
 sudo adduser albyhub lnd
@@ -302,9 +302,9 @@ LOG_EVENTS=true
 
 #### Create systemd service
 
-Now, let's configure LND to start automatically on system startup.
+Now, let's configure Alby Hub to start automatically on system startup.
 
-* As user `admin`, create LND systemd unit
+* As user `admin`, create Alby Hub systemd unit
 
 ```sh
 sudo nano /etc/systemd/system/albyhub.service
@@ -369,7 +369,7 @@ sudo systemctl start albyhub
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu lnd</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu albyhub</code> ⬇️</summary>
 
 ```
 nov 16 11:21:02 minibolt systemd[1]: Started AlbyHub.
