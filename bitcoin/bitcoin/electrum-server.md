@@ -108,13 +108,13 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=2.0.0
+VERSION=2.1.0
 ```
 
 * Download the application, checksums, and signature
 
 {% code overflow="wrap" %}
-```sh
+```bash
 wget https://github.com/cculianu/Fulcrum/releases/download/v$VERSION/Fulcrum-$VERSION-x86_64-linux.tar.gz
 ```
 {% endcode %}
@@ -143,16 +143,14 @@ curl https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkey
 
 Expected output:
 
-<pre><code><strong>[...]
-</strong><strong>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-</strong>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  2328  100  2328    0     0   8449      0 --:--:-- --:--:-- --:--:--  8434
-gpg: key 21810A542031C02C: "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" imported
+100  2328  100  2328    0     0   7100      0 --:--:-- --:--:-- --:--:--  7119
+gpg: key 21810A542031C02C: "Calin Culianu (NilacTheGrim) <calin.culianu@gmail.com>" not changed
 gpg: Total number processed: 1
 gpg:              unchanged: 1
-[...]
-</code></pre>
+```
 
 * Verify the signature of the text file containing the checksums for the application
 
@@ -162,12 +160,10 @@ gpg --verify Fulcrum-$VERSION-shasums.txt.asc Fulcrum-$VERSION-shasums.txt
 
 Expected output:
 
-<pre data-overflow="wrap"><code>[...]
-gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" [unknown]
+<pre data-overflow="wrap"><code>gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Calin Culianu (NilacTheGrim) &#x3C;calin.culianu@gmail.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg: There is no indication that the signature belongs to the owner.
 Primary key fingerprint: D465 135F 97D0 047E 18E9  9DC3 2181 0A54 2031 C02C
-[...]
 </code></pre>
 
 ### Checksum check
