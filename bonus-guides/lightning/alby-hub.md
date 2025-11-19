@@ -136,7 +136,7 @@ wget https://github.com/getAlby/hub/releases/download/v$VERSION/manifest.txt.asc
 
 #### Signature check
 
-* Get the public key from the AlbyHub developer
+* Get the public key from the Alby Hub developer
 
 {% code overflow="wrap" %}
 ```shellscript
@@ -267,7 +267,7 @@ sudo chown -R albyhub:albyhub /data/albyhub
 
 ### Configuration
 
-* Create the AlbyHub configuration file
+* Create the Alby Hub configuration file
 
 ```shellscript
 sudo nano /home/albyhub/.env
