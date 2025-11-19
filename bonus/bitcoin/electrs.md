@@ -39,7 +39,7 @@ sudo apt update && sudo apt full-upgrade
 
 {% code overflow="wrap" %}
 ```sh
-sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev make g++ clang cmake build-essential
+sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev clang llvm-dev libclang-dev make g++ cmake build-essential
 ```
 {% endcode %}
 
@@ -52,7 +52,7 @@ cd /tmp
 * Clone the [rocksdb](https://github.com/facebook/rocksdb) GitHub repository and enter the `rocksdb` folder
 
 ```bash
-git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb && cd rocksdb
+git clone -b v9.10.0 --depth 1 https://github.com/facebook/rocksdb && cd rocksdb
 ```
 
 * Compile it
@@ -91,7 +91,7 @@ $DEBUG_LEVEL is 0
 </details>
 
 {% hint style="info" %}
-This process can take several minutes, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take several minutes, 10-15 minutes, or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Install it
@@ -185,7 +185,7 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="warning" %}
-If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it and then come back to continue with the guide
+If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it, and then come back to continue with the guide
 {% endhint %}
 
 ### Reverse proxy & Firewall
@@ -262,7 +262,7 @@ cd /tmp
 * Set a temporary version of the environment variable for the installation
 
 ```sh
-VERSION=0.10.10
+VERSION=0.11.0
 ```
 
 * Download the source code and go to the `electrs` folder
@@ -271,7 +271,7 @@ VERSION=0.10.10
 git clone --branch v$VERSION https://github.com/romanz/electrs.git && cd electrs
 ```
 
-* To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz)
+* To avoid using bad source code, verify that the release has been properly signed by the main developer, [Roman Zeyde](https://github.com/romanz)Customise
 
 ```sh
 curl https://romanzey.de/pgp.txt | gpg --import
@@ -453,7 +453,7 @@ server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt
 skip_block_download_wait = true
 
 # Allow concurrent DB background operations. i.e. for 4 threads max use.
-# Customize with your available threads.
+# Customise with your available threads.
 db_parallelism=4
 
 # Logging
@@ -681,7 +681,7 @@ sudo systemctl restart btcrpcexplorer
 sudo systemctl restart electrs
 ```
 
-* Check logs and pay attention to the next log if that refers to the new version installed and no error logs
+* Check logs and pay attention to the next log if that refers to the new version installed, and no error logs
 
 ```bash
 journalctl -fu electrs
@@ -837,7 +837,7 @@ sudo ufw delete X
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="PM9OdZyqffcj" label="TCP" color="blue"></option><option value="fow02dq4Lt4x" label="SSL" color="blue"></option><option value="HHci4T1IS7Pb" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50021</td><td><span data-option="PM9OdZyqffcj">TCP</span></td><td align="center">Default port</td></tr><tr><td align="center">50022</td><td><span data-option="fow02dq4Lt4x">SSL</span></td><td align="center">Encrypted port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="109">Protocol<select><option value="PM9OdZyqffcj" label="TCP" color="blue"></option><option value="fow02dq4Lt4x" label="SSL" color="blue"></option><option value="HHci4T1IS7Pb" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50021</td><td><span data-option="PM9OdZyqffcj">TCP</span></td><td align="center">Default port</td></tr><tr><td align="center">50022</td><td><span data-option="fow02dq4Lt4x">SSL</span></td><td align="center">Encrypted port</td></tr></tbody></table>
 
 [^1]: Check this
 
