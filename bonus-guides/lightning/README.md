@@ -23,4 +23,4 @@ layout:
 
 #### GUI, API - WEB
 
-* [Alby Hub](alby-hub.md) - a self-custodial, open source lightning wallet that connects to apps.
+* [Alby Hub](alby-hub.md) - a self-custodial, open source Lightning wallet that connects to apps.

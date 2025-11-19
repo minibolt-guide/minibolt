@@ -28,15 +28,29 @@ layout:
 
 ### Preparations
 
+#### Install dependencies <a href="#install-dependencies" id="install-dependencies"></a>
+
+* With user `admin`, update the packages and upgrade to keep up to date with the OS
+
+```shellscript
+sudo apt update && sudo apt full-upgrade
+```
+
+* Make sure that all necessary software packages are installed. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```shellscript
+sudo apt install bzip2
+```
+
 #### Reverse proxy & Firewall
 
-In the security section, we set up Nginx as a reverse proxy. Now we can add the AlbyHub configuration.
+In the [security section](../../index-1/security.md#nginx), we set up Nginx as a reverse proxy. Now we can add the AlbyHub configuration.
 
 Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to Alby Hub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
 * With user `admin`, create the reverse proxy configuration
 
-```sh
+```shellscript
 sudo nano /etc/nginx/sites-available/albyhub-reverse-proxy.conf
 ```
 
@@ -56,14 +70,14 @@ server {
 * Create the symbolic link that points to the directory `sites-enabled`
 
 {% code overflow="wrap" %}
-```bash
+```shellscript
 sudo ln -s /etc/nginx/sites-available/albyhub-reverse-proxy.conf /etc/nginx/sites-enabled/
 ```
 {% endcode %}
 
 * Test Nginx configuration
 
-```sh
+```shellscript
 sudo nginx -t
 ```
 
@@ -74,49 +88,49 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-* Reload the NGINX configuration to apply changes
+* Reload the Nginx configuration to apply changes
 
-```bash
+```shellscript
 sudo systemctl reload nginx
 ```
 
-* Configure the firewall to allow incoming HTTP requests from anywhere to the web server
+* Configure the firewall to allow incoming HTTPS requests from anywhere to the web server
 
-```sh
-sudo ufw allow 3003/tcp comment 'allow AlbyHub SSL from anywhere'
+```shellscript
+sudo ufw allow 3003/tcp comment 'allow Alby Hub SSL from anywhere'
 ```
 
 ### Installation
 
-We download the latest Albyhub binary (the application) and verify the download.
+We download the latest Alby Hub binary (the application) and verify the download.
 
 #### Download binaries
 
 * Login as `admin` and change to a temporary directory, which is cleared on reboot
 
-```sh
+```shellscript
 cd /tmp
 ```
 
 * Set a temporary version environment variable for the installation
 
-```sh
+```shellscript
 VERSION=1.20.0
 ```
 
 * Get the latest binaries and signatures
 
 {% code overflow="wrap" %}
-```sh
+```shellscript
 wget https://github.com/getAlby/hub/releases/download/v$VERSION/albyhub-Server-Linux-x86_64.tar.bz2
 ```
 {% endcode %}
 
-```sh
+```shellscript
 wget https://github.com/getAlby/hub/releases/download/v$VERSION/manifest.txt
 ```
 
-```sh
+```shellscript
 wget https://github.com/getAlby/hub/releases/download/v$VERSION/manifest.txt.asc
 ```
 
@@ -125,7 +139,7 @@ wget https://github.com/getAlby/hub/releases/download/v$VERSION/manifest.txt.asc
 * Get the public key from the AlbyHub developer
 
 {% code overflow="wrap" %}
-```sh
+```shellscript
 curl https://raw.githubusercontent.com/getalby/hub/master/scripts/keys/rolznz.asc | gpg --import
 ```
 {% endcode %}
@@ -135,51 +149,51 @@ Expected output:
 ```
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  3154  100  3154    0     0   103k      0 --:--:-- --:--:-- --:--:--  106k
-gpg: clave A5EABD8835092B08: clave pública "Roland Bewick <roland.bewick@gmail.com>" importada
-gpg: Cantidad total procesada: 1
-gpg:               importadas: 1
+100  3154  100  3154    0     0  10995      0 --:--:-- --:--:-- --:--:-- 11027
+gpg: key A5EABD8835092B08: public key "Roland Bewick <roland.bewick@gmail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
 ```
 
 * Verify the signature of the text file containing the checksums for the application
 
-```sh
+```shellscript
 gpg --verify manifest.txt.asc manifest.txt
 ```
 
 Expected output:
 
-{% code overflow="wrap" %}
-```
-[...]
-gpg: Good signature from "Roland Bewick <roland.bewick@gmail.com>" [unknown]
+<pre data-overflow="wrap"><code>gpg: Signature made Thu 25 Sep 2025 05:48:19 AM UTC
+gpg:                using RSA key 5D92185938E6DBF893DCCC5BA5EABD8835092B08
+gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Roland Bewick &#x3C;roland.bewick@gmail.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
-gpg: There is no indication that the signature belongs to the owner.
+gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 5D92 1859 38E6 DBF8 93DC  CC5B A5EA BD88 3509 2B08
-[...]
-```
-{% endcode %}
+</code></pre>
 
 #### Checksum check
 
 * Verify the signed checksum against the actual checksum of your download
 
-```sh
+```shellscript
 grep 'Server-Linux-x86_64.tar.bz2' manifest.txt | sha256sum --check
 ```
 
-**Example** of expected output:
+Expected output:
 
-<pre><code><strong>albyhub-Server-Linux-x86_64.tar.bz2: OK
-</strong></code></pre>
+```
+./albyhub-Server-Linux-x86_64.tar.bz2: OK
+```
 
 * Extract
 
-```sh
-sudo tar -xjvf albyhub-Server-Linux-x86_64.tar.bz2
+{% code overflow="wrap" %}
+```shellscript
+sudo tar -xjvf albyhub-Server-Linux-x86_64.tar.bz2 --one-top-level=albyhub-Server-Linux-x86_64
 ```
+{% endcode %}
 
-**Example** of expected output:
+Expected output:
 
 ```
 ./
@@ -193,102 +207,85 @@ sudo tar -xjvf albyhub-Server-Linux-x86_64.tar.bz2
 
 * Install it
 
-<pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>sudo install -m 0755 -o root -g root -t /usr/local/bin bin/albyhub
-</strong></code></pre>
+{% code overflow="wrap" %}
+```shellscript
+sudo install -m 0755 -o root -g root -t /usr/local/bin albyhub-Server-Linux-x86_64/bin/albyhub
+```
+{% endcode %}
 
-* We need to copy this library to the system’s default library directory and update the system’s shared library cache so that the service starts correctly
+* We need to copy this library to the system’s default library directory
 
-<pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>sudo cp lib/libldk_node.so /usr/local/lib/
-</strong><strong>sudo ldconfig
-</strong></code></pre>
+{% code overflow="wrap" %}
+```shellscript
+sudo cp albyhub-Server-Linux-x86_64/lib/libldk_node.so /usr/local/lib/
+```
+{% endcode %}
+
+* Update the system’s shared library cache so that the service starts correctly
+
+```shellscript
+sudo ldconfig
+```
 
 * **(Optional)** Delete the installation files of the `tmp` folder to be ready for the next installation
 
 {% code overflow="wrap" %}
-```bash
-sudo rm -rf albyhub-Server-Linux-x86_64.tar.bz2 manifest.txt manifest.txt.asc bin lib
+```shellscript
+sudo rm -rf albyhub-Server-Linux-x86_64.tar.bz2 albyhub-Server-Linux-x86_64 manifest.txt manifest.txt.asc
 ```
 {% endcode %}
 
 #### Create the albyhub user & group
 
-We do not want to run Alby Hub code alongside bitcoind and lnd because of security reasons. For that, we will create a separate user and run the code as the new user.
+We do not want to run Alby Hub code alongside bitcoind and lnd for security reasons. For that, we will create a separate user and run the code as the new user.
 
 * Create the `albyhub` user and group
 
-```bash
+```shellscript
 sudo adduser --gecos "" --disabled-password albyhub
 ```
 
-* Add the albyhub user to the lnd group to allow the user albyhub to read the `admin.macaroon` and `tls.cert` files
+* Add the `albyhub` user to the `lnd` group to allow the user `albyhub` to read the `admin.macaroon` and `tls.cert` files
 
-```bash
+```shellscript
 sudo adduser albyhub lnd
 ```
 
 #### Create data folder
 
-* Create the albyhub data folder
+* Create the Alby Hub data folder
 
-```sh
+```shellscript
 sudo mkdir /data/albyhub
 ```
 
 * Assign the owner to the `albyhub` user
 
-```sh
+```shellscript
 sudo chown -R albyhub:albyhub /data/albyhub
-```
-
-* Change to the `albyhub` user
-
-```bash
-sudo su - albyhub
-```
-
-* Create the symbolic link pointing to the albyhub data directory
-
-```sh
-ln -s /data/albyhub /home/albyhub/.albyhub
-```
-
-* Check that the symbolic link has been created correctly
-
-```bash
-ls -la .albyhub
-```
-
-Expected output:
-
-```
-lrwxrwxrwx 1 albyhub albyhub 13 Jul 21  2023 .albyhub -> /data/albyhub
-```
-
-* Exit the `albyhub` user session to return to the "admin" user session
-
-```sh
-exit
 ```
 
 ### Configuration
 
 * Create the AlbyHub configuration file
 
-```sh
-nano /data/albyhub/.env
+```shellscript
+sudo nano /home/albyhub/.env
 ```
 
 * Paste the following content. Save and exit.
 
-```
-# MiniBolt: AlbyHub configuration
-# /data/albyhub/.env
+<pre><code># MiniBolt: Alby Hub configuration
+# /home/albyhub/.env
 
 # WORKING DIRECTORY
 WORK_DIR=/data/albyhub
 
-#SERVICE PORT
+# SERVICE PORT
 PORT=8090
+
+# RELAY (optional)
+##RELAY=<a data-footnote-ref href="#user-content-fn-2">wss://relay.domain.com</a>
 
 # LND CONNECTION
 LN_BACKEND_TYPE=LND
@@ -296,35 +293,35 @@ LND_ADDRESS=localhost:10009
 LND_CERT_FILE=/data/lnd/tls.cert
 LND_MACAROON_FILE=/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 
-#LOGS
+# LOGS
 LOG_EVENTS=true
-```
+</code></pre>
 
 #### Create systemd service
 
 Now, let's configure Alby Hub to start automatically on system startup.
 
-* As user `admin`, create Alby Hub systemd unit
+* As user `admin`, create the Alby Hub systemd unit
 
-```sh
+```shellscript
 sudo nano /etc/systemd/system/albyhub.service
 ```
 
 * Enter the following content. Save and exit
 
 ```
-# MiniBolt: systemd unit for AlbyHub
+# MiniBolt: systemd unit for Alby Hub
 # /etc/systemd/system/albyhub.service
 
 [Unit]
 Description=AlbyHub
-Requires=lnd.service
-After=lnd.service
+#Requires=lnd.service
+#After=lnd.service
 
 [Service]
 WorkingDirectory=/data/albyhub
 ExecStart=/usr/local/bin/albyhub
-EnvironmentFile=/data/albyhub/.env
+EnvironmentFile=/home/albyhub/.env
 
 User=albyhub
 Group=albyhub
@@ -347,23 +344,23 @@ WantedBy=multi-user.target
 
 * Enable autoboot **(optional)**
 
-```sh
+```shellscript
 sudo systemctl enable albyhub
 ```
 
 * Now, the daemon information is no longer displayed on the command line but is written into the system journal. You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
 
-```sh
+```shellscript
 journalctl -fu albyhub
 ```
 
 ### Run
 
-To keep an eye on the software movements, start your SSH program (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
-```sh
+```shellscript
 sudo systemctl start albyhub
 ```
 
@@ -386,7 +383,7 @@ nov 16 11:21:02 minibolt albyhub[1440537]: ⇨ http server started on [::]:8090
 
 * Ensure the service is working and listening on the default `8090` port and the HTTPS `3003` port
 
-```bash
+```shellscript
 sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:3003|:8090)'
 ```
 
@@ -397,7 +394,7 @@ Expected output:
 </code></pre>
 
 {% hint style="info" %}
-> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the AlbyHub web interface
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., `https://yournode.com`) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Alby Hub web interface
 
 > Now point your browser to `https://minibolt.local:3003` or the IP address (e.g. `https://192.168.x.xxx:3003`). You should see the home page of AlbyHub
 {% endhint %}
@@ -412,14 +409,14 @@ Congrat&#x73;**!** You now have AlbyHub up and running
 
 * With the user `admin`, edit the `torrc` file
 
-```sh
+```shellscript
 sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 * Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`". Save and exit
 
 ```
-# Hidden Service AlbyHub
+# Hidden Service Alby Hub
 HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
@@ -428,13 +425,13 @@ HiddenServicePort 80 127.0.0.1:3003
 
 * Reload Tor to apply changes
 
-```sh
+```shellscript
 sudo systemctl reload tor
 ```
 
 * Get your Onion address
 
-```sh
+```shellscript
 sudo cat /var/lib/tor/hidden_service_albyhub/hostname
 ```
 
@@ -448,17 +445,17 @@ abcdefg..............xyz.onion
 
 ### Upgrade
 
-Follow the complete Installation section until the Binaries installation section (included).
+Follow the complete [Installation section](alby-hub.md#installation) until the [Binaries installation section](alby-hub.md#binaries-installation) (included).
 
 * Restart the service to apply the changes
 
-```sh
+```shellscript
 sudo systemctl restart albyhub
 ```
 
-* Check logs and pay attention to the next log
+* Check the logs, and pay attention to the next log
 
-```sh
+```shellscript
 journalctl -fu albyhub
 ```
 
@@ -476,19 +473,19 @@ nov 16 11:21:02 minibolt albyhub[1440537]: ⇨ http server started on [::]:8090 
 
 * Ensure you are logged in as the user `admin`, stop albyhub
 
-```sh
+```shellscript
 sudo systemctl stop albyhub
 ```
 
 * Disable autoboot (if enabled)
 
-```sh
+```shellscript
 sudo systemctl disable albyhub
 ```
 
 * Delete the service
 
-```sh
+```shellscript
 sudo rm /etc/systemd/system/albyhub.service
 ```
 
@@ -496,15 +493,15 @@ sudo rm /etc/systemd/system/albyhub.service
 
 * Delete the albyhub user.
 
-```sh
+```shellscript
 sudo userdel -rf albyhub
 ```
 
 #### Delete data directory
 
-* Delete albyhub directory
+* Delete the albyhub directory
 
-```sh
+```shellscript
 sudo rm -rf /data/albyhub/
 ```
 
@@ -512,7 +509,7 @@ sudo rm -rf /data/albyhub/
 
 * Delete the binaries installed
 
-```bash
+```shellscript
 sudo rm /usr/local/bin/albyhub
 ```
 
@@ -520,41 +517,41 @@ sudo rm /usr/local/bin/albyhub
 
 * Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
-```sh
+```shellscript
 sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
 ```
-# Hidden Service AlbyHub
-HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:3003
+# Hidden Service Alby Hub
+#HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
+#HiddenServiceVersion 3
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 80 127.0.0.1:3003
 ```
 
 * Reload the torrc config
 
-```sh
+```shellscript
 sudo systemctl reload tor
 ```
 
 #### Uninstall FW configuration
 
-* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the number of the rule for AlbyHub (e.g., X below)
+* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the number of the rule for Alby Hub (e.g., X below)
 
-```sh
+```shellscript
 sudo ufw status numbered
 ```
 
 Expected output:
 
 ```
-[X] 3003/tcp                   ALLOW IN    Anywhere                   # allow AlbyHub SSL from anywhere
+[X] 3003/tcp                   ALLOW IN    Anywhere                   # allow Alby Hub SSL from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "`yes`"
 
-```sh
+```shellscript
 sudo ufw delete X
 ```
 
@@ -562,4 +559,6 @@ sudo ufw delete X
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8090</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">3003</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr></tbody></table>
 
-Prueba
+[^1]: Check this
+
+[^2]: Example relay (Optional)
