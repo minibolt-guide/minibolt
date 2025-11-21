@@ -115,7 +115,7 @@ pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
 
 The BTC RPC Explorer has also a functionality to extract the data from the node and display the PDF in the web browser.
 
-![](../../images/white-paper-transac.png)
+![](../../.gitbook/assets/white-paper-transac.png)
 
 * Open your Explorer at [https://minibolt.local:4000](https://miniboltt.local:4000/) or replace "minibolt.local" with your node IP address if needed)
 * Look up the transaction ID in explorer: `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713`

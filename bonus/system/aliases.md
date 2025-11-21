@@ -14,7 +14,7 @@ Aliases are shortcuts for commands that can save time and make it easier to exec
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/aliases-demo.PNG)
+![](../../.gitbook/assets/aliases-demo.PNG)
 
 ## Introduction
 

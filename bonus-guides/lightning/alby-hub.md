@@ -535,9 +535,40 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 sudo systemctl reload tor
 ```
 
-#### Uninstall FW configuration
+#### Uninstall reverse proxy & FW configuration
 
-* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the number of the rule for Alby Hub (e.g., X below)
+* Ensure you are logged in as the user `admin`, delete the reverse proxy config file
+
+```bash
+sudo rm /etc/nginx/sites-available/albyhub-reverse-proxy.conf
+```
+
+* Delete the symbolic link
+
+```bash
+sudo rm /etc/nginx/sites-enabled/albyhub-reverse-proxy.conf
+```
+
+* Test Nginx configuration
+
+```bash
+sudo nginx -t
+```
+
+Expected output:
+
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+sudo systemctl reload nginx
+```
+
+* Display the UFW firewall rules, and note the number of the rule for Alby Hub (e.g., X below)
 
 ```shellscript
 sudo ufw status numbered

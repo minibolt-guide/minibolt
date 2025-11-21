@@ -15,7 +15,7 @@ has_toc: false
 Difficulty: Medium
 {% endhint %}
 
-![](../../images/electrs-logo.png)
+![](../../.gitbook/assets/electrs-logo.png)
 
 ## Requirements
 

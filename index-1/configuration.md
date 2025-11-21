@@ -141,7 +141,7 @@ sudo apt update && sudo apt full-upgrade
 -> If during the update process, a banner appears asking you, "Which services should be restarted?" you can press ENTER and take note of the services that will be restarted, marked with `[*]`. Example 🔽
 {% endhint %}
 
-![](../images/update-action.PNG)
+![](../.gitbook/assets/update-action.PNG)
 
 {% hint style="info" %}
 It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press `ENTER` to confirm

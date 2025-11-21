@@ -16,7 +16,7 @@ The following guide was derived from contributions by [Pantamis](https://github.
 Difficulty: Hard
 {% endhint %}
 
-![](../../images/wireguard.png)
+![](../../.gitbook/assets/wireguard.png)
 
 ## Acknowledgments
 
@@ -36,7 +36,7 @@ A VPN is an encrypted tunnel between two computers over the internet. In our cas
 * WireGuard is not censorship-resistant. The encrypted byte headers contain identifiable data which reveals you are using WireGuard VPN.
 * You need to open one port on your router.
 
-![](../../images/wireguard-VPN.png)
+![](../../.gitbook/assets/wireguard-VPN.png)
 
 ## Prerequisites
 

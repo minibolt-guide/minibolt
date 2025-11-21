@@ -14,7 +14,7 @@ has_toc: false
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/electrum_wallet_logo.png)
+![](../../.gitbook/assets/electrum_wallet_logo.png)
 
 ## Requirements
 
@@ -65,7 +65,7 @@ You can use the local IP address of your node, i.e: 192.168.1.10:50002:s
 
 * Apply, accept, and execute by double-clicking on the new shortcut
 
-![](../../images/electrum-win-shortcut-local.PNG)
+![](../../.gitbook/assets/electrum-win-shortcut-local.PNG)
 
 * **macOS**
   * Execute this command in the Terminal application to -1 (connect to single server only) -s (server address)
@@ -102,7 +102,7 @@ You can use the local IP address of your node, i.e: 192.168.1.10:50002:s
 After opening a wallet or creating a new one, Electrum will indicate an active connection to a local server with a green dot in the bottom right corner of the screen
 {% endhint %}
 
-![](../../images/electrum-wallet-local.PNG)
+![](../../.gitbook/assets/electrum-wallet-local.PNG)
 
 ### Remote connection over Tor
 
@@ -176,7 +176,7 @@ Now, execute Electrum Wallet choosing the correct way depending on your OS (repl
 ```
 {% endcode %}
 
-![](../../images/electrum-win-shortcut-tor.PNG)
+![](../../.gitbook/assets/electrum-win-shortcut-tor.PNG)
 
 * **macOS**
   * Open the Tor browser
@@ -190,13 +190,13 @@ Now, execute Electrum Wallet choosing the correct way depending on your OS (repl
 
 After opening a wallet or creating a new one, Electrum will indicate an active connection to a Tor server with a blue dot in the bottom right corner of the screen.
 
-![](../../images/electrum-wallet-tor.png)
+![](../../.gitbook/assets/electrum-wallet-tor.png)
 
 {% hint style="danger" %}
 Try to check `"Use Tor proxy at port 9050"` or `"Use Tor proxy at port 9150"` in `"Proxy"` settings tab if not connected for you
 {% endhint %}
 
-![](../../images/electrum-wallet-tor-check.PNG)
+![](../../.gitbook/assets/electrum-wallet-tor-check.PNG)
 
 {% hint style="danger" %}
 **Troubleshooting note:** for those who already had Electrum installed on their systems with old server connections, it is needed to clear the pre-existing cert of the certs folder. Follow these instructions:

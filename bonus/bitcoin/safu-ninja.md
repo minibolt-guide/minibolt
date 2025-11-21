@@ -15,7 +15,7 @@ has_toc: false
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/diy-steel-mnemonic-backup.png)
+![](../../.gitbook/assets/diy-steel-mnemonic-backup.png)
 
 ## Introduction
 
@@ -23,13 +23,13 @@ Practically, most onchain bitcoin wallets will ask you to save a list of 12 or 2
 
 Technically, these words are known as "mnemonic words" and are used together with a salt to generate a "seed". The seed itself is hashed to derive your "master private key" and the "master chain code" which is used for the various accounts in your HD wallet. You can read more about this process in [Chapter 5 of "Mastering Bitcoin"](https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch05_wallets.adoc#creating-an-hd-wallet-from-the-seed).
 
-![](../../images/mnemonics-to-seed-to-private-key.png)
+![](../../.gitbook/assets/mnemonics-to-seed-to-private-key.png)
 
 Now, because these words allow you to reconstruct your wallet and recover your funds, they have to be kept very secure and never typed or saved on any computer or online device. That's why wallet providers usually advise users to write them down on a piece of paper, which is great from a security point of view.
 
 But paper is easily destroyed by water, fire, or even a pet that loves chewing things. Hence it is much better to store them in a much more resilient physical medium: e.g., steel. Various steel backup solutions have been created in the last few years. You can find a comprehensive list of them and how they performed under stress tests on [Jameson Lopp's website](https://jlopp.github.io/metal-bitcoin-storage-reviews/).
 
-![](../../images/blockplate_crush.png)
+![](../../.gitbook/assets/blockplate_crush.png)
 
 While great, most of these techniques have one major downside... they require you to buy from a company a ready-made item whose sole use case is as a bitcoin mnemonics backup. This means that the seller will know that you probably have some bitcoin... and worst, if their customer database gets hacked, anyone could quickly know that you probably have some bitcoins.
 
@@ -41,7 +41,7 @@ As far as I know, Safu Ninja was the first one to come up with [this idea](https
 
 This metal backup has been stress tested by Jameson Lopp. Check his full review [here](https://blog.lopp.net/metal-bitcoin-seed-storage-stress-test-iv/) and below is a summary:
 
-![](../../images/safu-ninja-stress-test-result.PNG)
+![](../../.gitbook/assets/safu-ninja-stress-test-result.PNG)
 
 Let's get started!
 

@@ -2,7 +2,7 @@
 
 We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/), the reference client implementation of the Bitcoin network.
 
-![](../../images/bitcoin-core-logo-trans.png)
+![](../../.gitbook/assets/bitcoin-core-logo-trans.png)
 
 ## This may take some time
 
@@ -108,7 +108,7 @@ bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 
 The following screenshot is just an **example** of one of the versions:
 
-![](../../images/bitcoin-ots-check.PNG)
+![](../../.gitbook/assets/bitcoin-ots-check.PNG)
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
 
@@ -657,7 +657,7 @@ If everything is running smoothly, this is the perfect time to familiarize yours
     * You definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
     * Read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
 
-    <figure><img src="../../images/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
 * [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin
 * Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list)
 

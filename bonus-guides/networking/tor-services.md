@@ -1026,7 +1026,7 @@ nyx -i 9051
 
 * Press the **right** `->` **navigation key** to navigate to page 2/5 to show the traffic of your Tor instance
 
-![Example of an obsf4 bridge running](../../images/nyx-tor-bridge.png)
+![Example of an obsf4 bridge running](../../.gitbook/assets/nyx-tor-bridge.png)
 
 * Press `"q"` key **2 times** to exit
 
@@ -1034,7 +1034,7 @@ nyx -i 9051
 
 On some occasions, due to some circumstances, your ISP, the company's network, your country, etc, could be censoring your access to Tor and with it the proper functioning of MiniBolt services **(used on Bitcoin Core / LND + others)**
 
-![](../../images/tor-failing.jpg)
+![](../../.gitbook/assets/tor-failing.jpg)
 
 * On the MiniBolt or external node, with the user `admin`, [install Tor](../../index-1/privacy.md#tor-installation) and the `ofbs4 proxy`.  Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
@@ -1083,7 +1083,7 @@ Bridge obfs4 <IPADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
 -> Since many bridge addresses aren’t public, you may need to request some from the Tor Project. Visit this website [CLEARNET](https://bridges.torproject.org/options) / [ONION](http://yq5jjvr7drkjrelzhut7kgclfuro65jjlivyzfmxiq2kyv5lickrl4qd.onion/options), to get bridges. Push the **`Just give me bridges`** button or select obfs4 on the drop down and push the **`Get Bridges`** button. Select one or the 2 offered, and add the content to the `torrc` configuration as a line more similar like `Bridge obfs4 <IPADDRESS>:...`⬇️
 {% endhint %}
 
-<figure><img src="../../images/get-bridge.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/get-bridge.PNG" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 -> Remember to add the word "`Bridge`" before the `obfs4 IP...` line got from Tor, if not, Tor daemon will give you an error.

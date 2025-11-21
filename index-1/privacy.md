@@ -12,7 +12,7 @@ True, it's only your IP address that is revealed, but using services like [iploc
 
 ## Tor Project
 
-<div align="left"><img src="../images/tor-logo.png" alt="" width="166"></div>
+<div align="left"><img src="../.gitbook/assets/tor-logo.png" alt="" width="166"></div>
 
 We use Tor, a free software built by the [Tor Project](https://www.torproject.org). It allows you to anonymize internet traffic by routing it through a network of nodes, hiding your location and usage profile.
 
@@ -192,7 +192,7 @@ Removed /etc/systemd/system/multi-user.target.wants/tor.service.
 
 ## I2P Project
 
-<div align="left"><img src="../images/i2pd.png" alt="" width="150"></div>
+<div align="left"><img src="../.gitbook/assets/i2pd.png" alt="" width="150"></div>
 
 [I2P](https://geti2p.net/en/) is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted; participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
 
@@ -705,7 +705,7 @@ sudo systemctl start tor
 
 **Example** of Tor censorship output:
 
-![](../images/tor-censorship.png)
+![](../.gitbook/assets/tor-censorship.png)
 
 #### Tor signature verification error
 
@@ -745,7 +745,7 @@ Try to do `sudo apt update` again and see the error doesn't appear
 
 If you see these output logs on Bitcoin Core, normally, it could be that I2P is failing:
 
-![](../images/i2p-troubleshoting.png)
+![](../.gitbook/assets/i2p-troubleshoting.png)
 
 {% hint style="info" %}
 If this happens, usually this fix only with **restarting** the i2pd service

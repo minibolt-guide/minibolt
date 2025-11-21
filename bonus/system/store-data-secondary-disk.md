@@ -14,7 +14,7 @@ If you want to use a different disk to store data (blockchain and other database
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/store-data-secondary-disk.PNG)
+![](../../.gitbook/assets/store-data-secondary-disk.PNG)
 
 ## Case 1: during the Ubuntu server guided installation
 

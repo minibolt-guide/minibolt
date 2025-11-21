@@ -28,7 +28,7 @@ You can also use the following alternatives instead of Sparrow Wallet, according
 
 We will connect the Sparrow wallet to our own Electrum server as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
 
-![](../../images/sparrow-stages.png)
+![](../../.gitbook/assets/sparrow-stages.png)
 
 We will set up Sparrow to connect to Fulcrum within your local network. There is also an optional section at the end that explains how to connect Sparrow to Fulcrum using Tor for when you're on the move.
 
@@ -66,7 +66,7 @@ Connected to Fulcrum x.x.x on protocol version...
 [...]
 ```
 
-![](../../images/sparrow-electrum-no-proxy.png)
+![](../../.gitbook/assets/sparrow-electrum-no-proxy.png)
 
 If there is a connection error message, try the following troubleshooting:
 
@@ -79,7 +79,7 @@ If there is a connection error message, try the following troubleshooting:
 Let's go back to the wallet and check that it is connected to our own Electrum server.
 
 * Close the server configuration window
-* Check the icon in the bottom right corner of the wallet window ![status icon](../../images/sparrow-server-icon.png)
+* Check the icon in the bottom right corner of the wallet window ![status icon](../../.gitbook/assets/sparrow-server-icon.png)
   * The icon should be a blue slider button, and a mouse over should display "Connected to \[...] at height \[...]"
 
 You're set! Sparrow is now configured to connect to your Electrum server from within your local network.
@@ -136,7 +136,7 @@ Connected to Fulcrum x.x.x on protocol version ...
 [...]
 ```
 
-![](../../images/sparrow-electrum-tor-no-proxy.png)
+![](../../.gitbook/assets/sparrow-electrum-tor-no-proxy.png)
 
 {% hint style="success" %}
 You're set! Sparrow is now configured to connect to your node over Tor, and you can use it wherever you are
@@ -188,7 +188,7 @@ Connected to Fulcrum x.x.x on protocol version ...
 [...]
 ```
 
-![](../../images/sparrow-tor-proxy.png)
+![](../../.gitbook/assets/sparrow-tor-proxy.png)
 
 {% hint style="info" %}
 If you followed the [**Use the Tor proxy from another device**](../../index-1/privacy.md#use-the-tor-proxy-from-another-device) section, you can use the Tor instance of your node instead of the instance of your regular computer, simply put on the "Proxy URL" box, your node IP local address (i.e 192.168.1.60) instead of localhost (127.0.0.1)
@@ -197,7 +197,7 @@ If you followed the [**Use the Tor proxy from another device**](../../index-1/pr
 Now, let's go back to the wallet and check that the proxy is working properly.
 
 * Close the server configuration window
-* Check the two icons in the bottom right corner of the wallet window ![status icons](../../images/sparrow-server-proxy-icons.png)
+* Check the two icons in the bottom right corner of the wallet window ![status icons](../../.gitbook/assets/sparrow-server-proxy-icons.png)
   * The first icon should be grey, not red, and a mouse hover should display "External Tor proxy enabled"
 
 {% hint style="success" %}

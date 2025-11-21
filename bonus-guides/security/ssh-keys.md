@@ -14,7 +14,7 @@ One of the best options to secure the sensitive SSH login is to disable password
 Difficulty: Medium
 {% endhint %}
 
-![](../../images/SSH-keys.png)
+![](../../.gitbook/assets/SSH-keys.png)
 
 ## Preparations
 
