@@ -21,14 +21,14 @@ layout:
 
 <figure><img src="../../.gitbook/assets/albyhub.jpeg" alt=""><figcaption></figcaption></figure>
 
-### Requirements
+## Requirements
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md)
 
-### Preparations
+## Preparations
 
-#### Install dependencies <a href="#install-dependencies" id="install-dependencies"></a>
+### Install dependencies <a href="#install-dependencies" id="install-dependencies"></a>
 
 * With user `admin`, update the packages and upgrade to keep up to date with the OS
 
@@ -42,7 +42,7 @@ sudo apt update && sudo apt full-upgrade
 sudo apt install bzip2
 ```
 
-#### Reverse proxy & Firewall
+### Reverse proxy & Firewall
 
 In the [security section](../../index-1/security.md#nginx), we set up Nginx as a reverse proxy. Now we can add the AlbyHub configuration.
 
@@ -100,11 +100,11 @@ sudo systemctl reload nginx
 sudo ufw allow 3003/tcp comment 'allow Alby Hub SSL from anywhere'
 ```
 
-### Installation
+## Installation
 
 We download the latest Alby Hub binary (the application) and verify the download.
 
-#### Download binaries
+### Download binaries
 
 * Login as `admin` and change to a temporary directory, which is cleared on reboot
 
@@ -134,7 +134,7 @@ wget https://github.com/getAlby/hub/releases/download/v$VERSION/manifest.txt
 wget https://github.com/getAlby/hub/releases/download/v$VERSION/manifest.txt.asc
 ```
 
-#### Signature check
+### Signature check
 
 * Get the public key from the Alby Hub developer
 
@@ -171,7 +171,7 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 5D92 1859 38E6 DBF8 93DC  CC5B A5EA BD88 3509 2B08
 </code></pre>
 
-#### Checksum check
+### Checksum check
 
 * Verify the signed checksum against the actual checksum of your download
 
@@ -203,7 +203,7 @@ Expected output:
 ./lib/libldk_node.so
 ```
 
-#### Binaries installation
+### Binaries installation
 
 * Install it
 
@@ -235,7 +235,7 @@ sudo rm -rf albyhub-Server-Linux-x86_64.tar.bz2 albyhub-Server-Linux-x86_64 mani
 ```
 {% endcode %}
 
-#### Create the albyhub user & group
+### Create the albyhub user & group
 
 We do not want to run Alby Hub code alongside bitcoind and lnd for security reasons. For that, we will create a separate user and run the code as the new user.
 
@@ -251,7 +251,7 @@ sudo adduser --gecos "" --disabled-password albyhub
 sudo adduser albyhub lnd
 ```
 
-#### Create data folder
+### Create data folder
 
 * Create the Alby Hub data folder
 
@@ -265,7 +265,7 @@ sudo mkdir /data/albyhub
 sudo chown -R albyhub:albyhub /data/albyhub
 ```
 
-### Configuration
+## Configuration
 
 * Create the Alby Hub configuration file
 
@@ -297,7 +297,7 @@ LND_MACAROON_FILE=/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 LOG_EVENTS=true
 </code></pre>
 
-#### Create systemd service
+### Create systemd service
 
 Now, let's configure Alby Hub to start automatically on system startup.
 
@@ -403,9 +403,9 @@ Expected output:
 Congrat&#x73;**!** You now have AlbyHub up and running
 {% endhint %}
 
-### Extras (optional)
+## Extras (optional)
 
-#### Remote access over Tor
+### Remote access over Tor
 
 * With the user `admin`, edit the `torrc` file
 
@@ -443,7 +443,7 @@ abcdefg..............xyz.onion
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
-### Upgrade
+## Upgrade
 
 Follow the complete [Installation section](alby-hub.md#installation) until the [Binaries installation section](alby-hub.md#binaries-installation) (included).
 
@@ -467,9 +467,9 @@ nov 16 11:21:02 minibolt albyhub[1440537]: ⇨ http server started on [::]:8090 
 [...]
 ```
 
-### Uninstall
+## Uninstall
 
-#### Uninstall service
+### Uninstall service
 
 * Ensure you are logged in as the user `admin`, stop albyhub
 
@@ -489,7 +489,7 @@ sudo systemctl disable albyhub
 sudo rm /etc/systemd/system/albyhub.service
 ```
 
-#### Delete user & group
+### Delete user & group
 
 * Delete the albyhub user.
 
@@ -497,7 +497,7 @@ sudo rm /etc/systemd/system/albyhub.service
 sudo userdel -rf albyhub
 ```
 
-#### Delete data directory
+### Delete data directory
 
 * Delete the albyhub directory
 
@@ -505,7 +505,7 @@ sudo userdel -rf albyhub
 sudo rm -rf /data/albyhub/
 ```
 
-#### Uninstall binaries
+### Uninstall binaries
 
 * Delete the binaries installed
 
@@ -513,7 +513,7 @@ sudo rm -rf /data/albyhub/
 sudo rm /usr/local/bin/albyhub
 ```
 
-#### Uninstall Tor hidden service
+### Uninstall Tor hidden service
 
 * Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -535,7 +535,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 sudo systemctl reload tor
 ```
 
-#### Uninstall reverse proxy & FW configuration
+### Uninstall reverse proxy & FW configuration
 
 * Ensure you are logged in as the user `admin`, delete the reverse proxy config file
 
