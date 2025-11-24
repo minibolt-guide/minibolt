@@ -20,7 +20,7 @@ It is called "Tor" for "The Onion Router": information is routed through many ho
 
 ### **Tor installation**
 
-* With user `admin`, update and upgrade the packages to keep up to date with the OS
+* With user `admin`, update and upgrade the packages to keep up to date with the OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
@@ -170,7 +170,7 @@ Not all network traffic is routed over the Tor network; by default, some service
 {% endhint %}
 
 {% hint style="info" %}
-**(Optional)** -> If you want, you can **disable the autoboot** option for Tor using:
+**(Optional, but not recommended)** -> If you want, you can **disable the autoboot** option for Tor using:
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl disable tor
 </strong></code></pre>
@@ -313,7 +313,7 @@ Realize that if you modify the config file, you will need to select "Keep" or re
 sudo nano /etc/nginx/sites-available/i2pd-webconsole-reverse-proxy.conf
 ```
 
-* following completePaste the complete following configuration. Save and exit
+* Paste the following complete configuration. Save and exit
 
 ```nginx
 server {
@@ -364,7 +364,7 @@ sudo ufw allow 7071/tcp comment 'allow i2pd webconsole SSL from anywhere'
 sudo nano +130 -l /etc/i2pd/i2pd.conf
 ```
 
-* Uncomment (delete "#" at the first of the lines) and replace "`changeme`" with your "`[ F ] i2pd webconsole password`". Save and exit
+* Uncomment (delete "#" at the beginning of the lines) and replace "`changeme`" with your "`[ F ] i2pd webconsole password`". Save and exit
 
 ```
 auth = true
@@ -394,7 +394,7 @@ tcp   LISTEN 0      4096       127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",
 ```
 
 {% hint style="info" %}
-Now, point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:7071"` (or your node IP address) like `"https://192.168.x.xxx:7071"`. Type the credentials before configurated (`user: i2pd; password: [ F ] i2pd webconsole password`). After that, you should see something similar to the next screenshot
+Now, point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:7071"` (or your node IP address) like `"https://192.168.x.xxx:7071"`. Type the credentials before configuration (`user: i2pd; password: [ F ] i2pd webconsole password`). After that, you should see something similar to the next screenshot
 
 This access is only available from the local network; no Tor or Wireguard VPN is allowed
 {% endhint %}
@@ -714,7 +714,7 @@ If you obtain this error [after updating](privacy.md#upgrade-tor-and-i2p) the re
 <figure><img src="../.gitbook/assets/tor_keyring_error.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-This means Tor has renovated the signature due probably that is soon to expiry or expired, follow the next steps to fix that ⬇️
+This means Tor has renovated the signature due probably that is probably soon to expire or has expired. Follow the next steps to fix that ⬇️
 {% endhint %}
 
 * With user `admin`, up to `"root"` user temporarily
@@ -738,7 +738,7 @@ exit
 ```
 
 {% hint style="info" %}
-Try to do `sudo apt update` again and see the error doesn't appear
+Try to do `sudo apt update` again and see if the error doesn't appear
 {% endhint %}
 
 ### **I2P troubleshooting**

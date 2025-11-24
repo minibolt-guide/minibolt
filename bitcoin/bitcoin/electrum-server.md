@@ -350,10 +350,13 @@ tcp = 0.0.0.0:50001
 peering = false
 zmq_allow_hashtx = true
 
+# Anonymize client IP addresses and TxIDs in logs (optional)
+<a data-footnote-ref href="#user-content-fn-3">anon_logs</a> = true
+
 # Max RocksDB Memory in MiB - DEFAULT: 2048.0
 # (this applies in initial synchronization and daily operation)
 # recommended: db_mem=1/2 x RAM available, e.g, 4GB RAM -> db_mem = 2048.0
-db_mem = <a data-footnote-ref href="#user-content-fn-3">2048.0</a>
+db_mem = <a data-footnote-ref href="#user-content-fn-4">2048.0</a>
 
 # Banner
 banner = /data/fulcrum/fulcrum-banner.txt
@@ -456,13 +459,13 @@ sudo systemctl stop fulcrum
 sudo rm -r /data/fulcrum/fulcrum_db/*
 ```
 
-* Start fulcrum again
+* Start Fulcrum again
 
 ```bash
 sudo systemctl start fulcrum
 ```
 
--> You should see the logs of the [Run process](electrum-server.md#run) before again
+-> You should see the logs of the [Run process](electrum-server.md#run) again
 
 -> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
 {% endhint %}
@@ -784,4 +787,6 @@ Filename            Type                Size           Used    Priority
 
 [^2]: That's it!
 
-[^3]: Accommodate this
+[^3]: To ensure greater privacy for third parties who connect (if you share Fulcrum publicly)
+
+[^4]: Accommodate this

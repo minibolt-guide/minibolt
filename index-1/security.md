@@ -20,11 +20,11 @@ ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118
 
 {% tabs %}
 {% tab title="First (more common)" %}
-If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, the IPv6 adoption is new, you will use your internet connection using the common IPv4. Additionally, you can obtain your public IPv4 with: `curl -s ipv4.icanhazip.com`
+If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, IPv6 adoption is new, you will use your internet connection using the common IPv4. Additionally, you can obtain your public IPv4 address with: `curl -s ipv4.icanhazip.com`
 {% endtab %}
 
 {% tab title="Second" %}
-If you obtain the `"OK."` output, you have IPv6 availability, additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are **OK**, continue the guide without modifications
+If you obtain the `"OK."` output, you have IPv6 availability. Additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are **OK**, continue the guide without modifications
 {% endtab %}
 {% endtabs %}
 
@@ -36,7 +36,7 @@ For now, only SSH should be reachable from the outside. Bitcoin Core and LND are
 
 ### Configuration
 
-If you don't have [IPv6 availability](security.md#check-ipv6-availability), you can disable IPv6 on UFW to avoid the creation of rules related to it:
+If you don't have [IPv6 availability](security.md#check-ipv6-availability), you can disable IPv6 on UFW to avoid the creation of rules related to it.
 
 * Edit the UFW configuration
 
@@ -111,7 +111,7 @@ More info: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw
 
 ## Monitoring SSH authentication logs (optional)
 
-* You can monitor authentication general logs in your system in real-time
+* You can monitor the authentication general logs in your system in real-time
 
 ```sh
 sudo tail -f /var/log/auth.log
@@ -141,15 +141,15 @@ Do this regularly to get security-related incidents
 
 Several components of this guide will expose a communication port, for example, the Block Explorer, or the ThunderHub web interface for your Lightning node. Even if you use these services only within your home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
-We use Ngnix to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": Nginx provides secure communication to the outside and routes the traffic back to the internal service without encryption.
+We use Nginx to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": Nginx provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 
-* With user `admin`, update and upgrade the OS
+* With user `admin`, update and upgrade the OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install Ngnix. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* Install Nginx. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install nginx
@@ -268,7 +268,7 @@ sudo systemctl reload nginx
 ```
 
 {% hint style="info" %}
-You can monitor the Nginx logs by entering this command. Exit with Ctrl + C
+**(Optional)** You can monitor the Nginx logs by entering this command. Exit with `Ctrl + C`
 {% endhint %}
 
 ```bash
@@ -284,12 +284,12 @@ Jun 04 18:25:18 minibolt systemd[1]: Reloaded A high performance web server and 
 </code></pre>
 
 {% hint style="info" %}
-**(Optional)** You can monitor Nginx error logs by entering the next command. Exit with `Ctrl + C`
-{% endhint %}
+**(Optional)** You can monitor Nginx error logs by entering the following command. Exit with `Ctrl + C`
 
 ```bash
 sudo tail -f /var/log/nginx/error.log
 ```
+{% endhint %}
 
 ### Upgrade
 
@@ -303,7 +303,7 @@ sudo apt update && sudo apt upgrade
 
 * With the user `admin` stopping the`nginx.service`
 
-```purebasic
+```bash
 sudo systemctl stop nginx
 ```
 

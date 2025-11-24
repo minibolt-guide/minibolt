@@ -629,7 +629,7 @@ sudo systemctl restart cloudflared
 ```
 
 {% hint style="info" %}
-Try to access the newly created public access to the service by going to the `https://<subdomain>. <domain.com>`, i.e, `https://explorer.domain.com`
+Try to access the newly created public access to the service by going to the `https://<subdomain>.<domain.com>`, i.e, `https://explorer.domain.com`
 {% endhint %}
 
 ## Upgrade

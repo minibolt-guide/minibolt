@@ -99,8 +99,8 @@ bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-29.0/SHA256SUMS.ots) the checksum file
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-29.0/SHA256SUMS) its timestamp proof
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-30.0/SHA256SUMS.ots) the checksum file
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-30.0/SHA256SUMS) its timestamp proof
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
 * In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box
 * In the next box, drop or upload the `SHA256SUMS` file
@@ -539,7 +539,7 @@ UpdateTip: new best=000000000f8d29fcf9ac45e443706c6f21a6e9cfa615f94794b726d3ba8b
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-* This symbolic link becomes active **only in a new user session**. Log out from SSH by entering the next command
+* This symbolic link becomes active **only in a new user session**. Log out of SSH by entering the next command
 
 ```sh
 exit
@@ -560,7 +560,7 @@ Expected output:
 {% hint style="warning" %}
 **Troubleshooting note:**\
 \
-If you don't obtain the before-expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-5)[^5]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+If you don't obtain the expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-5)[^5]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
 1. With user `admin`, delete the failed created symbolic link
 
@@ -652,7 +652,7 @@ This process is called IBD (Initial Block Download). This can take between one d
 If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Core, and play around with `bitcoin-cli` it until the blockchain is up-to-date.
 
 * [The Little Bitcoin Book](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how."
-*   [Mastering Bitcoin](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part how to compile from source code):
+*   [Mastering Bitcoin](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part, how to compile from source code):
 
     * You definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
     * Read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
@@ -717,7 +717,11 @@ ots --version
 </strong></code></pre>
 
 {% hint style="info" %}
-To update the OpenTimestamps client, simply execute: `sudo pip3 install --upgrade opentimestamps-client`
+To update the OpenTimestamps client, simply execute:
+
+```bash
+sudo pip3 install --upgrade opentimestamps-client
+```
 {% endhint %}
 
 ## Extras (optional)
@@ -766,7 +770,7 @@ whitelist=bloomfilter@192.168.0.0/16
 ```
 {% endhint %}
 
-### Renovate your Bitcoin Core Tor and I2P addresses
+### Renovate your Bitcoin Core, Tor, and I2P addresses
 
 * With user `admin`, stop bitcoind and dependencies
 
@@ -838,7 +842,7 @@ Now come back to the section [Binaries installation](bitcoin-client.md#binaries-
 This extra section is valid if you compiled it from the source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
 {% endhint %}
 
-* Follow the complete [Installation progress before](bitcoin-client.md#installation), or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation) to install the `bitcoind` binary on the OS
+* Follow the complete [Installation progress before](bitcoin-client.md#installation), or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation), to install the `bitcoind` binary on the OS
 * With user `admin`, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you
 
 ```bash
@@ -860,7 +864,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=29.0
+VERSION=30.0
 ```
 
 * Clone the source code from GitHub and enter the bitcoin folder
@@ -941,9 +945,11 @@ You will need a **full-sync local MiniBolt node**
 
 * Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
 
+{% code overflow="wrap" %}
 ```sh
 sudo ufw allow 8333/tcp comment 'allow incoming connections to Bitcoin Core from anywhere'
 ```
+{% endcode %}
 
 #### Configure Bitcoin Core
 
@@ -1096,7 +1102,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=29.1
+VERSION=30.0
 ```
 
 * Download binary, checksum, signature files, and timestamp file
@@ -1202,7 +1208,7 @@ Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in 
 
 
 
--> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next step
+-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones, and continue to the next step
 {% endhint %}
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
