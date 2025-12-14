@@ -3,7 +3,7 @@ description: >-
   Build your own "DIY" Bitcoin & Lightning node, and other stuff on a personal
   computer. No need to trust anyone else.
 layout:
-  width: wide
+  width: default
   title:
     visible: true
   description:
