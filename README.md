@@ -2,6 +2,20 @@
 description: >-
   Build your own "DIY" Bitcoin & Lightning node, and other stuff on a personal
   computer. No need to trust anyone else.
+layout:
+  width: wide
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
 ---
 
 # MiniBolt
