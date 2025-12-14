@@ -21,11 +21,12 @@ layout:
 
 ### Requirements
 
-* Bitcoin Core
-* LND (optional)
+* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* [LND](../../lightning/lightning-client.md) (optional)
+* Electrum server ([Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md))
 * Others
-  * Node + NPM
-  * Rustup + Cargo
+  * [Node + NPM](../../bonus/system/nodejs-npm.md)
+  * [Rustup + Cargo](../system/rustup-+-cargo.md)
 
 ### Preparations
 
@@ -58,7 +59,7 @@ npm -v
 {% hint style="info" %}
 -> If the "`node -v"` output is **`>=20`** and the "`npm -v"` output is **`>=9`**, you can move to the next section.
 
--> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this Node + NPM bonus guide to install it
+-> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 #### Install Rustup + Cargo
@@ -88,7 +89,7 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" output, you need to follow the Rustup + Cargo bonus guide to install it and then come back to continue with the guide
+If you obtain "**command not found**" output, you need to follow the[ Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
 #### Install MariaDB
