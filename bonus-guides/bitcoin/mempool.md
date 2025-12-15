@@ -19,6 +19,8 @@ layout:
 
 [Mempool](https://mempool.space/) is the fully-featured mempool visualizer, explorer, and API service.
 
+<figure><img src="../../.gitbook/assets/mempool_logo.png" alt=""><figcaption></figcaption></figure>
+
 ### Requirements
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
@@ -871,13 +873,13 @@ abcdefg..............xyz.onion
 
 * UPDATE MEMPOOL
 
-$ sudo su - mempool&#x20;
+$ sudo su - mempool
 
-$ cd mempool&#x20;
+$ cd mempool
 
-$ git pull&#x20;
+$ git pull
 
-$ git checkout TAG&#x20;
+$ git checkout TAG
 
 $ git verify-tag TAG
 
