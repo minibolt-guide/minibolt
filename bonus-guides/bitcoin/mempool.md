@@ -19,7 +19,7 @@ layout:
 
 [Mempool](https://mempool.space/) is the fully-featured mempool visualizer, explorer, and API service.
 
-<figure><img src="../../.gitbook/assets/mempool_logo.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/mempool.png" alt=""><figcaption></figcaption></figure>
 
 ### Requirements
 
@@ -36,7 +36,7 @@ layout:
 
 * With the user `admin`, check the Node version
 
-```sh
+```bash
 node -v
 ```
 
@@ -48,7 +48,7 @@ v16.14.2
 
 * Check the NPM version
 
-```sh
+```bash
 npm -v
 ```
 
@@ -114,7 +114,7 @@ sudo mysql_secure_installation
 
 * Now, open the MariaDB shell.
 
-```sh
+```bash
 sudo mysql
 ```
 
@@ -195,7 +195,7 @@ gpg:               imported: 1
 * Download the source code directly from GitHub, select the latest release branch associated, and go to the `mempool` folder
 
 {% code overflow="wrap" %}
-```sh
+```bash
 git clone --branch v$VERSION https://github.com/mempool/mempool.git && cd mempool
 ```
 {% endcode %}
@@ -221,7 +221,7 @@ Primary key fingerprint: 913C 5FF1 F579 B66C A103  78DB A394 E332 255A 6173
 
 * Change to the backend directory
 
-```sh
+```bash
 cd backend
 ```
 
@@ -231,7 +231,7 @@ cd backend
 **Not to run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
-```sh
+```bash
 npm install
 ```
 
@@ -347,7 +347,7 @@ Run `npm audit` for details.
 
 * Build it
 
-```sh
+```bash
 npm run build
 ```
 
@@ -410,13 +410,13 @@ sudo chown mempool:mempool -R /home/mempool/mempool
 
 * Create the configuration file
 
-```sh
+```bash
 sudo nano /home/mempool/mempool/backend/mempool-config.json
 ```
 
 * Paste the following lines.
 
-```sh
+```
 {
   "MEMPOOL": {
     "NETWORK": "mainnet",
@@ -487,7 +487,7 @@ Replace **`Password[M]`** to your one, keeping quotes \[" "]
 
 * Restrict reading access to the configuration file by user "mempool" only.
 
-```sh
+```bash
 sudo chmod 600 /home/mempool/mempool/backend/mempool-config.json
 ```
 
@@ -501,7 +501,7 @@ sudo rm -r /tmp/mempool
 
 * As user `admin`, create the service file
 
-```sh
+```bash
 sudo nano /etc/systemd/system/mempool.service
 ```
 
@@ -573,17 +573,17 @@ PENDING
 
 * Change to the `mempool` user
 
-```sh
+```bash
 sudo su - mempool
 ```
 
 * Install the frontend (it will take several minutes)
 
-```sh
+```bash
 cd mempool/frontend
 ```
 
-```sh
+```bash
 npm install --prod
 ```
 
@@ -615,7 +615,7 @@ Run `npm audit` for details.
 
 </details>
 
-```sh
+```bash
 npm run build
 ```
 
@@ -635,7 +635,7 @@ npm run build
 
 * Exit to the `admin` user
 
-```sh
+```bash
 exit
 ```
 
@@ -645,19 +645,19 @@ We need to create an nginx web server for the mempool frontend website.
 
 * Install the output of the frontend build into the nginx webroot folder
 
-```sh
+```bash
 sudo rsync -av --delete /home/mempool/mempool/frontend/dist/mempool/ /var/www/mempool/
 ```
 
 * Change its ownership to the "www-data" user
 
-```sh
+```bash
 sudo chown -R www-data:www-data /var/www/mempool
 ```
 
 * Copy the config file dedicated to the Mempool website in the nginx `snippets` directory
 
-```sh
+```bash
 sudo rsync -av /home/mempool/mempool/nginx-mempool.conf /etc/nginx/snippets
 ```
 
@@ -667,13 +667,13 @@ In the security section, we set up Nginx only as a reverse proxy. For mempool we
 
 * Edit the nginx configuration file
 
-```sh
+```bash
 sudo nano +17 -l /etc/nginx/nginx.conf
 ```
 
 * Add this 2 lines under the line `17 "include /etc/nginx/sites-enabled/*.conf;"`.
 
-```sh
+```nginx
 include /etc/nginx/mime.types;
 default_type application/octet-stream;
 ```
@@ -684,7 +684,7 @@ Watch your indentation! To see the differences between the two configurations mo
 
 * With user `admin`, create the mempool configuration
 
-```sh
+```bash
 sudo nano /etc/nginx/sites-available/mempool-reverse-proxy.conf
 ```
 
@@ -781,7 +781,7 @@ sudo ln -s /etc/nginx/sites-available/mempool-reverse-proxy.conf /etc/nginx/site
 
 * Test Nginx configuration
 
-```sh
+```bash
 sudo nginx -t
 ```
 
@@ -800,7 +800,7 @@ sudo systemctl reload nginx
 
 * Configure the firewall to allow incoming HTTP requests from anywhere to the web server
 
-```sh
+```bash
 sudo ufw allow 4081/tcp comment 'allow Mempool Space SSL from anywhere'
 ```
 
@@ -835,7 +835,7 @@ Congrat&#x73;**!** You now have Mempool up and running
 
 * With the user `admin`, edit the `torrc` file
 
-```sh
+```bash
 sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
@@ -851,13 +851,13 @@ HiddenServicePort 443 127.0.0.1:4081
 
 * Reload Tor to apply changes
 
-```sh
+```bash
 sudo systemctl reload tor
 ```
 
 * Get your Onion address
 
-```sh
+```bash
 sudo cat /var/lib/tor/hidden_service_mempool/hostname
 ```
 
@@ -899,19 +899,19 @@ $ sudo systemctl restart nginx.service
 
 * Ensure you are logged in as the user `admin`, stop mempool
 
-```sh
+```bash
 sudo systemctl stop mempool
 ```
 
 * Disable autoboot (if enabled)
 
-```sh
+```bash
 sudo systemctl disable mempool
 ```
 
 * Delete the service
 
-```sh
+```bash
 sudo rm /etc/systemd/system/mempool.service
 ```
 
@@ -919,7 +919,7 @@ sudo rm /etc/systemd/system/mempool.service
 
 * Delete the mempool user.
 
-```sh
+```bash
 sudo userdel -rf mempool
 ```
 
@@ -927,13 +927,13 @@ sudo userdel -rf mempool
 
 * Stop the service.
 
-```sh
+```bash
 sudo service mysql stop
 ```
 
 * Uninstall MariaDB. When prompted, check the packages that will be removed and type “Y” and “Enter”. A blue window will pop up asking if we want to remove all MariaDB databases, select `<Yes>`.
 
-```sh
+```bash
 sudo apt-get --purge remove "mysql*"
 ```
 
@@ -941,7 +941,7 @@ sudo apt-get --purge remove "mysql*"
 
 * Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
-```sh
+```bash
 sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
@@ -955,7 +955,7 @@ HiddenServicePort 80 127.0.0.1:4081
 
 * Reload the torrc config
 
-```sh
+```bash
 sudo systemctl reload tor
 ```
 
@@ -963,7 +963,7 @@ sudo systemctl reload tor
 
 * Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the number of the rule for AlbyHub (e.g., X below)
 
-```sh
+```bash
 sudo ufw status numbered
 ```
 
@@ -975,7 +975,7 @@ Expected output:
 
 * Delete the rule with the correct number and confirm with "`yes`"
 
-```sh
+```bash
 sudo ufw delete X
 ```
 
