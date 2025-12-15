@@ -24,7 +24,8 @@ layout:
 ## Requirements
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
-* [LND](../../lightning/lightning-client.md)
+* [LND](../../lightning/lightning-client.md) 
+If you prefer, you can use Alby Hub’s built-in Lightning node (LDK) for a more resource-efficient setup with full channel backup support.
 
 ## Preparations
 
