@@ -107,7 +107,26 @@ sudo apt update && sudo apt install mariadb-server mariadb-client -y
 * Secure MariaDB installation:
 
 ```bash
-sudo mysql_secure_installation
+sudo mariadb-secure-installation
+```
+
+{% hint style="warning" %}
+* When the prompt asks you to enter the current password for root, press **enter,**
+* When the prompt asks if  you want to switch to unix\_socket authentication, type "n" and press **enter,**
+* When the prompt asks if  you want to change the root password, type "n" and press **enter,**
+* When the prompt asks if  you want to remove anonymous users, type "y" and press **enter,**
+* When the prompt asks if  you want to disallow root login remotely, type "y" and press **enter,**
+* When the prompt asks if  you want to remove test database and access to it, type "y" and press **enter,**
+* When the prompt asks if  you want to reload privilege tables now type "y" and press **enter.**
+{% endhint %}
+
+Expected output:
+
+```
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
 ```
 
 **Create MariaDB database**
