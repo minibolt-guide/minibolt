@@ -203,7 +203,7 @@ dic 17 07:57:04 minibolt mariadbd[2527466]: Version: '12.2.1-MariaDB-ubu2204'  s
 
 ## Upgrade
 
-The latest release can be found on the [official PostgreSQL web page](https://www.postgresql.org/ftp/source/).
+The latest release can be found on the [official MariaDB web page](https://mariadb.org/download/).
 
 * To upgrade, type this command. Press "y" and enter, or directly enter when the prompt asks you
 
@@ -216,3 +216,57 @@ sudo apt update && sudo apt full-upgrade
 ```bash
 sudo systemctl daemon-reload
 ```
+
+## Uninstall
+
+### Uninstall the MariaDB package and configuration
+
+* With user `admin`, stop and disable the MariaDB service
+
+```bash
+sudo systemctl stop mariadb && sudo systemctl disable mariadb
+```
+
+* Uninstall MariaDB using the apt package manager
+
+```bash
+sudo apt remove mariadb-* --purge
+```
+
+* Uninstall possible unnecessary dependencies
+
+```bash
+sudo apt autoremove
+```
+
+* Delete configuration files and data
+
+{% code overflow="wrap" %}
+```bash
+sudo rm -rf /etc/mysql/ && sudo rm -rf /var/lib/mysql/ && sudo rm -rf /var/log/mysql/ && sudo rm -rf /usr/lib/mysql/ && sudo rm -rf /usr/share/mysql/
+```
+{% endcode %}
+
+### Uninstall MySQL user
+
+* Delete the mysql user. Don't worry about `userdel: bitcoind mail spool (/var/mail/bitcoind) not found` output, the uninstall has been successful
+
+```bash
+sudo userdel -rf mysql
+```
+
+* Delete mysql group
+
+```bash
+sudo groupdel mysql
+```
+
+* Delete the complete `mariadb` directory
+
+```bash
+sudo rm -rf /data/mariadb
+```
+
+## Port reference
+
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="cJHzxcH6LkT8" label="TCP" color="blue"></option><option value="dS4cpQA3v9DQ" label="SSL" color="blue"></option><option value="gBPUaCLnXFI8" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3306</td><td><span data-option="cJHzxcH6LkT8">TCP</span></td><td align="center">Default relational DB port</td></tr></tbody></table>
