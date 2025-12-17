@@ -1,6 +1,6 @@
 # MariaDB
 
-[MariaDB](https://mariadb.org/) Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.
+[MariaDB Server](https://mariadb.org/) is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -104,13 +104,13 @@ sudo mariadb-secure-installation
 ```
 
 {% hint style="warning" %}
-* When the prompt asks you to enter the current password for root, press **enter,**
-* When the prompt asks if  you want to switch to unix\_socket authentication, type "n" and press **enter,**
-* When the prompt asks if  you want to change the root password, type "n" and press **enter,**
-* When the prompt asks if  you want to remove anonymous users, type "y" and press **enter,**
-* When the prompt asks if  you want to disallow root login remotely, type "y" and press **enter,**
-* When the prompt asks if  you want to remove test database and access to it, type "y" and press **enter,**
-* When the prompt asks if  you want to reload privilege tables now type "y" and press **enter.**
+* When the prompt asks you to enter the current password for root, press **`enter`,**
+* When the prompt asks if  you want to switch to unix\_socket authentication, type `"n"` and press **`enter`,**
+* When the prompt asks if  you want to change the root password, type `"n"` and press **`enter`,**
+* When the prompt asks if  you want to remove anonymous users, type `"y"` and press **`enter`,**
+* When the prompt asks if  you want to disallow root login remotely, type `"y"` and press **`enter`,**
+* When the prompt asks if  you want to remove test database and access to it, type `"y"` and press **`enter`,**
+* When the prompt asks if  you want to reload privilege tables now type `"y"` and press **`enter`.**
 {% endhint %}
 
 Expected output:
@@ -124,18 +124,18 @@ Thanks for using MariaDB!
 
 ### Create data folder
 
-* Create the dedicated PostgreSQL data folder
+* Create the dedicated MariaDB data folder
 
 ```bash
 sudo mkdir -p /data/mariadb
 ```
 
-* Assign the owner to the `mariadb` user
+* Assign the owner to the `mysql` user
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chown -R mysql:mysql /data/mariadb
 </strong></code></pre>
 
-* Assign permissions of the data folder only to the `mariadb` user
+* Assign permissions of the data folder only to the `mysql` user
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chmod -R 700 /data/mariadb
 </strong></code></pre>
@@ -205,7 +205,7 @@ dic 17 07:57:04 minibolt mariadbd[2527466]: Version: '12.2.1-MariaDB-ubu2204'  s
 
 The latest release can be found on the [official MariaDB web page](https://mariadb.org/download/).
 
-* To upgrade, type this command. Press "y" and enter, or directly enter when the prompt asks you
+* To upgrade, type this command. Press `"y"` and `enter`, or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
@@ -249,7 +249,7 @@ sudo rm -rf /etc/mysql/ && sudo rm -rf /var/lib/mysql/ && sudo rm -rf /var/log/m
 
 ### Uninstall MySQL user
 
-* Delete the mysql user. Don't worry about `userdel: bitcoind mail spool (/var/mail/bitcoind) not found` output, the uninstall has been successful
+* Delete the `mysql` user. Don't worry about `userdel: bitcoind mail spool (/var/mail/bitcoind) not found` output, the uninstall has been successful
 
 ```bash
 sudo userdel -rf mysql
