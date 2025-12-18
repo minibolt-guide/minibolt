@@ -17,7 +17,7 @@ layout:
 
 # Public Pool
 
-[Public Pool](https://web.public-pool.io/#/) is a NestJS and Typescript Bitcoin stratum mining server. It allows you to mine in "solo" mode from your node.&#x20;
+[Public Pool](https://web.public-pool.io/#/) is a NestJS and Typescript Bitcoin stratum mining server. It provides a lightweight and easy to use web interface to accomplish just that, a solo mining pool.&#x20;
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -27,7 +27,7 @@ Difficulty: Medium
 
 ## Requirements
 
-* [Bitcoin Core](/broken/pages/La68nqdFHcLClXjzzF79)
+* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 
 
 
@@ -35,7 +35,7 @@ Difficulty: Medium
 
 ### Check Node + NPM
 
-Node + NPM should have been installed for the [BTC RPC Explorer](/broken/pages/sf4jiMdPzgnmlGi8RBZG).
+Node + NPM should have been installed for the [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md).
 
 * With the user `admin`, check the Node version
 
@@ -64,12 +64,12 @@ npm -v
 {% hint style="info" %}
 -> If the "`node -v"` output is **`>=18`**, you can move to the next section.
 
--> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](/broken/pages/QuvDDkH2ILRopYyr15j1) to install it
+-> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 ### Reverse proxy & Firewall
 
-In the security [section](/broken/pages/trr9TdANYedtzZc8iokv#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the Public Pool configuration.
+In the [security section](../../index-1/security.md), we set up Nginx as a reverse proxy. Now we can add the Public Pool configuration.
 
 Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to Public Pool. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
@@ -155,3 +155,200 @@ sudo adduser --disabled-password --gecos "" public-pool
 ```sh
 sudo adduser public-pool bitcoin
 ```
+
+### Install the backend
+
+* Still with user `admin` , change to a temporary directory, which is cleared on reboot
+
+```sh
+cd /tmp
+```
+
+* Download the source code directly from GitHub and change to the public pool folder
+
+{% code overflow="wrap" %}
+```sh
+git clone https://github.com/benjamin-wilson/public-pool.git && cd public-pool
+```
+{% endcode %}
+
+* Install all dependencies and the necessary modules using NPM
+
+{% hint style="warning" %}
+**Not to run** the `npm audit fix` command, which could break the original code!!
+{% endhint %}
+
+```sh
+npm ci
+```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+added 988 packages, and audited 989 packages in 26s
+
+153 packages are looking for funding
+  run `npm fund` for details
+
+52 vulnerabilities (9 low, 20 moderate, 17 high, 6 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues possible (including breaking changes), run:
+  npm audit fix --force
+
+Some issues need review, and may require choosing
+a different dependency.
+
+Run `npm audit` for details.
+```
+
+</details>
+
+* Build it
+
+```sh
+npm run build
+```
+
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
+```
+> public-pool@0.0.1 build
+> nest build
+```
+
+</details>
+
+* Create the folder for the executable
+
+```sh
+mkdir -p dist/bin
+```
+
+* Create a new `cli.sh` file
+
+```sh
+nano dist/bin/cli.sh
+```
+
+* Copy and paste the following information
+
+```yaml
+#!/bin/sh
+node "$@" /var/lib/public-pool/main
+```
+
+* Make the file executable
+
+```yaml
+chmod +x dist/bin/cli.sh
+```
+
+* Copy the necessary files into the system
+
+```yaml
+sudo mv -f /tmp/public-pool/dist /var/lib/public-pool && sudo cp -R node_modules /var/lib/public-pool
+```
+
+* Create the corresponding symbolic links
+
+```yaml
+sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s ../lib/node_modules/public-pool/bin/cli.sh /usr/bin/public-pool
+```
+
+### Install the frontend
+
+* Still with user `admin` , change the root of the temporary directory again
+
+```sh
+cd /tmp
+```
+
+* Download the source code directly from GitHub and change to the public pool ui folder
+
+{% code overflow="wrap" %}
+```sh
+git clone https://github.com/benjamin-wilson/public-pool-ui.git && cd public-pool-ui
+```
+{% endcode %}
+
+* Install all dependencies and the necessary modules using NPM
+
+{% hint style="warning" %}
+**Not to run** the `npm audit fix` command, which could break the original code!!
+{% endhint %}
+
+```sh
+npm ci
+```
+
+<details>
+
+<summary>Example of expected output ⬇️</summary>
+
+```
+added 1098 packages, and audited 1099 packages in 21s
+
+182 packages are looking for funding
+  run `npm fund` for details
+
+44 vulnerabilities (14 low, 10 moderate, 20 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+```
+
+</details>
+
+* Edit this configuration file
+
+```sh
+nano src/environments/environment.prod.ts
+```
+
+* Replace its content with the following lines, save and exit.
+
+```sh
+let path = window.location.origin + window.location.pathname;
+path = path.endsWith('/') ? path.slice(0, -1) : path;
+let stratumUrl = path.replace(/(^\w+:|^)\/\//, '').replace(/:\d+/, '');
+
+export const environment = {
+    production: true,
+    API_URL: path,
+    STRATUM_URL: stratumUrl + ':23333'
+};
+```
+
+* Build it
+
+```sh
+npm run build
+```
+
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
+```
+Build at: 2025-12-18T07:48:04.184Z - Hash: 6d3320fb7df1ad12 - Time: 46597ms
+
+Warning: /tmp/public-pool-ui/node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.esm.js depends on 'moment'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+
+gzipper: 318 files have been compressed. (18s 289.411892ms)
+```
+
+</details>
