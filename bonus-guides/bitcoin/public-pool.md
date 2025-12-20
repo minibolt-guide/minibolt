@@ -286,7 +286,7 @@ sudo mv -f /tmp/public-pool/dist /var/lib/public-pool && sudo cp -R node_modules
 * Create the corresponding symbolic links
 
 ```yaml
-sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s /usr/lib/node_modules/public-pool/dist/bin/cli.sh /usr/bin/public-pool
+sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s /usr/lib/node_modules/public-pool/bin/cli.sh /usr/bin/public-pool
 ```
 
 ### Install the frontend
