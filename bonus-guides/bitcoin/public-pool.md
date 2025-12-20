@@ -71,6 +71,23 @@ npm -v
 
 In the [security section](../../index-1/security.md), we set up Nginx as a reverse proxy. Now we can add the Public Pool configuration.
 
+* Check your nginx configuration file
+
+```bash
+sudo nano +17 -l /etc/nginx/nginx.conf
+```
+
+* Check that you have these two lines below line `17 "include /etc/nginx/sites-enabled/*.conf;"` If not, add them, save, and exit.
+
+```nginx
+include /etc/nginx/mime.types;
+default_type application/octet-stream;
+```
+
+{% hint style="info" %}
+Watch your indentation! To see the differences between the two configurations more clearly, check this [diff](https://www.diffchecker.com/7ksp6t5T/).
+{% endhint %}
+
 Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to Public Pool. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
 * With user `admin`, create the reverse proxy configuration
@@ -138,23 +155,42 @@ sudo ufw allow 4040/tcp comment 'Allow Public Pool UI SSL from anywhere'
 sudo ufw allow 23333/tcp comment 'Allow Public Pool Stratum from anywhere'
 ```
 
+### Configure Bitcoin Core
+
+We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
+
+* Edit `bitcoin.conf` file
+
+```sh
+sudo nano /data/bitcoin/bitcoin.conf
+```
+
+* Add the following lines to the `"# Connections"` section. Save and exit
+
+```
+## Enable ZMQ real time raw block publishing (for Public Pool)
+zmqpubrawblock=tcp://127.0.0.1:28332
+```
+
+* Restart Bitcoin Core to apply changes
+
+```sh
+sudo systemctl restart bitcoind
+```
+
+* Check if Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port and `zmqpubhashtx` on the `9332` port
+
+```bash
+sudo ss -tulpn | grep -E '(:28332)'
+```
+
+Expected output:
+
+```
+tcp   LISTEN 0      100        127.0.0.1:28332      0.0.0.0:*    users:(("bitcoind",pid=805382,fd=23))
+```
+
 ## Installation
-
-### Create the public-pool user & group
-
-We do not want to run Public Pool code alongside `bitcoind` because of security reasons. For that, we will create a separate user and run the code as the new user.
-
-* Create a new `public-pool` user and group
-
-```sh
-sudo adduser --disabled-password --gecos "" public-pool
-```
-
-* Add `public-pool` user to the `bitcoin` group to allow the user `public-pool` reading the `.cookie` file
-
-```sh
-sudo adduser public-pool bitcoin
-```
 
 ### Install the backend
 
@@ -259,7 +295,7 @@ sudo mv -f /tmp/public-pool/dist /var/lib/public-pool && sudo cp -R node_modules
 * Create the corresponding symbolic links
 
 ```yaml
-sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s ../lib/node_modules/public-pool/bin/cli.sh /usr/bin/public-pool
+sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s /usr/lib/node_modules/public-pool/dist/bin/cli.sh /usr/bin/public-pool
 ```
 
 ### Install the frontend
@@ -352,3 +388,182 @@ gzipper: 318 files have been compressed. (18s 289.411892ms)
 ```
 
 </details>
+
+* Move the required files to the nginx server directory
+
+```sh
+sudo mv -f dist/public-pool-ui /var/www/
+```
+
+* **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation
+
+{% code overflow="wrap" %}
+```bash
+cd && sudo rm -rf /tmp/public-pool*
+```
+{% endcode %}
+
+### Create the public-pool user & group
+
+We do not want to run Public Pool code alongside `bitcoind` because of security reasons. For that, we will create a separate user and run the code as the new user.
+
+* Create a new `public-pool` user and group
+
+```sh
+sudo adduser --disabled-password --gecos "" public-pool
+```
+
+* Add `public-pool` user to the `bitcoin` group to allow the user `public-pool` reading the `.cookie` file
+
+```sh
+sudo adduser public-pool bitcoin
+```
+
+## Configuration
+
+* Change to the `public-pool` user
+
+```sh
+sudo su - public-pool
+```
+
+* Create the Public Pool configuration file
+
+```sh
+nano public-pool.env
+```
+
+* Paste the following content. Save and exit
+
+```sh
+# MiniBolt: Public Pool  configuration
+# /home/public-pool/public-pool.env
+
+## Bitcoin Core settings
+BITCOIN_RPC_URL=http://127.0.0.1
+BITCOIN_RPC_PORT=8332
+BITCOIN_RPC_COOKIEFILE="/data/bitcoin/.cookie"
+BITCOIN_ZMQ_HOST="tcp://127.0.0.1:28332"
+
+## Public Pool  general settings
+API_PORT=23334
+STRATUM_PORT=23333
+
+POOL_IDENTIFIER="Minibolt"
+```
+
+* Exit of the `public-pool` user session to return to the `admin` user session
+
+```sh
+exit
+```
+
+### Create systemd service
+
+Now, let's configure Public Pool to start automatically on system startup.
+
+* As user `admin`, create Public Pool systemd unit
+
+```sh
+sudo nano /etc/systemd/system/public-pool.service
+```
+
+* Enter the following content. Save and exit
+
+```
+# MiniBolt: systemd unit for Public Pool
+# /etc/systemd/system/public-pool.service
+
+[Unit]
+Description=Public-Pool
+Requires=bitcoind.service
+After=bitcoind.service
+
+StartLimitBurst=2
+StartLimitIntervalSec=20
+
+[Service]
+WorkingDirectory=/home/public-pool/
+ExecStart=/usr/bin/public-pool --env-file=/home/public-pool/public-pool.env
+EnvironmentFile=/home/public-pool/public-pool.env
+
+User=public-pool
+Group=public-pool
+
+# Process management
+####################
+Type=simple
+KillSignal=SIGINT
+TimeoutStopSec=300
+
+[Install]
+WantedBy=multi-user.target
+```
+
+* Enable autoboot **(optional)**
+
+```sh
+sudo systemctl enable public-pool
+```
+
+* Now, the daemon information is no longer displayed on the command line but is written into the system journal. You can check on it using the following command. You can exit monitoring at any time with `Ctrl-C`
+
+```sh
+journalctl -fu public-pool
+```
+
+## Run
+
+To keep an eye on the software movements, [start your SSH program](/broken/pages/vu3zbXeH6ypg3BYajFIc#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+
+* Start the service
+
+```sh
+sudo systemctl start public-pool
+```
+
+<details>
+
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu lnd</code> ⬇️</summary>
+
+```
+dic 20 06:51:17 minibolt public-pool[808891]: [Nest] 808891  - 20/12/2025, 6:51:17     LOG [RouterExplorer] Mapped {/api/address/settings, PATCH} route +1ms
+dic 20 06:51:17 minibolt public-pool[808891]: [Nest] 808891  - 20/12/2025, 6:51:17     LOG [RoutesResolver] ExternalShareController {/api/share}: +0ms
+dic 20 06:51:17 minibolt public-pool[808891]: [Nest] 808891  - 20/12/2025, 6:51:17     LOG [RouterExplorer] Mapped {/api/share/top-difficulties, GET} route +0ms
+dic 20 06:51:17 minibolt public-pool[808891]: [Nest] 808891  - 20/12/2025, 6:51:17     LOG [RouterExplorer] Mapped {/api/share, POST} route +1ms
+dic 20 06:51:17 minibolt public-pool[808891]: Using ZMQ
+dic 20 06:51:17 minibolt public-pool[808891]: ZMQ Connected
+dic 20 06:51:17 minibolt public-pool[808891]: Bitcoin RPC connected
+dic 20 06:51:17 minibolt public-pool[808891]: block height change
+dic 20 06:51:17 minibolt public-pool[808891]: [Nest] 808891  - 20/12/2025, 6:51:17     LOG [NestApplication] Nest application successfully started +26ms
+dic 20 06:51:17 minibolt public-pool[808891]: API listening on http://0.0.0.0:23334
+dic 20 06:51:27 minibolt public-pool[808891]: Stratum server is listening on port 23333
+
+```
+
+</details>
+
+#### Validation
+
+* Ensure the service is working and listening on the stratum `23333` port and the API `23334` port
+
+```shellscript
+sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:23333|:23334)'
+```
+
+Expected output:
+
+```
+tcp   LISTEN 0      511          0.0.0.0:23334      0.0.0.0:*    users:(("node",pid=808891,fd=36))                                                                                                          
+tcp   LISTEN 0      511                *:23333            *:*    users:(("node",pid=808891,fd=34))
+```
+
+{% hint style="info" %}
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., `https://yournode.com`) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Public Pool web interface
+
+> Now point your browser to `https://minibolt.local:4040` or the IP address (e.g. `https://192.168.x.xxx:4040`). You should see the home page of Public Pool
+{% endhint %}
+
+{% hint style="success" %}
+Congrat&#x73;**!** You now have Public Pool up and running
+{% endhint %}
