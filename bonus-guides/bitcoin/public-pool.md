@@ -143,8 +143,7 @@ sudo systemctl reload nginx
 * Configure the firewall to allow incoming HTTP requests from anywhere to the web and stratum servers
 
 ```sh
-sudo ufw allow 4040/tcp comment 'Allow Public Pool UI SSL from anywhere'
-sudo ufw allow 23333/tcp comment 'Allow Public Pool Stratum from anywhere'
+sudo ufw allow 4040/tcp comment 'Allow Public Pool UI SSL from anywhere' && sudo ufw allow 23333/tcp comment 'Allow Public Pool Stratum from anywhere'
 ```
 
 ### Configure Bitcoin Core
