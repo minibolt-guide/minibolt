@@ -614,15 +614,13 @@ journalctl -fu public-pool
 **Example** of expected output:
 
 ```
-[...]
-dic 20 06:51:17 minibolt public-pool[808891]: Using ZMQ
-dic 20 06:51:17 minibolt public-pool[808891]: ZMQ Connected
-dic 20 06:51:17 minibolt public-pool[808891]: Bitcoin RPC connected
-dic 20 06:51:17 minibolt public-pool[808891]: block height change
-dic 20 06:51:17 minibolt public-pool[808891]: [Nest] 808891  - 20/12/2025, 6:51:17     LOG [NestApplication] Nest application successfully started +26ms
-dic 20 06:51:17 minibolt public-pool[808891]: API listening on http://0.0.0.0:23334
-dic 20 06:51:27 minibolt public-pool[808891]: Stratum server is listening on port 23333
-[...]
+dic 20 16:49:40 minibolt public-pool[97483]: Using ZMQ
+dic 20 16:49:40 minibolt public-pool[97483]: ZMQ Connected
+dic 20 16:49:40 minibolt public-pool[97483]: Bitcoin RPC connected
+dic 20 16:49:40 minibolt public-pool[97483]: block height change
+dic 20 16:49:40 minibolt public-pool[97483]: [Nest] 97483  - 20/12/2025, 16:49:40     LOG [NestApplication] Nest application successfully started +29ms
+dic 20 16:49:40 minibolt public-pool[97483]: API listening on http://0.0.0.0:23334
+dic 20 16:49:50 minibolt public-pool[97483]: Stratum server is listening on port 23333
 ```
 
 ## Uninstall
