@@ -540,9 +540,9 @@ sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4040|:23333|:23334)'
 Expected output:
 
 ```
-tcp   LISTEN 0      511          0.0.0.0:23334      0.0.0.0:*    users:(("node",pid=808891,fd=36))                                                                                                          
-tcp   LISTEN 0      511                *:23333            *:*    users:(("node",pid=808891,fd=34))
-tcp   LISTEN 0      511          0.0.0.0:4040       0.0.0.0:*    users:(("nginx",pid=530968,fd=19))
+tcp   LISTEN 0      511          0.0.0.0:4040       0.0.0.0:*    users:(("nginx",pid=86475,fd=22),("nginx",pid=86474,fd=22),("nginx",pid=86473,fd=22),("nginx",pid=86472,fd=22),("nginx",pid=809,fd=22))
+tcp   LISTEN 0      511          0.0.0.0:23334      0.0.0.0:*    users:(("node",pid=97483,fd=36))                                                                                                       
+tcp   LISTEN 0      511                *:23333            *:*    users:(("node",pid=97483,fd=34))
 ```
 
 {% hint style="info" %}
