@@ -506,7 +506,7 @@ journalctl -fu public-pool
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](/broken/pages/vu3zbXeH6ypg3BYajFIc#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
@@ -537,10 +537,10 @@ dic 20 06:51:27 minibolt public-pool[808891]: Stratum server is listening on por
 
 #### Validation
 
-* Ensure the service is working and listening on the stratum `23333` port and the API `23334` port
+* Ensure the service is working and listening on the SSL `4040` port, stratum `23333` port and the API `23334` port
 
 ```shellscript
-sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:23333|:23334)'
+sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4040|:23333|:23334)'
 ```
 
 Expected output:
@@ -548,11 +548,12 @@ Expected output:
 ```
 tcp   LISTEN 0      511          0.0.0.0:23334      0.0.0.0:*    users:(("node",pid=808891,fd=36))                                                                                                          
 tcp   LISTEN 0      511                *:23333            *:*    users:(("node",pid=808891,fd=34))
+tcp   LISTEN 0      511          0.0.0.0:4040       0.0.0.0:*    users:(("nginx",pid=530968,fd=19))
 ```
 
 {% hint style="info" %}
-> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., `https://yournode.com`) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Public Pool web interface
-
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Public Pool web interface
+>
 > Now point your browser to `https://minibolt.local:4040` or the IP address (e.g. `https://192.168.x.xxx:4040`). You should see the home page of Public Pool
 {% endhint %}
 
@@ -602,7 +603,7 @@ abcdefg..............xyz.onion
 
 ## Upgrade
 
-Follow the complete [Installation section](public-pool.md#installation) until the [Create the public-pool user and group](public-pool.md#binaries-installation) (NOT included).
+Follow the complete [Installation section](public-pool.md#installation) until the [Create the public-pool user and group](public-pool.md#create-the-public-pool-user-and-group) (NOT included).
 
 * Restart the service to apply the changes
 
@@ -752,7 +753,7 @@ Expected output:
 
 ```shellscript
 sudo ufw delete X
-sudo ufw delete X
+sudo ufw delete Y
 ```
 
 ### Port reference
