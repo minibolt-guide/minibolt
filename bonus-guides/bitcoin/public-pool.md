@@ -29,8 +29,6 @@ Difficulty: Medium
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 
-
-
 ## Preparations
 
 ### Check Node + NPM
@@ -61,23 +59,17 @@ npm -v
 8.19.3
 ```
 
-{% hint style="info" %}
--> If the "`node -v"` output is **`>=18`**, you can move to the next section.
-
--> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
-{% endhint %}
-
 ### Reverse proxy & Firewall
 
 In the [security section](../../index-1/security.md), we set up Nginx as a reverse proxy. Now we can add the Public Pool configuration.
 
-* Check your nginx configuration file
+* Check your Nginx configuration file
 
 ```bash
 sudo nano +17 -l /etc/nginx/nginx.conf
 ```
 
-* Check that you have these two lines below line `17 "include /etc/nginx/sites-enabled/*.conf;"` If not, add them, save, and exit.
+* Check that you have these two lines below the line `17 "include /etc/nginx/sites-enabled/*.conf;"` If not, add them, save, and exit.
 
 ```nginx
 include /etc/nginx/mime.types;
@@ -142,7 +134,7 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-* Reload the NGINX configuration to apply changes
+* Reload the Nginx configuration to apply changes
 
 ```bash
 sudo systemctl reload nginx
@@ -178,7 +170,7 @@ zmqpubrawblock=tcp://127.0.0.1:28332
 sudo systemctl restart bitcoind
 ```
 
-* Check if Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port and `zmqpubhashtx` on the `9332` port
+* Check if Bitcoin Core has enabled `zmqpubrawblock` on the `28322` port
 
 ```bash
 sudo ss -tulpn | grep -E '(:28332)'
@@ -200,7 +192,7 @@ tcp   LISTEN 0      100        127.0.0.1:28332      0.0.0.0:*    users:(("bitcoi
 cd /tmp
 ```
 
-* Download the source code directly from GitHub and change to the public pool folder
+* Download the source code directly from GitHub and change to the Public Pool folder
 
 {% code overflow="wrap" %}
 ```sh
@@ -306,7 +298,7 @@ sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s 
 cd /tmp
 ```
 
-* Download the source code directly from GitHub and change to the public pool ui folder
+* Download the source code directly from GitHub and change to the Public Pool UI folder
 
 {% code overflow="wrap" %}
 ```sh
@@ -567,3 +559,202 @@ tcp   LISTEN 0      511                *:23333            *:*    users:(("node",
 {% hint style="success" %}
 Congrat&#x73;**!** You now have Public Pool up and running
 {% endhint %}
+
+## Extras (optional)
+
+### Remote access over Tor
+
+* With the user `admin`, edit the `torrc` file
+
+```shellscript
+sudo nano +63 /etc/tor/torrc --linenumbers
+```
+
+* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`". Save and exit
+
+```
+# Hidden Service Public Pool
+HiddenServiceDir /var/lib/tor/hidden_service_public-pool/
+HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
+HiddenServicePort 443 127.0.0.1:4040
+```
+
+* Reload Tor to apply changes
+
+```shellscript
+sudo systemctl reload tor
+```
+
+* Get your Onion address
+
+```shellscript
+sudo cat /var/lib/tor/hidden_service_public-pool/hostname
+```
+
+Expected output:
+
+```
+abcdefg..............xyz.onion
+```
+
+* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
+
+## Upgrade
+
+Follow the complete [Installation section](public-pool.md#installation) until the [Create the public-pool user and group](public-pool.md#binaries-installation) (NOT included).
+
+* Restart the service to apply the changes
+
+```shellscript
+sudo systemctl restart public-pool
+```
+
+* Check the logs, and pay attention to the next log
+
+```shellscript
+journalctl -fu public-pool
+```
+
+**Example** of expected output:
+
+```
+[...]
+dic 20 06:51:17 minibolt public-pool[808891]: Using ZMQ
+dic 20 06:51:17 minibolt public-pool[808891]: ZMQ Connected
+dic 20 06:51:17 minibolt public-pool[808891]: Bitcoin RPC connected
+dic 20 06:51:17 minibolt public-pool[808891]: block height change
+dic 20 06:51:17 minibolt public-pool[808891]: [Nest] 808891  - 20/12/2025, 6:51:17     LOG [NestApplication] Nest application successfully started +26ms
+dic 20 06:51:17 minibolt public-pool[808891]: API listening on http://0.0.0.0:23334
+dic 20 06:51:27 minibolt public-pool[808891]: Stratum server is listening on port 23333
+[...]
+```
+
+## Uninstall
+
+### Uninstall service
+
+* Ensure you are logged in as the user `admin`, stop Pubic Pool
+
+```shellscript
+sudo systemctl stop public-pool
+```
+
+* Disable autoboot (if enabled)
+
+```shellscript
+sudo systemctl disable public-pool
+```
+
+* Delete the service
+
+```shellscript
+sudo rm /etc/systemd/system/public-pool.service
+```
+
+### Delete user & group
+
+* Delete the `public-pool` user.
+
+```shellscript
+sudo userdel -rf public-pool
+```
+
+### Delete all Public Pool files
+
+* Remove the corresponding symbolic links
+
+```yaml
+sudo rm /usr/lib/node_modules/public-pool && sudo rm /usr/bin/public-pool
+```
+
+* Delete the nginx server files.
+
+```shellscript
+sudo rm -rf /var/www/public-pool-ui
+```
+
+* Delete the rest of public pool files.
+
+```shellscript
+sudo rm -rf /var/lib/public-pool && sudo rm /usr/bin/public-pool
+```
+
+### Uninstall Tor hidden service
+
+* Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+
+```shellscript
+sudo nano +63 /etc/tor/torrc --linenumbers
+```
+
+```
+# Hidden Service Public Pool
+HiddenServiceDir /var/lib/tor/hidden_service_public-pool/
+HiddenServiceVersion 3
+HiddenServicePoWDefensesEnabled 1
+HiddenServicePort 443 127.0.0.1:4040
+```
+
+* Reload the torrc config
+
+```shellscript
+sudo systemctl reload tor
+```
+
+### Uninstall reverse proxy & FW configuration
+
+* Ensure you are logged in as the user `admin`, delete the reverse proxy config file
+
+```bash
+sudo rm /etc/nginx/sites-available/public-pool-reverse-proxy.conf
+```
+
+* Delete the symbolic link
+
+```bash
+sudo rm /etc/nginx/sites-enabled/public-pool-reverse-proxy.conf
+```
+
+* Test Nginx configuration
+
+```bash
+sudo nginx -t
+```
+
+Expected output:
+
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+sudo systemctl reload nginx
+```
+
+* Display the UFW firewall rules, and note the number of the rules for Public Pool (e.g., X and Y below)
+
+```shellscript
+sudo ufw status numbered
+```
+
+Expected output:
+
+```
+[X] 4040/tcp     ALLOW IN    Anywhere       # Allow Public Pool UI SSL from anywhere
+[Y] 23333/tcp    ALLOW IN    Anywhere       # Allow Public Pool Stratum from anywhere
+```
+
+* Delete the rule with the correct number and confirm with "`yes`"
+
+```shellscript
+sudo ufw delete X
+sudo ufw delete X
+```
+
+### Port reference
+
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">4040</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr><tr><td align="center">23333</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default API port</td></tr><tr><td align="center">23334</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default Stratum Port</td></tr></tbody></table>
