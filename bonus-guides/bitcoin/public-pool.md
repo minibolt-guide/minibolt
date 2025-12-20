@@ -264,7 +264,7 @@ mkdir -p dist/bin
 nano dist/bin/cli.sh
 ```
 
-* Copy and paste the following information
+* Copy and paste the following information, save and exit
 
 ```yaml
 #!/bin/sh
