@@ -25,7 +25,7 @@ Difficulty: Medium
 
 <figure><img src="../../.gitbook/assets/mempool.png" alt=""><figcaption></figcaption></figure>
 
-### Requirements
+## Requirements
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md) (optional)
@@ -34,9 +34,9 @@ Difficulty: Medium
   * [Node + NPM](../../bonus/system/nodejs-npm.md)
   * [Rustup + Cargo](../system/rustup-+-cargo.md)
 
-### Preparations
+## Preparations
 
-#### Check Node + NPM
+### Check Node + NPM
 
 * With the user `admin`, check the Node version
 
@@ -68,7 +68,7 @@ npm -v
 -> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
-#### Install Rustup + Cargo
+### Check Rustup + Cargo
 
 * Check if you already have Rustup installed
 
@@ -98,90 +98,264 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 If you obtain "**command not found**" output, you need to follow the[ Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
-#### Install MariaDB
+### Check MariaDB
 
-[MariaDB](https://mariadb.org/) is an open source relational database.
-
-* With user "admin", we update the `apt` packages index, install MariaDB on the node and check that it runs properly
+* Check if you already have MariaDB installed
 
 ```bash
-sudo apt update && sudo apt install mariadb-server mariadb-client -y
+mariadb --version
 ```
 
-* Secure MariaDB installation:
-
-```bash
-sudo mariadb-secure-installation
-```
-
-{% hint style="warning" %}
-* When the prompt asks you to enter the current password for root, press **enter,**
-* When the prompt asks if  you want to switch to unix\_socket authentication, type "n" and press **enter,**
-* When the prompt asks if  you want to change the root password, type "n" and press **enter,**
-* When the prompt asks if  you want to remove anonymous users, type "y" and press **enter,**
-* When the prompt asks if  you want to disallow root login remotely, type "y" and press **enter,**
-* When the prompt asks if  you want to remove test database and access to it, type "y" and press **enter,**
-* When the prompt asks if  you want to reload privilege tables now type "y" and press **enter.**
-{% endhint %}
-
-Expected output:
+**Example** of expected output:
 
 ```
-All done!  If you've completed all of the above steps, your MariaDB
-installation should now be secure.
-
-Thanks for using MariaDB!
-```
-
-**Create MariaDB database**
-
-* Now, open the MariaDB shell.
-
-```bash
-sudo mysql
-```
-
-Expected output:
-
-```
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-[...]
-MariaDB [(none)]>
-```
-
-* Enter the following commands in the shell and exit. The instructions to enter in the MariaDB shell start with "MDB$".
-
-```sql
-MDB$ create database mempool;
-```
-
-Expected output:
-
-```
-Query OK, 1 row affected (0.001 sec)
-```
-
-{% code overflow="wrap" %}
-```sql
-MDB$ grant all privileges on mempool.* to 'mempool'@'localhost' identified by 'Password[M]';
-```
-{% endcode %}
-
-Expected output:
-
-```
-Query OK, 0 rows affected (0.012 sec)
-```
-
-```sql
-MDB$ exit
+mariadb from 12.2.1-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper
 ```
 
 {% hint style="info" %}
-Replace **`Password[M]`** to your one, keeping quotes \[' ']
+If you obtain "**command not found**" output, you need to follow the [MariaDB bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
-### Installation
+### Reverse proxy & Firewall
+
+In the [security section](../../index-1/security.md#nginx), we set up Nginx as a reverse proxy. Now we can add the Mempool configuration.
+
+* Check your Nginx configuration file
+
+```bash
+sudo nano +17 -l /etc/nginx/nginx.conf
+```
+
+* Check that you have these two lines below the line `17 "include /etc/nginx/sites-enabled/*.conf;"` If not, add them, save, and exit.
+
+```nginx
+include /etc/nginx/mime.types;
+default_type application/octet-stream;
+```
+
+{% hint style="info" %}
+Watch your indentation! To see the differences between the two configurations more clearly, check this [diff](https://www.diffchecker.com/7ksp6t5T/).
+{% endhint %}
+
+Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to Mempool. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+
+* With user `admin`, create the reverse proxy configuration
+
+```sh
+sudo nano /etc/nginx/sites-available/mempool-reverse-proxy.conf
+```
+
+* Paste the following complete configuration. Save and exit
+
+```nginx
+proxy_read_timeout 300;
+proxy_connect_timeout 300;
+proxy_send_timeout 300;
+ 
+map $http_accept_language $header_lang {
+    default en-US;
+    ~*^en-US en-US;
+    ~*^en en-US;
+    ~*^ar ar;
+    ~*^ca ca;
+    ~*^cs cs;
+    ~*^de de;
+    ~*^es es;
+    ~*^fa fa;
+    ~*^fr fr;
+    ~*^ko ko;
+    ~*^it it;
+    ~*^he he;
+    ~*^ka ka;
+    ~*^hu hu;
+    ~*^mk mk;
+    ~*^nl nl;
+    ~*^ja ja;
+    ~*^nb nb;
+    ~*^pl pl;
+    ~*^pt pt;
+    ~*^ro ro;
+    ~*^ru ru;
+    ~*^sl sl;
+    ~*^fi fi;
+    ~*^sv sv;
+    ~*^th th;
+    ~*^tr tr;
+    ~*^uk uk;
+    ~*^vi vi;
+    ~*^zh zh;
+    ~*^hi hi;
+}
+ 
+map $cookie_lang $lang {
+    default $header_lang;
+    ~*^en-US en-US;
+    ~*^en en-US;
+    ~*^ar ar;
+    ~*^ca ca;
+    ~*^cs cs;
+    ~*^de de;
+    ~*^es es;
+    ~*^fa fa;
+    ~*^fr fr;
+    ~*^ko ko;
+    ~*^it it;
+    ~*^he he;
+    ~*^ka ka;
+    ~*^hu hu;
+    ~*^mk mk;
+    ~*^nl nl;
+    ~*^ja ja;
+    ~*^nb nb;
+    ~*^pl pl;
+    ~*^pt pt;
+    ~*^ro ro;
+    ~*^ru ru;
+    ~*^sl sl;
+    ~*^fi fi;
+    ~*^sv sv;
+    ~*^th th;
+    ~*^tr tr;
+    ~*^uk uk;
+    ~*^vi vi;
+    ~*^zh zh;
+    ~*^hi hi;
+}
+ 
+server {
+    listen 4081 ssl;
+    error_page 497 =301 https://$host:$server_port$request_uri; 
+ 
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+ 
+    server_tokens off;
+    server_name_in_redirect off;
+ 
+    default_type application/octet-stream;
+ 
+    reset_timedout_connection on;
+    client_body_timeout 10s;
+    client_header_timeout 10s;
+    keepalive_timeout 69s;
+    send_timeout 69s;
+ 
+    keepalive_requests 1337;
+ 
+    gzip on;
+    gzip_vary on;
+    gzip_comp_level 6;
+    gzip_min_length 1000;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types application/javascript application/json application/ld+json application/manifest+json application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard;
+ 
+    client_max_body_size 10m;
+ 
+    proxy_cache off;
+    types_hash_max_size 2048;
+ 
+    root /var/www/mempool/browser;
+    index index.html;
+ 
+    add_header Cache-Control "public, no-transform";
+    add_header Vary Accept-Language;
+    add_header Vary Cookie;
+ 
+    location / {
+        try_files /$lang/$uri /$lang/$uri/ $uri $uri/ /en-US/$uri @index-redirect;
+        expires 10m;
+    }
+ 
+    location /resources {
+        try_files $uri @index-redirect;
+        expires 1h;
+    }
+ 
+    location /resources/config.* {
+        try_files $uri =404;
+        expires 5m;
+    }
+ 
+    location /resources/customize.* {
+        try_files $uri =404;
+        expires 5m;
+    }
+ 
+    location @index-redirect {
+        rewrite (.*) /$lang/index.html;
+    }
+ 
+    location ~ ^/(ar|bg|bs|cs|da|de|et|el|es|eo|eu|fa|fr|gl|ko|hr|id|it|he|ka|lv|lt|hu|mk|ms|nl|ja|nb|nn|pl|pt|pt-BR|ro|ru|sk|sl|sr|sh|fi|sv|th|tr|uk|vi|zh|hi)/ {
+        try_files $uri $uri/ /$1/index.html =404;
+    }
+ 
+    location = /api {
+        try_files $uri $uri/ /en-US/index.html =404;
+    }
+ 
+    location = /api/ {
+        try_files $uri $uri/ /en-US/index.html =404;
+    }
+ 
+    location /api/v1/ws {
+        proxy_pass http://127.0.0.1:8999/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
+ 
+    location /api/v1 {
+        proxy_pass http://127.0.0.1:8999/api/v1;
+    }
+ 
+    location /api/ {
+        proxy_pass http://127.0.0.1:8999/api/v1/;
+    }
+ 
+    location /ws {
+        proxy_pass http://127.0.0.1:8999/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
+}
+```
+
+* Create the symbolic link that points to the directory `sites-enabled`
+
+{% code overflow="wrap" %}
+```bash
+sudo ln -s /etc/nginx/sites-available/mempool-reverse-proxy.conf /etc/nginx/sites-enabled/
+```
+{% endcode %}
+
+* Test Nginx configuration
+
+```sh
+sudo nginx -t
+```
+
+Expected output:
+
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+sudo systemctl reload nginx
+```
+
+* Configure the firewall to allow incoming HTTPS requests from anywhere to the web server
+
+```sh
+sudo ufw allow 4081/tcp comment 'allow Mempool Space SSL from anywhere'
+```
+
+## Installation
 
 * With user `admin`, go to the temporary folder
 
@@ -240,7 +414,7 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 913C 5FF1 F579 B66C A103  78DB A394 E332 255A 6173
 ```
 
-#### Backend
+### Backend
 
 * Change to the backend directory
 
@@ -393,7 +567,7 @@ npm run build
 
 </details>
 
-**Create the mempool user & group**
+### **Create the mempool user & group**
 
 We do not want to run Mempool Space code alongside bitcoind and lnd because of security reasons. For that, we will create a separate user and run the code as the new user.
 
@@ -520,79 +694,7 @@ sudo chmod 600 /home/mempool/mempool/backend/mempool-config.json
 sudo rm -r /tmp/mempool
 ```
 
-**Create systemd service**
-
-* As user `admin`, create the service file
-
-```bash
-sudo nano /etc/systemd/system/mempool.service
-```
-
-* Paste the following configuration. Save and exit
-
-<pre><code># MiniBolt: systemd unit for Mempool
-# /etc/systemd/system/mempool.service
-
-[Unit]
-Description=Mempool
-<strong>Requires=bitcoind.service
-</strong>After=bitcoind.service
-
-[Service]
-WorkingDirectory=/home/mempool/mempool/backend
-ExecStart=/usr/bin/node --max-old-space-size=2048 dist/index.js
-
-User=mempool
-Group=mempool
-
-# Process management
-####################
-TimeoutSec=300
-
-# Hardening Measures
-####################
-PrivateTmp=true
-ProtectSystem=full
-NoNewPrivileges=true
-PrivateDevices=true
-
-[Install]
-WantedBy=multi-user.target
-</code></pre>
-
-* Enable autoboot **(optional)**
-
-```bash
-sudo systemctl enable mempool
-```
-
-* Prepare “mempool” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
-
-```bash
-journalctl -fu mempool
-```
-
-**Run**
-
-To keep an eye on the software movements, start your SSH program (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
-
-* Start mempool
-
-```bash
-sudo systemctl start mempool
-```
-
-<details>
-
-<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu mempool</code> ⬇️</summary>
-
-```
-PENDING
-```
-
-</details>
-
-#### Frontend
+### Frontend
 
 * Change to the `mempool` user
 
@@ -662,170 +764,76 @@ npm run build
 exit
 ```
 
-**Frontend web server, reverse proxy and firewall**
+### **Create systemd service**
 
-We need to create an nginx web server for the mempool frontend website.
-
-* Install the output of the frontend build into the nginx webroot folder
+* As user `admin`, create the service file
 
 ```bash
-sudo rsync -av --delete /home/mempool/mempool/frontend/dist/mempool/ /var/www/mempool/
+sudo nano /etc/systemd/system/mempool.service
 ```
 
-* Change its ownership to the "www-data" user
+* Paste the following configuration. Save and exit
+
+<pre><code># MiniBolt: systemd unit for Mempool
+# /etc/systemd/system/mempool.service
+
+[Unit]
+Description=Mempool
+<strong>Requires=bitcoind.service
+</strong>After=bitcoind.service
+
+[Service]
+WorkingDirectory=/home/mempool/mempool/backend
+ExecStart=/usr/bin/node --max-old-space-size=2048 dist/index.js
+
+User=mempool
+Group=mempool
+
+# Process management
+####################
+TimeoutSec=300
+
+# Hardening Measures
+####################
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+* Enable autoboot **(optional)**
 
 ```bash
-sudo chown -R www-data:www-data /var/www/mempool
+sudo systemctl enable mempool
 ```
 
-* Copy the config file dedicated to the Mempool website in the nginx `snippets` directory
+* Prepare “mempool” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
 
 ```bash
-sudo rsync -av /home/mempool/mempool/nginx-mempool.conf /etc/nginx/snippets
+journalctl -fu mempool
 ```
 
-#### Reverse proxy, web server & Firewall
+### **Run**
 
-In the security section, we set up Nginx only as a reverse proxy. For mempool we need to modify it to use it as a web server too.
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
-* Edit the nginx configuration file
+* Start mempool
 
 ```bash
-sudo nano +17 -l /etc/nginx/nginx.conf
+sudo systemctl start mempool
 ```
 
-* Add this 2 lines under the line `17 "include /etc/nginx/sites-enabled/*.conf;"`.
+<details>
 
-```nginx
-include /etc/nginx/mime.types;
-default_type application/octet-stream;
-```
-
-{% hint style="info" %}
-Watch your indentation! To see the differences between the two configurations more clearly, check this [diff](https://www.diffchecker.com/7ksp6t5T/).
-{% endhint %}
-
-* With user `admin`, create the mempool configuration
-
-```bash
-sudo nano /etc/nginx/sites-available/mempool-reverse-proxy.conf
-```
-
-* Paste the following complete configuration. Save and exit
-
-```nginx
-map $http_accept_language $header_lang {
-        default en-US;
-        ~*^en-US en-US;
-        ~*^en en-US;
-        ~*^ar ar;
-        ~*^ca ca;
-        ~*^cs cs;
-        ~*^de de;
-        ~*^es es;
-        ~*^fa fa;
-        ~*^fr fr;
-        ~*^ko ko;
-        ~*^it it;
-        ~*^he he;
-        ~*^ka ka;
-        ~*^hu hu;
-        ~*^mk mk;
-        ~*^nl nl;
-        ~*^ja ja;
-        ~*^nb nb;
-        ~*^pl pl;
-        ~*^pt pt;
-        ~*^ro ro;
-        ~*^ru ru;
-        ~*^sl sl;
-        ~*^fi fi;
-        ~*^sv sv;
-        ~*^th th;
-        ~*^tr tr;
-        ~*^uk uk;
-        ~*^vi vi;
-        ~*^zh zh;
-        ~*^hi hi;
-}
-
-map $cookie_lang $lang {
-        default $header_lang;
-        ~*^en-US en-US;
-        ~*^en en-US;
-        ~*^ar ar;
-        ~*^ca ca;
-        ~*^cs cs;
-        ~*^de de;
-        ~*^es es;
-        ~*^fa fa;
-        ~*^fr fr;
-        ~*^ko ko;
-        ~*^it it;
-        ~*^he he;
-        ~*^ka ka;
-        ~*^hu hu;
-        ~*^mk mk;
-        ~*^nl nl;
-        ~*^ja ja;
-        ~*^nb nb;
-        ~*^pl pl;
-        ~*^pt pt;
-        ~*^ro ro;
-        ~*^ru ru;
-        ~*^sl sl;
-        ~*^fi fi;
-        ~*^sv sv;
-        ~*^th th;
-        ~*^tr tr;
-        ~*^uk uk;
-        ~*^vi vi;
-        ~*^zh zh;
-        ~*^hi hi;
-}
-          
-server {
-    listen 4081 ssl;
-    listen [::]:4081 ssl;
-    server_name _;
-  
-    include /etc/nginx/snippets/nginx-mempool.conf;
-
-}
-```
-
-* Create the symbolic link that points to the directory `sites-enabled`
-
-{% code overflow="wrap" %}
-```bash
-sudo ln -s /etc/nginx/sites-available/mempool-reverse-proxy.conf /etc/nginx/sites-enabled/
-```
-{% endcode %}
-
-* Test Nginx configuration
-
-```bash
-sudo nginx -t
-```
-
-Expected output:
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu mempool</code> ⬇️</summary>
 
 ```
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-* Reload the NGINX configuration to apply changes
-
-```bash
-sudo systemctl reload nginx
-```
-
-* Configure the firewall to allow incoming HTTP requests from anywhere to the web server
-
-```bash
-sudo ufw allow 4081/tcp comment 'allow Mempool Space SSL from anywhere'
-```
+</details>
 
 #### Validation
 
@@ -892,72 +900,72 @@ abcdefg..............xyz.onion
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
-### Upgrade
+## Upgrade
 
-* UPDATE MEMPOOL
+Follow the complete [Installation section](mempool.md#installation) until the [Create the mempool user and group](mempool.md#create-the-public-pool-user-and-group) (NOT included).
 
-$ sudo su - mempool
+* Restart the service to apply the changes
 
-$ cd mempool
+```shellscript
+sudo systemctl restart mempool
+```
 
-$ git pull
+* Check the logs, and pay attention to the next log
 
-$ git checkout TAG
+```shellscript
+journalctl -fu mempool
+```
 
-$ git verify-tag TAG
+**Example** of expected output:
 
-build backend
+```
+```
 
-edit mempool-config.json
+## Uninstall
 
-build frontend
+### Uninstall service
 
-replace /var/www/mempool
+* Ensure you are logged in as the user `admin`, stop Mempool
 
-$ sudo systemctl restart nginx.service
-
-### Uninstall
-
-#### Uninstall service
-
-* Ensure you are logged in as the user `admin`, stop mempool
-
-```bash
+```shellscript
 sudo systemctl stop mempool
 ```
 
 * Disable autoboot (if enabled)
 
-```bash
+```shellscript
 sudo systemctl disable mempool
 ```
 
 * Delete the service
 
-```bash
+```shellscript
 sudo rm /etc/systemd/system/mempool.service
 ```
 
-#### Delete user & group
+### Delete user & group
 
-* Delete the mempool user.
+* Delete the mem`pool` user.
 
-```bash
+```shellscript
 sudo userdel -rf mempool
 ```
 
-#### Uninstal MariaDB
+### Delete all Mempool files
 
-* Stop the service.
+* Remove the corresponding symbolic links
 
-```bash
-sudo service mysql stop
+```yaml
 ```
 
-* Uninstall MariaDB. When prompted, check the packages that will be removed and type “Y” and “Enter”. A blue window will pop up asking if we want to remove all MariaDB databases, select `<Yes>`.
+* Delete the nginx server files.
 
-```bash
-sudo apt-get --purge remove "mysql*"
+```shellscript
+```
+
+* Delete the rest of public pool files.
+
+```shellscript
 ```
 
 #### Uninstall Tor hidden service
