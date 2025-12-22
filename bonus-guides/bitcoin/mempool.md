@@ -910,7 +910,7 @@ abcdefg..............xyz.onion
 
 ## Upgrade
 
-Follow the complete [Installation section](mempool.md#installation) until the [Create the mempool user and group](mempool.md#create-the-public-pool-user-and-group) (NOT included).
+Follow the complete [Download](mempool.md#download-the-source-code), [Backend](mempool.md#install-the-backend) and [Frontend](mempool.md#install-the-frontend) sections replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**.
 
 * Restart the service to apply the changes
 
