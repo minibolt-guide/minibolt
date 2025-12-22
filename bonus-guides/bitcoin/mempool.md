@@ -463,7 +463,7 @@ cd backend
 {% endhint %}
 
 ```bash
-npm install
+npm ci --omit=dev --omit=optional
 ```
 
 <details>
@@ -471,105 +471,11 @@ npm install
 <summary>Example of expected output ⬇️</summary>
 
 ```
-> mempool-backend@3.2.1 preinstall
-> cd ../rust/gbt && npm run build-release && npm run to-backend
-
-
-> gbt@3.0.1 build-release
-> npm run build -- --release --strip
-
-
-> gbt@3.0.1 build
-> npm install --no-save @napi-rs/cli@2.18.0 && npm run check-cargo-version && napi build --platform --release --strip
-
-
-up to date, audited 2 packages in 880ms
-
-1 package is looking for funding
-  run `npm fund` for details
-
-found 0 vulnerabilities
-
-> gbt@3.0.1 check-cargo-version
-> VER=$(cat rust-toolchain) ; if ! cargo version | grep "cargo $VER" >/dev/null ; then echo -e "\033[1;35m[[[[WARNING]]]]: cargo version mismatch with ./rust-toolchain version ($VER)!!!\033[0m" >&2; fi
-
-info: syncing channel updates for '1.84-x86_64-unknown-linux-gnu'
-info: latest update on 2025-01-30, rust version 1.84.1 (e71f9a9a9 2025-01-27)
-info: downloading component 'cargo'
-info: downloading component 'clippy'
-info: downloading component 'rust-docs'
-info: downloading component 'rust-std'
-info: downloading component 'rustc'
-info: downloading component 'rustfmt'
-info: installing component 'cargo'
-info: installing component 'clippy'
-info: installing component 'rust-docs'
-info: installing component 'rust-std'
-info: installing component 'rustc'
-info: installing component 'rustfmt'
-   Compiling proc-macro2 v1.0.93
-   Compiling unicode-ident v1.0.15
-   Compiling once_cell v1.20.2
-   Compiling memchr v2.7.4
-   Compiling pin-project-lite v0.2.16
-   Compiling semver v1.0.25
-   Compiling regex-syntax v0.8.5
-   Compiling tracing-core v0.1.33
-   Compiling aho-corasick v1.1.3
-   Compiling quote v1.0.38
-   Compiling regex-syntax v0.6.29
-   Compiling syn v2.0.96
-   Compiling regex-automata v0.4.9
-   Compiling unicode-segmentation v1.12.0
-   Compiling regex v1.11.1
-   Compiling convert_case v0.6.0
-   Compiling regex-automata v0.1.10
-   Compiling tracing-attributes v0.1.28
-   Compiling cfg-if v1.0.0
-   Compiling hashbrown v0.15.2
-   Compiling napi-build v2.1.4
-   Compiling log v0.4.25
-   Compiling equivalent v1.0.1
-   Compiling overload v0.1.1
-   Compiling lazy_static v1.5.0
-   Compiling sharded-slab v0.1.7
-   Compiling indexmap v2.7.1
-   Compiling nu-ansi-term v0.46.0
-   Compiling tracing-log v0.2.0
-   Compiling gbt v1.0.0 (/home/mempool/mempool/rust/gbt)
-   Compiling tracing v0.1.41
-   Compiling napi-derive-backend v1.0.75
-   Compiling thread_local v1.1.8
-   Compiling matchers v0.1.0
-   Compiling ctor v0.2.9
-   Compiling tokio v1.43.0
-   Compiling smallvec v1.13.2
-   Compiling bitflags v2.8.0
-   Compiling napi-sys v2.4.0
-   Compiling tracing-subscriber v0.3.19
-   Compiling priority-queue v2.1.1
-   Compiling bytemuck v1.21.0
-   Compiling napi-derive v2.16.13
-   Compiling bytes v1.9.0
-   Compiling napi v2.16.13
-    Finished `release` profile [optimized] target(s) in 48.11s
-
-> gbt@3.0.1 to-backend
-> FD=${FD:-../../backend/rust-gbt/} ; rm -rf $FD && mkdir $FD && cp index.js index.d.ts package.json *.node $FD
-
-
-changed 1 package, and audited 659 packages in 2m
-
-74 packages are looking for funding
-  run `npm fund` for details
-
-13 vulnerabilities (1 low, 3 moderate, 8 high, 1 critical)
-
-To address issues that do not require attention, run:
-  npm audit fix
+[...]
+3 high severity vulnerabilities
 
 To address all issues, run:
-  npm audit fix --force
+  npm audit fix
 
 Run `npm audit` for details.
 ```
@@ -579,7 +485,7 @@ Run `npm audit` for details.
 * Build it
 
 ```bash
-npm run build
+npm run package
 ```
 
 <details>
@@ -587,36 +493,51 @@ npm run build
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-> mempool-backend@3.2.1 build
-> npm run tsc && npm run create-resources
-
-
-> mempool-backend@3.2.1 tsc
-> ./node_modules/typescript/bin/tsc -p tsconfig.build.json
-
-
-> mempool-backend@3.2.1 create-resources
-> cp ./src/tasks/price-feeds/mtgox-weekly.json ./dist/tasks && node dist/api/fetch-version.js
 ```
 
 </details>
 
-* Copy-pase the mempool folder to the home directory of the newly created user
+* Create the folder for the executable
 
 ```bash
-sudo cp -r /tmp/mempool /home/mempool/
+mkdir package/bin
 ```
 
-* Assign the owner of the mempool folder to the `mempool` user
+* Create a new `cli.sh` file
 
-```bash
-sudo chown mempool:mempool -R /home/mempool/mempool
+```sh
+sudo nano package/bin/cli.sh
+```
+
+* Copy and paste the following information, save and exit
+
+```yaml
+#!/bin/sh
+node /var/lib/mempool/index.js
+```
+
+* Make the file executable
+
+```yaml
+chmod +x package/bin/cli.sh
+```
+
+* Copy the necessary files into the system
+
+```yaml
+sudo mv -f /tmp/mempool/backend/package /var/lib/mempool
+```
+
+* Create the corresponding symbolic links
+
+```yaml
+sudo ln -s /var/lib/mempool /usr/lib/node_modules/mempool && sudo ln -s /usr/lib/node_modules/mempool/bin/cli.sh /usr/bin/mempool
 ```
 
 * Create the configuration file
 
 ```bash
-sudo nano /home/mempool/mempool/backend/mempool-config.json
+sudo nano /home/mempool/mempool-config.json
 ```
 
 * Paste the following lines.
@@ -696,28 +617,22 @@ Replace **`Password[G]`** to your one, keeping quotes \[" "]
 sudo chmod 600 /home/mempool/mempool/backend/mempool-config.json
 ```
 
-* **(Optional)** Delete the `mempool` folder to be ready for the next update
-
-```bash
-sudo rm -r /tmp/mempool
-```
-
 ### Install the frontend
 
-* Change to the `mempool` user
+* Change to the frontend directory
 
 ```bash
-sudo su - mempool
+cd /tmp/mempool/frontend
 ```
 
-* Install the frontend (it will take several minutes)
+* Install all dependencies and the necessary modules using NPM
+
+{% hint style="warning" %}
+**Not to run** the `npm audit fix` command, which could break the original code!!
+{% endhint %}
 
 ```bash
-cd mempool/frontend
-```
-
-```bash
-npm install --prod
+npm ci --omit=dev --omit=optional
 ```
 
 <details>
@@ -725,17 +640,7 @@ npm install --prod
 <summary>Example of expected output ⬇️</summary>
 
 ```
-npm warn config production Use `--omit=dev` instead.
-npm warn deprecated querystring@0.2.0: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
-npm warn deprecated @types/cypress@1.1.3: This is a stub types definition for cypress (https://cypress.io). cypress provides its own type definitions, so you don't need @types/cypress installed!
-npm warn deprecated popper.js@1.16.1: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
-
-added 1411 packages, and audited 1412 packages in 1m
-
-160 packages are looking for funding
-  run `npm fund` for details
-
-38 vulnerabilities (7 low, 11 moderate, 15 high, 5 critical)
+16 vulnerabilities (2 low, 4 moderate, 10 high)
 
 To address issues that do not require attention, run:
   npm audit fix
@@ -748,28 +653,16 @@ Run `npm audit` for details.
 
 </details>
 
+* Build it
+
 ```bash
 npm run build
 ```
 
-<details>
+* Copy the necessary files into the system
 
-<summary>Example of expected output ⬇️</summary>
-
-```
-...
-[sync-assets] Downloaded 0 and skipped 15 existing video subtitles
-[sync-assets] 	Checking if promo video needs downloading or updating...
-[sync-assets] 		mempool-promo.mp4 is already up to date. Skipping.
-[sync-assets] Asset synchronization complete
-```
-
-</details>
-
-* Exit to the `admin` user
-
-```bash
-exit
+```yaml
+sudo mv -f /tmp/mempool/backend/package /var/lib/mempool
 ```
 
 ### **Create systemd service**
@@ -787,12 +680,13 @@ sudo nano /etc/systemd/system/mempool.service
 
 [Unit]
 Description=Mempool
-<strong>Requires=bitcoind.service
-</strong>After=bitcoind.service
+<strong>Requires=bitcoind.service fulcrum.service mariadb.service
+</strong>After=bitcoind.service fulcrum.service mariadb.service
 
 [Service]
-WorkingDirectory=/home/mempool/mempool/backend
-ExecStart=/usr/bin/node --max-old-space-size=2048 dist/index.js
+WorkingDirectory=/var/lib/mempool
+Environment=MEMPOOL_CONFIG_FILE=/home/mempool/mempool-config.json
+Environment=NODE_OPTIONS=--max-old-space-size=2048
 
 User=mempool
 Group=mempool
@@ -845,18 +739,18 @@ sudo systemctl start mempool
 
 #### Validation
 
-* Ensure the service is working and listening on the default `8999` , the HTTPS `4081` port and the tor port `4082`
+* Ensure the service is working and listening on the default HTTP `8999` port and SSL `4081` port
 
 ```bash
-sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:8999|:4081|:4082)'
+sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:8999|:4081)'
 ```
 
 Expected output:
 
-<pre><code><strong>tcp   LISTEN 0      511          0.0.0.0:4082       0.0.0.0:*    users:(("nginx",pid=827,fd=12),("nginx",pid=826,fd=12),("nginx",pid=825,fd=12),("nginx",pid=824,fd=12),("nginx",pid=823,fd=12))
-</strong>tcp   LISTEN 0      511          0.0.0.0:4081       0.0.0.0:*    users:(("nginx",pid=827,fd=10),("nginx",pid=826,fd=10),("nginx",pid=825,fd=10),("nginx",pid=824,fd=10),("nginx",pid=823,fd=10))
+```
+tcp   LISTEN 0      511          0.0.0.0:4081       0.0.0.0:*    users:(("nginx",pid=827,fd=10),("nginx",pid=826,fd=10),("nginx",pid=825,fd=10),("nginx",pid=824,fd=10),("nginx",pid=823,fd=10))
 tcp   LISTEN 0      511                *:8999             *:*    users:(("node",pid=1083,fd=25))
-</code></pre>
+```
 
 {% hint style="info" %}
 > Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Mempool web interface
