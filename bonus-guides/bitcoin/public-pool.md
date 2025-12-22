@@ -655,22 +655,16 @@ sudo userdel -rf public-pool
 
 ### Delete all Public Pool files
 
-* Remove the corresponding symbolic links
+* Remove the corresponding symbolic links and files
 
-```yaml
-sudo rm /usr/lib/node_modules/public-pool && sudo rm /usr/bin/public-pool
+```bash
+sudo rm /usr/lib/node_modules/public-pool && sudo rm /usr/bin/public-pool && sudo rm -rf /var/lib/public-pool
 ```
 
 * Delete the nginx server files.
 
 ```shellscript
 sudo rm -rf /var/www/public-pool-ui
-```
-
-* Delete the rest of public pool files.
-
-```shellscript
-sudo rm -rf /var/lib/public-pool && sudo rm /usr/bin/public-pool
 ```
 
 ### Uninstall Tor hidden service
