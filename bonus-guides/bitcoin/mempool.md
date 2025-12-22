@@ -648,7 +648,7 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
     "HOST": "127.0.0.1",
     "PORT": 3306,
     "USERNAME": "mempool",
-    "PASSWORD": "Password[M]",
+    "PASSWORD": "Password[G]",
     "DATABASE": "mempool"
   },
   "LIGHTNING": {
@@ -679,7 +679,7 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
 ```
 
 {% hint style="info" %}
-Replace **`Password[M]`** to your one, keeping quotes \[" "]
+Replace **`Password[G]`** to your one, keeping quotes \[" "]
 {% endhint %}
 
 * Restrict reading access to the configuration file by user "mempool" only.
