@@ -662,7 +662,7 @@ npm run build
 * Copy the necessary files into the system
 
 ```yaml
-sudo mv -f /tmp/mempool/backend/package /var/lib/mempool
+sudo mv -f dist/mempool /var/www/
 ```
 
 ### **Create systemd service**
@@ -855,19 +855,16 @@ sudo userdel -rf mempool
 
 ### Delete all Mempool files
 
-* Remove the corresponding symbolic links
+* Remove the corresponding symbolic links and files
 
-```yaml
+```bash
+sudo rm /usr/lib/node_modules/mempool && sudo rm /usr/bin/mempool && sudo rm -rf /var/lib/mempool
 ```
 
 * Delete the nginx server files.
 
 ```shellscript
-```
-
-* Delete the rest of public pool files.
-
-```shellscript
+sudo rm -rf /var/www/mempool
 ```
 
 #### Uninstall Tor hidden service
