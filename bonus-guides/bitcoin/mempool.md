@@ -357,6 +357,40 @@ sudo ufw allow 4081/tcp comment 'allow Mempool Space SSL from anywhere'
 
 ## Installation
 
+### **Create the mempool user & group**
+
+We do not want to run Mempool Space code alongside bitcoind and lnd because of security reasons. For that, we will create a separate user and run the code as the new user.
+
+* Create the `mempool` user and group
+
+```bash
+sudo adduser --gecos "" --disabled-password mempool
+```
+
+Expected output:
+
+```
+Adding user `mempool' ...
+Adding new group `mempool' (1007) ...
+Adding new user `mempool' (1007) with group `mempool' ...
+Creating home directory `/home/mempool' ...
+Copying files from `/etc/skel' ...
+```
+
+Add `mempool` user to the `bitcoin` and `lnd` groups to allow to the user mempool reading the bitcoin .cookie file and lnd certs files.
+
+```bash
+sudo usermod -aG bitcoin,lnd mempool
+```
+
+* Exit `mempool` user session to return to the `admin` user session
+
+```bash
+exit
+```
+
+### Download the source code
+
 * With user `admin`, go to the temporary folder
 
 ```bash
@@ -414,7 +448,7 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 913C 5FF1 F579 B66C A103  78DB A394 E332 255A 6173
 ```
 
-### Backend
+### Install the backend
 
 * Change to the backend directory
 
@@ -567,32 +601,6 @@ npm run build
 
 </details>
 
-### **Create the mempool user & group**
-
-We do not want to run Mempool Space code alongside bitcoind and lnd because of security reasons. For that, we will create a separate user and run the code as the new user.
-
-* Create the `mempool` user and group
-
-```bash
-sudo adduser --gecos "" --disabled-password mempool
-```
-
-Expected output:
-
-```
-Adding user `mempool' ...
-Adding new group `mempool' (1007) ...
-Adding new user `mempool' (1007) with group `mempool' ...
-Creating home directory `/home/mempool' ...
-Copying files from `/etc/skel' ...
-```
-
-* Add mempool user to the bitcoin and lnd groups to allow to the user mempool reading the bitcoin .cookie file and lnd certs files.
-
-```bash
-sudo usermod -aG bitcoin,lnd mempool
-```
-
 * Copy-pase the mempool folder to the home directory of the newly created user
 
 ```bash
@@ -694,7 +702,7 @@ sudo chmod 600 /home/mempool/mempool/backend/mempool-config.json
 sudo rm -r /tmp/mempool
 ```
 
-### Frontend
+### Install the frontend
 
 * Change to the `mempool` user
 
