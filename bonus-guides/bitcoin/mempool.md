@@ -654,6 +654,12 @@ sudo nano /home/mempool/mempool-config.json
 Replace **`Password[G]`** to your one, keeping quotes \[" "]
 {% endhint %}
 
+* Make the user `mempool` the owner of the configuration file
+
+```bash
+sudo chown mempool:mempool /home/mempool/mempool-config.json
+```
+
 * Restrict reading access to the configuration file by user "mempool" only.
 
 ```bash
