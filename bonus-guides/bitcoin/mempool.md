@@ -897,7 +897,7 @@ sudo rm /usr/lib/node_modules/mempool && sudo rm /usr/bin/mempool && sudo rm -rf
 sudo rm -rf /var/www/mempool
 ```
 
-#### Uninstall Tor hidden service
+### Uninstall Tor hidden service
 
 * Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -919,9 +919,40 @@ HiddenServicePort 80 127.0.0.1:4081
 sudo systemctl reload tor
 ```
 
-#### Uninstall FW configuration
+### Uninstall reverse proxy & FW configuration
 
-* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the number of the rule for AlbyHub (e.g., X below)
+* Ensure you are logged in as the user `admin`, delete the reverse proxy config file
+
+```bash
+sudo rm /etc/nginx/sites-available/mempool-reverse-proxy.conf
+```
+
+* Delete the symbolic link
+
+```bash
+sudo rm /etc/nginx/sites-enabled/mempool-reverse-proxy.conf
+```
+
+* Test Nginx configuration
+
+```bash
+sudo nginx -t
+```
+
+Expected output:
+
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+sudo systemctl reload nginx
+```
+
+* Display the UFW firewall rules, and note the number of the rules for Mempool (e.g., X below)
 
 ```bash
 sudo ufw status numbered
