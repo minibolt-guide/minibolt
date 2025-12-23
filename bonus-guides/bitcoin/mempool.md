@@ -98,7 +98,7 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 If you obtain "**command not found**" output, you need to follow the[ Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
-### Check MariaDB
+### Check MariaDB and create the database
 
 * Check if you already have MariaDB installed
 
@@ -114,6 +114,29 @@ mariadb from 12.2.1-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  Ed
 
 {% hint style="info" %}
 If you obtain "**command not found**" output, you need to follow the [MariaDB bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
+{% endhint %}
+
+* Now, open the MariaDB shell.
+
+```sh
+sudo mysql
+> Welcome to the MariaDB monitor.  Commands end with ; or \g.
+> [...]
+> MariaDB [(none)]>
+```
+
+* Enter the following commands in the shell and exit. The instructions to enter in the MariaDB shell start with "MDB$".
+
+```sql
+MDB$ create database mempool;
+> Query OK, 1 row affected (0.001 sec)
+MDB$ grant all privileges on mempool.* to 'mempool'@'localhost' identified by 'Password[G]';
+> Query OK, 0 rows affected (0.012 sec)
+MDB$ exit
+```
+
+{% hint style="info" %}
+Replace **`Password[G]`** to your one, keeping quotes \[' ']
 {% endhint %}
 
 ### Reverse proxy & Firewall
