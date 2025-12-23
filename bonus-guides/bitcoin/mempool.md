@@ -604,7 +604,7 @@ sudo nano /home/mempool/mempool-config.json
     "DATABASE": "mempool"
   },
   "LIGHTNING": {
-    "_comment": "Activar solo si LND está instalado y sincronizado"
+    "_comment": "Enable this option only if LND is installed and fully synchronized."
     "ENABLED": false,
     "BACKEND": "lnd",
     "STATS_REFRESH_INTERVAL": 600,
