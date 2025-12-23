@@ -406,12 +406,6 @@ Add `mempool` user to the `bitcoin` and `lnd` groups to allow to the user mempoo
 sudo usermod -aG bitcoin,lnd mempool
 ```
 
-* Exit `mempool` user session to return to the `admin` user session
-
-```bash
-exit
-```
-
 ### Download the source code
 
 * With user `admin`, go to the temporary folder
