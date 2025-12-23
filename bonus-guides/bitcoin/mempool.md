@@ -823,9 +823,9 @@ tcp   LISTEN 0      511                *:8999             *:*    users:(("node",
 Congrat&#x73;**!** You now have Mempool up and running
 {% endhint %}
 
-### Extras (optional)
+## Extras (optional)
 
-#### Remote access over Tor
+### Remote access over Tor
 
 * With the user `admin`, edit the `torrc` file
 
@@ -863,7 +863,7 @@ abcdefg..............xyz.onion
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
-## Upgrade
+### Upgrade
 
 Follow the complete [Download](mempool.md#download-the-source-code), [Backend](mempool.md#install-the-backend) and [Frontend](mempool.md#install-the-frontend) sections replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**.
 
@@ -884,9 +884,9 @@ journalctl -fu mempool
 ```
 ```
 
-## Uninstall
+### Uninstall
 
-### Uninstall service
+#### Uninstall service
 
 * Ensure you are logged in as the user `admin`, stop Mempool
 
@@ -906,7 +906,7 @@ sudo systemctl disable mempool
 sudo rm /etc/systemd/system/mempool.service
 ```
 
-### Delete user & group
+#### Delete user & group
 
 * Delete the mem`pool` user.
 
@@ -914,7 +914,7 @@ sudo rm /etc/systemd/system/mempool.service
 sudo userdel -rf mempool
 ```
 
-### Delete all Mempool files
+#### Delete all Mempool files
 
 * Remove the corresponding symbolic links and files
 
@@ -928,7 +928,7 @@ sudo rm /usr/lib/node_modules/mempool && sudo rm /usr/bin/mempool && sudo rm -rf
 sudo rm -rf /var/www/mempool
 ```
 
-### Uninstall Tor hidden service
+#### Uninstall Tor hidden service
 
 * Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -950,7 +950,7 @@ HiddenServicePort 80 127.0.0.1:4081
 sudo systemctl reload tor
 ```
 
-### Uninstall reverse proxy & FW configuration
+#### Uninstall reverse proxy & FW configuration
 
 * Ensure you are logged in as the user `admin`, delete the reverse proxy config file
 
@@ -1001,6 +1001,6 @@ Expected output:
 sudo ufw delete X
 ```
 
-### Port reference
+## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8999</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4081</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">Default SSL port</td></tr></tbody></table>
