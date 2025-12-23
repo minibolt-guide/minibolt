@@ -660,7 +660,7 @@ Replace **`Password[G]`** to your one, keeping quotes \[" "]
 sudo chown mempool:mempool /home/mempool/mempool-config.json
 ```
 
-* Restrict reading access to the configuration file by user "mempool" only.
+* Restrict reading access to the configuration file by user `mempool` only.
 
 ```bash
 sudo chmod 600 /home/mempool/mempool-config.json
