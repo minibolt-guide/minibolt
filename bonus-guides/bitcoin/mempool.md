@@ -429,8 +429,6 @@ curl https://github.com/wiz.gpg | gpg --import
 **Example** of expected output:
 
 ```
-gpg: directory '/home/mempool/.gnupg' created
-gpg: keybox '/home/mempool/.gnupg/pubring.kbx' created
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  4608  100  4608    0     0  15283      0 --:--:-- --:--:-- --:--:-- 15308
