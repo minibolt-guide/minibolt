@@ -567,7 +567,7 @@ chmod +x package/bin/cli.sh
 * Copy the necessary files into the system
 
 ```yaml
-sudo mv -f /tmp/mempool/backend/package /var/lib/mempool && sudo chown -R mempool:mempool /var/lib/mempool
+sudo install -d -o mempool -g mempool /var/lib/mempool && install -o mempool -g mempool /tmp/mempool/backend/package /var/lib/mempool/
 ```
 
 * Create the corresponding symbolic links
