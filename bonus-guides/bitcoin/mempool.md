@@ -689,6 +689,12 @@ npm run build
 sudo mv -f dist/mempool /var/www/
 ```
 
+* **(Optional)** Delete the `mempool` folder to be ready for the next update
+
+```bash
+sudo rm -r /tmp/mempool
+```
+
 ### **Create systemd service**
 
 * As user `admin`, create the service file
