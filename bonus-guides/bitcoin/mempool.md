@@ -487,10 +487,18 @@ npm ci --omit=dev --omit=optional
 
 ```
 [...]
-3 high severity vulnerabilities
+added 125 packages, and audited 128 packages in 2m
+
+16 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (6 high, 1 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
 
 To address all issues, run:
-  npm audit fix
+  npm audit fix --force
 
 Run `npm audit` for details.
 ```
@@ -508,6 +516,25 @@ npm run package
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
+> mempool-backend@3.2.1 package
+> ./npm_package.sh
+
+
+> mempool-backend@3.2.1 build
+> npm run tsc && npm run create-resources
+
+
+> mempool-backend@3.2.1 tsc
+> ./node_modules/typescript/bin/tsc -p tsconfig.build.json
+
+
+> mempool-backend@3.2.1 create-resources
+> cp ./src/tasks/price-feeds/mtgox-weekly.json ./dist/tasks && node dist/api/fetch-version.js
+
+
+> mempool-backend@3.2.1 package-rm-build-deps
+> ./npm_package_rm_build_deps.sh
+
 ```
 
 </details>
@@ -521,7 +548,7 @@ mkdir package/bin
 * Create a new `cli.sh` file
 
 ```sh
-sudo nano package/bin/cli.sh
+nano package/bin/cli.sh
 ```
 
 * Copy and paste the following information, save and exit
@@ -555,7 +582,7 @@ sudo ln -s /var/lib/mempool /usr/lib/node_modules/mempool && sudo ln -s /usr/lib
 sudo nano /home/mempool/mempool-config.json
 ```
 
-* Paste the following lines.
+* Paste the following lines, save and exit.
 
 ```
 {
@@ -630,7 +657,7 @@ Replace **`Password[G]`** to your one, keeping quotes \[" "]
 * Restrict reading access to the configuration file by user "mempool" only.
 
 ```bash
-sudo chmod 600 /home/mempool/mempool/backend/mempool-config.json
+sudo chmod 600 /home/mempool/mempool-config.json
 ```
 
 ### Install the frontend
@@ -656,7 +683,13 @@ npm ci --omit=dev --omit=optional
 <summary>Example of expected output ⬇️</summary>
 
 ```
-16 vulnerabilities (2 low, 4 moderate, 10 high)
+[...]
+added 1126 packages, and audited 1127 packages in 22s
+
+145 packages are looking for funding
+  run `npm fund` for details
+
+48 vulnerabilities (7 low, 11 moderate, 26 high, 4 critical)
 
 To address issues that do not require attention, run:
   npm audit fix
@@ -684,7 +717,7 @@ sudo mv -f dist/mempool /var/www/
 * **(Optional)** Delete the `mempool` folder to be ready for the next update
 
 ```bash
-sudo rm -r /tmp/mempool
+cd && sudo rm -r /tmp/mempool
 ```
 
 ### **Create systemd service**
