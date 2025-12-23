@@ -779,7 +779,7 @@ sudo systemctl enable mempool
 journalctl -fu mempool
 ```
 
-### **Run**
+## **Run**
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
@@ -798,7 +798,7 @@ sudo systemctl start mempool
 
 </details>
 
-#### Validation
+### Validation
 
 * Ensure the service is working and listening on the default HTTP `8999` port and SSL `4081` port
 
