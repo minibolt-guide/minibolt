@@ -553,26 +553,26 @@ nano package/bin/cli.sh
 
 * Copy and paste the following information, save and exit
 
-```yaml
+```
 #!/bin/sh
 node /var/lib/mempool/index.js
 ```
 
 * Make the file executable
 
-```yaml
+```bash
 chmod +x package/bin/cli.sh
 ```
 
 * Copy the necessary files into the system
 
-```yaml
-sudo install -d -o mempool -g mempool /var/lib/mempool && install -o mempool -g mempool /tmp/mempool/backend/package /var/lib/mempool/
+```bash
+sudo install -d -o mempool -g mempool /var/lib/mempool && sudo install -o mempool -g mempool /tmp/mempool/backend/package /var/lib/mempool/
 ```
 
 * Create the corresponding symbolic links
 
-```yaml
+```bash
 sudo ln -s /var/lib/mempool /usr/lib/node_modules/mempool && sudo ln -s /usr/lib/node_modules/mempool/bin/cli.sh /usr/bin/mempool
 ```
 
