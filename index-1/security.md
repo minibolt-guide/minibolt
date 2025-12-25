@@ -215,6 +215,8 @@ http {
   ssl_protocols TLSv1.2 TLSv1.3;
   ssl_prefer_server_ciphers on;
   include /etc/nginx/sites-enabled/*.conf;
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
 }
 
 stream {
