@@ -45,3 +45,7 @@ icon: bitcoin-sign
 ### Bitcoin clients
 
 * [**Bitcoin Knots**](../../bonus-guides/bitcoin/bitcoin-knots.md) - an advanced Bitcoin Core fork with extra tools for enhanced functionality, rejecting spam and arbitrary data
+
+### Mining Pools
+
+* [**Public Pool**](../../bonus-guides/bitcoin/public-pool.md) - Fully Open Source Solo Bitcoin Mining Pool
