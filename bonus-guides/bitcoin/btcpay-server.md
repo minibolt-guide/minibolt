@@ -82,7 +82,7 @@ chmod +x ./dotnet-install.sh
 * Set environment variable version
 
 ```bash
-VERSION=8.0
+VERSION=10.0
 ```
 
 * Install .NET Core SDK
@@ -211,7 +211,7 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.30-1
+VERSION=2.6.0
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -508,7 +508,7 @@ Ignore the next warning log:
 warn: NBXplorer.Indexer.BTC: BTC: Your NBXplorer server is not whitelisted by your node, you should add "whitelist=127.0.0.1" to the configuration file of your node. (Or use whitebind)
 ```
 
--> It's a wrong warning since we connected to Bitcoin Core locally,  so there is no point in having to whitelist the connection.
+-> It's a wrong warning since we connected to Bitcoin Core locally, so there is no point in having to whitelist the connection.
 {% endhint %}
 
 #### Validation
@@ -546,7 +546,7 @@ cd src
 * Set the variable environment version
 
 ```bash
-VERSION=2.3.0
+VERSION=2.3.2
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -984,7 +984,7 @@ You may want to expose your BTCPay Server publicly using a clearnet address. To 
 
 > Type the selected subdomain (i.e service name "btcpay") as the **Name** field
 
-> Type the tunnel `<UUID>`  of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
+> Type the tunnel `<UUID>` of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
 
 > Ensure you enable the switch on the `Proxy status` field to be "Proxied"
 
@@ -1051,7 +1051,7 @@ chmod +x ./dotnet-install.sh
 * Set the new `VERSION` environment variable, for example, 6.0 -> 8.0
 
 ```bash
-VERSION=8.0
+VERSION=10.0
 ```
 
 * Install .NET Core SDK
@@ -1138,7 +1138,7 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.30-1
+VERSION=2.6.0
 ```
 
 * Fetch the changes of the latest wish tag
@@ -1163,8 +1163,6 @@ Fast-forward
 {% hint style="warning" %}
 **Troubleshooting notes:**
 
-
-
 If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
@@ -1176,8 +1174,6 @@ git config user.name "MiniBolt"
 ```
 
 -> And try again the last command
-
-
 
 If the prompt shows you this:
 
@@ -1278,7 +1274,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.3.0
+VERSION=2.3.2
 ```
 
 * Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
@@ -1304,8 +1300,6 @@ Fast-forward
 {% hint style="warning" %}
 **Troubleshooting notes:**
 
-
-
 If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
@@ -1318,8 +1312,6 @@ git config user.name "MiniBolt"
 
 -> And try again the last command
 
-
-
 If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
 
 ```bash
@@ -1327,8 +1319,6 @@ git config pull.rebase false
 ```
 
 -> And try again the last command
-
-
 
 If the prompts show you logs like these:
 
@@ -1423,7 +1413,7 @@ sudo systemctl start btcpay
 
 ### Uninstall service
 
-* With user `admin`, stop btcpay and nbxplorer&#x20;
+* With user `admin`, stop btcpay and nbxplorer
 
 ```bash
 sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
