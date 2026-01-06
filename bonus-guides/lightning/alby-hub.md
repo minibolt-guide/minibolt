@@ -420,7 +420,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
 HiddenServiceVersion 3
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:8089
+HiddenServicePort 80 127.0.0.1:8090
 ```
 
 * Reload Tor to apply changes
