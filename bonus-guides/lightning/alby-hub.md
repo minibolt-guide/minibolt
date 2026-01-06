@@ -491,7 +491,7 @@ sudo rm /etc/systemd/system/albyhub.service
 
 ### Delete user & group
 
-* Delete the albyhub user. Don't worry about `userdel: albyhub mail spool (/var/mail/lnd) not found` output, the uninstall has been successful
+* Delete the albyhub user. Don't worry about `userdel: albyhub mail spool (/var/mail/albyhub) not found` output, the uninstall has been successful
 
 ```shellscript
 sudo userdel -rf albyhub
