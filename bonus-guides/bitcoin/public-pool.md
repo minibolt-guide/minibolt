@@ -280,7 +280,7 @@ chmod +x dist/bin/cli.sh
 * Copy the necessary files into the system
 
 ```yaml
-sudo mv -f /tmp/public-pool/dist /var/lib/public-pool && sudo cp -R node_modules /var/lib/public-pool
+sudo rsync -av --delete /tmp/public-pool/dist /var/lib/public-pool/ && sudo rsync -av --delete node_modules /var/lib/public-pool/
 ```
 
 * Create the corresponding symbolic links
@@ -383,7 +383,7 @@ gzipper: 318 files have been compressed. (18s 289.411892ms)
 * Move the required files to the nginx server directory
 
 ```sh
-sudo mv -f dist/public-pool-ui /var/www/
+sudo rsync -av --delete dist/public-pool-ui /var/www/
 ```
 
 * **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation
