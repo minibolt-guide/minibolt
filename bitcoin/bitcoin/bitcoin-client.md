@@ -27,7 +27,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=30.0
+VERSION=30.2
 ```
 
 * Get the latest binaries and signatures
@@ -99,8 +99,8 @@ bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-30.0/SHA256SUMS.ots) the checksum file
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-30.0/SHA256SUMS) its timestamp proof
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-30.2/SHA256SUMS.ots) the checksum file
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-30.2/SHA256SUMS) its timestamp proof
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
 * In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box
 * In the next box, drop or upload the `SHA256SUMS` file
@@ -326,7 +326,7 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 server=1
 txindex=1
 
-# Set OP_RETURN limit to value before v30
+# Set OP_RETURN limit to value before v30.0
 datacarrier=83
 
 # Disable cjdns network
@@ -864,7 +864,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=30.0
+VERSION=30.2
 ```
 
 * Clone the source code from GitHub and enter the bitcoin folder
@@ -931,7 +931,7 @@ sudo rm -r /tmp/bitcoin
 
 ### Accelerate the IBD
 
-If you already have another fully-synced MiniBolt node on your local network, connecting directly to it can greatly accelerate synchronization by bypassing Tor’s added latency and bandwidth constraints. Local connections offer lower latency and higher throughput, delivering data—such as blockchain history—more reliably while reducing potential connectivity issues.&#x20;
+If you already have another fully-synced MiniBolt node on your local network, connecting directly to it can greatly accelerate synchronization by bypassing Tor’s added latency and bandwidth constraints. Local connections offer lower latency and higher throughput, delivering data—such as blockchain history—more reliably while reducing potential connectivity issues.
 
 {% hint style="info" %}
 To get this, you will need a **full-sync** MiniBolt node on the same local network
@@ -1102,7 +1102,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=30.0
+VERSION=30.2
 ```
 
 * Download binary, checksum, signature files, and timestamp file
@@ -1206,8 +1206,6 @@ Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bi
 Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
 ```
 
-
-
 -> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones, and continue to the next step
 {% endhint %}
 
@@ -1275,7 +1273,7 @@ sudo systemctl disable bitcoind
 sudo rm /etc/systemd/system/bitcoind.service
 ```
 
-### Delete user & group&#x20;
+### Delete user & group
 
 * Delete bitcoin user's group
 
@@ -1349,7 +1347,7 @@ sudo ufw delete X
 
 [^3]: Replace
 
-[^4]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.&#x20;
+[^4]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.
 
     -> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
 
