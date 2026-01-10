@@ -41,7 +41,7 @@ alias showbonusversion='echo The installed versions of the bonus services are as
   echo BTCPay Server: `sudo head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version`'
 
 alias manualscbackup='sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup'
-alias manualtestnetbackup='sudo touch /data/lnd/data/chain/bitcoin/testnet/channel.backup'
+alias manualtestnetbackup='sudo touch /data/lnd/data/chain/bitcoin/testnet4/channel.backup'
 
 # EXTRA LOGS
 alias authlogs='sudo tail -f /var/log/auth.log'
@@ -287,28 +287,28 @@ alias torobfs4bridgelogs='journalctl -fu tor@obfs4bridge'
 alias guardmidrelaylogs='journalctl -fu tor@guardmidrelay'
 
 #################
-#  LND Testnet  # (PENDING UPDATE)
+#  LND Testnet  #
 #################
 
-alias lntestunlock='lncli --network testnet unlock'
-alias lntestnewaddress='lncli --network testnet newaddress p2tr'
-alias lntesttxns='lncli --network testnet listchaintxns'
-alias lntestlistpayments='lncli --network testnet listpayments'
-alias lntestlistinvoices='lncli --network testnet listinvoices'
-alias lntestgetinfo='lncli --network testnet getinfo'
-alias lntestwalletbalance='lncli --network testnet walletbalance'
-alias lntestpeers='lncli --network testnet listpeers'
-alias lntestchannels='lncli --network testnet listchannels'
-alias lntestchannelbalance='lncli --network testnet channelbalance'
-alias lntestpendingchannels='lncli --network testnet pendingchannels'
-alias lntestopenchannel='lncli --network testnet openchannel'
-alias lntestconnect='lncli --network testnet connect'
-alias lntestpayinvoice='lncli --network testnet payinvoice'
-alias lntestaddinvoice='lncli --network testnet addinvoice'
-alias lntestaddAMPinvoice30d='lncli --network testnet addinvoice --amp'
+alias lntestunlock='lncli --network testnet4 unlock'
+alias lntestnewaddress='lncli --network testnet4 newaddress p2tr'
+alias lntesttxns='lncli --network testnet4 listchaintxns'
+alias lntestlistpayments='lncli --network testnet4 listpayments'
+alias lntestlistinvoices='lncli --network testnet4 listinvoices'
+alias lntestgetinfo='lncli --network testnet4 getinfo'
+alias lntestwalletbalance='lncli --network testnet4 walletbalance'
+alias lntestpeers='lncli --network testnet4 listpeers'
+alias lntestchannels='lncli --network testnet4 listchannels'
+alias lntestchannelbalance='lncli --network testnet4 channelbalance'
+alias lntestpendingchannels='lncli --network testnet4 pendingchannels'
+alias lntestopenchannel='lncli --network testnet4 openchannel'
+alias lntestconnect='lncli --network testnet4 connect'
+alias lntestpayinvoice='lncli --network testnet4 payinvoice'
+alias lntestaddinvoice='lncli --network testnet4 addinvoice'
+alias lntestaddAMPinvoice30d='lncli --network testnet4 addinvoice --amp'
 
 ##########################
-# LND Testnet Watchtower # (PENDING UPDATE)
+# LND Testnet Watchtower #
 ##########################
-alias lntestwtclientinfo='lncli --network testnet wtclient towers'
-alias lntestwtserverinfo='lncli --network testnet tower info'
+alias lntestwtclientinfo='lncli --network testnet4 wtclient towers'
+alias lntestwtserverinfo='lncli --network testnet4 tower info'
