@@ -115,7 +115,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```shellscript
-VERSION=1.21.2
+VERSION=1.21.3
 ```
 
 * Get the latest binaries and signatures
@@ -284,8 +284,9 @@ WORK_DIR=/data/albyhub
 # SERVICE PORT
 PORT=8090
 
-# RELAY (optional)
+# RELAY/S (optional - uncomment)
 ##RELAY=<a data-footnote-ref href="#user-content-fn-2">wss://relay.domain.com</a>
+##RELAY=<a data-footnote-ref href="#user-content-fn-3">wss://relay2.domain.com</a>
 
 # LND CONNECTION
 LN_BACKEND_TYPE=LND
@@ -598,4 +599,10 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Example relay (Optional)
+[^2]: ```
+    Example relay (pptional)
+    ```
+
+[^3]: ```
+    Example relay 2 (optional)
+    ```

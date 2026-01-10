@@ -134,19 +134,8 @@ ssl://bnfpvanrc2g7r5o5kaabbbyjv6ddh46jmasfatrvbbsvjb7cdik5n7ad.onion:40002
 {% endtab %}
 
 {% tab title="Explorer" %}
-* BTC RPC Explorer - **mainnet** (🚾clearnet):
-
-{% hint style="danger" %}
-Temporary not accessible from EE.UU, Austria, Singapore, or Germany
-{% endhint %}
-
-👉 CLICK to access: [https://explorer.minibolt.info](https://explorer.minibolt.info) 👈
-
+* BTC RPC Explorer - **mainnet** (🚾clearnet): [https://explorer.minibolt.info](https://explorer.minibolt.info)
 * BTC RPC Explorer - **mainnet** (🧅onion - Use [Tor browser](https://www.torproject.org/download/)):
-
-{% hint style="success" %}
-Accessible from **anywhere**
-{% endhint %}
 
 ```url
 http://rzcj4r2p6wterkto5prigsplq6iva5bqhcxr7y3d6w4hoc3uwizpp5qd.onion
