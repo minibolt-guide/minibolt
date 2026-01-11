@@ -62,7 +62,7 @@ npm -v
 ```
 
 {% hint style="info" %}
--> If you have `node -v` output you can move to the next section.
+-> If you have `node -v` output, you can move to the next section.
 
 -> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
@@ -74,10 +74,10 @@ In the [security section](../../index-1/security.md), we set up Nginx as a rever
 * Check your Nginx configuration file
 
 ```bash
-sudo nano +17 -l /etc/nginx/nginx.conf
+sudo nano +17 /etc/nginx/nginx.conf -l
 ```
 
-* Check that you have these two lines below the line 17:  `"include /etc/nginx/sites-enabled/*.conf;"`. If not, add the. Save and exit
+* Check that you have these two lines below line 17:  `"include /etc/nginx/sites-enabled/*.conf;"`. If not, add them. Save and exit
 
 ```nginx
 include /etc/nginx/mime.types;
@@ -88,7 +88,7 @@ default_type application/octet-stream;
 Watch your indentation! To see the differences between the two configurations more clearly, check this [diff](https://www.diffchecker.com/7ksp6t5T/).
 {% endhint %}
 
-Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to Public Pool. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the Public Pool. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
 * With user `admin`, create the reverse proxy configuration
 
@@ -148,7 +148,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 sudo systemctl reload nginx
 ```
 
-* Configure the firewall to allow incoming HTTP requests from anywhere to the web and stratum servers
+* Configure the firewall to allow incoming HTTPs requests from anywhere to the web and the Stratum server
 
 {% code overflow="wrap" %}
 ```sh
@@ -295,7 +295,7 @@ mkdir -p dist/bin
 nano dist/bin/cli.sh
 ```
 
-* Copy and paste the following information, save and exit
+* Copy and paste the following information. Save and exit
 
 ```
 #!/bin/sh
@@ -463,7 +463,7 @@ gzipper: 318 files have been compressed. (11s 973.86641ms)
 sudo mv -f dist/public-pool-ui /var/www/
 ```
 
-* **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation
+* **(Optional)** Delete the installation files of the `tmp` folder to be ready for the next installation
 
 {% code overflow="wrap" %}
 ```bash
@@ -473,7 +473,7 @@ cd && sudo rm -rf /tmp/public-pool*
 
 ### Create the public-pool user & group
 
-We do not want to run Public Pool code alongside `bitcoind` because of security reasons. For that, we will create a separate user and run the code as the new user.
+We do not want to run the Public Pool code alongside `bitcoind` because of security reasons. For that, we will create a separate user and run the code as the new user.
 
 * Create a new `public-pool` user and group
 
@@ -581,7 +581,7 @@ journalctl -fu public-pool
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
