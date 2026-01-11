@@ -17,7 +17,7 @@ layout:
 
 # Public Pool
 
-[Public Pool](https://web.public-pool.io/#/) is a NestJS and Typescript Bitcoin stratum mining server. It provides a lightweight and easy to use web interface to accomplish just that, a solo mining pool.&#x20;
+[Public Pool](https://web.public-pool.io/#/) is a NestJS and Typescript Bitcoin stratum mining server. It provides a lightweight and easy to use web interface to accomplish just that, a solo mining pool.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -29,13 +29,15 @@ Difficulty: Medium
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 
+Others
+
+* [Node + NPM](../../bonus/system/nodejs-npm.md)
+
 ## Preparations
 
 ### Check Node + NPM
 
-Node + NPM should have been installed for the [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md).
-
-* With the user `admin`, check the Node version
+* With the user `admin`, check if you have already installed Node
 
 ```sh
 node -v
@@ -59,6 +61,12 @@ npm -v
 8.19.3
 ```
 
+{% hint style="info" %}
+-> If you have `node -v` output you can move to the next section.
+
+-> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
+{% endhint %}
+
 ### Reverse proxy & Firewall
 
 In the [security section](../../index-1/security.md), we set up Nginx as a reverse proxy. Now we can add the Public Pool configuration.
@@ -69,7 +77,7 @@ In the [security section](../../index-1/security.md), we set up Nginx as a rever
 sudo nano +17 -l /etc/nginx/nginx.conf
 ```
 
-* Check that you have these two lines below the line `17 "include /etc/nginx/sites-enabled/*.conf;"` If not, add them, save, and exit.
+* Check that you have these two lines below the line 17:  `"include /etc/nginx/sites-enabled/*.conf;"`. If not, add the. Save and exit
 
 ```nginx
 include /etc/nginx/mime.types;
@@ -142,9 +150,11 @@ sudo systemctl reload nginx
 
 * Configure the firewall to allow incoming HTTP requests from anywhere to the web and stratum servers
 
+{% code overflow="wrap" %}
 ```sh
 sudo ufw allow 4040/tcp comment 'Allow Public Pool UI SSL from anywhere' && sudo ufw allow 23333/tcp comment 'Allow Public Pool Stratum from anywhere'
 ```
+{% endcode %}
 
 ### Configure Bitcoin Core
 
@@ -211,15 +221,31 @@ npm ci
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-added 988 packages, and audited 989 packages in 26s
+npm warn deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+npm warn deprecated request-promise-native@1.0.9: request-promise-native has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142
+npm warn deprecated request-promise@4.2.6: request-promise has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142
+npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+npm warn deprecated har-validator@5.1.5: this library is no longer supported
+npm warn deprecated @npmcli/move-file@1.1.2: This functionality has been moved to @npmcli/fs
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+> public-pool@0.0.1 postinstall
+> patch-package
+
+patch-package 8.0.0
+Applying patches...
+rpc-bitcoin@2.0.0 ✔
+
+added 988 packages, and audited 989 packages in 19s
 
 153 packages are looking for funding
   run `npm fund` for details
 
-52 vulnerabilities (9 low, 20 moderate, 17 high, 6 critical)
+53 vulnerabilities (9 low, 20 moderate, 18 high, 6 critical)
 
 To address issues that do not require attention, run:
   npm audit fix
@@ -231,6 +257,11 @@ Some issues need review, and may require choosing
 a different dependency.
 
 Run `npm audit` for details.
+npm notice
+npm notice New minor version of npm available! 11.6.2 -> 11.7.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+npm notice To update run: npm install -g npm@11.7.0
+npm notice
 ```
 
 </details>
@@ -246,8 +277,8 @@ npm run build
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-> public-pool@0.0.1 build
-> nest build
+public-pool@0.0.1 build
+nest build
 ```
 
 </details>
@@ -266,28 +297,32 @@ nano dist/bin/cli.sh
 
 * Copy and paste the following information, save and exit
 
-```yaml
+```
 #!/bin/sh
 node "$@" /var/lib/public-pool/main
 ```
 
 * Make the file executable
 
-```yaml
+```sh
 chmod +x dist/bin/cli.sh
 ```
 
 * Copy the necessary files into the system
 
-```yaml
-sudo rsync -av --delete /tmp/public-pool/dist /var/lib/public-pool/ && sudo rsync -av --delete node_modules /var/lib/public-pool/
+{% code overflow="wrap" %}
+```sh
+sudo mv -f /tmp/public-pool/dist /var/lib/public-pool && sudo cp -R node_modules /var/lib/public-pool
 ```
+{% endcode %}
 
 * Create the corresponding symbolic links
 
-```yaml
+{% code overflow="wrap" %}
+```sh
 sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s /usr/lib/node_modules/public-pool/bin/cli.sh /usr/bin/public-pool
 ```
+{% endcode %}
 
 ### Install the frontend
 
@@ -317,15 +352,35 @@ npm ci
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
-```
-added 1098 packages, and audited 1099 packages in 21s
+<pre><code><strong>[...]
+</strong><strong>npm warn deprecated tsparticles-interaction-external-attract@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+</strong>npm warn deprecated tsparticles-updater-rotate@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-updater-out-modes@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-updater-wobble@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-updater-twinkle@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-updater-roll@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-updater-tilt@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-interaction-external-grab@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-interaction-external-connect@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-updater-life@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-interaction-external-repulse@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-plugin-absorbers@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-interaction-external-bubble@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-interaction-particles-links@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-updater-destroy@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-shape-image@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated tsparticles-plugin-emitters@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+npm warn deprecated uuid@2.0.3: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+npm warn deprecated tsparticles-engine@2.12.0: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+
+added 1098 packages, and audited 1099 packages in 22s
 
 182 packages are looking for funding
   run `npm fund` for details
 
-44 vulnerabilities (14 low, 10 moderate, 20 high)
+47 vulnerabilities (14 low, 10 moderate, 23 high)
 
 To address issues that do not require attention, run:
   npm audit fix
@@ -334,19 +389,25 @@ To address all issues (including breaking changes), run:
   npm audit fix --force
 
 Run `npm audit` for details.
-```
+</code></pre>
 
 </details>
 
-* Edit this configuration file
+* Delete the default configuration file
+
+```sh
+rm src/environments/environment.prod.ts
+```
+
+* Create this configuration file
 
 ```sh
 nano src/environments/environment.prod.ts
 ```
 
-* Replace its content with the following lines, save and exit.
+* Replace its content with the following lines. Save and exit
 
-```sh
+```
 let path = window.location.origin + window.location.pathname;
 path = path.endsWith('/') ? path.slice(0, -1) : path;
 let stratumUrl = path.replace(/(^\w+:|^)\/\//, '').replace(/:\d+/, '');
@@ -369,13 +430,29 @@ npm run build
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-Build at: 2025-12-18T07:48:04.184Z - Hash: 6d3320fb7df1ad12 - Time: 46597ms
+> public-pool-ui@0.0.0 build
+> ng build --configuration=production && gzipper compress --gzip --brotli ./dist/public-pool-ui/
+
+✔ Browser application bundle generation complete.
+✔ Copying assets complete.
+✔ Index html generation complete.
+
+Initial chunk files           | Names         |  Raw size | Estimated transfer size
+main.084bbffefffb6801.js      | main          |   1.65 MB |               359.69 kB
+styles.b0d752c0b560a327.css   | styles        | 365.93 kB |                22.32 kB
+scripts.21e2572554dc843d.js   | scripts       | 165.82 kB |                47.86 kB
+polyfills.f2a4ff6f85492da8.js | polyfills     |  34.51 kB |                11.15 kB
+runtime.8cc81e121daade11.js   | runtime       |   1.17 kB |               637 bytes
+
+                              | Initial total |   2.22 MB |               441.65 kB
+
+Build at: 2026-01-11T19:00:49.809Z - Hash: 6d3320fb7df1ad12 - Time: 31504ms
 
 Warning: /tmp/public-pool-ui/node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.esm.js depends on 'moment'. CommonJS or AMD dependencies can cause optimization bailouts.
 For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
 
 
-gzipper: 318 files have been compressed. (18s 289.411892ms)
+gzipper: 318 files have been compressed. (11s 973.86641ms)
 ```
 
 </details>
@@ -383,7 +460,7 @@ gzipper: 318 files have been compressed. (18s 289.411892ms)
 * Move the required files to the nginx server directory
 
 ```sh
-sudo rsync -av --delete dist/public-pool-ui /var/www/
+sudo mv -f dist/public-pool-ui /var/www/
 ```
 
 * **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation
@@ -426,8 +503,7 @@ nano public-pool.env
 
 * Paste the following content. Save and exit
 
-```sh
-# MiniBolt: Public Pool  configuration
+<pre class="language-sh"><code class="lang-sh"># MiniBolt: Public Pool  configuration
 # /home/public-pool/public-pool.env
 
 ## Bitcoin Core settings
@@ -440,8 +516,8 @@ BITCOIN_ZMQ_HOST="tcp://127.0.0.1:28332"
 API_PORT=23334
 STRATUM_PORT=23333
 
-POOL_IDENTIFIER="Minibolt"
-```
+POOL_IDENTIFIER="<a data-footnote-ref href="#user-content-fn-1">MiniBolt</a>"
+</code></pre>
 
 * Exit of the `public-pool` user session to return to the `admin` user session
 
@@ -531,7 +607,7 @@ dic 20 16:49:50 minibolt public-pool[97483]: Stratum server is listening on port
 
 #### Validation
 
-* Ensure the service is working and listening on the SSL `4040` port, stratum `23333` port and the API `23334` port
+* Ensure the service is working and listening on the SSL `4040` port, Stratum `23333` port and the API `23334` port
 
 ```shellscript
 sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4040|:23333|:23334)'
@@ -745,3 +821,5 @@ sudo ufw delete Y
 ### Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">4040</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr><tr><td align="center">23333</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default API port</td></tr><tr><td align="center">23334</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default Stratum Port</td></tr></tbody></table>
+
+[^1]: Change for your selection if you want
