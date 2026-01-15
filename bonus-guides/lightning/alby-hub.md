@@ -115,7 +115,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```shellscript
-VERSION=1.21.3
+VERSION=1.21.4
 ```
 
 * Get the latest binaries and signatures
