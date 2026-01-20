@@ -483,7 +483,7 @@ npm ci --omit=dev --omit=optional
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 [...]
@@ -566,15 +566,19 @@ chmod +x package/bin/cli.sh
 
 * Copy the necessary files into the system
 
+{% code overflow="wrap" %}
 ```bash
 sudo install -d -o mempool -g mempool /var/lib/mempool && sudo install -o mempool -g mempool /tmp/mempool/backend/package /var/lib/mempool/
 ```
+{% endcode %}
 
 * Create the corresponding symbolic links
 
+{% code overflow="wrap" %}
 ```bash
 sudo ln -s /var/lib/mempool /usr/lib/node_modules/mempool && sudo ln -s /usr/lib/node_modules/mempool/bin/cli.sh /usr/bin/mempool
 ```
+{% endcode %}
 
 * Create the configuration file
 
@@ -686,7 +690,7 @@ npm ci --omit=dev --omit=optional
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 [...]
@@ -716,7 +720,7 @@ npm run build
 
 * Copy the necessary files into the system
 
-```yaml
+```sh
 sudo mv -f dist/mempool /var/www/
 ```
 
