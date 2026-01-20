@@ -167,7 +167,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 sudo systemctl reload nginx
 ```
 
-* Configure the firewall to allow incoming HTTPs requests from anywhere to the web and the Stratum server
+* Configure the firewall to allow incoming HTTPS requests from anywhere to the web and the Stratum server
 
 {% code overflow="wrap" %}
 ```sh
@@ -499,11 +499,17 @@ gzipper: 318 files have been compressed. (11s 973.86641ms)
 
 </details>
 
-* Sync the required files to the Nginx server directory
+* Create the `public-pool-ui` folder inside a folder called `www`
+
+```sh
+sudo mkdir -p /var/www/public-pool-ui
+```
+
+* Sync the website files to the Nginx directory and enforce secure ownership and permissions
 
 {% code overflow="wrap" %}
 ```sh
-sudo rsync -av --delete --chown=public-pool:public-pool dist/public-pool-ui/ /var/www/public-pool-ui/
+sudo rsync -av --delete --chown=root:www-data --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= dist/public-pool-ui/ /var/www/public-pool-ui/
 ```
 {% endcode %}
 
@@ -539,11 +545,11 @@ BITCOIN_RPC_URL=http://127.0.0.1
 BITCOIN_RPC_PORT=8332
 BITCOIN_RPC_COOKIEFILE="/data/bitcoin/.cookie"
 BITCOIN_ZMQ_HOST="tcp://127.0.0.1:28332"
+NETWORK=mainnet
 
 ## Public Pool  general settings
 API_PORT=23334
 STRATUM_PORT=23333
-
 POOL_IDENTIFIER="<a data-footnote-ref href="#user-content-fn-1">MiniBolt</a>"
 </code></pre>
 
