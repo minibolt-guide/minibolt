@@ -84,6 +84,25 @@ include /etc/nginx/mime.types;
 default_type application/octet-stream;
 ```
 
+* Test this barebone Nginx configuration
+
+```bash
+sudo nginx -t
+```
+
+Expected output:
+
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload Nginx to apply the configuration
+
+```bash
+sudo systemctl reload nginx
+```
+
 {% hint style="info" %}
 Watch your indentation! To see the differences between the two configurations more clearly, check this [diff](https://www.diffchecker.com/7ksp6t5T/).
 {% endhint %}
@@ -166,14 +185,13 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Add the following lines to the `"# Connections"` section. Save and exit
+* Check that you have this line in the `"# Connections"` section, if not, add it. Save and exit
 
 ```
-## Enable ZMQ real time raw block publishing (for Public Pool)
 zmqpubrawblock=tcp://127.0.0.1:28332
 ```
 
-* Restart Bitcoin Core to apply changes
+* Restart Bitcoin Core to apply changes (if needed)
 
 ```sh
 sudo systemctl restart bitcoind
@@ -189,6 +207,22 @@ Expected output:
 
 ```
 tcp   LISTEN 0      100        127.0.0.1:28332      0.0.0.0:*    users:(("bitcoind",pid=805382,fd=23))
+```
+
+### Create the public-pool user & group
+
+We do not want to run the Public Pool code alongside `bitcoind` because of security reasons. For that, we will create a separate user and run the code as the new user.
+
+* Create a new `public-pool` user and group
+
+```sh
+sudo adduser --disabled-password --gecos "" public-pool
+```
+
+* Add `public-pool` user to the `bitcoin` group to allow the user `public-pool` reading the `.cookie` file
+
+```sh
+sudo adduser public-pool bitcoin
 ```
 
 ## Installation
@@ -277,8 +311,8 @@ npm run build
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-public-pool@0.0.1 build
-nest build
+> public-pool@0.0.1 build
+> nest build
 ```
 
 </details>
@@ -289,7 +323,7 @@ nest build
 mkdir -p dist/bin
 ```
 
-* Create a new `cli.sh` file
+* Create a new file called `cli.sh`
 
 ```sh
 nano dist/bin/cli.sh
@@ -308,11 +342,17 @@ node "$@" /var/lib/public-pool/main
 chmod +x dist/bin/cli.sh
 ```
 
-* Copy the necessary files into the system
+* Create the `public-pool` folder
+
+```sh
+sudo install -d -o public-pool -g public-pool /var/lib/public-pool
+```
+
+* Sync the necessary files into the system
 
 {% code overflow="wrap" %}
 ```sh
-sudo mv -f /tmp/public-pool/dist /var/lib/public-pool && sudo cp -R node_modules /var/lib/public-pool
+sudo rsync -av --delete --chown=public-pool:public-pool /tmp/public-pool/dist/ /var/lib/public-pool/ && sudo rsync -av --chown=public-pool:public-pool /tmp/public-pool/node_modules /var/lib/public-pool/
 ```
 {% endcode %}
 
@@ -399,13 +439,13 @@ Run `npm audit` for details.
 rm src/environments/environment.prod.ts
 ```
 
-* Create this configuration file
+* Create the configuration file
 
 ```sh
 nano src/environments/environment.prod.ts
 ```
 
-* Replace its content with the following lines. Save and exit
+* Paste the following content. Save and exit
 
 ```
 let path = window.location.origin + window.location.pathname;
@@ -432,7 +472,9 @@ npm run build
 ```
 > public-pool-ui@0.0.0 build
 > ng build --configuration=production && gzipper compress --gzip --brotli ./dist/public-pool-ui/
-
+[...]
+⠴ Generating browser application bundles (phase: sealing)...
+[...]
 ✔ Browser application bundle generation complete.
 ✔ Copying assets complete.
 ✔ Index html generation complete.
@@ -457,11 +499,13 @@ gzipper: 318 files have been compressed. (11s 973.86641ms)
 
 </details>
 
-* Move the required files to the nginx server directory
+* Sync the required files to the Nginx server directory
 
+{% code overflow="wrap" %}
 ```sh
-sudo mv -f dist/public-pool-ui /var/www/
+sudo rsync -av --delete --chown=public-pool:public-pool dist/public-pool-ui/ /var/www/public-pool-ui/
 ```
+{% endcode %}
 
 * **(Optional)** Delete the installation files of the `tmp` folder to be ready for the next installation
 
@@ -470,22 +514,6 @@ sudo mv -f dist/public-pool-ui /var/www/
 cd && sudo rm -rf /tmp/public-pool*
 ```
 {% endcode %}
-
-### Create the public-pool user & group
-
-We do not want to run the Public Pool code alongside `bitcoind` because of security reasons. For that, we will create a separate user and run the code as the new user.
-
-* Create a new `public-pool` user and group
-
-```sh
-sudo adduser --disabled-password --gecos "" public-pool
-```
-
-* Add `public-pool` user to the `bitcoin` group to allow the user `public-pool` reading the `.cookie` file
-
-```sh
-sudo adduser public-pool bitcoin
-```
 
 ## Configuration
 
@@ -594,13 +622,55 @@ sudo systemctl start public-pool
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu lnd</code> ⬇️</summary>
 
 ```
-dic 20 16:49:40 minibolt public-pool[97483]: Using ZMQ
-dic 20 16:49:40 minibolt public-pool[97483]: ZMQ Connected
-dic 20 16:49:40 minibolt public-pool[97483]: Bitcoin RPC connected
-dic 20 16:49:40 minibolt public-pool[97483]: block height change
-dic 20 16:49:40 minibolt public-pool[97483]: [Nest] 97483  - 20/12/2025, 16:49:40     LOG [NestApplication] Nest application successfully started +29ms
-dic 20 16:49:40 minibolt public-pool[97483]: API listening on http://0.0.0.0:23334
-dic 20 16:49:50 minibolt public-pool[97483]: Stratum server is listening on port 23333
+Jan 19 23:26:03 minibolt systemd[1]: Started public-pool.service - Public-Pool.
+Jan 19 23:26:10 minibolt public-pool[540902]: (node:540902) [DEP0056] DeprecationWarning: The `util.isString` API is deprecated.  Please use `typeof arg === "string"` instead.
+Jan 19 23:26:10 minibolt public-pool[540902]: (Use `node --trace-deprecation ...` to show where the warning was created)
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [NestFactory] Starting Nest application...
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [InstanceLoader] TypeOrmModule dependencies initialized +266ms
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [InstanceLoader] HttpModule dependencies initialized +2ms
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [InstanceLoader] CacheModule dependencies initialized +0ms
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [InstanceLoader] ConfigHostModule dependencies initialized +1ms
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [InstanceLoader] DiscoveryModule dependencies initialized +0ms
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [InstanceLoader] ConfigModule dependencies initialized +1ms
+Jan 19 23:26:10 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:10     LOG [InstanceLoader] ScheduleModule dependencies initialized +3ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmCoreModule dependencies initialized +195ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmModule dependencies initialized +1ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmModule dependencies initialized +1ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] ClientStatisticsModule dependencies initialized +1ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] ClientModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] AddressSettingsModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] TelegramSubscriptionsModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] BlocksModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] RpcBlocksModule dependencies initialized +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] ExternalSharesModule dependencies initialized +1ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [InstanceLoader] AppModule dependencies initialized +9ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RoutesResolver] AppController {/api}: +114ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/info, GET} route +10ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/pool, GET} route +5ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/network, GET} route +2ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/info/chart, GET} route +2ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RoutesResolver] ClientController {/api/client}: +1ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/client/:address, GET} route +4ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/client/:address/chart, GET} route +2ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/client/:address/:workerName, GET} route +2ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/client/:address/:workerName/:sessionId, GET} route +2ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RoutesResolver] AddressController {/api/address}: +1ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/address/settings, PATCH} route +3ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RoutesResolver] ExternalShareController {/api/share}: +0ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/share/top-difficulties, GET} route +3ms
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [RouterExplorer] Mapped {/api/share, POST} route +1ms
+Jan 19 23:26:11 minibolt public-pool[540902]: Using ZMQ
+Jan 19 23:26:11 minibolt public-pool[540902]: ZMQ Connected
+Jan 19 23:26:11 minibolt public-pool[540902]: Bitcoin RPC connected
+Jan 19 23:26:11 minibolt public-pool[540902]: block height change
+Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [NestApplication] Nest application successfully started +98ms
+Jan 19 23:26:11 minibolt public-pool[540902]: API listening on http://0.0.0.0:23334
+Jan 19 23:26:21 minibolt public-pool[540902]: Stratum server is listening on port 23333
 ```
 
 </details>
@@ -609,7 +679,7 @@ dic 20 16:49:50 minibolt public-pool[97483]: Stratum server is listening on port
 
 * Ensure the service is working and listening on the SSL `4040` port, Stratum `23333` port and the API `23334` port
 
-```shellscript
+```sh
 sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4040|:23333|:23334)'
 ```
 
@@ -628,7 +698,7 @@ tcp   LISTEN 0      511                *:23333            *:*    users:(("node",
 {% endhint %}
 
 {% hint style="success" %}
-Congrat&#x73;**!** You now have Public Pool up and running
+Congrats! You now have Public Pool up and running
 {% endhint %}
 
 ## Extras (optional)
@@ -733,9 +803,11 @@ sudo userdel -rf public-pool
 
 * Remove the corresponding symbolic links and files
 
+{% code overflow="wrap" %}
 ```bash
 sudo rm /usr/lib/node_modules/public-pool && sudo rm /usr/bin/public-pool && sudo rm -rf /var/lib/public-pool
 ```
+{% endcode %}
 
 * Delete the nginx server files.
 
