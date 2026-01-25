@@ -37,7 +37,7 @@ Others
 
 ### Check Node + NPM
 
-* With the user `admin`, check if you have already installed Node
+* With the user `admin`, check if you have already installed Nodejs
 
 ```sh
 node -v
@@ -62,22 +62,24 @@ npm -v
 ```
 
 {% hint style="info" %}
--> If you have `node -v` output, you can move to the next section.
+2 options:
 
--> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
+-> If you have `node -v` output, **you can move to the** [**next section**](public-pool.md#reverse-proxy-and-firewall)
+
+-> If Nodejs is not installed, output: `-bash: /usr/bin/node: No such file or directory.` Follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 ### Reverse proxy & Firewall
 
 In the [security section](../../index-1/security.md), we set up Nginx as a reverse proxy. Now we can add the Public Pool configuration.
 
-* Check your Nginx configuration file
+* Edit your Nginx configuration file
 
 ```bash
 sudo nano +17 /etc/nginx/nginx.conf -l
 ```
 
-* Check that you have these two lines below line 17:  `"include /etc/nginx/sites-enabled/*.conf;"`. If not, add them. Save and exit
+* Check that you have these two lines below line 17:  (`include /etc/nginx/sites-enabled/*.conf;`). If not, add them. Save and exit
 
 ```nginx
 include /etc/nginx/mime.types;
@@ -109,7 +111,7 @@ Watch your indentation! To see the differences between the two configurations mo
 
 Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to the Public Pool. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
-* With user `admin`, create the reverse proxy configuration
+* With the user `admin`, create the reverse proxy configuration
 
 ```sh
 sudo nano /etc/nginx/sites-available/public-pool-reverse-proxy.conf
@@ -225,11 +227,25 @@ sudo adduser --disabled-password --gecos "" public-pool
 sudo adduser public-pool bitcoin
 ```
 
+### Create data folder
+
+* Create the fulcrum data folder
+
+```sh
+sudo mkdir -p /data/public-pool
+```
+
+* Assign the owner to the `public-pool` user
+
+```sh
+sudo chown -R public-pool:public-pool /data/public-pool
+```
+
 ## Installation
 
 ### Install the backend
 
-* Still with user `admin` , change to a temporary directory, which is cleared on reboot
+* Still with the user `admin` , change to a temporary directory, which is cleared on reboot
 
 ```sh
 cd /tmp
@@ -366,7 +382,7 @@ sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s 
 
 ### Install the frontend
 
-* Still with user `admin` , change the root of the temporary directory again
+* Still with the user `admin` , change the root of the temporary directory again
 
 ```sh
 cd /tmp
@@ -535,7 +551,7 @@ sudo su - public-pool
 nano public-pool.env
 ```
 
-* Paste the following content. Save and exit
+* Paste the following content. Note that you can edit the `POOL_IDENTIFIER` parameter if you wish. Save and exit
 
 <pre class="language-sh"><code class="lang-sh"># MiniBolt: Public Pool  configuration
 # /home/public-pool/public-pool.env
@@ -584,9 +600,8 @@ StartLimitBurst=2
 StartLimitIntervalSec=20
 
 [Service]
-WorkingDirectory=/home/public-pool/
+WorkingDirectory=/data/public-pool
 ExecStart=/usr/bin/public-pool --env-file=/home/public-pool/public-pool.env
-EnvironmentFile=/home/public-pool/public-pool.env
 
 User=public-pool
 Group=public-pool
@@ -625,7 +640,7 @@ sudo systemctl start public-pool
 
 <details>
 
-<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu lnd</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu public-pool</code> ⬇️</summary>
 
 ```
 Jan 19 23:26:03 minibolt systemd[1]: Started public-pool.service - Public-Pool.
@@ -677,6 +692,15 @@ Jan 19 23:26:11 minibolt public-pool[540902]: block height change
 Jan 19 23:26:11 minibolt public-pool[540902]: [Nest] 540902  - 19/01/2026, 23:26:11     LOG [NestApplication] Nest application successfully started +98ms
 Jan 19 23:26:11 minibolt public-pool[540902]: API listening on http://0.0.0.0:23334
 Jan 19 23:26:21 minibolt public-pool[540902]: Stratum server is listening on port 23333
+[...]
+Jan 25 12:28:21 minibolt public-pool[642441]: New client ID: : 882aba49, ::ffff:192.168.1.38:53573
+Jan 25 12:28:21 minibolt public-pool[642441]: getblocktemplate tx count: 62
+Jan 25 12:29:21 minibolt public-pool[642441]: getblocktemplate tx count: 63
+Jan 25 12:30:21 minibolt public-pool[642441]: getblocktemplate tx count: 63
+Jan 25 12:31:21 minibolt public-pool[642441]: getblocktemplate tx count: 64
+Jan 25 12:32:21 minibolt public-pool[642441]: getblocktemplate tx count: 64
+Jan 25 12:32:46 minibolt public-pool[642441]: Killing dead clients
+Jan 25 12:33:21 minibolt public-pool[642441]: getblocktemplate tx count: 64
 ```
 
 </details>
@@ -722,7 +746,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Public Pool
 HiddenServiceDir /var/lib/tor/hidden_service_public-pool/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 443 127.0.0.1:4040
 ```
@@ -766,6 +790,7 @@ journalctl -fu public-pool
 **Example** of expected output:
 
 ```
+[...]
 dic 20 16:49:40 minibolt public-pool[97483]: Using ZMQ
 dic 20 16:49:40 minibolt public-pool[97483]: ZMQ Connected
 dic 20 16:49:40 minibolt public-pool[97483]: Bitcoin RPC connected
@@ -779,7 +804,7 @@ dic 20 16:49:50 minibolt public-pool[97483]: Stratum server is listening on port
 
 ### Uninstall service
 
-* Ensure you are logged in as the user `admin`, stop Pubic Pool
+* Ensure you are logged in as the user `admin.` Stop Public Pool
 
 ```shellscript
 sudo systemctl stop public-pool
@@ -805,6 +830,14 @@ sudo rm /etc/systemd/system/public-pool.service
 sudo userdel -rf public-pool
 ```
 
+#### Delete data directory <a href="#delete-data-directory" id="delete-data-directory"></a>
+
+* Delete the `public-pool` directory
+
+```sh
+sudo rm -rf /data/public-pool/
+```
+
 ### Delete all Public Pool files
 
 * Remove the corresponding symbolic links and files
@@ -815,7 +848,7 @@ sudo rm /usr/lib/node_modules/public-pool && sudo rm /usr/bin/public-pool && sud
 ```
 {% endcode %}
 
-* Delete the nginx server files.
+* Delete the Nginx server files
 
 ```shellscript
 sudo rm -rf /var/www/public-pool-ui
@@ -831,10 +864,10 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 
 ```
 # Hidden Service Public Pool
-HiddenServiceDir /var/lib/tor/hidden_service_public-pool/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 443 127.0.0.1:4040
+#HiddenServiceDir /var/lib/tor/hidden_service_public-pool/
+#HiddenServiceEnableIntroDoSDefense 1
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 443 127.0.0.1:4040
 ```
 
 * Reload the torrc config
@@ -896,7 +929,7 @@ sudo ufw delete X
 sudo ufw delete Y
 ```
 
-### Port reference
+## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">4040</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr><tr><td align="center">23333</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default API port</td></tr><tr><td align="center">23334</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default Stratum Port</td></tr></tbody></table>
 
