@@ -22,7 +22,7 @@ alias showmainversion='echo The installed versions of the main services are as f
   Fulcrum --version | grep Fulcrum ; \
   echo BTC RPC Explorer: `sudo head -n 3 /home/btcrpcexplorer/btc-rpc-explorer/package.json | grep version` ; \
   lnd --version ; \
-  echo Thunderhub: `sudo head -n 3 /home/thunderhub/thunderhub/package.json | grep version` ; \
+  echo ThunderHub: `sudo head -n 3 /home/thunderhub/thunderhub/package.json | grep version` ; \
   echo NodeJS: `node -v` ; \
   echo NPM: v`npm --version` ; \
   htop --version ; \
@@ -32,11 +32,8 @@ alias showmainversion='echo The installed versions of the main services are as f
 
 alias showbonusversion='echo The installed versions of the bonus services are as follows: ; \
   echo Electrs: `electrs --version` ; \
-  Sparrow --version ; \
   cloudflared --version ; \
   nostr-rs-relay -V ; \
-  sudo -u nym /home/nym/nym-socks5-client -V | grep nym ; \
-  sudo -u nym /home/nym/nym-network-requester -V | grep nym ; \
   echo NBXplorer: `sudo head -n 6 /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj | grep Version` ; \
   echo BTCPay Server: `sudo head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version`'
 
@@ -196,7 +193,8 @@ alias enablepostgres='sudo systemctl enable postgresql'
 alias enablebitcoindtest4='sudo systemctl enable bitcoind-testnet4'
 alias enabletorobfs4bridge='sudo systemctl enable tor@obfs4bridge'
 alias enableguardmidrelay='sudo systemctl enable tor@guardmidrelay'
-alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
+alias enablealbyhub='sudo systemctl enable albyhub'
+alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
 
 ########################
 # START BONUS SERVICES #
@@ -214,6 +212,7 @@ alias startpostgres='sudo systemctl start postgresql'
 alias startbitcoindtest4='sudo systemctl start bitcoind-testnet4'
 alias startorobfs4bridge='sudo systemctl start tor@obfs4bridge'
 alias startguardmidrelay='sudo systemctl start tor@guardmidrelay'
+alias startalbyhub='sudo systemctl start albyhub'
 
 #########################
 # STATUS BONUS SERVICES #
@@ -231,8 +230,9 @@ alias statuspostgres='sudo systemctl status postgresql'
 alias statusbitcoindtest4='sudo systemctl status bitcoind-testnet4'
 alias statustorobfs4bridge='sudo systemctl status tor@obfs4bridge'
 alias statusguardmidrelay='sudo systemctl status tor@guardmidrelay'
+alias statusalbyhub='sudo systemctl status albyhub'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
-  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
+  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
 
 #######################
 # STOP BONUS SERVICES #
@@ -250,7 +250,8 @@ alias stopostgres='sudo systemctl stop postgresql'
 alias stopbitcoindtest4='sudo systemctl stop bitcoind-testnet4'
 alias stoptorobfs4bridge='sudo systemctl stop tor@obfs4bridge'
 alias stopguardmidrelay='sudo systemctl stop tor@guardmidrelay'
-alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
+alias stopalbyhub='sudo systemctl stop albyhub'
+alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
 
 ###################################
 # DISABLE AUTOBOOT BONUS SERVICES #
@@ -267,7 +268,8 @@ alias disablepostgres='sudo systemctl disable postgresql'
 alias disablebitcoindtest4='sudo systemctl disable bitcoind-testnet4'
 alias disabletorobfs4bridge='sudo systemctl disable tor@obfs4bridge'
 alias disableguardmidrelay='sudo systemctl disable tor@guardmidrelay'
-alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay'
+alias disablealbyhub='sudo systemctl disable albyhub'
+alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
 
 #######################
 # BONUS SERVICES LOGS #
@@ -285,6 +287,7 @@ alias postgreslogs='journalctl -fu postgresql'
 alias bitcoindtest4logs='journalctl -fu bitcoind-testnet4'
 alias torobfs4bridgelogs='journalctl -fu tor@obfs4bridge'
 alias guardmidrelaylogs='journalctl -fu tor@guardmidrelay'
+alias albyhublogs='journalctl -fu albyhub'
 
 #################
 #  LND Testnet  #
