@@ -355,7 +355,7 @@ sudo systemctl enable albyhub
 journalctl -fu albyhub
 ```
 
-### Run
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
@@ -380,7 +380,7 @@ nov 16 11:21:02 minibolt albyhub[1440537]: ⇨ http server started on [::]:8090
 
 </details>
 
-#### Validation
+### Validation
 
 * Ensure the service is working and listening on the default `8090` port and the HTTPS `3003` port
 
