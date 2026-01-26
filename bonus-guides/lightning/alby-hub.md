@@ -115,7 +115,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```shellscript
-VERSION=1.21.0
+VERSION=1.21.4
 ```
 
 * Get the latest binaries and signatures
@@ -284,8 +284,9 @@ WORK_DIR=/data/albyhub
 # SERVICE PORT
 PORT=8090
 
-# RELAY (optional)
+# RELAY/S (optional - uncomment)
 ##RELAY=<a data-footnote-ref href="#user-content-fn-2">wss://relay.domain.com</a>
+##RELAY=<a data-footnote-ref href="#user-content-fn-3">wss://relay2.domain.com</a>
 
 # LND CONNECTION
 LN_BACKEND_TYPE=LND
@@ -418,9 +419,9 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Alby Hub
 HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:3003
+HiddenServicePort 80 127.0.0.1:8090
 ```
 
 * Reload Tor to apply changes
@@ -491,10 +492,16 @@ sudo rm /etc/systemd/system/albyhub.service
 
 ### Delete user & group
 
-* Delete the albyhub user.
+* Delete the albyhub user. Don't worry about `userdel: albyhub mail spool (/var/mail/albyhub) not found` output, the uninstall has been successful
 
 ```shellscript
 sudo userdel -rf albyhub
+```
+
+* Delete the albyhub group
+
+```bash
+sudo groupdel albyhub
 ```
 
 ### Delete data directory
@@ -524,9 +531,9 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Alby Hub
 #HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
-#HiddenServiceVersion 3
+#HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 80 127.0.0.1:3003
+#HiddenServicePort 80 127.0.0.1:8090
 ```
 
 * Reload the torrc config
@@ -592,4 +599,10 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Example relay (Optional)
+[^2]: ```
+    Example relay (pptional)
+    ```
+
+[^3]: ```
+    Example relay 2 (optional)
+    ```

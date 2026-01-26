@@ -635,6 +635,14 @@ Configuration file '/etc/i2pd/i2pd.conf'
 * Press "Y" and ENTER, but take into account that you will need to reconfigure I2P if you followed the "[Access to the i2pd webconsole](privacy.md#access-to-the-i2pd-webconsole)" section, since this overwrites I2P's previous configuration.
 {% endhint %}
 
+***
+
+{% hint style="danger" %}
+ATTENTION!!! Do not proceed to the [next Uninstall section](privacy.md#uninstall) if you **do not wish to uninstall**. Skip directly to the [Bitcoin client](../bitcoin/bitcoin/) section
+{% endhint %}
+
+***
+
 ## Uninstall
 
 ### Uninstall Tor

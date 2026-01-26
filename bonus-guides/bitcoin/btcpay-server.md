@@ -93,7 +93,7 @@ VERSION=8.0
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 dotnet-install: Attempting to download using aka.ms link https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.405/dotnet-sdk-8.0.405-linux-x64.tar.gz
@@ -222,7 +222,7 @@ git clone --branch v$VERSION https://github.com/dgarage/NBXplorer.git && cd NBXp
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 Cloning into 'btcpayserver'...
@@ -331,7 +331,7 @@ Time Elapsed 00:00:41.43
 </details>
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take several minutes, 10-15 minutes, or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Check the correct installation
@@ -508,7 +508,7 @@ Ignore the next warning log:
 warn: NBXplorer.Indexer.BTC: BTC: Your NBXplorer server is not whitelisted by your node, you should add "whitelist=127.0.0.1" to the configuration file of your node. (Or use whitebind)
 ```
 
--> It's a wrong warning since we connected to Bitcoin Core locally,  so there is no point in having to whitelist the connection.
+-> It's a wrong warning since we connected to Bitcoin Core locally, so there is no point in having to whitelist the connection.
 {% endhint %}
 
 #### Validation
@@ -546,7 +546,7 @@ cd src
 * Set the variable environment version
 
 ```bash
-VERSION=2.2.1
+VERSION=2.3.3
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -559,7 +559,7 @@ git clone --branch v$VERSION https://github.com/btcpayserver/btcpayserver && cd 
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 Cloning into 'btcpayserver'...
@@ -633,31 +633,22 @@ nano +3 build.sh
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-MSBuild version 17.3.2+561848881 for .NET
-  Determining projects to restore...
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Rating/BTCPayServer.Rating.csproj (in 32.66 sec).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Data/BTCPayServer.Data.csproj (in 1.41 sec).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Common/BTCPayServer.Common.csproj (in 392 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Client/BTCPayServer.Client.csproj (in 1.1 sec).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj (in 8 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj (in 36.6 sec).
-  BTCPayServer.Common -> /home/btcpay/src/btcpayserver/BTCPayServer.Common/bin/Release/net6.0/BTCPayServer.Common.dll
-  BTCPayServer.Client -> /home/btcpay/src/btcpayserver/BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
-  BTCPayServer.Rating -> /home/btcpay/src/btcpayserver/BTCPayServer.Rating/bin/Release/net6.0/BTCPayServer.Rating.dll
-  BTCPayServer.Abstractions -> /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/bin/Release/net6.0/BTCPayServer.Abstractions.dll
-  BTCPayServer.Data -> /home/btcpay/src/btcpayserver/BTCPayServer.Data/bin/Release/net6.0/BTCPayServer.Data.dll
-/home/btcpay/src/btcpayserver/BTCPayServer/Services/Cheater.cs(37,35): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj]
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/net6.0/BTCPayServer.dll
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/publish/
+  BTCPayServer.Client netstandard2.1 succeeded (10.0s) → BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
+  BTCPayServer.Common net8.0 succeeded (10.3s) → BTCPayServer.Common/bin/Release/net8.0/BTCPayServer.Common.dll
+  BTCPayServer.Rating net8.0 succeeded (11.3s) → BTCPayServer.Rating/bin/Release/net8.0/BTCPayServer.Rating.dll
+  BTCPayServer.Abstractions net8.0 succeeded (2.4s) → BTCPayServer.Abstractions/bin/Release/net8.0/BTCPayServer.Abstractions.dll
+  BTCPayServer.Data net8.0 succeeded (4.9s) → BTCPayServer.Data/bin/Release/net8.0/BTCPayServer.Data.dll
+  [...]
+  Build succeeded in 88.1s
 ```
 
 </details>
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take several minutes, 10-15 minutes, or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Check the correct installation
@@ -686,7 +677,7 @@ mkdir -p ~/.btcpayserver/Main && cd ~/.btcpayserver/Main
 nano settings.config
 ```
 
-* Add the complete following lines
+* Add the following lines
 
 <pre><code># MiniBolt: btcpayserver configuration
 # /home/btcpay/.btcpayserver/Main/settings.config
@@ -705,7 +696,7 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 {% hint style="info" %}
 -> If you want to connect your Lightning LND node to BTCPay Server too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
 
--> The `socksendpoint=127.0.0.1:9050` parameter is optional but recommended to increase your privacy, if you want to delete, comment with # before it or delete it directly
+-> The `socksendpoint=127.0.0.1:9050` parameter is optional, but recommended to increase your privacy, if you want to delete, comment with # before it, or delete it directly
 {% endhint %}
 
 * Go back to the `admin` user
@@ -851,7 +842,7 @@ sudo nano /data/lnd/lnd.conf
 * Add the next line under the `[Application Options]` section. Save and exit
 
 ```
-# Specify all ipv4 interfaces to listen on for REST connections
+# Specify all IPv4 interfaces to listen on for REST connections
 restlisten=0.0.0.0:8080
 ```
 
@@ -984,7 +975,7 @@ You may want to expose your BTCPay Server publicly using a clearnet address. To 
 
 > Type the selected subdomain (i.e service name "btcpay") as the **Name** field
 
-> Type the tunnel `<UUID>`  of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
+> Type the tunnel `<UUID>` of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
 
 > Ensure you enable the switch on the `Proxy status` field to be "Proxied"
 
@@ -1163,8 +1154,6 @@ Fast-forward
 {% hint style="warning" %}
 **Troubleshooting notes:**
 
-
-
 If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
@@ -1176,8 +1165,6 @@ git config user.name "MiniBolt"
 ```
 
 -> And try again the last command
-
-
 
 If the prompt shows you this:
 
@@ -1278,7 +1265,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.2.1
+VERSION=2.3.3
 ```
 
 * Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
@@ -1292,19 +1279,23 @@ git pull https://github.com/btcpayserver/btcpayserver.git v$VERSION
 **Example** of expected output:
 
 ```
+remote: Enumerating objects: 6946, done.
+remote: Counting objects: 100% (3933/3933), done.
+remote: Compressing objects: 100% (265/265), done.
+remote: Total 6946 (delta 3771), reused 3668 (delta 3668), pack-reused 3013 (from 3)
+Receiving objects: 100% (6946/6946), 3.73 MiB | 11.86 MiB/s, done.
+Resolving deltas: 100% (5227/5227), completed with 559 local objects.
 From https://github.com/btcpayserver/btcpayserver
- * tag                   v1.12.0    -> FETCH_HEAD
-Updating 541cef55b..6ecfe073e
-Fast-forward
- BTCPayServer.Data/ApplicationDbContext.cs                         |  2 +-
- BTCPayServer.Data/Data/AppData.cs                                 | 10 +++++++++-
+ * tag                   v2.3.3     -> FETCH_HEAD
+Merge made by the 'ort' strategy.
+ .circleci/config.yml                                                                 |  22 ++++++++++++++++++++
+ .circleci/verify-signed-commit.sh                                                    |   8 ++++++++
+ .coderabbit.yaml                                                                     |   2 +-
 [...]
 ```
 
 {% hint style="warning" %}
 **Troubleshooting notes:**
-
-
 
 If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
@@ -1316,9 +1307,7 @@ git config user.email "minibolt@dummyemail.com"
 git config user.name "MiniBolt"
 ```
 
--> And try again the last command
-
-
+-> And try the last command again
 
 If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
 
@@ -1326,9 +1315,7 @@ If the prompt shows you: `fatal: Need to specify how to reconcile divergent bran
 git config pull.rebase false
 ```
 
--> And try again the last command
-
-
+-> And try the last command again
 
 If the prompts show you logs like these:
 
@@ -1374,23 +1361,16 @@ Oct 30 16:26:48 minibolt run.sh[3307655]: info: BTCPayServer.HostedServices.Paym
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-  Determining projects to restore...
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj (in 965 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Client/BTCPayServer.Client.csproj (in 965 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Common/BTCPayServer.Common.csproj (in 978 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Data/BTCPayServer.Data.csproj (in 113 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Rating/BTCPayServer.Rating.csproj (in 178 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj (in 1.9 sec).
-  BTCPayServer.Client -> /home/btcpay/src/btcpayserver/BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
-  BTCPayServer.Common -> /home/btcpay/src/btcpayserver/BTCPayServer.Common/bin/Release/net8.0/BTCPayServer.Common.dll
-  BTCPayServer.Rating -> /home/btcpay/src/btcpayserver/BTCPayServer.Rating/bin/Release/net8.0/BTCPayServer.Rating.dll
-  BTCPayServer.Abstractions -> /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/bin/Release/net8.0/BTCPayServer.Abstractions.dll
-  BTCPayServer.Data -> /home/btcpay/src/btcpayserver/BTCPayServer.Data/bin/Release/net8.0/BTCPayServer.Data.dll
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/net8.0/BTCPayServer.dll
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/publish/
+  BTCPayServer.Client netstandard2.1 succeeded (10.0s) → BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
+  BTCPayServer.Common net8.0 succeeded (10.3s) → BTCPayServer.Common/bin/Release/net8.0/BTCPayServer.Common.dll
+  BTCPayServer.Rating net8.0 succeeded (11.3s) → BTCPayServer.Rating/bin/Release/net8.0/BTCPayServer.Rating.dll
+  BTCPayServer.Abstractions net8.0 succeeded (2.4s) → BTCPayServer.Abstractions/bin/Release/net8.0/BTCPayServer.Abstractions.dll
+  BTCPayServer.Data net8.0 succeeded (4.9s) → BTCPayServer.Data/bin/Release/net8.0/BTCPayServer.Data.dll
+  [...]
+  Build succeeded in 88.1s
 ```
 
 </details>
@@ -1423,7 +1403,7 @@ sudo systemctl start btcpay
 
 ### Uninstall service
 
-* With user `admin`, stop btcpay and nbxplorer&#x20;
+* With user `admin`, stop btcpay and nbxplorer
 
 ```bash
 sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
