@@ -57,6 +57,7 @@ You will need several passwords, and it's easiest to write them all down in the 
 [ D ] BTC-RPC-Explorer password (optional)
 [ E ] ThunderHub password
 [ F ] i2pd webconsole password (optional)
+[ G ] Mempool DB password
 ```
 
 ![](../.gitbook/assets/password_strength.png)
