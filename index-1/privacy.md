@@ -361,7 +361,7 @@ sudo ufw allow 7071/tcp comment 'allow i2pd webconsole SSL from anywhere'
 * Enable i2pd webconsole authentication
 
 ```bash
-sudo nano +130 -l /etc/i2pd/i2pd.conf
+sudo nano +134 -l /etc/i2pd/i2pd.conf
 ```
 
 * Uncomment (delete "#" at the beginning of the lines) and replace "`changeme`" with your "`[ F ] i2pd webconsole password`". Save and exit

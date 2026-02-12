@@ -83,7 +83,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=2026.1.1
+VERSION=2026.2.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -94,7 +94,7 @@ VERSION=2026.1.1
 * Set a temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=a982b43a93b4e1d3dd290fbf08a7ed76f199a773fa60d487939892677501ca70
+SHA256=e90aa057bfe72c15071eb2706f739097550623b55c4e3ab98286f45e9bf145f4
 ```
 
 * Check the checksum of the file
@@ -130,7 +130,7 @@ cloudflared version 2023.6.1 (built 2023-06-20-0926 UTC)
 * Remove the package installation file
 
 ```bash
-sudo rm cloudflared-linux-amd64.deb
+rm cloudflared-linux-amd64.deb
 ```
 
 {% hint style="info" %}

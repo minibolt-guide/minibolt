@@ -101,7 +101,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=0.20.0
+VERSION=0.20.1
 ```
 
 * Download the application, checksums, and signature
