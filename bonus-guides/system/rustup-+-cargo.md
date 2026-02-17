@@ -15,98 +15,32 @@ Rustup is an installer for the systems programming language [Rust](https://www.r
 * With user `admin`, run the following in your terminal, then follow the on-screen instructions to install Rust
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
 ```
 
 <details>
 
-<summary>Expected output 🔽</summary>
-
-<pre><code>info: downloading installer
-
-Welcome to Rust!
-
-This will download and install the official compiler for the Rust
-programming language, and its package manager, Cargo.
-
-Rustup metadata and toolchains will be installed into the Rustup
-home directory, located at:
-
-  /home/admin/.rustup
-
-This can be modified with the RUSTUP_HOME environment variable.
-
-The Cargo home directory is located at:
-
-  /home/admin/.cargo
-
-This can be modified with the CARGO_HOME environment variable.
-
-The cargo, rustc, rustup and other commands will be added to
-Cargo's bin directory, located at:
-
-  /home/admin/.cargo/bin
-
-This path will then be added to your PATH environment variable by
-modifying the profile files located at:
-
-  /home/admin/.profile
-  /home/admin/.bashrc
-
-You can uninstall at any time with rustup self uninstall and
-these changes will be reverted.
-
-Current installation options:
-
-
-   default host triple: x86_64-unknown-linux-gnu
-     default toolchain: stable (default)
-               profile: default
-  modify PATH variable: yes
-
-1) Proceed with installation (default)
-2) Customize installation
-3) Cancel installation
-><a data-footnote-ref href="#user-content-fn-1">1</a>
-</code></pre>
-
-</details>
-
-{% hint style="warning" %}
-When the prompt asks you to choose an option, type **"`1`"** and press **enter** or press **enter** directly to "**Proceed with installation**"
-{% endhint %}
-
-<details>
-
-<summary>Example of installation expected output 🔽</summary>
+<summary><strong>Example</strong> of expected output 🔽</summary>
 
 ```
-info: profile set to 'default'
+info: downloading installer
+info: profile set to 'minimal'
 info: default host triple is x86_64-unknown-linux-gnu
 info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
-info: latest update on 2023-07-13, rust version 1.71.0 (8ede3aae2 2023-07-12)
+info: latest update on 2026-02-12, rust version 1.93.1 (01f6ddf75 2026-02-11)
 info: downloading component 'cargo'
-  7.0 MiB /   7.0 MiB (100 %)   4.5 MiB/s in  1s ETA:  0s
-info: downloading component 'clippy'
-info: downloading component 'rust-docs'
- 13.6 MiB /  13.6 MiB (100 %)   4.3 MiB/s in  3s ETA:  0s
 info: downloading component 'rust-std'
- 25.4 MiB /  25.4 MiB (100 %)   4.2 MiB/s in  6s ETA:  0s
+ 28.1 MiB /  28.1 MiB (100 %)  14.0 MiB/s in  2s
 info: downloading component 'rustc'
- 64.0 MiB /  64.0 MiB (100 %)   4.4 MiB/s in 15s ETA:  0s
-info: downloading component 'rustfmt'
+ 74.4 MiB /  74.4 MiB (100 %)  14.9 MiB/s in  5s
 info: installing component 'cargo'
-info: installing component 'clippy'
-info: installing component 'rust-docs'
- 13.6 MiB /  13.6 MiB (100 %)   2.8 MiB/s in  4s ETA:  0s
 info: installing component 'rust-std'
- 25.4 MiB /  25.4 MiB (100 %)  12.7 MiB/s in  1s ETA:  0s
+ 28.1 MiB /  28.1 MiB (100 %)  13.0 MiB/s in  2s
 info: installing component 'rustc'
- 64.0 MiB /  64.0 MiB (100 %)  13.9 MiB/s in  4s ETA:  0s
-info: installing component 'rustfmt'
+ 74.4 MiB /  74.4 MiB (100 %)  11.3 MiB/s in  6s
 info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'
 
-  stable-x86_64-unknown-linux-gnu installed - rustc 1.71.0 (8ede3aae2 2023-07-12)
+  stable-x86_64-unknown-linux-gnu installed - rustc 1.93.1 (01f6ddf75 2026-02-11)
 
 
 Rust is installed now. Great!
@@ -115,8 +49,13 @@ To get started you may need to restart your current shell.
 This would reload your PATH environment variable to include
 Cargo's bin directory ($HOME/.cargo/bin).
 
-To configure your current shell, run:
-source "$HOME/.cargo/env"
+To configure your current shell, you need to source
+the corresponding env file under $HOME/.cargo.
+
+This is usually done by running one of the following (note the leading DOT):
+. "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
+source "$HOME/.cargo/env.fish"  # For fish
+source $"($nu.home-path)/.cargo/env.nu"  # For nushell
 ```
 
 </details>
@@ -201,5 +140,3 @@ info: removing cargo home
 info: removing rustup binaries
 info: rustup is uninstalled
 ```
-
-[^1]: Type "`1`" and press enter
