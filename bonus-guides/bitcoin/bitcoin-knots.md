@@ -174,7 +174,7 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 
 {% code overflow="wrap" %}
 ```shell
-sudo apt install autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config libzmq3-dev --no-install-recommends
+sudo apt install cmake autoconf automake build-essential libboost-filesystem-dev libboost-system-dev libboost-thread-dev libevent-dev libsqlite3-dev libtool pkg-config libzmq3-dev --no-install-recommends
 ```
 {% endcode %}
 
@@ -189,7 +189,7 @@ cd /tmp
 * Set the next environment variables
 
 ```sh
-VERSION=28.1.knots20250305 && BRANCH=28.x
+VERSION=29.2.knots20251010 && BRANCH=29.x
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -300,33 +300,73 @@ bitcoin-28.0/.github/workflows/
 cd bitcoin-$VERSION
 ```
 
-* Execute the `autogen.sh` script
+#### **User agent consideration**
 
-```sh
-./autogen.sh
+{% hint style="info" %}
+⚠️ **Privacy Note**: Bitcoin Knots identifies itself as "Bitcoin Knots" in its user agent string. This can make your node more identifiable on the network.
+
+If you want your node to appear as "Bitcoin Core" for better privacy/censorship resistance, you would need to manually modify the source code before compilation:
+{% endhint %}
+
+{% hint style="info" %}
+Skip this step if you want only to build Bitcoin Knots from the source code, but not apply the user agent patch
+{% endhint %}
+
+* Before creating the build directory, edit the CMakeLists.txt file
+
+```bash
+sudo nano CMakeLists.txt
+```
+
+* Before creating the build directory, edit the CMakeLists.txt file
+
+* Find line 29 that contains:
+
+```bash
+set(CLIENT_NAME "Bitcoin Knots")
+```
+
+*Change it to:
+
+```bash
+set(CLIENT_NAME "Bitcoin Core")
+```
+
+* Save the file (Ctrl+O, Enter, Ctrl+X to exit)
+
+{% hint style="info" %}
+Start here if you don´t want to change Knots name for Core
+{% endhint %}
+
+* Create a build directory
+
+> 📝 **Note**: Bitcoin Knots v29.x and later use CMake as the build system. Versions 28.x and earlier used Autotools (autogen.sh/configure). This guide covers v29.x+.
+
+* Create a build directory
+Copy
+```bash
+mkdir build
+cd build
+```
+
+* Configure the build with CMake using optimized options.
+```bash
+cmake .. \
+  -DBUILD_BENCH=OFF \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_GUI=OFF \
+  -DWITH_ZMQ=ON
 ```
 
 Expected output:
 
 ```
-libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
-libtoolize: copying file 'build-aux/ltmain.sh'
-libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'build-aux/m4'.
-libtoolize: copying file 'build-aux/m4/libtool.m4'
-libtoolize: copying file 'build-aux/m4/ltoptions.m4'
-libtoolize: copying file 'build-aux/m4/ltsugar.m4'
-libtoolize: copying file 'build-aux/m4/ltversion.m4'
-libtoolize: copying file 'build-aux/m4/lt~obsolete.m4'
-configure.ac:39: installing 'build-aux/ar-lib'
-configure.ac:37: installing 'build-aux/compile'
-configure.ac:24: installing 'build-aux/config.guess'
-configure.ac:24: installing 'build-aux/config.sub'
-configure.ac:27: installing 'build-aux/install-sh'
-configure.ac:27: installing 'build-aux/missing'
-Makefile.am: installing 'build-aux/depcomp'
-parallel-tests: installing 'build-aux/test-driver'
-libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
-libtoolize: copying file 'build-aux/ltmain.sh'
+-- The C compiler identification is GNU [version]
+-- The CXX compiler identification is GNU [version]
+[...]
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/bitcoin-[version]/build
 [...]
 ```
 
@@ -338,36 +378,6 @@ libtoolize: copying file 'build-aux/ltmain.sh'
   --disable-maintainer-mode \
   --disable-tests \
   --with-gui=no
-```
-
-#### **Apply the UA patch (optional)**
-
-{% hint style="info" %}
-This patch removes the Bitcoin Knots reference from the **user agent** to make it look like Bitcoin Core, improving its censorship resistance
-{% endhint %}
-
-{% hint style="info" %}
-Skip this step if you want only to build Bitcoin Knots from the source code, but not apply the user agent patch
-{% endhint %}
-
-* Download the UA patch
-
-{% code overflow="wrap" %}
-```bash
-wget https://raw.githubusercontent.com/minibolt-guide/minibolt/refs/heads/main/resources/mod-ua-knots.patch
-```
-{% endcode %}
-
-* **(Optional)** Inspect `mod-ua-knots.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
-
-```sh
-nano mod-ua-knots.patch
-```
-
-* Apply the patch
-
-```sh
-git apply mod-ua-knots.patch
 ```
 
 #### **Build**
