@@ -262,7 +262,7 @@ cd /tmp
 * Set a temporary version of the environment variable for the installation
 
 ```sh
-VERSION=0.11.0
+VERSION=0.11.1
 ```
 
 * Download the source code and go to the `electrs` folder
@@ -271,38 +271,45 @@ VERSION=0.11.0
 git clone --branch v$VERSION https://github.com/romanz/electrs.git && cd electrs
 ```
 
-* To avoid using bad source code, verify that the release has been properly signed by the main developer, [Roman Zeyde](https://github.com/romanz)Customise
+* To avoid using bad source code, verify that the main developer, Roman Zeyde, has properly signed the release. Create the `git` folder inside the `.config` folder in the `admin` home
 
-```sh
-curl https://romanzey.de/pgp.txt | gpg --import
+```shellscript
+mkdir /home/admin/.config/git
 ```
 
-Expected output:
+* Create the `allowed_signers` file
 
-<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-<strong>                                   Dload  Upload   Total   Spent    Left  Speed
-</strong>100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
-gpg: key 87CAE5FA46917CBB: public key "Roman Zeyde &#x3C;me@romanzey.de>" imported
-gpg: Total number processed: 1
-gpg:               imported: 1
-</code></pre>
+```bash
+nano /home/admin/.config/git/allowed_signers
+```
+
+* Enter the next content. Save and exit
+
+```
+git@romanzey.de ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAZVq/3fgkildjN/MqEnhrP5550sDpFzGxMwevr5q/9w
+```
+
+* Tell Git about this file
+
+```bash
+git config --global gpg.ssh.allowedSignersFile ~/.config/git/allowed_signers
+```
 
 * Verify the release
 
-```sh
-git verify-tag v$VERSION
+```shellscript
+git verify-tag -v v$VERSION
 ```
 
-Expected output:
+**Example** of expected output:
 
-<pre><code>gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
-gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
-gpg:                issuer "me@romanzey.de"
-gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Roman Zeyde &#x3C;me@romanzey.de>" [unknown]
-gpg:                 aka "Roman Zeyde &#x3C;roman.zeyde@gmail.com>" [unknown]
-gpg: WARNING: This key is not certified with a trusted signature!
-gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
+<pre><code>object 35216c6d30148be8e6763d913d437330f431fc03
+type commit
+tag v0.11.1
+tagger Roman Zeyde &#x3C;me@romanzey.de> 1771763419 +0100
+
+v0.11.1
+<a data-footnote-ref href="#user-content-fn-1">Good "git" signature for git@romanzey.de with ED25519 key SHA256:GifMn7F2swVKyn6MewbQHrYCs4i/bPK7gnwxhuPz/YA</a>
 </code></pre>
 
 * Now compile the source code into an executable binary
