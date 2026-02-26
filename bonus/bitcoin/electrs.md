@@ -359,6 +359,10 @@ info: installing component 'rustfmt'
   Downloaded lazycell v1.3.0
   Downloaded num_cpus v1.16.0
 [...]
+  Compiling bitcoin_slices v0.10.0
+  Compiling crossbeam-channel v0.5.15
+  Compiling rust-rocksdb v0.36.0
+   Finished `release` profile [optimized] target(s) in 7m 17s
 ```
 
 </details>
