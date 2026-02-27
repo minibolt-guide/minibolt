@@ -33,7 +33,7 @@ cd /tmp
 * Set the environment variable for the version
 
 ```bash
-VERSION=22
+VERSION=24
 ```
 
 * We will use the NodeSource Node.js Binary Distributions [repository](https://github.com/nodesource/distributions) instructions. Download the setup script
@@ -106,6 +106,12 @@ sudo apt update && sudo apt full-upgrade
 node -v && npm -v
 ```
 
+* **(Optional)** Delete the setup script
+
+```bash
+rm nodesource_setup.sh
+```
+
 * Start BTC RPC Explorer & Thunderhub again
 
 ```bash
@@ -129,7 +135,7 @@ cd /tmp
 * Set the environment variable for the version
 
 ```bash
-VERSION=22
+VERSION=24
 ```
 
 {% hint style="info" %}
@@ -160,6 +166,12 @@ sudo apt update && sudo apt install nodejs
 
 ```bash
 node -v && npm -v
+```
+
+* **(Optional)** Delete the setup script
+
+```bash
+rm nodesource_setup.sh
 ```
 
 * Start BTC RPC Explorer & Thunderhub again
