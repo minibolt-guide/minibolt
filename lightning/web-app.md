@@ -55,7 +55,7 @@ npm -v
 
 In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
 
-Enable the Nginx reverse proxy to route external encrypted HTTPs traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
+Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
 * With user `admin`, create the reverse proxy configuration
 
@@ -103,7 +103,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 sudo systemctl reload nginx
 ```
 
-* Configure the firewall to allow incoming HTTPs requests from anywhere to the web server
+* Configure the firewall to allow incoming HTTPS requests from anywhere to the web server
 
 ```sh
 sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
@@ -113,7 +113,7 @@ sudo ufw allow 4002/tcp comment 'allow ThunderHub SSL from anywhere'
 
 ### Create the thunderhub user & group
 
-We do not want to run Thunderhub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and run the code as the new user. We will install ThunderHub in the home directory since it doesn't need too much space.
+We do not want to run ThunderHub code alongside `bitcoind` and `lnd` because of security reasons. For that, we will create a separate user and run the code as the new user. We will install ThunderHub in the home directory since it doesn't need too much space.
 
 * Create a new `thunderhub` user and group
 
@@ -629,7 +629,7 @@ abcdefg..............xyz.onion
 If you can't do "**Login**", maybe the cause is that you don't have a **public** channel opened yet. **You'll need at least one public channel that has been open for a few days.** Planning to open a small-sized public channel to be connected with some Lightning Network peers or directly to the [Amboss node](https://amboss.space/es/node/03006fcf3312dae8d068ea297f58e2bd00ec1ffe214b793eda46966b6294a53ce6). More info on [Amboss docs](https://amboss.tech/docs)
 {% endhint %}
 
-* Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account), now back to Thunderhub for the next steps
+* Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account), now back to ThunderHub for the next steps
 
 ### Enable auto backups and healthcheck notifications to the Amboss account
 
