@@ -1309,7 +1309,7 @@ This process could take a few minutes, depending on the database size. The promp
 
 </details>
 
-* (Optional) If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the `lndinit` files in the `tmp` folder
+* **(Optional)** If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the `lndinit` files in the `tmp` folder
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo rm -r /tmp/lndinit-linux-amd64-v$VERSION-beta &#x26;&#x26; sudo rm /tmp/lndinit-linux-amd64-v$VERSION-beta.tar.gz &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.txt &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig.ots
 </strong></code></pre>
@@ -1400,7 +1400,7 @@ journalctl -fu lnd
 Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md), or using `lncli` with commands like `lncli listchannels / lncli listunspent / lncli wtclient towers` and see if everything is as you left it before the migration
 {% endhint %}
 
-#### (Optional) Delete old bbolt files database
+#### **(Optional)** Delete old bbolt files database
 
 * With user `admin`, detele the old bbolt database files
 
@@ -1584,13 +1584,13 @@ Mar 01 13:32:39 minibolt lnd[435474]: 2026-03-01 13:32:39.991 [INF] TORC: Starti
 </details>
 
 {% hint style="info" %}
-Now you can delete the `password.txt` file from your LND folder by typing with the user `admin`:
+**(Optional)** Now you can delete the `password.txt` file from your LND folder by typing with the user `admin`:
 
 ```bash
 sudo rm /data/lnd/password.txt
 ```
 
-Remember backup your `[ C ] LND wallet password` in a secure location
+⚠️Remember to back up your `[ C ] LND wallet password` in a secure location
 {% endhint %}
 
 ## Upgrade

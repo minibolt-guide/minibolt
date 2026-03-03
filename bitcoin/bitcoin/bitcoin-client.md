@@ -373,7 +373,7 @@ bind=127.0.0.1
 bind=127.0.0.1=onion
 
 ## Proxify clearnet outbound connections using Tor SOCKS5 proxy
-proxy=unix:/run/tor/socks
+proxy=127.0.0.1:9050
 
 ## I2P SAM proxy to reach I2P peers and accept I2P connections
 i2psam=127.0.0.1:7656
