@@ -1,13 +1,13 @@
----
-hidden: true
----
-
 # Public Pool
 
 [Public Pool](https://web.public-pool.io/#/) is a NestJS and Typescript Bitcoin stratum mining server. It provides a lightweight and easy to use web interface to accomplish just that, a solo mining pool.
 
 {% hint style="warning" %}
 Difficulty: Medium
+{% endhint %}
+
+{% hint style="danger" %}
+Attention! This software is not compatible with the latest version of Node LTS (24), mentioned in the corresponding [Node + NPM guide](../../bonus/system/nodejs-npm.md). If you encounter an error when you [run](public-pool.md#run), it's due to this. If you wish to follow the next steps, realize that you will need to install version **22** following the [Node + NPM guide](../../bonus/system/nodejs-npm.md) instead of 24, but the **rest of the software that depends on Node version 24** **may stop working** (e.g [ThunderHub](../../lightning/web-app.md)).
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/public-pool.png" alt=""><figcaption></figcaption></figure>
