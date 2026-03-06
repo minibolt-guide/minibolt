@@ -1,20 +1,3 @@
----
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
-  metadata:
-    visible: true
----
-
 # Mempool
 
 [Mempool](https://mempool.space/) is the fully-featured mempool visualizer, explorer, and API service.
@@ -31,10 +14,26 @@ Difficulty: Medium
 * [LND](../../lightning/lightning-client.md) (optional)
 * Electrum server ([Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md))
 * Others
-  * [Node + NPM](../../bonus/system/nodejs-npm.md)
+  * [Nginx](../../index-1/security.md#nginx)
+  * MariaDB
   * [Rustup + Cargo](../system/rustup-+-cargo.md)
+  * [Node + NPM](../../bonus/system/nodejs-npm.md)
 
 ## Preparations
+
+### Install dependencies
+
+* With user `admin`, update and upgrade your OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
+* Install `build-essential` package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+
+```bash
+sudo apt install build-essential
+```
 
 ### Check Node + NPM
 
@@ -68,7 +67,7 @@ npm -v
 -> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
-### Check Rustup + Cargo
+### Install Rustup + Cargo
 
 * Check if you already have Rustup installed
 
@@ -95,7 +94,7 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" output, you need to follow the[ Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
+If you obtain "**command not found**" output, you need to follow the [Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
 {% endhint %}
 
 ### Check MariaDB and create the database
@@ -113,31 +112,61 @@ mariadb from 12.2.1-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  Ed
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" output, you need to follow the [MariaDB bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide
+If you obtain "**command not found**" output, you need to follow the MariaDB bonus guide to install it and then come back to continue with the guide
 {% endhint %}
 
-* Now, open the MariaDB shell.
+* Now, open the MariaDB shell
 
 ```sh
-sudo mysql
-> Welcome to the MariaDB monitor.  Commands end with ; or \g.
-> [...]
-> MariaDB [(none)]>
+sudo mariadb
 ```
 
-* Enter the following commands in the shell and exit. The instructions to enter in the MariaDB shell start with "MDB$".
+**Example** of expected output:
+
+```
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 32
+Server version: 12.2.1-MariaDB-ubu2204 mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+```
+
+* Create the `mempool` database. The instructions to enter the MariaDB shell start with: "`MariaDB [(none)]>`"
 
 ```sql
-MDB$ create database mempool;
-> Query OK, 1 row affected (0.001 sec)
-MDB$ grant all privileges on mempool.* to 'mempool'@'localhost' identified by 'Password[G]';
-> Query OK, 0 rows affected (0.012 sec)
-MDB$ exit
+create database mempool;
 ```
 
-{% hint style="info" %}
-Replace **`Password[G]`** to your one, keeping quotes \[' ']
+Expected output:
+
+```
+Query OK, 1 row affected (0.001 sec)
+```
+
+Enter the next command
+
+{% hint style="danger" %}
+Important!! Replace **`Password[G]`** to your one, keeping quotes \[' ']
 {% endhint %}
+
+<pre class="language-sql"><code class="lang-sql">grant all privileges on mempool.* to 'mempool'@'localhost' identified by '<a data-footnote-ref href="#user-content-fn-1">Password[G]</a>';
+</code></pre>
+
+Expected output:
+
+```
+Query OK, 0 rows affected (0.001 sec)
+```
+
+Exit from MariaDB shell
+
+```bash
+exit
+```
 
 ### Reverse proxy & Firewall
 
@@ -382,7 +411,7 @@ sudo ufw allow 4081/tcp comment 'allow Mempool Space SSL from anywhere'
 
 ### **Create the mempool user & group**
 
-We do not want to run Mempool Space code alongside bitcoind and lnd because of security reasons. For that, we will create a separate user and run the code as the new user.
+We do not want to run Mempool code alongside other services for security reasons. For that, we will create a separate user and run the code as the new user.
 
 * Create the `mempool` user and group
 
@@ -400,7 +429,7 @@ Creating home directory `/home/mempool' ...
 Copying files from `/etc/skel' ...
 ```
 
-Add `mempool` user to the `bitcoin` and `lnd` groups to allow to the user mempool reading the bitcoin .cookie file and lnd certs files.
+Add `mempool` user to the `bitcoin` and `lnd` groups to allow to the user mempool reading the bitcoin .cookie file and the lnd certs files
 
 ```bash
 sudo usermod -aG bitcoin,lnd mempool
@@ -452,7 +481,7 @@ git clone --branch v$VERSION https://github.com/mempool/mempool.git && cd mempoo
 git verify-tag v$VERSION
 ```
 
-**Example** of expected output:
+Expected output:
 
 ```
 gpg: Signature made Mon 14 abr 2025 04:24:51 CEST
@@ -486,13 +515,49 @@ npm ci --omit=dev --omit=optional
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
+> mempool-backend@3.2.1 preinstall
+> cd ../rust/gbt && npm run build-release && npm run to-backend
+
+
+> gbt@3.0.1 build-release
+> npm run build -- --release --strip
+
+
+> gbt@3.0.1 build
+> npm install --no-save @napi-rs/cli@2.18.0 && npm run check-cargo-version && napi build --platform --release --strip
+
+
+up to date, audited 2 packages in 571ms
+
+1 package is looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> gbt@3.0.1 check-cargo-version
+> VER=$(cat rust-toolchain) ; if ! cargo version | grep "cargo $VER" >/dev/null ; then echo -e "\033[1;35m[[[[WARNING]]]]: cargo version mismatch with ./rust-toolchain version ($VER)!!!\033[0m" >&2; fi
+
+info: syncing channel updates for '1.84-x86_64-unknown-linux-gnu'
+info: latest update on 2025-01-30, rust version 1.84.1 (e71f9a9a9 2025-01-27)
+info: downloading component 'cargo'
+info: downloading component 'clippy'
+info: downloading component 'rust-docs'
+info: downloading component 'rust-std'
 [...]
-added 125 packages, and audited 128 packages in 2m
+   Compiling bytes v1.9.0
+   Compiling napi v2.16.13
+    Finished `release` profile [optimized] target(s) in 33.40s
+
+> gbt@3.0.1 to-backend
+> FD=${FD:-../../backend/rust-gbt/} ; rm -rf $FD && mkdir $FD && cp index.js index.d.ts package.json *.node $FD
+
+
+added 125 packages, and audited 128 packages in 37s
 
 16 packages are looking for funding
   run `npm fund` for details
 
-7 vulnerabilities (6 high, 1 critical)
+9 vulnerabilities (8 high, 1 critical)
 
 To address issues that do not require attention, run:
   npm audit fix
@@ -551,7 +616,7 @@ mkdir package/bin
 nano package/bin/cli.sh
 ```
 
-* Copy and paste the following information, save and exit
+* Copy and paste the following information. Save and exit
 
 ```
 #!/bin/sh
@@ -564,13 +629,10 @@ node /var/lib/mempool/index.js
 chmod +x package/bin/cli.sh
 ```
 
-* Copy the necessary files into the system
+* Sync the backend files with the system and enforce secure ownership and permissions
 
-{% code overflow="wrap" %}
-```bash
-sudo install -d -o mempool -g mempool /var/lib/mempool && sudo install -o mempool -g mempool /tmp/mempool/backend/package /var/lib/mempool/
-```
-{% endcode %}
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo install -d -o mempool -g mempool -m 750 /var/lib/mempool &#x26;&#x26; sudo rsync -a --delete --chown=mempool:mempool --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= /tmp/mempool/backend/package/ /var/lib/mempool/package/
+</strong></code></pre>
 
 * Create the corresponding symbolic links
 
@@ -586,10 +648,13 @@ sudo ln -s /var/lib/mempool /usr/lib/node_modules/mempool && sudo ln -s /usr/lib
 sudo nano /home/mempool/mempool-config.json
 ```
 
-* Paste the following lines, save and exit.
+* Paste the following lines. Save and exit
 
-```
-{
+{% hint style="danger" %}
+Important: Replace **`Password[G]`** to your one, keeping quotes \[" "]
+{% endhint %}
+
+<pre><code>{
   "MEMPOOL": {
     "NETWORK": "mainnet",
     "BACKEND": "electrum",
@@ -615,20 +680,20 @@ sudo nano /home/mempool/mempool-config.json
   },
   "ELECTRUM": {
     "HOST": "127.0.0.1",
-    "PORT": 50002,
-    "TLS_ENABLED": true
+    "PORT": 50001,
+    "TLS_ENABLED": false
   },
   "DATABASE": {
     "ENABLED": true,
     "HOST": "127.0.0.1",
     "PORT": 3306,
     "USERNAME": "mempool",
-    "PASSWORD": "Password[G]",
+    "PASSWORD": "<a data-footnote-ref href="#user-content-fn-1">Password[G]</a>",
     "DATABASE": "mempool"
   },
   "LIGHTNING": {
     "_comment": "Enable this option only if LND is installed and fully synchronized."
-    "ENABLED": false,
+    "ENABLED": <a data-footnote-ref href="#user-content-fn-2">false</a>,
     "BACKEND": "lnd",
     "STATS_REFRESH_INTERVAL": 600,
     "GRAPH_REFRESH_INTERVAL": 600,
@@ -652,11 +717,7 @@ sudo nano /home/mempool/mempool-config.json
     "TOR_URL": "http://wizpriceje6q5tdrxkyiazsgu7irquiqjy2dptezqhrtu7l2qelqktid.onion/getAllMarketPrices"
   }
 }
-```
-
-{% hint style="info" %}
-Replace **`Password[G]`** to your one, keeping quotes \[" "]
-{% endhint %}
+</code></pre>
 
 * Make the user `mempool` the owner of the configuration file
 
@@ -664,7 +725,7 @@ Replace **`Password[G]`** to your one, keeping quotes \[" "]
 sudo chown mempool:mempool /home/mempool/mempool-config.json
 ```
 
-* Restrict reading access to the configuration file by user `mempool` only.
+* Restrict reading access to the configuration file for the user `mempool` only
 
 ```bash
 sudo chmod 600 /home/mempool/mempool-config.json
@@ -693,13 +754,15 @@ npm ci --omit=dev --omit=optional
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-[...]
-added 1126 packages, and audited 1127 packages in 22s
+npm warn deprecated querystring@0.2.0: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
+npm warn deprecated popper.js@1.16.1: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
+
+added 1126 packages, and audited 1127 packages in 26s
 
 145 packages are looking for funding
   run `npm fund` for details
 
-48 vulnerabilities (7 low, 11 moderate, 26 high, 4 critical)
+65 vulnerabilities (6 low, 12 moderate, 43 high, 4 critical)
 
 To address issues that do not require attention, run:
   npm audit fix
@@ -712,23 +775,99 @@ Run `npm audit` for details.
 
 </details>
 
+* Export the next variable **(pending research)**
+
+```bash
+export SKIP_SYNC=1
+export MEMPOOL_CDN=1
+```
+
 * Build it
 
 ```bash
 npm run build
 ```
 
-* Copy the necessary files into the system
+<details>
 
-```sh
-sudo mv -f dist/mempool /var/www/
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
 ```
+> mempool-frontend@3.2.1 build
+> npm run generate-config && npm run ng -- build --configuration production --localize && npm run sync-assets-dev && npm run sync-assets && npm run build-mempool.js
+
+
+> mempool-frontend@3.2.1 generate-config
+> node generate-config.js
+
+mempool-frontend-config.json file not found, using default config
+Copied src/index.mempool.html to src/index.html
+mempool version 3.2.1
+mempool revision 32fadb484
+src/resources/config.js file not found, creating new config file
+CONFIG:  (function (window) {
+  window.__env = window.__env || {};
+    window.__env.GIT_COMMIT_HASH = '32fadb484';
+    window.__env.PACKAGE_JSON_VERSION = '3.2.1';
+  }((typeof global !== 'undefined') ? global : this));
+src/resources/config.js file saved
+
+> mempool-frontend@3.2.1 ng
+> ./node_modules/@angular/cli/bin/ng.js build --configuration production --localize
+
+⠋ Generating browser application bundles (phase: setup)...    TypeScript compiler options "target" and "useDefineForClassFields" are set to "ES2022" and "false" respectively by the Angular CLI. To control ECMA version and features use the Browserslist configuration. For more information, see https://angular.io/guide/build#configuring-browser-compatibility
+    NOTE: You can set the "target" to "ES2022" in the project's tsconfig to remove this warning.
+⠴ Generating browser application bundles (phase: sealing)...
+✔ Localized bundle generation complete.
+✔ Copying assets complete.
+✔ Index html generation complete.
+
+Initial chunk files           | Names                                               |  Raw size | Estimated transfer size
+main.b586fbf92cad9de2.js      | main                                                |   1.14 MB |               283.14 kB
+styles.cf2a69e15c6bcb8f.css   | styles                                              | 178.38 kB |                22.21 kB
+polyfills.c41df647371e42d1.js | polyfills                                           |  33.45 kB |                10.77 kB
+
+                              | Initial total                                       |   1.35 MB |               316.13 kB
+
+Lazy chunk files              | Names                                               |  Raw size | Estimated transfer size   
+[...]
+resources/wallycore/wallycore.js
+resources/wallycore/wallycore.wasm
+
+sent 16,744,490 bytes  received 3,063 bytes  33,495,106.00 bytes/sec
+total size is 16,729,238  speedup is 1.00
+[sync-assets] SKIP_SYNC is set, not checking any assets
+
+> mempool-frontend@3.2.1 build-mempool.js
+> npm run build-mempool-js && npm run build-mempool-liquid-js
+
+
+> mempool-frontend@3.2.1 build-mempool-js
+> browserify -p tinyify ./node_modules/@mempool/mempool.js/lib/index.js --standalone mempoolJS > ./dist/mempool/browser/en-US/mempool.js
+
+
+> mempool-frontend@3.2.1 build-mempool-liquid-js
+> browserify -p tinyify ./node_modules/@mempool/mempool.js/lib/index-liquid.js --standalone liquidJS > ./dist/mempool/browser/en-US/liquid.js
+
+```
+
+</details>
+
+* Sync the frontend files with the system and enforce secure ownership and permissions
+
+{% code overflow="wrap" %}
+```sh
+sudo install -d -o root -g www-data -m 750 /var/www/mempool && sudo rsync -av --delete --chown=root:www-data --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= dist/mempool/ /var/www/mempool/
+```
+{% endcode %}
 
 * **(Optional)** Delete the `mempool` folder to be ready for the next update
 
 ```bash
 cd && sudo rm -r /tmp/mempool
 ```
+
+## **Configuration**
 
 ### **Create systemd service**
 
@@ -804,7 +943,7 @@ sudo systemctl start mempool
 
 ### Validation
 
-* Ensure the service is working and listening on the default HTTP `8999` port and SSL `4081` port
+* Ensure the service is working and listening on the default HTTP port `8999` and SSL `4081` port
 
 ```bash
 sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:8999|:4081)'
@@ -842,7 +981,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Mempool
 HiddenServiceDir /var/lib/tor/hidden_service_mempool/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 443 127.0.0.1:4081
 ```
@@ -867,9 +1006,9 @@ abcdefg..............xyz.onion
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
-### Upgrade
+## Upgrade
 
-Follow the complete [Download](mempool.md#download-the-source-code), [Backend](mempool.md#install-the-backend) and [Frontend](mempool.md#install-the-frontend) sections replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**.
+Follow the complete [Download](mempool.md#download-the-source-code), [Backend](mempool.md#install-the-backend), and [Frontend](mempool.md#install-the-frontend) sections, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**.
 
 * Restart the service to apply the changes
 
@@ -877,20 +1016,15 @@ Follow the complete [Download](mempool.md#download-the-source-code), [Backend](m
 sudo systemctl restart mempool
 ```
 
-* Check the logs, and pay attention to the next log
+* Check the logs with
 
 ```shellscript
 journalctl -fu mempool
 ```
 
-**Example** of expected output:
+## Uninstall
 
-```
-```
-
-### Uninstall
-
-#### Uninstall service
+### Uninstall service
 
 * Ensure you are logged in as the user `admin`, stop Mempool
 
@@ -910,7 +1044,7 @@ sudo systemctl disable mempool
 sudo rm /etc/systemd/system/mempool.service
 ```
 
-#### Delete user & group
+### Delete user & group
 
 * Delete the mem`pool` user.
 
@@ -918,21 +1052,23 @@ sudo rm /etc/systemd/system/mempool.service
 sudo userdel -rf mempool
 ```
 
-#### Delete all Mempool files
+### Delete all Mempool files
 
 * Remove the corresponding symbolic links and files
 
+{% code overflow="wrap" %}
 ```bash
 sudo rm /usr/lib/node_modules/mempool && sudo rm /usr/bin/mempool && sudo rm -rf /var/lib/mempool
 ```
+{% endcode %}
 
-* Delete the nginx server files.
+* Delete the Nginx server files
 
 ```shellscript
 sudo rm -rf /var/www/mempool
 ```
 
-#### Uninstall Tor hidden service
+### Uninstall Tor hidden service
 
 * Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
@@ -940,13 +1076,12 @@ sudo rm -rf /var/www/mempool
 sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 
-```
-# Hidden Service Mempool
-HiddenServiceDir /var/lib/tor/hidden_service_mempool/
-HiddenServiceVersion 3
-HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:4081
-```
+<pre><code># Hidden Service Mempool
+<strong>#HiddenServiceDir /var/lib/tor/hidden_service_mempool/
+</strong>#HiddenServiceEnableIntroDoSDefense 1
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 443 127.0.0.1:4081
+</code></pre>
 
 * Reload the torrc config
 
@@ -954,7 +1089,7 @@ HiddenServicePort 80 127.0.0.1:4081
 sudo systemctl reload tor
 ```
 
-#### Uninstall reverse proxy & FW configuration
+### Uninstall reverse proxy & FW configuration
 
 * Ensure you are logged in as the user `admin`, delete the reverse proxy config file
 
@@ -968,7 +1103,7 @@ sudo rm /etc/nginx/sites-available/mempool-reverse-proxy.conf
 sudo rm /etc/nginx/sites-enabled/mempool-reverse-proxy.conf
 ```
 
-* Test Nginx configuration
+* Test the Nginx configuration
 
 ```bash
 sudo nginx -t
@@ -1008,3 +1143,7 @@ sudo ufw delete X
 ## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8999</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4081</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">Default SSL port</td></tr></tbody></table>
+
+[^1]: Replace
+
+[^2]: Change to `true` if you have LND running and fully synchronized
