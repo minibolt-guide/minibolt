@@ -53,6 +53,7 @@
   * [MiniBolt on Testnet](bonus/bitcoin/minibolt-on-testnet.md)
   * [Bitcoin Knots](bonus-guides/bitcoin/bitcoin-knots.md)
   * [Mempool](bonus-guides/bitcoin/mempool.md)
+  * [Public Pool](bonus-guides/bitcoin/public-pool.md)
 * [⚡ Lightning](bonus-guides/lightning/README.md)
   * [Alby Hub](bonus-guides/lightning/alby-hub.md)
 * [🦩 Nostr](bonus-guides/nostr/README.md)

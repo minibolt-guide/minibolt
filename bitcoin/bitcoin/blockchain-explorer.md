@@ -129,7 +129,7 @@ sudo ufw allow 4000/tcp comment 'allow BTC RPC Explorer SSL from anywhere'
 
 ### Create the btcrpcexplorer user & group
 
-For improved security, we will create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker could not do much within this user's permission settings. We will install  BTC RPC Explorer in the home directory since it doesn't need too much space.
+For improved security, we will create a new user `btcrpcexplorer` that will run the block explorer. Using a dedicated user limits potential damage in case there's a security vulnerability in the code. An attacker could not do much within this user's permission settings. We will install BTC RPC Explorer in the home directory since it doesn't need too much space.
 
 * Create the `btcrpcexplorer` user and group
 
@@ -349,48 +349,51 @@ sudo systemctl start btcrpcexplorer
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu btcrpcexplorer</code> ⬇️</summary>
 
 ```
-Jul 18 11:08:29 minibolt systemd[1]: Started BTC RPC Explorer.
-Jul 18 11:08:30 minibolt npm[140449]: > btc-rpc-explorer@3.4.0 start
-Jul 18 11:08:30 minibolt npm[140449]: > node ./bin/www
-Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.765Z btcexp:app Searching for config files...
-Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.767Z btcexp:app Config file not found at /home/btcrpcexplorer/.config/btc-rpc-explorer.env, continuing...
-Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.767Z btcexp:app Config file not found at /etc/btc-rpc-explorer/.env, continuing...
-Jul 18 11:08:30 minibolt npm[140461]: 2023-07-18T11:08:30.767Z btcexp:app Config file found at /home/btcrpcexplorer/btc-rpc-explorer/.env, loading...
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.086Z btcexp:app Default cacheId '3.4.0'
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.122Z btcexp:app Enabling view caching (performance will be improved but template edits will not be reflected)
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.133Z btcexp:app Session config: {"secret":"*****","resave":false,"saveUninitialized":true,"cookie":{"secure":false}}
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.142Z btcexp:app Environment(development) - Node: v18.16.1, Platform: linux, Versions: {"node":"18.16.1","acorn":"8.8.2","ada":"1.0.4","ares":"1.19.1","brotli":"1.0.9","cldr":"42.0","icu":"72.1","llhttp":"6.0.11","modules":"108","napi":"8","nghttp2":"1.52.0","nghttp3":"0.7.0","ngtcp2":"0.8.1","openssl":"3.0.9+quic","simdutf":"3.2.2","tz":"2022g","undici":"5.21.0","unicode":"15.0","uv":"1.44.2","uvwasi":"0.0.15","v8":"10.2.154.26-node.26","zlib":"1.2.13"}
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.193Z btcexp:app Using sourcecode metadata as cacheId: '2023-06-14-bfc9f97715'
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.193Z btcexp:app Starting BTC RPC Explorer, v3.4.0 (commit: 'bfc9f97715', date: 2023-06-14) at http://127.0.0.1:3002/
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.194Z btcexp:app RPC Credentials: {
-Jul 18 11:08:33 minibolt npm[140461]:     "host": "127.0.0.1",
-Jul 18 11:08:33 minibolt npm[140461]:     "port": "8332",
-Jul 18 11:08:33 minibolt npm[140461]:     "authType": "cookie",
-Jul 18 11:08:33 minibolt npm[140461]:     "username": "__cookie__",
-Jul 18 11:08:33 minibolt npm[140461]:     "password": "*****",
-Jul 18 11:08:33 minibolt npm[140461]:     "authCookieFilepath": "/data/bitcoin/.cookie",
-Jul 18 11:08:33 minibolt npm[140461]:     "timeout": 5000
-Jul 18 11:08:33 minibolt npm[140461]: }
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.194Z btcexp:app Connecting to RPC node at [127.0.0.1]:8332
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.195Z btcexp:app RPC Connection properties: {
-Jul 18 11:08:33 minibolt npm[140461]:     "host": "127.0.0.1",
-Jul 18 11:08:33 minibolt npm[140461]:     "port": "8332",
-Jul 18 11:08:33 minibolt npm[140461]:     "username": "__cookie__",
-Jul 18 11:08:33 minibolt npm[140461]:     "password": "*****",
-Jul 18 11:08:33 minibolt npm[140461]:     "timeout": 5000
-Jul 18 11:08:33 minibolt npm[140461]: }
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.196Z btcexp:app RPC authentication is cookie based; watching for changes to the auth cookie file...
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.198Z btcexp:app Verifying RPC connection...
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.201Z btcexp:app Loading mining pools config
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.365Z btcexp:app RPC Connected: version=250000 subversion=/Satoshi:25.0.0/, parsedVersion(used for RPC versioning)=25.0.0, protocolversion=70016, chain=main, services=[NETWORK, BLOOM, WITNESS, COMPACT_FILTERS, NETWORK_LIMITED]
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.365Z btcexp:app Loading historical data for chain=main
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.365Z btcexp:app Loading holiday data
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.370Z btcexp:app txindex check: trying getindexinfo
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.371Z btcexp:app ATH difficulty: 53911173001054.59
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.376Z btcexp:app txindex check: getindexinfo={"txindex":{"synced":true,"best_block_height":799232},"coinstatsindex":{"synced":true,"best_block_height":799232},"basic block filter index":{"synced":true,"best_block_height":799232}}
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.377Z btcexp:app txindex check: available!
-Jul 18 11:08:33 minibolt npm[140461]: 2023-07-18T11:08:33.426Z btcexp:app Refreshed utxo summary: {"height":799232,"bestblock":"00000000000000000000882023825176273fb8ae3ba10ab5e7bccb3f1d7e7a49","txouts":110323290,"bogosize":8350852748,"muhash":"a4a8e5dd85de604fe5c05ef0018b4eec06f5cf475ed565fd7334828759f365b5","total_amount":19432486.84621219,"total_unspendable_amount":219.40378781,"block_info":{"prevout_spent":4444.44336697,"coinbase":6.32505263,"new_outputs_ex_coinbase":4444.36831434,"unspendable":0,"unspendables":{"genesis_block":0,"bip30":0,"scripts":0,"unclaimed_rewards":0}},"usingCoinStatsIndex":true,"lastUpdated":1689678513425}
-Jul 18 11:08:35 minibolt npm[140461]: 2023-07-18T11:08:35.135Z btcexp:app Network volume: {"d1":{"amt":"947555.33623057","blocks":159,"startBlock":799232,"endBlock":799074,"startTime":1689678236,"endTime":1689592319}}
+Feb 27 12:19:28 minibolt systemd[1]: Started BTC RPC Explorer.
+Feb 27 12:19:30 minibolt npm[137285]: > btc-rpc-explorer@3.5.1 start
+Feb 27 12:19:30 minibolt npm[137285]: > node ./bin/www
+Feb 27 12:19:30 minibolt npm[137373]: 2026-02-27T12:19:30.882Z btcexp:app Searching for config files...
+Feb 27 12:19:30 minibolt npm[137373]: 2026-02-27T12:19:30.888Z btcexp:app Config file not found at /home/btcrpcexplorer/.config/btc-rpc-explorer.env, continuing...
+Feb 27 12:19:30 minibolt npm[137373]: 2026-02-27T12:19:30.894Z btcexp:app Config file not found at /etc/btc-rpc-explorer/.env, continuing...
+Feb 27 12:19:30 minibolt npm[137373]: 2026-02-27T12:19:30.894Z btcexp:app Config file found at /home/btcrpcexplorer/btc-rpc-explorer/.env, loading...
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.093Z btcexp:app Default cacheId '3.5.1'
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.196Z btcexp:app Enabling view caching (performance will be improved but template edits will not be reflected)
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.256Z btcexp:app Session config: {"secret":"*****","resave":false,"saveUninitialized":true,"cookie":{"secure":false}}
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.260Z btcexp:app Enabling rate limiting: 200 requests per 15min
+Feb 27 12:19:37 minibolt npm[137373]: (node:137373) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Feb 27 12:19:37 minibolt npm[137373]: (Use `node --trace-deprecation ...` to show where the warning was created)
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.288Z btcexp:app Environment(development) - Node: v24.14.0, Platform: linux, Versions: {"node":"24.14.0","acorn":"8.15.0","ada":"3.4.2","amaro":"1.1.7","ares":"1.34.6","brotli":"1.2.0","cldr":"48.0","icu":"78.2","llhttp":"9.3.0","merve":"1.0.0","modules":"137","napi":"10","nbytes":"0.1.1","ncrypto":"0.0.1","nghttp2":"1.68.0","openssl":"3.5.5","simdjson":"4.2.4","simdutf":"6.4.0","sqlite":"3.51.2","tz":"2025c","undici":"7.21.0","unicode":"17.0","uv":"1.51.0","uvwasi":"0.0.23","v8":"13.6.233.17-node.41","zlib":"1.3.1-e00f703","zstd":"1.5.7"}
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.425Z btcexp:app Using sourcecode metadata as cacheId: '2025-08-24-26e282a06e'
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.426Z btcexp:app Starting BTC RPC Explorer, v3.5.1 (commit: '26e282a06e', date: 2025-08-24) at http://127.0.0.1:3002/
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.427Z btcexp:app RPC Credentials: {
+Feb 27 12:19:37 minibolt npm[137373]:     "host": "127.0.0.1",
+Feb 27 12:19:37 minibolt npm[137373]:     "port": 8332,
+Feb 27 12:19:37 minibolt npm[137373]:     "authType": "cookie",
+Feb 27 12:19:37 minibolt npm[137373]:     "username": "__cookie__",
+Feb 27 12:19:37 minibolt npm[137373]:     "password": "*****",
+Feb 27 12:19:37 minibolt npm[137373]:     "authCookieFilepath": "/data/bitcoin/.cookie",
+Feb 27 12:19:37 minibolt npm[137373]:     "timeout": 5000
+Feb 27 12:19:37 minibolt npm[137373]: }
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.427Z btcexp:app Connecting to RPC node at [127.0.0.1]:8332
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.427Z btcexp:app RPC Connection properties: {
+Feb 27 12:19:37 minibolt npm[137373]:     "host": "127.0.0.1",
+Feb 27 12:19:37 minibolt npm[137373]:     "port": 8332,
+Feb 27 12:19:37 minibolt npm[137373]:     "username": "__cookie__",
+Feb 27 12:19:37 minibolt npm[137373]:     "password": "*****",
+Feb 27 12:19:37 minibolt npm[137373]:     "timeout": 5000
+Feb 27 12:19:37 minibolt npm[137373]: }
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.428Z btcexp:app RPC authentication is cookie based; watching for changes to the auth cookie file...
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.428Z btcexp:app Verifying RPC connection...
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.432Z btcexp:app Loading mining pools config
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.629Z btcexp:app RPC Connected: version=300200 subversion=/Satoshi:30.2.0(Official MiniBolt node)/, parsedVersion(used for RPC versioning)=1000.1000.0, protocolversion=70016, chain=main, services=[NETWORK, WITNESS, COMPACT_FILTERS, NETWORK_LIMITED, P2P_V2]
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.635Z btcexp:app Loading historical data for chain=main
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.636Z btcexp:app Loading holiday data
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.641Z btcexp:app txindex check: trying getindexinfo
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.643Z btcexp:app ATH difficulty: 155973032196071.9
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.668Z btcexp:app txindex check: getindexinfo={"txindex":{"synced":true,"best_block_height":938574},"coinstatsindex":{"synced":true,"best_block_height":938574},"basic block filter index":{"synced":true,"best_block_height":938574}}
+Feb 27 12:19:37 minibolt npm[137373]: 2026-02-27T12:19:37.669Z btcexp:app txindex check: available!
+Feb 27 12:19:42 minibolt npm[137373]: 2026-02-27T12:19:42.559Z btcexp:app Refreshed utxo summary: {"height":938574,"bestblock":"000000000000000000004a690f9c20928ce55873c444258dccb1e5e4cedf9a9d","txouts":164715823,"bogosize":12906274214,"muhash":"6eea775ddfb5bc56e9fa9eefec8444961d687a20e3d351e466d85d32f9f5c1d0","total_amount":19995316.78149993,"total_unspendable_amount":230.09350007,"block_info":{"prevout_spent":1020.97624925,"coinbase":3.14282099,"new_outputs_ex_coinbase":1020.95842825,"unspendable":1e-8,"unspendables":{"genesis_block":0,"bip30":0,"scripts":1e-8,"unclaimed_rewards":0}},"usingCoinStatsIndex":true,"lastUpdated":1772194782558}
+Feb 27 12:19:42 minibolt npm[137373]: 2026-02-27T12:19:42.570Z btcexp:app Network volume: {"d1":{"amt":"979919.19082434","blocks":149,"startBlock":938574,"endBlock":938426,"startTime":1772194515,"endTime":1772109202}}
 ```
 
 </details>
@@ -598,7 +601,7 @@ You may want to expose your BTC RPC Explorer publicly using a clearnet address. 
 
 > Type the selected subdomain (i.e service name "explorer") as the **Name** field
 
-> Type the tunnel `<UUID>`  of your previously obtained in the [Create a tunnel and give it a name](../../bonus-guides/networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
+> Type the tunnel `<UUID>` of your previously obtained in the [Create a tunnel and give it a name](../../bonus-guides/networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
 
 > Ensure you enable the switch on the `Proxy status` field to be "Proxied"
 
@@ -705,7 +708,7 @@ sudo systemctl start btcrpcexplorer
 
 ### Uninstall service
 
-* With the user `admin`  , stop btcrpcexplorer
+* With the user `admin` , stop btcrpcexplorer
 
 ```bash
 sudo systemctl stop btcrpcexplorer

@@ -1,20 +1,3 @@
----
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
-  metadata:
-    visible: true
----
-
 # Alby Hub
 
 [Alby Hub](https://github.com/getAlby/hub) is a self-custodial, open source Lightning wallet that connects to apps.
@@ -115,7 +98,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```shellscript
-VERSION=1.21.0
+VERSION=1.21.5
 ```
 
 * Get the latest binaries and signatures
@@ -284,8 +267,9 @@ WORK_DIR=/data/albyhub
 # SERVICE PORT
 PORT=8090
 
-# RELAY (optional)
+# RELAY/S (optional - uncomment)
 ##RELAY=<a data-footnote-ref href="#user-content-fn-2">wss://relay.domain.com</a>
+##RELAY=<a data-footnote-ref href="#user-content-fn-3">wss://relay2.domain.com</a>
 
 # LND CONNECTION
 LN_BACKEND_TYPE=LND
@@ -354,7 +338,7 @@ sudo systemctl enable albyhub
 journalctl -fu albyhub
 ```
 
-### Run
+## Run
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
@@ -379,7 +363,7 @@ nov 16 11:21:02 minibolt albyhub[1440537]: ⇨ http server started on [::]:8090
 
 </details>
 
-#### Validation
+### Validation
 
 * Ensure the service is working and listening on the default `8090` port and the HTTPS `3003` port
 
@@ -418,9 +402,9 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Alby Hub
 HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 80 127.0.0.1:3003
+HiddenServicePort 80 127.0.0.1:8090
 ```
 
 * Reload Tor to apply changes
@@ -491,10 +475,16 @@ sudo rm /etc/systemd/system/albyhub.service
 
 ### Delete user & group
 
-* Delete the albyhub user.
+* Delete the albyhub user. Don't worry about `userdel: albyhub mail spool (/var/mail/albyhub) not found` output, the uninstall has been successful
 
 ```shellscript
 sudo userdel -rf albyhub
+```
+
+* Delete the albyhub group
+
+```bash
+sudo groupdel albyhub
 ```
 
 ### Delete data directory
@@ -524,9 +514,9 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Alby Hub
 #HiddenServiceDir /var/lib/tor/hidden_service_albyhub/
-#HiddenServiceVersion 3
+#HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 80 127.0.0.1:3003
+#HiddenServicePort 80 127.0.0.1:8090
 ```
 
 * Reload the torrc config
@@ -592,4 +582,10 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Example relay (Optional)
+[^2]: ```
+    Example relay (pptional)
+    ```
+
+[^3]: ```
+    Example relay 2 (optional)
+    ```

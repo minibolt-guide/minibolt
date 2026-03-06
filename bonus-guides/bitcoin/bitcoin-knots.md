@@ -15,7 +15,7 @@ sudo apt update && sudo apt full-upgrade
 ### Option 1: Using precompiled binaries
 
 {% hint style="info" %}
-#### Option recommended for non-advanced users
+**Option recommended for non-advanced users**
 {% endhint %}
 
 #### Installation
@@ -29,7 +29,7 @@ cd /tmp
 * Set the next environment variables
 
 ```sh
-VERSION=29.2.knots20251110 && BRANCH=29.x
+VERSION=29.3.knots20260210 && BRANCH=29.x
 ```
 
 * Get the latest binaries and signatures
@@ -167,7 +167,7 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 ### Option 2: Compiling from source code
 
 {% hint style="info" %}
-#### Option recommended for advanced users and users who want to improve the censorship resistance of their Bitcoin Knots
+**Option recommended for advanced users and users who want to improve the censorship resistance of their Bitcoin Knots**
 {% endhint %}
 
 * Install the next dependency packages. Press "**y**" and `enter` or directly `enter` when the prompt asks you

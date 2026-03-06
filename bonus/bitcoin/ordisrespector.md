@@ -65,7 +65,7 @@ cd /tmp
 * Set the next environment variable
 
 ```sh
-VERSION=30.0
+VERSION=30.2
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -224,45 +224,28 @@ make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
 **Example** of expected output:
 
 ```
-make: Entering directory '/tmp/bitcoin-29.0/depends'
-Fetching boost_1_81_0.tar.gz from https://archives.boost.io/release/1.81.0/source/
+make: Entering directory '/tmp/bitcoin-30.2/depends'
+Fetching capnproto-c++-1.2.0.tar.gz from https://capnproto.org/
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  133M  100  133M    0     0  39.0M      0  0:00:03  0:00:03 --:--:-- 39.0M
-/tmp/bitcoin-29.0/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
-Extracting boost...
-/tmp/bitcoin-29.0/depends/sources/boost_1_81_0.tar.gz: OK
-Preprocessing boost...
-Configuring boost...
-Building boost...
-Staging boost...
-Postprocessing boost...
-Caching boost...
-Fetching libevent-2.1.12-stable.tar.gz from https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100 1075k  100 1075k    0     0  1117k      0 --:--:-- --:--:-- --:--:-- 3812k
-/tmp/bitcoin-29.0/depends/work/download/libevent-2.1.12-stable/libevent-2.1.12-stable.tar.gz.temp: OK
-Extracting libevent...
-/tmp/bitcoin-29.0/depends/sources/libevent-2.1.12-stable.tar.gz: OK
-Preprocessing libevent...
-patching file CMakeLists.txt
-patching file cmake/AddEventLibrary.cmake
-patching file CMakeLists.txt
-Configuring libevent...
--- The C compiler identification is GNU 11.4.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/gcc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Found Git: /usr/bin/git (found version "2.34.1") 
-fatal: not a git repository (or any of the parent directories): .git
--- Performing Test check_c_compiler_flag__Wall
--- Performing Test check_c_compiler_flag__Wall - Success
--- Performing Test check_c_compiler_flag__Wextra
--- Performing Test check_c_compiler_flag__Wextra - Success
+100 1727k  100 1727k    0     0  4713k      0 --:--:-- --:--:-- --:--:-- 4720k
+/tmp/bitcoin-30.2/depends/work/download/native_capnp-1.2.0/capnproto-cxx-1.2.0.tar.gz.temp: OK
+Extracting native_capnp...
+/tmp/bitcoin-30.2/depends/sources/capnproto-cxx-1.2.0.tar.gz: OK
+Preprocessing native_capnp...
+Configuring native_capnp...
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for C++ include initializer_list
+-- Looking for C++ include initializer_list - found
+-- Looking for makecontext in c
+-- Looking for makecontext in c - found
+-- Configuring done
+-- Generating done
 [...]
 ```
 
@@ -275,18 +258,24 @@ BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
   -DBUILD_UTIL=OFF \
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
-  -DWITH_BDB=ON \
   -DWITH_ZMQ=ON \
   --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
 ```
 
-Expected output:
+**Example** of expected output:
 
 ```
+  -DBUILD_TESTS=OFF \
+  -DBUILD_TX=OFF \
+  -DBUILD_UTIL=OFF \
+  -DBUILD_WALLET_TOOL=OFF \
+  -DINSTALL_MAN=OFF \
+  -DWITH_ZMQ=ON \
+  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
 -- The CXX compiler identification is GNU 11.4.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Check for working CXX compiler: /bin/g++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Setting build type to "RelWithDebInfo" as none was specified
@@ -300,9 +289,8 @@ Expected output:
 -- Performing Test CXX_SUPPORTS__FTRAPV - Success
 -- Performing Test LINKER_SUPPORTS__FTRAPV
 -- Performing Test LINKER_SUPPORTS__FTRAPV - Success
--- Found SQLite3: /tmp/bitcoin-29.0/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17") 
--- Found BerkeleyDB: /tmp/bitcoin-29.0/depends/x86_64-pc-linux-gnu/lib/libdb_cxx-4.8.a (found suitable version "4.8.30", minimum required is "4.8") 
--- Found ZeroMQ: /tmp/bitcoin-29.0/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
+-- Found SQLite3: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17")
+-- Found ZeroMQ: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
 [...]
 ```
 
@@ -340,6 +328,35 @@ git apply ordisrespector.patch
 cmake --build build -j $(nproc)
 ```
 
+**Example** of expected output:
+
+```
+[  1%] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult.c.o
+[  1%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue.cpp.o
+[  1%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/arith_uint256.cpp.o
+[  1%] Generating bitcoin-build-info.h
+[  1%] Built target generate_build_info
+[  2%] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult_gen.c.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/aes.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20.cpp.o
+[  3%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/merkle.cpp.o
+[  3%] Built target secp256k1_precomputed
+[  3%] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coincontrol.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20poly1305.cpp.o
+[  3%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_get.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hex_base.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hkdf_sha256_32.cpp.o
+[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_read.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha256.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha512.cpp.o
+[  4%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/tx_check.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/muhash.cpp.o
+[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_write.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/poly1305.cpp.o
+[  6%] Linking CXX static library libunivalue.a
+[...]
+```
+
 {% hint style="info" %}
 This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again. You can use [Tmux](https://github.com/tmux/tmux) to leave it in the background
 {% endhint %}
@@ -356,7 +373,9 @@ Expected output:
 
 ```
 -- Install configuration: "RelWithDebInfo"
+-- Installing: /usr/local/bin/bitcoin
 -- Installing: /usr/local/bin/bitcoind
+-- Installing: /usr/local/libexec/bitcoin-node
 -- Installing: /usr/local/bin/bitcoin-cli
 ```
 
@@ -391,6 +410,12 @@ cd ..
 sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
 ```
 {% endcode %}
+
+* **(Optional)** Delete not necessary installed binaries
+
+```sh
+sudo rm /usr/local/bin/bitcoin
+```
 
 * If you have an existing Bitcoin Core installation without Ordisrespector applied, restart it using systemd and start a new instance with the Ordisrespector patch applied
 
