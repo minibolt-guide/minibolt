@@ -110,7 +110,7 @@ ControlPort 9051
 sudo systemctl reload tor
 ```
 
-* Ensure that the Tor service is working and listening on the default ports `9050` and `9051` on the localhost (127.0.0.1)
+* Ensure that the Tor service is working and listening on the default ports `9050` and `9051` on the `localhost` (`127.0.0.1`)
 
 ```sh
 sudo ss -tulpn | grep tor
@@ -361,7 +361,7 @@ sudo ufw allow 7071/tcp comment 'allow i2pd webconsole SSL from anywhere'
 * Enable i2pd webconsole authentication
 
 ```bash
-sudo nano +130 -l /etc/i2pd/i2pd.conf
+sudo nano +134 -l /etc/i2pd/i2pd.conf
 ```
 
 * Uncomment (delete "#" at the beginning of the lines) and replace "`changeme`" with your "`[ F ] i2pd webconsole password`". Save and exit
@@ -542,12 +542,6 @@ sudo nano +18 /etc/tor/torrc -l
 SocksPort 0.0.0.0:9050
 ```
 
-* Add down the next line (on line 19). Save and exit
-
-```
-SocksPort unix:/run/tor/socks WorldWritable
-```
-
 * Reload the Tor configuration to apply changes
 
 ```bash
@@ -634,6 +628,14 @@ Configuration file '/etc/i2pd/i2pd.conf'
 
 * Press "Y" and ENTER, but take into account that you will need to reconfigure I2P if you followed the "[Access to the i2pd webconsole](privacy.md#access-to-the-i2pd-webconsole)" section, since this overwrites I2P's previous configuration.
 {% endhint %}
+
+***
+
+{% hint style="danger" %}
+ATTENTION!!! Do not proceed to the [next Uninstall section](privacy.md#uninstall) if you **do not wish to uninstall**. Skip directly to the [Bitcoin client](../bitcoin/bitcoin/) section
+{% endhint %}
+
+***
 
 ## Uninstall
 

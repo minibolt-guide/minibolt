@@ -101,7 +101,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=0.20.0
+VERSION=0.20.1
 ```
 
 * Download the application, checksums, and signature
@@ -342,6 +342,10 @@ lrwxrwxrwx 1 lnd lnd  9 Jul 21  2023 <a data-footnote-ref href="#user-content-fn
 
 ### Wallet password
 
+{% hint style="info" %}
+This section is not needed if you want to unlock the LND wallet manually, and the lines in lnd.conf behind: `"# Automatically unlock wallet with the password in this file"` section. Follow the [Unlock the LND wallet manually](lightning-client.md#unlock-the-lnd-wallet-manually) extra section for instructions
+{% endhint %}
+
 LND includes a Bitcoin wallet that manages your onchain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your node or store the password somewhere on the node.
 
 For this initial setup, we choose the easy route: we store the password in a file that allows LND to unlock the wallet automatically.
@@ -389,9 +393,9 @@ alias=<a data-footnote-ref href="#user-content-fn-6">&#x3C;YOUR_FANCY_ALIAS></a>
 # intelligence services
 color=<a data-footnote-ref href="#user-content-fn-6">#ff9900</a>
 
-# Automatically unlock wallet with the password in this file
-wallet-unlock-password-file=/data/lnd/password.txt
-wallet-unlock-allow-create=true
+<a data-footnote-ref href="#user-content-fn-7"># Automatically unlock wallet with the password in this file</a>
+<a data-footnote-ref href="#user-content-fn-7">wallet-unlock-password-file=/data/lnd/password.txt</a>
+<a data-footnote-ref href="#user-content-fn-7">wallet-unlock-allow-create=true</a>
 
 # Do not archive the history of the channel.backup file
 no-backup-archive=true
@@ -414,8 +418,8 @@ tlsdisableautofill=true
 <a data-footnote-ref href="#user-content-fn-5">#minchansize=20000</a>
 
 ## (Optional) High fee environment settings
-<a data-footnote-ref href="#user-content-fn-7">#max-commit-fee-rate-anchors=</a><a data-footnote-ref href="#user-content-fn-7">10</a>
-<a data-footnote-ref href="#user-content-fn-8">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-8">0.5</a>
+<a data-footnote-ref href="#user-content-fn-8">#max-commit-fee-rate-anchors=</a><a data-footnote-ref href="#user-content-fn-8">10</a>
+<a data-footnote-ref href="#user-content-fn-9">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-9">0.5</a>
 
 ## Communication
 accept-keysend=true
@@ -440,7 +444,7 @@ bitcoin.node=bitcoind
 
 # (Optional) Specify the CLTV delta we will subtract from a forwarded HTLC's timelock value
 # (default: 80)
-<a data-footnote-ref href="#user-content-fn-9">#bitcoin.timelockdelta=8</a><a data-footnote-ref href="#user-content-fn-10">0</a>
+<a data-footnote-ref href="#user-content-fn-10">#bitcoin.timelockdelta=8</a><a data-footnote-ref href="#user-content-fn-11">0</a>
 
 [protocol]
 protocol.wumbo-channels=true
@@ -478,7 +482,7 @@ db.postgres.timeout=0
 ## (Optional) High fee environment settings
 # (default: CONSERVATIVE) Uncomment the next 2 lines
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-11">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-12">#bitcoind.estimatemode=ECONOMICAL</a>
 
 [tor]
 tor.active=true
@@ -797,6 +801,14 @@ There is a dedicated [guide](channel-backup.md) for generating an automatic back
 exit
 ```
 
+{% hint style="info" %}
+Remember that if you followed the [Unlock the LND wallet manually extra section](lightning-client.md#unlock-the-lnd-wallet-manually), you will need to manually type the `[ C ] LND wallet password` after entering the next command:
+
+```bash
+lncli --tlscertpath /data/lnd/tls.cert.tmp unlock
+```
+{% endhint %}
+
 ### Validation
 
 * Check that LND is running and the related ports are listening
@@ -832,7 +844,7 @@ ls -la /home/admin
 
 <details>
 
-<summary>Expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 <pre><code>total 96
 drwxr-x--- 10 admin admin  4096 Jul 18 07:10 .
@@ -847,7 +859,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-12">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-13">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -893,7 +905,7 @@ Now your Lightning node is ready. This is also the point of no return. Up until 
 {% endhint %}
 
 {% hint style="info" %}
-Subsequent commands can be entered in new sessions without needing to keep this terminal open for logs. However, retaining this session is recommended in case logs provide additional context for the preceding command.
+Subsequent commands can be entered in new sessions without needing to keep this terminal open for logs. However, retaining this session is recommended in case logs provide additional context for the preceding command
 {% endhint %}
 
 ### Watchtower client
@@ -904,9 +916,9 @@ Watchtowers are other Lightning nodes that can monitor your channels for you. If
 
 A watchtower can only send such a punishing transaction to your wallet, so you don't have to trust them. It's good practice to add a few watchtowers, just to be on the safe side.
 
-* With user `admin`, add any address of Watchtower Server address that someone gives you
+* With user `admin`, add any Watchtower Server address that someone gives you
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli wtclient add <a data-footnote-ref href="#user-content-fn-13">pubkey</a>@<a data-footnote-ref href="#user-content-fn-13">address</a>:9911
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli wtclient add <a data-footnote-ref href="#user-content-fn-14">pubkey</a>@<a data-footnote-ref href="#user-content-fn-14">address</a>:9911
 </code></pre>
 
 * If you want to list your towers and active watchtowers
@@ -988,7 +1000,7 @@ Once you have skipped the previous section of the [PostgreSQL installation](ligh
 nano /data/lnd/lnd.conf
 ```
 
-* Replace `# Database` section pertaining to the PostgreSQL database backend
+* Replace `# Database` section about the PostgreSQL database backend
 
 ```
 [db]
@@ -1297,7 +1309,7 @@ This process could take a few minutes, depending on the database size. The promp
 
 </details>
 
-* (Optional) If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the lndinit files in the `tmp` folder
+* **(Optional)** If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the `lndinit` files in the `tmp` folder
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo rm -r /tmp/lndinit-linux-amd64-v$VERSION-beta &#x26;&#x26; sudo rm /tmp/lndinit-linux-amd64-v$VERSION-beta.tar.gz &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.txt &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig.ots
 </strong></code></pre>
@@ -1308,7 +1320,7 @@ This process could take a few minutes, depending on the database size. The promp
 sudo nano /data/lnd/lnd.conf
 ```
 
-* Replace or comment with "`#`" the `# Database` section pertaining to the bbolt database backend
+* Replace or comment with "`#`" the `# Database` section about the bbolt database backend
 
 ```
 [bolt]
@@ -1364,7 +1376,7 @@ journalctl -fu lnd
 ```
 
 {% hint style="info" %}
--> The `[WRN]` logs indicate that LND has detected an existing, old bbolt database and it will not be migrated to PostgreSQL automatically, but we already migrated it before 😏
+-> The `[WRN]` logs indicate that LND has detected an existing, old bbolt database, and it will not be migrated to PostgreSQL automatically, but we already migrated it before 😏
 
 ```
 [...]
@@ -1388,7 +1400,7 @@ journalctl -fu lnd
 Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md), or using `lncli` with commands like `lncli listchannels / lncli listunspent / lncli wtclient towers` and see if everything is as you left it before the migration
 {% endhint %}
 
-#### (Optional) Delete old bbolt files database
+#### **(Optional)** Delete old bbolt files database
 
 * With user `admin`, detele the old bbolt database files
 
@@ -1457,19 +1469,133 @@ lncli wallet accounts list | grep -B 3 "m/84"
 Example of expected output:
 
 <pre><code>            "address_type":  "TAPROOT_PUBKEY",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-14">xpub........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-15">xpub........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/86'/0'/0'",
 ------------------------
             "address_type":  "WITNESS_PUBKEY_HASH",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-15">zpub.........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-16">zpub.........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
 
+### Unlock the LND wallet manually
+
+Storing a password in plain text is not secure; that's why it is recommended to unlock LND manually. Follow the next steps to get that:
+
+* With user `admin`, stop `lnd`
+
+```bash
+sudo systemctl stop lnd
+```
+
+* Edit the `lnd.conf` file
+
+```bash
+sudo nano /data/lnd/lnd.conf
+```
+
+* Comment or delete the next lines in `# Automatically unlock wallet`... section
+
+```
+#wallet-unlock-password-file=/data/lnd/password.txt
+#wallet-unlock-allow-create=true
+```
+
+* Start `lnd` again
+
+```bash
+sudo systemctl start lnd
+```
+
+* Unlock the wallet manually with the next command. Enter your `[ C ] LND wallet password` and press enter
+
+```bash
+lncli --tlscertpath /data/lnd/tls.cert.tmp unlock
+```
+
+Expected output:
+
+<pre><code>Input wallet password: &#x3C;<a data-footnote-ref href="#user-content-fn-17">[ C ] LND wallet password</a>>
+</code></pre>
+
+After unlock:
+
+```
+lnd successfully unlocked!
+```
+
+* Monitor the logs by using `journalctl -fu lnd` to ensure LND started successfully
+
+```bash
+journalctl -fu lnd
+```
+
+<details>
+
+<summary><strong>Example</strong> of expected output with <code>journalctl -fu lnd</code> ⬇️</summary>
+
+<pre><code>Mar 01 13:27:24 minibolt systemd[1]: Starting lnd.service - Lightning Network Daemon...
+Mar 01 13:27:25 minibolt lnd[435474]: Attempting automatic RPC configuration to bitcoind
+Mar 01 13:27:25 minibolt lnd[435474]: Automatically obtained bitcoind's RPC credentials
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.071 [INF] LTND: Version Info rev=848b72 version=0.20.1-beta commit=v0.20.1-beta debuglevel=production logging=info
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.071 [INF] LTND: Network Info rev=848b72 active_chain=Bitcoin network=testnet4
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.071 [INF] RPCS: Generating ephemeral TLS certificates...
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.072 [INF] RPCS: Done generating ephemeral TLS certificates
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.075 [INF] RPCS: RPC server listening on 127.0.0.1:10009
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.106 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.106 [INF] LTND: Opening the main database, this might take a few minutes...
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.144 [INF] SQLD: Using SQL database 'postgresql://admin:***@127.0.0.1:5432/lndb?sslmode=disable'
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.164 [INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.175 [INF] CHDB: Checking for schema update: latest_version=33, db_version=33
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.176 [INF] CHDB: Applying 2 optional migrations
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.176 [INF] CHDB: Checking for optional update: name=prune_revocation_log
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.176 [INF] CHDB: Checking for optional update: name=gc_decayed_log
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000001_invoices' (version 1) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000002_amp_invoices' (version 2) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000003_invoice_events' (version 3) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000004_invoice_expiry_fix' (version 4) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000005_migration_tracker' (version 5) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000006_invoice_migration' (version 6) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration 'kv_invoice_migration' (version 7) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000007_invoice_add_settled_index' (version 8) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration '000008_graph' (version 9) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.179 [INF] SQLD: Skipping migration 'kv_graph_migration' (version 10) as it has already been applied
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.204 [INF] LTND: Database(s) now open (time_to_open=98.408847ms)!
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.207 [INF] LTND: Systemd was notified about our readiness
+Mar 01 13:27:25 minibolt lnd[435474]: 2026-03-01 13:27:25.208 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
+Mar 01 13:27:25 minibolt systemd[1]: Started lnd.service - Lightning Network Daemon.
+[Waiting to unlock manually with the proper command]
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.468 [INF] BTWL: <a data-footnote-ref href="#user-content-fn-3">Opened wallet</a>
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.615 [INF] RPCC: Established connection to RPC server localhost:48332
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.615 [INF] RPCC: Established connection to RPC server localhost:48332
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.639 [INF] BTWL: Started listening for bitcoind block notifications via ZMQ on 127.0.0.1:28332
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.639 [INF] BTWL: Started listening for bitcoind transaction notifications via ZMQ on 127.0.0.1:28333
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.639 [INF] CHRE: Initializing bitcoind backed fee estimator in CONSERVATIVE mode
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.639 [INF] RPCC: Established connection to RPC server localhost:48332
+Mar 01 13:32:37 minibolt lnd[435474]: 2026-03-01 13:32:37.639 [INF] RPCC: Established connection to RPC server localhost:48332
+Mar 01 13:32:39 minibolt lnd[435474]: 2026-03-01 13:32:39.784 [INF] BTWL: The wallet has been unlocked without a time limit
+Mar 01 13:32:39 minibolt lnd[435474]: 2026-03-01 13:32:39.974 [INF] CHRE: LightningWallet opened
+Mar 01 13:32:39 minibolt lnd[435474]: 2026-03-01 13:32:39.986 [INF] SRVR: Proxying all network traffic via Tor! NOTE: Ensure the backend node is proxying over Tor as well rev=848b72 stream_isolation=true
+Mar 01 13:32:39 minibolt lnd[435474]: 2026-03-01 13:32:39.991 [INF] TORC: Starting tor controller
+[...]
+</code></pre>
+
+</details>
+
+{% hint style="info" %}
+**(Optional)** Now you can delete the `password.txt` file from your LND folder by typing with the user `admin`:
+
+```bash
+sudo rm /data/lnd/password.txt
+```
+
+⚠️Remember to back up your `[ C ] LND wallet password` in a secure location
+{% endhint %}
+
 ## Upgrade
 
-Upgrading LND can lead to some issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/blob/master/docs/release-notes/) completely to understand the changes. These also cover many additional topics and new features not mentioned here.
+Upgrading LND can cause issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/blob/master/docs/release-notes/) completely to understand the changes. These also cover many additional topics and new features not mentioned here.
 
 * Check your current LND version
 
@@ -1568,20 +1694,24 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^6]: (Customize)
 
-[^7]: This is the maximum fee rate in sat/vbyte that will be used for commitments of channels of the anchors type. Increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria** (default: 10 sat/byte)
+[^7]: Not necessary for manually unlock
 
-[^8]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
+[^8]: This is the maximum fee rate in sat/vbyte that will be used for commitments of channels of the anchors type. Increasing your commit fee for anchor channels can help get these transactions propagated. While it is always possible to bump the transaction fees of such commitment transactions later using CPFP, a low maximum commit fee may prevent these transactions from being propagated in the first place. **Uncomment and adjust to your criteria** (default: 10 sat/byte)
 
-[^9]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
+[^9]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
 
-[^10]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved onchain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
+[^10]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^11]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value** (default: CONSERVATIVE)
+[^11]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved onchain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^12]: Symbolic link
+[^12]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value** (default: CONSERVATIVE)
 
-[^13]: Replace
+[^13]: Symbolic link
 
-[^14]: Your Taproot master public key
+[^14]: Replace
 
-[^15]: Your SegWit master public key
+[^15]: Your Taproot master public key
+
+[^16]: Your SegWit master public key
+
+[^17]: Type your \[ C ] LND wallet password
