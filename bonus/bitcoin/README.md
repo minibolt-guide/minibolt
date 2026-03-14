@@ -5,6 +5,20 @@ parent: Bonus Section
 has_children: false
 has_toc: false
 icon: bitcoin-sign
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
 ---
 
 # ₿itcoin
@@ -46,6 +60,9 @@ icon: bitcoin-sign
 
 * [**Bitcoin Knots**](../../bonus-guides/bitcoin/bitcoin-knots.md) - an advanced Bitcoin Core fork with extra tools for enhanced functionality, rejecting spam and arbitrary data
 
+### Mempool explorers
+
+* [**Mempool**](../../bonus-guides/bitcoin/mempool.md) - a self-hosted Bitcoin blockchain and mempool visualizer/explorer
 ### Mining Pools
 
 * [**Public Pool**](../../bonus-guides/bitcoin/public-pool.md) - Fully Open Source Solo Bitcoin Mining Pool
