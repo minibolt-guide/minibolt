@@ -1559,7 +1559,7 @@ Keep the terminal open and go to [Sparrow wallet](../bitcoin/bitcoin/desktop-sig
 >
 > > `<fee>`: free selection (minimun reccomended: 1 sat/vB)
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 200927.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 > * Push on **\[Create Transaction]** button
 
@@ -1621,9 +1621,7 @@ DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
 
 <figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201335.png" alt=""><figcaption></figcaption></figure>
 
-Code Down (hexadecimal base16) **raw transaction hex /**/ hex encoded raw wire TX
-
-> * Go to the Code Down (hexadecimal base16) **raw transaction hex /**/ hex encoded raw wire TX Select All code (double click) > (Right click) Push on (Copy All) banner
+> * Go to the Code Down hex encoded raw wire TX and Select All code (double click) > (Right click) > Push on (Copy All) banner
 
 <figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201451.png" alt=""><figcaption></figcaption></figure>
 
@@ -1633,7 +1631,7 @@ DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
 
 **lncli**
 
-* Come back to the terminal, paste the hex encoded raw wire TX, and press `Enter`
+* Come back to the terminal, paste the **hex encoded raw wire TX**, and press `Enter`
 
 <pre data-overflow="wrap"><code>PSBT verified by lnd, please continue the funding flow by signing the PSBT by
 all required parties/devices. Once the transaction is fully signed, paste it
@@ -1857,7 +1855,7 @@ Go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on you
 
 * Push on the **\[Import Keystore]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201531.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201531.png" alt="" width="488"><figcaption></figcaption></figure>
 
 * Finally, push on the **\[Apply]** button
 
