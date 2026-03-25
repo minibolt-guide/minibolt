@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # Nostr relay in Rust
 
 A [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with support for the entire relay protocol and data persistence using PostgreSQL or SQLite.
@@ -514,7 +533,7 @@ sudo chown -R nostr:nostr /data/nostr
 sudo nano /data/nostr/rs-relay/config.toml
 ```
 
-* Uncomment, and replace the needed information on the next parameters. Save and exit
+* Uncomment, and replace the needed information in the next parameters. Save and exit
 
 ```
 data_directory = "/data/nostr/rs-relay/db"
@@ -538,7 +557,7 @@ After=network-online.target
 ```
 
 {% hint style="info" %}
-[Continue](nostr-relay.md#run) with the guide, the rest of the steps are the same as PostgreSQL use
+[Continue](nostr-relay.md#run) with the guide; the rest of the steps are the same as PostgreSQL use
 {% endhint %}
 
 ### Create your Nostr key pair
@@ -668,12 +687,6 @@ Nostr live streaming.
 Nostr public key mining tool.
 
 [GitHub](https://github.com/grunch/rana)
-{% endtab %}
-
-{% tab title="Nosy" %}
-Find the top relays of those who follow you or you follow.
-
-[Web](https://nosy.tigerville.no/)
 {% endtab %}
 {% endtabs %}
 
@@ -847,9 +860,7 @@ You may want to expose your Nostr relay publicly using a clearnet address. To do
 Click on the **\[Save]** button to save the new DNS registry
 {% endhint %}
 
-*   If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
-
-
+* If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
 * Edit the`config.yml`
 
 ```bash
@@ -891,7 +902,7 @@ Try to access the newly created public access to the service by going to the `ws
 
 Display the related log events to ensure this rule is being applied correctly:
 
-&#x20;1\. On the `Security` submenu -> Click on `Analytics` -> `Events` (Tab)
+1\. On the `Security` submenu -> Click on `Analytics` -> `Events` (Tab)
 
 2. Add the next filters by pushing on the `[+ Add filter]` button:
    1. On the dropdown `Host` -> `equals` -> `<relay.domain.com>` click on `[Apply]`

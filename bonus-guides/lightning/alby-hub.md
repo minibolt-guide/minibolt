@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # Alby Hub
 
 [Alby Hub](https://github.com/getAlby/hub) is a self-custodial, open source Lightning wallet that connects to apps.
@@ -98,7 +117,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```shellscript
-VERSION=1.21.5
+VERSION=1.21.6
 ```
 
 * Get the latest binaries and signatures

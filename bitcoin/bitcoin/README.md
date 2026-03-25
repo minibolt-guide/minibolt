@@ -2,6 +2,22 @@
 title: Bitcoin
 nav_order: 30
 has_children: true
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # 2. ₿itcoin

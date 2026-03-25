@@ -5,6 +5,22 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_children: false
 has_toc: false
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Bisq
@@ -19,7 +35,7 @@ Difficulty: Easy
 Attention: This guide is only valid for Bisq v1.x.x, Bisq v2.x.x radically changes its operation in terms of the network and many steps in the guide may not match, not be valid, or necessary
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/logo_bisq.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/logo_bisq.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## Requirements
 
@@ -31,7 +47,7 @@ The guide will show you how to:
 
 1. Configure BTC Core to allow Bisq to run its SPV wallet
 2. Install Bisq on your personal computer
-3. Connect Bisq to your Bitcoin Core node in your local network or via remote Tor, and depending on your OS and  personal computer
+3. Connect Bisq to your Bitcoin Core node in your local network or via remote Tor, and depending on your OS and personal computer
 4. Securely set up Bisq
 
 ## Preparations

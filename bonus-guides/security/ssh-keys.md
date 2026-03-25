@@ -4,6 +4,22 @@ parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Login with SSH keys
@@ -184,17 +200,17 @@ Attention: This command only works if you generated the SSH keys [on Linux or ma
 
 ### Putty Linux/Windows
 
-* On your regular computer, download Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version depending on your OS architecture, and start it
+* On your regular computer, download Putty [64-bit x86](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) or [32-bit x86](https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe) version, depending on your OS architecture, and start it
 * To automatically connect and log in to your server you need to add the Private Key to the Putty client. Then go to the left Category menu, select SSH –> Auth -> Credentials, on "Private key file for authentication" hit the "Browse" button, search, and add your Private Key file
 * To the left tree, select "session", in the "Hostname (or IP address)" box, and type `admin@minibolt.local` or `admin@192.168.x.xx`, left port `22` to the right box. Click on `Open`. If you selected a key passphrase in the [preparations](ssh-keys.md#preparations) section, enter it. That’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the Open button without the need to enter passwords
 
 ### MobaXterm Windows
 
-* On your regular computer, download MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version depending on whether you want to install it permanently or not
+* On your regular computer, download MobaXterm [Portable edition](https://download.mobatek.net/2232022120824733/MobaXterm_Portable_v22.3.zip) or [Installer edition](https://download.mobatek.net/2232022120824733/MobaXterm_Installer_v22.3.zip) version, depending on whether you want to install it permanently or not
 * Start MobaXterm, on the top menu, click on Session -> New session -> Select SSH
-* Enter in remote host, "minibolt.local" or your MiniBolt IP address (192.168.x.xx), check to "specify username" and enter to the right "admin", keep port "22" selected to the right
-* To automatically connect and log in to your server you need to add the Private Key to the MobaXterm client, select the "Advanced SSH settings" tab, check "Use private key" and click on the icon to the right form shaped like a document and select your Private Key file
-* Click on the "OK" button and that’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the "Open" button without the need to enter passwords
+* Enter in "remote host", "minibolt.local" or your MiniBolt IP address (192.168.x.xx), check to "specify username" and enter to the right "admin", keep port "22" selected to the right
+* To automatically connect and log in to your server you need to add the Private Key to the MobaXterm client, select the "Advanced SSH settings" tab, check "Use private key", and click on the icon to the right, shaped like a document, and select your Private Key file
+* Click on the "OK" button, and that’s it! Now you can automatically securely connect to your remote SSH server with Putty client by hitting the "Open" button without the need to enter passwords
 
 {% hint style="success" %}
 You can follow the guide where you left it by clicking [HERE](../../index-1/configuration.md#system-update)
@@ -208,7 +224,7 @@ You can follow the guide where you left it by clicking [HERE](../../index-1/conf
 * Add a custom config file to the drop-in config
 
 ```bash
-sudo nano /etc/ssh/sshd_config.d/custom.conf
+sudo nano /etc/ssh/sshd_config.d/00-custom.conf
 ```
 
 * Add the next content
@@ -226,7 +242,7 @@ sudo sshd -t
 ```
 
 {% hint style="info" %}
-&#x20;If you see no output to the next command, that is OK. If you see something like `/etc/ssh/sshd_config line XX: unsupported option "XXX"` that means something is incorrect
+If you see no output to the next command, that is OK. If you see something like `/etc/ssh/sshd_config line XX: unsupported option "XXX"` that means something is incorrect
 {% endhint %}
 
 * Restart the SSH daemon to apply changes
@@ -239,7 +255,7 @@ sudo systemctl restart sshd
 * Log in again with the user `admin`
 
 {% hint style="info" %}
-You can no longer log in with a password. User "admin" is the only user who has the necessary SSH keys, there won't be any way to do it with another user or ways to log in remotely
+You can no longer log in with a password. User "admin" is the only user who has the necessary SSH keys; there won't be any way to do it with another user or ways to log in remotely
 {% endhint %}
 
 {% hint style="danger" %}
@@ -253,10 +269,10 @@ You can follow the guide where you left it by clicking [HERE](../../index-1/conf
 ### Disable admin password request (caution!)
 
 {% hint style="danger" %}
-**Attention:** This could be a security risk, is not recommended to disable the admin password to avoid a possible and hypothetical attacker could gain complete control of the node in case of intrusion, if you do it, act at your own risk.
+**Attention:** This could be a security risk; disabling the `admin` password could allow a hypothetical attacker to gain complete control of the node in case of intrusion. If you do it, act at your own risk
 {% endhint %}
 
-* Ensure you are logged in with user admin, edit the next file
+* Ensure you are logged in with user `admin`, edit the next file
 
 ```sh
 sudo visudo

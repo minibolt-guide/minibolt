@@ -2,6 +2,22 @@
 title: Channel backup
 nav_order: 20
 parent: Lightning
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # 3.2 Channel backup for LND
@@ -474,17 +490,17 @@ Nov 05 23:18:43 minibolt scb-backup[1711268]: error: src refspec main does not m
 Nov 05 23:18:43 minibolt scb-backup[1711268]: error: failed to push some refs to 'github.com:<YourGitHubUsername>/remote-lnd-backup.git
 ```
 
--> Edit line 41  [in the script](channel-backup.md#create-script) with the following command:&#x20;
+-> Edit line 41 [in the script](channel-backup.md#create-script) with the following command:
 
 ```bash
 sudo nano +41 /usr/local/bin/scb-backup --linenumbers
 ```
 
-Replace the content:  -> `git push --set-upstream origin`**`main`**
+Replace the content: -> `git push --set-upstream origin`**`main`**
 
 To: -> `git push --set-upstream origin`**`master`**
 
--> And finally, try again with the following command:&#x20;
+-> And finally, try again with the following command:
 
 ```bash
 sudo touch /data/lnd/data/chain/bitcoin/mainnet/channel.backup

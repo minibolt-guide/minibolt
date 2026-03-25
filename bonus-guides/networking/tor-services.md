@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # Tor services: bridges & relays
 
 In this guide, we will explain how to build step by step an obfs4 bridge (one of the kinds of Tor bridges) and a Guard/Middle Relay. Collaborate to provide anonymous, censorship-resistant internet access by routing traffic through decentralized nodes.
@@ -631,8 +650,8 @@ sudo nano /etc/tor/instances/guardmidrelay/torrc
 
 <pre><code># MiniBolt: Guard/Middle configuration
 # /etc/tor/instances/guardmidrelay/torrc
-<strong>
-</strong><strong>## Control port selected for Guard/Middle relay
+
+<strong>## Control port selected for Guard/Middle relay
 </strong>ControlPort 9053
 
 ## Guard/Middle relay conf
@@ -1036,7 +1055,7 @@ On some occasions, due to some circumstances, your ISP, the company's network, y
 
 ![](../../.gitbook/assets/tor-failing.jpg)
 
-* On the MiniBolt or external node, with the user `admin`, [install Tor](../../index-1/privacy.md#tor-installation) and the `ofbs4 proxy`.  Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* On the MiniBolt or external node, with the user `admin`, [install Tor](../../index-1/privacy.md#tor-installation) and the `ofbs4 proxy`. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt install obfs4proxy
@@ -1095,13 +1114,11 @@ Bridge obfs4 158.91.178.132:3304 34B1F1F5F1632381AFE5C7CAC4C1754AC361B036 cert=I
 Bridge obfs4 81.177.121.63:9471 68E9BE060C7CB1F4958DFFF9B76D64DE4DEABD74 cert=CMBeCEftMpVP1IPefS0uqbDwYvEf4CneC9DyW4/HkigxAu1W99MODbkv5Yv+oXYp5wi2Ig iat-mode=0
 ```
 
-
-
 -> There are many options to request and use bridges apart from using the "`https`" before explained method:
 
 * Request bridges by emailing [bridges@torproject.org](mailto:bridges@torproject.org)
 * Request bridges from within the Tor Browser:
-  * Tor Browser Desktop: Click on "**Settings**" in the hamburger **menu (≡)** and then on "**Connection**" in the sidebar. In the "**Bridges**" section, from the option "**Find more bridges**" click on the "**Request bridges..**" button, and complete the captcha. Finally, if you wish, you can push the button "**Copy addresses**" to use it on the MiniBolt node or another Tor browser, like the Android version.&#x20;
+  * Tor Browser Desktop: Click on "**Settings**" in the hamburger **menu (≡)** and then on "**Connection**" in the sidebar. In the "**Bridges**" section, from the option "**Find more bridges**" click on the "**Request bridges..**" button, and complete the captcha. Finally, if you wish, you can push the button "**Copy addresses**" to use it on the MiniBolt node or another Tor browser, like the Android version.
 * Use bridges from within the Tor Browser:
   * Tor Browser Desktop: Click on "**Settings**" in the hamburger **menu (≡)** and then on "**Connection**" in the sidebar. In the "**Bridges**" section, from the option "**Add bridges**" click on "**Add new bridges**" and enter each bridge address on a separate line.
   * Tor Browser Android: Tap on "**Settings"** (⚙️) and then on "**Config Bridge**". Toggle on "**Use a Bridge**" and select "Provide a Bridge I know'. Enter the bridge address. Note: remember not to add the word: "`Bridge`" before the `obfs4 IP...` line this is not compatible with the Tor browser Android version. Also, you can use random public obfs4 bridges by simply selecting the "**`obfs4`**" bridge option.

@@ -13,6 +13,8 @@ layout:
     visible: true
   metadata:
     visible: true
+  tags:
+    visible: true
 ---
 
 # ⚡ Lightning
@@ -23,4 +25,9 @@ layout:
 
 #### GUI, API - WEB
 
-* [Alby Hub](alby-hub.md) - a self-custodial, open source Lightning wallet that connects to apps.
+* [**Alby Hub**](alby-hub.md) - a self-custodial, open source Lightning wallet that connects to apps
+
+#### **LND Operational Tooling**
+
+* [**lndinit**](lndinit.md) - cloud infra tooling for lnd provisioning/unlocking
+* [**chantools**](chantools.md) - a loose collection of tools all somehow related to [lnd](../../lightning/lightning-client.md) and Lightning Network channels

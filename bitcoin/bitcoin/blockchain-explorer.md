@@ -2,6 +2,22 @@
 title: Blockchain explorer
 nav_order: 40
 parent: Bitcoin
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # 2.3 Blockchain explorer: BTC RPC Explorer

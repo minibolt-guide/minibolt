@@ -2,6 +2,22 @@
 title: Lightning client
 nav_order: 10
 parent: Lightning
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # 3.1 Lightning client: LND
@@ -1042,157 +1058,33 @@ Attention: It is recommended to start from scratch by closing all existing chann
 
 #### Install lndinit
 
-* We'll download, verify, and install `lndinit`. With the user `admin`. Navigate to the temporary directory
-
-```bash
-cd /tmp
-```
-
-* Set a temporary version environment variable for the installation
-
-```bash
-VERSION=0.1.33
-```
-
-* Download the application, checksums, and signature
-
-{% code overflow="wrap" %}
-```bash
-wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/lndinit-linux-amd64-v$VERSION-beta.tar.gz
-```
-{% endcode %}
-
-{% code overflow="wrap" %}
-```bash
-wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
-```
-{% endcode %}
-
-{% code overflow="wrap" %}
-```bash
-wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.sig.ots
-```
-{% endcode %}
-
-{% code overflow="wrap" %}
-```bash
-wget https://github.com/lightninglabs/lndinit/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.sig
-```
-{% endcode %}
-
-#### Checksum check <a href="#checksum-check" id="checksum-check"></a>
-
-* Verify the signed checksum against the actual checksum of your download
-
-```bash
-sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
-```
-
-**Example** of expected output:
-
-```
-lndinit-linux-amd64-v0.1.26-beta.tar.gz: OK
-```
-
-#### Signature check <a href="#signature-check" id="signature-check"></a>
-
-Now that we've verified the integrity of the downloaded binary, we need to check the authenticity of the manifest file we just used, starting with its signature.
-
-* Get the public key from a LND developer, who signed the manifest file, and add it to your GPG keyring
-
-```bash
-curl https://keybase.io/guggero/pgp_keys.asc | gpg --import
-```
-
-Expected output:
-
-<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 19417  100 19417    0     0   1799      0  0:00:10  0:00:10 --:--:--  4130
-gpg: key 8E4256593F177720: 1 signature not checked due to a missing key
-gpg: key 8E4256593F177720: "Oliver Gugger &#x3C;gugger@gmail.com>" <a data-footnote-ref href="#user-content-fn-3">imported</a>
-gpg: Total number processed: 1
-gpg:              unchanged: 1
-</code></pre>
-
-* Verify the signature of the text file containing the checksums for the application
-
-```bash
-gpg --verify manifest-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
-```
-
-**Example** of expected output:
-
-<pre><code>gpg: Signature made Tue 15 Apr 2025 05:16:09 PM UTC
-gpg:                using RSA key F4FC70F07310028424EFC20A8E4256593F177720
-gpg: <a data-footnote-ref href="#user-content-fn-3">Good signature</a> from "Oliver Gugger &#x3C;gugger@gmail.com>" [unknown]
-gpg: WARNING: This key is not certified with a trusted signature!
-gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: F4FC 70F0 7310 0284 24EF  C20A 8E42 5659 3F17 7720
-</code></pre>
-
-#### Timestamp check <a href="#timestamp-check" id="timestamp-check"></a>
-
-We can also check that the manifest file was in existence around the time of the release using its timestamp.
-
-* Let's verify that the timestamp of the file matches the release date
-
-```bash
-ots --no-cache verify manifest-v$VERSION-beta.sig.ots -f manifest-v$VERSION-beta.sig
-```
-
-**Example** of expected output:
-
-<pre><code>Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
-Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
-Got 1 attestation(s) from https://finney.calendar.eternitywall.com
-<a data-footnote-ref href="#user-content-fn-3">Success</a>! Bitcoin block 892581 attests existence as of 2025-04-15 UTC
-</code></pre>
-
 {% hint style="info" %}
-Check that the date of the timestamp is close to the [release date](https://github.com/lightninglabs/lndinit/releases) of the lndinit binary
+After all, check if you have chantools installed:
+
+* With user `admin`, check if you have already installed chantools
+
+{% code overflow="wrap" %}
+```bash
+lndinit -h
+```
+{% endcode %}
+
+-> If you obtain this **example** of expected output, you can move to the next section.:
+
+```
+2026-03-25 18:23:46.009 [INF]: LNDINIT Version 0.1.33-beta commit=v0.1.33-beta, debuglevel=
+Usage:
+  lndinit [OPTIONS] <command>
+
+Application Options:
+  -e, --error-on-existing  Exit with code EXIT_CODE_TARGET_EXISTS (128) instead of 0 if the result of an action is already present
+  -d, --debuglevel=        Set the log level (Off, Critical, Error, Warn, Info, Debug, Trace)
+  -v, --verbose            Turn on logging to stderr
+  [...]
+```
+
+-> If lndinit is not installed (`-bash: lndinit: command not found`), follow the [lndinit bonus guide](../bonus-guides/lightning/lndinit.md) to get instructions to install or use only [lndinit](https://github.com/lightninglabs/lndinit)
 {% endhint %}
-
-* Having verified the integrity and authenticity of the release binary, we can safely
-
-```bash
-tar -xzvf lndinit-linux-amd64-v$VERSION-beta.tar.gz
-```
-
-**Example** of expected output:
-
-```
-lndinit-linux-amd64-v0.1.26-beta/lndinit
-lndinit-linux-amd64-v0.1.26-beta/
-```
-
-#### Binaries installation <a href="#binaries-installation" id="binaries-installation"></a>
-
--> 2 options, depending on whether you want to use it only once or make a permanent installation:
-
-{% tabs %}
-{% tab title="1. Temporary use (recommended)" %}
-In this case, only go to [the next step](lightning-client.md#migrate-bbolt-database-to-postgresql)
-{% endtab %}
-
-{% tab title="2. Permanent installation" %}
-* Install the binaries on the OS
-
-{% code overflow="wrap" %}
-```bash
-sudo install -m 0755 -o root -g root -t /usr/local/bin lndinit-linux-amd64-v$VERSION-beta/lndinit
-```
-{% endcode %}
-
-* (Optional) Clean the lndinit files in the `tmp` folder
-
-{% code overflow="wrap" %}
-```bash
-sudo rm -r lndinit-linux-amd64-v$VERSION-beta && sudo rm lndinit-linux-amd64-v$VERSION-beta.tar.gz && sudo rm manifest-v$VERSION-beta.sig && sudo rm manifest-v$VERSION-beta.txt && sudo rm manifest-v$VERSION-beta.sig.ots
-```
-{% endcode %}
-{% endtab %}
-{% endtabs %}
 
 #### Migrate bbolt database to PostgreSQL
 
@@ -1228,11 +1120,11 @@ May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU t
 * Previously followed:
   1. [Install PostgreSQL section](lightning-client.md#install-postgresql)
   2. [Create PostgreSQL database section](lightning-client.md#create-postgresql-database)
-* Depending on whether you selected in the [Binaries installation section](lightning-client.md#binaries-installation-1) the [option 1](lightning-client.md#id-1.-temporary-use-recomended) or [2](lightning-client.md#id-2.-permanet-installation):
+* Depending on whether you selected in the [lndinit bonus guide](../bonus-guides/lightning/lndinit.md) the [option 1](../bonus-guides/lightning/lndinit.md#id-1.-temporary-use-recommended) or [option 2](../bonus-guides/lightning/lndinit.md#id-2.-permanent-installation):
 
 {% tabs %}
 {% tab title="1. For temporary use option (recommended)" %}
-- Go to the lndinit folder
+- Go to the `lndinit` folder
 
 ```bash
 cd lndinit-linux-amd64-v$VERSION-beta
@@ -1256,7 +1148,7 @@ This process could take a few minutes, depending on the database size. The promp
 {% endtab %}
 
 {% tab title="2. For permanent installation option" %}
-* Execute the migration and wait to finish
+* Execute the migration and wait for it to finish
 
 ```bash
 sudo lndinit --debuglevel info migrate-db \
@@ -1323,11 +1215,10 @@ sudo nano /data/lnd/lnd.conf
 * Replace or comment with "`#`" the `# Database` section about the bbolt database backend
 
 ```
-[bolt]
-## Database
+#[bolt]
 # Set the next value to false to disable auto-compact DB
 # and fast boot and comment the next line
-db.bolt.auto-compact=true
+#db.bolt.auto-compact=true
 # Uncomment to do DB compact at every LND reboot (default: 168h)
 #db.bolt.auto-compact-min-age=0h
 ```
@@ -1335,7 +1226,6 @@ db.bolt.auto-compact=true
 * To this
 
 ```
-# Database
 [db]
 db.backend=postgres
 
@@ -1593,6 +1483,400 @@ sudo rm /data/lnd/password.txt
 ⚠️Remember to back up your `[ C ] LND wallet password` in a secure location
 {% endhint %}
 
+### Open a Channel with External Funding
+
+**lncli**
+
+* With user `admin`, type the next command
+
+{% hint style="info" %}
+It is recommended to connect to the peer previously with the next command:
+
+{% code overflow="wrap" %}
+```bash
+lncli connect <peer_node_public_key>@host:port
+```
+{% endcode %}
+
+Replace:
+
+> `<peer_node_public_key>@host:port` with the desired peer node, ask to your peer about this information obtained with `lncli getinfo | grep -A2 '"uris":'` command
+{% endhint %}
+
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli openchannel --node_key <a data-footnote-ref href="#user-content-fn-14">&#x3C;peer_node_public_key></a> --local_amt <a data-footnote-ref href="#user-content-fn-14">&#x3C;amount_in_sats></a> --psbt
+</code></pre>
+
+{% hint style="info" %}
+Replace:
+
+> `<peer_node_public_key>`: public key of yout peer node, ask to your peer about this information obtained with `lncli getinfo | grep -A2 '"uris":'` command
+>
+> `<amount_in_sats>`: desired channel capacity, e.g 1000000 sats
+{% endhint %}
+
+**Example** of expected output:
+
+<pre data-overflow="wrap"><code>Starting PSBT funding flow with pending channel ID <a data-footnote-ref href="#user-content-fn-18">693ddd43693ed8d620547ee77b729fcd68bb09853ff1bfec0e247514588c44aa</a>.
+PSBT funding initiated with peer <a data-footnote-ref href="#user-content-fn-18">039a53a85abd18ae5087e8fc99d2f2b09543bfd8e68072810f6900541e279c7615</a>.
+Please create a PSBT that sends <a data-footnote-ref href="#user-content-fn-18">0.01000000</a> BTC (<a data-footnote-ref href="#user-content-fn-18">1000000</a> satoshi) to the funding address <a data-footnote-ref href="#user-content-fn-18">tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4</a>.
+
+Note: The whole process should be completed within 10 minutes, otherwise there
+is a risk of the remote node timing out and canceling the funding process.
+
+Example with bitcoind:
+        bitcoin-cli walletcreatefundedpsbt [] '[{"<a data-footnote-ref href="#user-content-fn-18">tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4</a>":<a data-footnote-ref href="#user-content-fn-18">0.01000000</a>}]'
+
+If you are using a wallet that can fund a PSBT directly (currently not possible
+with bitcoind), you can use this PSBT that contains the same address and amount:
+<a data-footnote-ref href="#user-content-fn-18">cHNidP8BADUCAAAAAAFAQg8AAAAAACIAIOmDaGIYDmMwTlZn2R3BzlXgra0/Q3Np934uUtM2RzjEAAAAAAAA</a>
+
+!!! WARNING !!!
+DO NOT PUBLISH the finished transaction by yourself or with another tool.
+lnd MUST publish it in the proper funding flow order OR THE FUNDS CAN BE LOST!
+
+Paste the funded PSBT here to continue the funding flow.
+If your PSBT is very long (specifically, more than 4096 characters), please save
+it to a file and paste the full file path here instead as some terminals will
+truncate the pasted text if it's too long.
+Base64 encoded PSBT (or path to file):
+</code></pre>
+
+{% hint style="info" %}
+Keep the terminal open and go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on your regular computer
+{% endhint %}
+
+**Sparrow**
+
+* Open your new or existing external wallet (hotwallet or hardware wallet)
+
+> - File > **Open Wallet / Create wallet**
+
+> * Create TX (Push the **\[Send]** button) with the next information:
+>
+> > `<address>`: provided by LND (in the previous **example** expected output: tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4[^18])
+>
+> > `<amount>`: \<exact\_amount\_in\_sats> (in the previous example expected output: 1000000[^18])
+>
+> > `<fee>`: free selection (minimun reccomended: 1 sat/vB)
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 200927.png" alt="" width="563"><figcaption></figcaption></figure>
+
+> * Push on **\[Create Transaction]** button
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 200939.png" alt=""><figcaption></figcaption></figure>
+
+> * Go to File > Save PSBT > To clipboard > Push on **\[As Base64]**
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 20103922.png" alt=""><figcaption></figcaption></figure>
+
+**lncli**
+
+* Come back to the terminal, paste the Base64 encoded PSBT, and press `Enter`
+
+<pre data-overflow="wrap"><code>[...]
+Paste the funded PSBT here to continue the funding flow.
+If your PSBT is very long (specifically, more than 4096 characters), please save
+it to a file and paste the full file path here instead as some terminals will
+truncate the pasted text if it's too long.
+Base64 encoded PSBT (or path to file):<a data-footnote-ref href="#user-content-fn-18">cHNidP8BAH0CAAAAAWWHmb3fTdrJxma/TCGvtbvApOVoi6G95w4UaHRGfDMhAAAAAAD9////AlLkZwUAAAAAFgAUX9ew44+OB8+kwpgG6iF70MmfcLhAQg8AAAAAACIAIOmDaGIYDmMwTlZn2R3BzlXgra0/Q3Np934uUtM2RzjEj+kBAE8BBDWHzwNnHxQdgAAAAJQLvJjmRynKxf0gEGTPjTNFfZihcWaKxdg80bFuZwx9A4ic/HW3i2wsi7DzQpgp3XU35GRAZE7/6xtlSU2q40k9EDJZn0RUAACAAQAAgAAAAIAAAQB9AgAAAAEuAdCdlVbd1FfBgq2pPg9M66oDLOhlqx7q4j/fmcpHgQAAAAAA/f///wIqJ3cFAAAAABYAFMa73Oh+0Y0qatXicTjbtvwoTfsSQEIPAAAAAAAiUSCpAIClp6Lhu5buI2JpHZh4EPu4FsNf0wGveMloyahvq7foAQABAR8qJ3cFAAAAABYAFMa73Oh+0Y0qatXicTjbtvwoTfsSAQMEAQAAACIGAmcWxbzjatOXumEFVjOtKLrmnBDxGLlTfWngNx5qOdRMGDJZn0RUAACAAQAAgAAAAIABAAAAEAAAAAAiAgM8w/U1eexTj+OBYiFuSuTNcIAdRgzC7GxJ/2YejuPWehgyWZ9EVAAAgAEAAIAAAACAAQAAABEAAAAAAA==</a>
+</code></pre>
+
+Expected output:
+
+{% code overflow="wrap" %}
+```
+PSBT verified by lnd, please continue the funding flow by signing the PSBT by
+all required parties/devices. Once the transaction is fully signed, paste it
+again here either in base64 PSBT or hex encoded raw wire TX format.
+
+Signed base64 encoded PSBT or hex encoded raw wire TX (or path to file):
+```
+{% endcode %}
+
+{% hint style="info" %}
+Keep the terminal open and go back to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on your regular computer
+{% endhint %}
+
+**Sparrow**
+
+* Go back to Sparrow
+
+> - Push the **\[Finalize transaction for signing]** button
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201qqqw039.png" alt="" width="533"><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
+{% endhint %}
+
+> * Follow the sign process, push the **\[Sign]** button (depending on your case follow the proper signing process of your Hardware Wallet)
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201308.png" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
+{% endhint %}
+
+> * Push on the **\[View Final Transaction]** button
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201335.png" alt=""><figcaption></figcaption></figure>
+
+Code Down (hexadecimal base16) **raw transaction hex /**/ hex encoded raw wire TX
+
+> * Go to the Code Down (hexadecimal base16) **raw transaction hex /**/ hex encoded raw wire TX Select All code (double click) > (Right click) Push on (Copy All) banner
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201451.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
+{% endhint %}
+
+**lncli**
+
+* Come back to the terminal, paste the hex encoded raw wire TX, and press `Enter`
+
+<pre data-overflow="wrap"><code>PSBT verified by lnd, please continue the funding flow by signing the PSBT by
+all required parties/devices. Once the transaction is fully signed, paste it
+again here either in base64 PSBT or hex encoded raw wire TX format.
+
+Signed base64 encoded PSBT or hex encoded raw wire TX (or path to file):<a data-footnote-ref href="#user-content-fn-18">02000000000101658799bddf4ddac9c666bf4c21afb5bbc0a4e5688ba1bde70e146874467c33210000000000fdffffff0252e46705000000001600145fd7b0e38f8e07cfa4c29806ea217bd0c99f70b840420f0000000000220020e9836862180e63304e5667d91dc1ce55e0adad3f437369f77e2e52d3364738c40247304402207fe76b5b1632d75c5ed2376857efaef0bed28caf2345e5bb9c9adff83da34dc802207b91f19360e2f5eef1f598d5a8d1f52612606d49226ea89558d25da30da51e760121026716c5bce36ad397ba61055633ad28bae69c10f118b9537d69e0371e6a39d44c8fe90100</a>
+</code></pre>
+
+**Example** of expected output:
+
+{% code overflow="wrap" %}
+```
+{
+    "funding_txid": "792b8995b76f73cbd256e08dce8d7b1444adc66693bad5b77b4dc9f7f536eec6"
+}
+
+Error received: got error from server: rpc error: code = Canceled desc = context canceled
+```
+{% endcode %}
+
+{% hint style="info" %}
+Check the successful open channel via [ThunderHub](web-app.md), [Zeus](mobile-app.md), or lncli
+{% endhint %}
+
+### Recover the BIP32 Master Extended Private Key
+
+{% hint style="danger" %}
+PSA: It is not safe to externally manage the on-chain funds of LND wallet with standard tools like Sparrow Wallet or Electrum Wallet.\
+There are advanced scripts involving other parties in Lightning channels, and you may cause those funds to be unrecoverable.
+
+USE ONLY IN CASE OF DISASTER RECOVERY!!!
+{% endhint %}
+
+After all, check if you have chantools installed:
+
+* With user `admin`, check if you have already installed chantools
+
+```bash
+chantools -v
+```
+
+**Example** of expected output:
+
+```
+chantools version v0.14.1, commit
+```
+
+{% hint style="info" %}
+\> If the `chantools -v` output is the previous output; you can move to the next section.
+
+-> If `chantools` is not installed (`chantools: command not found`), follow this [chantools bonus guide](../bonus-guides/lightning/chantools.md) to install it or to use
+{% endhint %}
+
+* Depending on whether you selected in the [chantools bonus guide](../bonus-guides/lightning/chantools.md) the [option 1](../bonus-guides/lightning/chantools.md#id-1.-temporary-use-recommended) or [option 2](../bonus-guides/lightning/chantools.md#id-2.-permanent-installation):
+
+{% tabs %}
+{% tab title="1. For temporary use option (recommended)" %}
+#### Extract the private key of your LND
+
+* Go to the `chantools` folder
+
+```bash
+cd chantools-linux-amd64-v$VERSION
+```
+
+* With user `admin`, enter the next command
+
+```bash
+./chantools showrootkey
+```
+
+Expected output:
+
+```
+Input your 12 to 24 word mnemonic separated by spaces:
+```
+
+* Type your 12 to 24 word mnemonic separated by spaces and press `Enter`
+
+Expected output:
+
+```
+Input your cipher seed passphrase (press enter if your seed doesn't have a passphrase):
+```
+
+* Type your cipher seed passphrase (press enter without putting anything if your seed doesn't have a passphrase)
+
+**Example** of expected output:
+
+```
+Your BIP32 HD root key is: xprv...
+```
+
+#### Extract the private key of your Hardware Wallet
+
+* With user `admin`, enter the next command
+
+```bash
+./chantools showrootkey --bip39
+```
+
+Expected output:
+
+```
+Input your 12 to 24 word mnemonic separated by spaces:
+```
+
+* Type your 12 to 24 word mnemonic separated by spaces and press `Enter`
+
+Expected output:
+
+```
+Input your cipher seed passphrase (press enter if your seed doesn't have a passphrase):
+```
+
+* Type your cipher seed passphrase and press `Enter` (press `Enter` without putting anything if your seed doesn't have a passphrase)
+
+**Example** of expected output:
+
+```
+Your BIP32 HD root key is: xprv...
+```
+
+Now, if you want to check, you can use the Sparrow wallet to import the BIP32 HD master private key
+{% endtab %}
+
+{% tab title="2. For permanent installation option" %}
+#### Extract the private key of your LND
+
+* With user `admin`, enter the next command
+
+```bash
+chantools showrootkey
+```
+
+Expected output:
+
+```
+Input your 12 to 24 word mnemonic separated by spaces:
+```
+
+* Type your 12 to 24 word mnemonic separated by spaces and press `Enter`
+
+Expected output:
+
+```
+Input your cipher seed passphrase (press enter if your seed doesn't have a passphrase):
+```
+
+* Type your cipher seed passphrase (press enter without putting anything if your seed doesn't have a passphrase)
+
+**Example** of expected output:
+
+```
+Your BIP32 HD root key is: xprv...
+```
+
+#### Extract the private key of your Hardware Wallet
+
+* With user `admin`, enter the next command
+
+```bash
+chantools showrootkey --bip39
+```
+
+Expected output:
+
+```
+Input your 12 to 24 word mnemonic separated by spaces:
+```
+
+* Type your 12 to 24 word mnemonic separated by spaces and press `Enter`
+
+Expected output:
+
+```
+Input your cipher seed passphrase (press enter if your seed doesn't have a passphrase):
+```
+
+* Type your cipher seed passphrase and press `Enter` (press `Enter` without putting anything if your seed doesn't have a passphrase)
+
+**Example** of expected output:
+
+```
+Your BIP32 HD root key is: xprv...
+```
+
+Now, if you want to check, you can use the Sparrow wallet to import the BIP32 HD master private key
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+Go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on your regular computer
+{% endhint %}
+
+**Sparrow**
+
+* Go to File > **New wallet**
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 200439.png" alt=""><figcaption></figcaption></figure>
+
+* Type your desired name
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 200506.png" alt=""><figcaption></figcaption></figure>
+
+* If you created your LND node recently, select the Script Type > \[**Taproot (P2TR)**]. If you created your LND node a long time ago, select the Script Type > \[**Native Segwit(P2WPKH)**]
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201839.png" alt=""><figcaption></figcaption></figure>
+
+* Push on the **\[New or Imported Software Wallet]** button
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 200649.png" alt="" width="563"><figcaption></figcaption></figure>
+
+* Push on the **\[Enter Private Key]** in the **Master Private Key (BIP32)**
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201158.png" alt="" width="494"><figcaption></figcaption></figure>
+
+* Type the Master Private Key previously extracted from your LND and push the **\[Import]** button
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201324.png" alt="" width="493"><figcaption></figcaption></figure>
+
+* Push on the **\[Import Keystore]** button
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201531.png" alt=""><figcaption></figcaption></figure>
+
+* Finally, push on the **\[Apply]** button
+
+<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201710.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+Check the balance on the **\[Transactions]** and **\[UTXOs]** section if you already have movements in your LND on-chain wallet
+
+<img src="../.gitbook/assets/Captura de pantalla 2026-03-24 202450.png" alt="" data-size="original">![](<../.gitbook/assets/Captura de pantalla 2026-03-24 202435.png>)
+{% endhint %}
+
+* **(Optional)** Delete the chantools files from the temporary folder
+
+{% code overflow="wrap" %}
+```bash
+cd.. && rm -r chantools-linux-amd64-v$VERSION && rm -r chantools-linux-amd64-v$VERSION.tar.gz && rm manifest-v$VERSION.txt && rm manifest-v$VERSION.sig
+```
+{% endcode %}
+
 ## Upgrade
 
 Upgrading LND can cause issues. **Always** read the [LND release notes](https://github.com/lightningnetwork/lnd/blob/master/docs/release-notes/) completely to understand the changes. These also cover many additional topics and new features not mentioned here.
@@ -1654,7 +1938,7 @@ sudo userdel -rf lnd
 sudo groupdel lnd
 ```
 
-### Detele the data directory
+### Delete the data directory
 
 * Delete the complete `lnd` directory
 
@@ -1715,3 +1999,5 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 [^16]: Your SegWit master public key
 
 [^17]: Type your \[ C ] LND wallet password
+
+[^18]: Example

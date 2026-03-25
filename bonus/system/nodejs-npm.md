@@ -4,6 +4,22 @@ parent: + System
 grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Node + NPM
@@ -112,7 +128,7 @@ node -v && npm -v
 rm nodesource_setup.sh
 ```
 
-* Start BTC RPC Explorer & Thunderhub again
+* Start BTC RPC Explorer & ThunderHub again
 
 ```bash
 sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
@@ -174,7 +190,7 @@ node -v && npm -v
 rm nodesource_setup.sh
 ```
 
-* Start BTC RPC Explorer & Thunderhub again
+* Start BTC RPC Explorer & ThunderHub again
 
 ```bash
 sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub

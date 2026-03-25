@@ -5,6 +5,22 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_children: false
 has_toc: false
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Safu Ninja, a DIY steel mnemonic backup

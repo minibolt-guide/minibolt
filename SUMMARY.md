@@ -55,6 +55,8 @@
   * [Public Pool](bonus-guides/bitcoin/public-pool.md)
 * [⚡ Lightning](bonus-guides/lightning/README.md)
   * [Alby Hub](bonus-guides/lightning/alby-hub.md)
+  * [lndinit](bonus-guides/lightning/lndinit.md)
+  * [chantools](bonus-guides/lightning/chantools.md)
 * [🦩 Nostr](bonus-guides/nostr/README.md)
   * [Nostr relay in Rust](bonus-guides/nostr/nostr-relay.md)
 * [🛡️ Security](bonus-guides/security/README.md)

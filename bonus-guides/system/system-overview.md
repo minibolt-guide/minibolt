@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # System Overview
 
 To get a quick overview of the system status, you can use [a shell script](https://github.com/minibolt-guide/system_overview) that gathers the most relevant data about the service on the main guide.
