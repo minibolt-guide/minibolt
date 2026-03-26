@@ -45,6 +45,7 @@ layout:
 ### Databases
 
 * [**PostgreSQL**](../../bonus-guides/system/postgresql.md) - Install / Update / Uninstall PostgreSQL database
+* [**MariaDB**](../../bonus-guides/system/mariadb.md) - a community-developed, commercially supported fork of the MySQL relational database management system (RDBMS)
 
 ### Hardware
 
