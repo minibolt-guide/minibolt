@@ -152,7 +152,7 @@ sudo su - thunderhub
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=0.15.4
+VERSION=0.15.5
 ```
 
 * Import the GPG key of the developer
@@ -259,17 +259,51 @@ npm notice
 npx next telemetry disable
 ```
 
+When the promp ask you this:
+
+```
+Need to install the following packages:
+next@16.2.1
+Ok to proceed? (y)
+```
+
+* Type "y" and press `Enter`
+
 Expected output:
 
 ```
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
 Your preference has been saved to /home/thunderhub/.config/nextjs-nodejs/config.json.
 
 Status: Disabled
 
 You have opted-out of Next.js' anonymous telemetry program.
 No data will be collected from your machine.
+
 Learn more: https://nextjs.org/telemetry
 ```
+
+If you are not sure if you have already disabled the telemetry, check with the next command:
+
+```bash
+npx next telemetry status
+```
+
+**Example** of expected output:
+
+<pre><code>Next.js Telemetry
+
+Status: <a data-footnote-ref href="#user-content-fn-1">Disabled</a>
+
+You have opted-out of Next.js' anonymous telemetry program.
+No data will be collected from your machine.
+
+Learn more: https://nextjs.org/telemetry
+</code></pre>
 {% endhint %}
 
 * Build it
@@ -283,35 +317,47 @@ npm run build
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-
-> thunderhub@0.15.1 prebuild
+> thunderhub@0.15.5 prebuild
 > rimraf dist && rimraf src/client/dist
 
 
-> thunderhub@0.15.1 build
+> thunderhub@0.15.5 build
 > npm run build:nest && npm run build:client
 
 
-> thunderhub@0.15.1 build:nest
+> thunderhub@0.15.5 build:nest
 > nest build
 
 
-> thunderhub@0.15.1 build:client
+> thunderhub@0.15.5 build:client
 > cd src/client && npx vite build
 
 vite v7.3.1 building client environment for production...
-✓ 3432 modules transformed.
-dist/index.html                                    0.60 kB │ gzip:   0.36 kB
-dist/assets/index-C2Q4IGPT.css                    32.24 kB │ gzip:   6.62 kB
-dist/assets/SettingsDashboardPage-NuTzbgRs.js      1.59 kB │ gzip:   0.84 kB
-dist/assets/DashboardPage-D8gCYArr.js             61.63 kB │ gzip:  20.56 kB
-dist/assets/index-CbTrqCDL.js                  1,671.44 kB │ gzip: 533.46 kB
+✓ 3468 modules transformed.
+dist/index.html                                                       0.88 kB │ gzip:   0.47 kB
+dist/assets/jetbrains-mono-vietnamese-wght-normal-Bt-aOZkq.woff2      7.50 kB
+dist/assets/jetbrains-mono-greek-wght-normal-Bw9x6K1M.woff2           9.00 kB
+dist/assets/noto-sans-greek-ext-wght-normal-12T8GTDR.woff2           10.76 kB
+dist/assets/jetbrains-mono-cyrillic-wght-normal-D73BlboJ.woff2       12.11 kB
+dist/assets/noto-sans-vietnamese-wght-normal-DLTJy58D.woff2          14.46 kB
+dist/assets/jetbrains-mono-latin-ext-wght-normal-DBQx-q_a.woff2      15.20 kB
+dist/assets/noto-sans-cyrillic-wght-normal-B2hlT84T.woff2            20.08 kB
+dist/assets/noto-sans-greek-wght-normal-Ymb6dZNd.woff2               21.78 kB
+dist/assets/noto-sans-latin-wght-normal-BYSzYMf3.woff2               35.82 kB
+dist/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2          40.40 kB
+dist/assets/noto-sans-cyrillic-ext-wght-normal-DSNfmdVt.woff2        70.68 kB
+dist/assets/noto-sans-devanagari-wght-normal-Cv-Vwajv.woff2          99.24 kB
+dist/assets/noto-sans-latin-ext-wght-normal-W1qJv59z.woff2          167.96 kB
+dist/assets/index-CaOutTYy.css                                      120.38 kB │ gzip:  21.24 kB
+dist/assets/SettingsDashboardPage-Cw2lNbJ3.js                         2.06 kB │ gzip:   0.97 kB
+dist/assets/DashboardPage-CdGPQaG7.js                                61.33 kB │ gzip:  20.51 kB
+dist/assets/index-CM0qvWIF.js                                     1,736.10 kB │ gzip: 534.93 kB
 
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 1m 6s
+✓ built in 9.66s
 ```
 
 </details>
@@ -360,13 +406,13 @@ nano thubConfig.yaml
 
 * Copy and paste the following information
 
-<pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-1">PASSWORD</a>'
+<pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-2">PASSWORD</a>'
 accounts:
   - name: 'MiniBolt'
     serverUrl: '127.0.0.1:10009'
     macaroonPath: '/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon'
     certificatePath: '/data/lnd/tls.cert'
-    password: '[E] ThunderHub password'
+    password: '<a data-footnote-ref href="#user-content-fn-3">[E] ThunderHub password</a>'
 </code></pre>
 
 {% hint style="info" %}
@@ -574,7 +620,7 @@ Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to sho
 
 ### Validation
 
-* Ensure the service is working and listening on the default `3001` port and the HTTPs `4002` port
+* Ensure the service is working and listening on the default `3001` port and the HTTPS `4002` port
 
 ```bash
 sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4002|:3001)'
@@ -719,7 +765,7 @@ cd thunderhub
 * Set the environment variable version
 
 ```bash
-VERSION=0.15.4
+VERSION=0.15.5
 ```
 
 * Pull the changes from GitHub
@@ -987,4 +1033,8 @@ sudo ufw delete X
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4002</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr></tbody></table>
 
-[^1]: Default password unless defined in account
+[^1]: Check this
+
+[^2]: Default password unless defined in account
+
+[^3]: Replace this

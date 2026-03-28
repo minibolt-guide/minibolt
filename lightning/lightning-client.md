@@ -1369,6 +1369,25 @@ Example of expected output:
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
 
+#### -> Delete all failed HTLC payment attempts
+
+{% code overflow="wrap" %}
+```bash
+lncli deletepayments --all --failed_htlcs_only
+```
+{% endcode %}
+
+Example of expected output:
+
+{% code overflow="wrap" %}
+```
+Removing failed HTLCs from failed payments, this might take a while...
+{
+    "status": "0 payments deleted, failed_htlcs_only=true"
+}
+```
+{% endcode %}
+
 ### Unlock the LND wallet manually
 
 Storing a password in plain text is not secure; that's why it is recommended to unlock LND manually. Follow the next steps to get that:
@@ -1659,10 +1678,10 @@ Check the successful open channel via [ThunderHub](web-app.md), [Zeus](mobile-ap
 ### Recover the BIP32 Master Extended Private Key
 
 {% hint style="danger" %}
-PSA: It is not safe to externally manage the on-chain funds of LND wallet with standard tools like Sparrow Wallet or Electrum Wallet.\
-There are advanced scripts involving other parties in Lightning channels, and you may cause those funds to be unrecoverable.
+PSA: It is not safe to externally manage the on-chain funds of LND wallet with standard tools like Sparrow Wallet or Electrum Wallet.\
+There are advanced scripts involving other parties on Lightning channels, and you may make those funds unrecoverable.
 
-USE ONLY IN CASE OF DISASTER RECOVERY!!!
+ATTENTION: USE ONLY FOR DISASTER RECOVERY OR TO CHECK EXTERNALLY SEEDS IN VIEW-ONLY MODE!
 {% endhint %}
 
 After all, check if you have chantools installed:
@@ -1727,6 +1746,10 @@ Your BIP32 HD root key is: xprv...
 
 #### Extract the private key of your Hardware Wallet
 
+{% hint style="danger" %}
+ATTENTION: USE ONLY IN A SECURE AND OFFLINE DEVICE!
+{% endhint %}
+
 * With user `admin`, enter the next command
 
 ```bash
@@ -1755,7 +1778,9 @@ Input your cipher seed passphrase (press enter if your seed doesn't have a passp
 Your BIP32 HD root key is: xprv...
 ```
 
+{% hint style="info" %}
 Now, if you want to check, you can use the Sparrow wallet to import the BIP32 HD master private key
+{% endhint %}
 {% endtab %}
 
 {% tab title="2. For permanent installation option" %}
@@ -1819,7 +1844,9 @@ Input your cipher seed passphrase (press enter if your seed doesn't have a passp
 Your BIP32 HD root key is: xprv...
 ```
 
+{% hint style="info" %}
 Now, if you want to check, you can use the Sparrow wallet to import the BIP32 HD master private key
+{% endhint %}
 {% endtab %}
 {% endtabs %}
 
