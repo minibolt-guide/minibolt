@@ -25,22 +25,23 @@ layout:
 Difficulty: Medium
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/strfry-logo.png" alt="" width="200"><figcaption></figcaption></figure>
+{% hint style="info" %}
+This is an **alternative** to the [Nostr relay in Rust](nostr-relay.md) guide. Both are excellent relay implementations — choose one based on your preferences. If you already run nostr-rs-relay on port 8880, you must use a different port for strfry (e.g., 8881) or stop the existing relay first.
+{% endhint %}
 
 ## Why strfry?
 
-Compared to other relay implementations:
+Compared to nostr-rs-relay:
 
-* **LMDB storage** — zero-config, no external database (no PostgreSQL/SQLite setup)
-* **Low resource usage** — ~50MB RAM idle, scales to millions of events
+* **LMDB storage** — zero-config, no external database needed (no PostgreSQL/SQLite setup)
+* **Lower resource usage** — ~50MB RAM idle, scales to millions of events
 * **Negentropy sync** — efficiently synchronize events between relays
 * **Write policy plugins** — filter incoming events with external scripts
 * **C++ performance** — handles thousands of concurrent WebSocket connections
 
 ## Requirements
 
-* [Node.js](../../system/nodejs.md) (not required for strfry itself, but for the MiniBolt stack)
-* Others can be installed along with this guide
+* No additional services required (unlike nostr-rs-relay which needs PostgreSQL)
 
 ## Preparations
 
@@ -54,10 +55,14 @@ sudo apt update && sudo apt install -y git build-essential cmake libssl-dev zlib
 
 ### Create the `nostr` user
 
-* Create a dedicated user for the relay with no login shell
+{% hint style="info" %}
+If you already created the `nostr` user for the [Nostr relay in Rust](nostr-relay.md) guide, skip this step
+{% endhint %}
+
+* Create a dedicated user for the relay
 
 ```bash
-sudo adduser --disabled-password --gecos "" nostr
+sudo adduser --gecos "" --disabled-password nostr
 ```
 
 ### Create data directory
@@ -71,14 +76,14 @@ sudo mkdir -p /data/nostr/strfry-db
 * Assign ownership to the `nostr` user
 
 ```bash
-sudo chown -R nostr:nostr /data/nostr
+sudo chown -R nostr:nostr /data/nostr/strfry-db
 ```
 
 ## Installation
 
 ### Build from source
 
-* Clone the strfry repository
+* With user `admin`, clone the strfry repository
 
 ```bash
 cd /tmp
@@ -137,7 +142,11 @@ cd /tmp && rm -rf strfry
 sudo su - nostr
 ```
 
-* Create the configuration file. Replace the values in `info` section with your own relay details
+* Create the configuration file
+
+{% hint style="warning" %}
+Replace the placeholder values in the `info` section with your own relay details. Convert your npub to hex format using a tool like [damus.io/key](https://damus.io/key/)
+{% endhint %}
 
 ```bash
 cat > /home/nostr/strfry.conf << 'EOF'
@@ -148,10 +157,11 @@ cat > /home/nostr/strfry.conf << 'EOF'
 db = "/data/nostr/strfry-db/"
 
 relay {
-    # Interface to listen on. Use 127.0.0.1 if behind reverse proxy
+    # Interface to listen on. Use 127.0.0.1 if behind a reverse proxy
     bind = "0.0.0.0"
 
-    # Port to open for the relay
+    # Port to open for the relay (default: 8880)
+    # Change this if you already run nostr-rs-relay on 8880
     port = 8880
 
     # Maximum number of open files/sockets
@@ -166,7 +176,7 @@ relay {
     # Websocket PING frequency (seconds)
     autoPingSeconds = 55
 
-    # Enable compression
+    # Enable compression for messages larger than threshold
     compression = true
     compressThreshold = 1024
 
@@ -174,18 +184,19 @@ relay {
         # NIP-11: Relay information document
         name = "My MiniBolt Relay"
         description = "A personal nostr relay running on MiniBolt"
-        pubkey = "YOUR_HEX_PUBKEY_HERE"
-        contact = "mailto:your@email.com"
+        pubkey = "your_hex_pubkey_here"
+        contact = "mailto:you@example.com"
         icon = ""
     }
 
     tempDir = "/data/nostr/strfry-db/tmp/"
 
-    # If behind a reverse proxy (nginx/Cloudflare), set the real IP header
-    # realIpHeader = "x-forwarded-for"
+    # If behind a reverse proxy, uncomment the appropriate header:
+    # realIpHeader = "x-forwarded-for"      # For nginx
+    # realIpHeader = "cf-connecting-ip"      # For Cloudflare Tunnel
 
     writePolicy {
-        # Restrict writes to specific pubkeys (optional)
+        # Restrict writes to specific pubkeys (optional, uncomment to enable)
         # pubkeyWhitelist = ["hex_pubkey_1", "hex_pubkey_2"]
 
         # External write policy plugin (optional)
@@ -243,7 +254,10 @@ sudo ufw allow 8880/tcp comment 'allow strfry relay from anywhere'
 * Create the systemd service file with security hardening
 
 ```bash
-sudo cat > /etc/systemd/system/strfry-relay.service << 'EOF'
+sudo nano /etc/systemd/system/strfry-relay.service
+```
+
+```ini
 [Unit]
 Description=strfry nostr relay
 After=network-online.target
@@ -269,7 +283,6 @@ ReadWritePaths=/data/nostr/strfry-db
 
 [Install]
 WantedBy=multi-user.target
-EOF
 ```
 
 * Enable and start the service
@@ -310,7 +323,7 @@ sudo apt install -y websocat
 echo '["REQ","test",{"limit":1}]' | websocat ws://127.0.0.1:8880
 ```
 
-You should receive a nostr response with `EOSE`.
+You should receive a nostr response ending with `EOSE`.
 
 ### Test NIP-11 relay information
 
@@ -318,7 +331,7 @@ You should receive a nostr response with `EOSE`.
 curl -s -H "Accept: application/nostr+json" http://127.0.0.1:8880/ | jq
 ```
 
-Expected output should show your relay name, description, and other NIP-11 info.
+Expected output should show your relay name, description, and other NIP-11 metadata.
 
 ## Reverse proxy (optional)
 
@@ -326,22 +339,29 @@ If you want to expose your relay to the internet with a domain name and TLS, con
 
 ### Option A: Nginx + Let's Encrypt
 
-* Install nginx
+* Install nginx if not already installed
 
 ```bash
 sudo apt install -y nginx
 ```
 
-* Create the nginx configuration. Replace `relay.yourdomain.com` with your actual domain
+* Create the nginx configuration
+
+{% hint style="warning" %}
+Replace `relay.example.com` with your actual domain
+{% endhint %}
 
 ```bash
-sudo cat > /etc/nginx/sites-available/nostr-relay << 'EOF'
+sudo nano /etc/nginx/sites-available/nostr-relay
+```
+
+```nginx
 server {
     listen 443 ssl http2;
-    server_name relay.yourdomain.com;
+    server_name relay.example.com;
 
-    ssl_certificate /etc/letsencrypt/live/relay.yourdomain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/relay.yourdomain.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/relay.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/relay.example.com/privkey.pem;
 
     location / {
         proxy_pass http://127.0.0.1:8880;
@@ -353,7 +373,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
-        # WebSocket timeout
+        # WebSocket timeout (24 hours)
         proxy_read_timeout 86400s;
         proxy_send_timeout 86400s;
     }
@@ -361,10 +381,9 @@ server {
 
 server {
     listen 80;
-    server_name relay.yourdomain.com;
+    server_name relay.example.com;
     return 301 https://$server_name$request_uri;
 }
-EOF
 ```
 
 * Enable the site and restart nginx
@@ -375,18 +394,16 @@ sudo nginx -t && sudo systemctl restart nginx
 ```
 
 {% hint style="info" %}
-If using `realIpHeader` in strfry.conf, set it to `x-forwarded-for` for nginx
+Remember to uncomment `realIpHeader = "x-forwarded-for"` in strfry.conf when using nginx
 {% endhint %}
 
-### Option B: Cloudflare Tunnel (no port opening needed)
+### Option B: Cloudflare Tunnel
 
-If you prefer not to open ports, use a Cloudflare Tunnel:
-
-* Add the relay to your `config.yml`
+If you already have a [Cloudflare Tunnel](../networking/cloudflare-tunnel.md) configured, add the relay hostname to your tunnel config:
 
 ```yaml
 ingress:
-  - hostname: relay.yourdomain.com
+  - hostname: relay.example.com
     service: http://localhost:8880
 ```
 
@@ -397,12 +414,12 @@ sudo systemctl restart cloudflared
 ```
 
 {% hint style="info" %}
-If using Cloudflare Tunnel, set `realIpHeader = "cf-connecting-ip"` in strfry.conf to get real client IPs
+Remember to uncomment `realIpHeader = "cf-connecting-ip"` in strfry.conf when using Cloudflare Tunnel
 {% endhint %}
 
 ## Useful commands
 
-### Import events from another relay
+### Import events from a JSONL file
 
 ```bash
 sudo -u nostr strfry --config /home/nostr/strfry.conf import < events.jsonl
@@ -411,7 +428,7 @@ sudo -u nostr strfry --config /home/nostr/strfry.conf import < events.jsonl
 ### Sync with another relay (negentropy)
 
 ```bash
-sudo -u nostr strfry --config /home/nostr/strfry.conf sync wss://other-relay.com --dir both
+sudo -u nostr strfry --config /home/nostr/strfry.conf sync wss://relay.example.com --dir both
 ```
 
 ### Export all events
@@ -420,7 +437,7 @@ sudo -u nostr strfry --config /home/nostr/strfry.conf sync wss://other-relay.com
 sudo -u nostr strfry --config /home/nostr/strfry.conf export > backup.jsonl
 ```
 
-### Check database stats
+### Check database info
 
 ```bash
 sudo -u nostr strfry --config /home/nostr/strfry.conf info
@@ -457,15 +474,10 @@ make -j$(nproc)
 sudo install -m 0755 strfry /usr/local/bin/
 ```
 
-* Start the service
+* Start the service and verify
 
 ```bash
 sudo systemctl start strfry-relay
-```
-
-* Verify
-
-```bash
 strfry --version
 ```
 
@@ -492,13 +504,13 @@ sudo systemctl daemon-reload
 sudo rm /usr/local/bin/strfry
 ```
 
-### Remove data (optional, destructive)
+### Remove data (optional — this deletes all relay data)
 
 ```bash
 sudo rm -rf /data/nostr/strfry-db
 ```
 
-### Remove the user (optional)
+### Remove the user (optional — only if not shared with nostr-rs-relay)
 
 ```bash
 sudo userdel -r nostr
@@ -514,4 +526,4 @@ sudo ufw delete allow 8880/tcp
 
 |  Port |  Protocol |  Use          |
 | ----- | --------- | ------------- |
-|  8880 |  TCP      |  strfry relay |
+|  8880 |  TCP      |  strfry relay WebSocket |
