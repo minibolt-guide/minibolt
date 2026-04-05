@@ -21,6 +21,10 @@ layout:
 
 [chantools](https://github.com/lightninglabs/chantools) is a loose collection of tools all somehow related to [lnd](../../lightning/lightning-client.md) and Lightning Network channels.
 
+{% hint style="success" %}
+Difficulty: Easy
+{% endhint %}
+
 ## Installation
 
 * We'll download, verify, and install `chantools`. With the user `admin`. Navigate to the temporary directory&#x20;

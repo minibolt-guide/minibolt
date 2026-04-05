@@ -21,6 +21,10 @@ layout:
 
 [Alby Hub](https://github.com/getAlby/hub) is a self-custodial, open source Lightning wallet that connects to apps.
 
+{% hint style="warning" %}
+Difficulty: Medium
+{% endhint %}
+
 <figure><img src="../../.gitbook/assets/albyhub.jpeg" alt=""><figcaption></figcaption></figure>
 
 ## Requirements

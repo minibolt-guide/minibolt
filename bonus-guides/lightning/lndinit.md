@@ -21,6 +21,10 @@ layout:
 
 The main purpose of [lndinit](https://github.com/lightninglabs/lndinit) is to help automate the [lnd](../../lightning/lightning-client.md) wallet initialization, including seed and password generation.
 
+{% hint style="success" %}
+Difficulty: Easy
+{% endhint %}
+
 ## Installation
 
 * We'll download, verify, and install `lndinit`. With the user `admin`. Navigate to the temporary directory
