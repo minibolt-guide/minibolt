@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # 1.6 Privacy
 
 We configure Tor and I2P to run your node anonymously.
@@ -629,13 +648,9 @@ Configuration file '/etc/i2pd/i2pd.conf'
 * Press "Y" and ENTER, but take into account that you will need to reconfigure I2P if you followed the "[Access to the i2pd webconsole](privacy.md#access-to-the-i2pd-webconsole)" section, since this overwrites I2P's previous configuration.
 {% endhint %}
 
-***
-
 {% hint style="danger" %}
 ATTENTION!!! Do not proceed to the [next Uninstall section](privacy.md#uninstall) if you **do not wish to uninstall**. Skip directly to the [Bitcoin client](../bitcoin/bitcoin/) section
 {% endhint %}
-
-***
 
 ## Uninstall
 
@@ -679,7 +694,7 @@ The following packages will be REMOVED:
 
 #### **Tor network issues**
 
-If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...), it is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
+If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc), it is possible that the set of entry guards is overloaded. Delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
 
 * Stop Tor
 
@@ -716,7 +731,7 @@ If you obtain this error [after updating](privacy.md#upgrade-tor-and-i2p) the re
 <figure><img src="../.gitbook/assets/tor_keyring_error.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-This means Tor has renovated the signature due probably that is probably soon to expire or has expired. Follow the next steps to fix that ⬇️
+This means Tor has renewed the signature because it is probably soon to expire or has expired. Follow the next steps to fix that ⬇️
 {% endhint %}
 
 * With user `admin`, up to `"root"` user temporarily
@@ -759,7 +774,7 @@ If this happens, usually this fix only with **restarting** the i2pd service
 sudo systemctl restart i2pd
 ```
 
-* Check again the Bitcoin Core logs to ensure that the errors don't appear anymore
+* Check the Bitcoin Core logs again to ensure that the errors don't appear anymore
 
 ## Port reference
 

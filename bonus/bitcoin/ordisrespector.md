@@ -5,6 +5,22 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_children: false
 has_toc: false
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Ordisrespector spam filter
@@ -324,7 +340,7 @@ git apply ordisrespector.patch
 
 * Enter the command to compile
 
-```sh
+```bash
 cmake --build build -j $(nproc)
 ```
 
@@ -497,6 +513,10 @@ Remember to restart the Bitcoin Core to apply the new version with `sudo systemc
 {% endhint %}
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 To uninstall Bitcoin Core with the Ordisrespector patch applied, follow the entire Bitcoin Core [uninstall section](../../bitcoin/bitcoin/bitcoin-client.md#uninstall)
 

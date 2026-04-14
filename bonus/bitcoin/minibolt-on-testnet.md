@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # MiniBolt on Testnet
 
 You can run your MiniBolt node on **Testnet4** to develop and experiment with new applications without risking real money. This bonus guide highlights all configuration changes compared to the main guide.
@@ -200,7 +219,7 @@ tcp = 0.0.0.0:40001
 banner = /data/fulcrum/fulcrum-banner-testnet4.txt
 ```
 
-&#x20;[Create systemd service](../../bitcoin/bitcoin/electrum-server.md#create-systemd-service)
+[Create systemd service](../../bitcoin/bitcoin/electrum-server.md#create-systemd-service)
 
 * When you arrive at the [Create systemd service](../../bitcoin/bitcoin/electrum-server.md#create-systemd-service) section, stay tuned to replace the next lines in the `fulcrum.service` file, to match the Bitcoin Core on Testnet mode dependency. Save and exit
 
@@ -262,7 +281,7 @@ The rest of the **Fulcrum** guide is the same as the mainnet mode
 ### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md)
 
 {% hint style="danger" %}
-#### Not Testnet4 compatible yet, the next steps are not valid!
+**Not Testnet4 compatible yet, the next steps are not valid!**
 {% endhint %}
 
 * Follow the complete guide from the beginning. When you arrive at the [Configuration section](../../bitcoin/bitcoin/blockchain-explorer.md#configuration), set the next lines with the next values instead of the existing ones for the mainnet. Edit **`.env`** file

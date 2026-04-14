@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # Cloudflare tunnel
 
 Exposing your local server on the Internet (clearnet) has various solutions, but the Cloudflare Tunnel stands out as the easiest and most cost-effective option. Traditionally, configuring Firewalls, using Tor, or setting up an SSH reverse tunnel to a public VPS were common approaches, each with its challenges and costs. Cloudflare Tunnel offers an alternative, though it acts as a middleman and can access or modify your traffic.
@@ -10,11 +29,11 @@ Cost: Paid service
 Difficulty: Medium
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/network-diagram-cloudflared.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/network-diagram-cloudflared.png" alt="" width="563"><figcaption></figcaption></figure>
 
 With Cloudflare Tunnel, you gain low-latency access to your server on clearnet, without the need for complex firewall or router configurations, dynamic DNS, or relying on an internet service provider.
 
-<figure><img src="../../.gitbook/assets/cloudflared-connection.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/cloudflared-connection.PNG" alt="" width="563"><figcaption></figcaption></figure>
 
 Cloudflare Tunnel ensures secure connectivity without exposing your server's publicly routable IP address. Instead, a lightweight daemon, cloudflared, creates outbound-only connections to Cloudflare's global network. This establishes persistent tunnels that route traffic to DNS records. You can run multiple cloudflared processes within a tunnel, connecting your resources securely to Cloudflare's nearest data center.
 
@@ -83,7 +102,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=2026.2.0
+VERSION=2026.3.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -94,7 +113,7 @@ VERSION=2026.2.0
 * Set a temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=e90aa057bfe72c15071eb2706f739097550623b55c4e3ab98286f45e9bf145f4
+SHA256=00f2475bad5874e9a110c2f5b8d1ce8a1bf5b6280628886a68bdc4ee76fd376c
 ```
 
 * Check the checksum of the file
@@ -518,6 +537,10 @@ Monitor logs with **`journalctl -fu cloudflared`** to ensure that all is still w
 {% endhint %}
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * With user `admin`, stop the Cloudflared
 
