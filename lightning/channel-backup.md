@@ -527,6 +527,10 @@ You're set! Each time you open a new channel or close an existing one, the monit
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall service & user
 
 Ensure you are logged in with the user `admin`, stop, disable autoboot (if enabled), and delete the service

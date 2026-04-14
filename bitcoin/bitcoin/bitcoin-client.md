@@ -1270,6 +1270,10 @@ sudo systemctl restart bitcoind
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall service
 
 * Ensure you are logged in as the user `admin`, stop bitcoind

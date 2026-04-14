@@ -883,6 +883,10 @@ That's it! You have updated PostgreSQL to the major version immediately higher
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall the PostgreSQL package and configuration
 
 * With user `admin`, stop and disable the PostgreSQL service

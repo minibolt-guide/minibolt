@@ -176,6 +176,10 @@ rm go$VERSION.linux-amd64.tar.gz
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 * Delete go folder
 
 ```bash

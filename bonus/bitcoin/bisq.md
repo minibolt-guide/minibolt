@@ -228,6 +228,10 @@ Bisq will let you know when a new update is available. Follow the instructions o
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall FW configuration
 
 * Delete the firewall rules with the comment 'allow BTC Core from anywhere' identifying the number of the rule

@@ -131,6 +131,10 @@ info: checking for self-update
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 * With user `admin` type the appropriate command to get that
 
 ```bash

@@ -538,6 +538,10 @@ Monitor logs with **`journalctl -fu cloudflared`** to ensure that all is still w
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 * With user `admin`, stop the Cloudflared
 
 ```bash

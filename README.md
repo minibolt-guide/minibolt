@@ -24,6 +24,11 @@ layout:
 
 [![Forks](https://img.shields.io/github/forks/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/network/members) [![Stargazers](https://img.shields.io/github/stars/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/stargazers) [![MIT License](https://img.shields.io/github/license/minibolt-guide/minibolt.svg?style=for-the-badge)](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/LICENSE) [![Contributors](https://img.shields.io/github/contributors/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/graphs/contributors) [![Issues](https://img.shields.io/github/issues/minibolt-guide/minibolt.svg?style=for-the-badge)](https://github.com/minibolt-guide/minibolt/issues) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/minibolt-guide/minibolt?label=latest%20release)](https://github.com/minibolt-guide/minibolt/releases) [![GitHub followers](https://img.shields.io/github/followers/minibolt-guide)](https://github.com/orgs/minibolt-guide/followers) [![GitBook](https://img.shields.io/static/v1?message=Documented%20on%20GitBook\&logo=gitbook\&logoColor=ffffff\&label=%20\&labelColor=5c5c5c\&color=3F89A1)](https://www.gitbook.com/preview?utm_source=gitbook_readme_badge\&utm_medium=organic\&utm_campaign=preview_documentation\&utm_content=link)
 
+{% hint style="warning" %}
+**Disclaimer:**\
+Do not blindly copy and paste commands. Ensure you understand each step before executing it. You are responsible for your system and data.
+{% endhint %}
+
 <figure><img src=".gitbook/assets/photo_2026-03-10_13-48-39.jpg" alt=""><figcaption></figcaption></figure>
 
 ## What is the MiniBolt?
@@ -145,10 +150,7 @@ http://rzcj4r2p6wterkto5prigsplq6iva5bqhcxr7y3d6w4hoc3uwizpp5qd.onion
 {% endtab %}
 
 {% tab title="Keyserver" %}
-* Hockeypuck OpenPGP Public Keyserver (🚾clearnet):
-
-👉 CLICK to access: [https://keyserver.minibolt.info](https://keyserver.minibolt.info) 👈
-
+* Hockeypuck OpenPGP Public Keyserver (🚾clearnet): [https://keyserver.minibolt.info](https://keyserver.minibolt.info)&#x20;
 * Hockeypuck OpenPGP Public Keyserver (🧅onion - use [Tor browser](https://www.torproject.org/download/)):
 
 ```

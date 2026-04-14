@@ -618,6 +618,10 @@ Remember to restart the Bitcoin Knots to apply the new version with: `sudo syste
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 To uninstall Bitcoin Knots, follow the entire [Bitcoin Client: Bitcoin Core uninstall section](../../bitcoin/bitcoin/bitcoin-client.md#uninstall)
 
 ## Port reference

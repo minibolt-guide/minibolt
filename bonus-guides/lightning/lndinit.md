@@ -199,6 +199,10 @@ Follow the complete [Installation section](lndinit.md#installation) until the [B
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall binaries
 
 * Delete the binaries installed (only in case of [2. Permanent installation](lndinit.md#id-2.-permanent-installation))

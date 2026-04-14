@@ -592,22 +592,67 @@ sudo systemctl start lnd
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu lnd</code> ⬇️</summary>
 
 ```
-Jun 05 14:58:50 minibolt systemd[1]: Starting Lightning Network Daemon...
-Jun 05 14:58:50 minibolt lnd[124224]: Attempting automatic RPC configuration to bitcoind
-Jun 05 14:58:50 minibolt lnd[124224]: Automatically obtained bitcoind's RPC credentials
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.368 [INF] LTND: Version: 0.18.0-beta commit=v0.18.0-beta, build=production, logging=default, debuglevel=info
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.369 [INF] LTND: Active chain: Bitcoin (network=mainnet)
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.369 [INF] RPCS: Generating ephemeral TLS certificates...
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.370 [INF] RPCS: Done generating ephemeral TLS certificates
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.372 [INF] RPCS: RPC server listening on 127.0.0.1:10009
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.394 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.395 [INF] LTND: Opening the main database, this might take a few minutes...
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.615 [INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.667 [INF] CHDB: Checking for schema update: latest_version=31, db_version=31
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.669 [INF] CHDB: Checking for optional update: prune_revocation_log=false, db_version=empty
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.700 [INF] LTND: Database(s) now open (time_to_open=305.162267ms)!
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.703 [INF] LTND: Systemd was notified about our readiness
-Jun 05 14:58:50 minibolt lnd[124224]: 2024-06-05 14:58:50.703 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
+Apr 10 16:06:29 minibolt lnd[74621]: Attempting automatic RPC configuration to bitcoind
+Apr 10 16:06:29 minibolt lnd[74621]: Automatically obtained bitcoind's RPC credentials
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.405 [INF] LTND: Version Info rev=848b72 version=0.20.1-beta commit=v0.20.1-beta debuglevel=production logging=info
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.405 [INF] LTND: Network Info rev=848b72 active_chain=Bitcoin network=mainnet
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.405 [INF] RPCS: Generating ephemeral TLS certificates...
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.406 [INF] RPCS: Done generating ephemeral TLS certificates
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.407 [INF] RPCS: RPC server listening on 127.0.0.1:10009
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.416 [INF] RPCS: gRPC proxy started at 127.0.0.1:8080
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.416 [INF] LTND: Opening the main database, this might take a few minutes...
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.458 [INF] SQLD: Using SQL database 'postgresql://admin:***@127.0.0.1:5432/lndb?sslmode=disable'
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.468 [INF] LTND: Using remote postgres database! Creating graph and channel state DB instances
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.477 [INF] CHDB: Checking for schema update: latest_version=33, db_version=33
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.478 [INF] CHDB: Applying 2 optional migrations
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.478 [INF] CHDB: Checking for optional update: name=prune_revocation_log
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.478 [INF] CHDB: Checking for optional update: name=gc_decayed_log
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.478 [INF] CHDB: Performing database optional migration: gc_decayed_log
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.478 [INF] CHDB: Migrating decayed log...
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.479 [INF] CHDB: Decayed log migrated successfully
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.481 [INF] CHDB: Successfully applied optional migration: gc_decayed_log
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.488 [INF] SQLD: No database version found, using schema version -1 (dirty=false) as base version
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.488 [INF] SQLD: Migrating SQL schema to version 1
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.501 [INF] SQLD: Applying migrations from version=0
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.539 [INF] SQLD: 1/u invoices (36.842332ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.558 [INF] SQLD: Migrating SQL schema to version 2
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.563 [INF] SQLD: Applying migrations from version=1
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.606 [INF] SQLD: 2/u amp_invoices (41.74955ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.615 [INF] SQLD: Migrating SQL schema to version 3
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.620 [INF] SQLD: Applying migrations from version=2
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.637 [INF] SQLD: 3/u invoice_events (16.934438ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.648 [INF] SQLD: Migrating SQL schema to version 4
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.653 [INF] SQLD: Applying migrations from version=3
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.660 [INF] SQLD: 4/u invoice_expiry_fix (6.981243ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.670 [INF] SQLD: Migrating SQL schema to version 5
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.675 [INF] SQLD: Applying migrations from version=4
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.682 [INF] SQLD: 5/u migration_tracker (6.33184ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.692 [INF] SQLD: Migrating SQL schema to version 6
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.697 [INF] SQLD: Applying migrations from version=5
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.710 [INF] SQLD: 6/u invoice_migration (12.431129ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.722 [INF] SQLD: Migrating SQL schema to version 6
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.727 [INF] SQLD: Applying migrations from version=6
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.735 [INF] SQLD: Applying custom migration 'kv_invoice_migration' (version 7) to schema version 6
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.735 [INF] INVC: Starting migration of invoices from KV to SQL
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.737 [INF] INVC: All invoices migrated. Total: 0
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.738 [INF] INVC: Migration of 0 invoices from KV to SQL completed
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.741 [INF] SQLD: Migration 'kv_invoice_migration' (version 7) applied
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.743 [INF] SQLD: Migrating SQL schema to version 7
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.747 [INF] SQLD: Applying migrations from version=6
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.755 [INF] SQLD: 7/u invoice_add_settled_index (7.548522ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.765 [INF] SQLD: Migrating SQL schema to version 8
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.770 [INF] SQLD: Applying migrations from version=7
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.800 [INF] SQLD: 8/u graph (29.720612ms)
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.813 [INF] SQLD: Migrating SQL schema to version 8
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.819 [INF] SQLD: Applying migrations from version=8
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.827 [INF] SQLD: Applying custom migration 'kv_graph_migration' (version 10) to schema version 8
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.827 [INF] GRDB: Starting migration of the graph store from KV to SQL
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.828 [INF] GRDB: No graph found in KV store, skipping the migration
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.828 [INF] SQLD: Migration 'kv_graph_migration' (version 10) applied
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.855 [INF] LTND: Database(s) now open (time_to_open=438.225783ms)!
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.856 [INF] LTND: Systemd was notified about our readiness
+Apr 10 16:06:29 minibolt lnd[74621]: 2026-04-10 16:06:29.856 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
+Apr 10 16:06:29 minibolt systemd[1]: Started Lightning Network Daemon.
 ```
 
 </details>
@@ -710,17 +755,27 @@ This information must be kept secret at all times
 
 ```
 [...]
-Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.037 [INF] LNWL: Opened wallet
-Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.204 [INF] CHRE: Primary chain is set to: bitcoin
-Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind block notifications via ZMQ on 127.0.0.1:28332
-Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.245 [INF] CHRE: Initializing bitcoind backed fee estimator in CONSERVATIVE mode
-Nov 26 19:17:38 minibolt lnd[1004]: 2023-11-26 19:17:38.244 [INF] LNWL: Started listening for bitcoind transaction notifications via ZMQ on 127.0.0.1:28333
-Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.576 [INF] LNWL: The wallet has been unlocked without a time limit
-Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.712 [INF] CHRE: LightningWallet opened
-Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.722 [INF] SRVR: Proxying all network traffic via Tor (stream_isolation=true)! NOTE: Ensure the backend node is proxying over Tor as well
-Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.723 [INF] TORC: Starting tor controller
-Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Cleaning circuits from disk for closed channels
-Nov 26 19:17:40 minibolt lnd[1004]: 2023-11-26 19:17:40.744 [INF] HSWC: Finished cleaning: no closed channels found, no actions taken.
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.767 [INF] BTWL: Opened wallet
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.839 [INF] RPCC: Established connection to RPC server localhost:8332
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.839 [INF] RPCC: Established connection to RPC server localhost:8332
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.851 [INF] CHRE: Initializing bitcoind backed fee estimator in CONSERVATIVE mode
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.851 [INF] BTWL: Started listening for bitcoind block notifications via ZMQ on 127.0.0.1:28332
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.851 [INF] RPCC: Established connection to RPC server localhost:8332
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.851 [INF] BTWL: Started listening for bitcoind transaction notifications via ZMQ on 127.0.0.1:28333
+Apr 10 16:13:57 minibolt lnd[74621]: 2026-04-10 16:13:57.851 [INF] RPCC: Established connection to RPC server localhost:8332
+Apr 10 16:13:58 minibolt lnd[74621]: 2026-04-10 16:13:58.704 [INF] BTWL: The wallet has been unlocked without a time limit
+Apr 10 16:13:59 minibolt lnd[74621]: 2026-04-10 16:13:59.943 [INF] CHRE: LightningWallet opened
+[...]
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.057 [INF] RPCS: Generating TLS certificates...
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.062 [INF] RPCS: Done generating TLS certificates
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.066 [INF] NTFR: Baking macaroons for ChainNotifier RPC Server at: /home/lnd/.lnd/data/chain/bitcoin/mainnet/chainnotifier.macaroon
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.067 [INF] IRPC: Baking macaroons for invoices RPC Server at: /home/lnd/.lnd/data/chain/bitcoin/mainnet/invoices.macaroon
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.067 [INF] RRPC: Making macaroons for Router RPC Server at: /home/lnd/.lnd/data/chain/bitcoin/mainnet/router.macaroon
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.068 [INF] SGNR: Making macaroons for Signer RPC Server at: /home/lnd/.lnd/data/chain/bitcoin/mainnet/signer.macaroon
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.069 [INF] WLKT: Baking macaroons for WalletKit RPC Server at: /home/lnd/.lnd/data/chain/bitcoin/mainnet/walletkit.macaroon
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.070 [INF] LTND: Systemd was notified about our readiness
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.071 [INF] LTND: Waiting for chain backend to finish sync rev=848b72 start_height=944487
+Apr 10 16:14:00 minibolt lnd[74621]: 2026-04-10 16:14:00.995 [INF] BTWL: Started rescan from block 00000000000000000001eff0d57f1f698ac4e9a6e7a99024099797203d45646d (height 944082) for 0 addrs, 0 outpoints
 [...]
 ```
 {% endtab %}
@@ -1678,10 +1733,10 @@ Check the successful open channel via [ThunderHub](web-app.md), [Zeus](mobile-ap
 ### Recover the BIP32 Master Extended Private Key
 
 {% hint style="danger" %}
-PSA: It is not safe to externally manage the on-chain funds of LND wallet with standard tools like Sparrow Wallet or Electrum Wallet.\
+**PSA:** It is not safe to externally manage the on-chain funds of LND wallet with standard tools like Sparrow Wallet or Electrum Wallet.\
 There are advanced scripts involving other parties on Lightning channels, and you may make those funds unrecoverable.
 
-ATTENTION: USE ONLY FOR DISASTER RECOVERY OR TO CHECK EXTERNALLY SEEDS IN VIEW-ONLY MODE!
+**ATTENTION:** USE ONLY FOR DISASTER RECOVERY OR TO CHECK EXTERNALLY SEEDS IN VIEW-ONLY MODE!
 {% endhint %}
 
 After all, check if you have chantools installed:
@@ -1920,6 +1975,10 @@ sudo systemctl restart lnd
 ```
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 ### Uninstall service
 

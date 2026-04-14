@@ -748,6 +748,10 @@ Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path:
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall service
 
 * With the user `admin`, stop electrs

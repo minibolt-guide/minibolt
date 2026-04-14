@@ -806,6 +806,10 @@ sudo apt update && sudo apt upgrade
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 * To uninstall, use the package manager by typing this command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash

@@ -202,7 +202,7 @@ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-se
 
 ### Configuration
 
-* NGINX is also a full web server. To use it only as a reverse proxy, backup the default configuration
+* Nginx is also a full web server. To use it only as a reverse proxy, backup the default configuration
 
 ```bash
 sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
@@ -325,6 +325,10 @@ ATTENTION!!! Do not proceed to the [next Uninstall section](https://app.gitbook.
 {% endhint %}
 
 ### Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * With the user `admin` stopping the`nginx.service`
 

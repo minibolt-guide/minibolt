@@ -107,13 +107,17 @@ nginx version: nginx/1.18.0 (Ubuntu)
 
 ## Upgrade
 
-Follow again the [Set up Aliases](aliases.md#set-up-aliases) section again to overwrite aliases.
+Follow the [Installation section](aliases.md#installation) again to overwrite aliases.
 
 {% hint style="info" %}
 You can see if the aliases have a recent update by entering [here](https://github.com/minibolt-guide/minibolt/commits/main/resources/.bash_aliases)
 {% endhint %}
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * To remove these special aliases, with the user `admin`, simply deletes the `.bash_aliases` and executes a source command to register changes. The aliases will be gone with the next login
 

@@ -67,6 +67,8 @@ npm -v
 ```
 
 {% hint style="info" %}
+2 options:
+
 -> If the "`node -v"` output is **`>=18`**, you can move to the next section.
 
 -> If Nodejs is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
@@ -217,12 +219,12 @@ Primary key fingerprint: F579 929B 39B1 19CC 7B0B  B71F B326 ACF5 1F31 7B69
 npm install
 ```
 
-{% hint style="info" %}
-Installation can take some time; be patient. There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
-{% endhint %}
-
 {% hint style="warning" %}
 **Not to run** the `npm audit fix` command, which could break the original code!!
+{% endhint %}
+
+{% hint style="info" %}
+Installation can take some time; be patient. There might be a lot of confusing output, but if you see something similar to the following, the installation was successful
 {% endhint %}
 
 **Example** of expected output:
@@ -721,6 +723,10 @@ sudo systemctl start btcrpcexplorer
 ```
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 ### Uninstall service
 

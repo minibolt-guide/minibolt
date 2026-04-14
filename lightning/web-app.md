@@ -62,7 +62,9 @@ npm -v
 ```
 
 {% hint style="info" %}
--> If the "`node -v"` output is **`>=24`**, you can move to the next section.
+2 options:
+
+-> If the "`node -v"` output is **`>=22`**, you can move to the next section.
 
 -> If Node.js is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
@@ -252,60 +254,6 @@ npm notice
 
 </details>
 
-{% hint style="info" %}
-**(Optional)** Improve your privacy by opting out of Next.js [telemetry](https://nextjs.org/telemetry)
-
-```bash
-npx next telemetry disable
-```
-
-When the promp ask you this:
-
-```
-Need to install the following packages:
-next@16.2.1
-Ok to proceed? (y)
-```
-
-* Type "y" and press `Enter`
-
-Expected output:
-
-```
-Attention: Next.js now collects completely anonymous telemetry regarding usage.
-This information is used to shape Next.js' roadmap and prioritize features.
-You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-https://nextjs.org/telemetry
-
-Your preference has been saved to /home/thunderhub/.config/nextjs-nodejs/config.json.
-
-Status: Disabled
-
-You have opted-out of Next.js' anonymous telemetry program.
-No data will be collected from your machine.
-
-Learn more: https://nextjs.org/telemetry
-```
-
-If you are not sure if you have already disabled the telemetry, check with the next command:
-
-```bash
-npx next telemetry status
-```
-
-**Example** of expected output:
-
-<pre><code>Next.js Telemetry
-
-Status: <a data-footnote-ref href="#user-content-fn-1">Disabled</a>
-
-You have opted-out of Next.js' anonymous telemetry program.
-No data will be collected from your machine.
-
-Learn more: https://nextjs.org/telemetry
-</code></pre>
-{% endhint %}
-
 * Build it
 
 ```sh
@@ -392,13 +340,13 @@ cp .env .env.local
 nano .env.local
 ```
 
-* Uncomment and edit the following line to match the next. Save and exit
+* Uncomment (delete the `#` symbol at the beginning of the line), and edit the following line to match the next. Save and exit
 
 ```
 ACCOUNT_CONFIG_PATH='/home/thunderhub/thunderhub/thubConfig.yaml'
 ```
 
-* Create a new`thubConfig.yaml` file
+* Create a new `thubConfig.yaml` file
 
 ```sh
 nano thubConfig.yaml
@@ -406,13 +354,12 @@ nano thubConfig.yaml
 
 * Copy and paste the following information
 
-<pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-2">PASSWORD</a>'
+<pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-1">[E] ThunderHub password</a>'
 accounts:
-  - name: 'MiniBolt'
+  - name: 'RaMiX'
     serverUrl: '127.0.0.1:10009'
     macaroonPath: '/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon'
     certificatePath: '/data/lnd/tls.cert'
-    password: '<a data-footnote-ref href="#user-content-fn-3">[E] ThunderHub password</a>'
 </code></pre>
 
 {% hint style="info" %}
@@ -516,103 +463,123 @@ sudo systemctl start thunderhub
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu thunderhub</code> ⬇️</summary>
 
 ```
-Jun 28 23:35:43 minibolt npm[513274]: > thunderhub@0.13.15 start
-Jun 28 23:35:43 minibolt npm[513274]: > cross-env NODE_ENV=production nest start
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [NestFactory] Starting Nest application...
-Jun 28 23:35:53 minibolt npm[513313]: Getting production env variables.
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] AppModule dependencies initialized +82ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] PassportModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] LndModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ApiModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] MainModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] DiscoveryModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ScheduleModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ThrottlerModule dependencies initialized +4ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] JwtModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ViewModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] GraphQLSchemaBuilderModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] WinstonModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] FilesModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] FetchModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] AuthenticationModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] AccountsModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] BaseModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] BitcoinModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] GithubModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] UserConfigModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] AuthenticationModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] AccountModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] NodeModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] BosModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] GraphQLModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] WsModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] WalletModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ToolsModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] MacaroonModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] NetworkModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] PeerModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ChainModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] EdgeModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ChannelsModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ForwardsModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] HealthModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] TransactionsModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] InvoicesModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] ChatModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] BoltzModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] NodeModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] AuthModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] LnUrlModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] AmbossModule dependencies initialized +1ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] SubModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: [Nest] 513313  - 06/28/2023, 11:35:53 PM     LOG [InstanceLoader] LnMarketsModule dependencies initialized +0ms
-Jun 28 23:35:53 minibolt npm[513313]: {
-Jun 28 23:35:53 minibolt npm[513313]:   message: 'WS server created',
-Jun 28 23:35:53 minibolt npm[513313]:   level: 'info',
-Jun 28 23:35:53 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:53.547Z'
-Jun 28 23:35:53 minibolt npm[513313]: }
-Jun 28 23:35:53 minibolt npm[513313]: {
-Jun 28 23:35:53 minibolt npm[513313]:   context: 'RoutesResolver',
-Jun 28 23:35:53 minibolt npm[513313]:   level: 'info',
-Jun 28 23:35:53 minibolt npm[513313]:   message: 'ViewController {/}:',
-Jun 28 23:35:53 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:53.552Z'
-Jun 28 23:35:53 minibolt npm[513313]: }
-Jun 28 23:35:53 minibolt npm[513313]: {
-Jun 28 23:35:53 minibolt npm[513313]:   context: 'RouterExplorer',
-Jun 28 23:35:53 minibolt npm[513313]:   level: 'info',
-Jun 28 23:35:53 minibolt npm[513313]:   message: 'Mapped {/, GET} route',
-Jun 28 23:35:53 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:53.555Z'
-Jun 28 23:35:53 minibolt npm[513313]: }
-Jun 28 23:35:53 minibolt npm[513313]: {
-Jun 28 23:35:53 minibolt npm[513313]:   context: 'RouterExplorer',
-Jun 28 23:35:53 minibolt npm[513313]:   level: 'info',
-Jun 28 23:35:53 minibolt npm[513313]:   message: 'Mapped {/*, GET} route',
-Jun 28 23:35:53 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:53.555Z'
-Jun 28 23:35:53 minibolt npm[513313]: }
-Jun 28 23:35:53 minibolt npm[513313]: {
-Jun 28 23:35:53 minibolt npm[513313]:   message: 'Server accounts that will be available: MiniBolt',
-Jun 28 23:35:53 minibolt npm[513313]:   level: 'info',
-Jun 28 23:35:53 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:53.563Z'
-Jun 28 23:35:53 minibolt npm[513313]: }
-Jun 28 23:35:54 minibolt npm[513313]: Persisted queries are enabled and are using an unbounded cache. Your server is vulnerable to denial of service attacks via memory exhaustion. Set `cache: "bounded"` or `persistedQueries: false` in your ApolloServer constructor, or see https://go.apollo.dev/s/cache-backends for other alternatives.
-Jun 28 23:35:54 minibolt npm[513313]: {
-Jun 28 23:35:54 minibolt npm[513313]:   context: 'GraphQLModule',
-Jun 28 23:35:54 minibolt npm[513313]:   level: 'info',
-Jun 28 23:35:54 minibolt npm[513313]:   message: 'Mapped {/graphql, POST} route',
-Jun 28 23:35:54 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:54.092Z'
-Jun 28 23:35:54 minibolt npm[513313]: }
-Jun 28 23:35:54 minibolt npm[513313]: {
-Jun 28 23:35:54 minibolt npm[513313]:   context: 'NestApplication',
-Jun 28 23:35:54 minibolt npm[513313]:   level: 'info',
-Jun 28 23:35:54 minibolt npm[513313]:   message: 'Nest application successfully started',
-Jun 28 23:35:54 minibolt npm[513313]:   timestamp: '2023-06-28T21:35:54.524Z'
-Jun 28 23:35:54 minibolt npm[513313]: }
-Jun 28 23:35:54 minibolt npm[513313]: Application is running on: http://[::1]:3000
-Jun 28 23:35:54 minibolt npm[513313]: (node:513313) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
-Jun 28 23:35:54 minibolt npm[513313]: (Use `node --trace-deprecation ...` to show where the warning was created)
+Apr 10 16:35:09 minibolt systemd[1]: Started ThunderHub.
+Apr 10 16:35:09 minibolt npm[75525]: > thunderhub@0.15.5 start
+Apr 10 16:35:09 minibolt npm[75525]: > cross-env NODE_ENV=production nest start
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [NestFactory] Starting Nest application...
+Apr 10 16:35:23 minibolt npm[75556]: Getting production env variables.
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] AppModule dependencies initialized +50ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] PassportModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] LndModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ApiModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] MainModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] LitdModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] DiscoveryModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +6ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ProviderRegistryModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ScheduleModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ClientConfigModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ThrottlerModule dependencies initialized +10ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] JwtModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ServeStaticModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] WinstonModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] FilesModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] FetchModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] AuthenticationModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] GraphQLSchemaBuilderModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] AccountsModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] MempoolModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] BlockstreamModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] BitcoinModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] GithubModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] UserConfigModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] NodeModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] TapdModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] AccountModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] AuthenticationModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] SseModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] WalletModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] NetworkModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] EdgeModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] TransactionsModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ToolsModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] MacaroonModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] PeerModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ChainModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ForwardsModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] HealthModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] InvoicesModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] NodeModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] ChannelsModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] AuthModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] BoltzModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] TapdApiModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] LnUrlModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] DataloaderModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] AmbossModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] SubModule dependencies initialized +0ms
+Apr 10 16:35:23 minibolt npm[75556]: [Nest] 75556  - 04/10/2026, 4:35:23 PM     LOG [InstanceLoader] GraphQLModule dependencies initialized +1ms
+Apr 10 16:35:23 minibolt npm[75556]: {
+Apr 10 16:35:23 minibolt npm[75556]:   context: 'RoutesResolver',
+Apr 10 16:35:23 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:23 minibolt npm[75556]:   message: 'SseController {/api/sse}:',
+Apr 10 16:35:23 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:23.571Z'
+Apr 10 16:35:23 minibolt npm[75556]: }
+Apr 10 16:35:23 minibolt npm[75556]: {
+Apr 10 16:35:23 minibolt npm[75556]:   context: 'RouterExplorer',
+Apr 10 16:35:23 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:23 minibolt npm[75556]:   message: 'Mapped {/api/sse/events, GET} route',
+Apr 10 16:35:23 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:23.576Z'
+Apr 10 16:35:23 minibolt npm[75556]: }
+Apr 10 16:35:23 minibolt npm[75556]: {
+Apr 10 16:35:23 minibolt npm[75556]:   context: 'RoutesResolver',
+Apr 10 16:35:23 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:23 minibolt npm[75556]:   message: 'ClientConfigController {/api}:',
+Apr 10 16:35:23 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:23.576Z'
+Apr 10 16:35:23 minibolt npm[75556]: }
+Apr 10 16:35:23 minibolt npm[75556]: {
+Apr 10 16:35:23 minibolt npm[75556]:   context: 'RouterExplorer',
+Apr 10 16:35:23 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:23 minibolt npm[75556]:   message: 'Mapped {/api/config, GET} route',
+Apr 10 16:35:23 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:23.577Z'
+Apr 10 16:35:23 minibolt npm[75556]: }
+Apr 10 16:35:24 minibolt npm[75556]: {
+Apr 10 16:35:24 minibolt npm[75556]:   message: 'Saving new yaml file',
+Apr 10 16:35:24 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:24 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:24.450Z'
+Apr 10 16:35:24 minibolt npm[75556]: }
+Apr 10 16:35:24 minibolt npm[75556]: {
+Apr 10 16:35:24 minibolt npm[75556]:   message: 'Succesfully saved',
+Apr 10 16:35:24 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:24 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:24.453Z'
+Apr 10 16:35:24 minibolt npm[75556]: }
+Apr 10 16:35:24 minibolt npm[75556]: {
+Apr 10 16:35:24 minibolt npm[75556]:   message: 'Server accounts that will be available: MiniBolt',
+Apr 10 16:35:24 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:24 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:24.458Z'
+Apr 10 16:35:24 minibolt npm[75556]: }
+Apr 10 16:35:25 minibolt npm[75556]: {
+Apr 10 16:35:25 minibolt npm[75556]:   context: 'GraphQLModule',
+Apr 10 16:35:25 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:25 minibolt npm[75556]:   message: 'Mapped {/graphql, POST} route',
+Apr 10 16:35:25 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:25.092Z'
+Apr 10 16:35:25 minibolt npm[75556]: }
+Apr 10 16:35:25 minibolt npm[75556]: {
+Apr 10 16:35:25 minibolt npm[75556]:   context: 'NestApplication',
+Apr 10 16:35:25 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:25 minibolt npm[75556]:   message: 'Nest application successfully started',
+Apr 10 16:35:25 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:25.103Z'
+Apr 10 16:35:25 minibolt npm[75556]: }
+Apr 10 16:35:25 minibolt npm[75556]: Application is running on: http://[::1]:3001
+Apr 10 16:35:25 minibolt npm[75556]: (node:75556) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+Apr 10 16:35:25 minibolt npm[75556]: (Use `node --trace-deprecation ...` to show where the warning was created)
+Apr 10 16:35:31 minibolt npm[75556]: {
+Apr 10 16:35:31 minibolt npm[75556]:   message: 'Connected to MiniBoltLNnode(035772a363)[btc]',
+Apr 10 16:35:31 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:31 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:31.812Z'
+Apr 10 16:35:31 minibolt npm[75556]: }
 [...]
 ```
 
@@ -928,6 +895,10 @@ If the update fails, you probably will have to stop ThunderHub, follow the [Unin
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall service
 
 * With user `admin` , stop thunderhub
@@ -1033,8 +1004,4 @@ sudo ufw delete X
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4002</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr></tbody></table>
 
-[^1]: Check this
-
-[^2]: Default password unless defined in account
-
-[^3]: Replace this
+[^1]: Replace

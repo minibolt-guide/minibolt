@@ -183,6 +183,10 @@ Follow the complete [Installation section](chantools.md#installation) until the 
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall binaries
 
 * Delete the binaries installed (only in case of [2. Permanent installation](chantools.md#id-2.-permanent-installation))
