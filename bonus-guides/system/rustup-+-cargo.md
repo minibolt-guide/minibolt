@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # Rustup + Cargo
 
 Rustup is a tool that allows you to easily install, update, and uninstall Rust, and it also includes Cargo, the Rust build tool, and package manage. With Rustup, you can manage your Rust toolchain and dependencies efficiently, making it a convenient choice for Rust developers.
@@ -111,6 +130,10 @@ info: checking for self-update
 ```
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * With user `admin` type the appropriate command to get that
 

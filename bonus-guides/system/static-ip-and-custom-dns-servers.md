@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # Static IP & custom DNS servers
 
 Set a static IP address and custom DNS nameservers for your MiniBolt.
@@ -444,7 +463,7 @@ DNS-over-TLS (DoT) and DNS-over-HTTPS (DoH) enhance security by encrypting DNS q
 
 **What are the reasons for choosing** [**Option 1**](static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) **or** [**Option 2**](static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns)**?**
 
-[**Option 1: DoT & DNSSEC using `systemd-resolved`**](static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (recommended for **common situations**):&#x20;
+[**Option 1: DoT & DNSSEC using `systemd-resolved`**](static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (recommended for **common situations**):
 
 * Pre-installed by default in the Ubuntu server.
 * Better suited for securing DNS traffic at the system or network level, offering simpler configurations and better performance for dedicated DNS resolver setups.
@@ -696,7 +715,7 @@ sudo tcpdump -i any port 853 -n
 ```
 
 * [Start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
-* Make a DNS query using, in this example  `minibolt.info` domain
+* Make a DNS query using, in this example `minibolt.info` domain
 
 ```bash
 resolvectl query minibolt.info
@@ -710,12 +729,12 @@ resolvectl query minibolt.info
                188.114.97.5                    -- link: ens33
 
 -- Information acquired via protocol DNS in 421.0ms.
--- <a data-footnote-ref href="#user-content-fn-3">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-5">Data was acquired via local or encrypted transport: yes</a>
+-- <a data-footnote-ref href="#user-content-fn-3">Data is authenticated: yes</a>; <a data-footnote-ref href="#user-content-fn-3">Data was acquired via local or encrypted transport: yes</a>
 <strong>-- Data from: network
 </strong></code></pre>
 
 {% hint style="info" %}
-&#x20;-> In this example, we can see that `minibolt.info` it has `DNSSEC` enabled, and the response was verified directly on the MiniBolt node (DNS client).
+-> In this example, we can see that `minibolt.info` it has `DNSSEC` enabled, and the response was verified directly on the MiniBolt node (DNS client).
 
 The DNS server usually does this before forwarding the request to the DNS client, but we do the verification again on our node so as not to trust the DNS server.
 
@@ -914,8 +933,8 @@ sudo nano /etc/systemd/system/cloudflared-proxy-dns.service
 
 <pre><code># MiniBolt: systemd unit for cloudflared-proxy-dns
 # /etc/systemd/system/cloudflared-proxy-dns.service
-<strong>
-</strong><strong>[Unit]
+
+<strong>[Unit]
 </strong>Description=DNS over HTTPS (DoH) proxy client
 Wants=network-online.target nss-lookup.target
 Before=nss-lookup.target
@@ -935,11 +954,11 @@ For this example, we have configured the default [Cloudflare DoH name servers](h
 
 * [Quad9](https://quad9.net/): https://dns.quad9.net/dns-query
 * [MullvadDNS](https://mullvad.net/en/help/dns-over-https-and-dns-over-tls): https://dns.mullvad.net/dns-query
-* [DNS.SB](https://dns.sb/):&#x20;
+* [DNS.SB](https://dns.sb/):
   * https://dns.sb/dns-query
   * https://doh.dns.sb/dns-query
   * https://doh.sb/dns-query
-* [BlahDNS](https://blahdns.com/):&#x20;
+* [BlahDNS](https://blahdns.com/):
   * https://doh-sg.blahdns.com/dns-query
   * https://doh-de.blahdns.com/dns-query
 
@@ -1059,5 +1078,3 @@ Now you have DoH enabled on your MiniBolt node, and the DNS queries are encrypte
 [^3]: Check this
 
 [^4]: Also valid "none"
-
-[^5]: Check this

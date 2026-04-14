@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # 2.1 Bitcoin client: Bitcoin Core
 
 We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/), the reference client implementation of the Bitcoin network.
@@ -278,18 +297,16 @@ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpca
 All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space `( )` in front of the command shown below
 {% endhint %}
 
-```sh
- python3 rpcauth.py minibolt YourPasswordB
-```
+<pre class="language-sh"><code class="lang-sh"> python3 rpcauth.py minibolt <a data-footnote-ref href="#user-content-fn-2">YourPasswordB</a>
+</code></pre>
 
 **Example** of expected output:
 
-```
-String to be appended to bitcoin.conf:
-rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa
-```
+<pre><code>String to be appended to bitcoin.conf:
+<a data-footnote-ref href="#user-content-fn-3">rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa</a>
+</code></pre>
 
-* Copy the `rpcauth` line, we'll need to paste it into the Bitcoin config file
+* Copy the `rpcauth` line, we'll need to paste it into the Bitcoin Core config file in the next step
 
 ## Configuration
 
@@ -304,7 +321,7 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 * Enter the complete next configuration. Save and exit
 
 {% hint style="danger" %}
-Remember to replace the whole line starting with `"rpcauth"` the connection string you just generated
+**Important!!** Remember to replace the whole line starting with `"rpcauth"` the connection string you just generated
 {% endhint %}
 
 {% hint style="warning" %}
@@ -336,7 +353,7 @@ onlynet=ipv4
 onlynet=ipv6
 
 # Append comment to the user agent string
-uacomment=<a data-footnote-ref href="#user-content-fn-2">MiniBolt node</a>
+uacomment=<a data-footnote-ref href="#user-content-fn-4">MiniBolt node</a>
 
 # Disable integrated wallet
 disablewallet=1
@@ -379,10 +396,10 @@ proxy=127.0.0.1:9050
 i2psam=127.0.0.1:7656
 
 # Connections
-rpcauth=<a data-footnote-ref href="#user-content-fn-3">&#x3C;replace with your own auth line generated in the previous step></a>
+<a data-footnote-ref href="#user-content-fn-5">rpcauth=&#x3C;replace with your own auth line generated in the previous step></a>
 
 # Initial block download optimizations
-dbcache=<a data-footnote-ref href="#user-content-fn-4">2048</a>
+dbcache=<a data-footnote-ref href="#user-content-fn-6">2048</a>
 blocksonly=1
 </code></pre>
 
@@ -554,13 +571,13 @@ ls -la .bitcoin
 
 Expected output:
 
-<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-5">.bitcoin -> /data/bitcoin</a>
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-7">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 
 {% hint style="warning" %}
 **Troubleshooting note:**\
 \
-If you don't obtain the expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-5)[^5]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+If you don't obtain the expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-7)[^7]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
 1. With user `admin`, delete the failed created symbolic link
 
@@ -574,7 +591,7 @@ sudo rm -r .bitcoin
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-5)[^5]. If yes, continue with the guide; if not, try again
+3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-7)[^7]. If yes, continue with the guide; if not, try again
 
 ```bash
 ls -la .bitcoin
@@ -631,9 +648,9 @@ sudo ss -tulpn | grep bitcoind
 
 Expected output:
 
-<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-6">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-7">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-8">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-9">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-10">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
 tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
 </code></pre>
 
@@ -738,9 +755,9 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
-<a data-footnote-ref href="#user-content-fn-9">maxconnections</a>=40
+<a data-footnote-ref href="#user-content-fn-11">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-<a data-footnote-ref href="#user-content-fn-10">maxuploadtarget</a>=5000
+<a data-footnote-ref href="#user-content-fn-12">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
@@ -968,7 +985,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 Or **add** under `bind=127.0.0.1`, the next line allows **connections only from devices in the same local network** (**recommended option** to improve security)
 
-<pre><code>bind=<a data-footnote-ref href="#user-content-fn-11">192.168.x.x</a>
+<pre><code>bind=<a data-footnote-ref href="#user-content-fn-13">192.168.x.x</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -991,7 +1008,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit
 
-<pre><code> connect=<a data-footnote-ref href="#user-content-fn-12">&#x3C;localip></a>:8333
+<pre><code> connect=<a data-footnote-ref href="#user-content-fn-14">&#x3C;localip></a>:8333
 </code></pre>
 
 {% hint style="info" %}
@@ -1045,8 +1062,8 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Core on MiniBolt. Save and exit
 
-<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-13">abcdefg..............xyz.onion</a>>:8333
-addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-13">abcdefg..............xyz.b32</a>>.i2p:0
+<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-15">abcdefg..............xyz.onion</a>>:8333
+addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-15">abcdefg..............xyz.b32</a>>.i2p:0
 </code></pre>
 
 {% hint style="info" %}
@@ -1253,6 +1270,10 @@ sudo systemctl restart bitcoind
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall service
 
 * Ensure you are logged in as the user `admin`, stop bitcoind
@@ -1343,30 +1364,34 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Change for your selection if you want
+[^2]: Replace
 
-[^3]: Replace
+[^3]: Copy this
 
-[^4]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.
+[^4]: Change for your selection if you want
+
+[^5]: Replace with the content copied in the previous step
+
+[^6]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.
 
     -> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
 
     -> Remember to comment or delete this parameter after IBD (Initial Block Download)
 
-[^5]: Symbolic link
+[^7]: Symbolic link
 
-[^6]: RPC port
+[^8]: RPC port
 
-[^7]: P2P main port
+[^9]: P2P main port
 
-[^8]: Default P2P Tor port
+[^10]: Default P2P Tor port
 
-[^9]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+[^11]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
 
-[^10]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+[^12]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
 
-[^11]: Replace with your IP
+[^13]: Replace with your IP
 
-[^12]: Replace with the local IP of the remote node e.g, `192.168.1.43`
+[^14]: Replace with the local IP of the remote node e.g, `192.168.1.43`
 
-[^13]: Replace with the desire address of the peer
+[^15]: Replace with the desire address of the peer

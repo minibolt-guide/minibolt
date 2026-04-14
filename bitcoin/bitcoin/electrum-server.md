@@ -2,6 +2,22 @@
 title: Electrum server
 nav_order: 20
 parent: Bitcoin
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # 2.2 Electrum Server: Fulcrum
@@ -176,8 +192,8 @@ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 
 **Example** of expected output:
 
-<pre><code><strong><a data-footnote-ref href="#user-content-fn-2">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
-</strong></code></pre>
+<pre><code><a data-footnote-ref href="#user-content-fn-2">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
+</code></pre>
 
 * Extract
 
@@ -434,9 +450,50 @@ To keep an eye on the software movements, [start your SSH program](../../index-1
 sudo systemctl start fulcrum
 ```
 
-**Example** of expected output on the first terminal with `journalctl -fu fulcrum` ⬇️
+<details>
 
-<div data-full-width="false"><figure><img src="../../.gitbook/assets/fulcrum-index.PNG" alt=""><figcaption></figcaption></figure></div>
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu fulcrum</code> ⬇️</summary>
+
+```
+Mar 11 16:32:41 minibolt systemd[1]: Started Fulcrum.
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.336] Loaded SSL certificate: Fulcrum  expires: Sat March 8 2036 16:30:17
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.336] Loaded key type: private algorithm: RSA
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] Enabled JSON parser: simdjson
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] simdjson implementations:
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337]     haswell: Intel/AMD AVX2  [supported]
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337]     westmere: Intel/AMD SSE4.2  [supported]
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337]     fallback: Generic fallback implementation  [supported]
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] active implementation: haswell
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] jemalloc: version 5.3.0-0-g54eaed1
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] Qt: version 6.10.0
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] rocksdb: version 9.2.1-08f9322
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] simdjson: version 0.6.0
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] ssl: OpenSSL 1.1.1  11 Sep 2018
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] zmq: libzmq version: 4.3.5, cppzmq version: 4.10.0
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.337] UPnP: miniupnpc 2.3.3-calin (API version: 21)
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.456] Fulcrum 2.1.0 (Release ff93ce5) - Wed Mar 11, 2026 16:32:41.337 UTC - starting up ...
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.456] Max open files: 524288 (increased from default: 1024)
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.457] Loading database ...
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.567] DB memory: 6144.00 MiB
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.567] Verifying headers ...
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.567] DB version: v4
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.567] BitcoinDMgr: starting 3 bitcoin RPC clients ...
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.568] BitcoinDMgr: started ok
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.574] <BitcoinDMgr> Coin: BTC
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.670] <Controller> Chain: main
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.670] <Controller> Block height 940287, downloading new blocks ...
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.803] <Controller> Processed height: 1000, 0.1%, 7526.3 blocks/sec, 7669.2 txs/sec, 7864.7 addrs/sec
+Mar 11 16:32:41 minibolt Fulcrum[4364]: [2026-03-11 16:32:41.933] <Controller> Processed height: 2000, 0.2%, 7692.3 blocks/sec, 7776.9 txs/sec, 8384.6 addrs/sec
+Mar 11 16:32:42 minibolt Fulcrum[4364]: [2026-03-11 16:32:42.064] <Controller> Processed height: 3000, 0.3%, 7692.3 blocks/sec, 7846.2 txs/sec, 8146.2 addrs/sec
+Mar 11 16:32:42 minibolt Fulcrum[4364]: [2026-03-11 16:32:42.195] <Controller> Processed height: 4000, 0.4%, 7575.8 blocks/sec, 7636.4 txs/sec, 8257.6 addrs/sec
+Mar 11 16:32:42 minibolt Fulcrum[4364]: [2026-03-11 16:32:42.320] <Controller> Processed height: 5000, 0.5%, 8000.0 blocks/sec, 8040.0 txs/sec, 8512.0 addrs/sec
+Mar 11 16:32:42 minibolt Fulcrum[4364]: [2026-03-11 16:32:42.445] <Controller> Processed height: 6000, 0.6%, 8000.0 blocks/sec, 8048.0 txs/sec, 8472.0 addrs/sec
+Mar 11 16:32:42 minibolt Fulcrum[4364]: [2026-03-11 16:32:42.572] <Controller> Processed height: 7000, 0.7%, 7874.0 blocks/sec, 7937.0 txs/sec, 8456.7 addrs/sec
+[...]
+
+```
+
+</details>
 
 {% hint style="info" %}
 > Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~1.5 - 4 days or more, depending on the hardware. Only proceed with the [Blockchain explorer: BTC RPC Explorer](blockchain-explorer.md) and [Desktop Wallet Section](desktop-signing-app-sparrow.md) once Fulcrum is ready.
@@ -657,6 +714,10 @@ Jul 28 12:20:13 minibolt Fulcrum[181811]: [2022-07-28 12:20:13.064] Fulcrum 1.9.
 ```
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 ### Uninstall service
 

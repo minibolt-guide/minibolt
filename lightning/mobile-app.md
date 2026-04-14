@@ -2,6 +2,22 @@
 title: Mobile app
 nav_order: 60
 parent: Lightning
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # 3.4 Mobile app: Zeus
@@ -168,7 +184,7 @@ lndconnect generates a URI and displays it as a QR code that Zeus can read.
 
 {% tabs %}
 {% tab title="Tor connection" %}
-Set the `--host` parameter with the  `.onion` address with the one you generated above. e.g. abcdefg......xyz.onion
+Set the `--host` parameter with the `.onion` address with the one you generated above. e.g. abcdefg......xyz.onion
 
 ```bash
 lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
@@ -192,7 +208,7 @@ lndconnect --host=192.168.X.XXX --port=8080
 {% endtab %}
 {% endtabs %}
 
-* It will be a big QR code, so maximize your terminal window and use `CTRL+- / "Terminal unzoom" / "Zoom out"` options of your terminal, to shrink the code further to fit the screen or if you prefer you can use `-j`  parameter to get a code you can copy and paste into the app
+* It will be a big QR code, so maximize your terminal window and use `CTRL+- / "Terminal unzoom" / "Zoom out"` options of your terminal, to shrink the code further to fit the screen or if you prefer you can use `-j` parameter to get a code you can copy and paste into the app
 
 {% hint style="warning" %}
 Keep the SSH session with the QR code open, it will be necessary later to scan the obtained QR code
@@ -246,7 +262,11 @@ To update Zeus, update the app using the same app store or the app source you ch
 
 ## Uninstall
 
-### Uninstall Firewall
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
+### Uninstall the Firewall configuration
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
 

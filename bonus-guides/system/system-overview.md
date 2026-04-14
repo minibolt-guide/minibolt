@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # System Overview
 
 To get a quick overview of the system status, you can use [a shell script](https://github.com/minibolt-guide/system_overview) that gathers the most relevant data about the service on the main guide.
@@ -174,13 +193,13 @@ Already on 'LND_postgres_mobaX'
 Your branch is up to date with 'origin/LND_postgres_mobaX'.
 ```
 
-* Install it to the system
+* Install it in the system
 
 ```bash
 sudo install -m 0755 -o root -g root -t /usr/local/bin *.sh
 ```
 
-* Run following the properly [Run section](system-overview.md#run)
+* Run following the proper [Run section](system-overview.md#run)
 
 **(Optional)** Delete the folder of the temporary folder to be ready for the upgrade
 
@@ -193,6 +212,10 @@ sudo rm -r /tmp/system_overview
 To upgrade, follow the complete [Install](system-overview.md#install)[ script](system-overview.md#install-script) and [Run](system-overview.md#run) sections again
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * With user `admin`, type the next command to uninstall
 

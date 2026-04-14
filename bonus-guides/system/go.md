@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # Go
 
 [Go](https://github.com/golang/go) is an agent-based programming language in the tradition of logic-based programming languages like Prolog designed at Google.
@@ -156,6 +175,10 @@ rm go$VERSION.linux-amd64.tar.gz
 ```
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * Delete go folder
 
