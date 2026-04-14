@@ -47,13 +47,13 @@ sudo curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_
 {% code overflow="wrap" %}
 ```bash
 sudo tee /etc/apt/sources.list.d/mariadb.sources > /dev/null <<'EOF'
-# MariaDB 12.2 repository list - created 2026-02-07 18:32 UTC
+# MariaDB 10.6 repository list - created 2026-04-12 10:46 UTC
 # https://mariadb.org/download/
 X-Repolib-Name: MariaDB
 Types: deb
 # deb.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
-# URIs: https://deb.mariadb.org/12.rc/ubuntu
-URIs: https://mirror.raiolanetworks.com/mariadb/repo/12.2/ubuntu
+# URIs: https://deb.mariadb.org/10.6/ubuntu
+URIs: https://mirror.raiolanetworks.com/mariadb/repo/10.6/ubuntu
 Suites: jammy
 Components: main main/debug
 Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
@@ -76,7 +76,7 @@ mariadb --version
 **Example** of expected output:
 
 ```
-mariadb from 12.2.1-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper
+mariadb  Ver 15.1 Distrib 10.6.25-MariaDB, for debian-linux-gnu (x86_64) using  EditLine wrapper
 ```
 
 #### Validation
@@ -128,7 +128,6 @@ Feb 07 18:39:13 minibolt mariadbd[49627]: 2026-02-07 18:39:13 0 [Note] mariadbd:
 Feb 07 18:39:13 minibolt mariadbd[49627]: 2026-02-07 18:39:13 0 [Note] /usr/sbin/mariadbd: ready for connections.
 Feb 07 18:39:13 minibolt mariadbd[49627]: Version: '12.2.1-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
 Feb 07 18:39:13 minibolt systemd[1]: Started MariaDB 12.2.1 database server.
-Feb 07 18:39:13 minibolt /etc/mysql/debian-start[49660]: Triggering myisam-recover for all MyISAM tables and aria-recover for all Aria tables
 ```
 
 </details>
@@ -144,8 +143,8 @@ Feb 07 18:39:13 minibolt /etc/mysql/debian-start[49660]: Triggering myisam-recov
 * When the prompt asks if you want to change the root password, type `"n"` and press **`enter`,**
 * When the prompt asks if you want to remove anonymous users, type `"y"` and press **`enter`,**
 * When the prompt asks if you want to disallow root login remotely, type `"y"` and press **`enter`,**
-* When the prompt asks if you want to remove test database and access to it, type `"y"` and press **`enter`,**
-* When the prompt asks if you want to reload privilege tables now type `"y"` and press **`enter`.**
+* When the prompt asks if you want to remove the test database and access to it, type `"y"` and press **`enter`,**
+* When the prompt asks if you want to reload privilege tables now, type `"y"` and press **`enter`.**
 {% endhint %}
 
 <details>
@@ -251,6 +250,32 @@ sudo mkdir -p /data/mariadb
 sudo rsync -av /var/lib/mysql/ /data/mariadb/
 ```
 
+Example of expected output:
+
+{% code overflow="wrap" %}
+```
+sending incremental file list
+./
+aria_log.00000001
+aria_log_control
+ddl_recovery.log
+debian-10.6.flag
+ib_buffer_pool
+ib_logfile0
+ibdata1
+ibtmp1
+multi-master.info
+mysql_upgrade_info
+[...]
+sys/x@0024waits_by_host_by_latency.frm
+sys/x@0024waits_by_user_by_latency.frm
+sys/x@0024waits_global_by_latency.frm
+
+sent 130,474,349 bytes  received 3,900 bytes  260,956,498.00 bytes/sec
+total size is 130,426,494  speedup is 1.00
+```
+{% endcode %}
+
 * Edit the MariaDB data directory in the configuration to redirect the store to the new location
 
 ```bash
@@ -261,24 +286,6 @@ sudo nano +18 -l /etc/mysql/mariadb.conf.d/50-server.cnf
 
 ```
 datadir                = /data/mariadb
-```
-
-* Add this line just under the previous one
-
-```
-socket                 = /data/mariadb/mysql.sock
-```
-
-* Edit the MariaDB client file
-
-```bash
- sudo nano +7 -l /etc/mysql/mariadb.conf.d/50-client.cnf
-```
-
-* Add this line in the `[client]` section (under `[client]`)
-
-```
-socket                  = /data/mariadb/mysql.sock
 ```
 
 * Restart MariaDB to apply changes and monitor the correct status of the instance
@@ -294,60 +301,49 @@ journalctl -fu mariadb
 
 <details>
 
-<summary>Expandable expected output</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-Feb 07 18:52:18 minibolt systemd[1]: Stopping MariaDB 12.2.1 database server...
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] /usr/sbin/mariadbd (initiated by: unknown): Normal shutdown
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] InnoDB: FTS optimize thread exiting.
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] InnoDB: Starting shutdown...
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] InnoDB: Buffer pool(s) dump completed at 260207 18:52:18
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] InnoDB: Removed temporary tablespace data file: "./ibtmp1"
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] InnoDB: Shutdown completed; log sequence number 46116; transaction id 15
-Feb 07 18:52:18 minibolt mariadbd[49627]: 2026-02-07 18:52:18 0 [Note] /usr/sbin/mariadbd: Shutdown complete
-Feb 07 18:52:18 minibolt systemd[1]: mariadb.service: Deactivated successfully.
-Feb 07 18:52:18 minibolt systemd[1]: Stopped MariaDB 12.2.1 database server.
-Feb 07 18:52:18 minibolt systemd[1]: mariadb.service: Consumed 1.972s CPU time.
-Feb 07 18:52:18 minibolt systemd[1]: Starting MariaDB 12.2.1 database server...
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] Starting MariaDB 12.2.1-MariaDB-ubu2204 source revision 144dead8826f4a84008a76ef7fcc44e816f92930 server_uid vV3U6U95+6HHXhr+rO6OO8nlwFE= as process 49988
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Number of transaction pools: 1
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Using crc32 + pclmulqdq instructions
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Using io_uring
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: innodb_buffer_pool_size_max=128m, innodb_buffer_pool_size=128m
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Completed initialization of buffer pool
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: File system buffers for log disabled (block size=512 bytes)
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=45759
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: End of log at LSN=46100
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: To recover: 16 pages
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Opened 3 undo tablespaces
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: 128 rollback segments in 3 undo tablespaces are active.
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Removed temporary tablespace data file: "./ibtmp1"
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Setting file './ibtmp1' size to 12.000MiB. Physically writing the file full; Please wait ...
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: File './ibtmp1' size is now 12.000MiB.
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: log sequence number 46100; transaction id 15
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Loading buffer pool(s) from /data/mariadb/ib_buffer_pool
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] Plugin 'FEEDBACK' is disabled.
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] Plugin 'wsrep-provider' is disabled.
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] Recovering after a crash using tc.log
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] Starting table crash recovery...
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] Crash table recovery finished.
-Feb 07 18:52:18 minibolt mariadbd[49988]: 2026-02-07 18:52:18 0 [Note] InnoDB: Buffer pool(s) load completed at 260207 18:52:18
-Feb 07 18:52:19 minibolt mariadbd[49988]: 2026-02-07 18:52:19 0 [Note] Server socket created on IP: '127.0.0.1', port: '3306'.
-Feb 07 18:52:19 minibolt mariadbd[49988]: 2026-02-07 18:52:19 0 [Note] mariadbd: Event Scheduler: Loaded 0 events
-Feb 07 18:52:19 minibolt mariadbd[49988]: 2026-02-07 18:52:19 0 [Note] /usr/sbin/mariadbd: ready for connections.
-Feb 07 18:52:19 minibolt mariadbd[49988]: Version: '12.2.1-MariaDB-ubu2204'  socket: '/data/mariadb/mysql.sock'  port: 3306  mariadb.org binary distribution
-Feb 07 18:52:19 minibolt systemd[1]: Started MariaDB 12.2.1 database server.
-Feb 07 18:52:19 minibolt /etc/mysql/debian-start[50004]: Upgrading MariaDB tables if necessary.
-Feb 07 18:52:19 minibolt /etc/mysql/debian-start[50015]: Checking for insecure root accounts.
+Apr 13 12:50:02 minibolt systemd[1]: Stopping MariaDB 10.6.25 database server...
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] /usr/sbin/mariadbd (initiated by: unknown): Normal shutdown
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] InnoDB: FTS optimize thread exiting.
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] InnoDB: Starting shutdown...
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] InnoDB: Buffer pool(s) dump completed at 260413 12:50:02
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] InnoDB: Removed temporary tablespace data file: "./ibtmp1"
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] InnoDB: Shutdown completed; log sequence number 41920; transaction id 15
+Apr 13 12:50:02 minibolt mariadbd[602116]: 2026-04-13 12:50:02 0 [Note] /usr/sbin/mariadbd: Shutdown complete
+Apr 13 12:50:02 minibolt systemd[1]: mariadb.service: Deactivated successfully.
+Apr 13 12:50:02 minibolt systemd[1]: Stopped MariaDB 10.6.25 database server.
+Apr 13 12:50:02 minibolt systemd[1]: Starting MariaDB 10.6.25 database server...
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] Starting MariaDB 10.6.25-MariaDB-ubu2204 source revision 05e6c9d42d2f49ada1a0c49a4e0d7fc3ce420e4e server_uid C8ZtbKr3iBsZ6zFbM5T1AgZ2I2c= as process 603577
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Number of pools: 1
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Using crc32 + pclmulqdq instructions
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Using liburing
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Completed initialization of buffer pool
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=41908,41908
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: 128 rollback segments are active.
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Removed temporary tablespace data file: "./ibtmp1"
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: 10.6.25 started; log sequence number 41920; transaction id 14
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] Plugin 'FEEDBACK' is disabled.
+Apr 13 12:50:02 minibolt mariadbd[603577]: 2026-04-13 12:50:02 0 [Note] InnoDB: Loading buffer pool(s) from /data/mariadb/ib_buffer_pool
+Apr 13 12:50:03 minibolt mariadbd[603577]: 2026-04-13 12:50:03 0 [Warning] You need to use --log-bin to make --expire-logs-days or --binlog-expire-logs-seconds work.
+Apr 13 12:50:03 minibolt mariadbd[603577]: 2026-04-13 12:50:03 0 [Note] Server socket created on IP: '127.0.0.1'.
+Apr 13 12:50:03 minibolt mariadbd[603577]: 2026-04-13 12:50:03 0 [Note] /usr/sbin/mariadbd: ready for connections.
+Apr 13 12:50:03 minibolt mariadbd[603577]: Version: '10.6.25-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+Apr 13 12:50:03 minibolt mariadbd[603577]: 2026-04-13 12:50:03 0 [Note] InnoDB: Buffer pool(s) load completed at 260413 12:50:03
+Apr 13 12:50:03 minibolt systemd[1]: Started MariaDB 10.6.25 database server.
+Apr 13 12:50:03 minibolt /etc/mysql/debian-start[603595]: Upgrading MySQL tables if necessary.
 ```
 
 </details>
 
 ## Upgrade
-
-The latest release can be found on the [official MariaDB web page](https://mariadb.org/download/?t=repo-config\&d=22.04+%22jammy%22).
 
 * To upgrade, type this command. Press `"y"` and `enter`, or directly `enter` when the prompt asks you
 
@@ -377,32 +373,14 @@ sudo systemctl stop mariadb && sudo systemctl disable mariadb
 sudo apt remove mariadb-* --purge
 ```
 
+Select `<Yes>` and press `enter` when this banner shows you:
+
+<figure><img src="../../.gitbook/assets/Captura de pantalla 2026-04-13 235152.png" alt=""><figcaption></figcaption></figure>
+
 * Uninstall possible unnecessary dependencies
 
 ```bash
-sudo apt autoremove
-```
-
-* Delete configuration files and data
-
-{% code overflow="wrap" %}
-```bash
-sudo rm -rf /etc/mysql/ && sudo rm -rf /var/lib/mysql/ && sudo rm -rf /var/log/mysql/ && sudo rm -rf /usr/lib/mysql/ && sudo rm -rf /usr/share/mysql/
-```
-{% endcode %}
-
-### Uninstall MySQL user
-
-* Delete the `mysql` user. Don't worry about `userdel: bitcoind mail spool (/var/mail/bitcoind) not found` output, the uninstall has been successful
-
-```bash
-sudo userdel -rf mysql
-```
-
-* Delete mysql group
-
-```bash
-sudo groupdel mysql
+sudo apt autoremove -y
 ```
 
 * Delete the complete `mariadb` directory
