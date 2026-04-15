@@ -278,11 +278,16 @@ BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
 
 * An Electrum server or an external service is necessary to get address balances. Your local Electrum server can provide address transaction lists, balances, and more
 
-```
-# Uncomment & replace the value of these lines
+{% hint style="info" %}
+If you want to use [Electrs](../../bonus/bitcoin/electrs.md) instead of Fulcrum, you need to use:
+
+`BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:`[`50021`](#user-content-fn-2)[^2]
+{% endhint %}
+
+<pre><code># Uncomment &#x26; replace the value of these lines
 BTCEXP_ADDRESS_API=electrum
-BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
-```
+BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:<a data-footnote-ref href="#user-content-fn-3">50001</a>
+</code></pre>
 
 * Uncomment this line
 
@@ -635,7 +640,7 @@ Click on the \[Save] button to save the new DNS registry
 * Add the next lines to the `config.yml`
 
 <pre><code># BTC RPC Explorer
-  - hostname: <a data-footnote-ref href="#user-content-fn-2">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-3">&#x3C;domain.com></a>
+  - hostname: <a data-footnote-ref href="#user-content-fn-4">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-5">&#x3C;domain.com></a>
     service: http://localhost:3002
 </code></pre>
 
@@ -652,6 +657,49 @@ sudo systemctl restart cloudflared
 {% hint style="info" %}
 Try to access the newly created public access to the service by going to the `https://<subdomain>.<domain.com>`, i.e, `https://explorer.domain.com`
 {% endhint %}
+
+### Use Electrs like Electrum server connection
+
+If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](electrum-server.md) guide, you need to do the next steps
+
+* As user `admin`, stop the `btcrpcexplorer` service
+
+```bash
+sudo systemctl stop btcrpcexplorer
+```
+
+* Edit the `btcrpcexplorer` service
+
+```sh
+sudo nano /etc/systemd/system/btcrpcexplorer.service
+```
+
+* Replace the `fulcrum.service` with the `electrs.service`. Save and exit
+
+```sh
+Requires=bitcoind.service electrs.service
+After=bitcoind.service electrs.service
+```
+
+* Reload the systemctl daemon to apply changes
+
+```bash
+sudo systemctl daemon-reload
+```
+
+* Start the BTC RPC Explorer service again
+
+```sh
+sudo systemctl start btcrpcexplorer
+```
+
+* (Optional) Check if all is running fine with
+
+{% code overflow="wrap" %}
+```bash
+journalctl -fu btcrpcexplorer
+```
+{% endcode %}
 
 ## Upgrade
 
@@ -835,8 +883,12 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Replace with the selected name of your service\
+[^2]: Change to 50021 in case you want to use Electrs
+
+[^3]: Change to 50021 in case of want to use Electrs
+
+[^4]: Replace with the selected name of your service\
     i.e: `explorer`
 
-[^3]: Replace with your domain\
+[^5]: Replace with your domain\
     i.e: `domain.com`

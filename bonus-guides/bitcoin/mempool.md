@@ -117,7 +117,7 @@ Expected output:
 Query OK, 1 row affected (0.001 sec)
 ```
 
-To create a new admin user and grant privileges to it over the mempool database, enter the next command
+* Create a new admin user and grant privileges to it over the mempool database
 
 ```sql
 GRANT ALL PRIVILEGES ON mempool.* TO 'admin'@'127.0.0.1' IDENTIFIED BY 'admin';
@@ -129,7 +129,7 @@ Expected output:
 Query OK, 0 rows affected (0.001 sec)
 ```
 
-Apply changes
+* Apply changes
 
 {% code overflow="wrap" %}
 ```sql
@@ -137,9 +137,9 @@ FLUSH PRIVILEGES;
 ```
 {% endcode %}
 
-Exit from MariaDB shell
+* Exit from MariaDB shell
 
-```bash
+```sql
 exit
 ```
 
@@ -215,7 +215,7 @@ map $http_accept_language $header_lang {
 }
 
 map $cookie_lang $lang {
-    default $header_lang;
+    default en-US;
     ~*^en-US en-US;
     ~*^en en-US;
     ~*^ar ar;
@@ -506,37 +506,15 @@ sudo usermod -aG bitcoin,lnd mempool
 sudo su - mempool
 ```
 
-{% hint style="info" %}
-You need to follow the [Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it, and then come back to continue with the guide
+{% hint style="warning" %}
+Pay attention to the next step!
 {% endhint %}
 
-* Check if you have Rustup installed
-
-```bash
-rustc --version
-```
-
-**Example** of expected output:
-
-```
-rustc 1.71.0 (8ede3aae2 2023-07-12)
-```
-
-* Also Cargo
-
-```bash
-cargo -V
-```
-
-**Example** of expected output:
-
-```
-cargo 1.71.0 (cfd3bbd8f 2023-06-08)
-```
+* Follow the [Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it, and then come back to continue with the guide
 
 ### Download and verify the source code
 
-* Set a temporary version environment variable for the installation
+* Set a temporary version environment variable
 
 ```bash
 VERSION=3.2.1
@@ -560,7 +538,7 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 ```
 
-* Download the source code directly from GitHub, select the latest release branch associated, and go to the `mempool` folder
+* Download the source code directly from GitHub, select the latest release branch associated with it, and go to the `mempool` folder
 
 {% code overflow="wrap" %}
 ```bash
@@ -592,6 +570,59 @@ Primary key fingerprint: 913C 5FF1 F579 B66C A103  78DB A394 E332 255A 6173
 ```bash
 cd backend
 ```
+
+* Create the configuration file
+
+```bash
+nano mempool-config.json
+```
+
+* Paste the following lines. Save and exit
+
+{% hint style="info" %}
+- If you want to have the Lightning tab enabled and connect to your internal [LND](../../lightning/lightning-client.md) node, follow the [Enable Lightning using your LND](mempool.md#enable-lightning-using-your-lnd) extra section and come back to continue with the next step
+- If you want to use [Electrs](../../bonus/bitcoin/electrs.md) instead of Fulcrum, you need to use: `"PORT": 50021`
+{% endhint %}
+
+<pre><code>{
+    "MEMPOOL": {
+    "NETWORK": "mainnet",
+    "BACKEND": "electrum",
+    "HTTP_PORT": 8999,
+    "SPAWN_CLUSTER_PROCS": 0,
+    "API_URL_PREFIX": "/api/v1/",
+    "POLL_RATE_MS": 2000,
+    "CACHE_DIR": "./cache",
+    "CLEAR_PROTECTION_MINUTES": 20,
+    "RECOMMENDED_FEE_PERCENTILE": 50,
+    "BLOCK_WEIGHT_UNITS": 4000000,
+    "INITIAL_BLOCKS_AMOUNT": 8,
+    "MEMPOOL_BLOCKS_AMOUNT": 8,
+    "PRICE_FEED_UPDATE_INTERVAL": 3600,
+    "USE_SECOND_NODE_FOR_MINFEE": false,
+    "EXTERNAL_ASSETS": []
+  },
+  "CORE_RPC": {
+    "HOST": "127.0.0.1",
+    "PORT": 8332,
+    "COOKIE": true,
+    "COOKIE_PATH": "/data/bitcoin/.cookie"
+  },
+  "ELECTRUM": {
+    "HOST": "127.0.0.1",
+    "PORT": <a data-footnote-ref href="#user-content-fn-1">50001</a>,
+    "TLS_ENABLED": false
+  },
+  "DATABASE": {
+    "ENABLED": true,
+    "HOST": "127.0.0.1",
+    "PORT": 3306,
+    "USERNAME": "admin",
+    "PASSWORD": "admin",
+    "DATABASE": "mempool"
+  }
+}
+</code></pre>
 
 * Install all dependencies and the necessary modules using NPM
 
@@ -723,55 +754,6 @@ npm run build
 
 </details>
 
-* Create the configuration file
-
-```bash
-nano mempool-config.json
-```
-
-* Paste the following lines. Save and exit
-
-```
-{
-    "MEMPOOL": {
-    "NETWORK": "mainnet",
-    "BACKEND": "electrum",
-    "HTTP_PORT": 8999,
-    "SPAWN_CLUSTER_PROCS": 0,
-    "API_URL_PREFIX": "/api/v1/",
-    "POLL_RATE_MS": 2000,
-    "CACHE_DIR": "./cache",
-    "CLEAR_PROTECTION_MINUTES": 20,
-    "RECOMMENDED_FEE_PERCENTILE": 50,
-    "BLOCK_WEIGHT_UNITS": 4000000,
-    "INITIAL_BLOCKS_AMOUNT": 8,
-    "MEMPOOL_BLOCKS_AMOUNT": 8,
-    "PRICE_FEED_UPDATE_INTERVAL": 3600,
-    "USE_SECOND_NODE_FOR_MINFEE": false,
-    "EXTERNAL_ASSETS": []
-  },
-  "CORE_RPC": {
-    "HOST": "127.0.0.1",
-    "PORT": 8332,
-    "COOKIE": true,
-    "COOKIE_PATH": "/data/bitcoin/.cookie"
-  },
-  "ELECTRUM": {
-    "HOST": "127.0.0.1",
-    "PORT": 50001,
-    "TLS_ENABLED": false
-  },
-  "DATABASE": {
-    "ENABLED": true,
-    "HOST": "127.0.0.1",
-    "PORT": 3306,
-    "USERNAME": "admin",
-    "PASSWORD": "admin",
-    "DATABASE": "mempool"
-  }
-}
-```
-
 ### Install the frontend
 
 * Change to the frontend directory
@@ -790,9 +772,13 @@ nano mempool-frontend-config.json
 
 * Type the next context. Save and exit
 
-{% code overflow="wrap" %}
-```bash
-{
+{% hint style="info" %}
+If you want to have the Lightning explorer and tab associated enabled and connected to your internal LND node, change the parameter `"LIGHTNING": false,`  to -> true ( `"LIGHTNING": true,`)
+
+**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized
+{% endhint %}
+
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">{
   "TESTNET_ENABLED": false,
   "TESTNET4_ENABLED": false,
   "SIGNET_ENABLED": false,
@@ -823,7 +809,7 @@ nano mempool-frontend-config.json
   "TESTNET4_TX_FIRST_SEEN_START_HEIGHT": 0,
   "SIGNET_TX_FIRST_SEEN_START_HEIGHT": 0,
   "REGTEST_TX_FIRST_SEEN_START_HEIGHT": 0,
-  "LIGHTNING": false,
+  "LIGHTNING": <a data-footnote-ref href="#user-content-fn-2">false</a>,
   "HISTORICAL_PRICE": true,
   "ADDITIONAL_CURRENCIES": false,
   "ACCELERATOR": false,
@@ -832,8 +818,7 @@ nano mempool-frontend-config.json
   "STRATUM_ENABLED": false,
   "SERVICES_API": "https://mempool.space/api/v1/services"
 }
-```
-{% endcode %}
+</code></pre>
 
 * Install all dependencies and the necessary modules using NPM
 
@@ -978,12 +963,12 @@ sudo nano /etc/systemd/system/mempool.service
 
 [Unit]
 Description=Mempool - a Bitcoin blockchain mempool visualizer
-Requires=bitcoind.service fulcrum.service mariadb.service
-After=bitcoind.service fulcrum.service mariadb.service
+Requires=mariadb.service bitcoind.service fulcrum.service
+After=mariadb.service bitcoind.service fulcrum.service
 
 [Service]
 WorkingDirectory=/home/mempool/mempool/backend
-ExecStart=/usr/bin/npm run start
+ExecStart=/usr/bin/node dist/index.js
 
 User=mempool
 Group=mempool
@@ -991,6 +976,7 @@ Group=mempool
 # Process management
 ####################
 TimeoutSec=300
+KillSignal=SIGINT
 
 # Hardening Measures
 ####################
@@ -1129,7 +1115,59 @@ Apr 13 12:31:00 [589760] DEBUG: 0 websocket clients | 0 connected | 0 disconnect
 Apr 13 12:31:00 [589760] DEBUG: websocket subscriptions: track-tx: 0, track-txs: 0, track-mempool-block: 0 track-rbf: 0
 Apr 13 12:31:07 [589760] DEBUG: Memory usage: 0.17 GB / 2.05 GB
 Apr 13 12:31:09 [589760] DEBUG: Updating mempool...
-Apr 13 12:31:09 [589760] DEBUG: fetched 64 transactions
+Apr 13 12:31:09 [589760] DEBUG: fetched 6 transactions
+```
+
+</details>
+
+<details>
+
+<summary>The previous output is related to the first run (index process), next times should be like this with <code>journalctl -fu mempool</code> ⬇️</summary>
+
+```
+pr 15 10:23:36 minibolt systemd[1]: Started Mempool - a Bitcoin blockchain mempool visualizer.
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] NOTICE: Starting Mempool Server... (e150a00)
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] INFO: Connected to Electrum Server at 127.0.0.1:50001 (["Fulcrum 2.1.0","1.4"])
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] INFO: Database connection established.
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] DEBUG: MIGRATIONS: Running migrations
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] DEBUG: MIGRATIONS: Database engine version '10.6.25-MariaDB-ubu2204'
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] DEBUG: MIGRATIONS: Current state.schema_version 109
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] DEBUG: MIGRATIONS: Latest DatabaseMigration.version is 109
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] DEBUG: MIGRATIONS: Nothing to do.
+Apr 15 10:23:36 minibolt node[1564876]: Apr 15 10:23:36 [1564876] DEBUG: [PoolsUpdater] pools-v2.json sha | Current: 6cf5390bd0cd84323f9043daf4ab78e7438965b6 | Github: 6cf5390bd0cd84323f9043daf4ab78e7438965b6
+Apr 15 10:23:37 minibolt node[1564876]: Apr 15 10:23:37 [1564876] INFO: Restoring mempool and blocks data from disk cache
+Apr 15 10:23:37 minibolt node[1564876]: Apr 15 10:23:37 [1564876] INFO: Loaded mempool from disk cache in 585 ms
+Apr 15 10:23:37 minibolt node[1564876]: Apr 15 10:23:37 [1564876] DEBUG: 0 websocket clients | 0 connected | 0 disconnected | (+0)
+Apr 15 10:23:37 minibolt node[1564876]: Apr 15 10:23:37 [1564876] DEBUG: websocket subscriptions: track-tx: 0, track-txs: 0, track-mempool-block: 0 track-rbf: 0
+Apr 15 10:23:37 minibolt node[1564876]: Apr 15 10:23:37 [1564876] DEBUG: RUST updateBlockTemplates returned 3925 txs out of 3925 in the mempool, 0 were unmineable
+Apr 15 10:23:37 minibolt node[1564876]: Apr 15 10:23:37 [1564876] DEBUG: RUST makeBlockTemplates completed in 0.049 seconds
+Apr 15 10:23:37 minibolt node[1564876]: Apr 15 10:23:37 [1564876] INFO: Restoring rbf data from disk cache
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] DEBUG: loaded 9591 txs, 3620 trees into rbf cache, 9514 due to expire, 0 were stale
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] DEBUG: rbf cache contains 9163 txs, 3486 trees, 9122 due to expire (42 newly expired)
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] INFO: Starting statistics service
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] DEBUG: [Mining] Inserted 0 MtGox USD weekly price history into db
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] DEBUG: Updated orphaned blocks cache. Fetched 1 new orphaned blocks. Total 1
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] NOTICE: Mempool Server is running on port 8999
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] DEBUG: Initial difficulty adjustment data set.
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] DEBUG: Updating mempool...
+Apr 15 10:23:38 minibolt node[1564876]: Apr 15 10:23:38 [1564876] DEBUG: [Mining] Fetching daily price history from exchanges and saving missing ones into the database
+Apr 15 10:23:39 minibolt node[1564876]: Apr 15 10:23:39 [1564876] DEBUG: fetched 151 transactions
+Apr 15 10:23:39 minibolt node[1564876]: Apr 15 10:23:39 [1564876] DEBUG: 0 websocket clients | 0 connected | 0 disconnected | (+0)
+Apr 15 10:23:39 minibolt node[1564876]: Apr 15 10:23:39 [1564876] DEBUG: websocket subscriptions: track-tx: 0, track-txs: 0, track-mempool-block: 0 track-rbf: 0
+[...]
+Apr 15 10:24:04 minibolt node[1564876]: Apr 15 10:24:04 [1564876] DEBUG: RUST updateBlockTemplates returned 1246 txs out of 1246 candidates, 0 were unmineable
+Apr 15 10:24:04 minibolt node[1564876]: Apr 15 10:24:04 [1564876] DEBUG: RUST updateBlockTemplates completed in 0.007 seconds
+Apr 15 10:24:04 minibolt node[1564876]: Apr 15 10:24:04 [1564876] DEBUG: Mempool updated in 0.011 seconds. New size: 1246 (+3)
+Apr 15 10:24:06 minibolt node[1564876]: Apr 15 10:24:06 [1564876] DEBUG: Updating mempool...
+Apr 15 10:24:06 minibolt node[1564876]: Apr 15 10:24:06 [1564876] DEBUG: fetched 11 transactions
+Apr 15 10:24:06 minibolt node[1564876]: Apr 15 10:24:06 [1564876] DEBUG: 0 websocket clients | 0 connected | 0 disconnected | (+0)
+Apr 15 10:24:06 minibolt node[1564876]: Apr 15 10:24:06 [1564876] DEBUG: websocket subscriptions: track-tx: 0, track-txs: 0, track-mempool-block: 0 track-rbf: 0
+Apr 15 10:24:06 minibolt node[1564876]: Apr 15 10:24:06 [1564876] DEBUG: RUST updateBlockTemplates returned 1257 txs out of 1257 candidates, 0 were unmineable
+Apr 15 10:24:06 minibolt node[1564876]: Apr 15 10:24:06 [1564876] DEBUG: RUST updateBlockTemplates completed in 0.008 seconds
+Apr 15 10:24:06 minibolt node[1564876]: Apr 15 10:24:06 [1564876] DEBUG: Mempool updated in 0.018 seconds. New size: 1257 (+11)
+Apr 15 10:24:08 minibolt node[1564876]: Apr 15 10:24:08 [1564876] DEBUG: Updating mempool...
+Apr 15 10:24:08 minibolt node[1564876]: Apr 15 10:24:08 [1564876] DEBUG: fetched 6 transactions
+Apr 15 10:24:08 minibolt node[1564876]: Apr 15 10:24:08 [1564876] DEBUG: 0 websocket clients | 0 connected | 0 disconnected | (+0)
 ```
 
 </details>
@@ -1162,11 +1200,41 @@ Congrat&#x73;**!** You now have Mempool up and running
 
 ## Extras (optional)
 
-### Enable Lightning
+### Enable Lightning with a local LND node
+
+{% hint style="info" %}
+**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized
+{% endhint %}
+
+#### Frontend
+
+{% hint style="info" %}
+If you want to have the mempool Lightning explorer and tab-associated enabled and connected to your internal LND node, for the frontend, you need to repeat the complete [Install frontend](mempool.md#install-the-frontend) installation section, keeping in mind to modify the parameter `"LIGHTNING": false,`  to -> true ( `"LIGHTNING": true,`) in `mempool-frontend-config.json` file
+{% endhint %}
+
+#### Backend
+
+{% hint style="info" %}
+Unlike the frontend, the backend configuration can be changed at any time after installation, just like the systemd service
+{% endhint %}
+
+* Stop mempool service&#x20;
 
 {% code overflow="wrap" %}
+```bash
+sudo systemctl stop mempool
 ```
-{
+{% endcode %}
+
+* Edit the `mempool-config.json` file
+
+```bash
+sudo nano /home/mempool/mempool/backend/mempool-config.json
+```
+
+* Replace the complete config with this or add the "LIGHTNING" and "LND" sections at the end of the file. Save and exit
+
+<pre data-overflow="wrap"><code>{
     "MEMPOOL": {
     "NETWORK": "mainnet",
     "BACKEND": "electrum",
@@ -1192,7 +1260,7 @@ Congrat&#x73;**!** You now have Mempool up and running
   },
   "ELECTRUM": {
     "HOST": "127.0.0.1",
-    "PORT": 50001,
+    "PORT": <a data-footnote-ref href="#user-content-fn-3">50001</a>,
     "TLS_ENABLED": false
   },
   "DATABASE": {
@@ -1219,54 +1287,161 @@ Congrat&#x73;**!** You now have Mempool up and running
     "TIMEOUT": 10000
   }
 }
+</code></pre>
+
+#### Systemd service
+
+* Edit the `mempool.service` file
+
+{% code overflow="wrap" %}
+```bash
+sudo nano /etc/systemd/system/mempool.service
 ```
 {% endcode %}
 
-`cp mempool-frontend-config.sample.json mempool-frontend-config.json`
+* Add the new `lnd.service` dependence. Save and exit
 
-`nano mempool-frontend-config.json`
+<pre data-overflow="wrap"><code># MiniBolt: systemd unit for Mempool
+# /etc/systemd/system/mempool.service
 
-<pre data-overflow="wrap"><code>{
-  "TESTNET_ENABLED": false,
-  "TESTNET4_ENABLED": false,
-  "SIGNET_ENABLED": false,
-  "REGTEST_ENABLED": false,
-  "LIQUID_ENABLED": false,
-  "LIQUID_TESTNET_ENABLED": false,
-  "MAINNET_ENABLED": true,
-  "ITEMS_PER_PAGE": 10,
-  "KEEP_BLOCKS_AMOUNT": 8,
-  "NGINX_PROTOCOL": "http",
-  "NGINX_HOSTNAME": "127.0.0.1",
-  "NGINX_PORT": "8001",
-  "BLOCK_WEIGHT_UNITS": 4000000,
-  "MEMPOOL_BLOCKS_AMOUNT": 8,
-  "BASE_MODULE": "mempool",
-  "ROOT_NETWORK": "",
-  "MEMPOOL_WEBSITE_URL": "https://mempool.space",
-  "LIQUID_WEBSITE_URL": "https://liquid.network",
-  "MINING_DASHBOARD": true,
-  "AUDIT": false,
-  "MAINNET_BLOCK_AUDIT_START_HEIGHT": 0,
-  "TESTNET_BLOCK_AUDIT_START_HEIGHT": 0,
-  "SIGNET_BLOCK_AUDIT_START_HEIGHT": 0,
-  "REGTEST_BLOCK_AUDIT_START_HEIGHT": 0,
-  "TESTNET4_BLOCK_AUDIT_START_HEIGHT": 0,
-  "MAINNET_TX_FIRST_SEEN_START_HEIGHT": 0,
-  "TESTNET_TX_FIRST_SEEN_START_HEIGHT": 0,
-  "TESTNET4_TX_FIRST_SEEN_START_HEIGHT": 0,
-  "SIGNET_TX_FIRST_SEEN_START_HEIGHT": 0,
-  "REGTEST_TX_FIRST_SEEN_START_HEIGHT": 0,
-  "LIGHTNING": <a data-footnote-ref href="#user-content-fn-1">true</a>,
-  "HISTORICAL_PRICE": true,
-  "ADDITIONAL_CURRENCIES": false,
-  "ACCELERATOR": false,
-  "ACCELERATOR_BUTTON": true,
-  "PUBLIC_ACCELERATIONS": false,
-  "STRATUM_ENABLED": false,
-  "SERVICES_API": "https://mempool.space/api/v1/services"
-}
+[Unit]
+Description=Mempool - a Bitcoin blockchain mempool visualizer
+Requires=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-4">lnd.service</a>
+After=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-4">lnd.service</a>
+
+[Service]
+WorkingDirectory=/home/mempool/mempool/backend
+ExecStart=/usr/bin/node dist/index.js
+
+User=mempool
+Group=mempool
+
+# Process management
+####################
+TimeoutSec=300
+KillSignal=SIGINT
+
+# Hardening Measures
+####################
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+
+[Install]
+WantedBy=multi-user.target
 </code></pre>
+
+* Remember to reload the systemctl daemon with
+
+{% code overflow="wrap" %}
+```bash
+sudo systemctl daemon-reload
+```
+{% endcode %}
+
+* Start mempool again
+
+{% code overflow="wrap" %}
+```bash
+sudo systemctl start mempool
+```
+{% endcode %}
+
+* (Optional) Check if all is running fine again
+
+{% code overflow="wrap" %}
+```bash
+journalctl -fu mempool
+```
+{% endcode %}
+
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
+```
+Apr 15 10:15:03 minibolt systemd[1]: Started Mempool - a Bitcoin blockchain mempool visualizer.
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] NOTICE: <lightning> Starting Mempool Server... (e150a00)
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] INFO: <lightning> Connected to Electrum Server at 127.0.0.1:50001 (["Fulcrum 2.1.0","1.4"])
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] INFO: <lightning> Database connection established.
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] DEBUG: <lightning> MIGRATIONS: Running migrations
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] DEBUG: <lightning> MIGRATIONS: Database engine version '10.6.25-MariaDB-ubu2204'
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] DEBUG: <lightning> MIGRATIONS: Current state.schema_version 109
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] DEBUG: <lightning> MIGRATIONS: Latest DatabaseMigration.version is 109
+Apr 15 10:15:04 minibolt node[1561962]: Apr 15 10:15:04 [1561962] DEBUG: <lightning> MIGRATIONS: Nothing to do.
+Apr 15 10:15:05 minibolt node[1561962]: Apr 15 10:15:05 [1561962] DEBUG: <lightning> [PoolsUpdater] pools-v2.json sha | Current: 6cf5390bd0cd84323f9043daf4ab78e7438965b6 | Github: 6cf5390bd0cd84323f9043daf4ab78e7438965b6
+Apr 15 10:15:05 minibolt node[1561962]: Apr 15 10:15:05 [1561962] INFO: <lightning> Restoring mempool and blocks data from disk cache
+Apr 15 10:15:06 minibolt node[1561962]: Apr 15 10:15:06 [1561962] INFO: <lightning> Loaded mempool from disk cache in 576 ms
+Apr 15 10:15:06 minibolt node[1561962]: Apr 15 10:15:06 [1561962] DEBUG: <lightning> 0 websocket clients | 0 connected | 0 disconnected | (+0)
+Apr 15 10:15:06 minibolt node[1561962]: Apr 15 10:15:06 [1561962] DEBUG: <lightning> websocket subscriptions: track-tx: 0, track-txs: 0, track-mempool-block: 0 track-rbf: 0
+Apr 15 10:15:06 minibolt node[1561962]: Apr 15 10:15:06 [1561962] DEBUG: <lightning> RUST updateBlockTemplates returned 2350 txs out of 2350 in the mempool, 0 were unmineable
+Apr 15 10:15:06 minibolt node[1561962]: Apr 15 10:15:06 [1561962] DEBUG: <lightning> RUST makeBlockTemplates completed in 0.033 seconds
+Apr 15 10:15:06 minibolt node[1561962]: Apr 15 10:15:06 [1561962] INFO: <lightning> Restoring rbf data from disk cache
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] DEBUG: <lightning> loaded 9531 txs, 3596 trees into rbf cache, 9464 due to expire, 0 were stale
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] DEBUG: <lightning> rbf cache contains 9531 txs, 3596 trees, 9478 due to expire (55 newly expired)
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] INFO: <lightning> Starting statistics service
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] DEBUG: <lightning> [Mining] Inserted 0 MtGox USD weekly price history into db
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] DEBUG: <lightning> Updated orphaned blocks cache. Fetched 1 new orphaned blocks. Total 1
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] NOTICE: <lightning> Mempool Server is running on port 8999
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] DEBUG: <lightning> [Lightning] Imported 51086 funding tx amount from the disk cache
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] INFO: <lightning> [Lightning] Starting lightning network sync service
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] DEBUG: <lightning> [Lightning] Updating nodes and channels
+Apr 15 10:15:07 minibolt node[1561962]: Apr 15 10:15:07 [1561962] DEBUG: <lightning> Initial difficulty adjustment data set.
+[...]
+Apr 15 10:16:25 minibolt node[1561962]: Apr 15 10:16:25 [1561962] DEBUG: <lightning> [Lightning] 44255 channels updated
+Apr 15 10:16:26 minibolt node[1561962]: Apr 15 10:16:26 [1561962] DEBUG: <lightning> [Lightning] Marked 10 channels as inactive because they are not in the graph
+Apr 15 10:16:26 minibolt node[1561962]: Apr 15 10:16:26 [1561962] DEBUG: <lightning> [Lightning] Find channels which nodes are offline
+Apr 15 10:16:26 minibolt node[1561962]: Apr 15 10:16:26 [1561962] DEBUG: <lightning> [Lightning] Running channel creation date lookup
+Apr 15 10:16:26 minibolt node[1561962]: Apr 15 10:16:26 [1561962] DEBUG: <lightning> [Lightning] Updated 1 channels' creation date
+Apr 15 10:16:27 minibolt node[1561962]: Apr 15 10:16:27 [1561962] DEBUG: <lightning> [Lightning] Starting closed channels scan for the first time
+[...]
+Apr 15 10:16:39 minibolt node[1561962]: Apr 15 10:16:39 [1561962] DEBUG: <lightning> [Lightning] Checking if channel has been closed 6500/50721
+```
+
+</details>
+
+### Use Electrs like Electrum server connection
+
+If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) guide, you need to do the next steps
+
+* As user `admin`, stop the mempool service
+
+```bash
+sudo systemctl stop mempool
+```
+
+* Edit the mempool service
+
+```sh
+sudo nano /etc/systemd/system/mempool.service
+```
+
+* Replace the `fulcrum.service` with the `electrs.service`. Save and exit
+
+<pre class="language-sh"><code class="lang-sh">Requires=mariadb.service bitcoind.service electrs.service <a data-footnote-ref href="#user-content-fn-5">lnd.service</a>
+After=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-5">lnd.service</a>
+</code></pre>
+
+* Reload the systemctl daemon to apply changes
+
+```bash
+sudo systemctl daemon-reload
+```
+
+* Start the mempool service again
+
+```sh
+sudo systemctl start mempool
+```
+
+* (Optional) Check if all is running fine with
+
+{% code overflow="wrap" %}
+```bash
+journalctl -fu mempool
+```
+{% endcode %}
 
 ### Remote access over Tor
 
@@ -1306,9 +1481,58 @@ abcdefg..............xyz.onion
 
 * With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
 
+### Use Cloudflare tunnel to expose publicly
+
+You may want to expose your Mempool publicly using a clearnet address. To do this, follow the next steps:
+
+* Follow the [Cloudflare tunnel](../networking/cloudflare-tunnel.md) guide to install and create the Cloudflare tunnel from your MiniBolt to Cloudflare
+* When you finish the "[Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name)" section, you can skip the "[Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic)" section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
+* Click on the **\[+ Add record]** button
+
+<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+> Select the **CNAME** type
+
+> Type the selected subdomain (i.e service name "mempool") as the **Name** field
+
+> Type the tunnel `<UUID>` of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
+
+> Ensure you enable the switch on the `Proxy status` field to be "Proxied"
+
+Click on the \[Save] button to save the new DNS registry
+{% endhint %}
+
+* If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
+* Edit the`config.yml`
+
+<pre class="language-bash"><code class="lang-bash"><strong>sudo nano /home/admin/.cloudflared/config.yml
+</strong></code></pre>
+
+* Add the next lines to the `config.yml`
+
+<pre><code># Mempool
+  - hostname: <a data-footnote-ref href="#user-content-fn-6">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-7">&#x3C;domain.com></a>
+    service: http://localhost:8001
+</code></pre>
+
+{% hint style="info" %}
+> You can choose the subdomain you want; the above information is an example, but keep in mind to use the port `8001` and always maintaining the "`- service: http_status:404`" line at the end of the file
+{% endhint %}
+
+* Restart Cloudflared to apply changes
+
+```bash
+sudo systemctl restart cloudflared
+```
+
+{% hint style="info" %}
+Try to access the newly created public access to the service by going to the `https://<subdomain>.<domain.com>`, i.e, `https://mempool.domain.com`
+{% endhint %}
+
 ## Upgrade
 
-Follow the complete [Download](mempool.md#download-the-source-code), [Backend](mempool.md#install-the-backend), and [Frontend](mempool.md#install-the-frontend) sections, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**.
+Follow the complete [Download](mempool.md#download-the-source-code), [Backend](mempool.md#install-the-backend), and [Frontend](mempool.md#install-the-frontend) sections, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(at your own risk)**.
 
 * Restart the service to apply the changes
 
@@ -1346,21 +1570,13 @@ sudo rm /etc/systemd/system/mempool.service
 
 ### Delete user & group
 
-* Delete the mem`pool` user.
+* Delete the `mempool` user
 
 ```shellscript
 sudo userdel -rf mempool
 ```
 
 ### Delete all Mempool files
-
-* Remove the corresponding symbolic links and files
-
-{% code overflow="wrap" %}
-```bash
-sudo rm /usr/lib/node_modules/mempool && sudo rm /usr/bin/mempool && sudo rm -rf /var/lib/mempool
-```
-{% endcode %}
 
 * Delete the Nginx server files
 
@@ -1444,4 +1660,18 @@ sudo ufw delete X
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">8999</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default backend port</td></tr><tr><td align="center">4081</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default SSL port</td></tr></tbody></table>
 
-[^1]: 
+[^1]: Change to 50021 in case you want to use Electrs
+
+[^2]: Change to -> true if you want to enable the Lightning explorer feature
+
+[^3]: Change to 500011 if you use Electrs
+
+[^4]: Add this
+
+[^5]: Optional, depending if you connected mempool to your internal LND node
+
+[^6]: Replace with the selected name of your service\
+    i.e: `explorer`
+
+[^7]: Replace with your domain\
+    i.e: `domain.com`
