@@ -42,6 +42,7 @@
   * [Go](bonus-guides/system/go.md)
   * [PostgreSQL](bonus-guides/system/postgresql.md)
   * [Store data in a secondary disk](bonus/system/store-data-secondary-disk.md)
+  * [MariaDB](bonus-guides/system/mariadb.md)
 * [₿itcoin](bonus/bitcoin/README.md)
   * [Electrs](bonus/bitcoin/electrs.md)
   * [Electrum Wallet Desktop](bonus/bitcoin/electrum-wallet-desktop.md)
