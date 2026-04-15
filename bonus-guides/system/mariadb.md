@@ -1,3 +1,22 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+---
+
 # MariaDB
 
 [MariaDB Server](https://mariadb.org/) is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.
@@ -373,7 +392,7 @@ sudo systemctl stop mariadb && sudo systemctl disable mariadb
 sudo apt remove mariadb-* --purge
 ```
 
-Select `<Yes>` and press `enter` when this banner shows you:
+* Select `<Yes>` and press `enter` when this banner shows you:
 
 <figure><img src="../../.gitbook/assets/Captura de pantalla 2026-04-13 235152.png" alt=""><figcaption></figcaption></figure>
 
