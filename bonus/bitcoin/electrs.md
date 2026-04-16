@@ -675,29 +675,6 @@ abcdefg..............xyz.onion
 You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50022 (SSL)` , or `50021 (TCP)`
 {% endhint %}
 
-### Migrate BTC RPC Explorer to Electrs API connection
-
-To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
-
-* As user `admin`, open the `btcrpcexplorer` service
-
-```sh
-sudo nano /etc/systemd/system/btcrpcexplorer.service
-```
-
-* Replace the `fulcrum.service` with the `electrs.service`. Save and exit
-
-```sh
-Requires=bitcoind.service electrs.service
-After=bitcoind.service electrs.service
-```
-
-* Restart the BTC RPC Explorer service to apply the changes
-
-```sh
-sudo systemctl restart btcrpcexplorer
-```
-
 ## Upgrade
 
 * First, ensure that you have the latest Rustc version, following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-+-cargo.md)

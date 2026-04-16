@@ -449,7 +449,7 @@ Congrats! Now you have a Blockchain Explorer: BTC RPC Explorer running to check 
 
 You can decide whether you want to optimize for more information or more privacy.
 
-* With user `admin` user, edit the `.env` configuration file
+* With user `admin`, edit the `.env` configuration file
 
 ```bash
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
@@ -477,7 +477,7 @@ BTCEXP_NO_RATES=false
 
 You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
 
-* With user `admin` user, edit the `.env` configuration file
+* With user `admin`, edit the `.env` configuration file
 
 ```bash
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
@@ -506,11 +506,11 @@ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 BTCEXP_UI_THEME=dark
 ```
 
-### Slow device mode (resource-intensive features are disabled)
+### Slow device mode
 
-Extend the timeout period and enable slow device mode due to the limited resources
+Extend the timeout period and enable slow device mode due to the limited resources (resource-intensive features are disabled)
 
-* With user `admin` user, edit the `.env` configuration file
+* With user `admin`, edit the `.env` configuration file
 
 ```bash
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
@@ -532,7 +532,7 @@ BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 
 You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands)
 
-* With user `admin` user, edit the `.env` configuration file
+* With user `admin` , edit the `.env` configuration file
 
 ```bash
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
@@ -612,7 +612,7 @@ You may want to expose your BTC RPC Explorer publicly using a clearnet address. 
 * When you finish the [Create a tunnel and give it a name](../../bonus-guides/networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section, you can skip the [Start routing traffic](../../bonus-guides/networking/cloudflare-tunnel.md#id-5-start-routing-traffic) section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
 * Click on the **\[+ Add record]** button
 
-<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 > Select the **CNAME** type
@@ -627,7 +627,7 @@ Click on the \[Save] button to save the new DNS registry
 {% endhint %}
 
 * If you didn't follow before, continue with the [Configuration](../../bonus-guides/networking/cloudflare-tunnel.md#configuration) section of the [Cloudflare tunnel guide](../../bonus-guides/networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../../bonus-guides/networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../../bonus-guides/networking/cloudflare-tunnel.md#create-systemd-service)
-* Edit the`config.yml`
+* Edit the `config.yml` file
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo nano /home/admin/.cloudflared/config.yml
 </strong></code></pre>
@@ -653,9 +653,57 @@ sudo systemctl restart cloudflared
 Try to access the newly created public access to the service by going to the `https://<subdomain>.<domain.com>`, i.e, `https://explorer.domain.com`
 {% endhint %}
 
-<pre><code>Requires=bitcoind.service <a data-footnote-ref href="#user-content-fn-4">electrs.servic</a>e
+### Use Electrs like Electrum server
+
+If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](electrum-server.md) guide, you need to do the next steps
+
+* As user `admin`, stop the mempool service
+
+```bash
+sudo systemctl stop mempool
+```
+
+* Edit the btcrpcexplorer `.env` file
+
+```bash
+sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
+```
+
+* Replace the "`BTCEXP_ELECTRUM_SERVERS=...`" line to this. Save and exit
+
+```
+BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50021
+```
+
+* Edit the `btcrpcexplorer` service
+
+```sh
+sudo nano /etc/systemd/system/btcrpcexplorer.service
+```
+
+* Replace the `fulcrum.service` with the `electrs.service` in these lines. Save and exit
+
+<pre class="language-sh"><code class="lang-sh">Requires=bitcoind.service <a data-footnote-ref href="#user-content-fn-4">electrs.service</a>
 After=bitcoind.service <a data-footnote-ref href="#user-content-fn-4">electrs.service</a>
 </code></pre>
+
+* Reload the systemctl daemon to apply changes
+
+```bash
+sudo systemctl daemon-reload
+```
+
+* Start the BTC RPC Explorer service
+
+```sh
+sudo systemctl start btcrpcexplorer
+```
+
+* (Optional) Check if all is running fine with
+
+```bash
+journalctl -fu btcrpcexplorer
+```
 
 ## Upgrade
 
@@ -845,4 +893,4 @@ sudo ufw delete X
 [^3]: Replace with your domain\
     i.e: `domain.com`
 
-[^4]: Replace to this
+[^4]: Replace with this
