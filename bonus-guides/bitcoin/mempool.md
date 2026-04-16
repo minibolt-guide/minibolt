@@ -533,7 +533,7 @@ sudo su - mempool
 Pay attention to the next step!
 {% endhint %}
 
-* Important!! Follow the [Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it for the user mempool, and then come back to continue with the guide
+* Important!! Follow the [Rustup + Cargo installation guide](../system/rustup-+-cargo.md#installation) to install it for the user mempool, and then come back to continue with the guide
 
 ### Download and verify the source code
 
@@ -606,7 +606,7 @@ nano mempool-config.json
 * Paste the following lines. Save and exit
 
 {% hint style="info" %}
-- If you want to have the Lightning tab enabled and connect to your internal [LND](../../lightning/lightning-client.md) node, follow the [Enable Lightning using your LND](mempool.md#enable-lightning-using-your-lnd) extra section and come back to continue with the next step
+- If you want to have the Lightning tab enabled and connect to your internal [LND](../../lightning/lightning-client.md) node, follow the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section and come back to continue with the next step. **Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least
 - If you want to use [Electrs](../../bonus/bitcoin/electrs.md) instead of [Fulcrum](../../bitcoin/bitcoin/electrum-server.md), you need to use: `"PORT": 50021`
 {% endhint %}
 
@@ -652,10 +652,6 @@ nano mempool-config.json
 
 * Install all dependencies and the necessary modules using NPM
 
-{% hint style="warning" %}
-**Not to run** the `npm audit fix` command, which could break the original code!!
-{% endhint %}
-
 ```bash
 npm install --omit=dev --omit=optional
 ```
@@ -687,21 +683,24 @@ found 0 vulnerabilities
 
 > gbt@3.0.1 check-cargo-version
 > VER=$(cat rust-toolchain) ; if ! cargo version | grep "cargo $VER" >/dev/null ; then echo -e "\033[1;35m[[[[WARNING]]]]: cargo version mismatch with ./rust-toolchain version ($VER)!!!\033[0m" >&2; fi
-
+info: syncing channel updates for 1.84-x86_64-unknown-linux-gnu
+info: latest update on 2025-01-30 for version 1.84.1 (e71f9a9a9 2025-01-27)
+info: downloading 3 components
    Compiling proc-macro2 v1.0.93
    Compiling unicode-ident v1.0.15
    Compiling once_cell v1.20.2
    Compiling memchr v2.7.4
    Compiling regex-syntax v0.8.5
 [...]
-Compiling napi v2.16.13
+    Building [=========================> ] 55/56: gbt
+   Compiling napi v2.16.13
     Finished `release` profile [optimized] target(s) in 38.36s
 
 > gbt@3.0.1 to-backend
 > FD=${FD:-../../backend/rust-gbt/} ; rm -rf $FD && mkdir $FD && cp index.js index.d.ts package.json *.node $FD
 
 
-added 134 packages, and audited 137 packages in 46s
+added 134 packages, and audited 137 packages in 1m
 
 21 packages are looking for funding
   run `npm fund` for details
@@ -715,9 +714,18 @@ To address all issues, run:
   npm audit fix --force
 
 Run `npm audit` for details.
+npm notice
+npm notice New major version of npm available! 10.9.7 -> 11.12.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.12.1
+npm notice To update run: npm install -g npm@11.12.1
+npm notice
 ```
 
 </details>
+
+{% hint style="warning" %}
+**Not to run** the `npm audit fix` command, which could break the original code!!
+{% endhint %}
 
 * Build it
 
@@ -814,10 +822,6 @@ If you want to have the Lightning explorer and tab associated enabled and connec
 
 * Install all dependencies and the necessary modules using NPM
 
-{% hint style="warning" %}
-**Not to run** the `npm audit fix` command, which could break the original code!!
-{% endhint %}
-
 ```bash
 npm install --omit=dev --omit=optional
 ```
@@ -844,6 +848,10 @@ Run `npm audit` for details.
 
 </details>
 
+{% hint style="warning" %}
+**Not to run** the `npm audit fix` command, which could break the original code!!
+{% endhint %}
+
 * Build it
 
 {% code overflow="wrap" %}
@@ -857,62 +865,142 @@ npm run generate-themes && npm run generate-config && npm run ng -- build --conf
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-> mempool-frontend@3.2.1 build
-> npm run generate-config && npm run ng -- build --configuration production --localize && npm run sync-assets-dev && npm run sync-assets && npm run build-mempool.js
 
+> mempool-frontend@3.3.0 generate-themes
+> node generate-themes.js
 
-> mempool-frontend@3.2.1 generate-config
+Built contrast.css and contrast.d2a06292969697ac.css
+Built softsimon.css and softsimon.3317e60f53003eb7.css
+Built bukele.css and bukele.37cb79c4a707eaa5.css
+Theme manifest written to theme-manifest.json
+
+> mempool-frontend@3.3.0 generate-config
 > node generate-config.js
 
-mempool-frontend-config.json file not found, using default config
+mempool-frontend-config.json file found, using provided config
 Copied src/index.mempool.html to src/index.html
-mempool version 3.2.1
-mempool revision 32fadb484
+Injected theme manifest into src/index.html: {
+  contrast: 'contrast.d2a06292969697ac.css',
+  softsimon: 'softsimon.3317e60f53003eb7.css',
+  bukele: 'bukele.37cb79c4a707eaa5.css'
+}
+mempool version 3.3.0
+mempool revision e64b363ee
 src/resources/config.js file not found, creating new config file
 CONFIG:  (function (window) {
   window.__env = window.__env || {};
-    window.__env.GIT_COMMIT_HASH = '32fadb484';
-    window.__env.PACKAGE_JSON_VERSION = '3.2.1';
-  }((typeof global !== 'undefined') ? global : this));
-src/resources/config.js file saved
-
-> mempool-frontend@3.2.1 ng
-> ./node_modules/@angular/cli/bin/ng.js build --configuration production --localize
-
-⠋ Generating browser application bundles (phase: setup)...    TypeScript compiler options "target" and "useDefineForClassFields" are set to "ES2022" and "false" respectively by the Angular CLI. To control ECMA version and features use the Browserslist configuration. For more information, see https://angular.io/guide/build#configuring-browser-compatibility
+    window.__env.TESTNET_ENABLED = false;
+    window.__env.TESTNET4_ENABLED = false;
+    window.__env.SIGNET_ENABLED = false;
+    window.__env.REGTEST_ENABLED = false;
+    window.__env.LIQUID_ENABLED = false;
+    window.__env.LIQUID_TESTNET_ENABLED = false;
+    window.__env.MAINNET_ENABLED = true;
+    window.__env.ITEMS_PER_PAGE = 10;
+    window.__env.KEEP_BLOCKS_AMOUNT = 8;
+    window.__env.NGINX_PROTOCOL = 'http';
+    window.__env.NGINX_HOSTNAME = '127.0.0.1';
+    window.__env.NGINX_PORT = '8001';
+    window.__env.BLOCK_WEIGHT_UNITS = 4000000;
+    window.__env.MEMPOOL_BLOCKS_AMOUNT = 8;
+    window.__env.BASE_MODULE = 'mempool';
+    window.__env.ROOT_NETWORK = '';
+    window.__env.MEMPOOL_WEBSITE_URL = 'https://mempool.space';
+    window.__env.LIQUID_WEBSITE_URL = 'https://liquid.network';
+    window.__env.MINING_DASHBOARD = true;
+    window.__env.AUDIT = false;
+[...]
+    window.__env.SIGNET_TX_FIRST_SEEN_START_HEIGHT = 0;
+    window.__env.REGTEST_TX_FIRST_SEEN_START_HEIGHT = 0;
+    window.__env.LIGHTNING = true;
+[...]
+⠋ Generating browser application bundles (phase: setup)...    TypeScript compiler options "target" and "useDefineForClassFields" are set to "ES2022" and "false" respectively by the Angular CLI. To control ECMA version and features use the Browserslist configuration. For more information, see https://angular.dev/tools/cli/build#configuring-browser-compatibility
     NOTE: You can set the "target" to "ES2022" in the project's tsconfig to remove this warning.
-⠴ Generating browser application bundles (phase: sealing)...
+⠧ Generating browser application bundles (phase: building)...
+[...]
+⠋ Generating localized bundles...
+[...]
+No translation found for "4737378996440967882" ["c4221ec405e432a0dac150a4c48c9100eac712bd", "4253114395798936977"] (" Values were capped at the max supply of 21M BTC " - "calculator.max-supply-warning").
+No translation found for "4737378996440967882" ["c4221ec405e432a0dac150a4c48c9100eac712bd", "4253114395798936977"] (" Values were capped at the max supply of 21M BTC " - "calculator.max-supply-warning").
+No translation found for "4737378996440967882" ["c4221ec405e432a0dac150a4c48c9100eac712bd", "4253114395798936977"] (" Values were capped at the max supply of 21M BTC " - "calculator.max-supply-warning").
+No translation found for "4737378996440967882" ["c4221ec405e432a0dac150a4c48c9100eac712bd", "4253114395798936977"] (" Values were capped at the max supply of 21M BTC " - "calculator.max-supply-warning").
+No translation found for "4737378996440967882" ["c4221ec405e432a0dac150a4c48c9100eac712bd", "4253114395798936977"] (" Values were capped at the max supply of 21M BTC " - "calculator.max-supply-warning").
+No translation found for "4737378996440967882" ["c4221ec405e432a0dac150a4c48c9100eac712bd", "4253114395798936977"] (" Values were capped at the max supply of 21M BTC " - "calculator.max-supply-warning").
+[...]
 ✔ Localized bundle generation complete.
 ✔ Copying assets complete.
 ✔ Index html generation complete.
 
 Initial chunk files           | Names                                               |  Raw size | Estimated transfer size
-main.b586fbf92cad9de2.js      | main                                                |   1.14 MB |               283.14 kB
-styles.cf2a69e15c6bcb8f.css   | styles                                              | 178.38 kB |                22.21 kB
-polyfills.c41df647371e42d1.js | polyfills                                           |  33.45 kB |                10.77 kB
-
-                              | Initial total                                       |   1.35 MB |               316.13 kB
-
-Lazy chunk files              | Names                                               |  Raw size | Estimated transfer size   
+main.377570c998a82448.js      | main                                                |   1.48 MB |               355.24 kB
+styles.5360fdbcf9ef97cb.css   | styles                                              | 181.76 kB |                22.66 kB
+polyfills.d86fbf1f9931c85b.js | polyfills                                           |  34.89 kB |                11.34 kB
 [...]
-resources/wallycore/wallycore.js
-resources/wallycore/wallycore.wasm
+354.a645b30dd813fade.js       | components-block-block-module                       |   1.04 kB |               536 bytes
+815.895a7d339cfe8baf.js       | app-liquid-liquid-graphs-module                     | 712 bytes |               353 bytes
 
-sent 16,744,490 bytes  received 3,063 bytes  33,495,106.00 bytes/sec
-total size is 16,729,238  speedup is 1.00
-[sync-assets] SKIP_SYNC is set, not checking any assets
+Build at: 2026-04-16T07:17:16.326Z - Hash: 5f7832d17e4854a2 - Time: 91955ms
 
-> mempool-frontend@3.2.1 build-mempool.js
-> npm run build-mempool-js && npm run build-mempool-liquid-js
+Warning: /home/mempool/mempool/frontend/src/app/components/about/about.component.scss exceeded maximum budget. Budget 6.00 kB was not met by 1.71 kB with a total of 7.71 kB.
+
+Warning: /home/mempool/mempool/frontend/src/app/components/acceleration-timeline/acceleration-timeline.component.scss exceeded maximum budget. Budget 6.00 kB was not met by 820 bytes with a total of 6.82 kB.
+
+Warning: /home/mempool/mempool/frontend/src/app/components/custom-dashboard/custom-dashboard.component.scss exceeded maximum budget. Budget 6.00 kB was not met by 1.65 kB with a total of 7.65 kB.
+
+[...]
+> mempool-frontend@3.3.0 sync-assets
+> npm run copy-themes && rsync -av ./src/resources ./dist/mempool/browser && node sync-assets.js 'dist/mempool/browser/resources/'
 
 
-> mempool-frontend@3.2.1 build-mempool-js
-> browserify -p tinyify ./node_modules/@mempool/mempool.js/lib/index.js --standalone mempoolJS > ./dist/mempool/browser/en-US/mempool.js
+> mempool-frontend@3.3.0 copy-themes
+> node generate-themes.js copy
 
-
-> mempool-frontend@3.2.1 build-mempool-liquid-js
-> browserify -p tinyify ./node_modules/@mempool/mempool.js/lib/index-liquid.js --standalone liquidJS > ./dist/mempool/browser/en-US/liquid.js
-
+Copied 6 theme files to all locale directories
+sending incremental file list
+resources/
+resources/.gitkeep
+resources/apple-pay.png
+resources/bimi.svg
+resources/bitblogo.svg
+resources/bitcoin-btc-logo-full.svg
+resources/bitcoin-logo.png
+resources/cash-app.svg
+resources/config.js
+resources/config.template.js
+resources/cubo.svg
+resources/customize.js
+resources/elsalvador-flag.svg
+resources/elsalvador.svg
+resources/google-pay.png
+[...]
+sent 15,106,356 bytes  received 3,764 bytes  30,220,240.00 bytes/sec
+total size is 15,089,079  speedup is 1.00
+[sync-assets] using ASSETS_PATH /home/mempool/mempool/frontend/dist/mempool/browser/resources
+[sync-assets] mempool-frontend-config.json file found, using provided config
+[sync-assets]   Checking if mining pool logos needs downloading or updating...
+[sync-assets]           .gitignore is missing, downloading...
+[sync-assets]           1thash.svg is missing, downloading...
+[sync-assets]           antpool.svg is missing, downloading...
+[sync-assets]           arkpool.svg is missing, downloading...
+[sync-assets]           binancepool.svg is missing, downloading...
+[sync-assets]           bitcoincom.svg is missing, downloading...
+[sync-assets]           bitfufupool.svg is missing, downloading...
+[sync-assets]           bitfury.svg is missing, downloading...
+[sync-assets]           braiinspool.svg is missing, downloading...
+[sync-assets]           braiinssolo.svg is missing, downloading...
+[...]
+[sync-assets]           whitepool.svg is missing, downloading...
+[sync-assets]           wiz.svg is missing, downloading...
+[sync-assets]           Downloaded 62 and skipped 1 existing mining pool logos
+[sync-assets]   Checking if promo video subtitles needs downloading or updating...
+[sync-assets]           cs.vtt is missing, downloading...
+[...]
+[sync-assets]           sv.vtt is missing, downloading...
+[sync-assets]           zh.vtt is missing, downloading...
+[sync-assets] Downloaded 15 and skipped 0 existing video subtitles
+[sync-assets]   Checking if promo video needs downloading or updating...
+[sync-assets]           mempool-promo.mp4 is missing, downloading...
+[sync-assets] Asset synchronization complete
 ```
 
 </details>
@@ -932,6 +1020,39 @@ exit
 sudo install -d -o root -g www-data -m 750 /var/www/mempool && sudo rsync -av --delete --chown=root:www-data --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= /home/mempool/mempool/frontend/dist/mempool/ /var/www/mempool/
 ```
 {% endcode %}
+
+**Example** of expected output:
+
+```
+sending incremental file list
+./
+browser/
+browser/ar/
+browser/ar/145.402fa264d97bba59.js
+browser/ar/157.2df7772ae29172f4.js
+browser/ar/182.4e706d686573f1fd.js
+browser/ar/186.72c3aaea3ccb7da7.js
+browser/ar/234.af0279b522d98205.js
+browser/ar/250.fe095df6f76279e9.js
+browser/ar/26.8b1eb37670b55331.js
+browser/ar/261.77e664b654fa24cb.js
+browser/ar/302.adf628dedcbb03a0.js
+browser/ar/354.a645b30dd813fade.js
+browser/ar/371.72bde6d9e427ae99.js
+browser/ar/3rdpartylicenses.txt
+browser/ar/43.a270c58959454271.js
+browser/ar/463.7ad9cb9dd13df7b9.js
+browser/ar/559.f762aee258dd47cb.js
+browser/ar/596.69798d4b991d0eb5.js
+browser/ar/61.0162bed7f92ccc54.js
+[...]
+browser/zh/softsimon.3317e60f53003eb7.css
+browser/zh/softsimon.css
+browser/zh/styles.5360fdbcf9ef97cb.css
+
+sent 203,394,210 bytes  received 34,025 bytes  135,618,823.33 bytes/sec
+total size is 203,208,811  speedup is 1.00
+```
 
 ## **Configuration**
 
@@ -956,7 +1077,7 @@ After=mariadb.service bitcoind.service fulcrum.service
 
 [Service]
 WorkingDirectory=/home/mempool/mempool/backend
-ExecStart=/usr/bin/node dist/index.js
+ExecStart=/usr/bin/node --max-old-space-size=2048 dist/index.js
 
 User=mempool
 Group=mempool
@@ -983,7 +1104,7 @@ WantedBy=multi-user.target
 sudo systemctl enable mempool
 ```
 
-* Prepare “mempool” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare “mempool” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
 journalctl -fu mempool
@@ -1004,10 +1125,6 @@ sudo systemctl start mempool
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu mempool</code> ⬇️</summary>
 
 ```
-
-> mempool-backend@3.3.0 start
-> node --max-old-space-size=2048 dist/index.js
-
 Apr 13 12:14:57 [589760] NOTICE: Starting Mempool Server... (e150a00)
 Apr 13 12:14:57 [589760] INFO: Connected to Electrum Server at 127.0.0.1:50001 (["Fulcrum 2.1.0","1.4"])
 Apr 13 12:14:57 [589760] INFO: Database connection established.
@@ -1292,7 +1409,7 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
     "PASSWORD": "admin",
     "DATABASE": "mempool"
   },
-  "LIGHTNING": {
+  "<a data-footnote-ref href="#user-content-fn-5">LIGHTNING</a>": {
     "ENABLED": <a data-footnote-ref href="#user-content-fn-1">true</a>,
     "BACKEND": "lnd",
     "STATS_REFRESH_INTERVAL": 600,
@@ -1301,7 +1418,7 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
     "FORENSICS_INTERVAL": 43200,
     "FORENSICS_RATE_LIMIT": 20
   },
-  "LND": {
+  "<a data-footnote-ref href="#user-content-fn-5">LND</a>": {
     "TLS_CERT_PATH": "/data/lnd/tls.cert",
     "MACAROON_PATH": "/data/lnd/data/chain/bitcoin/mainnet/readonly.macaroon",
     "REST_API_URL": "https://localhost:8080",
@@ -1322,8 +1439,8 @@ sudo nano /etc/systemd/system/mempool.service
 
 * Add the new `lnd.service` dependence in these lines. Save and exit
 
-<pre data-overflow="wrap"><code>Requires=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-5">lnd.service</a>
-After=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-5">lnd.service</a>
+<pre data-overflow="wrap"><code>Requires=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-6">lnd.service</a>
+After=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-6">lnd.service</a>
 </code></pre>
 
 * Reload the systemctl daemon to apply changes
@@ -1401,7 +1518,7 @@ Apr 15 10:16:39 minibolt node[1561962]: Apr 15 10:16:39 [1561962] DEBUG: <lightn
 If you want to have the mempool Lightning explorer and tab-associated enabled and connected to your internal LND node, for the frontend, you need to repeat the complete [Install frontend](mempool.md#install-the-frontend) installation section, keeping in mind to modify the parameter `"LIGHTNING": false,`  to -> true ( `"LIGHTNING": true,`) in `mempool-frontend-config.json` file
 {% endhint %}
 
-### Use Electrs like Electrum server connection
+### Use Electrs like Electrum server
 
 If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) guide, you need to do the next steps
 
@@ -1419,8 +1536,8 @@ sudo nano /etc/systemd/system/mempool.service
 
 * Replace the `fulcrum.service` with the `electrs.service`. Save and exit
 
-<pre><code>Requires=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-6">electrs.service</a> <a data-footnote-ref href="#user-content-fn-7">lnd.service</a>
-After=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-6">electrs.service</a> <a data-footnote-ref href="#user-content-fn-7">lnd.service</a>
+<pre><code>Requires=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-7">electrs.service</a> <a data-footnote-ref href="#user-content-fn-8">lnd.service</a>
+After=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-7">electrs.service</a> <a data-footnote-ref href="#user-content-fn-8">lnd.service</a>
 </code></pre>
 
 * Reload the systemctl daemon to apply changes
@@ -1512,7 +1629,7 @@ Click on the \[Save] button to save the new DNS registry
 * Add the next lines to the `config.yml`
 
 <pre><code># Mempool
-  - hostname: <a data-footnote-ref href="#user-content-fn-8">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-9">&#x3C;domain.com></a>
+  - hostname: <a data-footnote-ref href="#user-content-fn-9">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-10">&#x3C;domain.com></a>
     service: http://localhost:8001
 </code></pre>
 
@@ -1588,7 +1705,7 @@ userdel: mempool mail spool (/var/mail/mempool) not found
 
 ### Delete all Mempool files
 
-* Delete the Nginx web server files
+* Delete the frontend files
 
 ```shellscript
 sudo rm -rf /var/www/mempool
@@ -1674,18 +1791,20 @@ sudo ufw delete X
 
 [^2]: Change to 50021 in case you want to use Electrs
 
-[^3]: Change to -> true if you want to enable the Lightning explorer feature
+[^3]: Change to -> true if you want to enable the Lightning explorer feature (keeping the final comma \[","])
 
 [^4]: Change to 500011 if you use Electrs
 
-[^5]: Add this
+[^5]: Add this section
 
-[^6]: Replace to this
+[^6]: Add this
 
-[^7]: Optional, depending if you connected mempool to your internal LND node
+[^7]: Replace to this
 
-[^8]: Replace with the selected name of your service\
+[^8]: Optional, depending if you connected mempool to your internal LND node
+
+[^9]: Replace with the selected name of your service\
     i.e: `explorer`
 
-[^9]: Replace with your domain\
+[^10]: Replace with your domain\
     i.e: `domain.com`
