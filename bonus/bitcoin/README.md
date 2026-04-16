@@ -65,3 +65,7 @@ layout:
 ### Mining Pools
 
 * [**Public Pool**](../../bonus-guides/bitcoin/public-pool.md) - Fully Open Source Solo Bitcoin Mining Pool
+
+### Mempool explorers
+
+* [**Mempool**](../../bonus-guides/bitcoin/mempool.md) - a self-hosted Bitcoin blockchain and mempool visualizer/explorer

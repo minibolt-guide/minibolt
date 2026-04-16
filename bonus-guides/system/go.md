@@ -35,16 +35,16 @@ Difficulty: Easy
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=1.24.1
+VERSION=1.26.2
 ```
 
 * Set a temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=cb2396bae64183cdccf81a9a6df0aea3bce9511fc21469fb89a0c00470088073
+SHA256=990e6b4bbba816dc3ee129eaeaf4b42f17c2800b88a2166c265ac1a200262282
 ```
 
 * Get the latest binary of the [official repository](https://go.dev/dl/)
@@ -120,16 +120,16 @@ sudo rm -rf /usr/local/go
 cd /tmp
 ```
 
-* Set a temporary version environment variable with the new value, to the installation
+* Set a temporary version environment variable with the new value for the installation
 
 ```bash
-VERSION=1.24.1
+VERSION=1.26.2
 ```
 
 * Set the new temporary SHA256 environment variable to the installation
 
 ```bash
-SHA256=cb2396bae64183cdccf81a9a6df0aea3bce9511fc21469fb89a0c00470088073
+SHA256=990e6b4bbba816dc3ee129eaeaf4b42f17c2800b88a2166c265ac1a200262282
 ```
 
 * Get the latest binary of the [official repository](https://go.dev/dl/)
@@ -198,7 +198,7 @@ sudo nano /etc/profile
 source /etc/profile
 ```
 
-* Ensure you are uninstalled Go definitely
+* Ensure you have uninstalled Go definitely
 
 ```bash
 go version
@@ -210,7 +210,7 @@ Expected output:
 -bash: /usr/local/go/bin/go: No such file or directory
 ```
 
-Next new session you will obtain this command when you try `go version` command:
+In the next new session, you will obtain this command when you try `go version` command:
 
 ```
 Command 'go' not found..

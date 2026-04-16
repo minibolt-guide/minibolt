@@ -30,7 +30,7 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 * [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
 * Others
-  * [PostgreSQL](../bonus-guides/system/postgresql.md)
+  * [PostgreSQL](../bonus-guides/system/postgresql.md) (optional)
 
 ## Preparations
 
@@ -40,7 +40,7 @@ The installation of LND is straightforward, but the application is quite powerfu
 
 Before running LND, we need to configure settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
-* Login as user `admin`, edit the `bitcoin.conf` file
+* Log in as user `admin`, edit the `bitcoin.conf` file
 
 ```sh
 sudo nano /data/bitcoin/bitcoin.conf
@@ -75,7 +75,7 @@ tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-conten
 ### Install PostgreSQL
 
 {% hint style="warning" %}
-You may want to use the bbolt database backend instead of PostgreSQL (easier installation/configuration, lower performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)), if yes, jump to the [next step](lightning-client.md#installation) and follow the [Use the default bbolt database backend](lightning-client.md#use-the-default-bbolt-database-backend) section, and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
+You may want to use the bbolt database backend instead of PostgreSQL (easier installation/configuration, lower performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)). If yes, jump to the [next step](lightning-client.md#installation) and follow the [Use the default bbolt database backend](lightning-client.md#use-the-default-bbolt-database-backend) section, and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
 {% endhint %}
 
 * With user `admin`, check if you already have PostgreSQL installed
@@ -91,7 +91,7 @@ psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide installation progress](../bonus-guides/system/postgresql.md#installation) to install it and then return to continue with the guide
+If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide installation process](../bonus-guides/system/postgresql.md#installation) to install it, and then return to continue with the guide
 {% endhint %}
 
 #### Create PostgreSQL database
@@ -1763,7 +1763,7 @@ chantools version v0.14.1, commit
 
 {% tabs %}
 {% tab title="1. For temporary use option (recommended)" %}
-#### Extract the private key of your LND
+**Extract the private key of your LND**
 
 * Go to the `chantools` folder
 
@@ -1799,7 +1799,7 @@ Input your cipher seed passphrase (press enter if your seed doesn't have a passp
 Your BIP32 HD root key is: xprv...
 ```
 
-#### Extract the private key of your Hardware Wallet
+**Extract the private key of your Hardware Wallet**
 
 {% hint style="danger" %}
 ATTENTION: USE ONLY IN A SECURE AND OFFLINE DEVICE!
@@ -1839,7 +1839,7 @@ Now, if you want to check, you can use the Sparrow wallet to import the BIP32 HD
 {% endtab %}
 
 {% tab title="2. For permanent installation option" %}
-#### Extract the private key of your LND
+**Extract the private key of your LND**
 
 * With user `admin`, enter the next command
 
@@ -1869,7 +1869,7 @@ Input your cipher seed passphrase (press enter if your seed doesn't have a passp
 Your BIP32 HD root key is: xprv...
 ```
 
-#### Extract the private key of your Hardware Wallet
+**Extract the private key of your Hardware Wallet**
 
 * With user `admin`, enter the next command
 
@@ -1946,7 +1946,7 @@ Go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on you
 {% hint style="info" %}
 Check the balance on the **\[Transactions]** and **\[UTXOs]** section if you already have movements in your LND on-chain wallet
 
-<img src="../.gitbook/assets/Captura de pantalla 2026-03-24 202450.png" alt="" data-size="original">![](<../.gitbook/assets/Captura de pantalla 2026-03-24 202435.png>)
+<img src="../.gitbook/assets/Captura de pantalla 2026-03-24 202450.png" alt="" data-size="original"><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 202435.png" alt="" data-size="original">
 {% endhint %}
 
 * **(Optional)** Delete the chantools files from the temporary folder

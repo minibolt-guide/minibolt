@@ -321,7 +321,7 @@ sudo apt update && sudo apt upgrade
 ```
 
 {% hint style="danger" %}
-ATTENTION!!! Do not proceed to the [next Uninstall section](https://app.gitbook.com/o/6IAoTH3Q9pHLR5tE2Wfb/s/PwUXd13GpYIkFW2A1Gwj/system/system/privacy#uninstall) if you **do not wish to uninstall**. Skip directly to the [Extras (optional)](security.md#extras-optional) section
+ATTENTION!!! Do not proceed to the [next Uninstall section](privacy.md#uninstall) if you **do not wish to uninstall**. Skip directly to the [Extras (optional)](security.md#extras-optional) section
 {% endhint %}
 
 ### Uninstall

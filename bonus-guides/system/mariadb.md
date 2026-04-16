@@ -263,7 +263,7 @@ sudo mkdir -p /data/mariadb
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chmod -R 700 /data/mariadb
 </strong></code></pre>
 
-* Move `mariadb` existing data to the newly created directory
+* Move the `mariadb` existing data to the newly created directory
 
 ```bash
 sudo rsync -av /var/lib/mysql/ /data/mariadb/
@@ -378,6 +378,10 @@ sudo systemctl daemon-reload
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall the MariaDB package and configuration
 
 * With user `admin`, stop and disable the MariaDB service
@@ -393,6 +397,10 @@ sudo apt remove mariadb-* --purge
 ```
 
 * Select `<Yes>` and press `enter` when this banner shows you:
+
+{% hint style="info" %}
+When the next banner shows up to you, select `<Yes>` and press `enter`&#x20;
+{% endhint %}
 
 <figure><img src="../../.gitbook/assets/Captura de pantalla 2026-04-13 235152.png" alt=""><figcaption></figcaption></figure>
 

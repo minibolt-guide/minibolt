@@ -19,7 +19,11 @@ layout:
 
 # Bitcoin Knots
 
-[Bitcoin Knots](https://bitcoinknots.org/) is a community-driven fork of Bitcoin Core that offers advanced features, experimental options, and enhanced configurability. It includes additional consensus and networking parameters—such as stronger spam filtering and custom block processing rules—designed for power users and developers seeking deeper control over their Bitcoin node.
+[Bitcoin Knots](https://bitcoinknots.org/) is a community-driven fork of Bitcoin Core that offers advanced features, experimental options, and enhanced configurability. It includes additional consensus and networking parameters—such as stronger spam filtering and custom block processing rules — designed for power users and developers seeking deeper control over their Bitcoin node.
+
+{% hint style="warning" %}
+Difficulty: Medium
+{% endhint %}
 
 <div data-full-width="false"><figure><img src="../../.gitbook/assets/Bitcoin-Knots-Logo.png" alt=""><figcaption></figcaption></figure></div>
 
