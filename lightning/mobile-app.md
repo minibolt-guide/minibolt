@@ -270,7 +270,7 @@ Warning: This section removes the installation. Only run these commands if you i
 
 * Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
 
-```
+```bash
 sudo ufw status numbered
 ```
 
@@ -282,7 +282,7 @@ Expected output:
 
 * Delete the rule with the correct number and confirm with "`yes`"
 
-```
+```bash
 sudo ufw delete X
 ```
 

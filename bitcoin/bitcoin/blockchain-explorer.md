@@ -278,11 +278,14 @@ BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
 
 * An Electrum server or an external service is necessary to get address balances. Your local Electrum server can provide address transaction lists, balances, and more
 
-```
-# Uncomment & replace the value of these lines
+{% hint style="info" %}
+If you used [Electrs](../../bonus/bitcoin/electrs.md) instead of [Fulcrum](electrum-server.md), use `BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50021` instead of `BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001`
+{% endhint %}
+
+<pre><code># Uncomment &#x26; replace the value of these lines
 BTCEXP_ADDRESS_API=electrum
-BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001
-```
+BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:<a data-footnote-ref href="#user-content-fn-2">50001</a>
+</code></pre>
 
 * Uncomment this line
 
@@ -635,7 +638,7 @@ Click on the \[Save] button to save the new DNS registry
 * Add the next lines to the `config.yml`
 
 <pre><code># BTC RPC Explorer
-  - hostname: <a data-footnote-ref href="#user-content-fn-2">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-3">&#x3C;domain.com></a>
+  - hostname: <a data-footnote-ref href="#user-content-fn-3">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-4">&#x3C;domain.com></a>
     service: http://localhost:3002
 </code></pre>
 
@@ -683,8 +686,8 @@ sudo nano /etc/systemd/system/btcrpcexplorer.service
 
 * Replace the `fulcrum.service` with the `electrs.service` in these lines. Save and exit
 
-<pre class="language-sh"><code class="lang-sh">Requires=bitcoind.service <a data-footnote-ref href="#user-content-fn-4">electrs.service</a>
-After=bitcoind.service <a data-footnote-ref href="#user-content-fn-4">electrs.service</a>
+<pre class="language-sh"><code class="lang-sh">Requires=bitcoind.service <a data-footnote-ref href="#user-content-fn-5">electrs.service</a>
+After=bitcoind.service <a data-footnote-ref href="#user-content-fn-5">electrs.service</a>
 </code></pre>
 
 * Reload the systemctl daemon to apply changes
@@ -883,14 +886,16 @@ sudo ufw delete X
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="Y6T21FHnnCsO" label="TCP" color="blue"></option><option value="mjMppURefbOV" label="SSL" color="blue"></option><option value="sthlT2JmYCAj" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3002</td><td><span data-option="Y6T21FHnnCsO">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4000</td><td><span data-option="mjMppURefbOV">SSL</span></td><td align="center">HTTPS port (encrypted)</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="Y6T21FHnnCsO" label="TCP" color="blue"></option><option value="mjMppURefbOV" label="SSL" color="blue"></option><option value="sthlT2JmYCAj" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3002</td><td><span data-option="Y6T21FHnnCsO">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4000</td><td><span data-option="mjMppURefbOV">SSL</span></td><td align="center">HTTPS port</td></tr></tbody></table>
 
 [^1]: Check this
 
-[^2]: Replace with the selected name of your service\
+[^2]: If you want to use Electrs instead of Fulcrum, use 50021&#x20;
+
+[^3]: Replace with the selected name of your service\
     i.e: `explorer`
 
-[^3]: Replace with your domain\
+[^4]: Replace with your domain\
     i.e: `domain.com`
 
-[^4]: Replace with this
+[^5]: Replace with this

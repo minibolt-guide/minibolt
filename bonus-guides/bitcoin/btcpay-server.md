@@ -1588,7 +1588,7 @@ sudo -u postgres psql -c "DROP DATABASE nbxplorer;" && sudo -u postgres psql -c 
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="rkiNy94w5TMP" label="TCP" color="blue"></option><option value="kp1yVZsvp7BD" label="SSL" color="blue"></option><option value="1NWHw2jvEWNw" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">24444</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">NBXplorer default port</td></tr><tr><td align="center">23000</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">BTCPay Server default port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="rkiNy94w5TMP" label="TCP" color="blue"></option><option value="kp1yVZsvp7BD" label="SSL" color="blue"></option><option value="1NWHw2jvEWNw" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">24444</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">NBXplorer default port</td></tr><tr><td align="center">23000</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">BTCPay Server HTTP default port</td></tr></tbody></table>
 
 [^1]: (Optional)
 

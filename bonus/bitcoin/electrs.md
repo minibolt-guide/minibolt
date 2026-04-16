@@ -845,7 +845,7 @@ sudo ufw delete X
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="109">Protocol<select><option value="PM9OdZyqffcj" label="TCP" color="blue"></option><option value="fow02dq4Lt4x" label="SSL" color="blue"></option><option value="HHci4T1IS7Pb" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50021</td><td><span data-option="PM9OdZyqffcj">TCP</span></td><td align="center">Default port</td></tr><tr><td align="center">50022</td><td><span data-option="fow02dq4Lt4x">SSL</span></td><td align="center">Encrypted port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="109">Protocol<select><option value="PM9OdZyqffcj" label="TCP" color="blue"></option><option value="fow02dq4Lt4x" label="SSL" color="blue"></option><option value="HHci4T1IS7Pb" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50021</td><td><span data-option="PM9OdZyqffcj">TCP</span></td><td align="center">TCP port</td></tr><tr><td align="center">50022</td><td><span data-option="fow02dq4Lt4x">SSL</span></td><td align="center">SSL port</td></tr></tbody></table>
 
 [^1]: Check this
 
