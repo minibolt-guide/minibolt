@@ -142,7 +142,7 @@ sudo tail -f /var/log/auth.log
 sudo tail --lines 500 /var/log/auth.log | grep sshd
 ```
 
-* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to do whatever you want
+* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt for the last 7 days. Change `-7days` option to do whatever you want
 
 ```sh
 last -s -7days -t today
@@ -404,7 +404,7 @@ sudo rm -rf /etc/nginx && sudo rm -f /etc/ssl/certs/nginx-selfsigned.crt && sudo
 {% hint style="info" %}
 For privacy and security reasons, you could want to enable [Option 1: DoT (DNS over TLS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) or [Option 2: DoH (DNS over HTTPS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns) to encrypt DNS requests from your MiniBolt to the selected DNS servers, and validate the authenticity and ensure the integrity of DNS responses by enabling [DNSSEC](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved).
 
-**Note:** you can only **enable DNSSEC** validation if you follow [Option 1](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (**recommended**)
+**Note:** You can only **enable DNSSEC** validation if you follow [Option 1](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (**recommended**)
 {% endhint %}
 
 [^1]: Check this

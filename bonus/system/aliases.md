@@ -30,7 +30,7 @@ Aliases are shortcuts for commands that can save time and make it easier to exec
 Difficulty: Easy
 {% endhint %}
 
-![](../../.gitbook/assets/aliases-demo.png)
+<figure><img src="../../.gitbook/assets/aliases_minibolt_demo.png" alt=""><figcaption></figcaption></figure>
 
 ## Introduction
 
@@ -87,7 +87,7 @@ showmainversion
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 The installed versions of the services are as follows:
