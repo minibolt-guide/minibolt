@@ -615,7 +615,7 @@ You may want to expose your BTC RPC Explorer publicly using a clearnet address. 
 * When you finish the [Create a tunnel and give it a name](../../bonus-guides/networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section, you can skip the [Start routing traffic](../../bonus-guides/networking/cloudflare-tunnel.md#id-5-start-routing-traffic) section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
 * Click on the **\[+ Add record]** button
 
-<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_cloudflare.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 > Select the **CNAME** type
