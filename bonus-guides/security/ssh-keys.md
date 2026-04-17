@@ -272,7 +272,7 @@ You can follow the guide where you left it by clicking [HERE](../../index-1/conf
 **Attention:** This could be a security risk; disabling the `admin` password could allow a hypothetical attacker to gain complete control of the node in case of intrusion. If you do it, act at your own risk
 {% endhint %}
 
-* Ensure you are logged in with user `admin`, edit the next file
+* Ensure you are logged in as the user `admin`, edit the next file
 
 ```sh
 sudo visudo

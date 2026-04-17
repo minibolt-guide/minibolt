@@ -49,7 +49,7 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 Mainnet + testnet simultaneous mode
 {% endhint %}
 
-* Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md), when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
+* Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md) when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
 
 ```bash
 nano /home/bitcoin/.bitcoin/bitcoin-testnet4.conf
@@ -240,7 +240,7 @@ After=bitcoind-testnet4.service
 sudo nano +63 -l /etc/tor/torrc
 ```
 
-* Replace ports to 40001/40002 to match with testnet mode
+* Replace ports to `40001/40002` to match the testnet mode
 
 ```
 ############### This section is just for location-hidden services ###
@@ -361,7 +361,7 @@ sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet4/admin.macaroon
 ```
 
 {% hint style="info" %}
-It has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the ["Aliases bonus guide"](../system/aliases.md) to install it
+It has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the [Aliases bonus guide](../system/aliases.md) to install it
 {% endhint %}
 
 {% hint style="success" %}
@@ -380,7 +380,7 @@ Only testnet mode
 sudo nano /usr/local/bin/scb-backup --linenumbers
 ```
 
-* Replace the `line 18` in the script to match with the testnet path
+* Replace the `line 18` in the script to match the testnet path
 
 ```
 SCB_SOURCE_FILE="/data/lnd/data/chain/bitcoin/testnet4/channel.backup"
@@ -429,7 +429,7 @@ Mainnet + testnet simultaneous mode
 
 * Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/mobile-app.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match the next
 
-For **example**, to generate a QR code for a Wireguard VPN connection, enter this command:
+For **example**, to generate a QR code for a WireGuard VPN connection, enter this command:
 
 {% code overflow="wrap" %}
 ```sh
@@ -557,6 +557,6 @@ The rest of the **Electrs guide** is the same as the mainnet mode
 
 ## Port reference
 
-Here we are going to describe only what ports differ from the mainnet mode:
+Here, we are going to describe only what ports differ from the mainnet mode:
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="r72xqe5kee4m" label="TCP" color="blue"></option><option value="27pYzFjkBNZz" label="SSL" color="blue"></option><option value="CQbhYp3TNADL" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">48333</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 port</td></tr><tr><td align="center">48334</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 secondary port</td></tr><tr><td align="center">48332</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">RPC Testnet4 port</td></tr><tr><td align="center">40001</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Fulcrum Testnet4 port</td></tr><tr><td align="center">40002</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Fulcrum server Testnet4 encrypted port</td></tr><tr><td align="center">40021</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Electrs Testnet4 port</td></tr><tr><td align="center">40022</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Electrs server Testnet4 encrypted port</td></tr></tbody></table>

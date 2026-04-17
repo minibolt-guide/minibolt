@@ -31,9 +31,9 @@ Bitcoin Core will download the full Bitcoin blockchain, and validate all transac
 
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
+💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) and come back to continue with the [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
 
-💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-ordisrespector-patch) and come back to continue with the ["Create the bitcoin user"](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
+💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-ordisrespector-patch) and come back to continue with the [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
 
 ### Download binaries
 
@@ -67,7 +67,7 @@ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 
 ### Signature check
 
-Bitcoin releases are signed by several individuals, each using its own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+Bitcoin releases are signed by several individuals, each using their own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
@@ -224,7 +224,7 @@ sudo adduser --gecos "" --disabled-password bitcoin
 sudo adduser admin bitcoin
 ```
 
-* Allow the user `bitcoin` to use the control port and configure Tor directly by adding it to the "`debian-tor`" group
+* Allow the user `bitcoin` to use the control port and configure Tor directly by adding it to the `debian-tor` group
 
 ```bash
 sudo adduser bitcoin debian-tor
@@ -312,7 +312,7 @@ All commands entered are stored in the bash history. But we don't want the passw
 
 Now, the configuration file `bitcoind` needs to be created. We'll also set the proper access permissions.
 
-* Still, as the user `"bitcoin"`, creates the `bitcoin.conf` file
+* Still as the user `"bitcoin"` creates the `bitcoin.conf` file
 
 ```bash
 nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -952,9 +952,9 @@ If you already have another fully-synced MiniBolt node on your local network, co
 
 {% hint style="info" %}
 To get this, you will need a **full-sync** MiniBolt node on the same local network
-{% endhint %}
 
 You will need a **full-sync local MiniBolt node**
+{% endhint %}
 
 **On the full-sync local MiniBolt node:**
 
@@ -989,7 +989,7 @@ Or **add** under `bind=127.0.0.1`, the next line allows **connections only from 
 </code></pre>
 
 {% hint style="info" %}
-Remember to replace `192.168.x.x` with your MiniBolt local IP, i.e `192.168.1.43`
+Remember to replace `192.168.x.x` with your MiniBolt local IP, e.g `192.168.1.43`
 {% endhint %}
 
 * Restart Bitcoin Core to apply changes
@@ -1046,7 +1046,7 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 ### Improve the reliability
 
-Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client with both onion and i2p addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
+Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client with both onion and I2P addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
 
 {% hint style="info" %}
 To get this, you will need a **full-sync** node peer like the official MiniBolt project node (later, it is suggested)
@@ -1223,7 +1223,7 @@ Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bi
 Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
 ```
 
--> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones, and continue to the next step
+-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next step
 {% endhint %}
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries

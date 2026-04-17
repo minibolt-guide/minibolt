@@ -311,13 +311,6 @@ sudo usermod -a -G bitcoin,debian-tor lnd
 sudo adduser admin lnd
 ```
 
-Expected output:
-
-```
-Adding user `admin' to group `lnd' ...
-Done.
-```
-
 ### Create data folder
 
 * Create the LND data folder
@@ -579,7 +572,7 @@ journalctl -fu lnd
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
@@ -801,7 +794,7 @@ Expected output:
 Input your cipher seed passphrase (press enter if your seed doesn't have a passphrase):
 ```
 
-* If you used a passphrase, enter it, if not, press enter again directly
+* If you used a passphrase, enter it; if not, press Enter again directly
 
 {% hint style="info" %}
 If you entered the passphrase incorrectly, don't worry, LND shows you the following log and will not run: `[lncli] rpc error: code = Unknown desc = invalid passphrase`. Recheck, and try again. If not, the prompt shows you the following
@@ -1633,15 +1626,15 @@ Keep the terminal open and go to [Sparrow wallet](../bitcoin/bitcoin/desktop-sig
 >
 > > `<fee>`: free selection (minimun reccomended: 1 sat/vB)
 
-<figure><img src="../.gitbook/assets/sparrow_1.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_external_funding_1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 > * Push on **\[Create Transaction]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 200939.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_external_funding_2.png" alt=""><figcaption></figcaption></figure>
 
 > * Go to File > Save PSBT > To clipboard > Push on **\[As Base64]**
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 20103922.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_external_funding_3.png" alt=""><figcaption></figcaption></figure>
 
 **lncli**
 
@@ -1677,7 +1670,7 @@ Keep the terminal open and go back to [Sparrow wallet](../bitcoin/bitcoin/deskto
 
 > - Push the **\[Finalize transaction for signing]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201qqqw039.png" alt="" width="533"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_external_funding_4.png" alt="" width="533"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
@@ -1685,7 +1678,7 @@ DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
 
 > * Follow the sign process, push the **\[Sign]** button (depending on your case follow the proper signing process of your Hardware Wallet)
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201308.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_external_funding_5.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
@@ -1693,11 +1686,11 @@ DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
 
 > * Push on the **\[View Final Transaction]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201335.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_external_funding_6.png" alt=""><figcaption></figcaption></figure>
 
 > * Go to the Code Down hex encoded raw wire TX and Select All code (double click) > (Right click) > Push on (Copy All) banner
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-04 201451.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_external_funding_7.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
@@ -1913,40 +1906,40 @@ Go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on you
 
 * Go to File > **New wallet**
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 200439.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_1.png" alt=""><figcaption></figcaption></figure>
 
 * Type your desired name
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 200506.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_2.png" alt=""><figcaption></figcaption></figure>
 
 * If you created your LND node recently, select the Script Type > \[**Taproot (P2TR)**]. If you created your LND node a long time ago, select the Script Type > \[**Native Segwit(P2WPKH)**]
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201839.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_3.png" alt=""><figcaption></figcaption></figure>
 
 * Push on the **\[New or Imported Software Wallet]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 200649.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_4.png" alt="" width="563"><figcaption></figcaption></figure>
 
 * Push on the **\[Enter Private Key]** in the **Master Private Key (BIP32)**
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201158.png" alt="" width="494"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_5.png" alt="" width="494"><figcaption></figcaption></figure>
 
 * Type the Master Private Key previously extracted from your LND and push the **\[Import]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201324.png" alt="" width="493"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_6.png" alt="" width="493"><figcaption></figcaption></figure>
 
 * Push on the **\[Import Keystore]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201531.png" alt="" width="488"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_7.png" alt="" width="488"><figcaption></figcaption></figure>
 
 * Finally, push on the **\[Apply]** button
 
-<figure><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 201710.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_8.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Check the balance on the **\[Transactions]** and **\[UTXOs]** section if you already have movements in your LND on-chain wallet
 
-<img src="../.gitbook/assets/Captura de pantalla 2026-03-24 202450.png" alt="" data-size="original"><img src="../.gitbook/assets/Captura de pantalla 2026-03-24 202435.png" alt="" data-size="original">
+<img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_9.png" alt="" data-size="original"><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_10.png" alt="" data-size="original">
 {% endhint %}
 
 * **(Optional)** Delete the chantools files from the temporary folder

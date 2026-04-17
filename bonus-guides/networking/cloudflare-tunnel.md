@@ -309,7 +309,7 @@ ingress:
 To take into account:
 
 > 1. Electrum server are not supported using Cloudflared
-> 2. For security reasons, you shouldn't expose publically the administration access services using Cloudflared e.g SSH or Thunderhub, for these cases you should use [Wireguard VPN](wireguard-vpn.md)
+> 2. For security reasons, you shouldn't expose publically the administration access services using Cloudflared e.g SSH or ThunderHub, for these cases you should use [WireGuard VPN](wireguard-vpn.md)
 > 3. If you want to expose only a service, you can delete or comment the associated lines of other services, always maintaining the "`- service: http_status:404`" line at the end of the file. Example, expose only BTCPay Server, the comment the associated lines for BTC RPC Explorer:
 >
 > ```
@@ -337,7 +337,7 @@ Suppose you wanted to expose 2 services or more. In that case, that is to say, y
 
 ### Increase the maximum UDP Buffer Sizes
 
-Experiments have shown that QUIC transfers on high-bandwidth connections can be limited by the size of the UDP receive and send buffer.
+Experiments have shown that QUIC transfers on high-bandwidth connections can be limited by the size of the UDP receive and send buffers.
 
 * With user `admin`, create a file to add these parameters and increase the maximum buffer size
 
@@ -361,7 +361,7 @@ sudo sysctl --system
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 * Applying /etc/sysctl.d/10-console-messages.conf ...

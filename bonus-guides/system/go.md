@@ -100,7 +100,7 @@ go version
 go version go1.21.10 linux/amd64
 ```
 
-* **(Optional)** Delete the file of the temporary folder to be immediately ready for the next update
+* **(Optional)** Delete the file from the temporary folder to be immediately ready for the next update
 
 ```bash
 rm go$VERSION.linux-amd64.tar.gz
@@ -158,7 +158,7 @@ sudo tar -C /usr/local -xzvf go$VERSION.linux-amd64.tar.gz
 
 * Verify that you've updated Go by typing the following command
 
-```
+```bash
 go version
 ```
 

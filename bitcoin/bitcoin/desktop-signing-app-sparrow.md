@@ -42,7 +42,7 @@ You can also use the following alternatives instead of Sparrow Wallet, according
 * [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin Core)
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5): wallet for users of Trezor hardware wallets
 
-We will connect the Sparrow wallet to our own Electrum server as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
+We will connect the Sparrow wallet to our own Electrum server, as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
 
 ![](../../.gitbook/assets/sparrow-stages.png)
 
@@ -67,7 +67,7 @@ We now configure Sparrow to connect to your node within your local network.
 ### Launch Sparrow
 
 * Launch Sparrow
-* Read carefully the introductory messages and click on "Next" several times
+* Read the introductory messages carefully and click on "Next" several times
 * When you reach the "Connecting to a Private Electrum Server" message, click on "Configure Server"
 
 ### Connect to Fulcrum
@@ -174,7 +174,7 @@ By OS:
 
 * **Windows**: download, install, and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
-  * By default, when you have Tor Browser running, the Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run a background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation, and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
+  * By default, when you have Tor Browser running, the Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run a background service on port `9050`, executing `"tor.exe"` file in the installation path route you chose during Tor Browser installation, and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 * **Linux**: only needs to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default port `9050`
 
 ```sh
@@ -188,7 +188,7 @@ Expected output:
 
 * **macOS**: download, verify, install, and run [Tor Browser](https://www.torproject.org/)
   * The application must be started manually when you want to connect over Tor
-  * By default, when you have Tor Browser running, the Tor proxy is available on port 9150, use this port instead of `9050` port
+  * By default, when you have Tor Browser running, the Tor proxy is available on port 9150; use this port instead of `9050` port
 
 ### Server configuration
 
@@ -207,7 +207,7 @@ Connected to Fulcrum x.x.x on protocol version ...
 ![](../../.gitbook/assets/sparrow-tor-proxy.png)
 
 {% hint style="info" %}
-If you followed the [**Use the Tor proxy from another device**](../../index-1/privacy.md#use-the-tor-proxy-from-another-device) section, you can use the Tor instance of your node instead of the instance of your regular computer, simply put on the "Proxy URL" box, your node IP local address (i.e 192.168.1.60) instead of localhost (127.0.0.1)
+If you followed the [**Use the Tor proxy from another device**](../../index-1/privacy.md#use-the-tor-proxy-from-another-device) section, you can use the Tor instance of your node instead of the instance of your regular computer. Simply put in the "Proxy URL" box, your node IP local address (e.g. 192.168.1.60) instead of localhost (127.0.0.1)
 {% endhint %}
 
 Now, let's go back to the wallet and check that the proxy is working properly.
@@ -221,7 +221,7 @@ You're set! Sparrow Wallet is now configured to use the Tor proxy when fetching 
 {% endhint %}
 
 {% hint style="danger" %}
-**Troubleshooting note:** For those who already had Sparrow installed on their systems with old server connections, it is needed to clear the pre-existing cert from the certs folder. Follow these instructions:
+**Troubleshooting note:** For those who already have Sparrow installed on their systems with old server connections, it is necessary to clear the pre-existing cert from the certs folder. Follow these instructions:
 {% endhint %}
 
 1. Shut down Sparrow if it's running

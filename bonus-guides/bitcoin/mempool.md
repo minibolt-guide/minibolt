@@ -19,7 +19,7 @@ layout:
 
 # Mempool
 
-[Mempool](https://mempool.space/) is the fully-featured mempool visualizer, explorer, and API service.
+[Mempool](https://github.com/mempool/mempool) is the fully-featured mempool visualizer, explorer, and API service.
 
 {% hint style="warning" %}
 Difficulty: Medium

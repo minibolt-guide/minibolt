@@ -180,7 +180,7 @@ abcdefg..............xyz.onion
 
 lndconnect generates a URI and displays it as a QR code that Zeus can read.
 
-* Still with the `admin` user, and use the following command depending on if you want If you want to use the:
+* Still with the `admin` user, and use the following command depending on whether you want to use the:
 
 {% tabs %}
 {% tab title="Tor connection" %}
@@ -208,7 +208,7 @@ lndconnect --host=192.168.X.XXX --port=8080
 {% endtab %}
 {% endtabs %}
 
-* It will be a big QR code, so maximize your terminal window and use `CTRL+- / "Terminal unzoom" / "Zoom out"` options of your terminal, to shrink the code further to fit the screen or if you prefer you can use `-j` parameter to get a code you can copy and paste into the app
+* It will be a big QR code, so maximize your terminal window and use `CTRL+- / "Terminal unzoom" / "Zoom out"` options of your terminal, to shrink the code further to fit the screen, or if you prefer, you can use `-j` parameter to get a code you can copy and paste into the app
 
 {% hint style="warning" %}
 Keep the SSH session with the QR code open, it will be necessary later to scan the obtained QR code
@@ -216,7 +216,7 @@ Keep the SSH session with the QR code open, it will be necessary later to scan t
 
 ## Install the Zeus app
 
-On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus) or the GitHub repository if you can’t or do not want to use Google Play. Tap it, download it, and install it. If it's the first time you install an APK on your phone you will be asked to authorize the app to install unknown apps, follow the on-screen instructions to do so.
+On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus) or the GitHub repository if you can’t or do not want to use Google Play. Tap it, download it, and install it. If it's the first time you install an APK on your phone, you will be asked to authorize the app to install unknown apps, follow the on-screen instructions to do so.
 
 <figure><img src="../.gitbook/assets/zeus.png" alt=""><figcaption></figcaption></figure>
 
@@ -227,14 +227,14 @@ On Android, you can get Zeus from [Google Play](https://play.google.com/store/ap
 * Enter a Nickname for your node (e.g. "MiniBolt LN")
 
 {% hint style="info" %}
-If you will use the Tor connection hit on the switch **"Use Tor"**
+If you will use the Tor connection, hit the switch **"Use Tor"**
 {% endhint %}
 
 * Click on **"SAVE NODE CONFIG"**
 * A "Warning" banner will appear, push on **"I understand, save node config"**
 
 {% hint style="success" %}
-Zeus is now connecting to your node, and it might take a while the first time depending on the selected connection ⏰
+Zeus is now connecting to your node, and it might take a while the first time, depending on the selected connection ⏰
 {% endhint %}
 
 {% hint style="info" %}
@@ -243,7 +243,7 @@ Once you verify that the connection has been made correctly with your Lightning 
 
 ### Security
 
-Anyone using Zeus on your phone controls your node and all its funds. Setting up a password or biometrics identification for the app is strongly recommended.
+Anyone using Zeus on your phone controls your node and all its funds. Setting up a password or biometric identification for the app is strongly recommended.
 
 * In the app, tap on the Zeus icon in the top-left corner
 * Click on `Security` and `Set/Change Password` to enter a Password/PIN or enable the Biometrics feature
@@ -254,7 +254,7 @@ Anyone using Zeus on your phone controls your node and all its funds. Setting up
 To preserve your privacy, you can choose your private blockchain explorer when making inquiries about on-chain transactions.
 
 * In the app, tap on the Zeus icon in the top-left corner
-* Click on `Privacy` and change `Default Block explorer`, by selecting `Custom`, on the `Custom block explorer` box, enter your preferred Block Explorer URL, `.onion`, the local IP address of BTC RPC explorer: `https://192.168.X.XXX:4000`, or Wireguard VPN IP address: `https://10.0.0.1:4000`, depending on the situation
+* Click on `Privacy` and change `Default Block explorer`, by selecting `Custom`, on the `Custom block explorer` box, enter your preferred Block Explorer URL, `.onion`, the local IP address of the BTC RPC explorer: `https://192.168.X.XXX:4000`, or Wireguard VPN IP address: `https://10.0.0.1:4000`, depending on the situation
 
 ## Upgrade
 
@@ -268,7 +268,7 @@ Warning: This section removes the installation. Only run these commands if you i
 
 ### Uninstall the Firewall configuration
 
-* Ensure you are logged in with the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
+* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for LND REST (e.g. "Y" below)
 
 ```bash
 sudo ufw status numbered
@@ -288,7 +288,7 @@ sudo ufw delete X
 
 ### Uninstall Tor hidden service
 
-You must uninstall the app on your phone and delete the LND REST API on Tor hidden service.
+You must uninstall the app on your phone and delete the LND REST API on the Tor hidden service.
 
 * Uninstall the app on your phone
 * To deactivate the LND REST API Tor hidden service, comment out the hidden service lines in `torrc` and reload Tor

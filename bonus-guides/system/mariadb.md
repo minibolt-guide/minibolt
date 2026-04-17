@@ -25,7 +25,7 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/mariadb.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/mariadb_cover.jpg" alt=""><figcaption></figcaption></figure>
 
 ## Installation
 
@@ -402,7 +402,7 @@ sudo apt remove mariadb-* --purge
 When the next banner shows up to you, select `<Yes>` and press `enter`&#x20;
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/Captura de pantalla 2026-04-13 235152.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/delete_mariadb_directory.png" alt=""><figcaption></figcaption></figure>
 
 * Uninstall possible unnecessary dependencies
 

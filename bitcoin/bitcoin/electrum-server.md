@@ -49,7 +49,7 @@ Make sure that you have followed the [Activate mempool & reduce 'dbcache' after 
 
 ### Install dependencies
 
-* With user `admin`, update and upgrade your OS
+* With user `admin`, update and upgrade your OS.  Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
@@ -192,8 +192,9 @@ grep 'x86_64-linux.tar.gz' Fulcrum-$VERSION-shasums.txt | sha256sum --check
 
 **Example** of expected output:
 
-<pre><code><a data-footnote-ref href="#user-content-fn-2">Fulcrum-1.9.4-x86_64-linux.tar.gz: OK</a>
-</code></pre>
+```
+Fulcrum-1.9.4-x86_64-linux.tar.gz: OK
+```
 
 * Extract
 
@@ -367,19 +368,19 @@ peering = false
 zmq_allow_hashtx = true
 
 # Anonymize client IP addresses and TxIDs in logs (optional)
-<a data-footnote-ref href="#user-content-fn-3">anon_logs</a> = true
+<a data-footnote-ref href="#user-content-fn-2">anon_logs</a> = true
 
 # Max RocksDB Memory in MiB - DEFAULT: 2048.0
 # (this applies in initial synchronization and daily operation)
 # recommended: db_mem=1/2 x RAM available, e.g, 4GB RAM -> db_mem = 2048.0
-db_mem = <a data-footnote-ref href="#user-content-fn-4">2048.0</a>
+db_mem = <a data-footnote-ref href="#user-content-fn-3">2048.0</a>
 
 # Banner
 banner = /data/fulcrum/fulcrum-banner.txt
 </code></pre>
 
 {% hint style="info" %}
-Remember, if you have a slow-performance device, follow the [slow device section](electrum-server.md#slow-devices-mode) to improve the experience of the first indexation
+Remember, if you have a slow-performance device, follow the [Slow devices mode section](electrum-server.md#slow-devices-mode) to improve the experience of the first indexation
 {% endhint %}
 
 * Exit the `fulcrum` user session to return to the "admin" user session
@@ -557,7 +558,7 @@ tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",
 ```
 
 {% hint style="success" %}
-Congrats! Now you have a high-performance and self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](blockchain-explorer.md) or connect your [Desktop signing app: Sparrow Wallet](desktop-signing-app-sparrow.md) or [Electrum Wallet ](../../bonus/bitcoin/electrum-wallet-desktop.md)[Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md)
+Congrats! Now you have a high-performance and self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](blockchain-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](desktop-signing-app-sparrow.md) or [Electrum Wallet ](../../bonus/bitcoin/electrum-wallet-desktop.md)[Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md)
 {% endhint %}
 
 ## Extras (optional)
@@ -699,7 +700,7 @@ Follow the complete [Installation section](electrum-server.md#installation) unti
 sudo systemctl restart fulcrum
 ```
 
-* Check logs and pay attention to the next log if that refers to the new version installed
+* Check logs and pay attention to the next log if it refers to the new version installed
 
 ```sh
 journalctl -fu fulcrum
@@ -846,8 +847,6 @@ Filename            Type                Size           Used    Priority
 
 [^1]: Check this
 
-[^2]: That's it!
+[^2]: To ensure greater privacy for third parties who connect (if you share Fulcrum publicly)
 
-[^3]: To ensure greater privacy for third parties who connect (if you share Fulcrum publicly)
-
-[^4]: Accommodate this
+[^3]: Accommodate this

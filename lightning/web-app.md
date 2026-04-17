@@ -179,14 +179,13 @@ git verify-commit v$VERSION
 
 **Example** of expected output:
 
-```
-gpg: Signature made Fri May 26 16:56:42 2023 CEST
+<pre><code>gpg: Signature made Fri May 26 16:56:42 2023 CEST
 gpg:                using RSA key 3C8A01A8344B66E7875CE5534403F1DFBE779457
-gpg: Good signature from "Anthony Potdevin <potdevin.anthony@gmail.com>" [unknown]
+gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Anthony Potdevin &#x3C;potdevin.anthony@gmail.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
-```
+</code></pre>
 
 * Install all dependencies and the necessary modules using NPM
 
@@ -354,7 +353,7 @@ nano thubConfig.yaml
 
 * Copy and paste the following information
 
-<pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-1">[E] ThunderHub password</a>'
+<pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-2">[E] ThunderHub password</a>'
 accounts:
   - name: 'RaMiX'
     serverUrl: '127.0.0.1:10009'
@@ -666,7 +665,7 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 
 1. In ThunderHub, from the left sidebar, click on 🌍**Amboss.**
 2. In the **Backups section**, push the **Push** button to test and push the first backup to Amboss. If all is good, you could enable automatic backups to Amboss by pushing on **Enable** just above; now the backup file encrypted will be updated automatically on Amboss for every channel opening and closing.
-3. Go to the Amboss website, [backups section](https://amboss.space/settings?page=backups).
+3. Go to the Amboss website -> [backups section](https://amboss.space/settings?page=backups).
 4. Ensure that the last date of the backup is the same as before.
 
 <figure><img src="../.gitbook/assets/pushed-backup-amboss.png" alt="" width="563"><figcaption></figcaption></figure>
@@ -890,7 +889,7 @@ sudo systemctl start thunderhub
 ```
 
 {% hint style="warning" %}
-If the update fails, you probably will have to stop ThunderHub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation)
+If the update fails, you probably will have to stop ThunderHub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete the `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation)
 {% endhint %}
 
 ## Uninstall
@@ -1004,4 +1003,6 @@ sudo ufw delete X
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4002</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port</td></tr></tbody></table>
 
-[^1]: Replace
+[^1]: Check this
+
+[^2]: Replace

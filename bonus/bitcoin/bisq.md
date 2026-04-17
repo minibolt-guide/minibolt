@@ -234,14 +234,14 @@ Warning: This section removes the installation. Only run these commands if you i
 
 ### Uninstall FW configuration
 
-* Delete the firewall rules with the comment 'allow BTC Core from anywhere' identifying the number of the rule
+* Delete the firewall rules with the comment 'allow Bitcoin Core from anywhere', identifying the number of the rule
 
 ```sh
 sudo ufw status numbered
 ```
 
 ```sh
-[X] 8333                   ALLOW IN    Anywhere   # allow BTC Core from anywhere
+[X] 8333                   ALLOW IN    Anywhere   # allow Bitcoin Core from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "yes"

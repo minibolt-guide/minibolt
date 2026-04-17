@@ -160,7 +160,7 @@ Deleted domain myfreedns.freemyip.com.
 
 Now we'll write a Bash script for RaMiX that will periodically poll its IP and send it to the DDNS service. We'll need the **`"<YOUR_SECRET_TOKEN>"`** and **`"<yourdomain>"`** from the previous [freemyip.com setup](wireguard-vpn.md#freemyip.com-setup) step.
 
-* As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to RaMiX
+* As `admin` user, [log in](../../index-1/remote-access.md#access-with-secure-shell) to MiniBolt
 * Create the next folder to locate the script
 
 ```bash
@@ -470,7 +470,7 @@ Now return to the MiniBolt node to allow access to the newly created WireGuard V
 sudo nano /etc/wireguard/wg0.conf
 ```
 
--> Now we are going to complete the previous parameter **`<Your_Client_Public_Key>`** that we created and left pending in the **"**[**Generate client key pair**](wireguard-vpn.md#generate-client-key-pair)**"** section
+-> Now we are going to complete the previous parameter **`<Your_Client_Public_Key>`** that we created and left pending in the [**Generate client key pair**](wireguard-vpn.md#generate-client-key-pair) section
 
 * Replace the existing **`<Your_Client_Public_Key>`** parameter with yours
 
@@ -753,7 +753,7 @@ AllowedIPs = 10.0.0.4/32
 At this point, we have defined a Virtual Private Network in the `10.0.0.1/24` network range, where MiniBolt is at `10.0.0.1` and your client is at `10.0.0.2`. You could use any other [private IP range](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses).
 
 * Another additional server would define it, for example, as `10.0.1.1/24` where `10.0.1.1` would be the additional server, and `10.0.1.2`, `10.0.1.3`, `10.0.1.4` ..., for the clients in this case
-* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g., **51821**, and point your Wireguard VPN Client to the **51821** port in the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-5)[^5]
+* If you want to set additional servers on the same LAN, you also have to define a different external port on [port forwarding](wireguard-vpn.md#port-forwarding) of the router, e.g., **51821**, and point your WireGuard VPN Client to the **51821** port in the endpoint configuration: **`Endpoint = <yourdomain>:`**[**`51821`**](#user-content-fn-5)[^5]
 
 ### Use your router’s DDNS preconfigured provider
 

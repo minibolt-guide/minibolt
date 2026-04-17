@@ -206,11 +206,11 @@ lsblk -o NAME,MOUNTPOINT,UUID,FSTYPE,SIZE,LABEL,MODEL
 * Copy the `UUID` of your backup device into a text editor on your local computer (e.g. here `123456`)
 
 ```
-> NAME   MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL      MODEL
-> sda                                                           931.5G            SSD_PLUS_1000GB
-> |-sda1 /boot      DBF3-0E3A                            vfat     256M boot
-> `-sda2 /          b73b1dc9-6e12-4e68-9d06-1a1892663226 ext4   931.3G rootfs
-> sdb               123456                               vfat     1.9G SCB backup UDisk
+NAME   MOUNTPOINT UUID                                 FSTYPE   SIZE LABEL      MODEL
+sda                                                           931.5G            SSD_PLUS_1000GB
+|-sda1 /boot      DBF3-0E3A                            vfat     256M boot
+`-sda2 /          b73b1dc9-6e12-4e68-9d06-1a1892663226 ext4   931.3G rootfs
+sdb               123456                               vfat     1.9G SCB backup UDisk
 ```
 
 * Get the "lnd" user identifier (UID) and the "lnd" group identifier (GID) from the `/etc/passwd` database of all user accounts
@@ -322,7 +322,7 @@ ssh-rsa 1234abcd... lnd@minibolt
   * In the "Key" box, copy/paste the string generated above starting (e.g. `ssh-rsa 1234abcd... lnd@minibolt`)
   * Tick the box "`Allow write access`" to enable this key to push changes to the repository
   * Click "Add key"
-* Set up global Git configuration values (the name and email are required but can be dummy values)
+* Set up global Git configuration values (the name and email are required, but can be dummy values)
 
 ```sh
 git config --global user.name "MiniBolt"
@@ -332,7 +332,7 @@ git config --global user.name "MiniBolt"
 git config --global user.email "minibolt@dummyemail.com"
 ```
 
-* **(Optional)** Add this step if you want to preserve your privacy with GitHub servers if not, jump to the next step directly -> (`cd ~/.lnd`)
+* **(Optional)** Add this step if you want to preserve your privacy with GitHub servers; if not, jump to the next step directly -> (`cd ~/.lnd`)
 
 <pre class="language-bash"><code class="lang-bash"><strong>git config --global core.sshCommand "torsocks ssh"
 </strong></code></pre>

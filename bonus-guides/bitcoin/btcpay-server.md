@@ -213,7 +213,7 @@ sudo -u postgres psql -c "CREATE DATABASE btcpay TEMPLATE 'template0' LC_CTYPE '
 
 ### Install NBXplorer
 
-[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, used by BTCPay Server
+[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, used by BTCPay Server.
 
 * With user `admin`, switch to the `btcpay` user
 
@@ -456,7 +456,7 @@ WantedBy=multi-user.target
 sudo systemctl enable nbxplorer
 ```
 
-* Prepare `nbxplorer` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare `nbxplorer` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
 journalctl -fu nbxplorer
@@ -788,7 +788,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ### Running BTCPay Server
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 ```bash
 sudo systemctl start btcpay
@@ -1004,7 +1004,7 @@ abcdefg..............xyz.onion
 You may want to expose your BTCPay Server publicly using a clearnet address. To do this, follow the next steps:
 
 * Follow the [Cloudflare tunnel](../networking/cloudflare-tunnel.md) guide to install and create the Cloudflare tunnel from your MiniBolt to Cloudflare
-* When you finish the "[Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name)" section, you can skip the "[Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic)" section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
+* When you finish the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section, you can skip the [Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic) section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
 * Click on the **\[+ Add record]** button
 
 <figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
@@ -1021,7 +1021,7 @@ You may want to expose your BTCPay Server publicly using a clearnet address. To 
 Click on the \[Save] button to save the new DNS registry
 {% endhint %}
 
-* If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
+* If you didn't follow before, continue with the [Configuration](../networking/cloudflare-tunnel.md#configuration) section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
 * Edit the`config.yml`
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo nano /home/admin/.cloudflared/config.yml
@@ -1230,7 +1230,7 @@ git config pull.rebase false
 ```
 {% endhint %}
 
-* Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to not apply modifications
+* Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` not apply modifications
 * Build it
 
 ```bash

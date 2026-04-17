@@ -479,7 +479,7 @@ db_dir = "/data/electrs/db"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
 skip_block_download_wait = true
 
-# Allow concurrent DB background operations. i.e. for 4 threads max use.
+# Allow concurrent DB background operations. e.g., for 4 threads max use.
 # Customise with your available threads.
 db_parallelism=4
 

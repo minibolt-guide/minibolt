@@ -555,7 +555,7 @@ nano public-pool.env
 
 * Paste the following content. Note that you can edit the `POOL_IDENTIFIER` parameter if you wish. Save and exit
 
-<pre class="language-sh"><code class="lang-sh"># MiniBolt: Public Pool  configuration
+<pre><code># MiniBolt: Public Pool  configuration
 # /home/public-pool/public-pool.env
 
 ## Bitcoin Core settings

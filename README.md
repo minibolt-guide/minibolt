@@ -29,7 +29,7 @@ layout:
 Do not blindly copy and paste commands. Ensure you understand each step before executing it. You are responsible for your system and data.
 {% endhint %}
 
-<figure><img src=".gitbook/assets/photo_2026-03-10_13-48-39.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/home_screen.jpg" alt=""><figcaption></figcaption></figure>
 
 ## What is the MiniBolt?
 

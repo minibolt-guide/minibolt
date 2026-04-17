@@ -145,7 +145,7 @@ Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in 
 
 ### **Signature check**
 
-Bitcoin releases are signed by several individuals, each using its key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+Bitcoin releases are signed by several individuals, each using their key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
 * The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
 
@@ -265,7 +265,7 @@ Configuring native_capnp...
 [...]
 ```
 
-* Pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press enter
+* Pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press Enter
 
 ```sh
 BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
@@ -410,7 +410,7 @@ Copyright (C) 2009-2024 The Bitcoin Core developers
 ```
 
 {% hint style="info" %}
-Now you can continue with the installation process of the Bitcoin Client following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section, or if you already have it installed, only continue with the next steps
+Now you can continue with the installation process of the Bitcoin Client, following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section, or if you already have it installed, only continue with the next steps
 {% endhint %}
 
 * Return to the `tmp` folder

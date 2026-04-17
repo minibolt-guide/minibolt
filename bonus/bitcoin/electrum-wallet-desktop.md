@@ -111,7 +111,7 @@ nano /Users/<YOUR_PERSONAL_COMPUTER_USERNAME>/.electrum/config
 ```
 
 {% hint style="info" %}
-You can use the local IP address of your node, i.e: 192.168.1.10:50002:s
+You can use the local IP address of your node, e.g: `192.168.1.10:50002:s`
 {% endhint %}
 
 {% hint style="info" %}
@@ -128,7 +128,7 @@ By OS:
 
 * **Windows**: download, install, and run [Tor Browser](https://www.torproject.org)
   * The application must be started manually and run in the background when you want to connect over Tor.
-  * By default, when you have Tor Browser running, Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run background service on port `9050`, executing `"tor.exe"` file on the installation path route you chose during Tor Browser installation and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
+  * By default, when you have Tor Browser running, the Tor proxy is available on port `9150`, but if you want to have `9050` available too, you can run a background service on port `9050`, executing `"tor.exe"` file in the installation path route you chose during Tor Browser installation, and following the next subpath `...\Tor Browser\Browser\TorBrowser\Tor\tor.exe"`
 * **Linux**: only need to execute (`sudo apt install tor`) on the command line and ensure that the Tor service is working and listening at the default ports `9050` and `9150`
 
 ```sh
@@ -144,7 +144,7 @@ tcp   LISTEN 0  4096   127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=1847,fd=7
 
 * **macOS**: download, verify, install, and run [Tor Browser](https://www.torproject.org/)
   * The application must be started manually when you want to connect over Tor
-  * By default, when you have Tor Browser running, Tor proxy is available on port 9150, use this port instead of `9050` port
+  * By default, when you have Tor Browser running, the Tor proxy is available on port 9150; use this port instead of `9050` port
 
 Now we need to specify the Tor address for the Electrum Server and the local Tor proxy port in the Electrum Wallet configuration.
 
@@ -177,14 +177,14 @@ ab...yz.onion.onion
 Now, execute Electrum Wallet choosing the correct way depending on your OS (replace "9050" with "9150" if you choose to run the Tor Browser)
 
 * **Linux**
-  * Execute this command in your Linux terminal to -1 (connect to single server only) -s (server address)
+  * Execute this command in your Linux terminal to -1 (connect to a single server only) -s (server address)
 
 ```sh
 ./electrum -1 -s ab...yz.onion:50002:s -p socks5:localhost:9050
 ```
 
 * **Windows**
-  * With your new shortcut created after installation in Desktop, right-click it and go to properties, click the shortcut tab at the top bar, and in the box named target put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept, and execute by double-clicking on our new shortcut
+  * With your new shortcut created after installation on the Desktop, right-click it and go to properties, click the shortcut tab at the top bar, and in the box named target, put `"-1 -s ab...yz.onion:50002:s -p socks5:localhost:9050"` after `"electrum.exe"`, apply, accept, and execute by double-clicking on our new shortcut
 
 {% code overflow="wrap" %}
 ```sh
@@ -215,10 +215,10 @@ Try to check `"Use Tor proxy at port 9050"` or `"Use Tor proxy at port 9150"` in
 ![](../../.gitbook/assets/electrum-wallet-tor-check.PNG)
 
 {% hint style="danger" %}
-**Troubleshooting note:** for those who already had Electrum installed on their systems with old server connections, it is needed to clear the pre-existing cert of the certs folder. Follow these instructions:
+**Troubleshooting note:** for those who already have Electrum installed on their systems with old server connections, it is necessary to clear the pre-existing cert of the certs folder. Follow these instructions:
 
 1. Shutdown Electrum if it's running
-2. Go to `C:\Users\<yourUsername>\AppData\Roaming\Electrum\certs` (or `~/.electrum/certs` on Linux afaik)
+2. Go to `C:\Users\<yourUsername>\AppData\Roaming\Electrum\certs` (or `~/.electrum/certs` on Linux, afaik)
 3. Delete the certificate that corresponds to your node IP address
 4. Start Electrum again
 {% endhint %}

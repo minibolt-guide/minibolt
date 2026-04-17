@@ -25,7 +25,7 @@ PostgreSQL is a powerful, open source object-relational database system that use
 Difficulty: Medium
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/PostgreSQL-Logo-white.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/postgresql_cover.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## Installation
 
@@ -610,7 +610,7 @@ sudo apt update && sudo apt full-upgrade
 If a banner like this appears to you, keep selecting "No" and press Enter
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/Screenshot 2025-09-27 000712.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/upgrade_postgresql_cluster.png" alt=""><figcaption></figcaption></figure>
 
 * Finally, enter this command to reload the systemctl daemon
 
@@ -689,12 +689,12 @@ sudo -u postgres pg_upgradecluster 17 main /data/postgresdb/18
 ```
 
 {% hint style="info" %}
-⌛ This may take a lot of time depending on the existing database size (the nostr relay database, especially) and your machine's performance; it is recommended to use [tmux](https://github.com/tmux/tmux). Wait until the prompt shows up again
+This may take a lot of time, depending on the existing database size (the nostr relay database, especially) and your machine's performance; it is recommended to use [tmux](https://github.com/tmux/tmux). Wait until the prompt shows up again
 {% endhint %}
 
 <details>
 
-<summary>Example of expected output 👇</summary>
+<summary><strong>Example</strong> of expected output 👇</summary>
 
 ```
 Upgrading cluster 17/main to 18/main ...

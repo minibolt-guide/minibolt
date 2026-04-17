@@ -163,7 +163,7 @@ Learn more: https://nextjs.org/telemetry
 
 ## Upgrade
 
-* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + Thunderhub
+* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + ThunderHub
 
 ```bash
 sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
@@ -195,7 +195,7 @@ sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
 
 ### Upgrade to the major version
 
-* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + Thunderhub
+* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + ThunderHub
 
 ```bash
 sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub

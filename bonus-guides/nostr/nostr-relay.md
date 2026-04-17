@@ -19,7 +19,7 @@ layout:
 
 # Nostr relay in Rust
 
-A [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with support for the entire relay protocol and data persistence using PostgreSQL or SQLite.
+inA [nostr relay written in Rust](https://github.com/scsibug/nostr-rs-relay) with support for the entire relay protocol and data persistence using PostgreSQL or SQLite.
 
 {% hint style="warning" %}
 Difficulty: Medium
@@ -273,11 +273,11 @@ Copying files from `/etc/skel' ...
 sudo su - nostr
 ```
 
-* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico) file, download it by entering this command, if not, download your own, or skip this step, not to provide any (remember to leave the`favicon.ico`commented on the configuration file)
+* **(Optional)** If you want to use the MiniBolt [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/refs/heads/main/resources/favicons/favicon.ico) file, download it by entering this command, if not, download your own, or skip this step, not to provide any (remember to leave the  `favicon.ico` commented on the configuration file)
 
 {% code overflow="wrap" %}
 ```bash
-wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/favicon.ico
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/refs/heads/main/resources/favicons/favicon.ico
 ```
 {% endcode %}
 
@@ -295,7 +295,7 @@ exit
 
 ## Configuration
 
-* Copy-paste the configuration file template into the before-created folder
+* Copy-paste the configuration file template into the folder you created before
 
 ```bash
 sudo cp /tmp/nostr-rs-relay/config.toml /home/nostr/rs-relay/
@@ -372,7 +372,7 @@ Uncomment and replace only the next line:
 > > [remote\_ip\_header = "cf-connecting-ip"](#user-content-fn-5)[^5]
 
 {% hint style="info" %}
-If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/nostr-relay-PR/resources/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://blossom.minibolt.info/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png](https://blossom.minibolt.info/35cb7871786875878269f04faafd3be8b5a536b9c4ce5f4bbbf82742873bc222.png)), or replace it with your info
+If you want, use the same [`favicon.ico`](https://raw.githubusercontent.com/minibolt-guide/minibolt/refs/heads/main/resources/favicons/favicon.ico) file downloaded before (the relay's icon of MiniBolt) and the value `relay_icon` parameter (URL -> [https://blossom.minibolt.info/75e70d1ec40f8ed7489ff17a222afc7d4ec6bd117ac827aa212b38b0ee2c480e.png](https://blossom.minibolt.info/75e70d1ec40f8ed7489ff17a222afc7d4ec6bd117ac827aa212b38b0ee2c480e.png)), or replace it with your info
 {% endhint %}
 
 ### **Create systemd service**
@@ -479,7 +479,7 @@ tcp   LISTEN 0   128   127.0.0.1:8880   0.0.0.0:*  users:(("nostr-rs-relay",pid=
 
 **Example** of expected output:
 
-<figure><img src="../../.gitbook/assets/Captura de pantalla 2026-04-09 143203.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/relay_connection_check.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Method 2" %}
@@ -557,7 +557,7 @@ After=network-online.target
 ```
 
 {% hint style="info" %}
-[Continue](nostr-relay.md#run) with the guide; the rest of the steps are the same as PostgreSQL use
+[Continue](nostr-relay.md#run) with the guide; the rest of the steps are the same as those for PostgreSQL use
 {% endhint %}
 
 ### Create your Nostr key pair
@@ -586,7 +586,7 @@ Select a strong password for the Alby extension (this password is for encrypting
 
 <figure><img src="../../.gitbook/assets/alby-login-create.PNG" alt="" width="262"><figcaption></figcaption></figure>
 
-* If you selected to **create a new one**, you need to provide a valid email
+* If you selected to **create a new one**, you need to provide a valid email address
 
 <figure><img src="../../.gitbook/assets/alby-create.PNG" alt=""><figcaption></figcaption></figure>
 
@@ -619,7 +619,7 @@ You will see the nostr public & private keys in the property section:
 <figure><img src="../../.gitbook/assets/nostr-public-key-alby.PNG" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Click on the **\[Nostr Settings]** box to **obtain your private key and backup on your password manager app**; you will need it for mobile clients (e.g. Amethyst), where you will need to enter it manually. Example:
+Click on the **\[Nostr Settings]** box to **obtain your private key and backup on your password manager app**; you will need it for mobile clients (e.g., Amethyst), where you will need to enter it manually. Example:
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/private-key-nostr.PNG" alt="" width="290"><figcaption></figcaption></figure>
@@ -657,7 +657,7 @@ Now, you can use Alby to log in to compatible web clients using NIP-07 **\[Login
 {% endhint %}
 
 {% hint style="info" %}
-If you prefer to generate your key pair, you can mine them using the [Rana tool](https://github.com/grunch/rana) and the Minibolt node.
+If you prefer to generate your key pair, you can mine it using the [Rana tool](https://github.com/grunch/rana) and the Minibolt node.
 
 **Be careful when doing this**, as it will use all the available resources of the machine and could render other important applications you are running unusable. Gracefully shutdown them before starting this process
 {% endhint %}
@@ -843,7 +843,7 @@ This is necessary to access you `ws://` URL, since Tor does not use `wss://` due
 You may want to expose your Nostr relay publicly using a clearnet address. To do this, follow the next steps:
 
 * Follow the [Cloudflare tunnel](../networking/cloudflare-tunnel.md) guide to install and create the Cloudflare tunnel from your MiniBolt to Cloudflare
-* When you finish the "[Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name)" section, you can skip the "[Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic)" section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
+* When you finish the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section, you can skip the [Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic) section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
 * Click on the **\[+ Add record]** button
 
 <figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
@@ -851,7 +851,7 @@ You may want to expose your Nostr relay publicly using a clearnet address. To do
 {% hint style="info" %}
 > Select the **CNAME** type on the drop down
 
-> Type the selected subdomain (i.e service name "relay") as the **Name** field
+> Type the selected subdomain (e.g service name "relay") as the **Name** field
 
 > Type the tunnel `<UUID>` of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
 
@@ -860,7 +860,7 @@ You may want to expose your Nostr relay publicly using a clearnet address. To do
 Click on the **\[Save]** button to save the new DNS registry
 {% endhint %}
 
-* If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
+* If you didn't follow before, continue with the [Configuration](../networking/cloudflare-tunnel.md#configuration) section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
 * Edit the`config.yml`
 
 ```bash
@@ -905,7 +905,7 @@ Display the related log events to ensure this rule is being applied correctly:
 1\. On the `Security` submenu -> Click on `Analytics` -> `Events` (Tab)
 
 2. Add the next filters by pushing on the `[+ Add filter]` button:
-   1. On the dropdown `Host` -> `equals` -> `<relay.domain.com>` click on `[Apply]`
+   1. In the dropdown `Host` -> `equals` -> `<relay.domain.com>` click on `[Apply]`
 
 <div align="center"><figure><img src="../../.gitbook/assets/host_filter_relay_cloudflare.png" alt="" width="482"><figcaption></figcaption></figure></div>
 
@@ -933,7 +933,7 @@ sudo systemctl stop nostr-relay
 * Replace the `config.toml` file with the new one of the new version **(if needed)**
 
 {% hint style="warning" %}
-**This step is only necessary if you see changes on the config file template from your current version until the current release (not common)**, you can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If there are no changes, jump directly to the next **"Start `nostr-rs-relay` service again" >**`sudo systemctl start nostr-relay` step
+**This step is only necessary if you see changes in the config file template from your current version until the current release (not common)**. You can display this on this [history link](https://github.com/scsibug/nostr-rs-relay/commits/master/config.toml). If there are no changes, jump directly to the next **"Start `nostr-rs-relay` service again" >**`sudo systemctl start nostr-relay` step
 {% endhint %}
 
 Here are 2 cases depending on your chosen database backend:
@@ -1066,7 +1066,7 @@ sudo -u postgres psql -c "DROP DATABASE nostrelay;"
 nano /home/admin/.cloudflared/config.yml
 ```
 
-* Comment or delete the nostr relay associated ingress rule. Save and exit
+* Comment or delete the nostr relay-associated ingress rule. Save and exit
 
 ```
 # MiniBolt: cloudflared configuration
