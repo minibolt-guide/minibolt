@@ -30,7 +30,7 @@ Aliases are shortcuts for commands that can save time and make it easier to exec
 Difficulty: Easy
 {% endhint %}
 
-![](../../.gitbook/assets/spaces_PwUXd13GpYIkFW2A1Gwj_uploads_git-blob-c7c618b3ac45ba3953be63746ff4a82f56195048_aliases-demo.png)
+![](../../.gitbook/assets/aliases-demo.png)
 
 ## Introduction
 
