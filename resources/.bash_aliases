@@ -194,7 +194,9 @@ alias enablebitcoindtest4='sudo systemctl enable bitcoind-testnet4'
 alias enabletorobfs4bridge='sudo systemctl enable tor@obfs4bridge'
 alias enableguardmidrelay='sudo systemctl enable tor@guardmidrelay'
 alias enablealbyhub='sudo systemctl enable albyhub'
-alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
+alias enablepublicpool='sudo systemctl enable public-pool'
+alias enablemempool='sudo systemctl enable mempool'
+alias enableallbonus='sudo systemctl enable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub public-pool mempool'
 
 ########################
 # START BONUS SERVICES #
@@ -213,6 +215,8 @@ alias startbitcoindtest4='sudo systemctl start bitcoind-testnet4'
 alias startorobfs4bridge='sudo systemctl start tor@obfs4bridge'
 alias startguardmidrelay='sudo systemctl start tor@guardmidrelay'
 alias startalbyhub='sudo systemctl start albyhub'
+alias startpublicpool='sudo systemctl start public-pool'
+alias startmempool='sudo systemctl start mempool'
 
 #########################
 # STATUS BONUS SERVICES #
@@ -231,8 +235,10 @@ alias statusbitcoindtest4='sudo systemctl status bitcoind-testnet4'
 alias statustorobfs4bridge='sudo systemctl status tor@obfs4bridge'
 alias statusguardmidrelay='sudo systemctl status tor@guardmidrelay'
 alias statusalbyhub='sudo systemctl status albyhub'
+alias statuspublicpool='sudo systemctl status public-pool'
+alias statusmempool='sudo systemctl status mempool'
 alias statusallbonus='echo The status of the bonus services is as follows, press the space key to advance: ; \
-  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
+  sudo systemctl status electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub public-pool mempool'
 
 #######################
 # STOP BONUS SERVICES #
@@ -251,7 +257,9 @@ alias stopbitcoindtest4='sudo systemctl stop bitcoind-testnet4'
 alias stoptorobfs4bridge='sudo systemctl stop tor@obfs4bridge'
 alias stopguardmidrelay='sudo systemctl stop tor@guardmidrelay'
 alias stopalbyhub='sudo systemctl stop albyhub'
-alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
+alias stopublicpool='sudo systemctl stop public-pool'
+alias stopmempool='sudo systemctl stop mempool'
+alias stopallbonus='sudo systemctl stop electrs wg-quick@wg0 nym-socks5-client nym-network-requester btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub public-pool mempool'
 
 ###################################
 # DISABLE AUTOBOOT BONUS SERVICES #
@@ -269,7 +277,9 @@ alias disablebitcoindtest4='sudo systemctl disable bitcoind-testnet4'
 alias disabletorobfs4bridge='sudo systemctl disable tor@obfs4bridge'
 alias disableguardmidrelay='sudo systemctl disable tor@guardmidrelay'
 alias disablealbyhub='sudo systemctl disable albyhub'
-alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub'
+alias disablepublicpool='sudo systemctl disable public-pool'
+alias disablemempool='sudo systemctl disable mempool'
+alias disableallbonus='sudo systemctl disable electrs wg-quick@wg0 nym-network-requester nym-socks5-client btcpay nbxplorer cloudflared nostr-relay postgresql bitcoind-testnet4 tor@obfs4bridge tor@guardmidrelay albyhub public-pool mempool'
 
 #######################
 # BONUS SERVICES LOGS #
@@ -288,6 +298,8 @@ alias bitcoindtest4logs='journalctl -fu bitcoind-testnet4'
 alias torobfs4bridgelogs='journalctl -fu tor@obfs4bridge'
 alias guardmidrelaylogs='journalctl -fu tor@guardmidrelay'
 alias albyhublogs='journalctl -fu albyhub'
+alias publicpoologs='journalctl -fu public-pool'
+alias mempoologs='journalctl -fu mempool'
 
 #################
 #  LND Testnet  #
