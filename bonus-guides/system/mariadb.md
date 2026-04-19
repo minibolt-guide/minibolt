@@ -29,21 +29,13 @@ Difficulty: Easy
 
 ## Installation
 
-### Install dependencies
+### Install MariaDB using the apt package manager
 
 * With user `admin`, update and upgrade your OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
 ```
-
-* Install `apt-transport-https` package
-
-```bash
-sudo apt install apt-transport-https
-```
-
-### Install MariaDB using the apt package manager
 
 * Import the repository signing key
 
@@ -399,7 +391,7 @@ sudo apt remove mariadb-* --purge
 * Select `<Yes>` and press `enter` when this banner shows you:
 
 {% hint style="info" %}
-When the next banner shows up to you, select `<Yes>` and press `enter`&#x20;
+When the next banner shows up to you, select `<Yes>` and press `enter`
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/delete_mariadb_directory.png" alt=""><figcaption></figcaption></figure>

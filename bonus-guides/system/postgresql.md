@@ -70,7 +70,7 @@ sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresq
 * Update the package lists and install the latest version of PostgreSQL. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
-sudo apt update && sudo apt install postgresql postgresql-contrib
+sudo apt update && sudo apt install postgresql
 ```
 
 * Check the correct installation of PostgreSQL
