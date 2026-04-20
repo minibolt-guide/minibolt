@@ -322,8 +322,8 @@ sudo nano /etc/systemd/system/albyhub.service
 
 [Unit]
 Description=AlbyHub
-#Requires=lnd.service
-#After=lnd.service
+Requires=lnd.service
+After=lnd.service
 
 [Service]
 WorkingDirectory=/data/albyhub
@@ -381,7 +381,6 @@ nov 16 11:21:02 minibolt albyhub[1440537]: time="2025-11-16T11:21:02Z" level=inf
 nov 16 11:21:02 minibolt albyhub[1440537]: {"level":"info","msg":"AlbyHub v1.20.0","time":"2025-11-16T11:21:02Z"}
 nov 16 11:21:02 minibolt albyhub[1440537]: {"level":"info","msg":"Generated new JWT secret","time":"2025-11-16T11:21:02Z"}
 nov 16 11:21:02 minibolt albyhub[1440537]: ⇨ http server started on [::]:8090
-
 ```
 
 </details>

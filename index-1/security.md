@@ -158,7 +158,7 @@ Do this regularly to get security-related incidents
 
 ### Installation
 
-Several components of this guide will expose a communication port, for example, the Block Explorer or the ThunderHub web interface for your Lightning node. Even if you use these services only within your home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
+Several components of this guide will expose a communication port, for example, the [BTC RPC Explorer](../bitcoin/bitcoin/blockchain-explorer.md) or [ThunderHub](../lightning/web-app.md) web interface for your Lightning node. Even if you use these services only within your home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
 We use Nginx to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": Nginx provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 

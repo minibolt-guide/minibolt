@@ -448,7 +448,7 @@ Congrats! Now you have a Blockchain Explorer: BTC RPC Explorer running to check 
 
 ## Extras (optional)
 
-### Privacy
+### Privacy **hardening**
 
 You can decide whether you want to optimize for more information or more privacy.
 
@@ -476,7 +476,7 @@ BTCEXP_NO_RATES=false
 
 * Save and exit
 
-### Security
+### Security **hardening**
 
 You can add password protection to the web interface. Simply add your `password [D]` for the following option, for which the browser will then prompt you. You can enter any user name; only the password is checked
 
@@ -493,7 +493,7 @@ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 BTCEXP_BASIC_AUTH_PASSWORD=YourPassword [D]
 ```
 
-### Theme
+### Theme **setting**
 
 Decide whether you prefer a `light` or `dark` theme by default
 
@@ -509,7 +509,7 @@ sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 BTCEXP_UI_THEME=dark
 ```
 
-### Slow device mode
+### Slow device mode setting
 
 Extend the timeout period and enable slow device mode due to the limited resources (resource-intensive features are disabled)
 
@@ -533,7 +533,7 @@ BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 
 ### Sharing your explorer
 
-You may want to share your BTC RPC Explorer **onion** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands)
+You may want to share your BTC RPC Explorer **onion/clearnet** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands)
 
 * With user `admin` , edit the `.env` configuration file
 

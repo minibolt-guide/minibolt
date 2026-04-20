@@ -98,7 +98,7 @@ wget https://builds.dotnet.microsoft.com/dotnet/scripts/v1/dotnet-install.sh
 chmod +x ./dotnet-install.sh
 ```
 
-* Set environment variable version
+* Set the environment variable version
 
 ```bash
 VERSION=10.0
@@ -167,7 +167,7 @@ dotnet --version
 rm dotnet-install.sh
 ```
 
-* Come back to the "admin" user
+* Come back to the `admin` user
 
 ```bash
 exit
@@ -388,7 +388,7 @@ cd ~/.nbxplorer/Main
 nano settings.config
 ```
 
-* Add the entire next lines. Save and exit
+* Add the entire next line. Save and exit
 
 ```
 # MiniBolt: nbxplorer configuration
@@ -468,7 +468,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 ### Running NBXplorer
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * With user `admin`, start the `nbxplorer` service
 
@@ -843,7 +843,7 @@ tcp   LISTEN 0   512        0.0.0.0:23000   0.0.0.0:*    users:(("dotnet",pid=28
 ```
 
 {% hint style="success" %}
-When you follow the "[Use Cloudflare tunnel to expose publicly](btcpay-server.md#use-cloudflare-tunnel-to-expose-publicly)" section, point your browser to your publicly exposed BTCPay Server, i.e: `btcpay.domain.com`
+When you follow the [Use Cloudflare tunnel to expose publicly](btcpay-server.md#use-cloudflare-tunnel-to-expose-publicly) section, point your browser to your publicly exposed BTCPay Server, i.e: `btcpay.domain.com`
 {% endhint %}
 
 {% hint style="danger" %}
@@ -1194,7 +1194,7 @@ Fast-forward
 {% hint style="warning" %}
 **Troubleshooting notes:**
 
-If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
+1. If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
 git config user.email "minibolt@dummyemail.com"
@@ -1206,7 +1206,7 @@ git config user.name "MiniBolt"
 
 -> And try the last command again
 
-If the prompt shows you this:
+2. If the prompt shows you this:
 
 ```
 hint: You have divergent branches and need to specify how to reconcile them.
@@ -1360,7 +1360,7 @@ Merge made by the 'ort' strategy.
 {% hint style="warning" %}
 **Troubleshooting notes:**
 
-If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
+1. If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
 git config user.email "minibolt@dummyemail.com"
@@ -1372,7 +1372,7 @@ git config user.name "MiniBolt"
 
 -> And try the last command again
 
-If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
+2. If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
 
 ```bash
 git config pull.rebase false
@@ -1380,7 +1380,7 @@ git config pull.rebase false
 
 -> And try the last command again
 
-If the prompts show you logs like these:
+3. If the prompts show you logs like these:
 
 ```
 Auto-merging BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj
@@ -1415,7 +1415,7 @@ Oct 30 16:26:48 minibolt run.sh[3307655]: info: BTCPayServer.HostedServices.Paym
 [...]
 ```
 
-If the prompts show you logs like these:
+4. If the prompts show you logs like these:
 
 {% code overflow="wrap" %}
 ```
