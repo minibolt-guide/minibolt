@@ -41,7 +41,7 @@ First of all, we probably should look at what Bitcoin is:
 
 > A Peer-to-Peer Electronic Cash System [(Bitcoin Whitepaper)](https://bitcoin.org/bitcoin.pdf)
 
-There is no mention of data storage on the chain, and only financial transactions. Ordinals abuse the Bitcoin timechain, which was meant to process financial transaction,s to store data, and this has some issues, such as:
+There is no mention of data storage on the chain, and only financial transactions. Ordinals abuse the Bitcoin timechain, which was meant to process financial transactions to store data, and this has some issues, such as:
 
 * Pushing out financial transactions, such as ones that need immediate confirmation, such as force closes with pending HTLCs or a sweep-all TX.
 * Driving up fee rates for the sole reason of inscribing a JPEG.
@@ -50,7 +50,7 @@ There is no mention of data storage on the chain, and only financial transaction
 
 ...while paying 4x less for the same bytes.
 
-[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264) is a _**spam patch filter**_ that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and _**rejecting them**_. The original patch was created by Luke Dashjr, you can see it here. [Archive](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831)
+[Ordisrespector](https://twitter.com/oomahq/status/1621899175079051264) is a _**spam patch filter**_ that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and _**rejecting them**_. The original patch was created by Luke Dashjr; you can see it here. [Archive](https://web.archive.org/web/20230207212859/https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831)
 
 {% embed url="https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831" %}
 
@@ -81,7 +81,7 @@ cd /tmp
 * Set the next environment variable
 
 ```sh
-VERSION=30.2
+VERSION=31.0
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums
@@ -99,7 +99,7 @@ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 ```
 
 {% hint style="info" %}
-If you already had Bitcoin Core installed and the OTS client with the IBD completed, you could do the timestamp check verification
+If you already have Bitcoin Core installed, and the OTS client with the IBD completed, you could do the timestamp check verification
 {% endhint %}
 
 * Download the timestamp file

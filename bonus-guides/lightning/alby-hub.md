@@ -31,6 +31,8 @@ Difficulty: Medium
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md)
+* Others
+  * [Nostr relay in Rust](../nostr/nostr-relay.md) (optional)
 
 ## Preparations
 
@@ -290,13 +292,14 @@ WORK_DIR=/data/albyhub
 # SERVICE PORT
 PORT=8090
 
-# RELAY/S (optional - uncomment)
-##RELAY=<a data-footnote-ref href="#user-content-fn-2">wss://relay.domain.com</a>
-##RELAY=<a data-footnote-ref href="#user-content-fn-3">wss://relay2.domain.com</a>
+# RELAY/S [optional - uncomment (delete # at the beginning and accomodate it)]
+#RELAY=<a data-footnote-ref href="#user-content-fn-2">wss://relay.getalby.com/v1</a>
+#RELAY=<a data-footnote-ref href="#user-content-fn-3">wss://relay2.domain.com</a>
+#RELAY=<a data-footnote-ref href="#user-content-fn-4">ws://127.0.0.1:8880</a>
 
 # LND CONNECTION
 LN_BACKEND_TYPE=LND
-LND_ADDRESS=localhost:10009
+LND_ADDRESS=127.0.0.1:10009
 LND_CERT_FILE=/data/lnd/tls.cert
 LND_MACAROON_FILE=/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 
@@ -608,10 +611,8 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: ```
-    Example relay (pptional)
-    ```
+[^2]: Example of public relay
 
-[^3]: ```
-    Example relay 2 (optional)
-    ```
+[^3]: Example of public relay 2
+
+[^4]: Example local relay. Check the Nostr relay in Rust bonus guide

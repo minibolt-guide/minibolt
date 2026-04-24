@@ -1425,7 +1425,7 @@ lncli deletepayments --all --failed_htlcs_only
 ```
 {% endcode %}
 
-Example of expected output:
+**Example** of expected output:
 
 {% code overflow="wrap" %}
 ```
@@ -1435,6 +1435,101 @@ Removing failed HTLCs from failed payments, this might take a while...
 }
 ```
 {% endcode %}
+
+#### -> Delete ALL payments, not just the failed ones
+
+```bash
+lncli deletepayments --all --include_non_failed
+```
+
+**Example** of expected output:
+
+```
+Removing all payments, this might take a while...
+{
+    "status": "7 payments deleted, failed_htlcs_only=false"
+}
+```
+
+#### -> Open multiple channels in a single transaction
+
+{% hint style="info" %}
+It is recommended to connect to the peer previously with the next command:
+
+{% code overflow="wrap" %}
+```bash
+lncli connect <peer_node_public_key>@host:port
+```
+{% endcode %}
+
+Replace:
+
+> `<peer_node_public_key>@host:port` with the desired peer node, ask to your peer about this information obtained with `lncli getinfo | grep -A2 '"uris":'` command
+
+-> Repeat this action with each peer you desire to open a channel with.
+{% endhint %}
+
+```bash
+lncli batchopenchannel --sat_per_vbyte=X '[{
+  "node_pubkey": "<peer1_node_public_key>",
+  "local_funding_amount": <amount_in_sats>,
+  "private": <true>,
+  "close_address": "bc1p..."
+}, {
+  "node_pubkey": "<peer2_node_public_key>",
+  "local_funding_amount": <amount_in_sats>,
+  "private": <false>,
+  "close_address": "bc1p..."
+}]'
+```
+
+{% hint style="info" %}
+Replace:
+
+> `-sat_per_vbyte=X` with the desired fee e.g. `--sat_per_vbyte=1`
+
+> `<peer1_node_public_key>` with the desired peer node e.g. `039a53a85abd18ae5087e8fc99d2f2b09543bfd8e68072810f6900541e279c7615`
+
+> `<peer2_node_public_key>` with the desired peer node e.g. `02f0bf82f730d2e68453cc612c3e7ca5e021eaa1ead8250a6380c551d1d43bdc1b`
+
+> `<amount_in_sats>` with the desired channel capacity e.g `500000`
+
+> `<true>` / `<false>` depending if you want to open a private or public channel. **Optional**: if you want to open a public channel, you can delete this parameter. Default is `false`
+
+> `bc1p...` with the desired close adresss. **Optional**: if this parameter is not specified, LND will choose an address in its own onchain wallet.
+{% endhint %}
+
+**Example** of a completed command that opens **2 channels**: one private and one public, each with a capacity of 500.000 sats, using an opening fee of 1 sat/vbyte, and specifying a closing address for the private channel:
+
+```bash
+lncli batchopenchannel --sat_per_vbyte=1 '[{
+  "node_pubkey": "039a53a85abd18ae5087e8fc99d2f2b09543bfd8e68072810f6900541e279c7615",
+  "local_funding_amount": 500000,
+  "private": true,
+  "close_address": "bc1qe57rkj0c0yllxl3n60qjg7s3urwd0vrhw8t3s7"
+}, {
+  "node_pubkey": "02f0bf82f730d2e68453cc612c3e7ca5e021eaa1ead8250a6380c551d1d43bdc1b",
+  "local_funding_amount": 500000,
+  "private": false
+}]'
+```
+
+**Example** of a completed command that opens **3 channels**: **one private** channel with a capacity of 1.000.000 sats and a specified closing address, and two public channels with capacities of 500.000 sats and 1.000.000 sats respectively, using an opening fee of 5 sat/vbyte:
+
+```bash
+lncli batchopenchannel --sat_per_vbyte=5 '[{
+  "node_pubkey": "03f760285d9ee0848d333995ac8a48e0a6d15d7f5981877be25311e20b0be39c33",
+  "local_funding_amount": 1000000,
+  "private": true,
+  "close_address": "bc1qe57rkj0c0yllxl3n60qjg7s3urwd0vrhw8t3s7"
+}, {
+  "node_pubkey": "039a53a85abd18ae5087e8fc99d2f2b09543bfd8e68072810f6900541e279c7615",
+  "local_funding_amount": 500000,
+}, {
+  "node_pubkey": "02f0bf82f730d2e68453cc612c3e7ca5e021eaa1ead8250a6380c551d1d43bdc1b",
+  "local_funding_amount": 1000000
+}]'
+```
 
 ### Unlock the LND wallet manually
 
