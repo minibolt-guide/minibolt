@@ -61,6 +61,7 @@
   * [chantools](bonus-guides/lightning/chantools.md)
 * [🦩 Nostr](bonus-guides/nostr/README.md)
   * [Nostr relay in Rust](bonus-guides/nostr/nostr-relay.md)
+  * [Nostr relay (strfry)](bonus-guides/nostr/strfry-relay.md)
 * [🛡️ Security](bonus-guides/security/README.md)
   * [Login with SSH keys](bonus-guides/security/ssh-keys.md)
 * [🌐 Networking](bonus-guides/networking/README.md)
