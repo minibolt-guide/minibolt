@@ -143,6 +143,12 @@ sudo mkdir -p /data/postgresdb/18
 <pre class="language-bash"><code class="lang-bash"><strong>sudo chmod -R 700 /data/postgresdb
 </strong></code></pre>
 
+* Add user postgres to the bitcoin group so it can access the data folder
+
+```bash
+sudo usermod -aG bitcoin postgres
+```
+
 * With user `postgres`, create a new cluster in the dedicated folder
 
 ```bash
