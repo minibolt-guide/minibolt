@@ -540,7 +540,7 @@ Pay attention to the next step!
 * Set a temporary version environment variable
 
 ```bash
-VERSION=3.3.0
+VERSION=3.3.1
 ```
 
 * Import the GPG key of the developer
@@ -773,7 +773,7 @@ nano mempool-frontend-config.json
 * Type the next context. Save and exit
 
 {% hint style="info" %}
-If you want to have the Lightning explorer and tab associated enabled and connected to your internal [LND](../../lightning/lightning-client.md) node, change the parameter `"LIGHTNING": false,`  to -> true ( `"LIGHTNING": true,`)
+If you want to have the Lightning explorer and tab associated enabled and connected to your internal [LND](../../lightning/lightning-client.md) node, change the parameter `"LIGHTNING": false,` to -> true ( `"LIGHTNING": true,`)
 
 **Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least
 {% endhint %}
@@ -1224,8 +1224,6 @@ Apr 13 12:31:09 [589760] DEBUG: fetched 6 transactions
 [...]
 ```
 
-
-
 </details>
 
 {% hint style="info" %}
@@ -1356,7 +1354,7 @@ Congrat&#x73;**!** You now have Mempool up and running
 Unlike the [frontend](mempool.md#frontend), the backend configuration can be changed at any time after installation, just like the systemd service
 {% endhint %}
 
-* Stop the mempool service&#x20;
+* Stop the mempool service
 
 {% code overflow="wrap" %}
 ```bash
@@ -1515,7 +1513,7 @@ Apr 15 10:16:39 minibolt node[1561962]: Apr 15 10:16:39 [1561962] DEBUG: <lightn
 #### Frontend
 
 {% hint style="info" %}
-If you want to have the mempool Lightning explorer and tab-associated enabled and connected to your internal LND node, for the frontend, you need to repeat the complete [Install frontend](mempool.md#install-the-frontend) installation section, keeping in mind to modify the parameter `"LIGHTNING": false,`  to -> true ( `"LIGHTNING": true,`) in `mempool-frontend-config.json` file
+If you want to have the mempool Lightning explorer and tab-associated enabled and connected to your internal LND node, for the frontend, you need to repeat the complete [Install frontend](mempool.md#install-the-frontend) installation section, keeping in mind to modify the parameter `"LIGHTNING": false,` to -> true ( `"LIGHTNING": true,`) in `mempool-frontend-config.json` file
 {% endhint %}
 
 ### Use Electrs like Electrum server
