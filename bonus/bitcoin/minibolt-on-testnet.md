@@ -52,32 +52,31 @@ Mainnet + testnet simultaneous mode
 * Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md) when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
 
 ```bash
-nano /home/bitcoin/.bitcoin/bitcoin-testnet4.conf
+nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Stay tuned to replace and add the next lines on the `bitcoin-testnet4.conf` file
+* Stay tuned to add the next lines to the `bitcoin.conf` file.
+
+{% hint style="info" %}
+`[main]` and the `# Initial block download optimizations` parameters behind the `[testnet4]` section, are needed only if you want to run a mainnet + testnet simultaneous nodes
+{% endhint %}
 
 ```
-## Replace the parameter
-uacomment=MiniBolt Testnet4 node
+[main]
+# Exclusive mainnet node uacomment
+uacomment=MiniBolt node mainnet
 
-## Add the parameter at the end of the file (before [testnet4] section)
-testnet4=1
-
-## Delete the next parameters
-bind=127.0.0.1
-bind=127.0.0.1=onion
-
-## Add the next lines at the end of the file
 [testnet4]
+# P2P testnet4 bind
 bind=127.0.0.1
 bind=127.0.0.1=onion
-```
 
-* Set permissions for only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)
+# Exclusive testnet4 node uacomment
+uacomment=MiniBolt node testnet4
 
-```sh
-chmod 640 /home/bitcoin/.bitcoin/bitcoin-testnet4.conf
+# Initial block download optimizations (exclusive for the testnet4 instance)
+dbcache=2048
+blocksonly=1
 ```
 
 * When you arrive at the [Create systemd service](../../bitcoin/bitcoin/bitcoin-client.md#create-systemd-service), create a new systemd file configuration for Testnet4
@@ -98,8 +97,9 @@ Requires=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind-testnet4.pid \
-                                  -conf=/home/bitcoin/.bitcoin/bitcoin-testnet4.conf \
+ExecStart=/usr/local/bin/bitcoind -testnet4 \
+                                  -pid=/run/bitcoind/bitcoind-testnet4.pid \
+                                  -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
                                   -datadir=/home/bitcoin/.bitcoin \
                                   -startupnotify='systemd-notify --ready' \
                                   -shutdownnotify='systemd-notify --status="Stopping"'
@@ -321,14 +321,11 @@ Only testnet mode
 nano /data/lnd/lnd.conf
 ```
 
-* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet4=true` to enable LND in testnet mode and add the location of the `bitcoin-testnet4.conf` in the `[Bitcoind]` section
+* Replace the parameter `bitcoin.mainnet=true` with the `bitcoin.testnet4=true` to enable LND in testnet mode
 
 ```
 [Bitcoin]
 bitcoin.testnet4=true
-
-[Bitcoind]
-bitcoind.config=/data/bitcoin/bitcoin-testnet4.conf
 ```
 
 * When you arrive at the [Create systemd service](../../lightning/lightning-client.md#create-systemd-service) section, edit the `lnd.service` file and replace the next lines

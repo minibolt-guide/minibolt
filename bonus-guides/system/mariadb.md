@@ -67,6 +67,7 @@ Types: deb
 URIs: https://mirror.raiolanetworks.com/mariadb/repo/10.6/ubuntu
 Suites: jammy
 Components: main main/debug
+Architectures: amd64
 Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
 EOF
 ```

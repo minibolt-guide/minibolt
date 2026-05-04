@@ -37,19 +37,19 @@ We download the latest Bitcoin Core binary (the application) and compare this fi
 
 ### Download binaries
 
-* Login as `admin` and change to a temporary directory, which is cleared on reboot
+* Login as `admin` and change to a temporary directory, which is cleared on reboot:
 
 ```sh
 cd /tmp
 ```
 
-* Set a temporary version environment variable for the installation
+* Set a temporary version environment variable for the installation:
 
 ```sh
 VERSION=31.0
 ```
 
-* Get the latest binaries and signatures
+* Get the latest binaries and signatures:
 
 {% code overflow="wrap" %}
 ```sh
@@ -69,7 +69,7 @@ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 
 Bitcoin releases are signed by several individuals, each using their own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
-* The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and imports automatically all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository:
 
 {% code overflow="wrap" %}
 ```sh
@@ -89,13 +89,13 @@ gpg: no ultimately trusted keys found
 [...]
 ```
 
-* Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
+* Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
 
 ```sh
 gpg --verify SHA256SUMS.asc SHA256SUMS
 ```
 
-* Check that at least a few signatures show the following text
+* Check that at least a few signatures show the following text:
 
 <pre><code>gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature from</a>...
 Primary key fingerprint:...
@@ -103,7 +103,7 @@ Primary key fingerprint:...
 
 ### Checksum check
 
-* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you
+* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you:
 
 ```sh
 sha256sum --ignore-missing --check SHA256SUMS
@@ -118,18 +118,18 @@ bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS.ots) the checksum file
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS) its timestamp proof
-* In your browser, open the [OpenTimestamps website](https://opentimestamps.org/)
-* In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box
-* In the next box, drop or upload the `SHA256SUMS` file
-* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases) of the latest Bitcoin Core version
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS.ots) the checksum file.
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS) its timestamp proof.
+* In your browser, open the [OpenTimestamps website](https://opentimestamps.org/).
+* In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box.
+* In the next box, drop or upload the `SHA256SUMS` file.
+* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases) of the latest Bitcoin Core version.
 
 The following screenshot is just an **example** of one of the versions:
 
 ![](../../.gitbook/assets/bitcoin-ots-check.PNG)
 
-* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
+* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries:
 
 ```sh
 tar -xzvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
@@ -181,12 +181,12 @@ If you want to install the manual page for `bitcoin-cli`, follow [the manual pag
 
 ### Binaries installation
 
-* Install it
+* Install it:
 
 <pre class="language-sh" data-overflow="wrap"><code class="lang-sh"><strong>sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitcoin-cli bitcoin-$VERSION/bin/bitcoind
 </strong></code></pre>
 
-* Check the correct installation by requesting the output of the version
+* Check the correct installation by requesting the output of the version:
 
 ```sh
 bitcoind --version
@@ -200,7 +200,7 @@ Copyright (C) 2009-2022 The Bitcoin Core developers
 [...]
 ```
 
-* **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation
+* **(Optional)** Delete installation files of the `tmp` folder to be ready for the next installation:
 
 {% code overflow="wrap" %}
 ```bash
@@ -212,19 +212,19 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 
 The Bitcoin Core application will run in the background as a daemon and use the separate user “bitcoin” for security reasons. This user does not have admin rights and cannot change the system configuration.
 
-* Create the `bitcoin` user and group
+* Create the `bitcoin` user and group:
 
 ```bash
 sudo adduser --gecos "" --disabled-password bitcoin
 ```
 
-* Add the user `admin` to the group "bitcoin"
+* Add the user `admin` to the group "bitcoin":
 
 ```bash
 sudo adduser admin bitcoin
 ```
 
-* Allow the user `bitcoin` to use the control port and configure Tor directly by adding it to the `debian-tor` group
+* Allow the user `bitcoin` to use the control port and configure Tor directly by adding it to the `debian-tor` group:
 
 ```bash
 sudo adduser bitcoin debian-tor
@@ -234,31 +234,31 @@ sudo adduser bitcoin debian-tor
 
 Bitcoin Core uses, by default, the folder `.bitcoin` in the user's home. Instead of creating this directory, we create a data directory in the general data location `/data` and link to it.
 
-* Create the Bitcoin data folder
+* Create the Bitcoin data folder:
 
 ```sh
 mkdir /data/bitcoin
 ```
 
-* Assign the owner to the `bitcoin` user
+* Assign the owner to the `bitcoin` user:
 
 ```sh
 sudo chown bitcoin:bitcoin /data/bitcoin
 ```
 
-* Switch to the user `bitcoin`
+* Switch to the user `bitcoin:`
 
 ```sh
 sudo su - bitcoin
 ```
 
-* Create the symbolic link `.bitcoin` that points to that directory
+* Create the symbolic link `.bitcoin` that points to that directory:
 
 ```sh
 ln -s /data/bitcoin /home/bitcoin/.bitcoin
 ```
 
-* Check that the symbolic link has been created correctly
+* Check that the symbolic link has been created correctly:
 
 ```bash
 ls -la .bitcoin
@@ -277,13 +277,13 @@ Another option to get access credentials is through the `.cookie` file in the Bi
 
 Bitcoin Core provides a simple Python program to generate the configuration line for the config file.
 
-* Enter the bitcoin folder
+* Enter the bitcoin folder:
 
 ```sh
 cd .bitcoin
 ```
 
-* Download the RPCAuth program
+* Download the RPCAuth program:
 
 {% code overflow="wrap" %}
 ```sh
@@ -291,10 +291,10 @@ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpca
 ```
 {% endcode %}
 
-* Run the script with the Python3 interpreter, providing the username (`minibolt`) and your `"password [B]"` arguments
+* Run the script with the Python3 interpreter, providing the username (`minibolt`) and your `"password [B]"` arguments:
 
 {% hint style="warning" %}
-All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space `( )` in front of the command shown below
+All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space `( )` in front of the command shown below.
 {% endhint %}
 
 <pre class="language-sh"><code class="lang-sh"> python3 rpcauth.py minibolt <a data-footnote-ref href="#user-content-fn-2">YourPasswordB</a>
@@ -306,34 +306,34 @@ All commands entered are stored in the bash history. But we don't want the passw
 <a data-footnote-ref href="#user-content-fn-3">rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa</a>
 </code></pre>
 
-* Copy the `rpcauth` line, we'll need to paste it into the Bitcoin Core config file in the next step
+* Copy the `rpcauth` line, we'll need to paste it into the Bitcoin Core config file in the next step.
 
 ## Configuration
 
 Now, the configuration file `bitcoind` needs to be created. We'll also set the proper access permissions.
 
-* Still as the user `"bitcoin"` creates the `bitcoin.conf` file
+* Still as the user `"bitcoin"` creates the `bitcoin.conf` file:
 
 ```bash
 nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Enter the complete next configuration. Save and exit
+* Enter the complete next configuration. Save and exit.
 
 {% hint style="danger" %}
 **Important!!** Remember to replace the whole line starting with `"rpcauth"` the connection string you just generated
 {% endhint %}
 
 {% hint style="warning" %}
-Remember to accommodate the "`dbcache`" parameter depending on your hardware. Recommended: dbcache=1/2 x total RAM available, e.g: 4GB RAM -> dbcache=2048
+Remember to accommodate the "`dbcache`" parameter depending on your hardware. Recommended: dbcache=1/2 x total RAM available, e.g: 4GB RAM -> dbcache=2048.
 {% endhint %}
 
 {% hint style="info" %}
 **(Optional):**
 
--> Modify the `"uacomment"` value to your preference if you want
+-> Modify the `"uacomment"` value to your preference if you want.
 
--> If you have another **full-synced MiniBolt node on the same local network**, you can **accelerate the IBD** by following [the dedicated extra section](bitcoin-client.md#accelerate-the-ibd)
+-> If you have another **full-synced MiniBolt node on the same local network**, you can **accelerate the IBD** by following [the dedicated extra section](bitcoin-client.md#accelerate-the-ibd).
 {% endhint %}
 
 <pre><code># MiniBolt: bitcoind configuration
@@ -409,13 +409,13 @@ blocksonly=1
 This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options, or generate one yourself, following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
 {% endhint %}
 
-* Set permissions for only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line)
+* Set permissions for only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line):
 
 ```sh
 chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Exit the `bitcoin` user session and back to the user `admin`
+* Exit the `bitcoin` user session and back to the user `admin`:
 
 {% code fullWidth="false" %}
 ```sh
@@ -425,15 +425,15 @@ exit
 
 ### Create systemd service
 
-The system needs to run the bitcoin daemon automatically in the background. We use `systemd`, a daemon that controls the startup process using configuration files
+The system needs to run the bitcoin daemon automatically in the background. We use `systemd`, a daemon that controls the startup process using configuration files.
 
-* Create the systemd configuration
+* Create the systemd configuration:
 
 ```bash
 sudo nano /etc/systemd/system/bitcoind.service
 ```
 
-* Enter the complete next configuration. Save and exit
+* Enter the complete next configuration. Save and exit.
 
 ```
 # MiniBolt: systemd unit for bitcoind
@@ -481,13 +481,13 @@ SystemCallArchitectures=native
 WantedBy=multi-user.target
 ```
 
-* Enable autoboot **(optional)**
+* Enable autoboot **(optional):**
 
 ```sh
 sudo systemctl enable bitcoind
 ```
 
-* Prepare “bitcoind” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare “bitcoind” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C.
 
 ```sh
 journalctl -fu bitcoind
@@ -501,7 +501,7 @@ Keep **this terminal open,** you'll need to come back here on the next step to m
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
-* Start the service
+* Start the service:
 
 ```sh
 sudo systemctl start bitcoind
@@ -552,20 +552,20 @@ UpdateTip: new best=000000000f8d29fcf9ac45e443706c6f21a6e9cfa615f94794b726d3ba8b
 ```
 {% endhint %}
 
-* Link the Bitcoin data directory from the `admin` user's home directory as well. This allows `admin` user to work with bitcoind directly, for example, by using the command `bitcoin-cli`
+* Link the Bitcoin data directory from the `admin` user's home directory as well. This allows `admin` user to work with bitcoind directly, for example, by using the command `bitcoin-cli`:
 
 ```sh
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-* This symbolic link becomes active **only in a new user session**. Log out of SSH by entering the next command
+* This symbolic link becomes active **only in a new user session**. Log out of SSH by entering the next command:
 
 ```sh
 exit
 ```
 
-* Log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell)
-* Check symbolic link has been created correctly
+* Log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell).
+* Check symbolic link has been created correctly:
 
 ```bash
 ls -la .bitcoin
@@ -581,19 +581,19 @@ Expected output:
 \
 If you don't obtain the expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-8)[^8]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
-1. With user `admin`, delete the failed created symbolic link
+1. With user `admin`, delete the failed created symbolic link:
 
 ```bash
 sudo rm -r .bitcoin
 ```
 
-2. Create the symbolic link again
+2. Create the symbolic link again:
 
 ```bash
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-8)[^8]. If yes, continue with the guide; if not, try again
+3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-8)[^8]. If yes, continue with the guide; if not, try again:
 
 ```bash
 ls -la .bitcoin
@@ -605,7 +605,7 @@ Expected output:
 </code></pre>
 {% endhint %}
 
-* Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. **Take note of them**, later you might need it
+* Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. **Take note of them**, later you might need them:
 
 {% code overflow="wrap" %}
 ```sh
@@ -622,7 +622,7 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 
 ### Validation
 
-* Check the correct enablement of the I2P and Tor networks
+* Check the correct enablement of the I2P and Tor networks:
 
 ```sh
 bitcoin-cli -netinfo
@@ -642,7 +642,7 @@ xdtk6tie4srguvz566xpyukkd7m3z3vbby5xx5ccyg5f64fzop7hoiab.onion     port   8333  
 etehks3xyh55nyjldjdeckk3nwpanivqhrzhsoracwqjxtk8apgk.b32.i2p       port      0    score      4
 ```
 
-* Ensure bitcoind is listening on the default RPC & P2P ports
+* Ensure bitcoind is listening on the default RPC & P2P ports:
 
 ```bash
 sudo ss -tulpn | grep bitcoind
@@ -663,7 +663,7 @@ tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoi
 ## Bitcoin Core is syncing
 
 {% hint style="info" %}
-This process is called IBD (Initial Block Download). This can take between one day and a week, depending mostly on your PC performance. It's best to wait until the synchronization is complete before going ahead
+This process is called IBD (Initial Block Download). This can take between one day and a week, depending mostly on your PC performance. It's best to wait until the synchronization is complete before going ahead.
 {% endhint %}
 
 ### Explore bitcoin-cli
@@ -674,27 +674,27 @@ If everything is running smoothly, this is the perfect time to familiarize yours
 *   [Mastering Bitcoin](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part, how to compile from source code):
 
     * You definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
-    * Read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook)
+    * Read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook).
 
     <figure><img src="../../.gitbook/assets/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
-* [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin
-* Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list)
+* [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
+* Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list).
 
 ## Activate mempool & reduce 'dbcache' after a full sync
 
 Once Bitcoin Core **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download now. We want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
 
 {% hint style="info" %}
-Bitcoin Core will then just use the default cache size of 450 MiB instead of your RAM setup. If `blocksonly=1` is left uncommented, it will prevent Electrum Server from receiving RPC fee data and will not work
+Bitcoin Core will then just use the default cache size of 450 MiB instead of your RAM setup. If `blocksonly=1` is left uncommented, it will prevent Electrum Server from receiving RPC fee data and will not work.
 {% endhint %}
 
-* As user `admin`, edit the `bitcoin.conf` file
+* As user `admin`, edit the `bitcoin.conf` file:
 
 ```sh
 sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Comment on the following lines by adding a `#` at the beginning. Save and exit
+* Comment or delete the following lines by adding a `#` at the beginning. Save and exit.
 
 ```
 #assumevalid=0
@@ -702,7 +702,7 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 #blocksonly=1
 ```
 
-* Restart Bitcoin Core for the settings to take effect
+* Restart Bitcoin Core for the settings to take effect:
 
 ```sh
 sudo systemctl restart bitcoind
@@ -712,19 +712,19 @@ sudo systemctl restart bitcoind
 
 When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps when installing additional programs (e.g, LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
 
-* As user `admin`, install dependencies
+* As user `admin`, install dependencies:
 
 ```sh
 sudo apt install python3-dev python3-pip python3-wheel
 ```
 
-* Install the OpenTimestamp client
+* Install the OpenTimestamp client:
 
 ```sh
 sudo pip3 install opentimestamps-client
 ```
 
-* Display the OpenTimestamps client version to check that it is properly installed
+* Display the OpenTimestamps client version to check that it is properly installed:
 
 ```sh
 ots --version
@@ -747,13 +747,13 @@ sudo pip3 install --upgrade opentimestamps-client
 
 ### Slow device mode
 
-* As user `admin` edit `bitcoin.conf` file
+* As user `admin` edit `bitcoin.conf` file:
 
 ```sh
 sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Add these lines at the end of the file
+* Add these lines at the end of the file:
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
@@ -766,7 +766,7 @@ rpcthreads=128
 rpcworkqueue=256
 </code></pre>
 
-* Comment on these lines
+* Comment on these lines:
 
 ```
 #coinstatsindex=1
@@ -791,26 +791,26 @@ whitelist=bloomfilter@192.168.0.0/16
 
 ### Renovate your Bitcoin Core, Tor, and I2P addresses
 
-* With user `admin`, stop bitcoind and dependencies
+* With user `admin`, stop bitcoind and dependencies:
 
 ```bash
 sudo systemctl stop bitcoind
 ```
 
-* Delete
+* Delete:
 
 ```bash
 sudo rm /data/bitcoin/onion_v3_private_key && /data/bitcoin/i2p_private_key
 ```
 
-* Start bitcoind again
+* Start bitcoind again:
 
 ```bash
 sudo systemctl start bitcoind
 ```
 
-* If you want to monitor the bitcoind logs and the startup progress, type `journalctl -fu bitcoind` in a separate SSH session
-* Wait a minute to identify your newly generated addresses with
+* If you want to monitor the bitcoind logs and the startup progress, type `journalctl -fu bitcoind` in a separate SSH session.
+* Wait a minute to identify your newly generated addresses with:
 
 {% code overflow="wrap" %}
 ```bash
@@ -827,10 +827,10 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 
 ### The manual page for bitcoin-cli
 
-* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine, so that they can be consulted offline, and they can be installed from the directory
+* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine, so that they can be consulted offline, and they can be installed from the directory.
 
 {% hint style="info" %}
-If you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), this section is not needed because man pages are installed by default, type directly `man bitcoin-cli` command to see the man pages
+If you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), this section is not needed because man pages are installed by default, type directly `man bitcoin-cli` command to see the man pages.
 {% endhint %}
 
 ```sh
@@ -845,60 +845,60 @@ gzip *
 sudo cp * /usr/share/man/man1/
 ```
 
-* Now you can read the docs while doing
+* Now you can read the docs while doing:
 
 ```sh
 man bitcoin-cli
 ```
 
 {% hint style="info" %}
-Now come back to the section [Binaries installation](bitcoin-client.md#binaries-installation) to continue with the Bitcoin Core installation process, not if you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
+Now come back to the section [Binaries installation](bitcoin-client.md#binaries-installation) to continue with the Bitcoin Core installation process, not if you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md).
 {% endhint %}
 
 ### Generate a full bitcoin.conf example file
 
 {% hint style="success" %}
-This extra section is valid if you compiled it from the source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md)
+This extra section is valid if you compiled it from the source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md).
 {% endhint %}
 
-* Follow the complete [Installation progress before](bitcoin-client.md#installation), or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation), to install the `bitcoind` binary on the OS
-* With user `admin`, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you
+* Follow the complete [Installation progress before](bitcoin-client.md#installation), or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation), to install the `bitcoind` binary on the OS.
+* With user `admin`, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you:
 
 ```bash
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install the next dependency packages
+* Install the next dependency packages:
 
 ```bash
 sudo apt install build-essential cmake pkg-config --no-install-recommends
 ```
 
-* Go to the temporary folder
+* Go to the temporary folder:
 
 ```bash
 cd /tmp
 ```
 
-* Set a temporary version environment variable for the installation
+* Set a temporary version environment variable for the installation:
 
 ```bash
 VERSION=31.0
 ```
 
-* Clone the source code from GitHub and enter the bitcoin folder
+* Clone the source code from GitHub and enter the bitcoin folder:
 
 ```bash
 git clone --branch v$VERSION https://github.com/bitcoin/bitcoin.git && cd bitcoin
 ```
 
-* Build all Bitcoin Core dependencies
+* Build all Bitcoin Core dependencies:
 
 ```bash
 make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
 ```
 
-* Pre-configuring the installation, we will discard some features and include others. Enter the complete next command in the terminal and press `ENTER`
+* Pre-configuring the installation, we will discard some features and include others. Enter the complete next command in the terminal and press `ENTER`:
 
 ```bash
 cmake -B build \
@@ -912,13 +912,13 @@ cmake -B build \
   --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
 ```
 
-* Copy-paste the bitcoind binary file existing on your OS to the source code folder
+* Copy-paste the bitcoind binary file existing on your OS to the source code folder:
 
 ```bash
 cp /usr/local/bin/bitcoind /tmp/bitcoin/build/bin/
 ```
 
-* Exec the `gen-bitcoin-conf` script to generate the file
+* Exec the `gen-bitcoin-conf` script to generate the file:
 
 ```bash
 sudo ./contrib/devtools/gen-bitcoin-conf.sh
@@ -930,19 +930,19 @@ Expected output:
 Generating example bitcoin.conf file in share/examples/
 ```
 
-* Use `cat` to print it on the terminal to enable a copy-paste
+* Use `cat` to print it on the terminal to enable a copy-paste:
 
 ```bash
 cat /tmp/bitcoin/share/examples/bitcoin.conf
 ```
 
-* Or `nano` to examine the content
+* Or `nano` to examine the content:
 
 ```bash
 nano /tmp/bitcoin/share/examples/bitcoin.conf
 ```
 
-**(Optional)** Delete the `bitcoin` folder from the temporary folder
+**(Optional)** Delete the `bitcoin` folder from the temporary folder:
 
 ```bash
 sudo rm -r /tmp/bitcoin
@@ -953,14 +953,14 @@ sudo rm -r /tmp/bitcoin
 If you already have another fully-synced MiniBolt node on your local network, connecting directly to it can greatly accelerate synchronization by bypassing Tor’s added latency and bandwidth constraints. Local connections offer lower latency and higher throughput, delivering data—such as blockchain history—more reliably while reducing potential connectivity issues.
 
 {% hint style="info" %}
-To get this, you will need a **full-sync** **MiniBolt** node on the same local network
+To get this, you will need a **full-sync** **MiniBolt** node on the same local network.
 {% endhint %}
 
 **On the full-sync local MiniBolt node:**
 
 #### Configure Firewall
 
-* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
+* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere:
 
 {% code overflow="wrap" %}
 ```sh
@@ -972,27 +972,27 @@ sudo ufw allow 8333/tcp comment 'allow incoming connections to Bitcoin Core from
 
 To allow incoming connections from another node in the same local network, follow the next steps:
 
-* With the user `admin`, edit the `bitcoin.conf` file
+* With the user `admin`, edit the `bitcoin.conf` file:
 
 ```bash
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* **Replace** the `bind=127.0.0.1` line with the next to allow connections from anywhere
+* **Replace** the `bind=127.0.0.1` line with the next to allow connections from anywhere:
 
 <pre><code><strong>bind=0.0.0.0
 </strong></code></pre>
 
-Or **add** under `bind=127.0.0.1`, the next line allows **connections only from devices in the same local network** (**recommended option** to improve security)
+Or **add** under `bind=127.0.0.1`, the next line allows **connections only from devices in the same local network** (**recommended option** to improve security):
 
 <pre><code>bind=<a data-footnote-ref href="#user-content-fn-14">192.168.x.x</a>
 </code></pre>
 
 {% hint style="info" %}
-Remember to replace `192.168.x.x` with your MiniBolt local IP, e.g `192.168.1.43`
+Remember to replace `192.168.x.x` with your MiniBolt local IP, e.g `192.168.1.43`.
 {% endhint %}
 
-* Restart Bitcoin Core to apply changes
+* Restart Bitcoin Core to apply changes:
 
 ```bash
 sudo systemctl restart bitcoind
@@ -1000,22 +1000,22 @@ sudo systemctl restart bitcoind
 
 **On the new MiniBolt node:**
 
-* With the user `admin`, edit the `bitcoin.conf` file
+* With the user `admin`, edit the `bitcoin.conf` file:
 
 ```bash
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit
+* Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit.
 
 <pre><code> connect=<a data-footnote-ref href="#user-content-fn-15">&#x3C;localip></a>:8333
 </code></pre>
 
 {% hint style="info" %}
-Remember to replace `<localip>` with the real node IP, e.g: `192.168.1.43`
+Remember to replace `<localip>` with the real node IP, e.g: `192.168.1.43`.
 {% endhint %}
 
-* Restart Bitcoin Core to apply changes
+* Restart Bitcoin Core to apply changes:
 
 ```bash
 sudo systemctl restart bitcoind
@@ -1049,18 +1049,18 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client with both onion and I2P addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
 
 {% hint style="info" %}
-To get this, you will need a **full-sync** node peer like the official MiniBolt project node (later, it is suggested)
+To get this, you will need a **full-sync** node peer like the official MiniBolt project node (later, it is suggested).
 {% endhint %}
 
 #### Configure Bitcoin Core
 
-* With the user `admin`, edit the `bitcoin.conf` file
+* With the user `admin`, edit the `bitcoin.conf` file:
 
 ```bash
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Core on MiniBolt. Save and exit
+* Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Core on MiniBolt. Save and exit.
 
 <pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.onion</a>>:8333
 addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.b32</a>>.i2p:0
@@ -1077,7 +1077,7 @@ addnode=etehks5xyh32nyjldpyeckk3nwpanivqhrzhsoracwqjxtk5apgq.b32.i2p:0
 ```
 {% endhint %}
 
-* Restart Bitcoin Core to apply changes
+* Restart Bitcoin Core to apply changes:
 
 ```bash
 sudo systemctl restart bitcoind
@@ -1110,7 +1110,7 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 Enables private transaction broadcasting by routing `sendrawtransaction` through ephemeral Tor/I2P connections, preventing IP leakage and minimizing correlation between broadcasts.
 
-* With the user `admin`, edit the `bitcoin.conf` file
+* With the user `admin`, edit the `bitcoin.conf` file:
 
 ```bash
 sudo nano /data/bitcoin/bitcoin.conf
@@ -1123,13 +1123,13 @@ sudo nano /data/bitcoin/bitcoin.conf
 privatebroadcast=1
 ```
 
-* If you want additional logs about the processes related to this feature and validate it, add also the next
+* If you want additional logs about the processes related to this feature and validate it, add also the following:
 
 ```
 debug=privatebroadcast
 ```
 
-* Restart Bitcoin Core to apply changes
+* Restart Bitcoin Core to apply changes:
 
 ```bash
 sudo systemctl restart bitcoind
@@ -1222,19 +1222,19 @@ Example of expected output:
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide.
 
-* Login as `admin` user and change to the temporary directory
+* Login as `admin` user and change to the temporary directory:
 
 ```sh
 cd /tmp
 ```
 
-* Set a temporary version environment variable for the installation
+* Set a temporary version environment variable for the installation:
 
 ```sh
 VERSION=31.0
 ```
 
-* Download binary, checksum, signature files, and timestamp file
+* Download binary, checksum, signature files, and timestamp file:
 
 {% code overflow="wrap" %}
 ```sh
@@ -1260,7 +1260,7 @@ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
 ```
 {% endcode %}
 
-* Verify the new version against its checksums
+* Verify the new version against its checksums:
 
 ```sh
 sha256sum --ignore-missing --check SHA256SUMS
@@ -1272,7 +1272,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ```
 
-* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository
+* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository:
 
 {% code overflow="wrap" %}
 ```sh
@@ -1292,20 +1292,20 @@ gpg: no ultimately trusted keys found
 [...]
 ```
 
-* Verify that the checksums file is cryptographically signed using the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums
+* Verify that the checksums file is cryptographically signed using the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
 
 ```sh
 gpg --verify SHA256SUMS.asc SHA256SUMS
 ```
 
-* Check that at least a few signatures show the following text
+* Check that at least a few signatures show the following text:
 
 ```
 gpg: Good signature from ...
 Primary key fingerprint: ...
 ```
 
-* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client)
+* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client):
 
 ```sh
 ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -1323,7 +1323,7 @@ Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
 ```
 {% endhint %}
 
-* Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing
+* Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing:
 
 {% hint style="info" %}
 If you obtain this output:
@@ -1335,16 +1335,16 @@ Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bi
 Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
 ```
 
--> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next step
+-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next step.
 {% endhint %}
 
-* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries
+* If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries:
 
 ```sh
 tar -xzvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
 
-* Install them
+* Install them:
 
 {% code overflow="wrap" %}
 ```sh
@@ -1352,7 +1352,7 @@ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-$VERSION/bin/bitc
 ```
 {% endcode %}
 
-* Check the new version
+* Check the new version:
 
 ```sh
 bitcoin-cli --version
@@ -1366,7 +1366,7 @@ Copyright (C) 2009-2022 The Bitcoin Core developers
 [...]
 ```
 
-* **(Optional)** Delete the installation files of the `/tmp` folder to be ready for the next upgrade
+* **(Optional)** Delete the installation files of the `/tmp` folder to be ready for the next upgrade:
 
 {% code overflow="wrap" %}
 ```bash
@@ -1374,7 +1374,7 @@ sudo rm -r bitcoin-$VERSION && sudo rm bitcoin-$VERSION-x86_64-linux-gnu.tar.gz 
 ```
 {% endcode %}
 
-* Restart the Bitcoin Core to apply the new version
+* Restart the Bitcoin Core to apply the new version:
 
 ```sh
 sudo systemctl restart bitcoind
@@ -1388,19 +1388,19 @@ Warning: This section removes the installation. Only run these commands if you i
 
 ### Uninstall service
 
-* Ensure you are logged in as the user `admin`, stop bitcoind
+* Ensure you are logged in as the user `admin`, stop bitcoind:
 
 ```bash
 sudo systemctl stop bitcoind
 ```
 
-* Disable autoboot (if enabled)
+* Disable autoboot (if enabled):
 
 ```bash
 sudo systemctl disable bitcoind
 ```
 
-* Delete the service
+* Delete the service:
 
 ```bash
 sudo rm /etc/systemd/system/bitcoind.service
@@ -1408,7 +1408,7 @@ sudo rm /etc/systemd/system/bitcoind.service
 
 ### Delete user & group
 
-* Delete bitcoin user's group
+* Delete bitcoin user's group:
 
 {% code overflow="wrap" %}
 ```bash
@@ -1416,13 +1416,13 @@ sudo gpasswd -d admin bitcoin; sudo gpasswd -d fulcrum bitcoin; sudo gpasswd -d 
 ```
 {% endcode %}
 
-* Delete the `bitcoin` user. Don't worry about `userdel: bitcoin mail spool (/var/mail/bitcoin) not found` output, the uninstall has been successful
+* Delete the `bitcoin` user. Don't worry about `userdel: bitcoin mail spool (/var/mail/bitcoin) not found` output; the uninstall has been successful:
 
 ```bash
 sudo userdel -rf bitcoin
 ```
 
-* Delete the bitcoin group
+* Delete the bitcoin group:
 
 ```bash
 sudo groupdel bitcoin
@@ -1430,7 +1430,7 @@ sudo groupdel bitcoin
 
 ### Delete data directory
 
-* Delete the complete `bitcoin`directory
+* Delete the complete `bitcoin` directory:
 
 ```bash
 sudo rm -rf /data/bitcoin/
@@ -1438,7 +1438,7 @@ sudo rm -rf /data/bitcoin/
 
 ### Uninstall binaries
 
-* Delete the binaries installed
+* Delete the binaries installed:
 
 ```bash
 sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
@@ -1446,9 +1446,9 @@ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
 
 ### Uninstall FW configuration
 
-If you followed the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P)
+If you followed the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P).
 
-* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below)
+* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below):
 
 ```bash
 sudo ufw status numbered
@@ -1461,10 +1461,10 @@ Expected output:
 ```
 
 {% hint style="info" %}
-If you don't have any rule matched with this, you don't have to do anything; you are OK
+If you don't have any rule matched with this, you don't have to do anything; you are OK.
 {% endhint %}
 
-* Delete the rule with the correct number and confirm by typing "`yes`" and enter
+* Delete the rule with the correct number and confirm by typing "`yes`" and enter:
 
 ```bash
 sudo ufw delete X

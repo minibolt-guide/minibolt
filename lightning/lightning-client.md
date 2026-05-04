@@ -497,6 +497,7 @@ db.postgres.timeout=0
 tor.active=true
 tor.v3=true
 tor.streamisolation=true
+tor.encryptkey=true
 </code></pre>
 
 {% hint style="info" %}
