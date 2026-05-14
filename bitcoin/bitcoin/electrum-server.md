@@ -49,7 +49,7 @@ Make sure that you have followed the [Activate mempool & reduce 'dbcache' after 
 
 ### Install dependencies
 
-* With user `admin`, update and upgrade your OS.  Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* With user `admin`, update and upgrade your OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt update && sudo apt full-upgrade
@@ -124,7 +124,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=2.1.0
+VERSION=2.1.1
 ```
 
 * Download the application, checksums, and signature
@@ -249,7 +249,7 @@ sudo rm -r Fulcrum-$VERSION-x86_64-linux Fulcrum-$VERSION-x86_64-linux.tar.gz Fu
 {% endcode %}
 
 {% hint style="info" %}
-If you come to update, this is the final step, go back to the [Upgrade section](electrum-server.md#upgrade) to continue
+If you come to update, this is the final step. Go back to the [Upgrade section](electrum-server.md#upgrade) to continue.
 {% endhint %}
 
 ### Create the fulcrum user & group

@@ -25,28 +25,6 @@ The MiniBolt needs to be secured against online attacks using various methods.
 
 <figure><img src="../.gitbook/assets/security_cover.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
-## Check IPv6 availability
-
-* With user `admin`, check your IPv6 availability:
-
-{% code overflow="wrap" %}
-```bash
-ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
-```
-{% endcode %}
-
-**-> 2 output options:**
-
-{% tabs %}
-{% tab title="First (more common)" %}
-If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, IPv6 adoption is new, you will use your internet connection using the common IPv4. Additionally, you can obtain your public IPv4 address with: `curl -s ipv4.icanhazip.com`
-{% endtab %}
-
-{% tab title="Second" %}
-If you obtain the `"OK."` output, you have IPv6 availability. Additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are **OK**, continue the guide without modifications
-{% endtab %}
-{% endtabs %}
-
 ## Uncomplicated Firewall
 
 A Firewall controls what kind of outside traffic your machine accepts and which applications can send data out. By default, many network ports are open and listening for incoming connections. Closing unnecessary ports can mitigate many potential system vulnerabilities.
@@ -55,7 +33,7 @@ For now, only SSH should be reachable from the outside. Bitcoin Core and LND are
 
 ### Configuration
 
-If you don't have [IPv6 availability](security.md#check-ipv6-availability), you can disable IPv6 on UFW to avoid the creation of rules related to it.
+If you don't have [IPv6 availability](configuration.md#check-ipv6-availability), you can disable IPv6 on UFW to avoid the creation of rules related to it.
 
 * Edit the UFW configuration:
 

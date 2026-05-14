@@ -773,9 +773,9 @@ nano mempool-frontend-config.json
 * Type the next context. Save and exit
 
 {% hint style="info" %}
-If you want to have the Lightning explorer and tab associated enabled and connected to your internal [LND](../../lightning/lightning-client.md) node, change the parameter `"LIGHTNING": false,` to -> true ( `"LIGHTNING": true,`)
+If you want to have the Lightning explorer connected to your internal [LND](../../lightning/lightning-client.md) node and you followed the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section, change the parameter `"LIGHTNING": false,`  to -> true ( `"LIGHTNING": true,`).
 
-**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least
+**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least.
 {% endhint %}
 
 <pre data-overflow="wrap"><code>{
@@ -820,7 +820,7 @@ If you want to have the Lightning explorer and tab associated enabled and connec
 }
 </code></pre>
 
-* Install all dependencies and the necessary modules using NPM
+* Install all dependencies and the necessary modules using NPM:
 
 ```bash
 npm install --omit=dev --omit=optional
@@ -852,7 +852,7 @@ Run `npm audit` for details.
 **Not to run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
-* Build it
+* Build it:
 
 {% code overflow="wrap" %}
 ```bash
@@ -1005,7 +1005,7 @@ total size is 15,089,079  speedup is 1.00
 
 </details>
 
-* Come back to the `admin` user
+* Come back to the `admin` user:
 
 {% code overflow="wrap" %}
 ```bash
@@ -1013,7 +1013,7 @@ exit
 ```
 {% endcode %}
 
-* Sync the frontend files with the system and enforce secure ownership and permissions
+* Sync the frontend files with the system and enforce secure ownership and permissions:
 
 {% code overflow="wrap" %}
 ```sh
@@ -1058,13 +1058,13 @@ total size is 203,208,811  speedup is 1.00
 
 ### **Create systemd service**
 
-* As user `admin`, create the service file
+* As user `admin`, create the service file:
 
 ```bash
 sudo nano /etc/systemd/system/mempool.service
 ```
 
-* Paste the following configuration. Save and exit
+* Paste the following configuration. Save and exit.
 
 ```
 # MiniBolt: systemd unit for Mempool
@@ -1114,7 +1114,7 @@ journalctl -fu mempool
 
 To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
-* Start mempool
+* Start mempool:
 
 ```bash
 sudo systemctl start mempool
@@ -1331,13 +1331,13 @@ tcp   LISTEN 0      511                *:8999             *:*    users:(("node",
 ```
 
 {% hint style="info" %}
-> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Mempool web interface
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Mempool web interface.
 
-> Now point your browser to `https://minibolt.local:4081` or the IP address (e.g. `https://192.168.x.xxx:4081`). You should see the home page of Mempool
+> Now point your browser to `https://minibolt.local:4081` or the IP address (e.g. `https://192.168.x.xxx:4081`). You should see the home page of Mempool.
 {% endhint %}
 
 {% hint style="success" %}
-Congrat&#x73;**!** You now have Mempool up and running
+Congrat&#x73;**!** You now have Mempool up and running.
 {% endhint %}
 
 ## Extras (optional)
@@ -1345,16 +1345,16 @@ Congrat&#x73;**!** You now have Mempool up and running
 ### Enable Lightning with a local LND node
 
 {% hint style="info" %}
-**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least
+**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least.
 {% endhint %}
 
 #### Backend
 
 {% hint style="info" %}
-Unlike the [frontend](mempool.md#frontend), the backend configuration can be changed at any time after installation, just like the systemd service
+Unlike the [frontend](mempool.md#frontend), the backend configuration can be changed at any time after installation, just like the systemd service.
 {% endhint %}
 
-* Stop the mempool service
+* Stop the mempool service:
 
 {% code overflow="wrap" %}
 ```bash
@@ -1362,13 +1362,43 @@ sudo systemctl stop mempool
 ```
 {% endcode %}
 
-* Edit the `mempool-config.json` file
+* Change to the user mempool:
+
+{% code overflow="wrap" %}
+```bash
+sudo su - mempool
+```
+{% endcode %}
+
+* Create the GeoIP folder:
+
+{% code overflow="wrap" %}
+```bash
+mkdir -p /home/mempool/mempool/backend/GeoIP
+```
+{% endcode %}
+
+* Download `GeoLite2-City` and `GeoLite2-ASN` databases:
+
+{% code overflow="wrap" %}
+```bash
+wget -P mempool/backend/GeoIP https://raw.githubusercontent.com/mempool/geoip-data/master/GeoLite2-City.mmdb
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
+wget -P mempool/backend/GeoIP https://raw.githubusercontent.com/mempool/geoip-data/master/GeoLite2-ASN.mmdb
+```
+{% endcode %}
+
+* Edit the `mempool-config.json` file:
 
 ```bash
-sudo nano /home/mempool/mempool/backend/mempool-config.json
+nano /home/mempool/mempool/backend/mempool-config.json
 ```
 
-* Replace the complete config with this or add the "`LIGHTNING`" and "`LND`" sections at the end of the file. Save and exit
+* Replace the complete config with this or add the "`MAXMIND`", "`LIGHTNING`" and "`LND`" sections at the end of the file. Save and exit.
 
 <pre data-overflow="wrap"><code>{
     "MEMPOOL": {
@@ -1396,7 +1426,7 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
   },
   "ELECTRUM": {
     "HOST": "127.0.0.1",
-    "PORT": <a data-footnote-ref href="#user-content-fn-4">50001</a>,
+    "PORT": 50001,
     "TLS_ENABLED": false
   },
   "DATABASE": {
@@ -1407,8 +1437,13 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
     "PASSWORD": "admin",
     "DATABASE": "mempool"
   },
-  "<a data-footnote-ref href="#user-content-fn-5">LIGHTNING</a>": {
-    "ENABLED": <a data-footnote-ref href="#user-content-fn-1">true</a>,
+  "<a data-footnote-ref href="#user-content-fn-4">MAXMIND</a>": {
+    "ENABLED": true,
+    "GEOLITE2_CITY": "/home/mempool/mempool/backend/GeoIP/GeoLite2-City.mmdb",
+    "GEOLITE2_ASN": "/home/mempool/mempool/backend/GeoIP/GeoLite2-ASN.mmdb"
+  },
+  "<a data-footnote-ref href="#user-content-fn-4">LIGHTNING</a>": {
+    "ENABLED": true,
     "BACKEND": "lnd",
     "STATS_REFRESH_INTERVAL": 600,
     "GRAPH_REFRESH_INTERVAL": 600,
@@ -1416,7 +1451,7 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
     "FORENSICS_INTERVAL": 43200,
     "FORENSICS_RATE_LIMIT": 20
   },
-  "<a data-footnote-ref href="#user-content-fn-5">LND</a>": {
+  "<a data-footnote-ref href="#user-content-fn-4">LND</a>": {
     "TLS_CERT_PATH": "/data/lnd/tls.cert",
     "MACAROON_PATH": "/data/lnd/data/chain/bitcoin/mainnet/readonly.macaroon",
     "REST_API_URL": "https://localhost:8080",
@@ -1424,6 +1459,14 @@ sudo nano /home/mempool/mempool/backend/mempool-config.json
   }
 }
 </code></pre>
+
+* Come back to the `admin` user:
+
+{% code overflow="wrap" %}
+```bash
+exit
+```
+{% endcode %}
 
 #### Systemd service
 
@@ -1437,8 +1480,8 @@ sudo nano /etc/systemd/system/mempool.service
 
 * Add the new `lnd.service` dependence in these lines. Save and exit
 
-<pre data-overflow="wrap"><code>Requires=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-6">lnd.service</a>
-After=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-6">lnd.service</a>
+<pre data-overflow="wrap"><code>Requires=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-5">lnd.service</a>
+After=mariadb.service bitcoind.service fulcrum.service <a data-footnote-ref href="#user-content-fn-5">lnd.service</a>
 </code></pre>
 
 * Reload the systemctl daemon to apply changes
@@ -1534,8 +1577,8 @@ sudo nano /etc/systemd/system/mempool.service
 
 * Replace the `fulcrum.service` with the `electrs.service`. Save and exit
 
-<pre><code>Requires=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-7">electrs.service</a> <a data-footnote-ref href="#user-content-fn-8">lnd.service</a>
-After=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-7">electrs.service</a> <a data-footnote-ref href="#user-content-fn-8">lnd.service</a>
+<pre><code>Requires=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-6">electrs.service</a> <a data-footnote-ref href="#user-content-fn-7">lnd.service</a>
+After=mariadb.service bitcoind.service <a data-footnote-ref href="#user-content-fn-6">electrs.service</a> <a data-footnote-ref href="#user-content-fn-7">lnd.service</a>
 </code></pre>
 
 * Reload the systemctl daemon to apply changes
@@ -1627,7 +1670,7 @@ Click on the \[Save] button to save the new DNS registry
 * Add the next lines to the `config.yml`
 
 <pre><code># Mempool
-  - hostname: <a data-footnote-ref href="#user-content-fn-9">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-10">&#x3C;domain.com></a>
+  - hostname: <a data-footnote-ref href="#user-content-fn-8">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-9">&#x3C;domain.com></a>
     service: http://localhost:8001
 </code></pre>
 
@@ -1791,18 +1834,16 @@ sudo ufw delete X
 
 [^3]: Change to -> true if you want to enable the Lightning explorer feature (keeping the final comma \[","])
 
-[^4]: Change to 500011 if you use Electrs
+[^4]: Add this section
 
-[^5]: Add this section
+[^5]: Add this
 
-[^6]: Add this
+[^6]: Replace to this
 
-[^7]: Replace to this
+[^7]: Optional, depending if you connected mempool to your internal LND node
 
-[^8]: Optional, depending if you connected mempool to your internal LND node
-
-[^9]: Replace with the selected name of your service\
+[^8]: Replace with the selected name of your service\
     i.e: `explorer`
 
-[^10]: Replace with your domain\
+[^9]: Replace with your domain\
     i.e: `domain.com`

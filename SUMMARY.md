@@ -39,7 +39,6 @@
   * [Static IP & custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
   * [Node + NPM](bonus/system/nodejs-npm.md)
   * [Rustup + Cargo](bonus-guides/system/rustup-+-cargo.md)
-  * [Go](bonus-guides/system/go.md)
   * [PostgreSQL](bonus-guides/system/postgresql.md)
   * [MariaDB](bonus-guides/system/mariadb.md)
   * [Store data in a secondary disk](bonus/system/store-data-secondary-disk.md)

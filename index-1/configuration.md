@@ -146,16 +146,58 @@ Do you want to continue? [Y/n]
 sudo rm -r /root/snap
 ```
 
+## Check IPv6 availability
+
+* With user `admin`, check your IPv6 availability:
+
+{% code overflow="wrap" %}
+```bash
+ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
+```
+{% endcode %}
+
+**-> 2 output options:**
+
+{% tabs %}
+{% tab title="First (more common)" %}
+If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, IPv6 adoption is new, you will use your internet connection using the common IPv4. Additionally, you can obtain your public IPv4 address with: `curl -s ipv4.icanhazip.com`
+{% endtab %}
+
+{% tab title="Second" %}
+If you obtain the `"OK."` output, you have IPv6 availability. Additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are **OK**, continue the guide without modifications
+{% endtab %}
+{% endtabs %}
+
+## Force APT to Use IPv4
+
+If [IPv6 is unavailable](configuration.md#check-ipv6-availability) on your network, you can force APT to use IPv4 to prevent delays caused by IPv6 connection attempts.
+
+* With user `admin`, created a drop-in file inside the apt configuration:
+
+{% code overflow="wrap" %}
+```bash
+sudo nano /etc/apt/apt.conf.d/99-force-ipv4
+```
+{% endcode %}
+
+* Type the following. Save and exit.
+
+{% code overflow="wrap" %}
+```
+Acquire::ForceIPv4 "true";
+```
+{% endcode %}
+
 ## System update
 
-* Update the operating system and all installed software packages:
+* Update the operating system and all installed software packages. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```sh
 sudo apt update && sudo apt full-upgrade
 ```
 
 {% hint style="info" %}
--> Do this regularly for security-related updates
+-> Do this regularly for security-related updates.
 
 -> If during the update process, a banner appears asking you, "Which services should be restarted?" you can press ENTER and take note of the services that will be restarted, marked with `[*]`. Example 🔽
 {% endhint %}
@@ -163,7 +205,7 @@ sudo apt update && sudo apt full-upgrade
 ![](../.gitbook/assets/update-action.PNG)
 
 {% hint style="info" %}
-It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press `ENTER` to confirm
+It is recommended to keep the default selection and restart all marked items. However, if you want to unmark any of them, select the item and press the **spacebar to toggle the mark**. Finally, press `ENTER` to confirm.
 {% endhint %}
 
 * To be able to use the `minibolt` hostname instead of the IP address, we must install this necessary software package. Press "**y**" and `enter` or directly `enter` when the prompt asks you:

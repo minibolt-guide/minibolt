@@ -568,7 +568,7 @@ NETWORK=mainnet
 ## Public Pool  general settings
 API_PORT=23334
 STRATUM_PORT=23333
-POOL_IDENTIFIER="<a data-footnote-ref href="#user-content-fn-1">MiniBolt</a>"
+POOL_IDENTIFIER="<a data-footnote-ref href="#user-content-fn-1">Public Pool on MiniBolt</a>"
 </code></pre>
 
 * Exit of the `public-pool` user session to return to the `admin` user session

@@ -154,7 +154,7 @@ sudo su - thunderhub
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=0.15.5
+VERSION=0.15.1
 ```
 
 * Import the GPG key of the developer
@@ -441,7 +441,7 @@ WantedBy=multi-user.target
 sudo systemctl enable thunderhub
 ```
 
-* Prepare "thunderhub" monitoring by the systemd journal and check the log output. You can exit monitoring at any time with `Ctrl-C`
+* Prepare "thunderhub" monitoring by the systemd journal and check the log output. You can exit monitoring at any time with `Ctrl-C`:
 
 ```bash
 journalctl -fu thunderhub
@@ -451,7 +451,7 @@ journalctl -fu thunderhub
 
 To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
-* Start the service
+* Start the service:
 
 ```sh
 sudo systemctl start thunderhub
@@ -586,7 +586,7 @@ Apr 10 16:35:31 minibolt npm[75556]: }
 
 ### Validation
 
-* Ensure the service is working and listening on the default `3001` port and the HTTPS `4002` port
+* Ensure the service is working and listening on the default `3001` port and the HTTPS `4002` port:
 
 ```bash
 sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4002|:3001)'
@@ -600,20 +600,20 @@ tcp   LISTEN 0      511                    *:3001             *:*    users:(("Ma
 ```
 
 {% hint style="info" %}
-> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface
+> Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g., https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the ThunderHub web interface.
 
-> Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub
+> Now point your browser to `https://minibolt.local:4002` or the IP address (e.g. `https://192.168.x.xxx:4002`). You should see the home page of ThunderHub.
 {% endhint %}
 
 {% hint style="success" %}
-Congrat&#x73;**!** You now have ThunderHub up and running
+Congrat&#x73;**!** You now have ThunderHub up and running.
 {% endhint %}
 
 ## Extras (optional)
 
 ### Remote access over Tor
 
-* With the user `admin`, edit the `torrc` file
+* With the user `admin`, edit the `torrc` file:
 
 ```sh
 sudo nano +63 /etc/tor/torrc --linenumbers
@@ -629,13 +629,13 @@ HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:3001
 ```
 
-* Reload Tor to apply changes
+* Reload Tor to apply changes:
 
 ```sh
 sudo systemctl reload tor
 ```
 
-* Get your Onion address
+* Get your Onion address:
 
 ```sh
 sudo cat /var/lib/tor/hidden_service_thunderhub/hostname
@@ -651,13 +651,13 @@ abcdefg..............xyz.onion
 
 ### Access to your Amboss node account
 
-* In the "**Home**" screen - "**Quick Actions**" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "**Logged in**", and click again on the Amboss icon "**Go to**". This will open a secondary tab in your browser to access your Amboss account node
+* In the "**Home**" screen - "**Quick Actions**" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "**Logged in**", and click again on the Amboss icon "**Go to**". This will open a secondary tab in your browser to access your Amboss account node.
 
 {% hint style="warning" %}
 If you can't do "**Login**", maybe the cause is that you don't have a **public** channel opened yet. **You'll need at least one public channel that has been open for a few days.** Planning to open a small-sized public channel to be connected with some Lightning Network peers or directly to the [Amboss node](https://amboss.space/es/node/03006fcf3312dae8d068ea297f58e2bd00ec1ffe214b793eda46966b6294a53ce6). More info on [Amboss docs](https://amboss.tech/docs)
 {% endhint %}
 
-* Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account), now back to ThunderHub for the next steps
+* Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account), now back to ThunderHub for the next steps.
 
 ### Enable auto backups and healthcheck notifications to the Amboss account
 
@@ -684,9 +684,9 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 4. Go to the [Notifications section](https://amboss.space/settings?page=notifications) to enable the different notification methods that you wish to be notified.
 
 {% hint style="info" %}
-> Feel free to link to the Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account
+> Feel free to link to the Telegram bot notifications, enable different notifications, complete your public node profile in Amboss, and other things in the different sections of your account.
 
-> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings
+> Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <-> Ambos to send healthchecks pings.
 {% endhint %}
 
 ### Recovering channels using the ThunderHub method
@@ -710,31 +710,31 @@ Use this guide as a last resort if you have lost access to your node or are unab
 
 Updating to a [new release](https://github.com/apotdevin/thunderhub/releases) should be straightforward.
 
-* Stay logged in with the user `admin`, stop the service
+* Stay logged in with the user `admin`, stop the service:
 
 ```sh
 sudo systemctl stop thunderhub
 ```
 
-* Change to the `thunderhub` user
+* Change to the `thunderhub` user:
 
 ```sh
 sudo su - thunderhub
 ```
 
-* Go to the thunderhub folder
+* Go to the thunderhub folder:
 
 ```sh
 cd thunderhub
 ```
 
-* Set the environment variable version
+* Set the environment variable version:
 
 ```bash
-VERSION=0.15.5
+VERSION=0.15.1
 ```
 
-* Pull the changes from GitHub
+* Pull the changes from GitHub:
 
 ```bash
 git pull https://github.com/apotdevin/thunderhub.git v$VERSION
@@ -760,7 +760,7 @@ Fast-forward
 
 </details>
 
-* Install all the necessary modules
+* Install all the necessary modules:
 
 ```bash
 npm install
@@ -822,7 +822,7 @@ npm notice
 
 </details>
 
-* Build it
+* Build it:
 
 <pre class="language-bash"><code class="lang-bash"><strong>npm run build
 </strong></code></pre>
@@ -865,7 +865,7 @@ dist/assets/index-CbTrqCDL.js                  1,671.44 kB │ gzip: 533.46 kB
 
 </details>
 
-* Check the correct update
+* Check the correct update:
 
 ```bash
 head -n 3 /home/thunderhub/thunderhub/package.json | grep version
@@ -876,20 +876,20 @@ head -n 3 /home/thunderhub/thunderhub/package.json | grep version
 <pre><code><strong>"version": "0.13.20",
 </strong></code></pre>
 
-* Exit to go back to the `admin` user
+* Exit to go back to the `admin` user:
 
 ```bash
 exit
 ```
 
-* Start the service again
+* Start the service again:
 
 ```sh
 sudo systemctl start thunderhub
 ```
 
 {% hint style="warning" %}
-If the update fails, you probably will have to stop ThunderHub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete the `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation)
+If the update fails, you probably will have to stop ThunderHub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete the `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation).
 {% endhint %}
 
 ## Uninstall
@@ -900,19 +900,19 @@ Warning: This section removes the installation. Only run these commands if you i
 
 ### Uninstall service
 
-* With user `admin` , stop thunderhub
+* With user `admin` , stop thunderhub:
 
 ```sh
 sudo systemctl stop thunderhub
 ```
 
-* Disable autoboot (if enabled)
+* Disable autoboot (if enabled):
 
 ```sh
 sudo systemctl disable thunderhub
 ```
 
-* Delete the service
+* Delete the service:
 
 ```sh
 sudo rm /etc/systemd/system/thunderhub.service
@@ -920,7 +920,7 @@ sudo rm /etc/systemd/system/thunderhub.service
 
 ### Delete user & group
 
-* Delete the "thunderhub" user. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`
+* Delete the "thunderhub" user. Do not worry about the `userdel: thunderhub mail spool (/var/mail/thunderhub) not found`:
 
 ```sh
 sudo userdel -rf thunderhub
@@ -928,7 +928,7 @@ sudo userdel -rf thunderhub
 
 ### Uninstall Tor hidden service
 
-* Comment or remove the ThunderHub hidden service lines in torrc. Save and exit
+* Comment or remove the ThunderHub hidden service lines in torrc. Save and exit.
 
 ```sh
 sudo nano +63 /etc/tor/torrc --linenumbers
@@ -942,7 +942,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 #HiddenServicePort 80 127.0.0.1:3001
 ```
 
-* Reload the Tor config to apply changes
+* Reload the Tor config to apply changes:
 
 ```sh
 sudo systemctl reload tor
@@ -950,19 +950,19 @@ sudo systemctl reload tor
 
 ### Uninstall reverse proxy & FW configuration
 
-* Ensure you are logged in as the user `admin`, delete the reverse proxy config file
+* Ensure you are logged in as the user `admin`, delete the reverse proxy config file:
 
 ```bash
 sudo rm /etc/nginx/sites-available/thunderhub-reverse-proxy.conf
 ```
 
-* Delete the symbolic link
+* Delete the symbolic link:
 
 ```bash
 sudo rm /etc/nginx/sites-enabled/thunderhub-reverse-proxy.conf
 ```
 
-* Test Nginx configuration
+* Test Nginx configuration:
 
 ```bash
 sudo nginx -t
@@ -975,13 +975,13 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-* Reload the Nginx configuration to apply changes
+* Reload the Nginx configuration to apply changes:
 
 ```bash
 sudo systemctl reload nginx
 ```
 
-* Display the UFW firewall rules and note the numbers of the rules for ThunderHub (e.g. "X" below)
+* Display the UFW firewall rules and note the numbers of the rules for ThunderHub (e.g. "X" below):
 
 ```sh
 sudo ufw status numbered
@@ -993,7 +993,7 @@ Expected output:
 [X] 4002    ALLOW IN    Anywhere         # allow ThunderHub SSL from anywhere
 ```
 
-* Delete the ThunderHub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted)
+* Delete the ThunderHub rules (check that the rule to be deleted is the correct one and type "y" and "Enter" when prompted):
 
 ```sh
 sudo ufw delete X
@@ -1002,6 +1002,8 @@ sudo ufw delete X
 ## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4002</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port</td></tr></tbody></table>
+
+
 
 [^1]: Check this
 
