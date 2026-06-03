@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Bitcoin Knots
@@ -566,6 +568,8 @@ More info: [bip110.org](https://bip110.org/)
 
 {% hint style="info" %}
 Enable the RDTS (BIP110) consensus rules in Bitcoin Knots to participate in the deployment and enforce the new reduced-data transaction validation rules once activated by the network.
+
+More info: [bip110.org](https://bip110.org/)
 {% endhint %}
 
 * With the user admin, edit the `bitcoin.conf` file:

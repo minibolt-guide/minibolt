@@ -18,6 +18,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 2.4 Desktop signing app: Sparrow Wallet
@@ -37,7 +39,7 @@ Sparrow wallet is an excellent software wallet to use with your MiniBolt: it's r
 
 You can also use the following alternatives instead of Sparrow Wallet, according to your preferences and needs:
 
-* BitBoxApp: wallet for users of BitBox hardware wallets
+* [BitBoxApp](https://bitbox.swiss/app/): wallet for users of BitBox hardware wallets
 * [Electrum Wallet Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md): a well-established power user wallet
 * [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin Core)
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5): wallet for users of Trezor hardware wallets

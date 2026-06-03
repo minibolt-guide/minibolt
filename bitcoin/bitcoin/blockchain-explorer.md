@@ -18,6 +18,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 2.3 Blockchain explorer: BTC RPC Explorer
@@ -29,6 +31,7 @@ Run your private blockchain explorer with [BTC RPC Explorer](https://github.com/
 ## Requirements
 
 * [Bitcoin Core](bitcoin-client.md)
+* Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 * Others
   * [Node + NPM](../../bonus/system/nodejs-npm.md)
 
