@@ -125,7 +125,7 @@ sudo mkdir /data/frigate
 * Assign the owner to the `frigate` user
 
 ```sh
-sudo chown -R frigate:frigate /data/frigate/
+sudo chown -R frigate:frigate /data/frigate
 ```
 
 ### Download binaries
