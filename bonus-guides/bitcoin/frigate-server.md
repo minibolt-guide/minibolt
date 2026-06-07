@@ -724,7 +724,11 @@ Expected output:
 * Delete the rules with the correct numbers and confirm with "`yes`"
 
 ```sh
-sudo ufw delete X,Y
+sudo ufw delete X
+```
+
+```sh
+sudo ufw delete Y
 ```
 
 ## Port reference
