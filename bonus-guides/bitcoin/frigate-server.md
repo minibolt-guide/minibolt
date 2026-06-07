@@ -225,6 +225,10 @@ tar -xzvf frigate-$VERSION-x86_64.tar.gz
 
 **Example** of expected output:
 
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
+
 ```
 frigate/
 frigate/bin/
@@ -340,6 +344,8 @@ frigate/lib/runtime/lib/server/libjsig.so
 frigate/lib/runtime/lib/server/libjvm.so
 
 ```
+
+</details>
 
 * Check the correct installation by requesting the output of the version:
 
