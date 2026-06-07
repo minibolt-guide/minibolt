@@ -497,7 +497,7 @@ journalctl -fu frigate
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](/broken/pages/9172f617caf21fb4c8061b9b909d138d210b1bd6#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service
 
