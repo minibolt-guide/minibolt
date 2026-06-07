@@ -43,7 +43,7 @@ Frigate solves this by moving the scanning to the server, following the [Remote 
 
 Frigate indexes the Bitcoin blockchain from Taproot activation (block 709,632 on mainnet) and builds a compact tweak index. Scanning runs in-database via [DuckDB](https://duckdb.org/) with optional GPU acceleration.
 
-Since [Fulcrum](/broken/pages/4cdd8e6d2160966f6928bdd80cc1f81316a5b9d3) already occupies the canonical Electrum ports `50001`/`50002` in MiniBolt, Frigate will listen on alternative ports (`50011`/`50012`) and forward all non-Silent-Payments queries to Fulcrum transparently.
+Since Fulcrum already occupies the canonical Electrum ports `50001`/`50002` in MiniBolt, Frigate will listen on alternative ports (`50011`/`50012`) and forward all non-Silent-Payments queries to Fulcrum transparently.
 
 ## Preparations
 
