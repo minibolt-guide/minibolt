@@ -48,7 +48,7 @@ Since Fulcrum already occupies the canonical Electrum ports `50001`/`50002` in M
 ## Preparations
 
 {% hint style="warning" %}
-Make sure that you have followed the [Bitcoin Core](/broken/pages/1e365bf352f6e0b53c5cb3428602024d4b56b259) and [Electrum Server: Fulcrum](/broken/pages/4cdd8e6d2160966f6928bdd80cc1f81316a5b9d3) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
+Make sure that you have followed the [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) and [Electrum Server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
 {% endhint %}
 
 ### Configure Firewall
