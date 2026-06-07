@@ -21,6 +21,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Electrs
@@ -471,7 +473,7 @@ nano /data/electrs/electrs.conf
 
 # Bitcoin Core settings
 network = "bitcoin"
-cookie_file= "/data/bitcoin/.cookie"
+cookie_file = "/data/bitcoin/.cookie"
 
 # Electrs settings
 electrum_rpc_addr = "0.0.0.0:50021"
@@ -481,7 +483,7 @@ skip_block_download_wait = true
 
 # Allow concurrent DB background operations. e.g., for 4 threads max use.
 # Customise with your available threads.
-db_parallelism=4
+db_parallelism = 4
 
 # Logging
 log_filters = "INFO"
@@ -562,7 +564,7 @@ To keep an eye on the software movements, [start your SSH program](../../index-1
 sudo systemctl start electrs
 ```
 
-* Monitor the systemd journal at the first session created to check if everything works fine
+* Monitor the systemd journal in the first session created to check if everything works fine
 
 <details>
 
@@ -596,7 +598,7 @@ sudo systemctl start electrs
 </details>
 
 {% hint style="success" %}
-Congrats! Now you have a self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
+Congrats! Now you have a self-hosted Electrum Server on your node. Now you can proceed with installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
 {% endhint %}
 
 ### Validation
