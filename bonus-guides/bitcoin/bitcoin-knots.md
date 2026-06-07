@@ -363,19 +363,18 @@ Extracting libevent...
 [...]
 ```
 
-* Pre-configure the installation, we will discard some features and include others. Enter the complete next command in the terminal and press `Enter`:
+* Pre-configure the installation; we will discard some features and include others. Enter the complete command below in the terminal and press `Enter`:
 
-```sh
-BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
+<pre class="language-sh"><code class="lang-sh">BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
   -DBUILD_TESTS=OFF \
   -DBUILD_TX=OFF \
   -DBUILD_UTIL=OFF \
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
   -DWITH_ZMQ=ON \
-  -DRDTS_CONSENT=RUNTIME_WARN \
+  -DRDTS_CONSENT=<a data-footnote-ref href="#user-content-fn-2">RUNTIME_WARN</a> \
   -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
-```
+</code></pre>
 
 #### **Apply the UA patch (optional)**
 
@@ -384,7 +383,7 @@ This patch removes the Bitcoin Knots reference from the **user agent** to make i
 {% endhint %}
 
 {% hint style="info" %}
-Skip this step if you want only to build Bitcoin Knots from the source code, but not apply the user agent patch.
+Skip this step if you only want to build Bitcoin Knots from the source code and not apply the user agent patch.
 {% endhint %}
 
 * Create the UA patch:
@@ -393,7 +392,7 @@ Skip this step if you want only to build Bitcoin Knots from the source code, but
 nano mod-ua-knots.patch
 ```
 
-* Enter the next content. Save and exit.
+* Enter the following content. Save and exit.
 
 ```cpp
 diff --git a/src/clientversion.cpp b/src/clientversion.cpp
@@ -428,6 +427,10 @@ git apply mod-ua-knots.patch
 #### **Build**
 
 * Enter the command to compile:
+
+{% hint style="info" %}
+Use `cmake --build build -j3` or `cmake --build build -jX` (replacing `X` with the desired number of build threads). Lower values reduce system load and temperature; higher values compile faster but use more CPU and memory.
+{% endhint %}
 
 ```sh
 cmake --build build -j $(nproc)
@@ -495,7 +498,7 @@ This process can take quite **a long time**, 10-15 minutes or more, depending on
 
 #### **Install**
 
-* Enter the next command to install the new binaries precompiled for yourself on the OS:
+* Enter the next command to install the new precompiled binaries for yourself on the OS:
 
 ```sh
 sudo cmake --install build
@@ -605,7 +608,7 @@ Configuring `bitcoin.conf` with targeted Bitcoin Knots parameters, enhance the n
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Add the next parameters to the end of the file. Save and exit.
+* Add the following parameters to the end of the file. Save and exit.
 
 <pre><code><strong># No relay or mine data carrier transactions
 </strong>datacarrier=0
@@ -675,3 +678,5 @@ To uninstall Bitcoin Knots, follow the entire [Bitcoin Client: Bitcoin Core unin
 Same as the [Bitcoin Client: Bitcoin Core section](../../bitcoin/bitcoin/bitcoin-client.md#port-reference).
 
 [^1]: Check this
+
+[^2]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks
