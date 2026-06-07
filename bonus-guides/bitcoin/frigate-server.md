@@ -21,6 +21,8 @@ layout:
 
 # Frigate Server
 
+<figure><img src="../../.gitbook/assets/frigate-portada.png" alt=""><figcaption></figcaption></figure>
+
 [Frigate](https://github.com/sparrowwallet/frigate) is an Electrum server for [Silent Payments](https://github.com/bitcoin/bips/blob/master/bip-0352.mediawiki) (BIP352), created by [Craig Raw](https://github.com/craigraw). It performs Silent Payments scanning server-side using ephemeral client keys, returning discovered transactions to wallets over an extension to the Electrum JSON-RPC protocol. All other Electrum requests are forwarded transparently to a co-located backend server such as Fulcrum.
 
 ## Requirements
@@ -408,7 +410,7 @@ tcp = "tcp://0.0.0.0:50011"
 ssl = "ssl://0.0.0.0:50012"
 sslCert = "cert.pem"
 sslKey  = "key.pem"
-backendElectrumServer = "tcp://localhost:50002"   # Fulcrum backend
+backendElectrumServer = "tcp://localhost:50001"   # Fulcrum backend
 ```
 
 * Generate cert and key files for SSL
