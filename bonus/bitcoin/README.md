@@ -21,6 +21,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # ₿itcoin
@@ -30,6 +32,7 @@ layout:
 ### Electrum servers
 
 * [**Electrs**](electrs.md) - an efficient re-implementation of Electrum Server in Rust
+* [**Frigate**](../../bonus-guides/bitcoin/frigate-server.md) - an Electrum server for Silent Payments
 
 ### Signing apps
 

@@ -19,16 +19,20 @@ layout:
     visible: true
 ---
 
-# Frigate Server
-
-<figure><img src="../../.gitbook/assets/frigate-portada.png" alt=""><figcaption></figcaption></figure>
+# Frigate
 
 [Frigate](https://github.com/sparrowwallet/frigate) is an Electrum server for [Silent Payments](https://github.com/bitcoin/bips/blob/master/bip-0352.mediawiki) (BIP352), created by [Craig Raw](https://github.com/craigraw). It performs Silent Payments scanning server-side using ephemeral client keys, returning discovered transactions to wallets over an extension to the Electrum JSON-RPC protocol. All other Electrum requests are forwarded transparently to a co-located backend server such as Fulcrum.
+
+{% hint style="success" %}
+Difficulty: Easy
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/frigate-portada.png" alt=""><figcaption></figcaption></figure>
 
 ## Requirements
 
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
-* [Electrum Server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md)
+* Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 * \~ 18 GB of free storage for the index
 
 ## Introduction
@@ -48,7 +52,7 @@ Since Fulcrum already occupies the canonical Electrum ports `50001`/`50002` in M
 ## Preparations
 
 {% hint style="warning" %}
-Make sure that you have followed the [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) and [Electrum Server: Fulcrum](../../bitcoin/bitcoin/electrum-server.md) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
+Make sure that you have followed the [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) and Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
 {% endhint %}
 
 ### Configure Firewall
@@ -388,7 +392,7 @@ Remember to accommodate the `memoryLimit` parameter depending on your hardware. 
 {% endhint %}
 
 {% hint style="info" %}
-If you want to save disk space and make indexing much faster, you can use block 950356 as the starting point by setting it in the "startHeight" value of the config.toml file. This is the block from which silent payments were launched in Sparrow Wallet. Before that, the use of Silent Payments was barely widespread.
+If you want to save disk space and make indexing much faster, you can use block `950356` as the starting point by setting it in the "startHeight" value of the config.toml file. This is the block from which silent payments were launched in Sparrow Wallet. Before that, the use of Silent Payments was barely widespread.
 {% endhint %}
 
 ```toml
@@ -398,25 +402,25 @@ If you want to save disk space and make indexing much faster, you can use block 
 [core]
 connect = true
 server = "http://127.0.0.1:8332"
-authType = "COOKIE"            # COOKIE or USERPASS
-dataDir = "/data/bitcoin"      # only needed if Bitcoin Core data is not in the default location
+authType = "COOKIE"
+dataDir = "/data/bitcoin"
 zmqSequenceEndpoint = "tcp://127.0.0.1:28336"
 
 [index]
-# startHeight = 709632           # default: Taproot activation block on mainnet
-# cacheSize = "10M"              # scriptPubKey cache entries (default: 10M, ~4 GB RAM)
+# startHeight = 709632
+# cacheSize = "10M"
 
 [scan]
 computeBackend = "AUTO"
-# dbThreads = 4                  # limit DuckDB threads to reduce CPU load
-# memoryLimit = "8GB"            # cap DuckDB memory usage (default: 80% of system RAM)
+# dbThreads = 4
+# memoryLimit = "8GB"
 
 [server]
 tcp = "tcp://0.0.0.0:50011"
 ssl = "ssl://0.0.0.0:50012"
 sslCert = "cert.pem"
 sslKey  = "key.pem"
-backendElectrumServer = "tcp://localhost:50001"   # Fulcrum backend
+backendElectrumServer = "tcp://localhost:50001"
 ```
 
 * Generate cert and key files for SSL
@@ -445,8 +449,6 @@ exit
 
 ### Create systemd service
 
-Frigate needs to start automatically when booting the system.
-
 * As user `admin`, create the Frigate systemd unit
 
 ```sh
@@ -455,7 +457,7 @@ sudo nano /etc/systemd/system/frigate.service
 
 * Enter the following complete configuration. Save and exit
 
-```ini
+```
 # MiniBolt: systemd unit for Frigate
 # /etc/systemd/system/frigate.service
 
@@ -538,7 +540,7 @@ DO NOT REBOOT OR STOP THE SERVICE DURING THE INITIAL INDEXING PROCESS. Although 
 sudo systemctl stop frigate
 ```
 
-* Delete the database folder content
+* Delete the database folder contents
 
 ```bash
 sudo rm -rf /data/frigate/db/
@@ -555,7 +557,7 @@ sudo systemctl start frigate
 -> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
 {% endhint %}
 
-* When you see logs like this — `Electrum server listening on tcp://...` — Frigate is fully indexed and ready to serve Silent Payments queries
+* When you see logs like this — `Electrum server listening on tcp://...` — Frigate is fully indexed and ready to serve Silent Payments queries.
 
 ### Validation
 
@@ -619,7 +621,7 @@ abcdefg..............xyz.onion
 
 ## Upgrade
 
-Follow the  [Installation section](frigate-server.md#installation) from [Download binaries](frigate-server.md#download-binaries) (included) until the [Binaries installation section](frigate-server.md#binaries-installation) (included), replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
+Follow the [Installation section](frigate-server.md#installation) from [Download binaries](frigate-server.md#download-binaries) (included) until the [Binaries installation section](frigate-server.md#binaries-installation) (included), replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
 
 * Restart the service to apply the changes
 
@@ -737,4 +739,3 @@ sudo ufw delete Y
 | :---: | -------- | :------: |
 | 50011 | TCP      | TCP port |
 | 50012 | SSL      | SSL port |
-
