@@ -18,6 +18,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 3.1 Lightning client: LND
@@ -117,7 +119,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=0.20.1
+VERSION=0.21.0
 ```
 
 * Download the application, checksums, and signature
@@ -130,25 +132,25 @@ wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/ln
 
 {% code overflow="wrap" %}
 ```bash
-wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt.ots
-```
-{% endcode %}
-
-{% code overflow="wrap" %}
-```bash
 wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
-```
-{% endcode %}
-
-{% code overflow="wrap" %}
-```bash
-wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
 ```
 {% endcode %}
 
 {% code overflow="wrap" %}
 ```sh
 wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt.ots
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
 ```
 {% endcode %}
 

@@ -21,6 +21,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Ordisrespector spam filter
@@ -341,6 +343,10 @@ git apply ordisrespector.patch
 ### **Build**
 
 * Enter the command to compile
+
+{% hint style="info" %}
+Use `cmake --build build -j3` or `cmake --build build -jX` (replacing `X` with the desired number of build threads). Lower values reduce system load and temperature; higher values compile faster but use more CPU and memory.
+{% endhint %}
 
 ```bash
 cmake --build build -j $(nproc)
