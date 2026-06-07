@@ -557,18 +557,6 @@ sudo systemctl start frigate
 
 * When you see logs like this — `Electrum server listening on tcp://...` — Frigate is fully indexed and ready to serve Silent Payments queries
 
-```
-[...]
-[...] <Controller> Index is up to date at height XXXXXX
-[...] SrvMgr: starting 2 services ...
-[...] Starting listener service for TcpSrv 0.0.0.0:50011 ...
-[...] Service started, listening for connections on 0.0.0.0:50011
-[...] Starting listener service for SslSrv 0.0.0.0:50012 ...
-[...] Service started, listening for connections on 0.0.0.0:50012
-[...] Electrum server listening on tcp://0.0.0.0:50011
-[...]
-```
-
 ### Validation
 
 * Ensure the service is working and listening at the `50011` & `50012` ports
@@ -585,7 +573,7 @@ tcp   LISTEN 0      50        0.0.0.0:50012      0.0.0.0:*    users=(("frigate",
 ```
 
 {% hint style="success" %}
-Congrats! You now have a Silent Payments Electrum server running on your node. Connect your Silent Payments-capable wallet (e.g., [Sparrow Wallet](/broken/pages/a731d042306ed1b8fc5948d6435aaefb51421488)) to port `50011` (TCP) or `50012` (SSL) to start scanning for BIP352 transactions. Your existing wallets can continue using Fulcrum on `50001`/`50002` without any changes.
+Congrats! You now have a Silent Payments Electrum server running on your node. Connect your Silent Payments-capable wallet (e.g., [Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md)) to port `50011` (TCP) or `50012` (SSL) to start scanning for BIP352 transactions. Your existing wallets can continue using Fulcrum on `50001`/`50002` without any changes.
 {% endhint %}
 
 ## Extras (optional)
