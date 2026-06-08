@@ -19,8 +19,9 @@ layout:
 
 # 🦩 Nostr
 
-## Bonus Section: Nostr guides
+Nostr is a straightforward and open protocol for global, decentralized, and censorship-resistant social media.
 
-### Relays
+This section contains guides for running your own nostr relay on MiniBolt:
 
-* [**Nostr relay in Rust**](nostr-relay.md) - a nostr relay written in Rust with support for the entire relay protocol and data persistence using PostgreSQL or SQLite
+* [**Nostr relay in Rust**](nostr-relay.md) — nostr-rs-relay with PostgreSQL backend
+* [**Nostr relay (strfry)**](strfry-relay.md) — strfry with LMDB backend (no external database needed)
