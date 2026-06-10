@@ -437,14 +437,14 @@ sudo systemctl start frigate
 <summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu frigate</code> ⬇️</summary>
 
 ```
-[...] systemd[1]: Started Frigate Electrum Server.
-[...] INFO Using configured Frigate home folder of /data/frigate
-[...] INFO Starting Frigate v1.5.3 on mainnet
-[...] INFO Using home directory /data/frigate
-[...] INFO Using CPU backend for scanning (no GPU detected)
-[...] INFO Using home directory /data/frigate
-[...] INFO Indexing progress: 99 / 242998 blocks (0.0%, height 709730)
-[...] INFO Indexing progress: 199 / 242998 blocks (0.1%, height 709830)
+Started Frigate Electrum Server.
+INFO Using configured Frigate home folder of /data/frigate
+INFO Starting Frigate v1.5.3 on mainnet
+INFO Using home directory /data/frigate
+INFO Using CPU backend for scanning (no GPU detected)
+INFO Using home directory /data/frigate
+INFO Indexing progress: 99 / 242998 blocks (0.0%, height 709730)
+INFO Indexing progress: 199 / 242998 blocks (0.1%, height 709830)
 [...]
 ```
 
@@ -563,8 +563,14 @@ journalctl -fu frigate
 **Example** of expected output:
 
 ```
-[...]
-[...] Started Frigate Electrum Server.
+Started Frigate Electrum Server.
+INFO Using configured Frigate home folder of /data/frigate
+INFO Starting Frigate v1.5.3 on mainnet
+INFO Using home directory /data/frigate
+INFO Using CPU backend for scanning (no GPU detected)
+INFO Using home directory /data/frigate
+INFO Indexing progress: 99 / 242998 blocks (0.0%, height 709730)
+INFO Indexing progress: 199 / 242998 blocks (0.1%, height 709830)
 [...]
 ```
 
@@ -604,7 +610,7 @@ sudo userdel -rf frigate
 
 ### Delete data directory
 
-* Delete Frigate directory:
+* Delete the Frigate data folder:
 
 ```sh
 sudo rm -rf /data/frigate
