@@ -299,7 +299,7 @@ rm frigate-$VERSION-x86_64.tar.gz frigate-$VERSION-manifest.txt.asc frigate-$VER
 {% endcode %}
 
 {% hint style="info" %}
-If you come to update, this is the final step. Go back to the [Upgrade section](frigate-server.md#upgrade) to continue.
+If you come to update, this is the final step. Go back to the [Upgrade section](frigate.md#upgrade) to continue.
 {% endhint %}
 
 ## Configuration
@@ -477,7 +477,7 @@ sudo rm -rf /data/frigate/db
 sudo systemctl start frigate
 ```
 
--> You should see the logs of the [Run process](frigate-server.md#run) again.
+-> You should see the logs of the [Run process](frigate.md#run) again.
 
 -> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation.
 {% endhint %}
@@ -546,7 +546,7 @@ abcdefg..............xyz.onion
 
 ## Upgrade
 
-Follow the [Installation section](frigate-server.md#installation) from [Download binaries](frigate-server.md#download-binaries) (included) until the [Binaries installation section](frigate-server.md#binaries-installation) (included), replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
+Follow the [Installation section](frigate.md#installation) from [Download binaries](frigate.md#download-binaries) (included) until the [Binaries installation section](frigate.md#binaries-installation) (included), replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
 
 * Restart the service to apply the changes:
 
