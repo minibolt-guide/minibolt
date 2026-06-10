@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Public Pool
@@ -181,7 +183,7 @@ sudo ufw allow 4040/tcp comment 'Allow Public Pool UI SSL from anywhere' && sudo
 
 ### Configure Bitcoin Core
 
-We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
+We need to set up settings in the Bitcoin Core configuration file; add new lines if they are not present:
 
 * Edit `bitcoin.conf` file
 
@@ -189,7 +191,7 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Check that you have this line in the `"# Connections"` section, if not, add it. Save and exit
+* Check that you have this line in the file; if not, add it. Save and exit.
 
 ```
 zmqpubrawblock=tcp://127.0.0.1:28332
@@ -201,7 +203,7 @@ zmqpubrawblock=tcp://127.0.0.1:28332
 sudo systemctl restart bitcoind
 ```
 
-* Check if Bitcoin Core has enabled `zmqpubrawblock` on the `28322` port
+* Check if Bitcoin Core is enabled `zmqpubrawblock` on the `28322` port
 
 ```bash
 sudo ss -tulpn | grep -E '(:28332)'
@@ -555,7 +557,7 @@ nano public-pool.env
 
 * Paste the following content. Note that you can edit the `POOL_IDENTIFIER` parameter if you wish. Save and exit
 
-<pre><code># MiniBolt: Public Pool  configuration
+<pre><code># MiniBolt: Public Pool configuration
 # /home/public-pool/public-pool.env
 
 ## Bitcoin Core settings
