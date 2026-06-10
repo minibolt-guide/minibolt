@@ -185,7 +185,7 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 ```
 
-* Verify the signature of the manifest file containing the checksums for the application
+* Verify the signature of the manifest file containing the checksums for the application:
 
 ```sh
 gpg --verify frigate-$VERSION-manifest.txt.asc frigate-$VERSION-manifest.txt
@@ -571,7 +571,7 @@ journalctl -fu frigate
 ## Uninstall
 
 {% hint style="danger" %}
-Warning: This section removes the installation. Only run these commands if you intend to uninstall
+Warning: This section removes the installation. Only run these commands if you intend to uninstall.
 {% endhint %}
 
 ### Uninstall service
@@ -648,7 +648,7 @@ Expected output:
 [Y] 50012       ALLOW IN    Anywhere          # allow Frigate SSL from anywhere
 ```
 
-* Delete the rules with the correct numbers and confirm with "`yes`"
+* Delete the rules with the correct numbers and confirm with "`yes`":
 
 ```sh
 sudo ufw delete X
