@@ -53,6 +53,7 @@
   * [Bitcoin Knots](bonus-guides/bitcoin/bitcoin-knots.md)
   * [Public Pool](bonus-guides/bitcoin/public-pool.md)
   * [Mempool](bonus-guides/bitcoin/mempool.md)
+  * [Frigate](bonus-guides/bitcoin/frigate.md)
 * [⚡ Lightning](bonus-guides/lightning/README.md)
   * [Alby Hub](bonus-guides/lightning/alby-hub.md)
   * [lndinit](bonus-guides/lightning/lndinit.md)

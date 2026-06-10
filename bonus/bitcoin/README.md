@@ -32,6 +32,7 @@ layout:
 ### Electrum servers
 
 * [**Electrs**](electrs.md) - an efficient re-implementation of Electrum Server in Rust
+* [**Frigate**](../../bonus-guides/bitcoin/frigate.md) - an Electrum server for Silent Payments
 
 ### Signing apps
 
