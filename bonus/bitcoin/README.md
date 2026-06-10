@@ -4,7 +4,7 @@ nav_order: 2000
 parent: Bonus Section
 has_children: false
 has_toc: false
-icon: bitcoin-sign
+icon: bitcoin
 layout:
   width: default
   title:
@@ -47,7 +47,6 @@ layout:
 ### Resilience
 
 * [**Safu Ninja**](safu-ninja.md) - create resilient DIY metal backups of your seed phrases
-* [**Ordirespector**](ordisrespector.md) - an Ordinals NFTs spam filter for mempool politics of Bitcoin Core
 
 ### Fun
 

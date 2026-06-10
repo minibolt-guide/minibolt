@@ -42,13 +42,13 @@ The installation of LND is straightforward, but the application is quite powerfu
 
 Before running LND, we need to configure settings in the Bitcoin Core configuration file to enable the LND RPC connection.
 
-* Log in as user `admin`, edit the `bitcoin.conf` file
+* Log in as user `admin`, edit the `bitcoin.conf` file:
 
 ```sh
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Add the following lines. Save and exit
+* Add the following lines at the end of the file. Save and exit.
 
 ```
 # Enable ZMQ raw notification (for LND)
@@ -56,13 +56,13 @@ zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-* Restart Bitcoin Core to apply changes
+* Restart Bitcoin Core to apply changes:
 
 ```sh
 sudo systemctl restart bitcoind
 ```
 
-* Check Bitcoin Core is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port
+* Check Bitcoin Core is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port:
 
 ```bash
 sudo ss -tulpn | grep bitcoind | grep 2833

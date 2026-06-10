@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Alby Hub
@@ -32,7 +34,7 @@ Difficulty: Medium
 * [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
 * [LND](../../lightning/lightning-client.md)
 * Others
-  * [Nostr relay in Rust](../nostr/nostr-relay.md) (optional)
+  * [Nostr relay in Rust](../nostr/nostr-rs-relay.md) (optional)
 
 ## Preparations
 

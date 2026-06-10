@@ -18,6 +18,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 2.2 Electrum Server: Fulcrum
@@ -75,7 +77,7 @@ sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
 
 ### Configure Bitcoin Core
 
-We need to set up settings in the Bitcoin Core configuration file - add new lines if they are not present
+We need to set up settings in the Bitcoin Core configuration file; add new lines if they are not present.
 
 * Edit `bitcoin.conf` file
 
@@ -83,7 +85,7 @@ We need to set up settings in the Bitcoin Core configuration file - add new line
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Add the following lines to the `"# Connections"` section. Save and exit
+* Add the following lines at the end of the file. Save and exit
 
 ```
 # Enable ZMQ blockhash & txhash notification (for Fulcrum)

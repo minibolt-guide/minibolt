@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 2.1 Bitcoin client: Bitcoin Core
@@ -25,17 +27,19 @@ We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/), the reference c
 
 ## This may take some time
 
-Bitcoin Core will download the full Bitcoin blockchain, and validate all transactions since 2009. We're talking more than 800'000 blocks with a size of over 465 GB, so this is not an easy task.
+Bitcoin Core will download the full Bitcoin blockchain and validate all transactions since 2009. We're talking more than 950'000 blocks with a size of over 800 GB, so this is not an easy task.
 
 ## Installation
 
 We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-💡 If you want to install the Ordisrespector patch to reject the Ordinals of your mempool, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md) and come back to continue with the [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
+### Option 1: Using precompiled binaries
 
-💡 If you want to install Bitcoin Core from the source code but without the Ordisrespector patch, follow the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), skipping [Apply the patch “Ordisrespector”](../../bonus/bitcoin/ordisrespector.md#apply-the-ordisrespector-patch) and come back to continue with the [Create the bitcoin user](bitcoin-client.md#create-the-bitcoin-user-and-group) section.
+{% hint style="info" icon="baby" %}
+**Option recommended for non-advanced users.**
+{% endhint %}
 
-### Download binaries
+#### Download binaries
 
 * Login as `admin` and change to a temporary directory, which is cleared on reboot:
 
@@ -65,7 +69,7 @@ wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
 wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
 ```
 
-### Signature check
+#### Signature check
 
 Bitcoin releases are signed by several individuals, each using their own key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
 
@@ -101,7 +105,7 @@ gpg --verify SHA256SUMS.asc SHA256SUMS
 Primary key fingerprint:...
 </code></pre>
 
-### Checksum check
+#### Checksum check
 
 * Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you:
 
@@ -115,7 +119,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 ```
 
-### Timestamp check
+#### Timestamp check
 
 * The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
   * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS.ots) the checksum file.
@@ -128,6 +132,8 @@ bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 The following screenshot is just an **example** of one of the versions:
 
 ![](../../.gitbook/assets/bitcoin-ots-check.PNG)
+
+#### Extract
 
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Core binaries:
 
@@ -174,12 +180,10 @@ bitcoin-27.1/share/rpcauth/rpcauth.py
 </details>
 
 {% hint style="info" %}
-If you want to [generate a full bitcoin.conf file](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), follow the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file), and then come back to continue with the [next section](bitcoin-client.md#binaries-installation)
-
-If you want to install the manual page for `bitcoin-cli`, follow [the manual page for the bitcoin-cli extra section](bitcoin-client.md#the-manual-page-for-bitcoin-cli), and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user-and-group)
+-> If you want to install the manual page for `bitcoin-cli`, follow [the manual page for the bitcoin-cli extra section](bitcoin-client.md#the-manual-page-for-bitcoin-cli), and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user-and-group).
 {% endhint %}
 
-### Binaries installation
+#### Binaries installation
 
 * Install it:
 
@@ -207,6 +211,340 @@ Copyright (C) 2009-2022 The Bitcoin Core developers
 sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS SHA256SUMS.asc
 ```
 {% endcode %}
+
+### Option 2: Compiling from source code
+
+{% hint style="info" icon="starfighter-twin-ion-engine-advanced" %}
+**Option recommended for advanced users.**
+{% endhint %}
+
+* Install the next dependency packages:
+
+{% code overflow="wrap" %}
+```shell
+sudo apt install build-essential cmake pkg-config --no-install-recommends
+```
+{% endcode %}
+
+#### Installation
+
+* Change to the temporary directory, which is cleared on reboot:
+
+```sh
+cd /tmp
+```
+
+* Set the next environment variable:
+
+```sh
+VERSION=31.0
+```
+
+* Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums:
+
+```sh
+wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION.tar.gz
+```
+
+```sh
+wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
+```
+
+```sh
+wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
+```
+
+#### **Signature check**
+
+Bitcoin releases are signed by several individuals, each using their key. To verify the validity of these signatures, you must first import the corresponding public keys into your GPG key database.
+
+* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository:
+
+{% code overflow="wrap" %}
+```bash
+curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
+```
+{% endcode %}
+
+**Example** of expected output:
+
+```
+[...]
+gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
+gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: no ultimately trusted keys found
+[...]
+```
+
+* Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
+
+```sh
+gpg --verify SHA256SUMS.asc SHA256SUMS
+```
+
+* Check that at least a few signatures show the following text:
+
+Expected output:
+
+```
+gpg: Good signature from ...
+Primary key fingerprint: ...
+[...]
+```
+
+#### **Checksum check**
+
+* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning):
+
+```sh
+sha256sum --ignore-missing --check SHA256SUMS
+```
+
+**Example** of expected output:
+
+```
+bitcoin-29.0.tar.gz: OK
+```
+
+#### Timestamp check
+
+* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS.ots) the checksum file.
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS) its timestamp proof.
+* In your browser, open the [OpenTimestamps website](https://opentimestamps.org/).
+* In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box.
+* In the next box, drop or upload the `SHA256SUMS` file.
+* If the timestamps are verified, you should see the following message. The timestamp proves that the checksums file existed on the [release date](https://github.com/bitcoin/bitcoin/releases) of the latest Bitcoin Core version.
+
+The following screenshot is just an **example** of one of the versions:
+
+![](../../.gitbook/assets/bitcoin-ots-check.PNG)
+
+#### Extract
+
+* If you're satisfied with the signature, checksum, and timestamp checks, extract the Bitcoin Core source code, install it, and check the version:
+
+```sh
+tar -xzvf bitcoin-$VERSION.tar.gz
+```
+
+**Example of expected output:**
+
+```
+bitcoin-29.0/
+bitcoin-29.0/.cirrus.yml
+bitcoin-29.0/.editorconfig
+bitcoin-29.0/.gitattributes
+bitcoin-29.0/.github/
+bitcoin-29.0/.github/ISSUE_TEMPLATE/
+bitcoin-29.0/.github/ISSUE_TEMPLATE/bug.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/config.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/feature_request.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/good_first_issue.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/gui_issue.yml
+bitcoin-29.0/.github/PULL_REQUEST_TEMPLATE.md
+bitcoin-29.0/.github/workflows/
+[..]
+```
+
+#### **Build it from the source code**
+
+* Enter the Bitcoin Core source code folder
+
+```sh
+cd bitcoin-$VERSION
+```
+
+* Build all Bitcoin Core dependencies
+
+{% code overflow="wrap" %}
+```sh
+make -C depends HOST=x86_64-pc-linux-gnu -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
+```
+{% endcode %}
+
+**Example** of expected output:
+
+```
+make: Entering directory '/tmp/bitcoin-30.2/depends'
+Fetching capnproto-c++-1.2.0.tar.gz from https://capnproto.org/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1727k  100 1727k    0     0  4713k      0 --:--:-- --:--:-- --:--:-- 4720k
+/tmp/bitcoin-30.2/depends/work/download/native_capnp-1.2.0/capnproto-cxx-1.2.0.tar.gz.temp: OK
+Extracting native_capnp...
+/tmp/bitcoin-30.2/depends/sources/capnproto-cxx-1.2.0.tar.gz: OK
+Preprocessing native_capnp...
+Configuring native_capnp...
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for C++ include initializer_list
+-- Looking for C++ include initializer_list - found
+-- Looking for makecontext in c
+-- Looking for makecontext in c - found
+-- Configuring done
+-- Generating done
+[...]
+```
+
+* Pre-configure the installation; we will discard some features and include others. Enter the complete next command in the terminal and press Enter
+
+```sh
+BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_TX=OFF \
+  -DBUILD_UTIL=OFF \
+  -DBUILD_WALLET_TOOL=OFF \
+  -DINSTALL_MAN=OFF \
+  -DWITH_ZMQ=ON \
+  -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
+```
+
+**Example** of expected output:
+
+```
+  -DBUILD_TESTS=OFF \
+  -DBUILD_TX=OFF \
+  -DBUILD_UTIL=OFF \
+  -DBUILD_WALLET_TOOL=OFF \
+  -DINSTALL_MAN=OFF \
+  -DWITH_ZMQ=ON \
+  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Setting build type to "RelWithDebInfo" as none was specified
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17")
+-- Found ZeroMQ: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
+[...]
+```
+
+#### **Apply the "Ordisrespector" patch (optional)**
+
+{% hint style="info" %}
+Ordisrespector is a _**spam patch filter**_ that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and _**rejecting them**_.
+
+Skip this step if you want only to build Bitcoin Core from the source code, but not apply the Ordisrespector patch.
+{% endhint %}
+
+* Go [to the Ordisrespector extra section](bitcoin-client.md#ordisrespector-patch-filter) to apply the Ordisrespector patch filter and come back to continue with the next step.
+
+#### **Build**
+
+* Enter the command to compile
+
+{% hint style="info" %}
+Use `cmake --build build -j3` or `cmake --build build -jX` (replacing `X` with the desired number of build threads). Lower values reduce system load and temperature; higher values compile faster but use more CPU and memory.
+{% endhint %}
+
+```bash
+cmake --build build -j $(nproc)
+```
+
+**Example** of expected output:
+
+```
+[  1%] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult.c.o
+[  1%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue.cpp.o
+[  1%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/arith_uint256.cpp.o
+[  1%] Generating bitcoin-build-info.h
+[  1%] Built target generate_build_info
+[  2%] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult_gen.c.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/aes.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20.cpp.o
+[  3%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/merkle.cpp.o
+[  3%] Built target secp256k1_precomputed
+[  3%] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coincontrol.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20poly1305.cpp.o
+[  3%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_get.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hex_base.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hkdf_sha256_32.cpp.o
+[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_read.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha256.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha512.cpp.o
+[  4%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/tx_check.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/muhash.cpp.o
+[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_write.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/poly1305.cpp.o
+[  6%] Linking CXX static library libunivalue.a
+[...]
+```
+
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again. You can use [Tmux](https://github.com/tmux/tmux) to leave it in the background.
+{% endhint %}
+
+#### **Install**
+
+* Enter the following command to install the new pre-compiled binaries yourself on the OS
+
+```sh
+sudo cmake --install build
+```
+
+Expected output:
+
+```
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /usr/local/bin/bitcoin
+-- Installing: /usr/local/bin/bitcoind
+-- Installing: /usr/local/libexec/bitcoin-node
+-- Installing: /usr/local/bin/bitcoin-cli
+```
+
+* Check the correct installation by requesting the output of the version
+
+```sh
+bitcoin-cli --version
+```
+
+The following output is just an **example** of one of the versions:
+
+```
+Bitcoin Core version v29.0.0
+Copyright (C) 2009-2024 The Bitcoin Core developers
+[...]
+```
+
+* Return to the `tmp` folder
+
+```bash
+cd ..
+```
+
+* **(Optional)** Clean the installation files to be ready for the next update
+
+{% code overflow="wrap" %}
+```bash
+sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
+```
+{% endcode %}
+
+* **(Optional)** Delete not necessary installed binaries
+
+```sh
+sudo rm /usr/local/bin/bitcoin
+```
 
 ### Create the bitcoin user & group
 
@@ -306,7 +644,7 @@ All commands entered are stored in the bash history. But we don't want the passw
 <a data-footnote-ref href="#user-content-fn-3">rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa</a>
 </code></pre>
 
-* Copy the `rpcauth` line, we'll need to paste it into the Bitcoin Core config file in the next step.
+* Copy the `rpcauth` line; we'll need to paste it into the Bitcoin Core config file in the next step.
 
 ## Configuration
 
@@ -330,6 +668,8 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 
 {% hint style="info" %}
 **(Optional):**
+
+**-> If you want** to reject other possible data included in transactions apart from **the previous Ordisrespector patch**, follow [the dedicated extra section](bitcoin-client.md#reject-other-possible-data-included-in-transactions), and continue with the next step.
 
 -> Modify the `"uacomment"` value to your preference if you want.
 
@@ -406,16 +746,16 @@ blocksonly=1
 </code></pre>
 
 {% hint style="info" %}
-This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/af6e2226e2861fa86874340f5315aa01) file with all possible options, or generate one yourself, following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file)
+This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/3908521f48f0091188fc1d1e28bb7704) file with all possible options, or generate one yourself, following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file).
 {% endhint %}
 
-* Set permissions for only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line):
+* Set permissions so only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line):
 
 ```sh
 chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Exit the `bitcoin` user session and back to the user `admin`:
+* Exit the `bitcoin` user session and return to the user `admin`:
 
 {% code fullWidth="false" %}
 ```sh
@@ -487,14 +827,14 @@ WantedBy=multi-user.target
 sudo systemctl enable bitcoind
 ```
 
-* Prepare “bitcoind” monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with Ctrl-C.
+* Prepare `bitcoind` monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with `Ctrl-C`.
 
 ```sh
 journalctl -fu bitcoind
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
+Keep **this terminal open;** you'll need to come back here on the next step to monitor the logs.
 {% endhint %}
 
 ## Run
@@ -565,7 +905,7 @@ exit
 ```
 
 * Log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell).
-* Check symbolic link has been created correctly:
+* Check the symbolic link has been created correctly:
 
 ```bash
 ls -la .bitcoin
@@ -605,7 +945,7 @@ Expected output:
 </code></pre>
 {% endhint %}
 
-* Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. **Take note of them**, later you might need them:
+* Wait a few minutes until Bitcoin Core starts, and enter the next command to obtain your Tor and I2P addresses. **Take note of them**; later you might need them:
 
 {% code overflow="wrap" %}
 ```sh
@@ -697,7 +1037,6 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 * Comment or delete the following lines by adding a `#` at the beginning. Save and exit.
 
 ```
-#assumevalid=0
 #dbcache=2048
 #blocksonly=1
 ```
@@ -710,7 +1049,7 @@ sudo systemctl restart bitcoind
 
 ## OpenTimestamps client
 
-When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamp website. In the future, you will likely need to verify more timestamps when installing additional programs (e.g, LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
+When we installed Bitcoin Core, we verified the timestamp of the checksum file using the OpenTimestamps website. In the future, you will likely need to verify more timestamps when installing additional programs (e.g, LND) and when updating existing programs to a newer version. Rather than relying on a third party, it would be preferable (and more fun) to verify the timestamps using your blockchain data. Now that Bitcoin Core is running and synced, we can install the [OpenTimestamp client](https://github.com/opentimestamps/opentimestamps-client) to locally verify the timestamp of the binaries checksums file.
 
 * As user `admin`, install dependencies:
 
@@ -827,10 +1166,10 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 
 ### The manual page for bitcoin-cli
 
-* For convenience, it might be useful to have the manual page for `bitcoin-cli` in the same machine, so that they can be consulted offline, and they can be installed from the directory.
+* For convenience, it might be useful to have the manual page for `bitcoin-cli` on the same machine, so that they can be consulted offline, and they can be installed from the directory.
 
 {% hint style="info" %}
-If you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md), this section is not needed because man pages are installed by default, type directly `man bitcoin-cli` command to see the man pages.
+Follow this section only if you followed [Option 1: Using precompiled binaries](bitcoin-client.md#option-1-using-precompiled-binaries) and are coming from the [Extract](bitcoin-client.md#extract) step; if you followed [Option 2: Compiling from source code](bitcoin-client.md#option-2-compiling-from-source-code), this section is not needed because man pages are installed by default; type directly `man bitcoin-cli` command to see the man pages.
 {% endhint %}
 
 ```sh
@@ -852,16 +1191,12 @@ man bitcoin-cli
 ```
 
 {% hint style="info" %}
-Now come back to the section [Binaries installation](bitcoin-client.md#binaries-installation) to continue with the Bitcoin Core installation process, not if you followed the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md).
+Now come back to the section [Binaries installation](bitcoin-client.md#binaries-installation) to continue with the Bitcoin Core installation process, unless you followed [Option 2: Compiling from source code](bitcoin-client.md#option-2-compiling-from-source-code).
 {% endhint %}
 
 ### Generate a full bitcoin.conf example file
 
-{% hint style="success" %}
-This extra section is valid if you compiled it from the source code using the [Ordisrespector bonus guide](../../bonus/bitcoin/ordisrespector.md).
-{% endhint %}
-
-* Follow the complete [Installation progress before](bitcoin-client.md#installation), or the [Ordisrespector installation progress](../../bonus/bitcoin/ordisrespector.md#installation), to install the `bitcoind` binary on the OS.
+* Follow all [Installation](bitcoin-client.md#installation) steps before installing the bitcoind binary on the operating system, regardless of whether you followed [Option 1: Use pre-compiled binaries](bitcoin-client.md#option-1-using-precompiled-binaries) or [Option 2: Compile from source code](bitcoin-client.md#option-2-compiling-from-source-code).
 * With user `admin`, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you:
 
 ```bash
@@ -894,22 +1229,23 @@ git clone --branch v$VERSION https://github.com/bitcoin/bitcoin.git && cd bitcoi
 
 * Build all Bitcoin Core dependencies:
 
+{% code overflow="wrap" %}
 ```bash
-make -C depends -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
+make -C depends HOST=x86_64-pc-linux-gnu -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
 ```
+{% endcode %}
 
 * Pre-configuring the installation, we will discard some features and include others. Enter the complete next command in the terminal and press `ENTER`:
 
 ```bash
-cmake -B build \
+BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
   -DBUILD_TESTS=OFF \
   -DBUILD_TX=OFF \
   -DBUILD_UTIL=OFF \
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
-  -DWITH_BDB=ON \
   -DWITH_ZMQ=ON \
-  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
+  -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
 ```
 
 * Copy-paste the bitcoind binary file existing on your OS to the source code folder:
@@ -944,13 +1280,19 @@ nano /tmp/bitcoin/share/examples/bitcoin.conf
 
 **(Optional)** Delete the `bitcoin` folder from the temporary folder:
 
+{% code overflow="wrap" %}
+```bash
+cd ..
+```
+{% endcode %}
+
 ```bash
 sudo rm -r /tmp/bitcoin
 ```
 
 ### Accelerate the IBD
 
-If you already have another fully-synced MiniBolt node on your local network, connecting directly to it can greatly accelerate synchronization by bypassing Tor’s added latency and bandwidth constraints. Local connections offer lower latency and higher throughput, delivering data—such as blockchain history—more reliably while reducing potential connectivity issues.
+If you already have another fully-synced MiniBolt node on your local network, connecting directly to it can greatly accelerate synchronization by bypassing Tor’s added latency and bandwidth constraints. Local connections offer lower latency and higher throughput, delivering data — such as blockchain history — more reliably while reducing potential connectivity issues.
 
 {% hint style="info" %}
 To get this, you will need a **full-sync** **MiniBolt** node on the same local network.
@@ -978,12 +1320,12 @@ To allow incoming connections from another node in the same local network, follo
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* **Replace** the `bind=127.0.0.1` line with the next to allow connections from anywhere:
+* **Replace** the `bind=127.0.0.1` line with the following to allow connections from anywhere:
 
 <pre><code><strong>bind=0.0.0.0
 </strong></code></pre>
 
-Or **add** under `bind=127.0.0.1`, the next line allows **connections only from devices in the same local network** (**recommended option** to improve security):
+Or **add** under `bind=127.0.0.1` the next line allows **connections only from devices in the same local network** (**recommended option** to improve security):
 
 <pre><code>bind=<a data-footnote-ref href="#user-content-fn-14">192.168.x.x</a>
 </code></pre>
@@ -1046,7 +1388,7 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 ### Improve the reliability
 
-Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client with both onion and I2P addnode entries—especially using the trusted official MiniBolt project addresses—you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
+Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client with both onion and I2P addnode entries — especially using the trusted official MiniBolt project addresses — you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
 
 {% hint style="info" %}
 To get this, you will need a **full-sync** node peer like the official MiniBolt project node (later, it is suggested).
@@ -1116,14 +1458,14 @@ Enables private transaction broadcasting by routing `sendrawtransaction` through
 sudo nano /data/bitcoin/bitcoin.conf
 ```
 
-* Add at the end of the file the next
+* Add the following at the end of the file:
 
 ```
 # Broadcast transactions via short-lived Tor/I2P connections
 privatebroadcast=1
 ```
 
-* If you want additional logs about the processes related to this feature and validate it, add also the following:
+* If you want additional logs about the processes related to this feature and validate it, also add the following:
 
 ```
 debug=privatebroadcast
@@ -1139,7 +1481,7 @@ sudo systemctl restart bitcoind
 When you use [LND](../../lightning/lightning-client.md), [Fulcrum](electrum-server.md), or [Electrs](../../bonus/bitcoin/electrs.md), which use the RPC command `sendrawtransaction` to broadcast transactions, logs like these will show you:
 {% endhint %}
 
-Example of expected output:
+**Example** of expected output:
 
 ```
 Apr 20 21:18:54 minibolt bitcoind[2960268]: 2026-04-20T19:18:54Z [privatebroadcast] Requesting 3 new connections due to txid=b844f7bdd0c9edf2f182fdbf187c357f6efab32e7660daa174b0bf6c0c138a1b, wtxid=5e603d1252fada4a2c7ad720f2a936d271e41b0bf6fa2c2e9504f36df99ff12e
@@ -1160,7 +1502,7 @@ Apr 20 21:19:03 minibolt bitcoind[2960268]: 2026-04-20T19:19:03Z [privatebroadca
 bitcoin-cli getprivatebroadcastinfo
 ```
 
-Example of expected output:
+**Example** of expected output:
 
 ```
 {
@@ -1201,10 +1543,10 @@ ca3b95109d9e0459aecc83bca944667ebe02206ebd3515d8f7672ae828c37085d3118324e46663cd
 </code></pre>
 
 {% hint style="info" %}
-Remember to replace \<txid> with your previously obtained
+Remember to replace `<txid>` with the previously obtained value.
 {% endhint %}
 
-Example of expected output:
+**Example** of expected output:
 
 ```
 {
@@ -1218,9 +1560,100 @@ Example of expected output:
 }
 ```
 
+### Ordisrespector patch filter
+
+{% hint style="info" %}
+An Ordinals NFTs spam filter for mempool politics of Bitcoin Core.
+{% endhint %}
+
+{% embed url="https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831" %}
+
+* Download the Ordisrespector patch
+
+{% code overflow="wrap" %}
+```bash
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/ordisrespector.patch
+```
+{% endcode %}
+
+* **(Optional)** Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
+
+```sh
+nano ordisrespector.patch
+```
+
+* Apply the patch
+
+```sh
+git apply ordisrespector.patch
+```
+
+{% hint style="info" %}
+Return to continue with [Option 2: Compiling from the source code - Build step](bitcoin-client.md#build) in case of first installation or [Upgrade - Build step](bitcoin-client.md#build-1) in a upgrading process.
+{% endhint %}
+
+### Reject other possible data included in transactions
+
+Once you get to the [Configuration section](bitcoin-client.md#configuration).
+
+* With user `bitcoin`, edit the `bitcoin.conf` file:
+
+```bash
+nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+* Add the next lines at the end of the file. Save and exit.
+
+```
+# Reject data in transactions
+datacarrier=0
+permitbaremultisig=0
+```
+
+{% hint style="info" %}
+[Continue](bitcoin-client.md#configuration) with the guide on `Set permissions:..` step.
+{% endhint %}
+
+{% hint style="warning" %}
+Attention: with the previous configuration, Whirlpool will not work, and is not recommended for mining use
+{% endhint %}
+
+### Add an external fee estimator to the LND
+
+By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied.
+
+* With the user admin, stop LND if you have installed it:
+
+```bash
+sudo systemctl stop lnd
+```
+
+* Edit `lnd.conf`:
+
+```bash
+sudo nano /data/lnd/lnd.conf
+```
+
+* Add the next lines at the end of the file:
+
+<pre><code><strong>[fee]
+</strong># Use external fee estimator
+fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
+</code></pre>
+
+* Start LND again:
+
+```bash
+sudo systemctl start lnd
+```
+
 ## Upgrade
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide.
+
+**-> 2 options depending on your case:**
+
+#### Case you followed [Option 1: Using precompiled binaries](bitcoin-client.md#option-1-using-precompiled-binaries)
 
 * Login as `admin` user and change to the temporary directory:
 
@@ -1374,10 +1807,358 @@ sudo rm -r bitcoin-$VERSION && sudo rm bitcoin-$VERSION-x86_64-linux-gnu.tar.gz 
 ```
 {% endcode %}
 
-* Restart the Bitcoin Core to apply the new version:
+* Restart Bitcoin Core to apply the new version:
+
+```bash
+sudo systemctl restart bitcoind
+```
+
+* Monitor the systemd journal and check the logging output. You can exit monitoring at any time with `Ctrl+C` and continue:
+
+```bash
+journalctl -fu bitcoind
+```
+
+#### Case you followed [Option 2: Compiling from source code](bitcoin-client.md#option-2-compiling-from-source-code)
+
+* Login as `admin` user and change to the temporary directory:
 
 ```sh
+cd /tmp
+```
+
+* Set the next environment variable:
+
+```sh
+VERSION=31.0
+```
+
+* Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums:
+
+```sh
+wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/bitcoin-$VERSION.tar.gz
+```
+
+```sh
+wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS
+```
+
+```sh
+wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.asc
+```
+
+* Download the timestamp file:
+
+```sh
+wget https://bitcoincore.org/bin/bitcoin-core-$VERSION/SHA256SUMS.ots
+```
+
+* The next command downloads and automatically imports all signatures from the [Bitcoin Core release attestations (Guix)](https://github.com/bitcoin-core/guix.sigs) repository:
+
+{% code overflow="wrap" %}
+```bash
+curl -s "https://api.github.com/repositories/355107265/contents/builder-keys" | grep download_url | grep -oE "https://[a-zA-Z0-9./-]+" | while read url; do curl -s "$url" | gpg --import; done
+```
+{% endcode %}
+
+**Example** of expected output:
+
+```
+[...]
+gpg: key 17565732E08E5E41: 29 signatures not checked due to missing keys
+gpg: /home/admin/.gnupg/trustdb.gpg: trustdb created
+gpg: key 17565732E08E5E41: public key "Andrew Chow <andrew@achow101.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: no ultimately trusted keys found
+[...]
+```
+
+* Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
+
+```sh
+gpg --verify SHA256SUMS.asc SHA256SUMS
+```
+
+* Check that at least a few signatures show the following text:
+
+Expected output:
+
+```
+gpg: Good signature from ...
+Primary key fingerprint: ...
+[...]
+```
+
+* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you (ignore the "lines are improperly formatted" warning):
+
+```sh
+sha256sum --ignore-missing --check SHA256SUMS
+```
+
+**Example** of expected output:
+
+```
+bitcoin-29.0.tar.gz: OK
+```
+
+* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client):
+
+```sh
+ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
+```
+
+{% hint style="info" %}
+The following output is just an **example** of one of the versions:
+
+```
+Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+Success! Bitcoin block 766964 attests existence as of 2022-12-11 UTC
+```
+{% endhint %}
+
+* Now, just check that the timestamp date is close to the [release](https://github.com/bitcoin/bitcoin/releases) date of the version you're installing:
+
+{% hint style="info" %}
+If you obtain this output:
+
+```
+Calendar https://btc.calendar.catallaxy.com: Pending confirmation in Bitcoin blockchain
+Calendar https://finney.calendar.eternitywall.com: Pending confirmation in Bitcoin blockchain
+Calendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain
+```
+
+-> This means that the timestamp is pending confirmation on the Bitcoin blockchain. You can skip this step or wait a few hours/days to perform this verification. It is safe to skip this verification step if you followed the previous ones and continue to the next step.
+{% endhint %}
+
+* If you're satisfied with the signature, checksum, and timestamp checks, extract the Bitcoin Core source code, install it, and check the version:
+
+```sh
+tar -xzvf bitcoin-$VERSION.tar.gz
+```
+
+**Example of expected output:**
+
+```
+bitcoin-29.0/
+bitcoin-29.0/.cirrus.yml
+bitcoin-29.0/.editorconfig
+bitcoin-29.0/.gitattributes
+bitcoin-29.0/.github/
+bitcoin-29.0/.github/ISSUE_TEMPLATE/
+bitcoin-29.0/.github/ISSUE_TEMPLATE/bug.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/config.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/feature_request.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/good_first_issue.yml
+bitcoin-29.0/.github/ISSUE_TEMPLATE/gui_issue.yml
+bitcoin-29.0/.github/PULL_REQUEST_TEMPLATE.md
+bitcoin-29.0/.github/workflows/
+[..]
+```
+
+* Enter the Bitcoin Core source code folder
+
+```sh
+cd bitcoin-$VERSION
+```
+
+* Build all Bitcoin Core dependencies
+
+{% code overflow="wrap" %}
+```sh
+make -C depends HOST=x86_64-pc-linux-gnu -j$(nproc) NO_QR=1 NO_QT=1 NO_NATPMP=1 NO_UPNP=1 NO_USDT=1
+```
+{% endcode %}
+
+**Example** of expected output:
+
+```
+make: Entering directory '/tmp/bitcoin-30.2/depends'
+Fetching capnproto-c++-1.2.0.tar.gz from https://capnproto.org/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1727k  100 1727k    0     0  4713k      0 --:--:-- --:--:-- --:--:-- 4720k
+/tmp/bitcoin-30.2/depends/work/download/native_capnp-1.2.0/capnproto-cxx-1.2.0.tar.gz.temp: OK
+Extracting native_capnp...
+/tmp/bitcoin-30.2/depends/sources/capnproto-cxx-1.2.0.tar.gz: OK
+Preprocessing native_capnp...
+Configuring native_capnp...
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for C++ include initializer_list
+-- Looking for C++ include initializer_list - found
+-- Looking for makecontext in c
+-- Looking for makecontext in c - found
+-- Configuring done
+-- Generating done
+[...]
+```
+
+* Pre-configure the installation; we will discard some features and include others. paste the complete next command in the terminal and press Enter:
+
+```sh
+BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_TX=OFF \
+  -DBUILD_UTIL=OFF \
+  -DBUILD_WALLET_TOOL=OFF \
+  -DINSTALL_MAN=OFF \
+  -DWITH_ZMQ=ON \
+  -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
+```
+
+**Example** of expected output:
+
+```
+  -DBUILD_TESTS=OFF \
+  -DBUILD_TX=OFF \
+  -DBUILD_UTIL=OFF \
+  -DBUILD_WALLET_TOOL=OFF \
+  -DINSTALL_MAN=OFF \
+  -DWITH_ZMQ=ON \
+  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Setting build type to "RelWithDebInfo" as none was specified
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17")
+-- Found ZeroMQ: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
+[...]
+```
+
+**Apply the "Ordisrespector" patch (optional)**
+
+{% hint style="info" %}
+Ordisrespector is a _**spam patch filter**_ that works by detecting the pattern of Ordinals transactions that are entering the mempool of the node and _**rejecting them**_.
+
+Skip this step if you want only to build Bitcoin Core from the source code, but not apply the Ordisrespector patch.
+{% endhint %}
+
+* Go [to the Ordisrespector extra section](bitcoin-client.md#ordisrespector-patch-filter) to apply the Ordisrespector patch filter and come back to continue with the next step.
+* Enter the command to compile
+
+{% hint style="info" %}
+Use `cmake --build build -j3` or `cmake --build build -jX` (replacing `X` with the desired number of build threads). Lower values reduce system load and temperature; higher values compile faster but use more CPU and memory.
+{% endhint %}
+
+```bash
+cmake --build build -j $(nproc)
+```
+
+**Example** of expected output:
+
+```
+[  1%] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult.c.o
+[  1%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue.cpp.o
+[  1%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/arith_uint256.cpp.o
+[  1%] Generating bitcoin-build-info.h
+[  1%] Built target generate_build_info
+[  2%] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult_gen.c.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/aes.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20.cpp.o
+[  3%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/merkle.cpp.o
+[  3%] Built target secp256k1_precomputed
+[  3%] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coincontrol.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20poly1305.cpp.o
+[  3%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_get.cpp.o
+[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hex_base.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hkdf_sha256_32.cpp.o
+[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_read.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha256.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha512.cpp.o
+[  4%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/tx_check.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/muhash.cpp.o
+[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_write.cpp.o
+[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/poly1305.cpp.o
+[  6%] Linking CXX static library libunivalue.a
+[...]
+```
+
+{% hint style="info" %}
+This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again. You can use [Tmux](https://github.com/tmux/tmux) to leave it in the background.
+{% endhint %}
+
+* Enter the following command to install the new pre-compiled binaries yourself on the OS:
+
+```sh
+sudo cmake --install build
+```
+
+Expected output:
+
+```
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /usr/local/bin/bitcoin
+-- Installing: /usr/local/bin/bitcoind
+-- Installing: /usr/local/libexec/bitcoin-node
+-- Installing: /usr/local/bin/bitcoin-cli
+```
+
+* Check the correct installation by requesting the output of the version
+
+```sh
+bitcoin-cli --version
+```
+
+The following output is just an **example** of one of the versions:
+
+```
+Bitcoin Core version v29.0.0
+Copyright (C) 2009-2024 The Bitcoin Core developers
+[...]
+```
+
+* Return to the `tmp` folder:
+
+```bash
+cd ..
+```
+
+* **(Optional)** Clean the installation files to be ready for the next update:
+
+{% code overflow="wrap" %}
+```bash
+sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc SHA256SUMS.ots
+```
+{% endcode %}
+
+* **(Optional)** Delete not necessary installed binaries:
+
+```sh
+sudo rm /usr/local/bin/bitcoin
+```
+
+* Restart Bitcoin Core to apply the new version:
+
+```bash
 sudo systemctl restart bitcoind
+```
+
+* Monitor the systemd journal and check the logging output. You can exit monitoring at any time with `Ctrl+C` and continue:
+
+```bash
+journalctl -fu bitcoind
 ```
 
 ## Uninstall
@@ -1438,7 +2219,7 @@ sudo rm -rf /data/bitcoin/
 
 ### Uninstall binaries
 
-* Delete the binaries installed:
+* Delete the installed binaries:
 
 ```bash
 sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind

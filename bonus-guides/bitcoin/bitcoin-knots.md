@@ -192,8 +192,6 @@ If you want to signal support for the RDTS (BIP110) soft fork, follow the [Enabl
 More info: [bip110.org](https://bip110.org/)
 {% endhint %}
 
-If you want to signal support for RDTS (BIP110), follow the additional section:
-
 ### Option 2: Compiling from source code
 
 {% hint style="info" %}
