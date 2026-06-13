@@ -31,7 +31,7 @@ Difficulty: Medium
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
 
 Others
 
@@ -41,7 +41,7 @@ Others
 
 ### Check Node + NPM
 
-* With the user `admin`, check if you have already installed Nodejs
+* With the user `admin`, check if you have already installed Node
 
 ```sh
 node -v
@@ -125,17 +125,38 @@ sudo nano /etc/nginx/sites-available/public-pool-reverse-proxy.conf
 
 ```nginx
 server {
-    listen 4040 ssl;
-    error_page 497 =301 https://$host:$server_port$request_uri;
- 
+    listen 127.0.0.1:4200;
+    server_name _;
+
     root /var/www/public-pool-ui;
- 
     index index.html;
- 
+
     location / {
         try_files $uri $uri/ =404;
     }
- 
+
+    location ~* ^/api/ {
+        proxy_pass http://127.0.0.1:23334;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen 4040 ssl;
+    http2 on;
+    error_page 497 =301 https://$host:$server_port$request_uri;
+
+    root /var/www/public-pool-ui;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
     location ~* ^/api/ {
         proxy_pass http://127.0.0.1:23334;
         proxy_set_header Host $host;
@@ -181,9 +202,9 @@ sudo ufw allow 4040/tcp comment 'Allow Public Pool UI SSL from anywhere' && sudo
 ```
 {% endcode %}
 
-### Configure Bitcoin Core
+### Configure Bitcoin client
 
-We need to set up settings in the Bitcoin Core configuration file; add new lines if they are not present:
+We need to set up settings in the Bitcoin client configuration file; add new lines if they are not present:
 
 * Edit `bitcoin.conf` file
 
@@ -197,13 +218,13 @@ sudo nano /data/bitcoin/bitcoin.conf
 zmqpubrawblock=tcp://127.0.0.1:28332
 ```
 
-* Restart Bitcoin Core to apply changes (if needed)
+* Restart the Bitcoin client to apply changes (if needed)
 
 ```sh
 sudo systemctl restart bitcoind
 ```
 
-* Check if Bitcoin Core is enabled `zmqpubrawblock` on the `28322` port
+* Check if the Bitcoin client is enabled `zmqpubrawblock` on the `28322` port
 
 ```bash
 sudo ss -tulpn | grep -E '(:28332)'
@@ -233,7 +254,7 @@ sudo adduser public-pool bitcoin
 
 ### Create data folder
 
-* Create the fulcrum data folder
+* Create the `public-pool` data folder to store the database
 
 ```sh
 sudo mkdir -p /data/public-pool
@@ -249,10 +270,10 @@ sudo chown -R public-pool:public-pool /data/public-pool
 
 ### Install the backend
 
-* Still with the user `admin` , change to a temporary directory, which is cleared on reboot
+* Change to the `public-pool` user
 
 ```sh
-cd /tmp
+sudo su - public-pool
 ```
 
 * Download the source code directly from GitHub and change to the Public Pool folder
@@ -266,7 +287,7 @@ git clone https://github.com/benjamin-wilson/public-pool.git && cd public-pool
 * Install all dependencies and the necessary modules using NPM
 
 {% hint style="warning" %}
-**Not to run** the `npm audit fix` command, which could break the original code!!
+**Do not run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
 ```sh
@@ -337,56 +358,17 @@ npm run build
 
 </details>
 
-* Create the folder for the executable
-
-```sh
-mkdir -p dist/bin
-```
-
-* Create a new file called `cli.sh`
-
-```sh
-nano dist/bin/cli.sh
-```
-
-* Copy and paste the following information. Save and exit
-
-```
-#!/bin/sh
-node "$@" /var/lib/public-pool/main
-```
-
-* Make the file executable
-
-```sh
-chmod +x dist/bin/cli.sh
-```
-
-* Create the `public-pool` folder
-
-```sh
-sudo install -d -o public-pool -g public-pool /var/lib/public-pool
-```
-
-* Sync the necessary files into the system
+* Return to the `admin` user
 
 {% code overflow="wrap" %}
-```sh
-sudo rsync -av --delete --chown=public-pool:public-pool /tmp/public-pool/dist/ /var/lib/public-pool/ && sudo rsync -av --chown=public-pool:public-pool /tmp/public-pool/node_modules /var/lib/public-pool/
-```
-{% endcode %}
-
-* Create the corresponding symbolic links
-
-{% code overflow="wrap" %}
-```sh
-sudo ln -s /var/lib/public-pool /usr/lib/node_modules/public-pool && sudo ln -s /usr/lib/node_modules/public-pool/bin/cli.sh /usr/bin/public-pool
+```bash
+exit
 ```
 {% endcode %}
 
 ### Install the frontend
 
-* Still with the user `admin` , change the root of the temporary directory again
+* Still with the user `admin` , change to the temporary directory
 
 ```sh
 cd /tmp
@@ -403,7 +385,7 @@ git clone https://github.com/benjamin-wilson/public-pool-ui.git && cd public-poo
 * Install all dependencies and the necessary modules using NPM
 
 {% hint style="warning" %}
-**Not to run** the `npm audit fix` command, which could break the original code!!
+**Do not run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
 ```sh
@@ -475,7 +457,8 @@ let stratumUrl = path.replace(/(^\w+:|^)\/\//, '').replace(/:\d+/, '');
 export const environment = {
     production: true,
     API_URL: path,
-    STRATUM_URL: stratumUrl + ':23333'
+    STRATUM_URL: stratumUrl + ':23333',
+    SECURE_STRATUM_URL: stratumUrl + ':43333'
 };
 ```
 
@@ -492,44 +475,40 @@ npm run build
 ```
 > public-pool-ui@0.0.0 build
 > ng build --configuration=production && gzipper compress --gzip --brotli ./dist/public-pool-ui/
-[...]
-⠴ Generating browser application bundles (phase: sealing)...
-[...]
+
 ✔ Browser application bundle generation complete.
 ✔ Copying assets complete.
 ✔ Index html generation complete.
 
 Initial chunk files           | Names         |  Raw size | Estimated transfer size
-main.084bbffefffb6801.js      | main          |   1.65 MB |               359.69 kB
-styles.b0d752c0b560a327.css   | styles        | 365.93 kB |                22.32 kB
+main.9c4bbe03847ec2e7.js      | main          |   1.67 MB |               360.06 kB
+styles.9867962c043f9351.css   | styles        | 366.39 kB |                22.32 kB
 scripts.21e2572554dc843d.js   | scripts       | 165.82 kB |                47.86 kB
 polyfills.f2a4ff6f85492da8.js | polyfills     |  34.51 kB |                11.15 kB
 runtime.8cc81e121daade11.js   | runtime       |   1.17 kB |               637 bytes
 
-                              | Initial total |   2.22 MB |               441.65 kB
+                              | Initial total |   2.23 MB |               442.03 kB
 
-Build at: 2026-01-11T19:00:49.809Z - Hash: 6d3320fb7df1ad12 - Time: 31504ms
+Build at: 2026-06-13T13:56:12.106Z - Hash: 2f85b49c0c5a415d - Time: 38000ms
 
 Warning: /tmp/public-pool-ui/node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.esm.js depends on 'moment'. CommonJS or AMD dependencies can cause optimization bailouts.
 For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
 
+Warning: /tmp/public-pool-ui/src/app/components/dashboard/dashboard.component.scss exceeded maximum budget. Budget 2.05 kB was not met by 47 bytes with a total of 2.10 kB.
 
-gzipper: 318 files have been compressed. (11s 973.86641ms)
+Warning: /tmp/public-pool-ui/src/app/components/splash/splash.component.scss exceeded maximum budget. Budget 2.05 kB was not met by 1.58 kB with a total of 3.63 kB.
+
+
+gzipper: 320 files have been compressed. (35s 691.234373ms)
 ```
 
 </details>
 
-* Create the `public-pool-ui` folder inside a folder called `www`
-
-```sh
-sudo mkdir -p /var/www/public-pool-ui
-```
-
 * Sync the website files to the Nginx directory and enforce secure ownership and permissions
 
 {% code overflow="wrap" %}
-```sh
-sudo rsync -av --delete --chown=root:www-data --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= dist/public-pool-ui/ /var/www/public-pool-ui/
+```bash
+sudo install -d -o root -g www-data -m 750 /var/www/public-pool-ui && sudo rsync -av --delete --chown=root:www-data --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= dist/public-pool-ui/ /var/www/public-pool-ui/
 ```
 {% endcode %}
 
@@ -537,7 +516,7 @@ sudo rsync -av --delete --chown=root:www-data --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=
 
 {% code overflow="wrap" %}
 ```bash
-cd && sudo rm -rf /tmp/public-pool*
+cd && sudo rm -rf /tmp/public-pool-ui
 ```
 {% endcode %}
 
@@ -560,17 +539,17 @@ nano public-pool.env
 <pre><code># MiniBolt: Public Pool configuration
 # /home/public-pool/public-pool.env
 
-## Bitcoin Core settings
+## Bitcoin client settings
 BITCOIN_RPC_URL=http://127.0.0.1
 BITCOIN_RPC_PORT=8332
 BITCOIN_RPC_COOKIEFILE="/data/bitcoin/.cookie"
 BITCOIN_ZMQ_HOST="tcp://127.0.0.1:28332"
 NETWORK=mainnet
 
-## Public Pool  general settings
+## Public Pool general settings
 API_PORT=23334
 STRATUM_PORT=23333
-POOL_IDENTIFIER="<a data-footnote-ref href="#user-content-fn-1">Public Pool on MiniBolt</a>"
+POOL_IDENTIFIER="\<a data-footnote-ref href="#user-content-fn-1">Public Pool on MiniBolt</a>\"
 </code></pre>
 
 * Exit of the `public-pool` user session to return to the `admin` user session
@@ -596,7 +575,7 @@ sudo nano /etc/systemd/system/public-pool.service
 # /etc/systemd/system/public-pool.service
 
 [Unit]
-Description=Public-Pool
+Description=Public Pool
 Requires=bitcoind.service
 After=bitcoind.service
 
@@ -605,7 +584,7 @@ StartLimitIntervalSec=20
 
 [Service]
 WorkingDirectory=/data/public-pool
-ExecStart=/usr/bin/public-pool --env-file=/home/public-pool/public-pool.env
+ExecStart=/usr/bin/node --env-file=/home/public-pool/public-pool.env /home/public-pool/public-pool/dist/main.js
 
 User=public-pool
 Group=public-pool
@@ -711,18 +690,19 @@ Jan 25 12:33:21 minibolt public-pool[642441]: getblocktemplate tx count: 64
 
 #### Validation
 
-* Ensure the service is working and listening on the SSL `4040` port, Stratum `23333` port and the API `23334` port
+* Ensure the service is working and listening on the HTTP `4200` port, SSL `4040` port, Stratum `23333` port and the API `23334` port
 
 ```sh
-sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4040|:23333|:23334)'
+sudo ss -tulpn | grep -v 'dotnet' | grep -E '(:4200|:4040|:23333|:23334)'
 ```
 
 Expected output:
 
 ```
-tcp   LISTEN 0      511          0.0.0.0:4040       0.0.0.0:*    users:(("nginx",pid=86475,fd=22),("nginx",pid=86474,fd=22),("nginx",pid=86473,fd=22),("nginx",pid=86472,fd=22),("nginx",pid=809,fd=22))
-tcp   LISTEN 0      511          0.0.0.0:23334      0.0.0.0:*    users:(("node",pid=97483,fd=36))                                                                                                       
-tcp   LISTEN 0      511                *:23333            *:*    users:(("node",pid=97483,fd=34))
+tcp   LISTEN 0      511        127.0.0.1:4200       0.0.0.0:*    users:(("nginx",pid=153439,fd=19),("nginx",pid=153438,fd=19),("nginx",pid=153437,fd=19),("nginx",pid=153436,fd=19),("nginx",pid=925,fd=19))
+tcp   LISTEN 0      511          0.0.0.0:23334      0.0.0.0:*    users:(("node",pid=136971,fd=36))
+tcp   LISTEN 0      511          0.0.0.0:4040       0.0.0.0:*    users:(("nginx",pid=153439,fd=8),("nginx",pid=153438,fd=8),("nginx",pid=153437,fd=8),("nginx",pid=153436,fd=8),("nginx",pid=925,fd=8))
+tcp   LISTEN 0      511                *:23333            *:*    users:(("node",pid=136971,fd=34))
 ```
 
 {% hint style="info" %}
@@ -752,7 +732,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 HiddenServiceDir /var/lib/tor/hidden_service_public-pool/
 HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
-HiddenServicePort 443 127.0.0.1:4040
+HiddenServicePort 80 127.0.0.1:4200
 ```
 
 * Reload Tor to apply changes
@@ -777,7 +757,7 @@ abcdefg..............xyz.onion
 
 ## Upgrade
 
-Follow the complete [Installation section](public-pool.md#installation) until the [Create the public-pool user and group](public-pool.md#create-the-public-pool-user-and-group) (NOT included).
+Follow the complete [Installation section](public-pool.md#installation) until [Create the public-pool user and group](public-pool.md#create-the-public-pool-user-and-group) (NOT included).
 
 * Restart the service to apply the changes
 
@@ -864,7 +844,7 @@ sudo rm -rf /var/www/public-pool-ui
 
 ### Uninstall Tor hidden service
 
-* Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Ensure that you are logged in as the user `admin` and delete or comment the following lines in the "location hidden services" section below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
 
 ```shellscript
 sudo nano +63 /etc/tor/torrc --linenumbers
@@ -875,7 +855,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 #HiddenServiceDir /var/lib/tor/hidden_service_public-pool/
 #HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
-#HiddenServicePort 443 127.0.0.1:4040
+#HiddenServicePort 80 127.0.0.1:4200
 ```
 
 * Reload the torrc config
@@ -939,6 +919,6 @@ sudo ufw delete Y
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">4040</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port</td></tr><tr><td align="center">23333</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default API port</td></tr><tr><td align="center">23334</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default Stratum port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">4200</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">HTTP port</td></tr><tr><td align="center">4040</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port</td></tr><tr><td align="center">23333</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default API port</td></tr><tr><td align="center">23334</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default Stratum port</td></tr></tbody></table>
 
 [^1]: Change for your selection if you want

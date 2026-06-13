@@ -20,6 +20,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Electrum Wallet Desktop
@@ -34,7 +36,7 @@ Difficulty: Easy
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](electrs.md)
 
 ## Installation

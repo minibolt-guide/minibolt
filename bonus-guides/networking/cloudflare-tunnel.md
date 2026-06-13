@@ -46,15 +46,15 @@ Before you start, make sure you:
 ### Buy a domain name
 
 * **Buy a domain or use an existing one**. There are different options to buy a domain. For this example, we will use Namecheap
-  * Go to [Namecheap](https://www.namecheap.com/), search for your wish domain among available, and follow the registration and buying process (you can pay using Bitcoin on-chain). The price depends on the domain extensions chosen; a common extension like .com or .net generally has an annual cost between 10€ and 20€, but some less common extensions may have higher prices. In general, the most common extensions like .com, .net, and .org usually have low costs due to their popularity and availability. However, other less common extensions, such as .xyz or .online, are often offered at lower prices to attract more users.
+  * Go to [Namecheap](https://www.namecheap.com/), search for your desired domain among available, and follow the registration and buying process (you can pay using Bitcoin on-chain). The price depends on the domain extensions chosen; a common extension like .com or .net generally has an annual cost between 10€ and 20€, but some less common extensions may have higher prices. In general, the most common extensions like .com, .net, and .org usually have low costs due to their popularity and availability. However, other less common extensions, such as .xyz or .online, are often offered at lower prices to attract more users.
 
 ### Create an account on Cloudflare
 
 * [Create an account on Cloudflare](https://dash.cloudflare.com/sign-up) and add the recently created domain to it:
   * In the top navigation bar, click **\[Add site]**
   * Enter your domain (`example.com`) and then click on the **\[Add site]** button again
-  * **Select your plan level**. The **free plan is enough** for this case of use. For more details on features and pricing of available plans, refer to the [Plans page](https://www.cloudflare.com/plans/#compare-features). Click **Continue**
-  * Click **Done, take note of the nameservers** assigned to your account
+  * **Select your plan level**. The **free plan is enough** for this use case. For more details on features and pricing of available plans, refer to the [Plans page](https://www.cloudflare.com/plans/#compare-features). Click **Continue**
+  * Click **Done. Take note of the nameservers** assigned to your account
   * On **Overview**, locate the nameserver names in **2**
 
 <figure><img src="../../.gitbook/assets/cloudflare-nameservers.png" alt="" width="563"><figcaption></figcaption></figure>
@@ -86,11 +86,11 @@ Once all of this is done, you need to wait for the registrar to update the names
 <figure><img src="../../.gitbook/assets/DNS-records.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-You can manually add a new record by clicking the "**Add record"** button. More later, we will use this. Right now, you will not have any record
+You can manually add a new record by clicking the "**Add record"** button. Later, we will use this. Right now, you will not have any records.
 {% endhint %}
 
 {% hint style="info" %}
-Keep this Cloudflare session open. We will add and modify some registries to configure the tunnel
+Keep this Cloudflare session open. We will add and modify some records to configure the tunnel.
 {% endhint %}
 
 ## Installation
@@ -104,7 +104,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=2026.5.2
+VERSION=2026.6.0
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -112,10 +112,10 @@ VERSION=2026.5.2
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>wget https://github.com/cloudflare/cloudflared/releases/download/$VERSION/cloudflared-linux-amd64.deb
 </strong></code></pre>
 
-* Set a temporary SHA256 environment variable to the installation
+* Set a temporary SHA256 environment variable for the installation
 
 ```bash
-SHA256=f7378c11f55a061b4f1f7d1bccdd07bdfd947ed95634c5f6f4ba71a20d5b1d1d
+SHA256=0f8d62a84cdf9474409a486d62c9269d9a4b28665d2c4e675cb87c062395d3f7
 ```
 
 * Check the checksum of the file
@@ -285,7 +285,7 @@ We will create a configuration file in your `.cloudflared` directory. This file 
 nano /home/admin/.cloudflared/config.yml
 ```
 
-* Here, you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your name (subdomain) chosen for the service, and `<domain.com>` with the domain, you purchased previously. Ensure to replace `<UUID>` with your obtained before
+* Here, you should choose services that you want to expose publicly. This is only an example, so replace the ingress rules with your preferences. For example, you can replace `btcpay` or `explorer` with your name (subdomain) chosen for the service, and `<domain.com>` with the domain you purchased previously. Ensure to replace `<UUID>` with what you obtained before
 
 <pre><code># MiniBolt: cloudflared configuration
 # /home/admin/.cloudflared/config.yml
@@ -325,7 +325,7 @@ To take into account:
 
 * We will go back to the Cloudflare DNS records table to make modifications.
 
-Suppose you wanted to expose 2 services or more. In that case, that is to say, you ingressed more than one service on the ingress rules, follow the next steps; if not, you can only check the current recently created registry or jump directly to the next section: [Increase the maximum UDP Buffer Sizes](cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes)
+Suppose you wanted to expose 2 services or more. In that case, that is to say, you ingress more than one service on the ingress rules; follow the next steps; if not, you can only check the current recently created registry or jump directly to the next section: [Increase the maximum UDP Buffer Sizes](cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes)
 
 > 1. **Edit the existing CNAME record** that was recently created, and replace the `name` value with the name of the first or one of the services selected, or keep it if it's correct. For example, if you selected `btcpay`, keep the existing target content, which is the `UUID` of your tunnel
 > 2. Add a new record by selecting **CNAME** type. Enter the second subdomain selected in the second ingress rule e.g `explorer`, in the `name` box, and in the `target` content, enter the `UUID` of your tunnel (the same content as before)
@@ -456,7 +456,7 @@ journalctl -fu cloudflared
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
+Keep **this terminal open;** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
 ## Run <a href="#id-6-run-the-tunnel" id="id-6-run-the-tunnel"></a>
@@ -527,7 +527,7 @@ sudo systemctl stop cloudflared
 cloudflared --version
 ```
 
-* Follow again the [Installation section](cloudflare-tunnel.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value for the [latest](https://github.com/cloudflare/cloudflared/releases) if it has not already been changed in this guide
+* Follow the [Installation section](cloudflare-tunnel.md#installation) of this guide again, replacing the environment variable `"VERSION=x.xx"` value for the [latest](https://github.com/cloudflare/cloudflared/releases) if it has not already been changed in this guide
 * Start Cloudflared again
 
 ```bash
@@ -544,7 +544,7 @@ Monitor logs with **`journalctl -fu cloudflared`** to ensure that all is still w
 Warning: This section removes the installation. Only run these commands if you intend to uninstall
 {% endhint %}
 
-* With user `admin`, stop the Cloudflared
+* With user `admin`, stop Cloudflared
 
 ```bash
 sudo systemctl stop cloudflared

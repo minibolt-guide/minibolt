@@ -1084,6 +1084,120 @@ sudo pip3 install --upgrade opentimestamps-client
 
 ## Extras (optional)
 
+```
+{
+  "transactions": [
+    {
+      "txid": "aab4a3b96ca35fc5dc4d4920f21f2de081cb4c2d625f1bbef2e1e31daca948b6",
+      "wtxid": "4689d1701a2a51c887e997492c9ce7e3fc3362a7139223b3a59122110667b1b4",
+      "hex": "0200000000010bcd96efb3a96d92945ab367cca1f3c828f9b656e6d353f37d7a9a6c2e36c58e9c0000000000fdffffffc5f7abc896687f9a7cf370ed7de2942093a4234b9ae7b5a8d52c114a2d269c990000000000fdffffff3e799405951cd46dc8d731cb378a016ca3cbc5f5
+a6887a455c00dfed1c19b7690100000000fdffffffb73c6858ab296b0e2bee3410580e86d2cf4ba6ebbecf362d80509f1b46e4c86a0100000000fdffffff2a0ec05571b10b904414488fd9844f4a0c82c04e3899779de04bfa930d86547e0100000000fdffffff79171052814ceb849bc6ba7972
+c7222c5af9ee55c470346e460bd66e0f64ffe90100000000fdffffffb1bc7983660429bf258d6bcb45da197330d01f9376143fb16b82d1866275dc9f0000000000fdfffffff67c64b4b1ba8453ab8a9e13da8e18efba449ede6296d62acb0fd38d8ce91b970000000000fdfffffff25f3aa7486e
+7a5a249d0f31992d1801401948ae30e5861b6d3258ce0e4342490100000000fdffffffd38145336c4be6ea9c6c2590d3886f455bd18bab440305a5287d4af51fffc9700000000000fdffffffa77321e0b86eb9bea38de4c2acc853e2b334968323dfe2451d280ce3320120850000000000fdffff
+ff0101a389f60100000016001470fadf8b0e753baaa72379f68813fdbfa682924c02473044022041be8482dea20f12c697754ebd8b627bf2e8acf82bd1d4fdeb26fd47d9634c1f022012d7ec6bad927576eb31957e1858953ab0346a5cb74f59ac7ea5f04cc08352400121026f3d0a3241f30a1e
+0bffeb9a0678856917264021604ddbb185338409a445548602473044022014471c3d104082e1a8f5bed597c7f011e532e38ad0cfaddba137286b0262c5ba02203a522e838b4f46f6e8d4b062d8f7c25e33e6d2e24095c82b7fbaefb1c817fac5012103b0787bf7fd79ae3e5d2e30879882d849e9
+e35ad562c125d2f35c0846e3b674b90247304402204d381441ee02bfdc33207ae93b6bd370d6a5975f84e935757de15bf853181ee302201de81c824d5f0b9e2f00ce4857fcf6a776070366a02bbc95b505956dffaf80280121027a42340870f0bda9a3f8c02a2878a0946a82abf55b9a5f9bbe1c
+311d382c6bb7024730440220269445c3ad7e5d67206ee6fc1c1525a0c60a14538663fd3f8384d56cdc6bd48e022040f2f8b249245694f29b8f5eab52147c4c200060e950281a5c3b8707d4bb3915012103a46b0f32ec166229f3391769af8b7de46f55d506acde33e642fb5ecc93ed67d8024730
+4402206e14273e0f68ae386562be58bd4447b561de509fdbed106af37e00a888ac48b002201418097e03984c5f25cf20bbc16248eeee1c96448c55139ec35b812cda841e3b0121028cfa16806071615f5a205a2bd3ff1094d16f6c61a7e29ed3b2a7bcc8b78169180247304402202bac194b7681
+40944077131c3604a550cd91e24ad643139405fac272c7b00642022076331a57d4be945c5205bf08d1dd3d044ce9c5918f457719f5c732bb16bd112e012103b0787bf7fd79ae3e5d2e30879882d849e9e35ad562c125d2f35c0846e3b674b90247304402203ca9bc03d3f8bdaa7802e4566bf0b6
+ca3b95109d9e0459aecc83bca944667ebe02206ebd3515d8f7672ae828c37085d3118324e46663cdd8cbc820248fe899a8dc3d0121029960082fb77b2938b87ad9279d0e305e21708889758ffdb24c7646398ce00ef10247304402201af546b42f6f24b95f5c57c3ed37a4f54f2f36c4381d65b6
+26687baa4d6f923b02202f885246a649fa7fcb82384c0edbfce9cfd580bb4f1f07d76262c649fa04c6b8012103b0787bf7fd79ae3e5d2e30879882d849e9e35ad562c125d2f35c0846e3b674b9024730440220568078f789ad53c42aa3371c55ed8b4477194d51e7984315cd1233fb48f4884302
+2008005e27669ea6a6570a0f6a400617d53a759b02388065927b7819eea044e5e201210291db1f7a583e0a51fe3753fdea16f1c672b1d4e065f363346d35e8221a674938024730440220152a2bbe6ea6957bf083ceb8c84530780cb06e4543f6b9b3d49f4918f917b62b022075ebc6241835d484
+217d96d87d4a87c121e48c0e3266063ea2189351571d1990012103318a33b4168d66a818504ef4d3bd220eaafb62754057495e19f57371244b35e2024730440220774af82d5a143b69dbad1d498cd05b0e06bf9b437c01b18a6d8e59ddb651412d02203ae424275e9d416407a3b3949ad4eb76ae
+0b1ba4a45c3948a69aeaec0cd10d3101210351ddbffdd80fd39eee271af6812d774c5cf6660cc6f684d5441675f58e0ddea364020200",
+      "peers": [
+        {
+          "address": "103.99.169.200:48333",
+          "sent": 1776799790,
+          "received": 1776799795
+        }
+      ]
+    }
+  ]
+}
+```
+
+* If you want to stop the private broadcast process for a specific transaction, use this command:
+
+<pre class="language-bash"><code class="lang-bash">bitcoin-cli abortprivatebroadcast <a data-footnote-ref href="#user-content-fn-12">&#x3C;txid></a>
+</code></pre>
+
+{% hint style="info" %}
+Remember to replace `<txid>` with the previously obtained value.
+{% endhint %}
+
+**Example** of expected output:
+
+```
+{
+  "removed_transactions": [
+    {
+      "txid": "bbb99f53e48a52194871b5c1ee283555ce1ac38ebdc0f16008e0757bb7559df5",
+      "wtxid": "c08fff08fc3c1d141e3ade472969b07a04d4f24634155e2583eb0984324bfd58",
+      "hex": "02000000000101b73c6858ab296b0e2bee3410580e86d2cf4ba6ebbecf362d80509f1b46e4c86a0000000000fdffffff01dd410f0000000000160014017ca593408640d7de708dbb4a8079c4d7473e64014050d609026644693856d3af7787eccca7476f0dccac700a49c9df159937391ce94dd08f5c780882b210394211acbe735a89ec7a341f76f6f685267ac76537411c64020200"
+    }
+  ]
+}
+```
+
+### Ordisrespector patch filter
+
+{% hint style="info" %}
+An Ordinals NFTs spam filter for mempool politics of Bitcoin Core.
+{% endhint %}
+
+{% embed url="https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831" %}
+
+* Download the Ordisrespector patch
+
+{% code overflow="wrap" %}
+```bash
+wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/ordisrespector.patch
+```
+{% endcode %}
+
+* **(Optional)** Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
+
+```sh
+nano ordisrespector.patch
+```
+
+* Apply the patch
+
+```sh
+git apply ordisrespector.patch
+```
+
+{% hint style="info" %}
+Return to continue with [Option 2: Compiling from the source code - Build step](bitcoin-client.md#build) in case of first installation or [Upgrade - Build step](bitcoin-client.md#build-1) in a upgrading process.
+{% endhint %}
+
+### Reject other possible data included in transactions
+
+Once you get to the [Configuration section](bitcoin-client.md#configuration).
+
+* With user `bitcoin`, edit the `bitcoin.conf` file:
+
+```bash
+nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+* Add the next lines at the end of the file. Save and exit.
+
+```
+# Reject data in transactions
+datacarrier=0
+permitbaremultisig=0
+```
+
+{% hint style="info" %}
+[Continue](bitcoin-client.md#configuration) with the guide on `Set permissions:..` step.
+{% endhint %}
+
+{% hint style="warning" %}
+Attention: with the previous configuration, Whirlpool will not work, and is not recommended for mining use.
+{% endhint %}
+
 ### Slow device mode
 
 * As user `admin` edit `bitcoin.conf` file:
@@ -1096,9 +1210,9 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
-<a data-footnote-ref href="#user-content-fn-12">maxconnections</a>=40
+<a data-footnote-ref href="#user-content-fn-13">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-<a data-footnote-ref href="#user-content-fn-13">maxuploadtarget</a>=5000
+<a data-footnote-ref href="#user-content-fn-14">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
@@ -1327,7 +1441,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 Or **add** under `bind=127.0.0.1` the next line allows **connections only from devices in the same local network** (**recommended option** to improve security):
 
-<pre><code>bind=<a data-footnote-ref href="#user-content-fn-14">192.168.x.x</a>
+<pre><code>bind=<a data-footnote-ref href="#user-content-fn-15">192.168.x.x</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -1350,7 +1464,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit.
 
-<pre><code> connect=<a data-footnote-ref href="#user-content-fn-15">&#x3C;localip></a>:8333
+<pre><code> connect=<a data-footnote-ref href="#user-content-fn-16">&#x3C;localip></a>:8333
 </code></pre>
 
 {% hint style="info" %}
@@ -1388,7 +1502,7 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 ### Improve the reliability
 
-Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client with both onion and I2P addnode entries — especially using the trusted official MiniBolt project addresses — you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
+Ensuring your node connects to high-uptime, reliable peers is essential for smooth synchronization, faster transaction propagation, and overall stability. By configuring the Bitcoin client: Bitcoin Core, with both onion and I2P addnode entries — especially using the trusted official MiniBolt project addresses — you create diverse and robust connection paths that help bypass latency and network issues, reducing the risk of disruptions while enhancing security and efficiency.
 
 {% hint style="info" %}
 To get this, you will need a **full-sync** node peer like the official MiniBolt project node (later, it is suggested).
@@ -1404,8 +1518,8 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Core on MiniBolt. Save and exit.
 
-<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.onion</a>>:8333
-addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.b32</a>>.i2p:0
+<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.onion</a>>:8333
+addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.b32</a>>.i2p:0
 </code></pre>
 
 {% hint style="info" %}
@@ -1452,6 +1566,10 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 Enables private transaction broadcasting by routing `sendrawtransaction` through ephemeral Tor/I2P connections, preventing IP leakage and minimizing correlation between broadcasts.
 
+{% hint style="warning" %}
+Section not yet compatible with [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md).
+{% endhint %}
+
 * With the user `admin`, edit the `bitcoin.conf` file:
 
 ```bash
@@ -1484,6 +1602,7 @@ When you use [LND](../../lightning/lightning-client.md), [Fulcrum](electrum-serv
 **Example** of expected output:
 
 ```
+[...]
 Apr 20 21:18:54 minibolt bitcoind[2960268]: 2026-04-20T19:18:54Z [privatebroadcast] Requesting 3 new connections due to txid=b844f7bdd0c9edf2f182fdbf187c357f6efab32e7660daa174b0bf6c0c138a1b, wtxid=5e603d1252fada4a2c7ad720f2a936d271e41b0bf6fa2c2e9504f36df99ff12e
 Apr 20 21:18:54 minibolt bitcoind[2960268]: 2026-04-20T19:18:54Z [privatebroadcast] Ignoring unnecessary request to schedule an already scheduled transaction: txid=b844f7bdd0c9edf2f182fdbf187c357f6efab32e7660daa174b0bf6c0c138a1b, wtxid=5e603d1252fada4a2c7ad720f2a936d271e41b0bf6fa2c2e9504f36df99ff12e
 Apr 20 21:18:57 minibolt bitcoind[2960268]: 2026-04-20T19:18:57Z [privatebroadcast] Socket connected to [2401:b140:5::92:201]:48333 through the proxy at 127.0.0.1:9050; remaining connections to open: 2
@@ -1492,6 +1611,7 @@ Apr 20 21:18:58 minibolt bitcoind[2960268]: 2026-04-20T19:18:58Z [privatebroadca
 Apr 20 21:18:58 minibolt bitcoind[2960268]: 2026-04-20T19:18:58Z [privatebroadcast] Ignoring incoming message 'ping', peer=22
 Apr 20 21:18:58 minibolt bitcoind[2960268]: 2026-04-20T19:18:58Z [privatebroadcast] Ignoring incoming message 'feefilter', peer=22
 Apr 20 21:19:03 minibolt bitcoind[2960268]: 2026-04-20T19:19:03Z [privatebroadcast] Got a PONG (the transaction will probably reach the network), marking for disconnect, peer=22
+[...]
 ```
 
 #### Validation
@@ -1508,143 +1628,24 @@ bitcoin-cli getprivatebroadcastinfo
 {
   "transactions": [
     {
-      "txid": "aab4a3b96ca35fc5dc4d4920f21f2de081cb4c2d625f1bbef2e1e31daca948b6",
-      "wtxid": "4689d1701a2a51c887e997492c9ce7e3fc3362a7139223b3a59122110667b1b4",
-      "hex": "0200000000010bcd96efb3a96d92945ab367cca1f3c828f9b656e6d353f37d7a9a6c2e36c58e9c0000000000fdffffffc5f7abc896687f9a7cf370ed7de2942093a4234b9ae7b5a8d52c114a2d269c990000000000fdffffff3e799405951cd46dc8d731cb378a016ca3cbc5f5
-a6887a455c00dfed1c19b7690100000000fdffffffb73c6858ab296b0e2bee3410580e86d2cf4ba6ebbecf362d80509f1b46e4c86a0100000000fdffffff2a0ec05571b10b904414488fd9844f4a0c82c04e3899779de04bfa930d86547e0100000000fdffffff79171052814ceb849bc6ba7972
-c7222c5af9ee55c470346e460bd66e0f64ffe90100000000fdffffffb1bc7983660429bf258d6bcb45da197330d01f9376143fb16b82d1866275dc9f0000000000fdfffffff67c64b4b1ba8453ab8a9e13da8e18efba449ede6296d62acb0fd38d8ce91b970000000000fdfffffff25f3aa7486e
-7a5a249d0f31992d1801401948ae30e5861b6d3258ce0e4342490100000000fdffffffd38145336c4be6ea9c6c2590d3886f455bd18bab440305a5287d4af51fffc9700000000000fdffffffa77321e0b86eb9bea38de4c2acc853e2b334968323dfe2451d280ce3320120850000000000fdffff
-ff0101a389f60100000016001470fadf8b0e753baaa72379f68813fdbfa682924c02473044022041be8482dea20f12c697754ebd8b627bf2e8acf82bd1d4fdeb26fd47d9634c1f022012d7ec6bad927576eb31957e1858953ab0346a5cb74f59ac7ea5f04cc08352400121026f3d0a3241f30a1e
-0bffeb9a0678856917264021604ddbb185338409a445548602473044022014471c3d104082e1a8f5bed597c7f011e532e38ad0cfaddba137286b0262c5ba02203a522e838b4f46f6e8d4b062d8f7c25e33e6d2e24095c82b7fbaefb1c817fac5012103b0787bf7fd79ae3e5d2e30879882d849e9
-e35ad562c125d2f35c0846e3b674b90247304402204d381441ee02bfdc33207ae93b6bd370d6a5975f84e935757de15bf853181ee302201de81c824d5f0b9e2f00ce4857fcf6a776070366a02bbc95b505956dffaf80280121027a42340870f0bda9a3f8c02a2878a0946a82abf55b9a5f9bbe1c
-311d382c6bb7024730440220269445c3ad7e5d67206ee6fc1c1525a0c60a14538663fd3f8384d56cdc6bd48e022040f2f8b249245694f29b8f5eab52147c4c200060e950281a5c3b8707d4bb3915012103a46b0f32ec166229f3391769af8b7de46f55d506acde33e642fb5ecc93ed67d8024730
-4402206e14273e0f68ae386562be58bd4447b561de509fdbed106af37e00a888ac48b002201418097e03984c5f25cf20bbc16248eeee1c96448c55139ec35b812cda841e3b0121028cfa16806071615f5a205a2bd3ff1094d16f6c61a7e29ed3b2a7bcc8b78169180247304402202bac194b7681
-40944077131c3604a550cd91e24ad643139405fac272c7b00642022076331a57d4be945c5205bf08d1dd3d044ce9c5918f457719f5c732bb16bd112e012103b0787bf7fd79ae3e5d2e30879882d849e9e35ad562c125d2f35c0846e3b674b90247304402203ca9bc03d3f8bdaa7802e4566bf0b6
-ca3b95109d9e0459aecc83bca944667ebe02206ebd3515d8f7672ae828c37085d3118324e46663cdd8cbc820248fe899a8dc3d0121029960082fb77b2938b87ad9279d0e305e21708889758ffdb24c7646398ce00ef10247304402201af546b42f6f24b95f5c57c3ed37a4f54f2f36c4381d65b6
-26687baa4d6f923b02202f885246a649fa7fcb82384c0edbfce9cfd580bb4f1f07d76262c649fa04c6b8012103b0787bf7fd79ae3e5d2e30879882d849e9e35ad562c125d2f35c0846e3b674b9024730440220568078f789ad53c42aa3371c55ed8b4477194d51e7984315cd1233fb48f4884302
-2008005e27669ea6a6570a0f6a400617d53a759b02388065927b7819eea044e5e201210291db1f7a583e0a51fe3753fdea16f1c672b1d4e065f363346d35e8221a674938024730440220152a2bbe6ea6957bf083ceb8c84530780cb06e4543f6b9b3d49f4918f917b62b022075ebc6241835d484
-217d96d87d4a87c121e48c0e3266063ea2189351571d1990012103318a33b4168d66a818504ef4d3bd220eaafb62754057495e19f57371244b35e2024730440220774af82d5a143b69dbad1d498cd05b0e06bf9b437c01b18a6d8e59ddb651412d02203ae424275e9d416407a3b3949ad4eb76ae
-0b1ba4a45c3948a69aeaec0cd10d3101210351ddbffdd80fd39eee271af6812d774c5cf6660cc6f684d5441675f58e0ddea364020200",
+      "txid": "12d6be20dacd69290688d660f5993a8af15a94b798fc6b743c3f0e9faf112d87",
+      "wtxid": "e5fc4276e220c797067e3cd7be97c27aadd202e2b6bc210a4d9d9b41edc360e4",
+      "hex": "020000000001019abd5b6ad0d28cc32c8acfaaca7544b9a15d517a40df1a46e3f74ed7621075240000000000ffffffff03e0930400000000002200209c4dd3c624e98e5f992d1e617ab0974a1e61d4dd1b66bca9419d82e734dd860680841e00000
+00000220020c59d1805a12ecf937adcf5cc5c22a41b5ad451d013414ecea819539cd550cfdff6f6440100000000225120fcf76f972e184ee1c9ad8c39fb3493ccdf7fd70705e6ad500033a6e466234dff0140af64caf5f43bcb4a01f19c93ae194d09979bb179134a
+d7f4081e16abf3d05cd83f25380bec8ad5c5104a48092739f55da22c4250edd8808946baa4493c5100e000000000",
       "peers": [
         {
-          "address": "103.99.169.200:48333",
-          "sent": 1776799790,
-          "received": 1776799795
+          "address": "3dieicfanrwkzs3hkvy7sq6x7dlopvl7ywmrplc4dvvdwpvewb522pid.onion:48333",
+          "sent": 1781267384
+        },
+        {
+          "address": "159.195.65.171:48333",
+          "sent": 1781267396
         }
       ]
     }
   ]
 }
-```
-
-* If you want to stop the private broadcast process for a specific transaction, use this command:
-
-<pre class="language-bash"><code class="lang-bash">bitcoin-cli abortprivatebroadcast <a data-footnote-ref href="#user-content-fn-17">&#x3C;txid></a>
-</code></pre>
-
-{% hint style="info" %}
-Remember to replace `<txid>` with the previously obtained value.
-{% endhint %}
-
-**Example** of expected output:
-
-```
-{
-  "removed_transactions": [
-    {
-      "txid": "bbb99f53e48a52194871b5c1ee283555ce1ac38ebdc0f16008e0757bb7559df5",
-      "wtxid": "c08fff08fc3c1d141e3ade472969b07a04d4f24634155e2583eb0984324bfd58",
-      "hex": "02000000000101b73c6858ab296b0e2bee3410580e86d2cf4ba6ebbecf362d80509f1b46e4c86a0000000000fdffffff01dd410f0000000000160014017ca593408640d7de708dbb4a8079c4d7473e64014050d609026644693856d3af7787eccca7476f0dccac700a49c9df159937391ce94dd08f5c780882b210394211acbe735a89ec7a341f76f6f685267ac76537411c64020200"
-    }
-  ]
-}
-```
-
-### Ordisrespector patch filter
-
-{% hint style="info" %}
-An Ordinals NFTs spam filter for mempool politics of Bitcoin Core.
-{% endhint %}
-
-{% embed url="https://gist.github.com/luke-jr/4c022839584020444915c84bdd825831" %}
-
-* Download the Ordisrespector patch
-
-{% code overflow="wrap" %}
-```bash
-wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/ordisrespector.patch
-```
-{% endcode %}
-
-* **(Optional)** Inspect `ordisrespector.patch` file to make sure it does not do bad things. If you see all OK, exit with Ctrl-X and continue with the next command
-
-```sh
-nano ordisrespector.patch
-```
-
-* Apply the patch
-
-```sh
-git apply ordisrespector.patch
-```
-
-{% hint style="info" %}
-Return to continue with [Option 2: Compiling from the source code - Build step](bitcoin-client.md#build) in case of first installation or [Upgrade - Build step](bitcoin-client.md#build-1) in a upgrading process.
-{% endhint %}
-
-### Reject other possible data included in transactions
-
-Once you get to the [Configuration section](bitcoin-client.md#configuration).
-
-* With user `bitcoin`, edit the `bitcoin.conf` file:
-
-```bash
-nano /home/bitcoin/.bitcoin/bitcoin.conf
-```
-
-* Add the next lines at the end of the file. Save and exit.
-
-```
-# Reject data in transactions
-datacarrier=0
-permitbaremultisig=0
-```
-
-{% hint style="info" %}
-[Continue](bitcoin-client.md#configuration) with the guide on `Set permissions:..` step.
-{% endhint %}
-
-{% hint style="warning" %}
-Attention: with the previous configuration, Whirlpool will not work, and is not recommended for mining use
-{% endhint %}
-
-### Add an external fee estimator to the LND
-
-By applying Ordisrespector to our node, we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector applied.
-
-* With the user admin, stop LND if you have installed it:
-
-```bash
-sudo systemctl stop lnd
-```
-
-* Edit `lnd.conf`:
-
-```bash
-sudo nano /data/lnd/lnd.conf
-```
-
-* Add the next lines at the end of the file:
-
-<pre><code><strong>[fee]
-</strong># Use external fee estimator
-fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
-</code></pre>
-
-* Start LND again:
-
-```bash
-sudo systemctl start lnd
 ```
 
 ## Upgrade
@@ -2002,7 +2003,7 @@ Configuring native_capnp...
 [...]
 ```
 
-* Pre-configure the installation; we will discard some features and include others. paste the complete next command in the terminal and press Enter:
+* Pre-configure the installation; we will discard some features and include others. Paste the complete next command in the terminal and press Enter:
 
 ```sh
 BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
@@ -2018,13 +2019,6 @@ BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
 **Example** of expected output:
 
 ```
-  -DBUILD_TESTS=OFF \
-  -DBUILD_TX=OFF \
-  -DBUILD_UTIL=OFF \
-  -DBUILD_WALLET_TOOL=OFF \
-  -DINSTALL_MAN=OFF \
-  -DWITH_ZMQ=ON \
-  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
 -- The CXX compiler identification is GNU 11.4.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
@@ -2035,15 +2029,6 @@ BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
 -- Performing Test CXX_SUPPORTS__WERROR
 -- Performing Test CXX_SUPPORTS__WERROR - Success
 -- Performing Test CXX_SUPPORTS__G3
--- Performing Test CXX_SUPPORTS__G3 - Success
--- Performing Test LINKER_SUPPORTS__G3
--- Performing Test LINKER_SUPPORTS__G3 - Success
--- Performing Test CXX_SUPPORTS__FTRAPV
--- Performing Test CXX_SUPPORTS__FTRAPV - Success
--- Performing Test LINKER_SUPPORTS__FTRAPV
--- Performing Test LINKER_SUPPORTS__FTRAPV - Success
--- Found SQLite3: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17")
--- Found ZeroMQ: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
 [...]
 ```
 
@@ -2055,7 +2040,7 @@ Ordisrespector is a _**spam patch filter**_ that works by detecting the pattern 
 Skip this step if you want only to build Bitcoin Core from the source code, but not apply the Ordisrespector patch.
 {% endhint %}
 
-* Go [to the Ordisrespector extra section](bitcoin-client.md#ordisrespector-patch-filter) to apply the Ordisrespector patch filter and come back to continue with the next step.
+* Go to the [Ordisrespector patch filter](bitcoin-client.md#ordisrespector-patch-filter) extra section to apply the Ordisrespector patch filter and come back to continue with the next step.
 * Enter the command to compile
 
 {% hint style="info" %}
@@ -2078,20 +2063,6 @@ cmake --build build -j $(nproc)
 [  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/aes.cpp.o
 [  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20.cpp.o
 [  3%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/merkle.cpp.o
-[  3%] Built target secp256k1_precomputed
-[  3%] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coincontrol.cpp.o
-[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20poly1305.cpp.o
-[  3%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_get.cpp.o
-[  3%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hex_base.cpp.o
-[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hkdf_sha256_32.cpp.o
-[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_read.cpp.o
-[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha256.cpp.o
-[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha512.cpp.o
-[  4%] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/tx_check.cpp.o
-[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/muhash.cpp.o
-[  4%] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_write.cpp.o
-[  4%] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/poly1305.cpp.o
-[  6%] Linking CXX static library libunivalue.a
 [...]
 ```
 
@@ -2227,7 +2198,7 @@ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
 
 ### Uninstall FW configuration
 
-If you followed the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P).
+If you followed the [Accelerate the IBD](bitcoin-client.md#accelerate-the-ibd) section or the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P).
 
 * Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below):
 
@@ -2281,14 +2252,14 @@ sudo ufw delete X
 
 [^11]: Default P2P Tor port
 
-[^12]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+[^12]: Replace this
 
-[^13]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+[^13]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
 
-[^14]: Replace with your IP
+[^14]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
 
-[^15]: Replace with the local IP of the remote node e.g, `192.168.1.43`
+[^15]: Replace with your IP
 
-[^16]: Replace with the desire address of the peer
+[^16]: Replace with the local IP of the remote node e.g, `192.168.1.43`
 
-[^17]: Replace this
+[^17]: Replace with the desire address of the peer

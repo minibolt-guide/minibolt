@@ -21,6 +21,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Download the bitcoin whitepaper
@@ -37,7 +39,7 @@ Difficulty: Easy
 
 The Bitcoin whitepaper PDF was encoded in the blockchain in April 2013, in the transaction `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713` of block `230009.`
 
-The transaction contains 947 outputs and the sender spent almost 60 million sats as miner fee! Some explanations of how the paper is encoded in the transaction are given in a [Bitcoin StackExchange post](https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970) from 2015.
+The transaction contains 947 outputs, and the sender spent almost 60 million sats as a miner fee! Some explanations of how the paper is encoded in the transaction are given in a [Bitcoin StackExchange post](https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970) from 2015.
 
 This guide explains how to reconstruct the Bitcoin white paper PDF using your verified blockchain data. No matter how censored the white paper could become (see [this article about white paper copyright claims](https://bitcoinmagazine.com/business/copa-suing-craig-wright-over-bitcoin-white-paper-claims)), you will know how to recreate and share the foundational document of Bitcoin.
 
@@ -49,13 +51,13 @@ This guide explains how to reconstruct the Bitcoin white paper PDF using your ve
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install `jq`, JSON processor that will be used to parse the transaction data
+* Install `jq`, a JSON processor that will be used to parse the transaction data
 
 ```bash
 sudo apt install jq
 ```
 
-## Extract the whitepaper directly from Bitcoin Core
+## Extract the whitepaper directly from the Bitcoin client
 
 * With the `admin` user, go to the temporary folder
 
@@ -83,7 +85,7 @@ Expected output:
 
 Here's how the long command from above actually works:
 
-*   With `bitcoin-cli getrawtransaction`, you get the raw data of the transaction with this specific transaction id. This command returns the result as a JSON object.
+*   With `bitcoin-cli getrawtransaction`, you get the raw data of the transaction with this specific transaction ID. This command returns the result as a JSON object.
 
     You can run `bitcoin-cli help getrawtransaction` to learn more.
 *   The result is handed over ("piped") to the next command: `jq -r '.vout[].scriptPubKey.asm'`. This instruction extracts the assembly data from the "scriptPubKey" for all transaction outputs, where the Bitcoin whitepaper data is stored.
@@ -119,7 +121,7 @@ scp admin@YourNodeIP:/tmp/bitcoin.pdf .
 
 *   **Windows**
 
-    This also works with the PSCP tool from PuTTY that you can run from the command line. See [How to Use Putty pscp to Copy Files](https://tonyteaches.tech/putty-pscp-tutorial/) for more information
+    This also works with the PSCP tool from PuTTY that you can run from the command line. See [How to Use PuTTY pscp to Copy Files](https://tonyteaches.tech/putty-pscp-tutorial/) for more information
 
 ```sh
 pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
@@ -129,11 +131,11 @@ pscp admin@YourNodeIP:/tmp/bitcoin.pdf .
 
 ## Get the whitepaper from BTC RPC Explorer
 
-The BTC RPC Explorer has also a functionality to extract the data from the node and display the PDF in the web browser.
+The BTC RPC Explorer also has functionality to extract the data from the node and display the PDF in the web browser.
 
 ![](../../.gitbook/assets/white-paper-transac.png)
 
 * Open your Explorer at [https://minibolt.local:4000](https://miniboltt.local:4000/) or replace "minibolt.local" with your node IP address if needed)
-* Look up the transaction ID in explorer: `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713`
-* Click on the link "bitcoin whitepaper" in the top box, this will generate the PDF from the node blockchain and display it as a PDF file in the browser
+* Look up the transaction ID in the explorer: `54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713`
+* Click on the link "bitcoin whitepaper" in the top box; this will generate the PDF from the node blockchain and display it as a PDF file in the browser
 * Alternatively, use the following direct URL: [https://minibolt.local:4000/bitcoin-whitepaper](https://minibolt.local:4000/bitcoin-whitepaper)

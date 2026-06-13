@@ -37,7 +37,7 @@ Difficulty: Medium
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * Others
   * [Rustup + Cargo](../../bonus-guides/system/rustup-+-cargo.md)
 
@@ -471,7 +471,7 @@ nano /data/electrs/electrs.conf
 # MiniBolt: electrs configuration
 # /data/electrs/electrs.conf
 
-# Bitcoin Core settings
+# Bitcoin client settings
 network = "bitcoin"
 cookie_file = "/data/bitcoin/.cookie"
 

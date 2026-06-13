@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # MiniBolt on Testnet
@@ -36,20 +38,20 @@ The great news is that most of the MiniBolt guide can be used as-is. The small a
 {% hint style="info" %}
 > <mark style="color:red;">**Advice:**</mark>
 >
-> For the moment, this guide will touch **only the case of simultaneous mode situation for Bitcoin Core**, in the future, we will study adding the case of configuration to enable the parallel/simultaneous mode (`mainnet+testnet` in the same device, that is in the same MiniBolt node.
+> For the moment, this guide will touch **only the case of simultaneous mode situation for Bitcoin client**, in the future, we will study adding the case of configuration to enable the parallel/simultaneous mode (`mainnet+testnet` in the same device, that is in the same MiniBolt node.
 
 > The services mentioned in this guide are those that have been tested using testnet configuration and these worked fine. Later, in the next versions of this guide, we will go to adding other process to adapt other services to the testnet mode.
 {% endhint %}
 
 ## Bitcoin
 
-### [Bitcoin client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+### Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 
 {% hint style="success" %}
 Mainnet + testnet simultaneous mode
 {% endhint %}
 
-* Follow the complete MiniBolt guide from the beginning [(Bitcoin client included)](../../bitcoin/bitcoin/bitcoin-client.md) when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
+* Follow the complete MiniBolt guide from the beginning ([Bitcoin client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md) included) when you arrive at the ["Configuration section"](../../bitcoin/bitcoin/bitcoin-client.md#configuration)
 
 ```bash
 nano /home/bitcoin/.bitcoin/bitcoin.conf
@@ -58,7 +60,7 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 * Stay tuned to add the next lines to the `bitcoin.conf` file.
 
 {% hint style="info" %}
-`[main]` and the `# Initial block download optimizations` parameters behind the `[testnet4]` section, are needed only if you want to run a mainnet + testnet simultaneous nodes
+`[main]` and the `# Initial block download optimizations` parameters behind the `[testnet4]` section are needed only if you want to run a mainnet + testnet simultaneous nodes
 {% endhint %}
 
 ```
@@ -92,7 +94,7 @@ sudo nano /etc/systemd/system/bitcoind-testnet4.service
 # /etc/systemd/system/bitcoind-testnet4.service
 
 [Unit]
-Description=Bitcoin Core Daemon (Testnet4)
+Description=Bitcoin client daemon (Testnet4)
 Requires=network-online.target
 After=network-online.target
 
@@ -153,7 +155,7 @@ sudo systemctl start bitcoind-testnet4
 ```
 
 {% hint style="warning" %}
-**Attention:** the next step is critical to allow the Bitcoin Core dependencies to access the `.cookie` file and start up without problems
+**Attention:** the next step is critical to allow the Bitcoin client dependencies to access the `.cookie` file and start up without problems
 {% endhint %}
 
 * When you finish the [Run](../../bitcoin/bitcoin/bitcoin-client.md#run) section, with the user `admin` provide read and execute permissions to the Bitcoin group for the testnet folder
@@ -200,14 +202,14 @@ wget https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/fu
 
 [Configuration](../../bitcoin/bitcoin/electrum-server.md#configuration)
 
-* In the next [Configuration](../../bitcoin/bitcoin/electrum-server.md#configuration) step, stay tuned to **replace** the next lines on the `fulcrum.conf` file, to match the testnet mode
+* In the next [Configuration](../../bitcoin/bitcoin/electrum-server.md#configuration) step, stay tuned to **replace** the next lines in the `fulcrum.conf` file, to match the testnet mode
 
 ```sh
 nano /data/fulcrum/fulcrum.conf
 ```
 
 ```
-# Bitcoin Core settings
+# Bitcoin client settings
 bitcoind = 127.0.0.1:48332
 rpccookie = /data/bitcoin/testnet4/.cookie
 
@@ -221,7 +223,7 @@ banner = /data/fulcrum/fulcrum-banner-testnet4.txt
 
 [Create systemd service](../../bitcoin/bitcoin/electrum-server.md#create-systemd-service)
 
-* When you arrive at the [Create systemd service](../../bitcoin/bitcoin/electrum-server.md#create-systemd-service) section, stay tuned to replace the next lines in the `fulcrum.service` file, to match the Bitcoin Core on Testnet mode dependency. Save and exit
+* When you arrive at the [Create systemd service](../../bitcoin/bitcoin/electrum-server.md#create-systemd-service) section, stay tuned to replace the next lines in the `fulcrum.service` file, to match the Bitcoin client on Testnet mode dependency. Save and exit
 
 ```bash
 sudo nano +6 -l /etc/systemd/system/fulcrum.service
@@ -497,7 +499,7 @@ nano /data/electrs/electrs.conf
 <pre><code># MiniBolt: electrs testnet4 configuration
 # /data/electrs/electrs.conf
 
-# Bitcoin Core settings
+# Bitcoin client settings
 <strong>network = "testnet4"
 </strong>cookie_file = "/data/bitcoin/testnet4/.cookie"
 

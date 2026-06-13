@@ -30,7 +30,7 @@ We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) on a compu
 
 ## Requirements
 
-* [Bitcoin Core](bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 
 ## Introduction
@@ -41,7 +41,7 @@ You can also use the following alternatives instead of Sparrow Wallet, according
 
 * [BitBoxApp](https://bitbox.swiss/app/): wallet for users of BitBox hardware wallets
 * [Electrum Wallet Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md): a well-established power user wallet
-* [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin Core)
+* [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md))
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5): wallet for users of Trezor hardware wallets
 
 We will connect the Sparrow wallet to our own Electrum server, as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.

@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # BTCPay Server
@@ -35,7 +37,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
 * [LND](../../lightning/lightning-client.md) (optional)
 * [NBXplorer](btcpay-server.md#install-nbxplorer)
 * Others
@@ -44,7 +46,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Preparations
 
-To run the BTCPay Server you will need to install `.NET Core SDK`, `PostgreSQL`, and `NBXplorer`
+To run the BTCPay Server, you will need to install `.NET Core SDK`, `PostgreSQL`, and `NBXplorer`
 
 ### Firewall
 
@@ -394,7 +396,7 @@ nano settings.config
 # MiniBolt: nbxplorer configuration
 # /home/btcpay/.nbxplorer/Main/settings.config
 
-# Bitcoind connection
+# Bitcoin client connection
 btc.rpc.cookiefile=/data/bitcoin/.cookie
 
 # Database
@@ -463,7 +465,7 @@ journalctl -fu nbxplorer
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
+Keep **this terminal open;** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
 ### Running NBXplorer
@@ -620,7 +622,7 @@ Turn off this advice by setting config variable advice.detachedHead to false
 nano +4 run.sh
 ```
 
-* Comment next line
+* Comment the next line
 
 ```
 #dotnet "BTCPayServer.dll" $@
@@ -638,7 +640,7 @@ nano +4 run.sh
 nano +3 build.sh
 ```
 
-* Comment next line
+* Comment the next line
 
 ```
 #dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
@@ -727,7 +729,7 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 {% hint style="info" %}
 -> If you want to connect your LND node to BTCPay Server, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
 
--> The `socksendpoint=127.0.0.1:9050` parameter is optional, but recommended to increase your privacy, if you want to delete, comment with `#` before it, or delete it directly
+-> The `socksendpoint=127.0.0.1:9050` parameter is optional, but recommended to increase your privacy; if you want to delete, comment with `#` before it, or delete it directly
 {% endhint %}
 
 * Go back to the `admin` user
@@ -783,7 +785,7 @@ journalctl -fu btcpay
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
+Keep **this terminal open;** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
 ### Running BTCPay Server
@@ -914,7 +916,7 @@ sudo su - btcpay
 nano .btcpayserver/Main/settings.config
 ```
 
-* Add the next content to the end of the file. Save and exit
+* Add the following content to the end of the file. Save and exit
 
 ```
 # Lightning internal node connection

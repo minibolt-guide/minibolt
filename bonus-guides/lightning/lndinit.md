@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # lndinit
@@ -36,7 +38,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=0.1.33
+VERSION=0.1.36
 ```
 
 * Download the application, checksums, and signature
@@ -205,7 +207,7 @@ Warning: This section removes the installation. Only run these commands if you i
 
 ### Uninstall binaries
 
-* Delete the binaries installed (only in case of [2. Permanent installation](lndinit.md#id-2.-permanent-installation))
+* Delete the installed binaries (only in case of [2. Permanent installation](lndinit.md#id-2.-permanent-installation))
 
 ```bash
 sudo rm /usr/local/bin/lndinit

@@ -30,16 +30,16 @@ Run your private blockchain explorer with [BTC RPC Explorer](https://github.com/
 
 ## Requirements
 
-* [Bitcoin Core](bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 * Others
   * [Node + NPM](../../bonus/system/nodejs-npm.md)
 
 ## Introduction
 
-After the MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with [Fulcrum](electrum-server.md), the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
+After MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with [Fulcrum](electrum-server.md), the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
 
-[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy-to-use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying [Bitcoin Core](bitcoin-client.md) and [Fulcrum](electrum-server.md) via RPC.
+[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy-to-use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying the Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md), and the Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md) via RPC.
 
 ## Preparations
 
@@ -272,7 +272,7 @@ nano .env
 Activate any setting by removing the `#` at the beginning of the line or by editing directly
 {% endhint %}
 
-* Instruct the BTC RPC Explorer to connect to the local Bitcoin Core
+* Instruct the BTC RPC Explorer to connect to the local Bitcoin client
 
 ```
 # Uncomment & replace the value of this line
@@ -442,7 +442,7 @@ tcp   LISTEN 0      511        127.0.0.1:3002       0.0.0.0:*    users:(("node",
 
 > Your browser will display a warning because we use a self-signed SSL certificate. We can do nothing about that because we would need a proper domain name (e.g. https://yournode.com) to get an official certificate that browsers recognize. Click on "Advanced" and proceed to the Block Explorer web interface
 
-> If you see a lot of errors on the MiniBolt command line, then Bitcoin Core might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer
+> If you see a lot of errors on the MiniBolt command line, then Bitcoin client might still be indexing the blockchain. You need to wait until reindexing is done before using the BTC RPC Explorer
 {% endhint %}
 
 {% hint style="success" %}
@@ -536,7 +536,7 @@ BTCEXP_BITCOIND_RPC_TIMEOUT=10000
 
 ### Sharing your explorer
 
-You may want to share your BTC RPC Explorer **onion/clearnet** address with confident people and limited Bitcoin Core RPC access requests (sensitive data requests will be kept disabled, don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands)
+You may want to share your BTC RPC Explorer **onion/clearnet** address with confident people and limited Bitcoin client RPC access requests (sensitive data requests will be kept disabled; don't trust, [verify](https://github.com/janoside/btc-rpc-explorer/blob/fc0c175e006dd7ff415f17a7b0e200f8a4cd5cf0/app/config.js#L131-L204). Enabling `DEMO` mode, you will not have to provide a password, and RPC requests will be allowed (discarding rpcBlacklist commands)
 
 * With user `admin` , edit the `.env` configuration file
 
@@ -663,7 +663,7 @@ Try to access the newly created public access to the service by going to the `ht
 
 If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](electrum-server.md) guide, you need to do the next steps
 
-* As user `admin`, stop the btcrpcexplorer service
+* As user `admin`, stop the `btcrpcexplorer` service
 
 ```bash
 sudo systemctl stop btcrpcexplorer
@@ -675,7 +675,7 @@ sudo systemctl stop btcrpcexplorer
 sudo nano /home/btcrpcexplorer/btc-rpc-explorer/.env
 ```
 
-* Replace the "`BTCEXP_ELECTRUM_SERVERS=...`" line to this. Save and exit
+* Replace the "`BTCEXP_ELECTRUM_SERVERS=...`" line with this. Save and exit
 
 ```
 BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50021

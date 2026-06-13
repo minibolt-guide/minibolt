@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Mempool
@@ -29,7 +31,7 @@ Difficulty: Medium
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
 * [LND](../../lightning/lightning-client.md) (optional)
 * Electrum server ([Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md))
 * Others
@@ -515,7 +517,7 @@ Creating home directory `/home/mempool' ...
 Copying files from `/etc/skel' ...
 ```
 
-* Add the mempool user to the bitcoin and lnd groups to allow the `mempool` user to read the Bitcoin Core `.cookie` and the [LND](../../lightning/lightning-client.md) certificate files
+* Add the mempool user to the bitcoin and lnd groups to allow the `mempool` user to read the Bitcoin client `.cookie` and the [LND](../../lightning/lightning-client.md) certificate files
 
 ```bash
 sudo usermod -aG bitcoin,lnd mempool
@@ -773,7 +775,7 @@ nano mempool-frontend-config.json
 * Type the next context. Save and exit
 
 {% hint style="info" %}
-If you want to have the Lightning explorer connected to your internal [LND](../../lightning/lightning-client.md) node and you followed the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section, change the parameter `"LIGHTNING": false,`  to -> true ( `"LIGHTNING": true,`).
+If you want to have the Lightning explorer connected to your internal [LND](../../lightning/lightning-client.md) node and you followed the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section, change the parameter `"LIGHTNING": false,` to -> true ( `"LIGHTNING": true,`).
 
 **Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least.
 {% endhint %}
@@ -849,7 +851,7 @@ Run `npm audit` for details.
 </details>
 
 {% hint style="warning" %}
-**Not to run** the `npm audit fix` command, which could break the original code!!
+**Do not run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
 * Build it:
@@ -1826,7 +1828,7 @@ sudo ufw delete X
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">HTTP port</td></tr><tr><td align="center">8999</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default backend port</td></tr><tr><td align="center">4081</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">HTTPS port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">HTTP port</td></tr><tr><td align="center">4081</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">HTTPS port</td></tr><tr><td align="center">8999</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default backend port</td></tr></tbody></table>
 
 [^1]: Check this
 

@@ -20,6 +20,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # WireGuard VPN
@@ -42,7 +44,7 @@ A VPN is an encrypted tunnel between two computers over the internet. In our cas
 
 **Advantages:**
 
-* The connection with the VPN is a lot faster than using Tor (Bitcoin Core and LND will still use Tor)
+* The connection with the VPN is a lot faster than using Tor (Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md), and Lightning client: [LND](../../lightning/lightning-client.md) will still use Tor)
 * WireGuard has an incredibly low resource usage.
 * The attack surface on your home network and MiniBolt is reduced as fewer ports are open on your router.
 

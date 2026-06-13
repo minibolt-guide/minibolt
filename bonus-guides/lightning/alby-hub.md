@@ -31,7 +31,7 @@ Difficulty: Medium
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md)
 * [LND](../../lightning/lightning-client.md)
 * Others
   * [Nostr relay in Rust](../nostr/nostr-rs-relay.md) (optional)
@@ -125,7 +125,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```shellscript
-VERSION=1.22.2
+VERSION=1.23.0
 ```
 
 * Get the latest binaries and signatures

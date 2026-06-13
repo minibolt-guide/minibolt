@@ -30,7 +30,7 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 ## Requirements
 
-* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../bonus-guides/bitcoin/bitcoin-knots.md)
 * Others
   * [PostgreSQL](../bonus-guides/system/postgresql.md) (optional)
 
@@ -38,9 +38,9 @@ We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network 
 
 The installation of LND is straightforward, but the application is quite powerful and capable of things not explained here. Check out their [GitHub repository](https://github.com/lightningnetwork/lnd/) for a wealth of information about their open-source project and Lightning in general.
 
-### Configure Bitcoin Core
+### Configure Bitcoin client
 
-Before running LND, we need to configure settings in the Bitcoin Core configuration file to enable the LND RPC connection.
+Before running LND, we need to configure settings in the Bitcoin client configuration file to enable the LND RPC connection.
 
 * Log in as user `admin`, edit the `bitcoin.conf` file:
 
@@ -56,13 +56,13 @@ zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-* Restart Bitcoin Core to apply changes:
+* Restart Bitcoin client to apply changes:
 
 ```sh
 sudo systemctl restart bitcoind
 ```
 
-* Check Bitcoin Core is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port:
+* Check Bitcoin client is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port:
 
 ```bash
 sudo ss -tulpn | grep bitcoind | grep 2833
@@ -2035,7 +2035,7 @@ Go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on you
 <figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_8.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Check the balance on the **\[Transactions]** and **\[UTXOs]** section if you already have movements in your LND on-chain wallet
+Check the balance in the **\[Transactions]** and **\[UTXOs]** section if you already have movements in your LND on-chain wallet
 
 <img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_9.png" alt="" data-size="original"><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_10.png" alt="" data-size="original">
 {% endhint %}
@@ -2047,6 +2047,35 @@ Check the balance on the **\[Transactions]** and **\[UTXOs]** section if you alr
 cd.. && rm -r chantools-linux-amd64-v$VERSION && rm -r chantools-linux-amd64-v$VERSION.tar.gz && rm manifest-v$VERSION.txt && rm manifest-v$VERSION.sig
 ```
 {% endcode %}
+
+### Add an external fee estimator to the LND
+
+If you applied the [Ordisrespector patch filter](../bitcoin/bitcoin/bitcoin-client.md#apply-the-ordisrespector-patch-optional) to the [Bitcoin Client: Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md) or use [Bitcoin Knots](../bonus-guides/bitcoin/bitcoin-knots.md), we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector patch filter applied.
+
+* With the user admin, stop LND:
+
+```bash
+sudo systemctl stop lnd
+```
+
+* Edit `lnd.conf`:
+
+```bash
+sudo nano /data/lnd/lnd.conf
+```
+
+* Add the next lines at the end of the file:
+
+<pre><code><strong>[fee]
+</strong># Use external fee estimator
+fee.url=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
+</code></pre>
+
+* Start LND again:
+
+```bash
+sudo systemctl start lnd
+```
 
 ## Upgrade
 

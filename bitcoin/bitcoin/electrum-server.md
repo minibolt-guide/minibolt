@@ -30,7 +30,7 @@ layout:
 
 ## Requirements
 
-* [Bitcoin Core](bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * \~ 130GB of free storage for the database
 
 ## Introduction
@@ -75,9 +75,9 @@ sudo ufw allow 50001/tcp comment 'allow Fulcrum TCP from anywhere'
 sudo ufw allow 50002/tcp comment 'allow Fulcrum SSL from anywhere'
 ```
 
-### Configure Bitcoin Core
+### Configure Bitcoin client
 
-We need to set up settings in the Bitcoin Core configuration file; add new lines if they are not present.
+We need to configure the Bitcoin client; add new lines if they are not present.
 
 * Edit `bitcoin.conf` file
 

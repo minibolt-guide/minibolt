@@ -31,7 +31,7 @@ Difficulty: Easy
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
 * Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 * \~ 18GB of free storage for the index
 
@@ -52,7 +52,7 @@ Frigate will listen on alternative ports (`50011`/`50012`) and forward all non-S
 ## Preparations
 
 {% hint style="warning" %}
-Make sure that you have followed the [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) and Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
+Make sure that you have followed the Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md) and Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
 {% endhint %}
 
 ### Configure Firewall
@@ -67,9 +67,9 @@ sudo ufw allow 50011/tcp comment 'allow Frigate TCP from anywhere'
 sudo ufw allow 50012/tcp comment 'allow Frigate SSL from anywhere'
 ```
 
-### Configure Bitcoin Core
+### Configure Bitcoin client
 
-We need to add the ZMQ sequence publisher to the Bitcoin Core configuration file. This is required so that Frigate can ingest mempool transactions with low latency when acting as a proxy in front of Fulcrum.
+We need to add the ZMQ sequence publisher to the Bitcoin client configuration file. This is required so that Frigate can ingest mempool transactions with low latency when acting as a proxy in front of Fulcrum.
 
 * Edit `bitcoin.conf` file:
 
@@ -84,13 +84,13 @@ sudo nano /data/bitcoin/bitcoin.conf
 zmqpubsequence=tcp://127.0.0.1:28336
 ```
 
-* Restart Bitcoin Core to apply changes:
+* Restart the Bitcoin client to apply changes:
 
 ```sh
 sudo systemctl restart bitcoind
 ```
 
-* Check if Bitcoin Core is publishing the `zmqpubsequence` endpoint on port `28336`:
+* Check if the Bitcoin client is publishing the `zmqpubsequence` endpoint on port `28336`:
 
 ```bash
 sudo ss -tulpn | grep ':28336'
@@ -319,7 +319,7 @@ Remember to accommodate the `memoryLimit` parameter depending on your hardware. 
 {% endhint %}
 
 {% hint style="info" %}
-If you want to save disk space and make indexing much faster, you can use block `950356` as the starting point by setting it in the "startHeight" value of the `config.toml` file. This is the block from which silent payments were launched in Sparrow Wallet. Before that, the use of Silent Payments was barely widespread.
+If you want to save disk space and make indexing much faster, you can use block `950356` as the starting point by uncomment (delete "`#`") at the beginning of the line and set the `startHeight` value to `950356`. This is the block from which silent payments were launched in Sparrow Wallet. Before that, the use of Silent Payments was barely widespread.
 {% endhint %}
 
 <pre class="language-toml"><code class="lang-toml"># MiniBolt: Frigate configuration
@@ -451,7 +451,7 @@ INFO Indexing progress: 199 / 242998 blocks (0.1%, height 709830)
 </details>
 
 {% hint style="info" %}
-> Frigate must first fully index the blockchain from Taproot activation (block 709632) or since the Silent Payments apparition on the Sparrow wallet (block 950356) up to the chain tip before it can serve Silent Payments queries. This process takes several hours depending on your hardware, selected configuration values, and Bitcoin Core RPC throughput. Watch the log: `Electrum server listening on tcp://0.0.0.0:50011 ssl://0.0.0.0:50012` — that is the readiness signal.
+> Frigate must first fully index the blockchain from Taproot activation (block 709632) or since the Silent Payments apparition on the Sparrow wallet (block 950356) up to the chain tip before it can serve Silent Payments queries. This process takes several hours depending on your hardware, selected configuration values, and Bitcoin client RPC throughput. Watch the log: `Electrum server listening on tcp://0.0.0.0:50011 ssl://0.0.0.0:50012` — that is the readiness signal.
 
 > Once indexed, Frigate will serve Silent Payments requests natively and proxy all other Electrum queries to Fulcrum transparently. Wallets that do not use Silent Payments can keep connecting to Fulcrum on `50001`/`50002` as before.
 {% endhint %}
@@ -544,6 +544,58 @@ abcdefg..............xyz.onion
 
 * You should now be able to connect to your Frigate server remotely via Tor using your hostname and port `50011` (TCP) or `50012` (SSL).
 
+### Use Electrs like Electrum server
+
+If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) guide, you need to do the next steps
+
+* As user `admin`, stop the frigate service
+
+```bash
+sudo systemctl stop frigate
+```
+
+* Edit the frigate `config.toml` file:
+
+```bash
+sudo nano /data/frigate/config.toml
+```
+
+* Replace the "`backendElectrumServer =...`" line with this. Save and exit.
+
+```
+backendElectrumServer = "tcp://localhost:50021"
+```
+
+* Edit the `frigate` service
+
+```sh
+sudo nano /etc/systemd/system/frigate.service
+```
+
+* Replace the `fulcrum.service` with the `electrs.service` in these lines. Save and exit
+
+<pre class="language-sh"><code class="lang-sh">Requires=bitcoind.service <a data-footnote-ref href="#user-content-fn-6">electrs.service</a>
+After=bitcoind.service <a data-footnote-ref href="#user-content-fn-6">electrs.service</a>
+</code></pre>
+
+* Reload the systemctl daemon to apply changes
+
+```bash
+sudo systemctl daemon-reload
+```
+
+* Start the Frigate service
+
+```sh
+sudo systemctl start frigate
+```
+
+* (Optional) Check if all is running fine with
+
+```bash
+journalctl -fu frigate
+```
+
 ## Upgrade
 
 Follow the [Installation section](frigate.md#installation) from [Download binaries](frigate.md#download-binaries) (included) until the [Binaries installation section](frigate.md#binaries-installation) (included), replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
@@ -577,7 +629,7 @@ INFO Indexing progress: 199 / 242998 blocks (0.1%, height 709830)
 ## Uninstall
 
 {% hint style="danger" %}
-Warning: This section removes the installation. Only run these commands if you intend to uninstall.
+Warning: This section removes the installation. Run these commands only if you intend to uninstall.
 {% endhint %}
 
 ### Uninstall service
@@ -666,7 +718,7 @@ sudo ufw delete Y
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th>Protocol<select><option value="ywv8VKoLRGdJ" label="TCP" color="blue"></option><option value="kX7jj7M97Po0" label="SSL" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50011</td><td><span data-option="ywv8VKoLRGdJ">TCP</span></td><td align="center">TCP port</td></tr><tr><td align="center">50012</td><td><span data-option="kX7jj7M97Po0">SSL</span></td><td align="center">SSL port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="ywv8VKoLRGdJ" label="TCP" color="blue"></option><option value="kX7jj7M97Po0" label="SSL" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50011</td><td><span data-option="ywv8VKoLRGdJ">TCP</span></td><td align="center">TCP port</td></tr><tr><td align="center">50012</td><td><span data-option="kX7jj7M97Po0">SSL</span></td><td align="center">SSL port</td></tr></tbody></table>
 
 [^1]: Check this
 
@@ -677,3 +729,5 @@ sudo ufw delete Y
 [^4]: Limit DuckDB threads (reduces CPU load when computeBackend detects CPU). Default `4`
 
 [^5]: Cap DuckDB memory usage (default: 80% of system RAM)
+
+[^6]: Replace with this

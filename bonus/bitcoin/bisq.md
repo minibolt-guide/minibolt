@@ -21,6 +21,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Bisq
@@ -32,27 +34,27 @@ Difficulty: Easy
 {% endhint %}
 
 {% hint style="warning" %}
-Attention: This guide is only valid for Bisq v1.x.x, Bisq v2.x.x radically changes its operation in terms of the network and many steps in the guide may not match, not be valid, or necessary
+Attention: This guide is only valid for Bisq v1.x.x, Bisq v2.x.x radically changes its operation in terms of the network, and many steps in the guide may not match, may not be valid, or may not be necessary
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/logo_bisq.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 
 ## Introduction
 
 The guide will show you how to:
 
-1. Configure BTC Core to allow Bisq to run its SPV wallet
+1. Configure Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md) to allow Bisq to run its SPV wallet
 2. Install Bisq on your personal computer
-3. Connect Bisq to your Bitcoin Core node in your local network or via remote Tor, and depending on your OS and personal computer
+3. Connect Bisq to your Bitcoin client node in your local network or via remote Tor, depending on your OS and personal computer
 4. Securely set up Bisq
 
 ## Preparations
 
-### Configure Bitcoin Core
+### Configure Bitcoin client
 
 * To connect Bisq from your personal computer in your local network, with the user `admin`, edit the `bitcoin.conf` file
 
@@ -65,7 +67,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 <pre><code><strong>bind=0.0.0.0
 </strong></code></pre>
 
-Or add under `bind=127.0.0.1` line this line, to allow connections only from devices in the same local network (**recommended option** to improve the security)
+Or add under `bind=127.0.0.1` line this line to allow connections only from devices in the same local network (**recommended option** to improve security)
 
 <pre><code>bind=<a data-footnote-ref href="#user-content-fn-1">192.168.x.x</a>
 </code></pre>
@@ -85,13 +87,13 @@ whitelist=bloomfilter@192.168.0.0/16
 whitelist=bloomfilter@10.0.0.0/16
 ```
 
-* Restart Bitcoin Core to apply changes
+* Restart Bitcoin client to apply changes
 
 ```bash
 sudo systemctl restart bitcoind
 ```
 
-### Obtain your Bitcoin Core `onion` address
+### Obtain your Bitcoin client `onion` address
 
 * With the `admin` or `bitcoin` user, run the following command and make a copy of the .onion address and port (e.g. here, `123...abc.onion:8333`)
 
@@ -107,10 +109,10 @@ bitcoin-cli getnetworkinfo | grep address.*onion
 
 ### Configure Firewall
 
-* Configure the firewall to allow incoming requests to Bitcoin Core from anywhere
+* Configure the firewall to allow incoming requests to the Bitcoin client from anywhere
 
 ```sh
-sudo ufw allow 8333/tcp comment 'allow Bitcoin Core from anywhere'
+sudo ufw allow 8333/tcp comment 'allow Bitcoin client from anywhere'
 ```
 
 ## Installation
@@ -127,7 +129,7 @@ On your personal computer where you installed Bisq, depending on your OS
 
 **For Linux:**
 
-* Open a command line terminal, we will start Bisq with two flags that will force it to connect to our node only. Bisq should connect to your node on the startup
+* Open a command line terminal; we will start Bisq with two flags that will force it to connect to our node only. Bisq should connect to your node at startup
 
 From the local network connection, replace `192.168.X.X:8333` it with your node IP address.
 
@@ -135,7 +137,7 @@ From the local network connection, replace `192.168.X.X:8333` it with your node 
 /opt/bisq/bin/Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
 ```
 
-From the remote connection, replace `123...abc.onion:8333` with your Bitcoin Core .onion address you obtained above
+From the remote connection, replace `123...abc.onion:8333` with your Bitcoin client .onion address you obtained above
 
 ```sh
 /opt/bisq/bin/Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
@@ -146,14 +148,14 @@ From the remote connection, replace `123...abc.onion:8333` with your Bitcoin Cor
 
 **For MacOS:**
 
-* Open a command line terminal, we will start Bisq with two flags that will force it to connect to our node only
+* Open a command line terminal; we will start Bisq with two flags that will force it to connect to our node only
 * From the local network connection, replace `192.168.X.X:8333` with your node IP address
 
 ```sh
 Bisq -btcNodes=192.168.X.X:8333 -useTorForBtc=false
 ```
 
-* From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin Core .onion address that you obtained above
+* From the remote connection, replace `123...abc.onion:8333` with your own Bitcoin client .onion address that you obtained above
 
 ```sh
 Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
@@ -162,13 +164,13 @@ Bisq -btcNodes=123...abc.onion:8333 -useTorForBtc=true
 * Wait a few minutes until Bisq is up to date with the current state of the blockchain and go back to "Settings" > "Network info" to check that only your own node local IP address or onion address is listed in the first table
 * Check that the "Bitcoin network peers" counter at the bottom right of the window is equal to 1
 
-**For Windows**, Bisq is automatically opened using the GUI, we can't start Bisq the first time using the command line to force it to connect to your Bitcoin node only, so it will connect to several remote Bitcoin nodes via Tor, don't worry, we are going to change fastly this configuration:
+**For Windows**, Bisq is automatically opened using the GUI; we can't start Bisq the first time using the command line to force it to connect to your Bitcoin node only, so it will connect to several remote Bitcoin nodes via Tor. Don't worry, we are going to change this configuration:
 
 * Start Bisq using the GUI icon
 * Click on the "Settings" > "Network info" tab
 * In the "Bitcoin Network" section, click on "Use custom Bitcoin Core nodes"
-* In the box just below, paste your node IP address (`192.168.X.X`) or Bitcoin Core node `.onion` address `(e.g: 123...abc.onion:8333)` that you obtained above, depending if you are connecting locally or remotely via Tor
-* Check/uncheck "Use Tor for Bitcoin network" under Settings > Network, depending if you are connecting locally or remotely via Tor
+* In the box just below, paste your node IP address (`192.168.X.X`) or Bitcoin client node `.onion` address `(e.g: 123...abc.onion:8333)` that you obtained above, depending on whether you are connecting locally or remotely via Tor
+* Check/uncheck "Use Tor for Bitcoin network" under Settings > Network, depending on whether you are connecting locally or remotely via Tor
 * Click on any other tab at the top. Bisq will ask you to shutdown the program to make your change effective
 * Click "Shutdown"
 * Start Bisq again using the GUI icon
@@ -222,7 +224,7 @@ Congrats! You're now ready to start buying and selling Bitcoin on Bisq securely 
 
 ## Upgrade
 
-Bisq will let you know when a new update is available. Follow the instructions on their announcement to download, verify, and install the update.
+Bisq will let you know when a new update is available. Follow the instructions in their announcement to download, verify, and install the update.
 
 ![](../../.gitbook/assets/bisq-update.png)
 
@@ -234,14 +236,14 @@ Warning: This section removes the installation. Only run these commands if you i
 
 ### Uninstall FW configuration
 
-* Delete the firewall rules with the comment 'allow Bitcoin Core from anywhere', identifying the number of the rule
+* Delete the firewall rules with the comment '`allow Bitcoin client from anywhere`', identifying the number of the rule
 
 ```sh
 sudo ufw status numbered
 ```
 
-```sh
-[X] 8333                   ALLOW IN    Anywhere   # allow Bitcoin Core from anywhere
+```
+[X] 8333                   ALLOW IN    Anywhere   # allow Bitcoin client from anywhere
 ```
 
 * Delete the rule with the correct number and confirm with "yes"
