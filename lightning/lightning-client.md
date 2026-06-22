@@ -732,7 +732,7 @@ These 24 words are all that you need (and the `channel.backup` file in case of d
 
 **Write these 24 words down manually on a piece of paper and store them in a safe place**
 
-You can use a simple piece of paper, write them on the custom-themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf), or even [stamp the seed words into metal](../bonus/bitcoin/safu-ninja.md)
+You can use a simple piece of paper, write them on the custom-themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf), or even [stamp the seed words into metal](/broken/pages/Y7zzjrwmxeH16RGZf1xk)
 {% endhint %}
 
 {% hint style="danger" %}

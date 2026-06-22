@@ -284,6 +284,22 @@ git clone https://github.com/benjamin-wilson/public-pool.git && cd public-pool
 ```
 {% endcode %}
 
+* Set the commit environment variable
+
+{% code overflow="wrap" %}
+```bash
+COMMIT=b971e9ce4ccd23ae98536d57dcf63657ade7919f
+```
+{% endcode %}
+
+* Switch to the commit
+
+{% code overflow="wrap" %}
+```bash
+git checkout $COMMIT
+```
+{% endcode %}
+
 * Install all dependencies and the necessary modules using NPM
 
 {% hint style="warning" %}
@@ -382,6 +398,22 @@ git clone https://github.com/benjamin-wilson/public-pool-ui.git && cd public-poo
 ```
 {% endcode %}
 
+* Set the commit environment variable
+
+{% code overflow="wrap" %}
+```bash
+COMMIT=4f9e1502523c6822fa03c7ac48c92b44b74e0546
+```
+{% endcode %}
+
+* Switch to the commit
+
+{% code overflow="wrap" %}
+```bash
+git checkout $COMMIT
+```
+{% endcode %}
+
 * Install all dependencies and the necessary modules using NPM
 
 {% hint style="warning" %}
@@ -458,7 +490,6 @@ export const environment = {
     production: true,
     API_URL: path,
     STRATUM_URL: stratumUrl + ':23333',
-    SECURE_STRATUM_URL: stratumUrl + ':43333'
 };
 ```
 
@@ -559,8 +590,6 @@ exit
 ```
 
 ### Create systemd service
-
-Now, let's configure Public Pool to start automatically on system startup.
 
 * As user `admin`, create Public Pool systemd unit
 

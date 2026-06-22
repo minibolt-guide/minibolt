@@ -46,7 +46,6 @@
   * [Electrs](bonus/bitcoin/electrs.md)
   * [Electrum Wallet Desktop](bonus/bitcoin/electrum-wallet-desktop.md)
   * [Bisq](bonus/bitcoin/bisq.md)
-  * [Safu Ninja, a DIY steel mnemonic backup](bonus/bitcoin/safu-ninja.md)
   * [Download the bitcoin whitepaper](bonus/bitcoin/white-paper.md)
   * [BTCPay Server](bonus-guides/bitcoin/btcpay-server.md)
   * [MiniBolt on Testnet](bonus/bitcoin/minibolt-on-testnet.md)

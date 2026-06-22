@@ -18,6 +18,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 3.3 Web app: ThunderHub
@@ -190,7 +192,7 @@ Primary key fingerprint: 3C8A 01A8 344B 66E7 875C  E553 4403 F1DF BE77 9457
 * Install all dependencies and the necessary modules using NPM
 
 {% hint style="warning" %}
-**Not to run** the `npm audit fix` command, which could break the original code!!
+**Do not run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
 ```sh
@@ -355,17 +357,17 @@ nano thubConfig.yaml
 
 <pre class="language-yaml"><code class="lang-yaml">masterPassword: '<a data-footnote-ref href="#user-content-fn-2">[E] ThunderHub password</a>'
 accounts:
-  - name: 'RaMiX'
+  - name: 'MiniBolt'
     serverUrl: '127.0.0.1:10009'
     macaroonPath: '/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon'
     certificatePath: '/data/lnd/tls.cert'
 </code></pre>
 
 {% hint style="info" %}
-Replace the **`[E] ThunderHub password`** to your one, keeping quotes \[' ']
+Replace the **`[E] ThunderHub password`** to your own, keeping quotes \[' ']
 {% endhint %}
 
-* **(Optional)** You can pre-enable automatic healthchecks ping, and/or channel backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (**without indentation**)
+* **(Optional)** You can pre-enable automatic healthcheck ping, and/or channel backups to Amboss before starting ThunderHub by adding some lines **at the end of the file** (**without indentation**)
 
 Enable auto-backups:
 
@@ -654,17 +656,17 @@ abcdefg..............xyz.onion
 * In the "**Home**" screen - "**Quick Actions**" section, click on the Amboss icon "**Login**", wait for the top right corner notification to show you "**Logged in**", and click again on the Amboss icon "**Go to**". This will open a secondary tab in your browser to access your Amboss account node.
 
 {% hint style="warning" %}
-If you can't do "**Login**", maybe the cause is that you don't have a **public** channel opened yet. **You'll need at least one public channel that has been open for a few days.** Planning to open a small-sized public channel to be connected with some Lightning Network peers or directly to the [Amboss node](https://amboss.space/es/node/03006fcf3312dae8d068ea297f58e2bd00ec1ffe214b793eda46966b6294a53ce6). More info on [Amboss docs](https://amboss.tech/docs)
+If you can't do "**Login**", maybe the cause is that you don't have a **public** channel open yet. **You'll need at least one public channel that has been open for a few days.** Plan to open a small-sized public channel to be connected with some Lightning Network peers or directly to the [Amboss node](https://amboss.space/es/node/03006fcf3312dae8d068ea297f58e2bd00ec1ffe214b793eda46966b6294a53ce6). More info on [Amboss docs](https://amboss.tech/docs)
 {% endhint %}
 
-* Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account), now back to ThunderHub for the next steps.
+* Making sure we are connected to the [Amboss account](https://amboss.space/settings?page=account); now back to ThunderHub for the next steps.
 
 ### Enable auto backups and healthcheck notifications to the Amboss account
 
 #### Enable automatic backups to Amboss
 
 1. In ThunderHub, from the left sidebar, click on 🌍**Amboss.**
-2. In the **Backups section**, push the **Push** button to test and push the first backup to Amboss. If all is good, you could enable automatic backups to Amboss by pushing on **Enable** just above; now the backup file encrypted will be updated automatically on Amboss for every channel opening and closing.
+2. In the **Backups section**, push the **Push** button to test and push the first backup to Amboss. If all is good, you can enable automatic backups to Amboss by pushing on **Enable** just above; now the encrypted backup file will be updated automatically on Amboss for every channel opening and closing.
 3. Go to the Amboss website -> [backups section](https://amboss.space/settings?page=backups).
 4. Ensure that the last date of the backup is the same as before.
 
@@ -693,7 +695,7 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 
 After possible data corruption of your LND node, ensure that this old node is completely off before starting the recovery.
 
-Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete, and Thunderhub installed and running, go to the ThunderHub dashboard.
+Once you have synced the new node, on-chain recovered with seeds, full on-chain re-scan complete, and ThunderHub installed and running, go to the ThunderHub dashboard.
 
 1. From the left sidebar, click on "**Tools"**, and go to the "Backups" section -> "**Recover Funds from Channels**" -> push the "**Recover**" button.
 2. In this box, enter the complete string text that contains your manually downloaded channels backup file in the step before, or use the string using the content of the latest Amboss automatic backup (recommended), and push the " Recover " button again.
@@ -889,7 +891,7 @@ sudo systemctl start thunderhub
 ```
 
 {% hint style="warning" %}
-If the update fails, you probably will have to stop ThunderHub, follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete the `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation).
+If the update fails, you probably will have to stop ThunderHub; follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete the `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation).
 {% endhint %}
 
 ## Uninstall
@@ -1002,8 +1004,6 @@ sudo ufw delete X
 ## Port reference
 
 <table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="K1YTaXNgK9iY" label="TCP" color="blue"></option><option value="rBwkQwPZUMt0" label="SSL" color="blue"></option><option value="zQnHZmzcUdq4" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">3001</td><td><span data-option="K1YTaXNgK9iY">TCP</span></td><td align="center">Default HTTP port</td></tr><tr><td align="center">4002</td><td><span data-option="rBwkQwPZUMt0">SSL</span></td><td align="center">HTTPS port</td></tr></tbody></table>
-
-
 
 [^1]: Check this
 

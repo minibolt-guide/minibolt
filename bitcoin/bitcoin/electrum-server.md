@@ -393,8 +393,6 @@ exit
 
 ### Create systemd service
 
-Fulcrum needs to start automatically when booting the system.
-
 * As user `admin`, create the Fulcrum systemd unit
 
 ```sh

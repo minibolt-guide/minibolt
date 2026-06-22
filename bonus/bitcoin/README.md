@@ -44,10 +44,6 @@ layout:
 
 * [**Bisq**](bisq.md) - a decentralized exchange desktop app connected to your node to privately buy and sell non-KYC bitcoins
 
-### Resilience
-
-* [**Safu Ninja**](safu-ninja.md) - create resilient DIY metal backups of your seed phrases
-
 ### Fun
 
 * [**Download the white paper**](white-paper.md) - download the Bitcoin white paper directly from your blockchain data

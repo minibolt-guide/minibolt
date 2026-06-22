@@ -152,7 +152,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation:
 
 ```bash
-VERSION=0.9.0
+VERSION=0.10.0
 ```
 
 * Clone the source code directly from the GitHub repository, then build a release version of the relay and go to the `nostr-rs-relay` folder:

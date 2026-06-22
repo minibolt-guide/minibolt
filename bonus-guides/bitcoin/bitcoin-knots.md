@@ -118,6 +118,24 @@ gpg:               imported: 1
 [...]
 ```
 
+* Import the updated Luke Dashjr GPG key from keyserver
+
+{% code overflow="wrap" %}
+```bash
+gpg --recv-keys 1A3E761F19D2CC7785C5502EA291A2C45D0C504A
+```
+{% endcode %}
+
+Expected output:
+
+{% code overflow="wrap" %}
+```
+gpg: key A291A2C45D0C504A: "Luke Dashjr (Codesigning) <luke-jr+git@utopios.org>" 3 new signatures
+gpg: Total number processed: 1
+gpg:         new signatures: 3
+```
+{% endcode %}
+
 * Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
 
 ```sh
