@@ -17,18 +17,18 @@
 ## ₿itcoin <a href="#bitcoin" id="bitcoin"></a>
 
 * [2. ₿itcoin](bitcoin/bitcoin/README.md)
-  * [2.1 Bitcoin client: Bitcoin Core](bitcoin/bitcoin/bitcoin-client.md)
-  * [2.2 Electrum Server: Fulcrum](bitcoin/bitcoin/electrum-server.md)
-  * [2.3 Blockchain explorer: BTC RPC Explorer](bitcoin/bitcoin/blockchain-explorer.md)
-  * [2.4 Desktop signing app: Sparrow Wallet](bitcoin/bitcoin/desktop-signing-app-sparrow.md)
+  * [2.1 Bitcoin client: Bitcoin Core](bitcoin/bitcoin/bitcoin-core.md)
+  * [2.2 Electrum Server: Fulcrum](bitcoin/bitcoin/fulcrum.md)
+  * [2.3 Blockchain explorer: BTC RPC Explorer](bitcoin/bitcoin/btc-rpc-explorer.md)
+  * [2.4 Desktop signing app: Sparrow Wallet](bitcoin/bitcoin/sparrow.md)
 
 ## ⚡ Lightning
 
 * [3. Lightning](lightning/README.md)
-  * [3.1 Lightning client: LND](lightning/lightning-client.md)
+  * [3.1 Lightning client: LND](lightning/lightning/lnd.md)
   * [3.2 Channel backup for LND](lightning/channel-backup.md)
-  * [3.3 Web app: ThunderHub](lightning/web-app.md)
-  * [3.4 Mobile app: Zeus](lightning/mobile-app.md)
+  * [3.3 Web app: ThunderHub](lightning/lightning/thunderhub.md)
+  * [3.4 Mobile app: Zeus](lightning/lightning/zeus.md)
 
 ## ➕ Bonus guides
 
@@ -38,7 +38,7 @@
   * [Aliases](bonus/system/aliases.md)
   * [Static IP & custom DNS servers](bonus-guides/system/static-ip-and-custom-dns-servers.md)
   * [Node + NPM](bonus/system/nodejs-npm.md)
-  * [Rustup + Cargo](bonus-guides/system/rustup-+-cargo.md)
+  * [Rustup + Cargo](bonus-guides/system/rustup-cargo.md)
   * [PostgreSQL](bonus-guides/system/postgresql.md)
   * [MariaDB](bonus-guides/system/mariadb.md)
   * [Store data in a secondary disk](bonus/system/store-data-secondary-disk.md)

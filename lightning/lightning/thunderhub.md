@@ -26,14 +26,14 @@ layout:
 
 [ThunderHub](https://thunderhub.io/) is an open-source LND node manager where you can manage and monitor your node on any device or browser. It allows you to take control of the Lightning Network with a simple and intuitive UX and the most up-to-date tech stack.
 
-<figure><img src="../.gitbook/assets/thunderhub_logo.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/thunderhub_logo.png" alt=""><figcaption></figcaption></figure>
 
 ## Requirements
 
-* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
-* [LND](lightning-client.md)
+* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md)
+* [LND](lnd.md)
 * Others
-  * [Node + NPM](../bonus/system/nodejs-npm.md)
+  * [Node + NPM](../../bonus/system/nodejs-npm.md)
 
 ## Preparations
 
@@ -68,12 +68,12 @@ npm -v
 
 -> If the "`node -v"` output is **`>=22`**, you can move to the next section.
 
--> If Node.js is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../bonus/system/nodejs-npm.md) to install it
+-> If Node.js is not installed (`-bash: /usr/bin/node: No such file or directory`), follow this [Node + NPM bonus guide](../../bonus/system/nodejs-npm.md) to install it
 {% endhint %}
 
 ### Reverse proxy & Firewall
 
-In the security [section](../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
+In the security [section](../../index-1/security.md#prepare-nginx-reverse-proxy), we set up Nginx as a reverse proxy. Now we can add the ThunderHub configuration.
 
 Enable the Nginx reverse proxy to route external encrypted HTTPS traffic internally to ThunderHub. The `error_page 497` directive instructs browsers that send HTTP requests to resend them over HTTPS.
 
@@ -382,7 +382,7 @@ healthCheckPingEnabled: true
 ```
 
 {% hint style="info" %}
-> Anyway is possible to enable this later using the ThunderHub interface that will be explained in the [Enable auto backups and healthcheck notifications](web-app.md#enable-auto-backups-and-healthcheck-notifications-to-the-amboss-account) extra section
+> Anyway is possible to enable this later using the ThunderHub interface that will be explained in the [Enable auto backups and healthcheck notifications](thunderhub.md#enable-auto-backups-and-healthcheck-notifications-to-the-amboss-account) extra section
 
 > Keep in mind that if you stop ThunderHub, Amboss will interpret that your node is offline because the connection is established between ThunderHub <> Amboss to send healthchecks pings
 {% endhint %}
@@ -451,7 +451,7 @@ journalctl -fu thunderhub
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) straight forward (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
 
 * Start the service:
 
@@ -586,6 +586,85 @@ Apr 10 16:35:31 minibolt npm[75556]: }
 
 </details>
 
+{% hint style="warning" %}
+Troubleshooting note:
+
+* If you get these log errors:
+
+<pre><code><strong>[...]
+</strong>May 20 11:37:26 minibolt npm[1916]:       err: Error: 14 UNAVAILABLE: No connection established. Last error: Error: certificate has expired. Resolution note:
+May 20 11:37:26 minibolt npm[1916]:           at callErrorFromStatus (/home/thunderhub/thunderhub/node_modules/@grpc/grpc-js/src/call.ts:84:17)
+May 20 11:37:26 minibolt npm[1916]:           at Object.onReceiveStatus (/home/thunderhub/thunderhub/node_modules/@grpc/grpc-js/src/client.ts:360:55)
+May 20 11:37:26 minibolt npm[1916]:           at Object.onReceiveStatus (/home/thunderhub/thunderhub/node_modules/@grpc/grpc-js/src/client-interceptors.ts:466:34)
+[..]
+May 20 11:37:26 minibolt npm[1916]:   level: 'error',
+May 20 11:37:26 minibolt npm[1916]:   message: 'Error connecting to node',
+May 20 11:37:26 minibolt npm[1916]:   timestamp: '2026-05-20T09:37:26.742Z'
+May 20 11:37:26 minibolt npm[1916]: }
+May 20 11:37:26 minibolt npm[1916]: {
+May 20 11:37:26 minibolt npm[1916]:   message: 'Unable to connect to any node.',
+May 20 11:37:26 minibolt npm[1916]:   level: 'error',
+May 20 11:37:26 minibolt npm[1916]:   timestamp: '2026-05-20T09:37:26.746Z'
+May 20 11:37:26 minibolt npm[1916]: }
+May 20 11:37:26 minibolt npm[1916]: {
+May 20 11:37:26 minibolt npm[1916]:   message: 'UnableToConnectToAnyNode',
+May 20 11:37:26 minibolt npm[1916]:   level: 'error',
+May 20 11:37:26 minibolt npm[1916]:   timestamp: '2026-05-20T09:37:26.748Z'
+May 20 11:37:26 minibolt npm[1916]: }
+May 20 11:37:26 minibolt npm[1916]: {
+May 20 11:37:26 minibolt npm[1916]:   level: 'error',
+May 20 11:37:26 minibolt npm[1916]:   message: 'Initiating subscriptions failed: ',
+May 20 11:37:26 minibolt npm[1916]:   timestamp: '2026-05-20T09:37:26.749Z'
+May 20 11:37:26 minibolt npm[1916]: }
+[...]
+</code></pre>
+
+
+
+-> That is because **your LND TLS certificate has expired**; you need to follow the next steps:
+
+* Stop ThunderHub and LND services:
+
+```bash
+sudo systemctl stop thunderhub lnd
+```
+
+* Delete the `tls.cert` and `tls.key` files:
+
+```bash
+sudo rm /data/lnd/tls.cert && sudo rm /data/lnd/tls.key
+```
+
+* Start LND and wait some seconds until it generates the new TLS certificate:
+
+```bash
+sudo systemctl start lnd
+```
+
+* Start ThunderHub:
+
+```bash
+sudo systemctl start thunderhub
+```
+
+* Check the ThunderHub logs to ensure this time it starts well with a satisfactory connection to your LND:
+
+```bash
+journalctl -fu thunderhub
+```
+
+**Example** of expected output:
+
+<pre><code><strong>[...]
+</strong><strong>Apr 10 16:35:31 minibolt npm[75556]: {
+</strong>Apr 10 16:35:31 minibolt npm[75556]:   message: 'Connected to MiniBoltLNnode(035772a363)[btc]',
+Apr 10 16:35:31 minibolt npm[75556]:   level: 'info',
+Apr 10 16:35:31 minibolt npm[75556]:   timestamp: '2026-04-10T16:35:31.812Z'
+Apr 10 16:35:31 minibolt npm[75556]: }
+[...]
+</code></pre>
+{% endhint %}
+
 ### Validation
 
 * Ensure the service is working and listening on the default `3001` port and the HTTPS `4002` port:
@@ -670,7 +749,7 @@ If you can't do "**Login**", maybe the cause is that you don't have a **public**
 3. Go to the Amboss website -> [backups section](https://amboss.space/settings?page=backups).
 4. Ensure that the last date of the backup is the same as before.
 
-<figure><img src="../.gitbook/assets/pushed-backup-amboss.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/pushed-backup-amboss.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 > You could test that the possible recovery process would be available, by clicking on the "**Get**" button and copying the entire string, then going back to the Thunderhub from the left sidebar, clicking on "**Tools",** going to the "Backups" section -> "Verify Channels Backup" -> click on "**Verify"** button, paste the before string copied and click on "Verify" button again. A green banner "**Valid backup String**" should appear.
@@ -891,7 +970,7 @@ sudo systemctl start thunderhub
 ```
 
 {% hint style="warning" %}
-If the update fails, you probably will have to stop ThunderHub; follow the [Uninstall ThunderHub section](web-app.md#uninstall-thunderhub) to delete the `thunderhub` user, and repeat the installation process starting from the [Preparation section](web-app.md#preparation).
+If the update fails, you probably will have to stop ThunderHub; follow the [Uninstall ThunderHub section](thunderhub.md#uninstall-thunderhub) to delete the `thunderhub` user, and repeat the installation process starting from the [Preparation section](thunderhub.md#preparation).
 {% endhint %}
 
 ## Uninstall

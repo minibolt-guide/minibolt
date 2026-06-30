@@ -57,6 +57,26 @@ cd /tmp
 VERSION=29.3.knots20260508 && BRANCH=29.x
 ```
 
+{% hint style="info" %}
+If you are not ready to adopt the RDTS upgrade yet, you can alternatively download this same version of Bitcoin Knots without RDTS support (NOT RECOMMENDED), by setting these environment variables instead:
+
+```bash
+VERSION=29.3.knots20260507 && BRANCH=29.x
+```
+
+-> More info: [bip110.org](https://bip110.org/)<br>
+
+These logs will appear every hour to notify you; if you know what you're doing, you can ignore them:
+
+```
+[...]
+bitcoind[172990]: 2026-06-27T14:44:15Z [error] This version does not support the upcoming BIP110/RDTS network upgrade, and is therefore vulnerable to displaying fake or fraudulent transactions.
+bitcoind[172990]: 2026-06-27T14:44:15Z [error] For more information, see: https://bitcoinknots.org/learn/2026-rdts
+bitcoind[172990]: 2026-06-27T14:44:15Z [error] To adopt this upgrade and remain secure, please update Bitcoin Knots: https://bitcoinknots.org/
+[...]
+```
+{% endhint %}
+
 * Get the latest binaries and signatures:
 
 {% code overflow="wrap" %}
@@ -118,7 +138,7 @@ gpg:               imported: 1
 [...]
 ```
 
-* Import the updated Luke Dashjr GPG key from keyserver
+* Import the updated Luke Dashjr GPG key from the keyserver
 
 {% code overflow="wrap" %}
 ```bash
@@ -205,7 +225,7 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 {% endcode %}
 
 {% hint style="info" %}
-If you want to signal support for the RDTS (BIP110) soft fork, follow the [Enable RDTS (BIP110) consensus rules](bitcoin-knots.md#enable-rdts-bip110-consensus-rules) extra section.
+Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
 
 More info: [bip110.org](https://bip110.org/)
 {% endhint %}
@@ -237,6 +257,16 @@ cd /tmp
 ```sh
 VERSION=29.3.knots20260508 && BRANCH=29.x
 ```
+
+{% hint style="info" %}
+If you are not ready to adopt the RDTS upgrade yet, you can alternatively download this same version of Bitcoin Knots without RDTS support (NOT RECOMMENDED), by setting these environment variables instead:
+
+```bash
+VERSION=29.3.knots20260507 && BRANCH=29.x
+```
+
+More info: [bip110.org](https://bip110.org/)
+{% endhint %}
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums:
 
@@ -296,6 +326,24 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 [...]
 ```
+
+* Import the updated Luke Dashjr GPG key from the keyserver
+
+{% code overflow="wrap" %}
+```bash
+gpg --recv-keys 1A3E761F19D2CC7785C5502EA291A2C45D0C504A
+```
+{% endcode %}
+
+Expected output:
+
+{% code overflow="wrap" %}
+```
+gpg: key A291A2C45D0C504A: "Luke Dashjr (Codesigning) <luke-jr+git@utopios.org>" 3 new signatures
+gpg: Total number processed: 1
+gpg:         new signatures: 3
+```
+{% endcode %}
 
 * Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
 
@@ -382,11 +430,18 @@ Extracting libevent...
 * Pre-configure the installation; we will discard some features and include others. Enter the complete command below in the terminal and press `Enter`:
 
 {% hint style="info" %}
-Enable the RDTS (BIP110) consensus rules in Bitcoin Knots to participate in the deployment and enforce the new reduced-data transaction validation rules once activated by the network.
+Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, which will follow the network’s activation of the new reduced-data transaction validation rules.
 
 More info: [bip110.org](https://bip110.org/)
 
--> Change `-DRDTS_CONSENT=RUNTIME_WARN` to `-DRDTS_CONSENT=IMPLICIT` to assume consent at build time, enabling RDTS without runtime prompts or checks.
+-> **(Recommended)** Change `-DRDTS_CONSENT=RUNTIME_WARN` to `-DRDTS_CONSENT=IMPLICIT` to assume consent at build time, enabling RDTS without runtime prompts or checks, and avoiding following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section. The associated log with this action at the start of Bitcoin Knots is the next:
+
+<pre><code><strong>[...]
+</strong><strong>bitcoind[1018092]: 2026-06-27T17:22:29Z User already consented to 'rdts' consensus rules (at installation)
+</strong><strong>[...]
+</strong></code></pre>
+
+-> Remember to remove this line completely so as not to adopt the RDTS upgrade yet, selecting the previous Knots version in the [Installation](bitcoin-knots.md#installation-1) steps.
 {% endhint %}
 
 <pre class="language-sh"><code class="lang-sh">BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
@@ -552,7 +607,7 @@ Copyright (C) 2009-2025 The Bitcoin Core developers
 ```
 
 {% hint style="info" %}
-Now you can continue with the installation process of the Bitcoin Client: Bitcoin Core, by following the [Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-client.md#create-the-bitcoin-user) section from now on, or if you already have it installed, only continue with the next steps.
+Now you can continue with the installation process of the [Bitcoin Client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md), by following the "[Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-core.md#create-the-bitcoin-user)" section from now on, or if you already have it installed, only continue with the next steps.
 {% endhint %}
 
 * Return to the `tmp` folder:
@@ -584,17 +639,17 @@ journalctl -fu bitcoind
 ```
 
 {% hint style="info" %}
-If you want to signal support for the RDTS (BIP110) soft fork, follow the [Enable RDTS (BIP110) consensus rules](bitcoin-knots.md#enable-rdts-bip110-consensus-rules) extra section.
+Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
 
 More info: [bip110.org](https://bip110.org/)
 {% endhint %}
 
 ## Extras (optional)
 
-### Enable RDTS (BIP110) consensus rules
+### Accept RDTS (BIP110) consensus rules
 
 {% hint style="info" %}
-Enable the RDTS (BIP110) consensus rules in Bitcoin Knots to participate in the deployment and enforce the new reduced-data transaction validation rules once activated by the network.
+Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, which will follow the network’s activation of the new reduced-data transaction validation rules.
 
 More info: [bip110.org](https://bip110.org/)
 
@@ -615,7 +670,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 {% code overflow="wrap" %}
 ```
-# Enable BIP110/RDTS consensus rules
+# Accept BIP110/RDTS consensus rules
 consensusrules=rdts
 ```
 {% endcode %}
@@ -625,6 +680,15 @@ consensusrules=rdts
 ```bash
 sudo systemctl restart bitcoind
 ```
+
+{% hint style="info" %}
+You will see this log in `journalctl -fu bitcoind` logs:
+
+<pre><code><strong>[...]
+</strong><strong>2026-06-29T01:53:59Z User already consented to 'rdts' consensus rules (in config)
+</strong><strong>[...]
+</strong></code></pre>
+{% endhint %}
 
 ### Enforce spam and arbitrary data rejection
 
@@ -817,6 +881,7 @@ BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
   -DWITH_ZMQ=ON \
+  -DRDTS_CONSENT=RUNTIME_WARN \
   -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
 ```
 
@@ -1022,7 +1087,7 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 ## Upgrade
 
-The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Knots project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/29.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. REeplace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if they have not already been changed in this guide.
+The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Knots project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/29.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if they have not already been changed in this guide.
 
 **-> 2 options depending on your case:**
 
@@ -1343,7 +1408,7 @@ More info: [bip110.org](https://bip110.org/)
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
   -DWITH_ZMQ=ON \
-  -DRDTS_CONSENT=<a data-footnote-ref href="#user-content-fn-2">RUNTIME_WARN</a> \
+  -DRDTS_CONSENT=<a data-footnote-ref href="#user-content-fn-8">RUNTIME_WARN</a> \
   -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
 </code></pre>
 
@@ -1488,16 +1553,16 @@ Warning: This section removes the installation. Run these commands only if you i
 {% endhint %}
 
 {% hint style="info" %}
-To uninstall Bitcoin Knots, follow the entire [Bitcoin Client: Bitcoin Core uninstall section](../../bitcoin/bitcoin/bitcoin-client.md#uninstall).
+To uninstall Bitcoin Knots, follow the entire [Bitcoin Client: Bitcoin Core uninstall section](../../bitcoin/bitcoin/bitcoin-core.md#uninstall).
 {% endhint %}
 
 ## Port reference
 
-Same as the [Bitcoin Client: Bitcoin Core section](../../bitcoin/bitcoin/bitcoin-client.md#port-reference).
+Same as the [Bitcoin Client: Bitcoin Core section](../../bitcoin/bitcoin/bitcoin-core.md#port-reference).
 
 [^1]: Check this
 
-[^2]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks.
+[^2]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks. Remember to remove this line completely so as not to adopt the RDTS upgrade yet, selecting the previous Knots version in the [Installation](bitcoin-knots.md#installation-1) steps.
 
 [^3]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
 
@@ -1508,3 +1573,5 @@ Same as the [Bitcoin Client: Bitcoin Core section](../../bitcoin/bitcoin/bitcoin
 [^6]: Replace with the local IP of the remote node e.g, `192.168.1.43`
 
 [^7]: Replace with the desire address of the peer
+
+[^8]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks.

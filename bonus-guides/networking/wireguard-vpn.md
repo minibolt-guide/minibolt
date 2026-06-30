@@ -44,7 +44,7 @@ A VPN is an encrypted tunnel between two computers over the internet. In our cas
 
 **Advantages:**
 
-* The connection with the VPN is a lot faster than using Tor (Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md), and Lightning client: [LND](../../lightning/lightning-client.md) will still use Tor)
+* The connection with the VPN is a lot faster than using Tor (Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md), and Lightning client: [LND](../../lightning/lightning/lnd.md) will still use Tor)
 * WireGuard has an incredibly low resource usage.
 * The attack surface on your home network and MiniBolt is reduced as fewer ports are open on your router.
 
@@ -568,7 +568,7 @@ ssh admin@10.0.0.1
 ```
 
 {% hint style="info" %}
-Open your favorite browser and try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), this time using the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
+Open your favorite browser and try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/btc-rpc-explorer.md), this time using the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
 {% endhint %}
 
 * Check the VPN client status using
@@ -682,7 +682,7 @@ ssh admin@10.0.0.1
 ```
 
 {% hint style="info" %}
-Open your favorite browser and try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), this time using the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
+Open your favorite browser and try to navigate to web services such as [BTC RPC Explorer](../../bitcoin/bitcoin/btc-rpc-explorer.md), this time using the VPN IP instead of the local or Tor IP address: `https://10.0.0.1:4000`
 {% endhint %}
 
 ### Configure additional clients

@@ -30,8 +30,8 @@ We install [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) on a compu
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
-* Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
+* Bitcoin client: [Bitcoin Core](bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
+* Electrum server: [Fulcrum](fulcrum.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 
 ## Introduction
 
@@ -41,7 +41,7 @@ You can also use the following alternatives instead of Sparrow Wallet, according
 
 * [BitBoxApp](https://bitbox.swiss/app/): wallet for users of BitBox hardware wallets
 * [Electrum Wallet Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md): a well-established power user wallet
-* [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md))
+* [Ledger Live](https://support.ledger.com/hc/en-us/articles/360017551659-Setting-up-your-Bitcoin-full-node?docs=true): wallet for users of Ledger hardware wallets (this wallet connects directly to Bitcoin client: [Bitcoin Core](bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md))
 * [Trezor Suite](https://blog.trezor.io/connecting-your-wallet-to-a-full-node-edf56693b545?gi=d1e285f3d3c5): wallet for users of Trezor hardware wallets
 
 We will connect the Sparrow wallet to our own Electrum server, as it is the most private option. For more information about the privacy and security trade-offs of the various server connection options, read the following [article](https://www.sparrowwallet.com/docs/best-practices.html) by Craig Raw, the author of the wallet.
@@ -102,7 +102,7 @@ Let's go back to the wallet and check that it is connected to our own Electrum s
 
 You're set! Sparrow is now configured to connect to your Electrum server from within your local network.
 
-For maximal privacy, we highly recommend that you set up the Tor proxy when using Sparrow within your local network over clearnet. Check the [optional section](desktop-signing-app-sparrow.md#optional-set-up-a-tor-proxy-for-external-services) at the end of this guide.
+For maximal privacy, we highly recommend that you set up the Tor proxy when using Sparrow within your local network over clearnet. Check the [optional section](sparrow.md#optional-set-up-a-tor-proxy-for-external-services) at the end of this guide.
 
 ## Sparrow in action
 
@@ -126,7 +126,7 @@ If you want to use Sparrow outside your home network, when you're on the go, you
 
 ### Server Tor address
 
-To connect via Tor to Fulcrum, the server must have a Tor hidden service connection address. Make sure you have set up a Tor hidden service as explained in the ["Electrum server" guide](electrum-server.md#remote-access-over-tor).
+To connect via Tor to Fulcrum, the server must have a Tor hidden service connection address. Make sure you have set up a Tor hidden service as explained in the ["Electrum server" guide](fulcrum.md#remote-access-over-tor).
 
 If you've already set up the hidden service but lost the connection address, you can obtain it again by running the following command with "admin" on your node:
 

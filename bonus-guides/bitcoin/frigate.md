@@ -31,8 +31,8 @@ Difficulty: Easy
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
-* Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](bitcoin-knots.md)
+* Electrum server: [Fulcrum](../../bitcoin/bitcoin/fulcrum.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 * \~ 18GB of free storage for the index
 
 ## Introduction
@@ -47,12 +47,12 @@ Frigate solves this by moving the scanning to the server, following the [Remote 
 
 Frigate indexes the Bitcoin blockchain from Taproot activation (block 709632 on mainnet) by default, and builds a compact tweak index. Scanning runs in-database via [DuckDB](https://duckdb.org/) with optional GPU acceleration.
 
-Frigate will listen on alternative ports (`50011`/`50012`) and forward all non-Silent-Payments queries to the Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md) transparently.
+Frigate will listen on alternative ports (`50011`/`50012`) and forward all non-Silent-Payments queries to the Electrum server: [Fulcrum](../../bitcoin/bitcoin/fulcrum.md) or [Electrs](../../bonus/bitcoin/electrs.md) transparently.
 
 ## Preparations
 
 {% hint style="warning" %}
-Make sure that you have followed the Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md) and Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
+Make sure that you have followed the Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](bitcoin-knots.md) and Electrum server: [Fulcrum](../../bitcoin/bitcoin/fulcrum.md) or [Electrs](../../bonus/bitcoin/electrs.md) guides before continuing. Frigate requires `txindex=1` in `bitcoin.conf` (already set if you followed the Fulcrum guide) and a running Fulcrum instance as its Electrum backend.
 {% endhint %}
 
 ### Configure Firewall
@@ -500,7 +500,7 @@ tcp   LISTEN 0      50        0.0.0.0:50012      0.0.0.0:*    users=(("frigate",
 ```
 
 {% hint style="success" %}
-Congrats! You now have a Silent Payments Electrum server running on your node. Connect your Silent Payments-capable wallet (e.g., [Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md)) to port `50011` (TCP) or `50012` (SSL) to start scanning for BIP352 transactions. Your existing wallets can continue using Fulcrum on `50001`/`50002` without any changes.
+Congrats! You now have a Silent Payments Electrum server running on your node. Connect your Silent Payments-capable wallet (e.g., [Sparrow Wallet](../../bitcoin/bitcoin/sparrow.md)) to port `50011` (TCP) or `50012` (SSL) to start scanning for BIP352 transactions. Your existing wallets can continue using Fulcrum on `50001`/`50002` without any changes.
 {% endhint %}
 
 ## Extras (optional)
@@ -546,7 +546,7 @@ abcdefg..............xyz.onion
 
 ### Use Electrs like Electrum server
 
-If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) guide, you need to do the next steps
+If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](../../bitcoin/bitcoin/fulcrum.md) guide, you need to do the next steps
 
 * As user `admin`, stop the frigate service
 

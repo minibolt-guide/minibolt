@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # ⚡ Lightning
@@ -30,4 +32,4 @@ layout:
 ### LND Operational Tooling
 
 * [**lndinit**](lndinit.md) - cloud infra tooling for lnd provisioning/unlocking
-* [**chantools**](chantools.md) - a loose collection of tools all somehow related to [lnd](../../lightning/lightning-client.md) and Lightning Network channels
+* [**chantools**](chantools.md) - a loose collection of tools all somehow related to [lnd](../../lightning/lightning/lnd.md) and Lightning Network channels

@@ -36,8 +36,8 @@ Difficulty: Easy
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
-* Electrum server: [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](electrs.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
+* Electrum server: [Fulcrum](../../bitcoin/bitcoin/fulcrum.md) or [Electrs](electrs.md)
 
 ## Installation
 

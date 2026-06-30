@@ -26,13 +26,13 @@ layout:
 
 We set up [LND](https://github.com/lightningnetwork/lnd), the Lightning Network Daemon, by [Lightning Labs](https://lightning.engineering/).
 
-<div align="center"><img src="../.gitbook/assets/lightning-network-daemon-logo.png" alt=""></div>
+<div align="center"><img src="../../.gitbook/assets/lightning-network-daemon-logo.png" alt=""></div>
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../bonus-guides/bitcoin/bitcoin-knots.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * Others
-  * [PostgreSQL](../bonus-guides/system/postgresql.md) (optional)
+  * [PostgreSQL](../../bonus-guides/system/postgresql.md) (optional)
 
 ## Preparations
 
@@ -77,7 +77,7 @@ tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-conten
 ### Install PostgreSQL
 
 {% hint style="warning" %}
-You may want to use the bbolt database backend instead of PostgreSQL (easier installation/configuration, lower performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)). If yes, jump to the [next step](lightning-client.md#installation) and follow the [Use the default bbolt database backend](lightning-client.md#use-the-default-bbolt-database-backend) section, and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lightning-client.md#configuration)
+You may want to use the bbolt database backend instead of PostgreSQL (easier installation/configuration, lower performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)). If yes, jump to the [next step](lnd.md#installation) and follow the [Use the default bbolt database backend](lnd.md#use-the-default-bbolt-database-backend) section, and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lnd.md#configuration)
 {% endhint %}
 
 * With user `admin`, check if you already have PostgreSQL installed
@@ -93,7 +93,7 @@ psql (PostgreSQL) 15.3 (Ubuntu 15.3-1.pgdg22.04+1)
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide installation process](../bonus-guides/system/postgresql.md#installation) to install it, and then return to continue with the guide
+If you obtain "**command not found**" outputs, you need to follow the [PostgreSQL bonus guide installation process](../../bonus-guides/system/postgresql.md#installation) to install it, and then return to continue with the guide
 {% endhint %}
 
 #### Create PostgreSQL database
@@ -290,7 +290,7 @@ lnd version 0.16.3-beta commit=v0.16.3-beta
 </strong></code></pre>
 
 {% hint style="info" %}
-If you come to [update](lightning-client.md#upgrade) this is the final step
+If you come to [update](lnd.md#upgrade) this is the final step
 {% endhint %}
 
 ### Create the lnd user & group
@@ -354,7 +354,7 @@ lrwxrwxrwx 1 lnd lnd  9 Jul 21  2023 <a data-footnote-ref href="#user-content-fn
 ### Wallet password
 
 {% hint style="info" %}
-This section is not needed if you want to unlock the LND wallet manually, and the lines in lnd.conf behind: `"# Automatically unlock wallet with the password in this file"` section. Follow the [Unlock the LND wallet manually](lightning-client.md#unlock-the-lnd-wallet-manually) extra section for instructions
+This section is not needed if you want to unlock the LND wallet manually, and the lines in lnd.conf behind: `"# Automatically unlock wallet with the password in this file"` section. Follow the [Unlock the LND wallet manually](lnd.md#unlock-the-lnd-wallet-manually) extra section for instructions
 {% endhint %}
 
 LND includes a Bitcoin wallet that manages your onchain and Lightning coins. It is password protected and must be unlocked when LND starts. This creates the dilemma that you either manually unlock LND after each restart of your node or store the password somewhere on the node.
@@ -575,7 +575,7 @@ journalctl -fu lnd
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
@@ -677,7 +677,7 @@ Confirm password:
 ```
 
 {% hint style="info" %}
-Enter your `password [C]` as wallet password 2 times (it must be the same one you stored in `password.txt` on the [Wallet password](lightning-client.md#wallet-password) step)
+Enter your `password [C]` as wallet password 2 times (it must be the same one you stored in `password.txt` on the [Wallet password](lnd.md#wallet-password) step)
 {% endhint %}
 
 Expected output
@@ -732,7 +732,7 @@ These 24 words are all that you need (and the `channel.backup` file in case of d
 
 **Write these 24 words down manually on a piece of paper and store them in a safe place**
 
-You can use a simple piece of paper, write them on the custom-themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf), or even [stamp the seed words into metal](/broken/pages/Y7zzjrwmxeH16RGZf1xk)
+You can use a simple piece of paper or write them on the custom-themed [Shiftcrypto backup card](https://shiftcrypto.ch/backupcard/backupcard_print.pdf).
 {% endhint %}
 
 {% hint style="danger" %}
@@ -747,7 +747,7 @@ This piece of paper is all an attacker needs to empty your on-chain wallet!
 This information must be kept secret at all times
 {% endhint %}
 
-**Return to the first terminal with `journalctl -fu lnd`. Example of expected output ⬇️**
+* **Return to the first terminal with `journalctl -fu lnd`. Example of expected output ⬇️**
 
 ```
 [...]
@@ -857,9 +857,9 @@ Jun 05 19:48:36 minibolt lnd[124224]: 2023-11-26 19:48:36.361 [INF] LNWL: Finish
 {% endtabs %}
 
 {% hint style="info" %}
-However, the current state of your channels cannot be recreated from this seed. For this, the Static Channel Backup is stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` and updated for each channel opening and closing
+However, the current state of your channels cannot be recreated from this seed. For this, the Static Channel Backup is stored at `/data/lnd/data/chain/bitcoin/mainnet/channel.backup` and updated for each channel opening and closing.
 
-There is a dedicated [guide](channel-backup.md) for generating an automatic backup
+There is a dedicated [guide](../channel-backup.md) for generating an automatic backup.
 {% endhint %}
 
 * Return to the `admin` user
@@ -869,7 +869,7 @@ exit
 ```
 
 {% hint style="info" %}
-Remember that if you followed the [Unlock the LND wallet manually extra section](lightning-client.md#unlock-the-lnd-wallet-manually), you will need to manually type the `[ C ] LND wallet password` after entering the next command:
+Remember that if you followed the [Unlock the LND wallet manually extra section](lnd.md#unlock-the-lnd-wallet-manually), you will need to manually type the `[ C ] LND wallet password` after entering the next command:
 
 ```bash
 lncli --tlscertpath /data/lnd/tls.cert.tmp unlock
@@ -1023,7 +1023,7 @@ lncli wtclient remove <pubkey>
 Monitor logs with `journalctl -fu lnd` to verify the watchtower client is working correctly. The following logs should be shown after some time ⬇️
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/lnd-watchtower_log.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/lnd-watchtower_log.PNG" alt=""><figcaption></figcaption></figure>
 
 ### Watchtower server
 
@@ -1052,14 +1052,14 @@ This watchtower server service is not recommended to activate if you have a slow
 {% endhint %}
 
 {% hint style="info" %}
-Almost all of the following steps can be run with the [mobile](mobile-app.md) | [web](web-app.md) app guides. We strongly recommend using these applications with an intuitive and visual UI to manage the Lightning Node, instead of using the command line. If you still want to explore the use of `lncli`, there are some useful commands in the[ extra section](lightning-client.md#some-useful-lncli-commands)
+Almost all of the following steps can be run with the [mobile](zeus.md) | [web](thunderhub.md) app guides. We strongly recommend using these applications with an intuitive and visual UI to manage the Lightning Node, instead of using the command line. If you still want to explore the use of `lncli`, there are some useful commands in the[ extra section](lnd.md#some-useful-lncli-commands)
 {% endhint %}
 
 ## Extras (optional)
 
 ### Use the default bbolt database backend
 
-Once you have skipped the previous section of the [PostgreSQL installation](lightning-client.md#install-postgresql), and when you arrive at the [Configuration section](lightning-client.md#configuration), modify `lnd.conf` file
+Once you have skipped the previous section of the [PostgreSQL installation](lnd.md#install-postgresql), and when you arrive at the [Configuration section](lnd.md#configuration), modify `lnd.conf` file
 
 * With user `lnd`, edit `lnd.conf`
 
@@ -1098,13 +1098,13 @@ exit
 ```
 
 {% hint style="info" %}
-Continue with the guide in the [Create systemd service](lightning-client.md#create-systemd-service) section
+Continue with the guide in the [Create systemd service](lnd.md#create-systemd-service) section
 {% endhint %}
 
 ### Migrate an existing bbolt database to PostgreSQL
 
 {% hint style="danger" %}
-Attention: It is recommended to start from scratch by closing all existing channels, rather than a migration, to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated
+**Attention:** It is recommended to start from scratch by closing all existing channels, rather than a migration, to ensure we don't lose anything because it is not possible to come back to the old bbolt database once migrated.
 {% endhint %}
 
 #### Install lndinit
@@ -1134,7 +1134,7 @@ Application Options:
   [...]
 ```
 
--> If lndinit is not installed (`-bash: lndinit: command not found`), follow the [lndinit bonus guide](../bonus-guides/lightning/lndinit.md) to get instructions to install or use only [lndinit](https://github.com/lightninglabs/lndinit)
+-> If lndinit is not installed (`-bash: lndinit: command not found`), follow the [lndinit bonus guide](../../bonus-guides/lightning/lndinit.md) to get instructions to install or use only [lndinit](https://github.com/lightninglabs/lndinit)
 {% endhint %}
 
 #### Migrate bbolt database to PostgreSQL
@@ -1169,9 +1169,9 @@ May 30 20:45:02 minibolt systemd[1]: lnd.service: Consumed 12h 11min 606ms CPU t
 </code></pre>
 
 * Previously followed:
-  1. [Install PostgreSQL section](lightning-client.md#install-postgresql)
-  2. [Create PostgreSQL database section](lightning-client.md#create-postgresql-database)
-* Depending on whether you selected in the [lndinit bonus guide](../bonus-guides/lightning/lndinit.md) the [option 1](../bonus-guides/lightning/lndinit.md#id-1.-temporary-use-recommended) or [option 2](../bonus-guides/lightning/lndinit.md#id-2.-permanent-installation):
+  1. [Install PostgreSQL section](lnd.md#install-postgresql)
+  2. [Create PostgreSQL database section](lnd.md#create-postgresql-database)
+* Depending on whether you selected in the [lndinit bonus guide](../../bonus-guides/lightning/lndinit.md) the [option 1](../../bonus-guides/lightning/lndinit.md#id-1.-temporary-use-recommended) or [option 2](../../bonus-guides/lightning/lndinit.md#id-2.-permanent-installation):
 
 {% tabs %}
 {% tab title="1. For temporary use option (recommended)" %}
@@ -1252,7 +1252,7 @@ This process could take a few minutes, depending on the database size. The promp
 
 </details>
 
-* **(Optional)** If you used the [1. For temporary use](lightning-client.md#id-1.-for-temporary-use-recommended) option, clean the `lndinit` files in the `tmp` folder
+* **(Optional)** If you used the [1. For temporary use](lnd.md#id-1.-for-temporary-use-recommended) option, clean the `lndinit` files in the `tmp` folder
 
 <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>sudo rm -r /tmp/lndinit-linux-amd64-v$VERSION-beta &#x26;&#x26; sudo rm /tmp/lndinit-linux-amd64-v$VERSION-beta.tar.gz &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.txt &#x26;&#x26; sudo rm /tmp/manifest-v$VERSION-beta.sig.ots
 </strong></code></pre>
@@ -1285,7 +1285,7 @@ db.postgres.dsn=postgresql://admin:admin@127.0.0.1:5432/lndb?sslmode=disable
 db.postgres.timeout=0
 ```
 
-* Edit the [systemd service file](lightning-client.md#create-systemd-service)
+* Edit the [systemd service file](lnd.md#create-systemd-service)
 
 ```bash
 sudo nano /etc/systemd/system/lnd.service
@@ -1326,7 +1326,7 @@ journalctl -fu lnd
 [...]
 ```
 
--> You can delete these logs by following the [next section](lightning-client.md#optional-delete-old-bbolt-files-database)
+-> You can delete these logs by following the [next section](lnd.md#optional-delete-old-bbolt-files-database)
 
 -> Pay attention to this significant `[INF]` log to confirm you are now using PostgreSQL
 
@@ -1338,7 +1338,7 @@ journalctl -fu lnd
 {% endhint %}
 
 {% hint style="info" %}
-Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](web-app.md), or using `lncli` with commands like `lncli listchannels / lncli listunspent / lncli wtclient towers` and see if everything is as you left it before the migration
+Ensure you still have your node in the same situation before the migration using the [Web app: ThunderHub](thunderhub.md), or using `lncli` with commands like `lncli listchannels / lncli listunspent / lncli wtclient towers` and see if everything is as you left it before the migration
 {% endhint %}
 
 #### **(Optional)** Delete old bbolt files database
@@ -1536,7 +1536,7 @@ lncli batchopenchannel --sat_per_vbyte=5 '[{
 
 ### Unlock the LND wallet manually
 
-Storing a password in plain text is not secure; that's why it is recommended to unlock LND manually. Follow the next steps to get that:
+Storing a password in plain text is not secure; that's why it is recommended to unlock LND manually. Follow the next steps to do that:
 
 * With user `admin`, stop `lnd`
 
@@ -1563,7 +1563,7 @@ sudo nano /data/lnd/lnd.conf
 sudo systemctl start lnd
 ```
 
-* Unlock the wallet manually with the next command. Enter your `[ C ] LND wallet password` and press enter
+* Unlock the wallet manually with the next command. Enter your `[ C ] LND wallet password` and press Enter
 
 ```bash
 lncli --tlscertpath /data/lnd/tls.cert.tmp unlock
@@ -1639,7 +1639,7 @@ Mar 01 13:32:39 minibolt lnd[435474]: 2026-03-01 13:32:39.991 [INF] TORC: Starti
 </details>
 
 {% hint style="info" %}
-**(Optional)** Now you can delete the `password.txt` file from your LND folder by typing with the user `admin`:
+**(Optional)** Now you can delete the `password.txt` file from your LND folder by typing as the user `admin`:
 
 ```bash
 sudo rm /data/lnd/password.txt
@@ -1707,7 +1707,7 @@ Base64 encoded PSBT (or path to file):
 </code></pre>
 
 {% hint style="info" %}
-Keep the terminal open and go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on your regular computer
+Keep the terminal open and go to [Sparrow wallet](../../bitcoin/bitcoin/sparrow.md) on your regular computer
 {% endhint %}
 
 **Sparrow**
@@ -1724,15 +1724,15 @@ Keep the terminal open and go to [Sparrow wallet](../bitcoin/bitcoin/desktop-sig
 >
 > > `<fee>`: free selection (minimun reccomended: 1 sat/vB)
 
-<figure><img src="../.gitbook/assets/sparrow_external_funding_1.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_external_funding_1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 > * Push on **\[Create Transaction]** button
 
-<figure><img src="../.gitbook/assets/sparrow_external_funding_2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_external_funding_2.png" alt=""><figcaption></figcaption></figure>
 
 > * Go to File > Save PSBT > To clipboard > Push on **\[As Base64]**
 
-<figure><img src="../.gitbook/assets/sparrow_external_funding_3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_external_funding_3.png" alt=""><figcaption></figcaption></figure>
 
 **lncli**
 
@@ -1759,7 +1759,7 @@ Signed base64 encoded PSBT or hex encoded raw wire TX (or path to file):
 {% endcode %}
 
 {% hint style="info" %}
-Keep the terminal open and go back to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on your regular computer
+Keep the terminal open and go back to [Sparrow wallet](../../bitcoin/bitcoin/sparrow.md) on your regular computer
 {% endhint %}
 
 **Sparrow**
@@ -1768,7 +1768,7 @@ Keep the terminal open and go back to [Sparrow wallet](../bitcoin/bitcoin/deskto
 
 > - Push the **\[Finalize transaction for signing]** button
 
-<figure><img src="../.gitbook/assets/sparrow_external_funding_4.png" alt="" width="533"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_external_funding_4.png" alt="" width="533"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
@@ -1776,7 +1776,7 @@ DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
 
 > * Follow the sign process, push the **\[Sign]** button (depending on your case follow the proper signing process of your Hardware Wallet)
 
-<figure><img src="../.gitbook/assets/sparrow_external_funding_5.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_external_funding_5.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
@@ -1784,11 +1784,11 @@ DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
 
 > * Push on the **\[View Final Transaction]** button
 
-<figure><img src="../.gitbook/assets/sparrow_external_funding_6.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_external_funding_6.png" alt=""><figcaption></figcaption></figure>
 
 > * Go to the Code Down hex encoded raw wire TX and Select All code (double click) > (Right click) > Push on (Copy All) banner
 
-<figure><img src="../.gitbook/assets/sparrow_external_funding_7.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_external_funding_7.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
@@ -1818,7 +1818,7 @@ Error received: got error from server: rpc error: code = Canceled desc = context
 {% endcode %}
 
 {% hint style="info" %}
-Check the successful open channel via [ThunderHub](web-app.md), [Zeus](mobile-app.md), or lncli
+Check the successful open channel via [ThunderHub](thunderhub.md), [Zeus](zeus.md), or lncli
 {% endhint %}
 
 ### Recover the BIP32 Master Extended Private Key
@@ -1845,12 +1845,12 @@ chantools version v0.14.1, commit
 ```
 
 {% hint style="info" %}
-\> If the `chantools -v` output is the previous output; you can move to the next section.
+-> If the `chantools -v` output is the previous output, you can move to the next section.
 
--> If `chantools` is not installed (`chantools: command not found`), follow this [chantools bonus guide](../bonus-guides/lightning/chantools.md) to install it or to use
+-> If `chantools` is not installed (`chantools: command not found`), follow this [chantools bonus guide](../../bonus-guides/lightning/chantools.md) to install it or to use
 {% endhint %}
 
-* Depending on whether you selected in the [chantools bonus guide](../bonus-guides/lightning/chantools.md) the [option 1](../bonus-guides/lightning/chantools.md#id-1.-temporary-use-recommended) or [option 2](../bonus-guides/lightning/chantools.md#id-2.-permanent-installation):
+* Depending on whether you selected in the [chantools bonus guide](../../bonus-guides/lightning/chantools.md) the [option 1](../../bonus-guides/lightning/chantools.md#id-1.-temporary-use-recommended) or [option 2](../../bonus-guides/lightning/chantools.md#id-2.-permanent-installation):
 
 {% tabs %}
 {% tab title="1. For temporary use option (recommended)" %}
@@ -1882,7 +1882,7 @@ Expected output:
 Input your cipher seed passphrase (press enter if your seed doesn't have a passphrase):
 ```
 
-* Type your cipher seed passphrase (press enter without putting anything if your seed doesn't have a passphrase)
+* Type your cipher seed passphrase (press Enter without putting anything if your seed doesn't have a passphrase)
 
 **Example** of expected output:
 
@@ -1997,47 +1997,47 @@ Now, if you want to check, you can use the Sparrow wallet to import the BIP32 HD
 {% endtabs %}
 
 {% hint style="info" %}
-Go to [Sparrow wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) on your regular computer
+Go to the [Sparrow wallet](../../bitcoin/bitcoin/sparrow.md) on your regular computer
 {% endhint %}
 
 **Sparrow**
 
 * Go to File > **New wallet**
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_1.png" alt=""><figcaption></figcaption></figure>
 
 * Type your desired name
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_2.png" alt=""><figcaption></figcaption></figure>
 
 * If you created your LND node recently, select the Script Type > \[**Taproot (P2TR)**]. If you created your LND node a long time ago, select the Script Type > \[**Native Segwit(P2WPKH)**]
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_3.png" alt=""><figcaption></figcaption></figure>
 
 * Push on the **\[New or Imported Software Wallet]** button
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_4.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_4.png" alt="" width="563"><figcaption></figcaption></figure>
 
 * Push on the **\[Enter Private Key]** in the **Master Private Key (BIP32)**
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_5.png" alt="" width="494"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_5.png" alt="" width="494"><figcaption></figcaption></figure>
 
 * Type the Master Private Key previously extracted from your LND and push the **\[Import]** button
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_6.png" alt="" width="493"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_6.png" alt="" width="493"><figcaption></figcaption></figure>
 
 * Push on the **\[Import Keystore]** button
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_7.png" alt="" width="488"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_7.png" alt="" width="488"><figcaption></figcaption></figure>
 
 * Finally, push on the **\[Apply]** button
 
-<figure><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_8.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_8.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Check the balance in the **\[Transactions]** and **\[UTXOs]** section if you already have movements in your LND on-chain wallet
 
-<img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_9.png" alt="" data-size="original"><img src="../.gitbook/assets/sparrow_bip32_mast_priv_key_10.png" alt="" data-size="original">
+<img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_9.png" alt="" data-size="original"><img src="../../.gitbook/assets/sparrow_bip32_mast_priv_key_10.png" alt="" data-size="original">
 {% endhint %}
 
 * **(Optional)** Delete the chantools files from the temporary folder
@@ -2050,7 +2050,7 @@ cd.. && rm -r chantools-linux-amd64-v$VERSION && rm -r chantools-linux-amd64-v$V
 
 ### Add an external fee estimator to the LND
 
-If you applied the [Ordisrespector patch filter](../bitcoin/bitcoin/bitcoin-client.md#apply-the-ordisrespector-patch-optional) to the [Bitcoin Client: Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md) or use [Bitcoin Knots](../bonus-guides/bitcoin/bitcoin-knots.md), we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector patch filter applied.
+If you applied the [Ordisrespector patch filter](../../bitcoin/bitcoin/bitcoin-core.md#apply-the-ordisrespector-patch-optional) to the [Bitcoin Client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or use [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md), we can have a different version of the mempool compared to the rest of the network, and with it, the estimation of the fees. It is possible to point the fee estimator to another node without Ordisrespector patch filter applied.
 
 * With the user admin, stop LND:
 
@@ -2087,7 +2087,7 @@ Upgrading LND can cause issues. **Always** read the [LND release notes](https://
 lnd --version
 ```
 
-* Download, verify, and install the latest LND binaries as described in the [Installation section](lightning-client.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**
+* Download, verify, and install the latest LND binaries as described in the [Installation section](lnd.md#installation) of this guide, replacing the environment variable `"VERSION=x.xx"` value to the latest if it has not already been changed in this guide **(acting behind your responsibility)**
 * Restart LND to apply the new version
 
 ```sh
@@ -2130,7 +2130,7 @@ sudo gpasswd -d admin lnd; sudo gpasswd -d thunderhub lnd; sudo gpasswd -d btcpa
 ```
 {% endcode %}
 
-* Delete the `lnd` user. Don't worry about `userdel: lnd mail spool (/var/mail/lnd) not found` output, the uninstall has been successful
+* Delete the `lnd` user. Don't worry about `userdel: lnd mail spool (/var/mail/lnd) not found` output; the uninstall has been successful
 
 ```bash
 sudo userdel -rf lnd
@@ -2150,7 +2150,7 @@ sudo groupdel lnd
 sudo rm -rf /data/lnd/
 ```
 
-### Delete the PostgreSQL database [(if used)](lightning-client.md#install-postgresql)
+### Delete the PostgreSQL database [(if used)](lnd.md#install-postgresql)
 
 * Delete the `lndb` database
 

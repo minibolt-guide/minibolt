@@ -31,7 +31,7 @@ Difficulty: Medium
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](bitcoin-knots.md)
 
 Others
 

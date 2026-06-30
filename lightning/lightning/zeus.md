@@ -18,18 +18,20 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 3.4 Mobile app: Zeus
 
 We install [Zeus](https://zeusln.app/), a cross-platform mobile app that connects to your Lightning network node. Make payments with lightning or on-chain and manage your channels while you're on the go.
 
-<figure><img src="../.gitbook/assets/zeus_logo.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/zeus_logo.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## Requirements
 
-* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
-* [LND](lightning-client.md)
+* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md)
+* [LND](lnd.md)
 
 ## Preparations
 
@@ -192,7 +194,7 @@ lndconnect --host=abcdefg......xyz.onion --port=8080 --nocert
 {% endtab %}
 
 {% tab title="Wireguard VPN connection (recommended) " %}
-After following the [Wireguard VPN bonus guide](../bonus-guides/networking/wireguard-vpn.md) set the `--host` parameter address with the private Wireguard VPN IP address. e.g. 10.0.0.1
+After following the [Wireguard VPN bonus guide](../../bonus-guides/networking/wireguard-vpn.md) set the `--host` parameter address with the private Wireguard VPN IP address. e.g. 10.0.0.1
 
 ```bash
 lndconnect --host=10.0.0.1 --port=8080 --nocert
@@ -218,7 +220,7 @@ Keep the SSH session with the QR code open, it will be necessary later to scan t
 
 On Android, you can get Zeus from [Google Play](https://play.google.com/store/apps/details?id=app.zeusln.zeus) or the GitHub repository if you can’t or do not want to use Google Play. Tap it, download it, and install it. If it's the first time you install an APK on your phone, you will be asked to authorize the app to install unknown apps, follow the on-screen instructions to do so.
 
-<figure><img src="../.gitbook/assets/zeus.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/zeus.png" alt=""><figcaption></figcaption></figure>
 
 ### Connect Zeus to LND
 

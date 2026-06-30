@@ -15,11 +15,13 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # chantools
 
-[chantools](https://github.com/lightninglabs/chantools) is a loose collection of tools all somehow related to [lnd](../../lightning/lightning-client.md) and Lightning Network channels.
+[chantools](https://github.com/lightninglabs/chantools) is a loose collection of tools all somehow related to [lnd](../../lightning/lightning/lnd.md) and Lightning Network channels.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -27,7 +29,7 @@ Difficulty: Easy
 
 ## Installation
 
-* We'll download, verify, and install `chantools`. With the user `admin`. Navigate to the temporary directory&#x20;
+* We'll download, verify, and install `chantools`. With the user `admin`. Navigate to the temporary directory
 
 ```sh
 cd /tmp
@@ -139,7 +141,7 @@ chantools-linux-arm64-v0.14.2/chantools
 
 {% tabs %}
 {% tab title="1. Temporary use (recommended)" %}
-In this case, only go to the proper step to use this tool in a concrete case. e.g: Recover the BIP32 Master Extended Private Key [option 1](../../lightning/lightning-client.md#id-1.-for-temporary-use-option-recommended-1)
+In this case, only go to the proper step to use this tool in a concrete case. e.g: Recover the BIP32 Master Extended Private Key [option 1](../../lightning/lightning/lnd.md#id-1.-for-temporary-use-option-recommended-1)
 {% endtab %}
 
 {% tab title="2. Permanent installation" %}

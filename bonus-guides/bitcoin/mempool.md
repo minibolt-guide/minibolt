@@ -31,13 +31,13 @@ Difficulty: Medium
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
-* [LND](../../lightning/lightning-client.md) (optional)
-* Electrum server ([Fulcrum](../../bitcoin/bitcoin/electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md))
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](bitcoin-knots.md)
+* [LND](../../lightning/lightning/lnd.md) (optional)
+* Electrum server ([Fulcrum](../../bitcoin/bitcoin/fulcrum.md) or [Electrs](../../bonus/bitcoin/electrs.md))
 * Others
   * [Nginx](../../index-1/security.md#nginx)
   * [MariaDB](../system/mariadb.md)
-  * [Rustup + Cargo](../system/rustup-+-cargo.md)
+  * [Rustup + Cargo](../system/rustup-cargo.md)
   * [Node + NPM](../../bonus/system/nodejs-npm.md)
 
 ## Preparations
@@ -517,7 +517,7 @@ Creating home directory `/home/mempool' ...
 Copying files from `/etc/skel' ...
 ```
 
-* Add the mempool user to the bitcoin and lnd groups to allow the `mempool` user to read the Bitcoin client `.cookie` and the [LND](../../lightning/lightning-client.md) certificate files
+* Add the mempool user to the bitcoin and lnd groups to allow the `mempool` user to read the Bitcoin client `.cookie` and the [LND](../../lightning/lightning/lnd.md) certificate files
 
 ```bash
 sudo usermod -aG bitcoin,lnd mempool
@@ -535,7 +535,7 @@ sudo su - mempool
 Pay attention to the next step!
 {% endhint %}
 
-* Important!! Follow the [Rustup + Cargo installation guide](../system/rustup-+-cargo.md#installation) to install it for the user mempool, and then come back to continue with the guide
+* Important!! Follow the [Rustup + Cargo installation guide](../system/rustup-cargo.md#installation) to install it for the user mempool, and then come back to continue with the guide
 
 ### Download and verify the source code
 
@@ -608,8 +608,8 @@ nano mempool-config.json
 * Paste the following lines. Save and exit
 
 {% hint style="info" %}
-- If you want to have the Lightning tab enabled and connect to your internal [LND](../../lightning/lightning-client.md) node, follow the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section and come back to continue with the next step. **Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least
-- If you want to use [Electrs](../../bonus/bitcoin/electrs.md) instead of [Fulcrum](../../bitcoin/bitcoin/electrum-server.md), you need to use: `"PORT": 50021`
+- If you want to have the Lightning tab enabled and connect to your internal [LND](../../lightning/lightning/lnd.md) node, follow the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section and come back to continue with the next step. **Keep in mind:** you need to have a [LND](../../lightning/lightning/lnd.md) node already running and synchronized, and for a better experience with a public channel, at least
+- If you want to use [Electrs](../../bonus/bitcoin/electrs.md) instead of [Fulcrum](../../bitcoin/bitcoin/fulcrum.md), you need to use: `"PORT": 50021`
 {% endhint %}
 
 <pre><code>{
@@ -775,9 +775,9 @@ nano mempool-frontend-config.json
 * Type the next context. Save and exit
 
 {% hint style="info" %}
-If you want to have the Lightning explorer connected to your internal [LND](../../lightning/lightning-client.md) node and you followed the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section, change the parameter `"LIGHTNING": false,` to -> true ( `"LIGHTNING": true,`).
+If you want to have the Lightning explorer connected to your internal [LND](../../lightning/lightning/lnd.md) node and you followed the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section, change the parameter `"LIGHTNING": false,` to -> true ( `"LIGHTNING": true,`).
 
-**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least.
+**Keep in mind:** you need to have a [LND](../../lightning/lightning/lnd.md) node already running and synchronized, and for a better experience with a public channel, at least.
 {% endhint %}
 
 <pre data-overflow="wrap"><code>{
@@ -1347,7 +1347,7 @@ Congrat&#x73;**!** You now have Mempool up and running.
 ### Enable Lightning with a local LND node
 
 {% hint style="info" %}
-**Keep in mind:** you need to have a [LND](../../lightning/lightning-client.md) node already running and synchronized, and for a better experience with a public channel, at least.
+**Keep in mind:** you need to have a [LND](../../lightning/lightning/lnd.md) node already running and synchronized, and for a better experience with a public channel, at least.
 {% endhint %}
 
 #### Backend
@@ -1563,7 +1563,7 @@ If you want to have the mempool Lightning explorer and tab-associated enabled an
 
 ### Use Electrs like Electrum server
 
-If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](../../bitcoin/bitcoin/electrum-server.md) guide, you need to do the next steps
+If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](../../bitcoin/bitcoin/fulcrum.md) guide, you need to do the next steps
 
 * As user `admin`, stop the mempool service
 
@@ -1639,7 +1639,47 @@ Expected output:
 abcdefg..............xyz.onion
 ```
 
-* With the [Tor browser](https://www.torproject.org), you can access this onion address from any device
+* With the [Tor browser](https://www.torproject.org/download), you can access this onion address from any device
+
+#### Advertise your Onion service
+
+To allow Tor Browser to automatically detect and suggest your Onion Service when users visit your clearnet mempool instance, configure the `Onion-Location` HTTP header in Nginx using the Onion address obtained in the previous section.
+
+* With user admin, edit the `mempool-reverse-proxy.conf` file:
+
+```bash
+sudo nano +72 /etc/nginx/sites-available/mempool-reverse-proxy.conf
+```
+
+* Add the next line, replacing abcdefg..............xyz.onion to the output obtained in the previous step "Get your Onion address":
+
+```
+add_header Onion-Location http://abcdefg..............xyz.onion$request_uri always;
+```
+
+* Save and exit.
+* Test Nginx configuration
+
+```sh
+sudo nginx -t
+```
+
+Expected output:
+
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+* Reload the Nginx configuration to apply changes
+
+```bash
+sudo systemctl reload nginx
+```
+
+* Now, navigate to your mempool clearnet HTTPS connection (e.g., `https://mempool.domain.com`) using [Tor browser](https://www.torproject.org/download), and you can see the next banner to the right of the address bar, ready to push:
+
+<figure><img src="../../.gitbook/assets/onion-available.png" alt=""><figcaption></figcaption></figure>
 
 ### Use Cloudflare tunnel to expose publicly
 

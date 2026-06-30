@@ -1061,7 +1061,7 @@ nyx -i 9051
 
 ### **Add obfs4 bridge to the default Tor instance**
 
-On some occasions, due to some circumstances, your ISP, the company's network, your country, etc, could be censoring your access to Tor and with it the proper functioning of MiniBolt services **(used on** Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md) **/ Lightning client:** [**LND**](../../lightning/lightning-client.md) **+ others)**
+On some occasions, due to some circumstances, your ISP, the company's network, your country, etc, could be censoring your access to Tor and with it the proper functioning of MiniBolt services **(used on** Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md) **/ Lightning client:** [**LND**](../../lightning/lightning/lnd.md) **+ others)**
 
 ![](../../.gitbook/assets/tor-failing.jpg)
 

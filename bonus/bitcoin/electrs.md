@@ -37,13 +37,13 @@ Difficulty: Medium
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * Others
-  * [Rustup + Cargo](../../bonus-guides/system/rustup-+-cargo.md)
+  * [Rustup + Cargo](../../bonus-guides/system/rustup-cargo.md)
 
 ## Preparations
 
--> Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
+-> Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-core.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
 
 ### Install dependencies
 
@@ -203,7 +203,7 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="warning" %}
-If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it, and then come back to continue with the guide
+If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-cargo.md) to install it, and then come back to continue with the guide
 {% endhint %}
 
 ### Reverse proxy & Firewall
@@ -598,7 +598,7 @@ sudo systemctl start electrs
 </details>
 
 {% hint style="success" %}
-Congrats! Now you have a self-hosted Electrum Server on your node. Now you can proceed with installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
+Congrats! Now you have a self-hosted Electrum Server on your node. Now you can proceed with installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/btc-rpc-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
 {% endhint %}
 
 ### Validation
@@ -629,7 +629,7 @@ tcp   LISTEN 0   511   0.0.0.0:50022   0.0.0.0:*    users:(("nginx",pid=719,fd=5
 ```
 
 {% hint style="info" %}
-Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) once Electrs is ready
+Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/bitcoin/sparrow.md) once Electrs is ready
 {% endhint %}
 
 ## Extras (optional)
@@ -679,7 +679,7 @@ You should now be able to connect to your Electrs server remotely via Tor using 
 
 ## Upgrade
 
-* First, ensure that you have the latest Rustc version, following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-+-cargo.md)
+* First, ensure that you have the latest Rustc version, following the [Upgrade section](../../bonus-guides/system/rustup-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-cargo.md)
 * Follow the complete [Build from the source code](electrs.md#build-from-the-source-code) section
 * When you finish, restart Electrs to apply the new version
 

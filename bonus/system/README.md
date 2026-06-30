@@ -20,6 +20,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 🖥️ System
@@ -39,7 +41,7 @@ layout:
 ### Common programming languages
 
 * [**Node + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node + NPM
-* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install / Update / Uninstall Rustup + Cargo
+* [**Rustup + Cargo**](../../bonus-guides/system/rustup-cargo.md) - Install / Update / Uninstall Rustup + Cargo
 
 ### Databases
 

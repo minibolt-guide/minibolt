@@ -18,6 +18,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # 3.2 Channel backup for LND
@@ -62,8 +64,8 @@ We recommend using both methods, but you can choose either one of them, dependin
 
 ## Requirements
 
-* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-client.md)
-* [LND](lightning-client.md)
+* [Bitcoin Core](../bitcoin/bitcoin/bitcoin-core.md)
+* [LND](lightning/lnd.md)
 
 ## Preparations
 

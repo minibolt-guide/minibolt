@@ -53,7 +53,7 @@ You can obtain more info about nostr on these additional resources:
 
 ## Requirements
 
-* [Rustup + Cargo](../system/rustup-+-cargo.md)
+* [Rustup + Cargo](../system/rustup-cargo.md)
 * [Cloudflare tunnel](../networking/cloudflare-tunnel.md) (optional)
 * [PostgreSQL](../system/postgresql.md) (optional)
 
@@ -106,7 +106,7 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="info" %}
-If you obtain "**command not found**" output, you need to follow the [Rustup + Cargo bonus guide](../system/rustup-+-cargo.md) to install it and then come back to continue with the guide.
+If you obtain "**command not found**" output, you need to follow the [Rustup + Cargo bonus guide](../system/rustup-cargo.md) to install it and then come back to continue with the guide.
 {% endhint %}
 
 ### Install PostgreSQL

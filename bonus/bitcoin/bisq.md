@@ -41,13 +41,13 @@ Attention: This guide is only valid for Bisq v1.x.x, Bisq v2.x.x radically chang
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 
 ## Introduction
 
 The guide will show you how to:
 
-1. Configure Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md) to allow Bisq to run its SPV wallet
+1. Configure Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md) to allow Bisq to run its SPV wallet
 2. Install Bisq on your personal computer
 3. Connect Bisq to your Bitcoin client node in your local network or via remote Tor, depending on your OS and personal computer
 4. Securely set up Bisq

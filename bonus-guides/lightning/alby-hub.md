@@ -31,8 +31,8 @@ Difficulty: Medium
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md)
-* [LND](../../lightning/lightning-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md)
+* [LND](../../lightning/lightning/lnd.md)
 * Others
   * [Nostr relay in Rust](../nostr/nostr-rs-relay.md) (optional)
 

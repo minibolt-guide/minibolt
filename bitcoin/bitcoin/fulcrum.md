@@ -30,7 +30,7 @@ layout:
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
+* Bitcoin client: [Bitcoin Core](bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * \~ 130GB of free storage for the database
 
 ## Introduction
@@ -46,7 +46,7 @@ One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Elect
 ## Preparations
 
 {% hint style="warning" %}
-Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section
+Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](bitcoin-core.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section
 {% endhint %}
 
 ### Install dependencies
@@ -251,7 +251,7 @@ sudo rm -r Fulcrum-$VERSION-x86_64-linux Fulcrum-$VERSION-x86_64-linux.tar.gz Fu
 {% endcode %}
 
 {% hint style="info" %}
-If you come to update, this is the final step. Go back to the [Upgrade section](electrum-server.md#upgrade) to continue.
+If you come to update, this is the final step. Go back to the [Upgrade section](fulcrum.md#upgrade) to continue.
 {% endhint %}
 
 ### Create the fulcrum user & group
@@ -382,7 +382,7 @@ banner = /data/fulcrum/fulcrum-banner.txt
 </code></pre>
 
 {% hint style="info" %}
-Remember, if you have a slow-performance device, follow the [Slow devices mode section](electrum-server.md#slow-devices-mode) to improve the experience of the first indexation
+Remember, if you have a slow-performance device, follow the [Slow devices mode section](fulcrum.md#slow-devices-mode) to improve the experience of the first indexation
 {% endhint %}
 
 * Exit the `fulcrum` user session to return to the "admin" user session
@@ -497,7 +497,7 @@ Mar 11 16:32:42 minibolt Fulcrum[4364]: [2026-03-11 16:32:42.572] <Controller> P
 </details>
 
 {% hint style="info" %}
-> Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~1.5 - 4 days or more, depending on the hardware. Only proceed with the [Blockchain explorer: BTC RPC Explorer](blockchain-explorer.md) and [Desktop Wallet Section](desktop-signing-app-sparrow.md) once Fulcrum is ready.
+> Fulcrum must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take up to \~1.5 - 4 days or more, depending on the hardware. Only proceed with the [Blockchain explorer: BTC RPC Explorer](btc-rpc-explorer.md) and [Desktop Wallet Section](sparrow.md) once Fulcrum is ready.
 
 > Fulcrum will now index the whole Bitcoin blockchain so that it can provide all necessary information to wallets. With this, the wallets you use no longer need to connect to any third-party server to communicate with the Bitcoin peer-to-peer network.
 {% endhint %}
@@ -523,7 +523,7 @@ sudo rm -r /data/fulcrum/fulcrum_db/*
 sudo systemctl start fulcrum
 ```
 
--> You should see the logs of the [Run process](electrum-server.md#run) again
+-> You should see the logs of the [Run process](fulcrum.md#run) again
 
 -> The troubleshooting note could be helpful after experiencing **data corruption due to a power outage** during normal operation
 {% endhint %}
@@ -558,7 +558,7 @@ tcp   LISTEN 0      50        0.0.0.0:50002      0.0.0.0:*    users:(("Fulcrum",
 ```
 
 {% hint style="success" %}
-Congrats! Now you have a high-performance and self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](blockchain-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](desktop-signing-app-sparrow.md) or [Electrum Wallet ](../../bonus/bitcoin/electrum-wallet-desktop.md)[Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md)
+Congrats! Now you have a high-performance and self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](btc-rpc-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](sparrow.md) or [Electrum Wallet ](../../bonus/bitcoin/electrum-wallet-desktop.md)[Desktop](../../bonus/bitcoin/electrum-wallet-desktop.md)
 {% endhint %}
 
 ## Extras (optional)
@@ -692,7 +692,7 @@ Filename               Type            Size            Used            Priority
 
 ## Upgrade
 
-Follow the complete [Installation section](electrum-server.md#installation) until the [Binaries installation section](electrum-server.md#binaries-installation) (included), replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
+Follow the complete [Installation section](fulcrum.md#installation) until the [Binaries installation section](fulcrum.md#binaries-installation) (included), replacing the environment variable `"VERSION=x.xx"` value for the latest if it has not already been changed in this guide.
 
 * Restart the service to apply the changes
 

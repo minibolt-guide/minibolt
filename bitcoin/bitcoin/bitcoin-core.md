@@ -180,7 +180,7 @@ bitcoin-27.1/share/rpcauth/rpcauth.py
 </details>
 
 {% hint style="info" %}
--> If you want to install the manual page for `bitcoin-cli`, follow [the manual page for the bitcoin-cli extra section](bitcoin-client.md#the-manual-page-for-bitcoin-cli), and then come back to continue with the [next section](bitcoin-client.md#create-the-bitcoin-user-and-group).
+-> If you want to install the manual page for `bitcoin-cli`, follow [the manual page for the bitcoin-cli extra section](bitcoin-core.md#the-manual-page-for-bitcoin-cli), and then come back to continue with the [next section](bitcoin-core.md#create-the-bitcoin-user-and-group).
 {% endhint %}
 
 #### Binaries installation
@@ -447,7 +447,7 @@ Ordisrespector is a _**spam patch filter**_ that works by detecting the pattern 
 Skip this step if you want only to build Bitcoin Core from the source code, but not apply the Ordisrespector patch.
 {% endhint %}
 
-* Go [to the Ordisrespector extra section](bitcoin-client.md#ordisrespector-patch-filter) to apply the Ordisrespector patch filter and come back to continue with the next step.
+* Go [to the Ordisrespector extra section](bitcoin-core.md#ordisrespector-patch-filter) to apply the Ordisrespector patch filter and come back to continue with the next step.
 
 #### **Build**
 
@@ -669,11 +669,11 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 {% hint style="info" %}
 **(Optional):**
 
-**-> If you want** to reject other possible data included in transactions apart from **the previous Ordisrespector patch**, follow [the dedicated extra section](bitcoin-client.md#reject-other-possible-data-included-in-transactions), and continue with the next step.
+**-> If you want** to reject other possible data included in transactions apart from **the previous Ordisrespector patch**, follow [the dedicated extra section](bitcoin-core.md#reject-other-possible-data-included-in-transactions), and continue with the next step.
 
 -> Modify the `"uacomment"` value to your preference if you want.
 
--> If you have another **full-synced MiniBolt node on the same local network**, you can **accelerate the IBD** by following [the dedicated extra section](bitcoin-client.md#accelerate-the-ibd).
+-> If you have another **full-synced MiniBolt node on the same local network**, you can **accelerate the IBD** by following [the dedicated extra section](bitcoin-core.md#accelerate-the-ibd).
 {% endhint %}
 
 <pre><code># MiniBolt: bitcoind configuration
@@ -684,7 +684,7 @@ server=1
 txindex=1
 
 # Set OP_RETURN limit to value before v30.0
-datacarrier=83
+datacarriersize=83
 
 # Disable cjdns network
 onlynet=onion
@@ -746,7 +746,7 @@ blocksonly=1
 </code></pre>
 
 {% hint style="info" %}
-This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/3908521f48f0091188fc1d1e28bb7704) file with all possible options, or generate one yourself, following the proper [extra section](bitcoin-client.md#generate-a-full-bitcoin.conf-example-file).
+This is a standard configuration. Check this [Bitcoin Core sample bitcoind.conf](https://gist.github.com/twofaktor/3908521f48f0091188fc1d1e28bb7704) file with all possible options, or generate one yourself, following the proper [extra section](bitcoin-core.md#generate-a-full-bitcoin.conf-example-file).
 {% endhint %}
 
 * Set permissions so only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line):
@@ -1169,12 +1169,12 @@ git apply ordisrespector.patch
 ```
 
 {% hint style="info" %}
-Return to continue with [Option 2: Compiling from the source code - Build step](bitcoin-client.md#build) in case of first installation or [Upgrade - Build step](bitcoin-client.md#build-1) in a upgrading process.
+Return to continue with [Option 2: Compiling from the source code - Build step](bitcoin-core.md#build) in case of first installation or [Upgrade - Build step](bitcoin-core.md#build-1) in a upgrading process.
 {% endhint %}
 
 ### Reject other possible data included in transactions
 
-Once you get to the [Configuration section](bitcoin-client.md#configuration).
+Once you get to the [Configuration section](bitcoin-core.md#configuration).
 
 * With user `bitcoin`, edit the `bitcoin.conf` file:
 
@@ -1191,7 +1191,7 @@ permitbaremultisig=0
 ```
 
 {% hint style="info" %}
-[Continue](bitcoin-client.md#configuration) with the guide on `Set permissions:..` step.
+[Continue](bitcoin-core.md#configuration) with the guide on `Set permissions:..` step.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -1283,7 +1283,7 @@ bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo |
 * For convenience, it might be useful to have the manual page for `bitcoin-cli` on the same machine, so that they can be consulted offline, and they can be installed from the directory.
 
 {% hint style="info" %}
-Follow this section only if you followed [Option 1: Using precompiled binaries](bitcoin-client.md#option-1-using-precompiled-binaries) and are coming from the [Extract](bitcoin-client.md#extract) step; if you followed [Option 2: Compiling from source code](bitcoin-client.md#option-2-compiling-from-source-code), this section is not needed because man pages are installed by default; type directly `man bitcoin-cli` command to see the man pages.
+Follow this section only if you followed [Option 1: Using precompiled binaries](bitcoin-core.md#option-1-using-precompiled-binaries) and are coming from the [Extract](bitcoin-core.md#extract) step; if you followed [Option 2: Compiling from source code](bitcoin-core.md#option-2-compiling-from-source-code), this section is not needed because man pages are installed by default; type directly `man bitcoin-cli` command to see the man pages.
 {% endhint %}
 
 ```sh
@@ -1305,12 +1305,12 @@ man bitcoin-cli
 ```
 
 {% hint style="info" %}
-Now come back to the section [Binaries installation](bitcoin-client.md#binaries-installation) to continue with the Bitcoin Core installation process, unless you followed [Option 2: Compiling from source code](bitcoin-client.md#option-2-compiling-from-source-code).
+Now come back to the section [Binaries installation](bitcoin-core.md#binaries-installation) to continue with the Bitcoin Core installation process, unless you followed [Option 2: Compiling from source code](bitcoin-core.md#option-2-compiling-from-source-code).
 {% endhint %}
 
 ### Generate a full bitcoin.conf example file
 
-* Follow all [Installation](bitcoin-client.md#installation) steps before installing the bitcoind binary on the operating system, regardless of whether you followed [Option 1: Use pre-compiled binaries](bitcoin-client.md#option-1-using-precompiled-binaries) or [Option 2: Compile from source code](bitcoin-client.md#option-2-compiling-from-source-code).
+* Follow all [Installation](bitcoin-core.md#installation) steps before installing the bitcoind binary on the operating system, regardless of whether you followed [Option 1: Use pre-compiled binaries](bitcoin-core.md#option-1-using-precompiled-binaries) or [Option 2: Compile from source code](bitcoin-core.md#option-2-compiling-from-source-code).
 * With user `admin`, update and upgrade your OS. Press "y" and enter, or directly enter when the prompt asks you:
 
 ```bash
@@ -1596,7 +1596,7 @@ sudo systemctl restart bitcoind
 ```
 
 {% hint style="info" %}
-When you use [LND](../../lightning/lightning-client.md), [Fulcrum](electrum-server.md), or [Electrs](../../bonus/bitcoin/electrs.md), which use the RPC command `sendrawtransaction` to broadcast transactions, logs like these will show you:
+When you use [LND](../../lightning/lightning/lnd.md), [Fulcrum](fulcrum.md), or [Electrs](../../bonus/bitcoin/electrs.md), which use the RPC command `sendrawtransaction` to broadcast transactions, logs like these will show you:
 {% endhint %}
 
 **Example** of expected output:
@@ -1654,7 +1654,7 @@ The latest release can be found on the [GitHub page](https://github.com/bitcoin/
 
 **-> 2 options depending on your case:**
 
-#### Case you followed [Option 1: Using precompiled binaries](bitcoin-client.md#option-1-using-precompiled-binaries)
+#### Case you followed [Option 1: Using precompiled binaries](bitcoin-core.md#option-1-using-precompiled-binaries)
 
 * Login as `admin` user and change to the temporary directory:
 
@@ -1739,7 +1739,7 @@ gpg: Good signature from ...
 Primary key fingerprint: ...
 ```
 
-* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client):
+* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-core.md#opentimestamps-client):
 
 ```sh
 ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -1820,7 +1820,7 @@ sudo systemctl restart bitcoind
 journalctl -fu bitcoind
 ```
 
-#### Case you followed [Option 2: Compiling from source code](bitcoin-client.md#option-2-compiling-from-source-code)
+#### Case you followed [Option 2: Compiling from source code](bitcoin-core.md#option-2-compiling-from-source-code)
 
 * Login as `admin` user and change to the temporary directory:
 
@@ -1903,7 +1903,7 @@ sha256sum --ignore-missing --check SHA256SUMS
 bitcoin-29.0.tar.gz: OK
 ```
 
-* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-client.md#opentimestamps-client):
+* If you completed the IBD (Initial Block Download), you can now verify the timestamp with your node. If the prompt shows you `-bash: ots: command not found`, ensure that you are installing the OTS client correctly in the [proper section](bitcoin-core.md#opentimestamps-client):
 
 ```sh
 ots --no-cache verify SHA256SUMS.ots -f SHA256SUMS
@@ -2040,7 +2040,7 @@ Ordisrespector is a _**spam patch filter**_ that works by detecting the pattern 
 Skip this step if you want only to build Bitcoin Core from the source code, but not apply the Ordisrespector patch.
 {% endhint %}
 
-* Go to the [Ordisrespector patch filter](bitcoin-client.md#ordisrespector-patch-filter) extra section to apply the Ordisrespector patch filter and come back to continue with the next step.
+* Go to the [Ordisrespector patch filter](bitcoin-core.md#ordisrespector-patch-filter) extra section to apply the Ordisrespector patch filter and come back to continue with the next step.
 * Enter the command to compile
 
 {% hint style="info" %}
@@ -2198,7 +2198,7 @@ sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
 
 ### Uninstall FW configuration
 
-If you followed the [Accelerate the IBD](bitcoin-client.md#accelerate-the-ibd) section or the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P).
+If you followed the [Accelerate the IBD](bitcoin-core.md#accelerate-the-ibd) section or the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P).
 
 * Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below):
 

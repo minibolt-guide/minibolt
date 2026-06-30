@@ -30,16 +30,16 @@ Run your private blockchain explorer with [BTC RPC Explorer](https://github.com/
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
-* Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md)
+* Bitcoin client: [Bitcoin Core](bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
+* Electrum server: [Fulcrum](fulcrum.md) or [Electrs](../../bonus/bitcoin/electrs.md)
 * Others
   * [Node + NPM](../../bonus/system/nodejs-npm.md)
 
 ## Introduction
 
-After MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with [Fulcrum](electrum-server.md), the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
+After MiniBolt runs your own fully validated node, and even acts as a backend for your hardware wallet with [Fulcrum](fulcrum.md), the last important puzzle piece to improve privacy and financial sovereignty is your own Blockchain Explorer. It lets you query transactions, addresses, and blocks of your choice. You no longer need to leak information by querying a third-party blockchain explorer that can be used to get your location and cluster addresses.
 
-[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy-to-use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying the Bitcoin client: [Bitcoin Core](bitcoin-client.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md), and the Electrum server: [Fulcrum](electrum-server.md) or [Electrs](../../bonus/bitcoin/electrs.md) via RPC.
+[BTC RPC Explorer](https://github.com/janoside/btc-rpc-explorer) provides a lightweight and easy-to-use web interface to accomplish just that. It's a database-free, self-hosted Bitcoin blockchain explorer, querying the Bitcoin client: [Bitcoin Core](bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md), and the Electrum server: [Fulcrum](fulcrum.md) or [Electrs](../../bonus/bitcoin/electrs.md) via RPC.
 
 ## Preparations
 
@@ -282,7 +282,7 @@ BTCEXP_BITCOIND_COOKIE=/data/bitcoin/.cookie
 * An Electrum server or an external service is necessary to get address balances. Your local Electrum server can provide address transaction lists, balances, and more
 
 {% hint style="info" %}
-If you used [Electrs](../../bonus/bitcoin/electrs.md) instead of [Fulcrum](electrum-server.md), use `BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50021` instead of `BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001`
+If you used [Electrs](../../bonus/bitcoin/electrs.md) instead of [Fulcrum](fulcrum.md), use `BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50021` instead of `BTCEXP_ELECTRUM_SERVERS=tcp://127.0.0.1:50001`
 {% endhint %}
 
 <pre><code># Uncomment &#x26; replace the value of these lines
@@ -297,7 +297,7 @@ BTCEXP_SLOW_DEVICE_MODE=false
 ```
 
 {% hint style="info" %}
-You can set additional features of [Privacy](blockchain-explorer.md#privacy) / [Security](blockchain-explorer.md#security) and customize the [Theme](blockchain-explorer.md#theme) at this moment by going to the [Extra](blockchain-explorer.md#extras-optional) section
+You can set additional features of [Privacy](btc-rpc-explorer.md#privacy) / [Security](btc-rpc-explorer.md#security) and customize the [Theme](btc-rpc-explorer.md#theme) at this moment by going to the [Extra](btc-rpc-explorer.md#extras-optional) section
 {% endhint %}
 
 * Save and exit
@@ -551,7 +551,7 @@ BTCEXP_DEMO=true
 ```
 
 {% hint style="warning" %}
-You will need to set password authentication following the [Security](blockchain-explorer.md#security) section; if not, a banner shows you this:
+You will need to set password authentication following the [Security](btc-rpc-explorer.md#security) section; if not, a banner shows you this:
 
 {% code overflow="wrap" %}
 ```
@@ -661,7 +661,7 @@ Try to access the newly created public access to the service by going to the `ht
 
 ### Use Electrs like Electrum server
 
-If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](electrum-server.md) guide, you need to do the next steps
+If you followed the [Electrs](../../bonus/bitcoin/electrs.md) instead of the [Fulcrum](fulcrum.md) guide, you need to do the next steps
 
 * As user `admin`, stop the `btcrpcexplorer` service
 

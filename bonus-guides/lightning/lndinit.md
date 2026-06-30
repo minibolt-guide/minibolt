@@ -21,7 +21,7 @@ layout:
 
 # lndinit
 
-The main purpose of [lndinit](https://github.com/lightninglabs/lndinit) is to help automate the [lnd](../../lightning/lightning-client.md) wallet initialization, including seed and password generation.
+The main purpose of [lndinit](https://github.com/lightninglabs/lndinit) is to help automate the [lnd](../../lightning/lightning/lnd.md) wallet initialization, including seed and password generation.
 
 {% hint style="success" %}
 Difficulty: Easy
@@ -159,7 +159,7 @@ lndinit-linux-amd64-v0.1.26-beta/
 
 {% tabs %}
 {% tab title="1. Temporary use (recommended)" %}
-In this case, only go to the proper step to use this tool in a concrete case. e.g: Migrate bbolt database to PostgreSQL [option 1](../../lightning/lightning-client.md#id-1.-for-temporary-use-option-recommended)
+In this case, only go to the proper step to use this tool in a concrete case. e.g: Migrate bbolt database to PostgreSQL [option 1](../../lightning/lightning/lnd.md#id-1.-for-temporary-use-option-recommended)
 {% endtab %}
 
 {% tab title="2. Permanent installation" %}

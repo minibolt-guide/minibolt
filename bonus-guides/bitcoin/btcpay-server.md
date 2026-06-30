@@ -37,8 +37,8 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Requirements
 
-* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md) or [Bitcoin Knots](bitcoin-knots.md)
-* [LND](../../lightning/lightning-client.md) (optional)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](bitcoin-knots.md)
+* [LND](../../lightning/lightning/lnd.md) (optional)
 * [NBXplorer](btcpay-server.md#install-nbxplorer)
 * Others
   * [.NET Core SDK](btcpay-server.md#install-.net-core-sdk)
@@ -232,7 +232,7 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.6.7
+VERSION=2.6.8
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -573,7 +573,7 @@ cd src
 * Set the variable environment version
 
 ```bash
-VERSION=2.3.9
+VERSION=2.4.0
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -1171,7 +1171,7 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.6.7
+VERSION=2.6.8
 ```
 
 * Fetch the changes of the latest wish tag
@@ -1330,7 +1330,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.3.9
+VERSION=2.4.0
 ```
 
 * Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
