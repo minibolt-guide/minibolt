@@ -626,6 +626,7 @@ nano mempool-config.json
     "BLOCK_WEIGHT_UNITS": 4000000,
     "INITIAL_BLOCKS_AMOUNT": 8,
     "MEMPOOL_BLOCKS_AMOUNT": 8,
+    "AUTOMATIC_POOLS_UPDATE": true,
     "PRICE_FEED_UPDATE_INTERVAL": 3600,
     "USE_SECOND_NODE_FOR_MINFEE": false,
     "EXTERNAL_ASSETS": []
@@ -726,7 +727,7 @@ npm notice
 </details>
 
 {% hint style="warning" %}
-**Not to run** the `npm audit fix` command, which could break the original code!!
+**Do not run** the `npm audit fix` command, which could break the original code!!
 {% endhint %}
 
 * Build it
@@ -772,7 +773,7 @@ nano mempool-frontend-config.json
 ```
 {% endcode %}
 
-* Type the next context. Save and exit
+* Type the following content. Save and exit
 
 {% hint style="info" %}
 If you want to have the Lightning explorer connected to your internal [LND](../../lightning/lightning/lnd.md) node and you followed the [Enable Lightning with a local LND node](mempool.md#enable-lightning-with-a-local-lnd-node) extra section, change the parameter `"LIGHTNING": false,` to -> true ( `"LIGHTNING": true,`).
@@ -812,10 +813,10 @@ If you want to have the Lightning explorer connected to your internal [LND](../.
   "SIGNET_TX_FIRST_SEEN_START_HEIGHT": 0,
   "REGTEST_TX_FIRST_SEEN_START_HEIGHT": 0,
   "LIGHTNING": <a data-footnote-ref href="#user-content-fn-3">false</a>,
-  "HISTORICAL_PRICE": true,
+  "HISTORICAL_PRICE": false,
   "ADDITIONAL_CURRENCIES": false,
   "ACCELERATOR": false,
-  "ACCELERATOR_BUTTON": true,
+  "ACCELERATOR_BUTTON": false,
   "PUBLIC_ACCELERATIONS": false,
   "STRATUM_ENABLED": false,
   "SERVICES_API": "https://mempool.space/api/v1/services"
@@ -1099,6 +1100,18 @@ PrivateDevices=true
 [Install]
 WantedBy=multi-user.target
 ```
+
+{% hint style="warning" %}
+**Troubleshooting notes:**&#x20;
+
+**Optional:** If the mempool service fails with **"JavaScript heap out of memory"** errors, set or increase the `--max-old-space-size` value in the `ExecStart` directive according to the amount of RAM available. A good starting point is **2048 MB**; if needed, increase it to **3072**, **4096**, or higher.
+
+**Example:**
+
+```
+ExecStart=/usr/bin/node --max-old-space-size=4096 dist/index.js
+```
+{% endhint %}
 
 * Enable autoboot **(optional)**
 

@@ -104,7 +104,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```bash
-VERSION=2026.6.1
+VERSION=2026.7.3
 ```
 
 * Download Cloudflare Tunnel Client (Cloudflared)
@@ -115,7 +115,7 @@ VERSION=2026.6.1
 * Set a temporary SHA256 environment variable for the installation
 
 ```bash
-SHA256=ccd02ec216c62bfa573395d8f72cb2e91e95cbdf8726a8acc06b3e2d9aa31526
+SHA256=049777d30f9bf93da6df8bbe31383460eb2aa51a832c6551824d56f9fcc55974
 ```
 
 * Check the checksum of the file

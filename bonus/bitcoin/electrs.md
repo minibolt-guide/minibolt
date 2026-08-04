@@ -43,7 +43,9 @@ Difficulty: Medium
 
 ## Preparations
 
--> Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-core.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
+{% hint style="info" %}
+Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-core.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
+{% endhint %}
 
 ### Install dependencies
 

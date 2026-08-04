@@ -82,7 +82,7 @@ Your Bitcoin node will offer the following functionality:
 
 We aim to keep the core of this guide well-maintained and up-to-date:
 
-<table data-view="cards" data-full-width="false"><thead><tr><th></th><th></th><th align="center"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><strong>🖥️</strong> <a href="broken-reference/"><strong>System</strong></a></td><td>Prepare the hardware and set up the operating system</td><td align="center"></td><td><a href="index-1/operating-system.md">operating-system.md</a></td><td><a href="index-1/remote-access.md">remote-access.md</a></td><td></td><td></td><td></td><td><a href="system/">system</a></td><td><a href=".gitbook/assets/operating-system.gif">operating-system.gif</a></td></tr><tr><td><strong>🟠</strong> <a href="broken-reference/"><strong>₿itcoin</strong></a></td><td>Sync your own Bitcoin full node, Electrum server, Blockchain Explorer, and connect a desktop wallet to the Electrum server</td><td align="center"></td><td><a href="bitcoin/bitcoin/fulcrum.md">fulcrum.md</a></td><td><a href="bitcoin/bitcoin/btc-rpc-explorer.md">btc-rpc-explorer.md</a></td><td></td><td></td><td></td><td><a href="bitcoin/bitcoin/">bitcoin</a></td><td><a href=".gitbook/assets/core_logo.png">core_logo.png</a></td></tr><tr><td><strong>⚡</strong> <a href="broken-reference/"><strong>Lightning</strong></a></td><td>Run your Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup</td><td align="center"></td><td><a href="lightning/channel-backup.md">channel-backup.md</a></td><td><a href="lightning/lightning/thunderhub.md">thunderhub.md</a></td><td></td><td></td><td></td><td><a href="lightning/">lightning</a></td><td><a href=".gitbook/assets/lightning-network-daemon-logo.png">lightning-network-daemon-logo.png</a></td></tr><tr><td>➕ <a href="broken-reference/"><strong>Bonus guide</strong></a></td><td>The bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.</td><td align="center"></td><td><a href="bonus/system/">system</a></td><td><a href="bonus/bitcoin/">bitcoin</a></td><td><a href="bonus-guides/nostr/">nostr</a></td><td><a href="bonus-guides/security/">security</a></td><td><a href="bonus-guides/networking/">networking</a></td><td><a href="broken-reference/">broken-reference</a></td><td><a href=".gitbook/assets/bonus-logo.png">bonus-logo.png</a></td></tr></tbody></table>
+<table data-view="cards" data-full-width="false"><thead><tr><th></th><th></th><th align="center"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-type="content-ref"></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><strong>🖥️</strong> <a href="https://github.com/minibolt-guide/minibolt/blob/main/broken-reference/README.md"><strong>System</strong></a></td><td>Prepare the hardware and set up the operating system</td><td align="center"></td><td><a href="index-1/operating-system.md">operating-system.md</a></td><td><a href="index-1/remote-access.md">remote-access.md</a></td><td></td><td></td><td></td><td><a href="system/">system</a></td><td><a href=".gitbook/assets/operating-system.gif">operating-system.gif</a></td></tr><tr><td><strong>🟠</strong> <a href="https://github.com/minibolt-guide/minibolt/blob/main/broken-reference/README.md"><strong>₿itcoin</strong></a></td><td>Sync your own Bitcoin full node, Electrum server, Blockchain Explorer, and connect a desktop wallet to the Electrum server</td><td align="center"></td><td><a href="bitcoin/bitcoin/fulcrum.md">fulcrum.md</a></td><td><a href="bitcoin/bitcoin/btc-rpc-explorer.md">btc-rpc-explorer.md</a></td><td></td><td></td><td></td><td><a href="bitcoin/bitcoin/">bitcoin</a></td><td><a href=".gitbook/assets/core_logo.png">core_logo.png</a></td></tr><tr><td><strong>⚡</strong> <a href="https://github.com/minibolt-guide/minibolt/blob/main/broken-reference/README.md"><strong>Lightning</strong></a></td><td>Run your Lightning client with web-based node management, connect a mobile app, and save safely your SCB backup</td><td align="center"></td><td><a href="lightning/channel-backup.md">channel-backup.md</a></td><td><a href="lightning/lightning/thunderhub.md">thunderhub.md</a></td><td></td><td></td><td></td><td><a href="lightning/">lightning</a></td><td><a href=".gitbook/assets/lightning-network-daemon-logo.png">lightning-network-daemon-logo.png</a></td></tr><tr><td>➕ <a href="https://github.com/minibolt-guide/minibolt/blob/main/broken-reference/README.md"><strong>Bonus guide</strong></a></td><td>The bonus section contains more specific guides that build on top of the main section. More fun, lots of knowledge, but with lesser maintenance guarantees. Everything is optional.</td><td align="center"></td><td><a href="bonus/system/">system</a></td><td><a href="bonus/bitcoin/">bitcoin</a></td><td><a href="bonus-guides/nostr/">nostr</a></td><td><a href="bonus-guides/security/">security</a></td><td><a href="bonus-guides/networking/">networking</a></td><td><a href="https://github.com/minibolt-guide/minibolt/blob/main/broken-reference/README.md">https://github.com/minibolt-guide/minibolt/blob/main/broken-reference/README.md</a></td><td><a href=".gitbook/assets/bonus-logo.png">bonus-logo.png</a></td></tr></tbody></table>
 
 ## How to build
 
@@ -105,24 +105,11 @@ Feel free to join the many other contributors if you see something that can be i
 ## Free services
 
 {% tabs %}
-{% tab title="Nostr relay" %}
-{% hint style="info" %}
-Use [a Nostr client](bonus-guides/nostr/nostr-rs-relay.md#nostr-clients) to connect
+{% tab title="Electrum server" %}
+{% hint style="warning" %}
+Service temporarily unavailable due to [BIP110](https://bip110.org/)
 {% endhint %}
 
-* Nostr relay in Rust (🚾clearnet):
-
-<pre class="language-url"><code class="lang-url"><strong>wss://relay.minibolt.info
-</strong></code></pre>
-
-* Nostr relay in Rust (🧅onion):
-
-```url
-ws://xib7qeea6f5nz3ueko4kwcsddpvggdray4nhagcvofbioot3n2qrapid.onion
-```
-{% endtab %}
-
-{% tab title="Electrum server" %}
 {% hint style="info" %}
 Use a signing app ([Sparrow Wallet](bitcoin/bitcoin/sparrow.md) or [Electrum Wallet desktop](bonus/bitcoin/electrum-wallet-desktop.md)) to connect
 {% endhint %}
@@ -131,6 +118,10 @@ Use a signing app ([Sparrow Wallet](bitcoin/bitcoin/sparrow.md) or [Electrum Wal
 
 ```url
 tcp://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50001
+```
+
+```
+ssl://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50002
 ```
 
 * Fulcrum - testnet4 (🧅onion):
@@ -150,6 +141,23 @@ ssl://bnfpvanrc2g7r5o5kaabbbyjv6ddh46jmasfatrvbbsvjb7cdik5n7ad.onion:40002
 
 ```url
 http://rzcj4r2p6wterkto5prigsplq6iva5bqhcxr7y3d6w4hoc3uwizpp5qd.onion
+```
+{% endtab %}
+
+{% tab title="Nostr relay" %}
+{% hint style="info" %}
+Use [a Nostr client](bonus-guides/nostr/nostr-rs-relay.md#nostr-clients) to connect
+{% endhint %}
+
+* Nostr relay in Rust (🚾clearnet):
+
+<pre class="language-url"><code class="lang-url"><strong>wss://relay.minibolt.info
+</strong></code></pre>
+
+* Nostr relay in Rust (🧅onion):
+
+```url
+ws://xib7qeea6f5nz3ueko4kwcsddpvggdray4nhagcvofbioot3n2qrapid.onion
 ```
 {% endtab %}
 

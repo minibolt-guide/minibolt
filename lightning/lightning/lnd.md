@@ -62,7 +62,7 @@ zmqpubrawtx=tcp://127.0.0.1:28333
 sudo systemctl restart bitcoind
 ```
 
-* Check Bitcoin client is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port:
+* Check the Bitcoin client is enabled `zmqpubrawblock` and `zmqpubrawtx` on the `28332` and `28333` port:
 
 ```bash
 sudo ss -tulpn | grep bitcoind | grep 2833
@@ -77,7 +77,7 @@ tcp   LISTEN 0      100        127.0.0.1:<a data-footnote-ref href="#user-conten
 ### Install PostgreSQL
 
 {% hint style="warning" %}
-You may want to use the bbolt database backend instead of PostgreSQL (easier installation/configuration, lower performance, see more [here](https://github.com/minibolt-guide/minibolt/pull/93)). If yes, jump to the [next step](lnd.md#installation) and follow the [Use the default bbolt database backend](lnd.md#use-the-default-bbolt-database-backend) section, and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lnd.md#configuration)
+You may want to use the bbolt database backend instead of PostgreSQL (easier installation/configuration, lower performance; see more [here](https://github.com/minibolt-guide/minibolt/pull/93)). If yes, jump to the [next step](lnd.md#installation) and follow the [Use the default bbolt database backend](lnd.md#use-the-default-bbolt-database-backend) section, and remember to create the `lnd.conf` properly with this configuration when you arrive at the [configuration section](lnd.md#configuration)
 {% endhint %}
 
 * With user `admin`, check if you already have PostgreSQL installed
@@ -119,7 +119,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation
 
 ```sh
-VERSION=0.21.0
+VERSION=0.21.1
 ```
 
 * Download the application, checksums, and signature
@@ -429,8 +429,9 @@ tlsdisableautofill=true
 <a data-footnote-ref href="#user-content-fn-5">#minchansize=20000</a>
 
 ## (Optional) High fee environment settings
-<a data-footnote-ref href="#user-content-fn-8">#max-commit-fee-rate-anchors=</a><a data-footnote-ref href="#user-content-fn-8">10</a>
+<a data-footnote-ref href="#user-content-fn-8">#max-commit-fee-rate-anchors=100</a>
 <a data-footnote-ref href="#user-content-fn-9">#max-channel-fee-allocation=</a><a data-footnote-ref href="#user-content-fn-9">0.5</a>
+<a data-footnote-ref href="#user-content-fn-10">#coin-selection-strategy=largest</a>
 
 ## Communication
 accept-keysend=true
@@ -455,7 +456,7 @@ bitcoin.node=bitcoind
 
 # (Optional) Specify the CLTV delta we will subtract from a forwarded HTLC's timelock value
 # (default: 80)
-<a data-footnote-ref href="#user-content-fn-10">#bitcoin.timelockdelta=8</a><a data-footnote-ref href="#user-content-fn-11">0</a>
+<a data-footnote-ref href="#user-content-fn-11">#bitcoin.timelockdelta=8</a><a data-footnote-ref href="#user-content-fn-12">0</a>
 
 [protocol]
 protocol.wumbo-channels=true
@@ -493,7 +494,13 @@ db.postgres.timeout=0
 ## (Optional) High fee environment settings
 # (default: CONSERVATIVE) Uncomment the next 2 lines
 #[Bitcoind]
-<a data-footnote-ref href="#user-content-fn-12">#bitcoind.estimatemode=ECONOMICAL</a>
+<a data-footnote-ref href="#user-content-fn-13">#bitcoind.estimatemode=ECONOMICAL</a>
+
+## (Optional) High fee environment settings
+# Uncomment the next 2 lines
+#[sweeper]
+#<a data-footnote-ref href="#user-content-fn-14">sweeper.maxfeerate=1000</a>
+#<a data-footnote-ref href="#user-content-fn-15">sweeper.nodeadlineconftarget=1008</a>
 
 [tor]
 tor.active=true
@@ -689,7 +696,7 @@ or 'n' to create a new seed (Enter y/x/n):
 ```
 
 {% hint style="info" %}
--> Now, you could have 2 possible scenarios, follow the proper steps depending on your case⬇️
+-> Now, you could have 2 possible scenarios; follow the proper steps depending on your case⬇️
 {% endhint %}
 
 {% tabs %}
@@ -699,7 +706,7 @@ or 'n' to create a new seed (Enter y/x/n):
 * Press `n` and enter
 
 {% hint style="info" %}
-If you choose this option, the next step will be selecting the passphrase (**optional** - press enter to proceed without a cipher seed passphrase)
+If you choose this option, the next step will be selecting the passphrase (**optional** - press Enter to proceed without a cipher seed passphrase)
 {% endhint %}
 
 Expected output:
@@ -708,7 +715,7 @@ Expected output:
 </strong>Input your passphrase if you wish to encrypt it (or press enter to proceed without a cipher seed passphrase):
 </code></pre>
 
-* Type the passphrase and press enter \[the prompt will request you to enter your `password [C]` one more time (`Confirm password:`)] or if you choose not to use the passphrase press simply enter
+* Type the passphrase and press enter \[the prompt will request you to enter your `password [C]` one more time (`Confirm password:`)] or if you choose not to use the passphrase, simply press enter
 
 **Example** of expected output:
 
@@ -926,7 +933,7 @@ drwxrwxr-x  5 admin admin  4096 Jul 12 07:57 .cargo
 drwxrwxr-x  3 admin admin  4096 Jul 11 20:32 .config
 drwx------  3 admin admin  4096 Jul 15 20:54 .gnupg
 -rw-------  1 admin admin    20 Jul 11 22:09 .lesshst
-lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-13">.lnd -> /data/lnd</a>
+lrwxrwxrwx  1 admin admin     9 Jul 18 07:10 <a data-footnote-ref href="#user-content-fn-16">.lnd -> /data/lnd</a>
 drwxrwxr-x  3 admin admin  4096 Jul 12 09:15 .local
 drwxrwxr-x  3 admin admin  4096 Jul 16 09:23 .npm
 -rw-r--r--  1 admin admin   828 Jul 12 07:56 .profile
@@ -957,7 +964,7 @@ sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 lncli getinfo | grep -A2 '"uris":'
 ```
 
-Example of expected output:
+**Example** of expected output:
 
 ```
 "uris":  [
@@ -985,7 +992,7 @@ A watchtower can only send such a punishing transaction to your wallet, so you d
 
 * With user `admin`, add any Watchtower Server address that someone gives you
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli wtclient add <a data-footnote-ref href="#user-content-fn-14">pubkey</a>@<a data-footnote-ref href="#user-content-fn-14">address</a>:9911
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli wtclient add <a data-footnote-ref href="#user-content-fn-17">pubkey</a>@<a data-footnote-ref href="#user-content-fn-17">address</a>:9911
 </code></pre>
 
 * If you want to list your towers and active watchtowers
@@ -994,7 +1001,7 @@ A watchtower can only send such a punishing transaction to your wallet, so you d
 lncli wtclient towers
 ```
 
-Example of expected output:
+**Example** of expected output:
 
 ```
 {
@@ -1410,12 +1417,12 @@ lncli wallet accounts list | grep -B 3 "m/84"
 Example of expected output:
 
 <pre><code>            "address_type":  "TAPROOT_PUBKEY",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-15">xpub........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-18">xpub........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/86'/0'/0'",
 ------------------------
             "address_type":  "WITNESS_PUBKEY_HASH",
-            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-16">zpub.........</a>",
+            "extended_public_key":  "<a data-footnote-ref href="#user-content-fn-19">zpub.........</a>",
             "master_key_fingerprint":  "",
             "derivation_path":  "m/84'/0'/0'",
 </code></pre>
@@ -1571,7 +1578,7 @@ lncli --tlscertpath /data/lnd/tls.cert.tmp unlock
 
 Expected output:
 
-<pre><code>Input wallet password: &#x3C;<a data-footnote-ref href="#user-content-fn-17">[ C ] LND wallet password</a>>
+<pre><code>Input wallet password: &#x3C;<a data-footnote-ref href="#user-content-fn-20">[ C ] LND wallet password</a>>
 </code></pre>
 
 After unlock:
@@ -1668,7 +1675,7 @@ Replace:
 > `<peer_node_public_key>@host:port` with the desired peer node, ask to your peer about this information obtained with `lncli getinfo | grep -A2 '"uris":'` command
 {% endhint %}
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli openchannel --node_key <a data-footnote-ref href="#user-content-fn-14">&#x3C;peer_node_public_key></a> --local_amt <a data-footnote-ref href="#user-content-fn-14">&#x3C;amount_in_sats></a> --psbt
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">lncli openchannel --node_key <a data-footnote-ref href="#user-content-fn-17">&#x3C;peer_node_public_key></a> --local_amt <a data-footnote-ref href="#user-content-fn-17">&#x3C;amount_in_sats></a> --psbt
 </code></pre>
 
 {% hint style="info" %}
@@ -1681,19 +1688,19 @@ Replace:
 
 **Example** of expected output:
 
-<pre data-overflow="wrap"><code>Starting PSBT funding flow with pending channel ID <a data-footnote-ref href="#user-content-fn-18">693ddd43693ed8d620547ee77b729fcd68bb09853ff1bfec0e247514588c44aa</a>.
-PSBT funding initiated with peer <a data-footnote-ref href="#user-content-fn-18">039a53a85abd18ae5087e8fc99d2f2b09543bfd8e68072810f6900541e279c7615</a>.
-Please create a PSBT that sends <a data-footnote-ref href="#user-content-fn-18">0.01000000</a> BTC (<a data-footnote-ref href="#user-content-fn-18">1000000</a> satoshi) to the funding address <a data-footnote-ref href="#user-content-fn-18">tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4</a>.
+<pre data-overflow="wrap"><code>Starting PSBT funding flow with pending channel ID <a data-footnote-ref href="#user-content-fn-21">693ddd43693ed8d620547ee77b729fcd68bb09853ff1bfec0e247514588c44aa</a>.
+PSBT funding initiated with peer <a data-footnote-ref href="#user-content-fn-21">039a53a85abd18ae5087e8fc99d2f2b09543bfd8e68072810f6900541e279c7615</a>.
+Please create a PSBT that sends <a data-footnote-ref href="#user-content-fn-21">0.01000000</a> BTC (<a data-footnote-ref href="#user-content-fn-21">1000000</a> satoshi) to the funding address <a data-footnote-ref href="#user-content-fn-21">tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4</a>.
 
 Note: The whole process should be completed within 10 minutes, otherwise there
 is a risk of the remote node timing out and canceling the funding process.
 
 Example with bitcoind:
-        bitcoin-cli walletcreatefundedpsbt [] '[{"<a data-footnote-ref href="#user-content-fn-18">tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4</a>":<a data-footnote-ref href="#user-content-fn-18">0.01000000</a>}]'
+        bitcoin-cli walletcreatefundedpsbt [] '[{"<a data-footnote-ref href="#user-content-fn-21">tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4</a>":<a data-footnote-ref href="#user-content-fn-21">0.01000000</a>}]'
 
 If you are using a wallet that can fund a PSBT directly (currently not possible
 with bitcoind), you can use this PSBT that contains the same address and amount:
-<a data-footnote-ref href="#user-content-fn-18">cHNidP8BADUCAAAAAAFAQg8AAAAAACIAIOmDaGIYDmMwTlZn2R3BzlXgra0/Q3Np934uUtM2RzjEAAAAAAAA</a>
+<a data-footnote-ref href="#user-content-fn-21">cHNidP8BADUCAAAAAAFAQg8AAAAAACIAIOmDaGIYDmMwTlZn2R3BzlXgra0/Q3Np934uUtM2RzjEAAAAAAAA</a>
 
 !!! WARNING !!!
 DO NOT PUBLISH the finished transaction by yourself or with another tool.
@@ -1718,9 +1725,9 @@ Keep the terminal open and go to [Sparrow wallet](../../bitcoin/bitcoin/sparrow.
 
 > * Create TX (Push the **\[Send]** button) with the next information:
 >
-> > `<address>`: provided by LND (in the previous **example** expected output: tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4[^18])
+> > `<address>`: provided by LND (in the previous **example** expected output: tb1qaxpkscscpe3nqnjkvlv3msww2hs2mtflgdeknam79efdxdj88rzq50wes4[^21])
 >
-> > `<amount>`: \<exact\_amount\_in\_sats> (in the previous example expected output: 1000000[^18])
+> > `<amount>`: \<exact\_amount\_in\_sats> (in the previous example expected output: 1000000[^21])
 >
 > > `<fee>`: free selection (minimun reccomended: 1 sat/vB)
 
@@ -1743,7 +1750,7 @@ Paste the funded PSBT here to continue the funding flow.
 If your PSBT is very long (specifically, more than 4096 characters), please save
 it to a file and paste the full file path here instead as some terminals will
 truncate the pasted text if it's too long.
-Base64 encoded PSBT (or path to file):<a data-footnote-ref href="#user-content-fn-18">cHNidP8BAH0CAAAAAWWHmb3fTdrJxma/TCGvtbvApOVoi6G95w4UaHRGfDMhAAAAAAD9////AlLkZwUAAAAAFgAUX9ew44+OB8+kwpgG6iF70MmfcLhAQg8AAAAAACIAIOmDaGIYDmMwTlZn2R3BzlXgra0/Q3Np934uUtM2RzjEj+kBAE8BBDWHzwNnHxQdgAAAAJQLvJjmRynKxf0gEGTPjTNFfZihcWaKxdg80bFuZwx9A4ic/HW3i2wsi7DzQpgp3XU35GRAZE7/6xtlSU2q40k9EDJZn0RUAACAAQAAgAAAAIAAAQB9AgAAAAEuAdCdlVbd1FfBgq2pPg9M66oDLOhlqx7q4j/fmcpHgQAAAAAA/f///wIqJ3cFAAAAABYAFMa73Oh+0Y0qatXicTjbtvwoTfsSQEIPAAAAAAAiUSCpAIClp6Lhu5buI2JpHZh4EPu4FsNf0wGveMloyahvq7foAQABAR8qJ3cFAAAAABYAFMa73Oh+0Y0qatXicTjbtvwoTfsSAQMEAQAAACIGAmcWxbzjatOXumEFVjOtKLrmnBDxGLlTfWngNx5qOdRMGDJZn0RUAACAAQAAgAAAAIABAAAAEAAAAAAiAgM8w/U1eexTj+OBYiFuSuTNcIAdRgzC7GxJ/2YejuPWehgyWZ9EVAAAgAEAAIAAAACAAQAAABEAAAAAAA==</a>
+Base64 encoded PSBT (or path to file):<a data-footnote-ref href="#user-content-fn-21">cHNidP8BAH0CAAAAAWWHmb3fTdrJxma/TCGvtbvApOVoi6G95w4UaHRGfDMhAAAAAAD9////AlLkZwUAAAAAFgAUX9ew44+OB8+kwpgG6iF70MmfcLhAQg8AAAAAACIAIOmDaGIYDmMwTlZn2R3BzlXgra0/Q3Np934uUtM2RzjEj+kBAE8BBDWHzwNnHxQdgAAAAJQLvJjmRynKxf0gEGTPjTNFfZihcWaKxdg80bFuZwx9A4ic/HW3i2wsi7DzQpgp3XU35GRAZE7/6xtlSU2q40k9EDJZn0RUAACAAQAAgAAAAIAAAQB9AgAAAAEuAdCdlVbd1FfBgq2pPg9M66oDLOhlqx7q4j/fmcpHgQAAAAAA/f///wIqJ3cFAAAAABYAFMa73Oh+0Y0qatXicTjbtvwoTfsSQEIPAAAAAAAiUSCpAIClp6Lhu5buI2JpHZh4EPu4FsNf0wGveMloyahvq7foAQABAR8qJ3cFAAAAABYAFMa73Oh+0Y0qatXicTjbtvwoTfsSAQMEAQAAACIGAmcWxbzjatOXumEFVjOtKLrmnBDxGLlTfWngNx5qOdRMGDJZn0RUAACAAQAAgAAAAIABAAAAEAAAAAAiAgM8w/U1eexTj+OBYiFuSuTNcIAdRgzC7GxJ/2YejuPWehgyWZ9EVAAAgAEAAIAAAACAAQAAABEAAAAAAA==</a>
 </code></pre>
 
 Expected output:
@@ -1802,7 +1809,7 @@ DO NOT PUSH THE **\[BROADCAST TRANSACTION]** BUTTON!!
 all required parties/devices. Once the transaction is fully signed, paste it
 again here either in base64 PSBT or hex encoded raw wire TX format.
 
-Signed base64 encoded PSBT or hex encoded raw wire TX (or path to file):<a data-footnote-ref href="#user-content-fn-18">02000000000101658799bddf4ddac9c666bf4c21afb5bbc0a4e5688ba1bde70e146874467c33210000000000fdffffff0252e46705000000001600145fd7b0e38f8e07cfa4c29806ea217bd0c99f70b840420f0000000000220020e9836862180e63304e5667d91dc1ce55e0adad3f437369f77e2e52d3364738c40247304402207fe76b5b1632d75c5ed2376857efaef0bed28caf2345e5bb9c9adff83da34dc802207b91f19360e2f5eef1f598d5a8d1f52612606d49226ea89558d25da30da51e760121026716c5bce36ad397ba61055633ad28bae69c10f118b9537d69e0371e6a39d44c8fe90100</a>
+Signed base64 encoded PSBT or hex encoded raw wire TX (or path to file):<a data-footnote-ref href="#user-content-fn-21">02000000000101658799bddf4ddac9c666bf4c21afb5bbc0a4e5688ba1bde70e146874467c33210000000000fdffffff0252e46705000000001600145fd7b0e38f8e07cfa4c29806ea217bd0c99f70b840420f0000000000220020e9836862180e63304e5667d91dc1ce55e0adad3f437369f77e2e52d3364738c40247304402207fe76b5b1632d75c5ed2376857efaef0bed28caf2345e5bb9c9adff83da34dc802207b91f19360e2f5eef1f598d5a8d1f52612606d49226ea89558d25da30da51e760121026716c5bce36ad397ba61055633ad28bae69c10f118b9537d69e0371e6a39d44c8fe90100</a>
 </code></pre>
 
 **Example** of expected output:
@@ -2188,20 +2195,26 @@ sudo rm /usr/local/bin/lnd && sudo rm /usr/local/bin/lncli
 
 [^9]: The maximum percentage of total funds that can be allocated to a channel's commitment fee. This only applies for the initiator of the channel. Valid values are within \[0.1, 1]. **Uncomment and adjust to your criteria** (default 0.5)
 
-[^10]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
+[^10]: The strategy to use for selecting coins for wallet transactions. When performing in a high fee environment, these settings may help reduce the overall burden. Instead of selecting UTXOs at random, you may instruct LND to choose the largest UTXOs instead, reducing the potential number of signatures required. This may require a manual consolidation of UTXOs when fees have subsided. Options are    &#x20;'largest' and 'random'. (default: random)
 
-[^11]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved onchain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
+[^11]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved on chain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^12]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value** (default: CONSERVATIVE)
+[^12]: Set this to 144, allows you up to 24h to resolve issues related to your node before HTLCs are resolved onchain. Allowing for fewer HTLCs per channel can mitigate the potential fallout of a force closure, but can also cause the channel to be unusable when all HTLC slots are used up. **Adjust to your convenience** (default 80)
 
-[^13]: Symbolic link
+[^13]: Setting the fee estimate mode to ECONOMICAL and increasing the target confirmations for onchain transactions can also help save on fees, but with the risk that some transactions may not confirm in time, requiring more manual monitoring and eventual intervention. **Uncomment and customize the value** (default: CONSERVATIVE)
 
-[^14]: Replace
+[^14]: The max fee rate in sat/vb which can be used when sweeping funds. Setting    &#x20;this value too low can result in transactions not being confirmed in time,    &#x20;causing HTLCs to expire hence potentially losing funds. **Uncomment and adjust to your criteria** (default: 1000)
 
-[^15]: Your Taproot master public key
+[^15]: The conf target to use when sweeping non-time-sensitive outputs. This is    &#x20;useful for sweeping outputs that are not time-sensitive, and can be swept at    &#x20;a lower fee rate. **Uncomment and adjust to your criteria** (default: 1008)
 
-[^16]: Your SegWit master public key
+[^16]: Symbolic link
 
-[^17]: Type your \[ C ] LND wallet password
+[^17]: Replace
 
-[^18]: Example
+[^18]: Your Taproot master public key
+
+[^19]: Your SegWit master public key
+
+[^20]: Type your \[ C ] LND wallet password
+
+[^21]: Example

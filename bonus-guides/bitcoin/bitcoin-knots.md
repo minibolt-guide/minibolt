@@ -225,7 +225,7 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS 
 {% endcode %}
 
 {% hint style="info" %}
-Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
+Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
 
 More info: [bip110.org](https://bip110.org/)
 {% endhint %}
@@ -259,7 +259,7 @@ VERSION=29.3.knots20260508 && BRANCH=29.x
 ```
 
 {% hint style="info" %}
-If you are not ready to adopt the RDTS upgrade yet, you can alternatively download this same version of Bitcoin Knots without RDTS support (NOT RECOMMENDED), by setting these environment variables instead:
+If you are not ready to adopt the RDTS upgrade yet, you can alternatively download this same version of Bitcoin Knots without RDTS support (NOT RECOMMENDED) by setting these environment variables instead:
 
 ```bash
 VERSION=29.3.knots20260507 && BRANCH=29.x
@@ -434,7 +434,7 @@ Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that imple
 
 More info: [bip110.org](https://bip110.org/)
 
--> **(Recommended)** Change `-DRDTS_CONSENT=RUNTIME_WARN` to `-DRDTS_CONSENT=IMPLICIT` to assume consent at build time, enabling RDTS without runtime prompts or checks, and avoiding following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section. The associated log with this action at the start of Bitcoin Knots is the next:
+-> **(Recommended)** Change `-DRDTS_CONSENT=RUNTIME_WARN` to `-DRDTS_CONSENT=IMPLICIT` to assume consent at build time, enabling RDTS without runtime prompts or checks, and avoiding following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section. The associated log with this action at the start of Bitcoin Knots is the following:
 
 <pre><code><strong>[...]
 </strong><strong>bitcoind[1018092]: 2026-06-27T17:22:29Z User already consented to 'rdts' consensus rules (at installation)
@@ -606,10 +606,6 @@ Copyright (C) 2009-2025 The Bitcoin Core developers
 [...]
 ```
 
-{% hint style="info" %}
-Now you can continue with the installation process of the [Bitcoin Client: Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md), by following the "[Create the bitcoin user](../../bitcoin/bitcoin/bitcoin-core.md#create-the-bitcoin-user)" section from now on, or if you already have it installed, only continue with the next steps.
-{% endhint %}
-
 * Return to the `tmp` folder:
 
 ```bash
@@ -639,10 +635,511 @@ journalctl -fu bitcoind
 ```
 
 {% hint style="info" %}
-Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
+Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
 
 More info: [bip110.org](https://bip110.org/)
 {% endhint %}
+
+### Create the bitcoin user & group
+
+The Bitcoin Knots application will run in the background as a daemon and use the separate user “bitcoin” for security reasons. This user does not have admin rights and cannot change the system configuration.
+
+* Create the `bitcoin` user and group:
+
+```bash
+sudo adduser --gecos "" --disabled-password bitcoin
+```
+
+* Add the user `admin` to the group "bitcoin":
+
+```bash
+sudo adduser admin bitcoin
+```
+
+* Allow the user `bitcoin` to use the control port and configure Tor directly by adding it to the `debian-tor` group:
+
+```bash
+sudo adduser bitcoin debian-tor
+```
+
+### Create data folder
+
+Bitcoin Knots uses, by default, the folder `.bitcoin` in the user's home. Instead of creating this directory, we create a data directory in the general data location `/data` and link to it.
+
+* Create the Bitcoin data folder:
+
+```sh
+mkdir /data/bitcoin
+```
+
+* Assign the owner to the `bitcoin` user:
+
+```sh
+sudo chown bitcoin:bitcoin /data/bitcoin
+```
+
+* Switch to the user `bitcoin:`
+
+```sh
+sudo su - bitcoin
+```
+
+* Create the symbolic link `.bitcoin` that points to that directory:
+
+```sh
+ln -s /data/bitcoin /home/bitcoin/.bitcoin
+```
+
+* Check that the symbolic link has been created correctly:
+
+```bash
+ls -la .bitcoin
+```
+
+Expected output:
+
+<pre><code>lrwxrwxrwx 1 bitcoin bitcoin   13 Nov  7 19:32 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
+</code></pre>
+
+### Generate access credentials
+
+For other programs to query Bitcoin Knots, they need the proper access credentials. To avoid storing the username and password in a configuration file in plaintext, the password is hashed. This allows Bitcoin Knots to accept a password, hash it, and compare it to the stored hash, while it is not possible to retrieve the original password.
+
+Another option to get access credentials is through the `.cookie` file in the Bitcoin data directory. This is created automatically and can be read by all users who are members of the "bitcoin" group.
+
+Bitcoin Knots provides a simple Python program to generate the configuration line for the config file.
+
+* Enter the bitcoin folder:
+
+```sh
+cd .bitcoin
+```
+
+* Download the RPCAuth program:
+
+{% code overflow="wrap" %}
+```sh
+wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpcauth.py
+```
+{% endcode %}
+
+* Run the script with the Python3 interpreter, providing the username (`minibolt`) and your `"password [B]"` arguments:
+
+{% hint style="warning" %}
+All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space `( )` in front of the command shown below.
+{% endhint %}
+
+<pre class="language-sh"><code class="lang-sh"> python3 rpcauth.py minibolt <a data-footnote-ref href="#user-content-fn-3">YourPasswordB</a>
+</code></pre>
+
+**Example** of expected output:
+
+<pre><code>String to be appended to bitcoin.conf:
+<a data-footnote-ref href="#user-content-fn-4">rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa</a>
+</code></pre>
+
+* Copy the `rpcauth` line; we'll need to paste it into the Bitcoin Knots config file in the next step.
+
+## Configuration
+
+Now, the configuration file `bitcoind` needs to be created. We'll also set the proper access permissions.
+
+* Still as the user `"bitcoin"` creates the `bitcoin.conf` file:
+
+```bash
+nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+* Enter the complete configuration below. Save and exit.
+
+{% hint style="danger" %}
+**Important!!** Remember to replace the whole line starting with `"rpcauth"` the connection string you just generated
+{% endhint %}
+
+{% hint style="warning" %}
+Remember to accommodate the "`dbcache`" parameter depending on your hardware. Recommended: dbcache=1/2 x total RAM available, e.g: 4GB RAM -> dbcache=2048.
+{% endhint %}
+
+{% hint style="info" %}
+**(Optional):**
+
+**-> If you want** to reject other possible data included in transactions apart from **the previous Ordisrespector patch**, follow [the dedicated extra section](bitcoin-knots.md#reject-other-possible-data-included-in-transactions), and continue with the next step.
+
+-> Modify the `"uacomment"` value to your preference if you want.
+
+-> If you have another **full-synced MiniBolt node on the same local network**, you can **accelerate the IBD** by following [the dedicated extra section](bitcoin-knots.md#accelerate-the-ibd).
+{% endhint %}
+
+<pre><code># MiniBolt: bitcoind configuration
+# /data/bitcoin/bitcoin.conf
+
+# Bitcoin daemon
+server=1
+txindex=1
+
+# Set OP_RETURN limit to value before v30.0
+datacarriersize=83
+
+# Disable cjdns network
+onlynet=onion
+onlynet=i2p
+onlynet=ipv4
+onlynet=ipv6
+
+# Append comment to the user agent string
+uacomment=<a data-footnote-ref href="#user-content-fn-5">MiniBolt node</a>
+
+# Disable integrated wallet
+disablewallet=1
+
+# Additional logs
+debug=tor
+debug=i2p
+## Include peers IP addresses in log output (optional)
+<a data-footnote-ref href="#user-content-fn-6">logips=1</a>
+
+# Assign read permission to the Bitcoin group users to the cookie file
+rpccookieperms=group
+
+# Disable debug.log
+nodebuglogfile=1
+
+# Avoid assuming that a block and its ancestors are valid,
+# and potentially skipping their script verification.
+# We will set it to 0 to verify all.
+assumevalid=0
+
+# Enable all compact filters
+blockfilterindex=1
+
+# Serve compact block filters to peers per BIP 157
+peerblockfilters=1
+
+# Maintain the coinstats index used by the gettxoutsetinfo RPC
+coinstatsindex=1
+
+# Network
+listen=1
+
+## P2P bind
+bind=127.0.0.1
+bind=127.0.0.1=onion
+
+## Proxify clearnet outbound connections using Tor SOCKS5 proxy
+proxy=127.0.0.1:9050
+
+## I2P SAM proxy to reach I2P peers and accept I2P connections
+i2psam=127.0.0.1:7656
+
+# Connections
+<a data-footnote-ref href="#user-content-fn-7">rpcauth=&#x3C;replace with your own auth line generated in the previous step></a>
+
+# Initial block download optimizations
+dbcache=<a data-footnote-ref href="#user-content-fn-8">2048</a>
+blocksonly=1
+</code></pre>
+
+{% hint style="info" %}
+This is a standard configuration. Check this [Bitcoin Knots sample bitcoind.conf](https://github.com/bitcoinknots/bitcoin/blob/29.x-knots/share/examples/bitcoin.conf) file with all possible options, or generate one yourself, following the proper [extra section](bitcoin-knots.md#generate-a-full-bitcoin.conf-example-file).
+{% endhint %}
+
+* Set permissions so only the user `bitcoin` and members of the `bitcoin` group can read it (needed for LND to read the "`rpcauth`" line):
+
+```sh
+chmod 640 /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+* Exit the `bitcoin` user session and return to the user `admin`:
+
+{% code fullWidth="false" %}
+```sh
+exit
+```
+{% endcode %}
+
+### Create systemd service
+
+The system needs to run the bitcoin daemon automatically in the background. We use `systemd`, a daemon that controls the startup process using configuration files.
+
+* Create the systemd configuration:
+
+```bash
+sudo nano /etc/systemd/system/bitcoind.service
+```
+
+* Enter the complete configuration below. Save and exit.
+
+```
+# MiniBolt: systemd unit for bitcoind
+# /etc/systemd/system/bitcoind.service
+
+[Unit]
+Description=Bitcoin Knots Daemon
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/bitcoind -pid=/run/bitcoind/bitcoind.pid \
+                                  -conf=/home/bitcoin/.bitcoin/bitcoin.conf \
+                                  -datadir=/home/bitcoin/.bitcoin \
+                                  -startupnotify='systemd-notify --ready' \
+                                  -shutdownnotify='systemd-notify --status="Stopping"'
+# Process management
+####################
+Type=notify
+NotifyAccess=all
+PIDFile=/run/bitcoind/bitcoind.pid
+
+Restart=on-failure
+TimeoutStartSec=infinity
+TimeoutStopSec=600
+
+# Directory creation and permissions
+####################################
+User=bitcoin
+Group=bitcoin
+RuntimeDirectory=bitcoind
+RuntimeDirectoryMode=0710
+UMask=0027
+
+# Hardening measures
+####################
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
+```
+
+* Enable autoboot **(optional):**
+
+```sh
+sudo systemctl enable bitcoind
+```
+
+* Prepare `bitcoind` monitoring by the systemd journal and check the logging output. You can exit monitoring at any time with `Ctrl-C`.
+
+```sh
+journalctl -fu bitcoind
+```
+
+{% hint style="info" %}
+Keep **this terminal open;** you'll need to come back here on the next step to monitor the logs.
+{% endhint %}
+
+## Run
+
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+
+* Start the service:
+
+```sh
+sudo systemctl start bitcoind
+```
+
+<details>
+
+<summary><strong>Example</strong> of expected output on the first terminal with <code>journalctl -fu bitcoind</code> ⬇️</summary>
+
+<pre><code>2022-11-24T18:08:04Z Bitcoin Knots version v29.3.knots20260508 (release build)
+2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -upnp=0
+2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -natpmp=0
+2022-11-24T18:08:04Z InitParameterInteraction: parameter interaction: -proxy set -> setting -discover=0
+2022-11-24T18:08:04Z Using the 'sse4(1way),sse41(4way),avx2(8way)' SHA256 implementation
+2022-11-24T18:08:04Z Using RdRand as an additional entropy source
+2022-11-24T18:08:04Z Default data directory /home/bitcoin/.bitcoin
+2022-11-24T18:08:04Z Using data directory /home/bitcoin/.bitcoin
+2022-11-24T18:08:04Z Config file: /home/bitcoin/.bitcoin/bitcoin.conf
+<strong>2022-11-24T18:08:04Z Config file arg: blockfilterindex="1"
+</strong>2022-11-24T18:08:04Z Config file arg: coinstatsindex="1"
+2022-11-24T18:08:04Z Config file arg: i2pacceptincoming="1"
+2022-11-24T18:08:04Z Config file arg: i2psam="127.0.0.1:7656"
+2022-11-24T18:08:04Z Config file arg: listen="1"
+2022-11-24T18:08:04Z Config file arg: listenonion="1"
+2022-11-24T18:08:04Z Config file arg: peerblockfilters="1"
+2022-11-24T18:08:04Z Config file arg: peerbloomfilters="1"
+2022-11-24T18:08:04Z Config file arg: proxy="127.0.0.1:9050"
+2022-11-24T18:08:04Z Config file arg: rpcauth=****
+2022-11-24T18:08:04Z Config file arg: server="1"
+2022-11-24T18:08:04Z Config file arg: txindex="1"
+[...]
+2022-11-24T18:09:04Z Synchronizing blockheaders, height: 4000 (~0.56%)
+[...]
+</code></pre>
+
+</details>
+
+{% hint style="info" %}
+Monitor the log file for a few minutes to see if it works. Logs like the next indicate that the initial start-up process has been successful:
+
+```
+New block-relay-only v1 peer connected: version: 70016, blocks=2948133, peer=68
+[..]
+Synchronizing blockheaders, height: 4000 (~0.56%)
+[..]
+UpdateTip: new best=000000000f8d29fcf9ac45e443706c6f21a6e9cfa615f94794b726d3ba8bdc88 height=2948135 version=0x20000000 log2_work=75.951200 tx=215155316 date='2024-09-18T16:25:12Z' progress=1.000000 cache=20.9MiB(142005txo)
+[..]
+```
+{% endhint %}
+
+* Link the Bitcoin data directory from the `admin` user's home directory as well. This allows `admin` user to work with bitcoind directly, for example, by using the command `bitcoin-cli`:
+
+```sh
+ln -s /data/bitcoin /home/admin/.bitcoin
+```
+
+* This symbolic link becomes active **only in a new user session**. Log out of SSH by entering the next command:
+
+```sh
+exit
+```
+
+* Log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell).
+* Check that the symbolic link has been created correctly:
+
+```bash
+ls -la .bitcoin
+```
+
+Expected output:
+
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-9">.bitcoin -> /data/bitcoin</a>
+</code></pre>
+
+{% hint style="warning" %}
+**Troubleshooting note:**\
+\
+If you don't obtain the expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-9)[^9]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+
+1. With user `admin`, delete the failed created symbolic link:
+
+```bash
+sudo rm -r .bitcoin
+```
+
+2. Create the symbolic link again:
+
+```bash
+ln -s /data/bitcoin /home/admin/.bitcoin
+```
+
+3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-9)[^9]. If yes, continue with the guide; if not, try again:
+
+```bash
+ls -la .bitcoin
+```
+
+Expected output:
+
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-1">.bitcoin -> /data/bitcoin</a>
+</code></pre>
+{% endhint %}
+
+* Wait a few minutes until Bitcoin Knots starts, and enter the next command to obtain your Tor and I2P addresses. **Take note of them**; later you might need them:
+
+{% code overflow="wrap" %}
+```sh
+bitcoin-cli getnetworkinfo | grep address.*onion && bitcoin-cli getnetworkinfo | grep address.*i2p
+```
+{% endcode %}
+
+**Example** of expected output:
+
+```
+"address": "vctk9tie5srguvz262xpyukkd7g4z2xxxy5xx5ccyg4f12fzop8hoiad.onion",
+"address": "sesehks6xyh31nyjldpyeckk3ttpanivqhrzhsoracwqjxtk3apgq.b32.i2p",
+```
+
+### Validation
+
+* Check the correct enablement of the I2P and Tor networks:
+
+```sh
+bitcoin-cli -netinfo
+```
+
+**Example** of expected output:
+
+```
+Bitcoin Knots client v29.3.knots20260508 - server 70016/Satoshi:24.0.1/
+          ipv4    ipv6   onion   i2p   total   block
+in          0       0      25     2      27
+out         7       0       2     1      10       2
+total       7       0      27     3      37
+
+Local addresses
+xdtk6tie4srguvz566xpyukkd7m3z3vbby5xx5ccyg5f64fzop7hoiab.onion     port   8333    score      4
+etehks3xyh55nyjldjdeckk3nwpanivqhrzhsoracwqjxtk8apgk.b32.i2p       port      0    score      4
+```
+
+* Ensure bitcoind is listening on the default RPC & P2P ports:
+
+```bash
+sudo ss -tulpn | grep bitcoind
+```
+
+Expected output:
+
+<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-10">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-11">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-12">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
+</code></pre>
+
+* Please note:
+  * When “bitcoind” is still starting, you may get an error message like “verifying blocks”. That’s normal; just give it a few minutes.
+  * Among other info, the “verificationprogress” is shown. Once this value reaches almost 1 or near (0.999…), the blockchain is up-to-date and fully validated.
+
+## Bitcoin Knots is syncing
+
+{% hint style="info" %}
+This process is called IBD (Initial Block Download). This can take between one day and a week, depending mostly on your PC performance. It's best to wait until the synchronization is complete before going ahead.
+{% endhint %}
+
+### Explore bitcoin-cli
+
+If everything is running smoothly, this is the perfect time to familiarize yourself with Bitcoin, the technical aspects of Bitcoin Knots, and play around with `bitcoin-cli` it until the blockchain is up-to-date.
+
+* [The Little Bitcoin Book](https://littlebitcoinbook.com) is a fantastic introduction to Bitcoin, focusing on the "why" and less on the "how."
+*   [Mastering Bitcoin](https://bitcoinbook.info) by Andreas Antonopoulos is a great point to start, especially chapter 3 (ignore the first part, how to compile from source code):
+
+    * You definitely need to have a [real copy](https://bitcoinbook.info/) of this book!
+    * Read it online on [GitHub](https://github.com/bitcoinbook/bitcoinbook).
+
+    <figure><img src="../../.gitbook/assets/30_mastering_bitcoin_book.jpg" alt=""><figcaption></figcaption></figure>
+* [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/README.md) by Christopher Allen gives a thorough deep dive into understanding the technical aspects of Bitcoin.
+* Also, check out the [bitcoin-cli reference](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list).
+
+## Activate mempool & reduce 'dbcache' after a full sync
+
+Once Bitcoin Knots **is fully synced**, we can reduce the size of the database cache. A bigger cache speeds up the initial block download now. We want to reduce memory consumption to allow the Lightning client and Electrum server to run in parallel. We also now want to enable the node to listen to and relay transactions.
+
+{% hint style="info" %}
+Bitcoin Knots will then just use the default cache size of 450 MiB instead of your RAM setup. If `blocksonly=1` is left uncommented, it will prevent Electrum Server from receiving RPC fee data and will not work.
+{% endhint %}
+
+* As user `admin`, edit the `bitcoin.conf` file:
+
+```sh
+sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
+```
+
+* Comment or delete the following lines by adding a `#` at the beginning. Save and exit.
+
+```
+#dbcache=2048
+#blocksonly=1
+```
+
+* Restart Bitcoin Knots for the settings to take effect:
+
+```sh
+sudo systemctl restart bitcoind
+```
 
 ## Extras (optional)
 
@@ -732,16 +1229,16 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
-<a data-footnote-ref href="#user-content-fn-3">maxconnections</a>=40
+<a data-footnote-ref href="#user-content-fn-13">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-<a data-footnote-ref href="#user-content-fn-4">maxuploadtarget</a>=5000
+<a data-footnote-ref href="#user-content-fn-14">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
 rpcworkqueue=256
 </code></pre>
 
-* Comment on these lines:
+* Comment out these lines:
 
 ```
 #coinstatsindex=1
@@ -964,7 +1461,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 Or **add** under `bind=127.0.0.1` the next line allows **connections only from devices in the same local network** (**recommended option** to improve security):
 
-<pre><code>bind=<a data-footnote-ref href="#user-content-fn-5">192.168.x.x</a>
+<pre><code>bind=<a data-footnote-ref href="#user-content-fn-15">192.168.x.x</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -987,7 +1484,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit.
 
-<pre><code> connect=<a data-footnote-ref href="#user-content-fn-6">&#x3C;localip></a>:8333
+<pre><code> connect=<a data-footnote-ref href="#user-content-fn-16">&#x3C;localip></a>:8333
 </code></pre>
 
 {% hint style="info" %}
@@ -1041,8 +1538,8 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Knots on MiniBolt. Save and exit.
 
-<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-7">abcdefg..............xyz.onion</a>>:8333
-addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-7">abcdefg..............xyz.b32</a>>.i2p:0
+<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.onion</a>>:8333
+addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.b32</a>>.i2p:0
 </code></pre>
 
 {% hint style="info" %}
@@ -1212,9 +1709,11 @@ bitcoin-cli --version
 The following output is just an **example** of one of the versions:
 
 ```
-Bitcoin Knots daemon version v28.1.knots20250305
-Copyright (C) 2009-2025 The Bitcoin Knots developers
-Copyright (C) 2009-2025 The Bitcoin Core developers
+Bitcoin Knots RPC client version v29.3.knots20260508
+Copyright (C) 2009-2026 The Bitcoin Knots developers
+Copyright (C) 2009-2026 The Bitcoin Core developers
+
+Please contribute if you find Bitcoin Knots useful. Visit
 [...]
 ```
 
@@ -1408,7 +1907,7 @@ More info: [bip110.org](https://bip110.org/)
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
   -DWITH_ZMQ=ON \
-  -DRDTS_CONSENT=<a data-footnote-ref href="#user-content-fn-8">RUNTIME_WARN</a> \
+  -DRDTS_CONSENT=<a data-footnote-ref href="#user-content-fn-18">RUNTIME_WARN</a> \
   -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
 </code></pre>
 
@@ -1552,26 +2051,130 @@ journalctl -fu bitcoind
 Warning: This section removes the installation. Run these commands only if you intend to uninstall.
 {% endhint %}
 
+### Uninstall service
+
+* Ensure you are logged in as the user `admin`, stop bitcoind:
+
+```bash
+sudo systemctl stop bitcoind
+```
+
+* Disable autoboot (if enabled):
+
+```bash
+sudo systemctl disable bitcoind
+```
+
+* Delete the service:
+
+```bash
+sudo rm /etc/systemd/system/bitcoind.service
+```
+
+### Delete user & group
+
+* Delete bitcoin user's group:
+
+{% code overflow="wrap" %}
+```bash
+sudo gpasswd -d admin bitcoin; sudo gpasswd -d fulcrum bitcoin; sudo gpasswd -d lnd bitcoin; sudo gpasswd -d btcrpcexplorer bitcoin; sudo gpasswd -d btcpay bitcoin
+```
+{% endcode %}
+
+* Delete the `bitcoin` user. Don't worry about `userdel: bitcoin mail spool (/var/mail/bitcoin) not found` output; the uninstall has been successful:
+
+```bash
+sudo userdel -rf bitcoin
+```
+
+* Delete the bitcoin group:
+
+```bash
+sudo groupdel bitcoin
+```
+
+### Delete data directory
+
+* Delete the complete `bitcoin` directory:
+
+```bash
+sudo rm -rf /data/bitcoin/
+```
+
+### Uninstall binaries
+
+* Delete the installed binaries:
+
+```bash
+sudo rm /usr/local/bin/bitcoin-cli && sudo rm /usr/local/bin/bitcoind
+```
+
+### Uninstall FW configuration
+
+If you followed the [Accelerate the IBD](bitcoin-knots.md#accelerate-the-ibd) section or the [Bisq bonus guide](../../bonus/bitcoin/bisq.md), you needed to add an allow rule on UFW to allow the incoming connection to the `8333` port (P2P).
+
+* Ensure you are logged in as the user `admin`, display the UFW firewall rules, and note the numbers of the rules for Bitcoin Core (e.g. "Y" below):
+
+```bash
+sudo ufw status numbered
+```
+
+Expected output:
+
+```
+[Y] 8333       ALLOW IN    Anywhere            # allow Bitcoin Knots P2P from anywhere
+```
+
 {% hint style="info" %}
-To uninstall Bitcoin Knots, follow the entire [Bitcoin Client: Bitcoin Core uninstall section](../../bitcoin/bitcoin/bitcoin-core.md#uninstall).
+If you don't have any rule matched with this, you don't have to do anything; you are OK.
 {% endhint %}
+
+* Delete the rule with the correct number and confirm by typing "`yes`" and enter:
+
+```bash
+sudo ufw delete X
+```
 
 ## Port reference
 
-Same as the [Bitcoin Client: Bitcoin Core section](../../bitcoin/bitcoin/bitcoin-core.md#port-reference).
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="ukHb12cRZxp1" label="TCP" color="blue"></option><option value="Xd1yhX3dgwCx" label="SSL" color="blue"></option><option value="DxH2k0YKIhG7" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">8332</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default Bitcoin Knots RPC port</td></tr><tr><td align="center">8333</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default Bitcoin Knots P2P port</td></tr><tr><td align="center">8334</td><td><span data-option="ukHb12cRZxp1">TCP</span></td><td align="center">Default Bitcoin Knots P2P Tor port</td></tr></tbody></table>
 
 [^1]: Check this
 
 [^2]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks. Remember to remove this line completely so as not to adopt the RDTS upgrade yet, selecting the previous Knots version in the [Installation](bitcoin-knots.md#installation-1) steps.
 
-[^3]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+[^3]: Replace
 
-[^4]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+[^4]: Copy this
 
-[^5]: Replace with your IP
+[^5]: Change for your selection if you want
 
-[^6]: Replace with the local IP of the remote node e.g, `192.168.1.43`
+[^6]: (Optional)
 
-[^7]: Replace with the desire address of the peer
+[^7]: Replace with the content copied in the previous step
 
-[^8]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks.
+[^8]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.
+
+    -> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
+
+    -> Remember to comment or delete this parameter after IBD (Initial Block Download)
+
+[^9]: Symbolic link
+
+[^10]: RPC port
+
+[^11]: P2P main port
+
+[^12]: Default P2P Tor port
+
+[^13]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+
+[^14]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+
+[^15]: Replace with your IP
+
+[^16]: Replace with the local IP of the remote node e.g, `192.168.1.43`
+
+[^17]: Replace with the desire address of the peer
+
+[^18]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks.

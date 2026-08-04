@@ -50,7 +50,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation:
 
 ```sh
-VERSION=31.0
+VERSION=31.1
 ```
 
 * Get the latest binaries and signatures:
@@ -237,7 +237,7 @@ cd /tmp
 * Set the next environment variable:
 
 ```sh
-VERSION=31.0
+VERSION=31.1
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums:
@@ -1332,7 +1332,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation:
 
 ```bash
-VERSION=31.0
+VERSION=31.1
 ```
 
 * Clone the source code from GitHub and enter the bitcoin folder:
@@ -1665,7 +1665,7 @@ cd /tmp
 * Set a temporary version environment variable for the installation:
 
 ```sh
-VERSION=31.0
+VERSION=31.1
 ```
 
 * Download binary, checksum, signature files, and timestamp file:
@@ -1831,7 +1831,7 @@ cd /tmp
 * Set the next environment variable:
 
 ```sh
-VERSION=31.0
+VERSION=31.1
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums:

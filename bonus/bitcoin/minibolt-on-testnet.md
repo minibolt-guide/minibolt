@@ -60,7 +60,7 @@ nano /home/bitcoin/.bitcoin/bitcoin.conf
 * Stay tuned to add the next lines to the `bitcoin.conf` file.
 
 {% hint style="info" %}
-`[main]` and the `# Initial block download optimizations` parameters behind the `[testnet4]` section are needed only if you want to run a mainnet + testnet simultaneous nodes
+`[main]` and the `# Initial block download optimizations` parameters behind the `[testnet4]` section are needed only if you want to run mainnet + testnet simultaneous nodes
 {% endhint %}
 
 ```
@@ -178,11 +178,11 @@ The rest of the Bitcoin client guide is the same as the mainnet mode
 Only testnet mode
 {% endhint %}
 
-Follow the complete Electrum server guide from the beginning, when you arrive at the ["Configure Firewall"](../../bitcoin/bitcoin/fulcrum.md#configure-firewall) section:
+Follow the complete Electrum server guide from the beginning; when you arrive at the ["Configure Firewall"](../../bitcoin/bitcoin/fulcrum.md#configure-firewall) section:
 
 [Configure Firewall](../../bitcoin/bitcoin/fulcrum.md#configure-firewall)
 
-* Replace the next lines with 40001/40002 ports, to match the Testnet mode
+* Replace the next lines with 40001/40002 ports to match the Testnet mode
 
 ```sh
 sudo ufw allow 40001/tcp comment 'allow Fulcrum Testnet4 TCP from anywhere'
@@ -223,7 +223,7 @@ banner = /data/fulcrum/fulcrum-banner-testnet4.txt
 
 [Create systemd service](../../bitcoin/bitcoin/fulcrum.md#create-systemd-service)
 
-* When you arrive at the [Create systemd service](../../bitcoin/bitcoin/fulcrum.md#create-systemd-service) section, stay tuned to replace the next lines in the `fulcrum.service` file, to match the Bitcoin client on Testnet mode dependency. Save and exit
+* When you arrive at the [Create systemd service](../../bitcoin/bitcoin/fulcrum.md#create-systemd-service) section, stay tuned to replace the next lines in the `fulcrum.service` file to match the Bitcoin client on Testnet mode dependency. Save and exit
 
 ```bash
 sudo nano +6 -l /etc/systemd/system/fulcrum.service
@@ -236,7 +236,7 @@ After=bitcoind-testnet4.service
 
 [Remote access over Tor](../../bitcoin/bitcoin/fulcrum.md#remote-access-over-tor)
 
-* When you arrive at the[ remote access over the Tor section](../../bitcoin/bitcoin/fulcrum.md#remote-access-over-tor), edit the torrc file
+* When you arrive at the[ remote access over Tor section](../../bitcoin/bitcoin/fulcrum.md#remote-access-over-tor), edit the torrc file
 
 ```sh
 sudo nano +63 -l /etc/tor/torrc
@@ -283,7 +283,7 @@ The rest of the **Fulcrum** guide is the same as the mainnet mode
 ### [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/btc-rpc-explorer.md)
 
 {% hint style="danger" %}
-**Not Testnet4 compatible yet, the next steps are not valid!**
+**Not Testnet4-compatible yet; the next steps are invalid!**
 {% endhint %}
 
 * Follow the complete guide from the beginning. When you arrive at the [Configuration section](../../bitcoin/bitcoin/btc-rpc-explorer.md#configuration), set the next lines with the next values instead of the existing ones for the mainnet. Edit **`.env`** file
@@ -317,7 +317,7 @@ The rest of the **BTC RPC Explorer** guide is the same as the mainnet mode
 Only testnet mode
 {% endhint %}
 
-* Follow the complete guide from the beginning, when you arrive at the [Configuration](../../lightning/lightning/lnd.md#configuration) section, edit `lnd.conf`
+* Follow the complete guide from the beginning. When you arrive at the [Configuration](../../lightning/lightning/lnd.md#configuration) section, edit `lnd.conf`
 
 ```bash
 nano /data/lnd/lnd.conf
@@ -340,7 +340,7 @@ ExecStop=/usr/local/bin/lncli --network=testnet4 stop
 ```
 
 {% hint style="info" %}
-When you arrive at the [Watchtower client](../../lightning/lightning/lnd.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet4, same with the LND mainnet peer suggested to open the channel and send a payment
+When you arrive at the [Watchtower client](../../lightning/lightning/lnd.md#watchtower-client-recommended) section, keep in mind that the Watchtower server suggested won't work with the LND testnet4; same with the LND mainnet peer suggested to open the channel and send a payment
 {% endhint %}
 
 **Interacting with the LND daemon**
@@ -353,14 +353,14 @@ lncli --network=testnet4 --tlscertpath /data/lnd/tls.cert.tmp create
 
 #### Allow user "admin" to work with LND
 
-* Note that when you arrive at this section, you need to replace the command: `sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon` to the next
+* Note that when you arrive at this section, you need to replace the command: `sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon` with the next
 
 ```bash
 sudo chmod g+r /data/lnd/data/chain/bitcoin/testnet4/admin.macaroon
 ```
 
 {% hint style="info" %}
-It has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases) related to these commonly used commands to make it easier to introduce in the terminal. Follow the [Aliases bonus guide](../system/aliases.md) to install it
+It has [a list of testnet aliases](https://raw.githubusercontent.com/minibolt-guide/minibolt/main/resources/.bash_aliases) related to these commonly used commands to make it easier to use in the terminal. Follow the [Aliases bonus guide](../system/aliases.md) to install it
 {% endhint %}
 
 {% hint style="success" %}
@@ -426,7 +426,7 @@ The rest of the **Web app: Thunderhub** is the same as the mainnet mode
 Mainnet + testnet simultaneous mode
 {% endhint %}
 
-* Follow the complete guide from the beginning, when you arrive at the [**Create a lndconnect QR code**](../../lightning/lightning/zeus.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match the next
+* Follow the complete guide from the beginning. When you arrive at the [**Create a lndconnect QR code**](../../lightning/lightning/zeus.md#create-a-lndconnect-qr-code) section, modify the "lndconnect" command to match the next
 
 For **example**, to generate a QR code for a WireGuard VPN connection, enter this command:
 
@@ -437,7 +437,7 @@ lndconnect --host=10.0.1.1 --port=8080 --bitcoin.testnet --adminmacaroonpath=/ho
 {% endcode %}
 
 {% hint style="info" %}
-Be careful to add `--nocert` parameter only to the onion and Wireguard VPN network, the local network could be shared with more devices, and you should use a valid certificate to encrypt the connection, so don't add that parameter in this case
+Be careful to add `--nocert` parameter only to the onion and Wireguard VPN network; the local network could be shared with more devices, and you should use a valid certificate to encrypt the connection, so don't add that parameter in this case
 {% endhint %}
 
 ## Bonus section
@@ -558,4 +558,4 @@ The rest of the **Electrs guide** is the same as the mainnet mode
 
 Here, we are going to describe only what ports differ from the mainnet mode:
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="r72xqe5kee4m" label="TCP" color="blue"></option><option value="27pYzFjkBNZz" label="SSL" color="blue"></option><option value="CQbhYp3TNADL" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">48333</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 port</td></tr><tr><td align="center">48334</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 secondary port</td></tr><tr><td align="center">48332</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">RPC Testnet4 port</td></tr><tr><td align="center">40001</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Fulcrum Testnet4 port</td></tr><tr><td align="center">40002</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Fulcrum server Testnet4 encrypted port</td></tr><tr><td align="center">40021</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Electrs Testnet4 port</td></tr><tr><td align="center">40022</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Electrs server Testnet4 encrypted port</td></tr></tbody></table>
+<table data-search="false"><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="r72xqe5kee4m" label="TCP" color="blue"></option><option value="27pYzFjkBNZz" label="SSL" color="blue"></option><option value="CQbhYp3TNADL" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">48333</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 port</td></tr><tr><td align="center">48334</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">P2P Testnet4 secondary port</td></tr><tr><td align="center">48332</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">RPC Testnet4 port</td></tr><tr><td align="center">40001</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Fulcrum Testnet4 port</td></tr><tr><td align="center">40002</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Fulcrum server Testnet4 encrypted port</td></tr><tr><td align="center">40021</td><td><span data-option="r72xqe5kee4m">TCP</span></td><td align="center">Electrs Testnet4 port</td></tr><tr><td align="center">40022</td><td><span data-option="27pYzFjkBNZz">SSL</span></td><td align="center">Electrs server Testnet4 encrypted port</td></tr></tbody></table>

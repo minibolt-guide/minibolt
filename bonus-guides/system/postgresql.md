@@ -15,6 +15,8 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # PostgreSQL
@@ -366,7 +368,7 @@ Type `\q` command and enter to exit PostgreSQL CLI, and exit to come back to the
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFDATABASE`> to the specific name of the database
+Replace `<NAMEOFDATABASE`> with the specific name of the database
 {% endhint %}
 
 **Example:**
@@ -411,7 +413,7 @@ SELECT pg_size_pretty(pg_database_size('<NAMEOFDATABASE>'));
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFDATABASE`> to the specific name of the database
+Replace `<NAMEOFDATABASE`> with the specific name of the database
 {% endhint %}
 
 **Example:**
@@ -438,7 +440,7 @@ SELECT pg_size_pretty(pg_database_size('lndb'));
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFDATABASE>` to the specific name of the database
+Replace `<NAMEOFDATABASE>` with the specific name of the database
 {% endhint %}
 
 **Example:**
@@ -454,7 +456,7 @@ SELECT pg_size_pretty(pg_total_relation_size('<NAMEOFTABLE>'));
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFTABLE>` to the specific name of the database
+Replace `<NAMEOFTABLE>` with the specific name of the database
 {% endhint %}
 
 **Example:**
@@ -495,7 +497,7 @@ Example:
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFTABLE>` to the specific name of the database
+Replace `<NAMEOFTABLE>` with the specific name of the database
 {% endhint %}
 
 #### **Example:**
@@ -506,6 +508,10 @@ Replace `<NAMEOFTABLE>` to the specific name of the database
 
 #### **Delete** a specific database
 
+{% hint style="danger" %}
+DANGER ZONE
+{% endhint %}
+
 * Type the next command and enter
 
 ```sql
@@ -513,7 +519,7 @@ DROP DATABASE <NAMEOFDATABASE>;
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFTABLE>` to the specific name of the table
+Replace `<NAMEOFTABLE>` with the specific name of the table
 {% endhint %}
 
 Example:
@@ -530,6 +536,10 @@ DROP DATABASE
 
 #### Delete a table inside a specific database
 
+{% hint style="danger" %}
+DANGER ZONE
+{% endhint %}
+
 {% hint style="warning" %}
 Stop the service related to this database before the action, i.e: `sudo systemctl stop lnd`
 {% endhint %}
@@ -541,7 +551,7 @@ Stop the service related to this database before the action, i.e: `sudo systemct
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFDATABASE>` to the specific name of the database
+Replace `<NAMEOFDATABASE>` with the specific name of the database
 {% endhint %}
 
 **Example:**
@@ -561,11 +571,11 @@ DROP TABLE <NAMEOFTABLE>;
 ```
 
 {% hint style="info" %}
-Replace `<NAMEOFTABLE>` to the specific name of the table
+Replace `<NAMEOFTABLE>` with the specific name of the table
 {% endhint %}
 
 {% hint style="danger" %}
-Warning: this command is especially dangerous, do it at your own risk
+Warning: this command is especially dangerous; do it at your own risk
 {% endhint %}
 
 Example:
@@ -583,7 +593,7 @@ DROP ROLE <user>;
 ```
 
 {% hint style="info" %}
-Replace `<user>` to the desired user
+Replace `<user>` with the desired user
 {% endhint %}
 
 Example:
@@ -593,7 +603,7 @@ DROP ROLE admin;
 ```
 
 {% hint style="danger" %}
-Warning: this command is especially dangerous, do it at your own risk
+Warning: this command is especially dangerous; do it at your own risk
 {% endhint %}
 
 ## Upgrade
@@ -663,7 +673,7 @@ This could take a moment, depending on your hardware and database size
 * Create a new database destination folder for the new v18 cluster, ready for migration from v17
 
 {% hint style="info" %}
-This could change in the future with the next releases, for example, you will need to replace v17 with v18, and v18 with v19, etc.
+This could change in the future with the next releases; for example, you will need to replace v17 with v18, and v18 with v19, etc.
 {% endhint %}
 
 ```bash
@@ -764,7 +774,7 @@ Ver Cluster Port Status Owner    Data directory      Log file
 
 </details>
 
-* Reload the systemd again
+* Reload systemd again
 
 ```bash
 sudo systemctl daemon-reload
@@ -830,7 +840,7 @@ Note that the old version of the cluster is no longer listed, and the new one is
 
 #### **Check the PostgreSQL server version in use**
 
-* With the user `admin`, enter the psql (PostgreSQL CLI)
+* With the user `admin`, enter psql (PostgreSQL CLI)
 
 ```bash
 sudo -u postgres psql

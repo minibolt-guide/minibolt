@@ -114,22 +114,18 @@ ControlPort 9051
 sudo systemctl reload tor
 ```
 
-* Ensure that the Tor service is working and listening on the default ports `9050` and `9051` on the localhost (`127.0.0.1`):
+* Ensure that the Tor service is working and listening on the default ports `9050` and `9051` on localhost (`127.0.0.1`):
 
 ```sh
 sudo ss -tulpn | grep tor
 ```
 
-<details>
-
-<summary>Expected output ⬇️</summary>
+Expected output:
 
 ```
 tcp     LISTEN 0    4096     127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=795,fd=6))
 tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795,fd=7))
 ```
-
-</details>
 
 * **(Optional)** Check the systemd journal to see Tor in real-time updates and output logs. Ctrl + C to exit.
 
@@ -316,7 +312,7 @@ Removed /etc/systemd/system/multi-user.target.wants/i2pd.service.
 
 ### Access to the i2pd webconsole
 
-I2P by default creates an HTTP web service that makes it easy to view node statistics such as tunnels, bandwidth, active connections, and network configuration. If you want to use that the only one have to do is secure the connection, configure the auth method, reverse proxy, and open the UFW. Follow the next steps
+I2P by default creates an HTTP web service that makes it easy to view node statistics such as tunnels, bandwidth, active connections, and network configuration. If you want to use that, the only one have to do is secure the connection, configure the auth method, reverse proxy, and open the UFW. Follow the next steps
 
 {% hint style="info" %}
 Realize that if you modify the config file, you will need to select "Keep" or reconfigure the i2p config file again when the prompt asks you in the next update process.
