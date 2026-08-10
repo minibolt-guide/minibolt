@@ -37,11 +37,11 @@ layout:
 
 #### Bitcoin with hardware wallets
 
-The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://bitbox.swiss/bitbox02/), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security and privacy, and eliminates the need to trust a third party to verify transactions.
+The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://bitbox.swiss/bitbox02/), [Ledger](https://www.ledger.com) or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security and privacy, and eliminates the need to trust a third party to verify transactions.
 
-The Bitcoin client on the MiniBolt itself is not meant to hold funds.
+The Bitcoin client on the MiniBolt itself **is not meant to hold funds**.
 
-One possibility to use the Bitcoin client with your Bitcoin wallets is to use an Electrum server as middleware. It imports data from the Bitcoin client and provides it to software wallets supporting the Electrum protocol. Desktop wallets like [Sparrow](https://sparrowwallet.com/), the [BitBoxApp](https://shiftcrypto.ch/app/), [Electrum](https://electrum.org/), or [Specter Desktop](https://specter.solutions/desktop/) that support hardware wallets can then be used with your own sovereign Bitcoin node.
+One possibility to use the Bitcoin client with your Bitcoin wallets is to use an Electrum server as middleware. It imports data from the Bitcoin client and provides it to software wallets supporting the Electrum protocol. Desktop signing apps like [Sparrow Wallet](sparrow.md) or [Electrum Wallet](../../bonus/bitcoin/electrum-wallet-desktop.md) that support hardware wallets can then be used with your own sovereign Bitcoin node.
 
 ## Preparations
 
