@@ -29,7 +29,11 @@ Difficulty: Medium
 
 <div data-full-width="false"><figure><img src="../../.gitbook/assets/Bitcoin-Knots-Logo.png" alt=""><figcaption></figcaption></figure></div>
 
-### Preparations
+#### This may take some time
+
+Bitcoin Knots will download the full Bitcoin blockchain and validate all transactions since 2009. We're talking more than 950'000 blocks with a size of over 800 GB, so this is not an easy task.
+
+## Preparations
 
 * With `admin` user, update, and upgrade your OS:
 
@@ -37,15 +41,19 @@ Difficulty: Medium
 sudo apt update && sudo apt full-upgrade
 ```
 
-### Option 1: Using precompiled binaries
+## Installation
 
+{% tabs %}
+{% tab title="Option 1: Using precompiled binaries" %}
 {% hint style="info" icon="baby" %}
 **Option recommended for non-advanced users.**
 {% endhint %}
 
-#### Installation
+We download the latest Bitcoin Knots binary (the application) and compare this file with the signed checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
-* Go to the temporary folder:
+#### Download binaries
+
+* Login as `admin` and change to a temporary directory, which is cleared on reboot:
 
 ```bash
 cd /tmp
@@ -54,28 +62,8 @@ cd /tmp
 * Set the following environment variables:
 
 ```sh
-VERSION=29.3.knots20260508 && BRANCH=29.x
-```
-
-{% hint style="info" %}
-If you are not ready to adopt the RDTS upgrade yet, you can alternatively download this same version of Bitcoin Knots without RDTS support (NOT RECOMMENDED), by setting these environment variables instead:
-
-```bash
 VERSION=29.3.knots20260507 && BRANCH=29.x
 ```
-
--> More info: [bip110.org](https://bip110.org/)<br>
-
-These logs will appear every hour to notify you; if you know what you're doing, you can ignore them:
-
-```
-[...]
-bitcoind[172990]: 2026-06-27T14:44:15Z [error] This version does not support the upcoming BIP110/RDTS network upgrade, and is therefore vulnerable to displaying fake or fraudulent transactions.
-bitcoind[172990]: 2026-06-27T14:44:15Z [error] For more information, see: https://bitcoinknots.org/learn/2026-rdts
-bitcoind[172990]: 2026-06-27T14:44:15Z [error] To adopt this upgrade and remain secure, please update Bitcoin Knots: https://bitcoinknots.org/
-[...]
-```
-{% endhint %}
 
 * Get the latest binaries and signatures:
 
@@ -91,20 +79,6 @@ wget https://bitcoinknots.org/files/$BRANCH/$VERSION/SHA256SUMS
 
 ```sh
 wget https://bitcoinknots.org/files/$BRANCH/$VERSION/SHA256SUMS.asc
-```
-
-#### **Checksum check**
-
-* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you:
-
-```sh
-sha256sum --ignore-missing --check SHA256SUMS
-```
-
-**Example** of expected output:
-
-```
-bitcoin-28.1.knots20250305.tar.gz: OK
 ```
 
 #### **Signature check**
@@ -169,13 +143,31 @@ Primary key fingerprint: ...
 [...]
 </code></pre>
 
+#### **Checksum check**
+
+* Check that the reference checksum in the file `SHA256SUMS` matches the checksum calculated by you:
+
+```sh
+sha256sum --ignore-missing --check SHA256SUMS
+```
+
+**Example** of expected output:
+
+```
+bitcoin-28.1.knots20250305.tar.gz: OK
+```
+
+#### Extract
+
 * If you're satisfied with the checksum, signature, and timestamp checks, extract the Bitcoin Knots source code, install it, and check the version:
 
 ```sh
 tar -xzvf bitcoin-$VERSION-x86_64-linux-gnu.tar.gz
 ```
 
-**Example of expected output:**
+<details>
+
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 bitcoin-28.0/
@@ -193,6 +185,12 @@ bitcoin-28.0/.github/PULL_REQUEST_TEMPLATE.md
 bitcoin-28.0/.github/workflows/
 [..]
 ```
+
+</details>
+
+{% hint style="info" %}
+-> If you want to install the manual page for `bitcoin-cli`, follow [the manual page for the bitcoin-cli extra section](bitcoin-knots.md#the-manual-page-for-bitcoin-cli), and then come back to continue with the [next section](bitcoin-knots.md#create-the-bitcoin-user-and-group).
+{% endhint %}
 
 #### Binaries installation
 
@@ -223,20 +221,14 @@ Copyright (C) 2009-2025 The Bitcoin Core developers
 sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS SHA256SUMS.asc
 ```
 {% endcode %}
+{% endtab %}
 
-{% hint style="info" %}
-Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
-
-More info: [bip110.org](https://bip110.org/)
-{% endhint %}
-
-### Option 2: Compiling from source code
-
+{% tab title="Option 2: Compiling from source code" %}
 {% hint style="info" icon="starfighter-twin-ion-engine-advanced" %}
 **Option recommended for advanced users and users who want to improve the censorship resistance of their Bitcoin Knots.**
 {% endhint %}
 
-* Install the next dependency packages. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
+* Install the following dependency packages. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 {% code overflow="wrap" %}
 ```shell
@@ -255,18 +247,8 @@ cd /tmp
 * Set the following environment variables:
 
 ```sh
-VERSION=29.3.knots20260508 && BRANCH=29.x
-```
-
-{% hint style="info" %}
-If you are not ready to adopt the RDTS upgrade yet, you can alternatively download this same version of Bitcoin Knots without RDTS support (NOT RECOMMENDED) by setting these environment variables instead:
-
-```bash
 VERSION=29.3.knots20260507 && BRANCH=29.x
 ```
-
-More info: [bip110.org](https://bip110.org/)
-{% endhint %}
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums:
 
@@ -429,31 +411,41 @@ Extracting libevent...
 
 * Pre-configure the installation; we will discard some features and include others. Enter the complete command below in the terminal and press `Enter`:
 
-{% hint style="info" %}
-Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, which will follow the network’s activation of the new reduced-data transaction validation rules.
-
-More info: [bip110.org](https://bip110.org/)
-
--> **(Recommended)** Change `-DRDTS_CONSENT=RUNTIME_WARN` to `-DRDTS_CONSENT=IMPLICIT` to assume consent at build time, enabling RDTS without runtime prompts or checks, and avoiding following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section. The associated log with this action at the start of Bitcoin Knots is the following:
-
-<pre><code><strong>[...]
-</strong><strong>bitcoind[1018092]: 2026-06-27T17:22:29Z User already consented to 'rdts' consensus rules (at installation)
-</strong><strong>[...]
-</strong></code></pre>
-
--> Remember to remove this line completely so as not to adopt the RDTS upgrade yet, selecting the previous Knots version in the [Installation](bitcoin-knots.md#installation-1) steps.
-{% endhint %}
-
-<pre class="language-sh"><code class="lang-sh">BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
+```sh
+BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
   -DBUILD_TESTS=OFF \
   -DBUILD_TX=OFF \
   -DBUILD_UTIL=OFF \
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
   -DWITH_ZMQ=ON \
-  -DRDTS_CONSENT=<a data-footnote-ref href="#user-content-fn-2">RUNTIME_WARN</a> \
   -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
-</code></pre>
+```
+
+**Example** of expected output:
+
+```
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Setting build type to "RelWithDebInfo" as none was specified
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17")
+-- Found ZeroMQ: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
+[...]
+```
 
 #### **Apply the UA patch (optional)**
 
@@ -633,12 +625,8 @@ sudo systemctl restart bitcoind
 ```sh
 journalctl -fu bitcoind
 ```
-
-{% hint style="info" %}
-Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade by following the [Accept RDTS (BIP110) consensus rules](bitcoin-knots.md#accept-rdts-bip110-consensus-rules) extra section.
-
-More info: [bip110.org](https://bip110.org/)
-{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 ### Create the bitcoin user & group
 
@@ -729,13 +717,13 @@ wget https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpca
 All commands entered are stored in the bash history. But we don't want the password to be stored where anyone can find it. For this, put a space `( )` in front of the command shown below.
 {% endhint %}
 
-<pre class="language-sh"><code class="lang-sh"> python3 rpcauth.py minibolt <a data-footnote-ref href="#user-content-fn-3">YourPasswordB</a>
+<pre class="language-sh"><code class="lang-sh"> python3 rpcauth.py minibolt <a data-footnote-ref href="#user-content-fn-2">YourPasswordB</a>
 </code></pre>
 
 **Example** of expected output:
 
 <pre><code>String to be appended to bitcoin.conf:
-<a data-footnote-ref href="#user-content-fn-4">rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa</a>
+<a data-footnote-ref href="#user-content-fn-3">rpcauth=minibolt:00d8682ce66c9ef3dd9d0c0a6516b10e$c31da4929b3d0e092ba1b2755834889f888445923ac8fd69d8eb73efe0699afa</a>
 </code></pre>
 
 * Copy the `rpcauth` line; we'll need to paste it into the Bitcoin Knots config file in the next step.
@@ -763,7 +751,7 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 {% hint style="info" %}
 **(Optional):**
 
-**-> If you want** to reject other possible data included in transactions apart from **the previous Ordisrespector patch**, follow [the dedicated extra section](bitcoin-knots.md#reject-other-possible-data-included-in-transactions), and continue with the next step.
+**-> If you want** to reject other possible data included in transactions, follow [the dedicated extra section](bitcoin-knots.md#reject-other-possible-data-included-in-transactions), and continue with the next step.
 
 -> Modify the `"uacomment"` value to your preference if you want.
 
@@ -773,7 +761,7 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 <pre><code># MiniBolt: bitcoind configuration
 # /data/bitcoin/bitcoin.conf
 
-# Bitcoin daemon
+# Bitcoin client daemon
 server=1
 txindex=1
 
@@ -787,7 +775,7 @@ onlynet=ipv4
 onlynet=ipv6
 
 # Append comment to the user agent string
-uacomment=<a data-footnote-ref href="#user-content-fn-5">MiniBolt node</a>
+uacomment=<a data-footnote-ref href="#user-content-fn-4">MiniBolt node</a>
 
 # Disable integrated wallet
 disablewallet=1
@@ -796,7 +784,7 @@ disablewallet=1
 debug=tor
 debug=i2p
 ## Include peers IP addresses in log output (optional)
-<a data-footnote-ref href="#user-content-fn-6">logips=1</a>
+<a data-footnote-ref href="#user-content-fn-5">logips=1</a>
 
 # Assign read permission to the Bitcoin group users to the cookie file
 rpccookieperms=group
@@ -832,10 +820,10 @@ proxy=127.0.0.1:9050
 i2psam=127.0.0.1:7656
 
 # Connections
-<a data-footnote-ref href="#user-content-fn-7">rpcauth=&#x3C;replace with your own auth line generated in the previous step></a>
+<a data-footnote-ref href="#user-content-fn-6">rpcauth=&#x3C;replace with your own auth line generated in the previous step></a>
 
 # Initial block download optimizations
-dbcache=<a data-footnote-ref href="#user-content-fn-8">2048</a>
+dbcache=<a data-footnote-ref href="#user-content-fn-7">2048</a>
 blocksonly=1
 </code></pre>
 
@@ -1007,13 +995,13 @@ ls -la .bitcoin
 
 Expected output:
 
-<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-9">.bitcoin -> /data/bitcoin</a>
+<pre><code>lrwxrwxrwx 1 admin admin    13 Nov  7 10:41 <a data-footnote-ref href="#user-content-fn-8">.bitcoin -> /data/bitcoin</a>
 </code></pre>
 
 {% hint style="warning" %}
 **Troubleshooting note:**\
 \
-If you don't obtain the expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-9)[^9]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
+If you don't obtain the expected output ([`.bitcoin -> /data/bitcoin`](#user-content-fn-8)[^8]) and you only have (`.bitcoin`), you must follow the next steps to fix that:
 
 1. With user `admin`, delete the failed created symbolic link:
 
@@ -1027,7 +1015,7 @@ sudo rm -r .bitcoin
 ln -s /data/bitcoin /home/admin/.bitcoin
 ```
 
-3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-9)[^9]. If yes, continue with the guide; if not, try again:
+3. Check the symbolic link has been created correctly this time, and you now have the expected output: [.bitcoin -> /data/bitcoin](#user-content-fn-8)[^8]. If yes, continue with the guide; if not, try again:
 
 ```bash
 ls -la .bitcoin
@@ -1084,9 +1072,9 @@ sudo ss -tulpn | grep bitcoind
 
 Expected output:
 
-<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-10">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-11">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
-tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-12">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
+<pre><code>tcp   LISTEN 0      128        127.0.0.1:<a data-footnote-ref href="#user-content-fn-9">8332</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=11))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-10">8333</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=46))
+tcp   LISTEN 0      4096       127.0.0.1:<a data-footnote-ref href="#user-content-fn-11">8334</a>       0.0.0.0:*    users:(("bitcoind",pid=773834,fd=44))
 tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoind",pid=773834,fd=10))
 </code></pre>
 
@@ -1143,50 +1131,6 @@ sudo systemctl restart bitcoind
 
 ## Extras (optional)
 
-### Accept RDTS (BIP110) consensus rules
-
-{% hint style="info" %}
-Accept RDTS (BIP110) in Bitcoin Knots and acknowledge running a build that implements the RDTS upgrade, which will follow the network’s activation of the new reduced-data transaction validation rules.
-
-More info: [bip110.org](https://bip110.org/)
-
-This section is not necessary if you followed [Option 2: Compiling from source code](bitcoin-knots.md#option-2-compiling-from-source-code) and set `-DRDTS_CONSENT=IMPLICIT` in the [Build it from the source code](bitcoin-knots.md#build-it-from-the-source-code) section. You will see these logs at the start of Bitcoin Knots:
-
-```
-bitcoind[2563]: 2026-06-11T12:52:27Z User already consented to 'rdts' consensus rules (at installation)
-```
-{% endhint %}
-
-* With the user admin, edit the `bitcoin.conf` file:
-
-```bash
-sudo nano /data/bitcoin/bitcoin.conf
-```
-
-* Add the following parameters to the end of the file. Save and exit.
-
-{% code overflow="wrap" %}
-```
-# Accept BIP110/RDTS consensus rules
-consensusrules=rdts
-```
-{% endcode %}
-
-* Restart Bitcoin Knots to apply changes:
-
-```bash
-sudo systemctl restart bitcoind
-```
-
-{% hint style="info" %}
-You will see this log in `journalctl -fu bitcoind` logs:
-
-<pre><code><strong>[...]
-</strong><strong>2026-06-29T01:53:59Z User already consented to 'rdts' consensus rules (in config)
-</strong><strong>[...]
-</strong></code></pre>
-{% endhint %}
-
 ### Enforce spam and arbitrary data rejection
 
 {% hint style="info" %}
@@ -1229,9 +1173,9 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
-<a data-footnote-ref href="#user-content-fn-13">maxconnections</a>=40
+<a data-footnote-ref href="#user-content-fn-12">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-<a data-footnote-ref href="#user-content-fn-14">maxuploadtarget</a>=5000
+<a data-footnote-ref href="#user-content-fn-13">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
@@ -1351,14 +1295,16 @@ cd /tmp
 * Set a temporary version environment variable for the installation:
 
 ```bash
-VERSION=29.3.knots20260508
+VERSION=29.3.knots20260507
 ```
 
 * Clone the source code from GitHub and enter the bitcoin folder:
 
+{% code overflow="wrap" %}
 ```bash
 git clone --branch v$VERSION https://github.com/bitcoinknots/bitcoin.git && cd bitcoin
 ```
+{% endcode %}
 
 * Build all Bitcoin Knots dependencies:
 
@@ -1378,7 +1324,6 @@ BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
   -DWITH_ZMQ=ON \
-  -DRDTS_CONSENT=RUNTIME_WARN \
   -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
 ```
 
@@ -1461,7 +1406,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 Or **add** under `bind=127.0.0.1` the next line allows **connections only from devices in the same local network** (**recommended option** to improve security):
 
-<pre><code>bind=<a data-footnote-ref href="#user-content-fn-15">192.168.x.x</a>
+<pre><code>bind=<a data-footnote-ref href="#user-content-fn-14">192.168.x.x</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -1484,7 +1429,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit.
 
-<pre><code> connect=<a data-footnote-ref href="#user-content-fn-16">&#x3C;localip></a>:8333
+<pre><code> connect=<a data-footnote-ref href="#user-content-fn-15">&#x3C;localip></a>:8333
 </code></pre>
 
 {% hint style="info" %}
@@ -1538,8 +1483,8 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Knots on MiniBolt. Save and exit.
 
-<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.onion</a>>:8333
-addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.b32</a>>.i2p:0
+<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.onion</a>>:8333
+addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.b32</a>>.i2p:0
 </code></pre>
 
 {% hint style="info" %}
@@ -1586,10 +1531,14 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoinknots/bitcoin) of the Bitcoin Knots project. Always read the [RELEASE NOTES](https://github.com/bitcoinknots/bitcoin/tree/29.x-knots/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variables `"VERSION=x.xx"` and `"BRANCH="x.xx"` values for the latest version and branch, if they have not already been changed in this guide.
 
-**-> 2 options depending on your case:**
+**-> 2 options depending on the case you followed on Installation:**
 
-#### Case you followed [Option 1: Using precompiled binaries](bitcoin-knots.md#option-1-using-precompiled-binaries)
+#### [Option 1: Using precompiled binaries](bitcoin-knots.md#option-1-using-precompiled-binaries)
 
+#### [Option 2: Compiling from source code](bitcoin-knots.md#option-2-compiling-from-source-code)
+
+{% tabs %}
+{% tab title="Option 1: Using precompiled binaries" %}
 * Go to the temporary folder:
 
 ```bash
@@ -1599,7 +1548,7 @@ cd /tmp
 * Set the following environment variables:
 
 ```sh
-VERSION=29.3.knots20260508 && BRANCH=29.x
+VERSION=29.3.knots20260507 && BRANCH=29.x
 ```
 
 * Get the latest binaries and signatures:
@@ -1656,6 +1605,24 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 [...]
 ```
+
+* Import the updated Luke Dashjr GPG key from the keyserver
+
+{% code overflow="wrap" %}
+```bash
+gpg --recv-keys 1A3E761F19D2CC7785C5502EA291A2C45D0C504A
+```
+{% endcode %}
+
+Expected output:
+
+{% code overflow="wrap" %}
+```
+gpg: key A291A2C45D0C504A: "Luke Dashjr (Codesigning) <luke-jr+git@utopios.org>" 3 new signatures
+gpg: Total number processed: 1
+gpg:         new signatures: 3
+```
+{% endcode %}
 
 * Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
 
@@ -1736,15 +1703,9 @@ sudo systemctl restart bitcoind
 ```bash
 journalctl -fu bitcoind
 ```
+{% endtab %}
 
-{% hint style="info" %}
-If you want to signal support for the RDTS (BIP110) soft fork, follow the [Enable RDTS (BIP110) consensus rules](bitcoin-knots.md#enable-rdts-bip110-consensus-rules) extra section.
-
-More info: [bip110.org](https://bip110.org/)
-{% endhint %}
-
-#### Case you followed [Option 2: Compiling from source code](bitcoin-knots.md#option-2-compiling-from-source-code)
-
+{% tab title="Option 2: Compiling from source code" %}
 * Login as `admin` user and change to the temporary directory:
 
 ```sh
@@ -1754,7 +1715,7 @@ cd /tmp
 * Set the following environment variables:
 
 ```sh
-VERSION=29.3.knots20260508 && BRANCH=29.x
+VERSION=29.3.knots20260507 && BRANCH=29.x
 ```
 
 * Get the latest source code, the list of cryptographic checksums, and the signatures attesting to the validity of the checksums:
@@ -1809,6 +1770,24 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 [...]
 ```
+
+* Import the updated Luke Dashjr GPG key from the keyserver
+
+{% code overflow="wrap" %}
+```bash
+gpg --recv-keys 1A3E761F19D2CC7785C5502EA291A2C45D0C504A
+```
+{% endcode %}
+
+Expected output:
+
+{% code overflow="wrap" %}
+```
+gpg: key A291A2C45D0C504A: "Luke Dashjr (Codesigning) <luke-jr+git@utopios.org>" 3 new signatures
+gpg: Total number processed: 1
+gpg:         new signatures: 3
+```
+{% endcode %}
 
 * Verify that the checksums file is cryptographically signed by the release signing keys. The following command prints signature checks for each of the public keys that signed the checksums:
 
@@ -1892,24 +1871,41 @@ Extracting libevent...
 
 * Pre-configure the installation; we will discard some features and include others. Enter the complete command below in the terminal and press `Enter`:
 
-{% hint style="info" %}
-Enable the RDTS (BIP110) consensus rules in Bitcoin Knots to participate in the deployment and enforce the new reduced-data transaction validation rules once activated by the network.
-
-More info: [bip110.org](https://bip110.org/)
-
--> Change `-DRDTS_CONSENT=RUNTIME_WARN` to `-DRDTS_CONSENT=IMPLICIT` to assume consent at build time, enabling RDTS without runtime prompts or checks.
-{% endhint %}
-
-<pre class="language-sh"><code class="lang-sh">BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
+```sh
+BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
   -DBUILD_TESTS=OFF \
   -DBUILD_TX=OFF \
   -DBUILD_UTIL=OFF \
   -DBUILD_WALLET_TOOL=OFF \
   -DINSTALL_MAN=OFF \
   -DWITH_ZMQ=ON \
-  -DRDTS_CONSENT=<a data-footnote-ref href="#user-content-fn-18">RUNTIME_WARN</a> \
   -DCMAKE_TOOLCHAIN_FILE=depends/x86_64-pc-linux-gnu/toolchain.cmake
-</code></pre>
+```
+
+**Example** of expected output:
+
+```
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Setting build type to "RelWithDebInfo" as none was specified
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/include (found suitable version "3.46.1", minimum required is "3.7.17")
+-- Found ZeroMQ: /tmp/bitcoin-30.2/depends/x86_64-pc-linux-gnu/lib/cmake/ZeroMQ (found suitable version "4.3.5", minimum required is "4.0.0") 
+[...]
+```
 
 **Apply the UA patch (optional)**
 
@@ -2044,6 +2040,8 @@ sudo systemctl restart bitcoind
 ```bash
 journalctl -fu bitcoind
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Uninstall
 
@@ -2141,40 +2139,36 @@ sudo ufw delete X
 
 [^1]: Check this
 
-[^2]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks. Remember to remove this line completely so as not to adopt the RDTS upgrade yet, selecting the previous Knots version in the [Installation](bitcoin-knots.md#installation-1) steps.
+[^2]: Replace
 
-[^3]: Replace
+[^3]: Copy this
 
-[^4]: Copy this
+[^4]: Change for your selection if you want
 
-[^5]: Change for your selection if you want
+[^5]: (Optional)
 
-[^6]: (Optional)
+[^6]: Replace with the content copied in the previous step
 
-[^7]: Replace with the content copied in the previous step
-
-[^8]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.
+[^7]: -> Set `dbcache` size in MiB (min 4, default: 450) according to the available RAM of your device.
 
     -> Recommended: dbcache=1/2 x RAM available e.g: 4GB RAM -> dbcache=2048
 
     -> Remember to comment or delete this parameter after IBD (Initial Block Download)
 
-[^9]: Symbolic link
+[^8]: Symbolic link
 
-[^10]: RPC port
+[^9]: RPC port
 
-[^11]: P2P main port
+[^10]: P2P main port
 
-[^12]: Default P2P Tor port
+[^11]: Default P2P Tor port
 
-[^13]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+[^12]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
 
-[^14]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+[^13]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
 
-[^15]: Replace with your IP
+[^14]: Replace with your IP
 
-[^16]: Replace with the local IP of the remote node e.g, `192.168.1.43`
+[^15]: Replace with the local IP of the remote node e.g, `192.168.1.43`
 
-[^17]: Replace with the desire address of the peer
-
-[^18]: Change to IMPLICIT to assume consent at build time, enabling RDTS without runtime prompts or checks.
+[^16]: Replace with the desire address of the peer

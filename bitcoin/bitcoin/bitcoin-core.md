@@ -25,19 +25,27 @@ We install [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/), the reference c
 
 ![](../../.gitbook/assets/bitcoin-core-logo-trans.png)
 
-## This may take some time
+#### This may take some time
 
 Bitcoin Core will download the full Bitcoin blockchain and validate all transactions since 2009. We're talking more than 950'000 blocks with a size of over 800 GB, so this is not an easy task.
 
+## Preparations
+
+* With `admin` user, update, and upgrade your OS:
+
+```sh
+sudo apt update && sudo apt full-upgrade
+```
+
 ## Installation
 
-We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
-
-### Option 1: Using precompiled binaries
-
+{% tabs %}
+{% tab title="Option 1: Using precompiled binaries" %}
 {% hint style="info" icon="baby" %}
 **Option recommended for non-advanced users.**
 {% endhint %}
+
+We download the latest Bitcoin Core binary (the application) and compare this file with the signed and timestamped checksum. This is a precaution to make sure that this is an official release and not a malicious version trying to steal our money.
 
 #### Download binaries
 
@@ -121,7 +129,7 @@ bitcoin-25.1-x86_64-linux-gnu.tar.gz: OK
 
 #### Timestamp check
 
-* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
+* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksum file and its timestamp proof:
   * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS.ots) the checksum file.
   * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS) its timestamp proof.
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/).
@@ -211,14 +219,14 @@ Copyright (C) 2009-2022 The Bitcoin Core developers
 sudo rm -r bitcoin-$VERSION bitcoin-$VERSION-x86_64-linux-gnu.tar.gz SHA256SUMS SHA256SUMS.asc
 ```
 {% endcode %}
+{% endtab %}
 
-### Option 2: Compiling from source code
-
+{% tab title="Option 2: Compiling from source code" %}
 {% hint style="info" icon="starfighter-twin-ion-engine-advanced" %}
 **Option recommended for advanced users.**
 {% endhint %}
 
-* Install the next dependency packages:
+* Install the following dependency packages:
 
 {% code overflow="wrap" %}
 ```shell
@@ -234,7 +242,7 @@ sudo apt install build-essential cmake pkg-config --no-install-recommends
 cd /tmp
 ```
 
-* Set the next environment variable:
+* Set the following environment variable:
 
 ```sh
 VERSION=31.1
@@ -311,9 +319,9 @@ bitcoin-29.0.tar.gz: OK
 
 #### Timestamp check
 
-* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksums file and its timestamp proof:
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS.ots) the checksum file.
-  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.0/SHA256SUMS) its timestamp proof.
+* The binary checksum file is also timestamped with the Bitcoin blockchain using the [OpenTimestamps protocol](https://en.wikipedia.org/wiki/Time_stamp_protocol), proving that the file existed before some point in time. Let's verify this timestamp. On your local computer, download the checksum file and its timestamp proof:
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.1/SHA256SUMS.ots) the checksum file.
+  * [Click to download](https://bitcoincore.org/bin/bitcoin-core-31.1/SHA256SUMS) its timestamp proof.
 * In your browser, open the [OpenTimestamps website](https://opentimestamps.org/).
 * In the "Stamp and verify" section, drop or upload the downloaded `SHA256SUMS.ots` proof file in the dotted box.
 * In the next box, drop or upload the `SHA256SUMS` file.
@@ -394,7 +402,7 @@ Configuring native_capnp...
 [...]
 ```
 
-* Pre-configure the installation; we will discard some features and include others. Enter the complete next command in the terminal and press Enter
+* Pre-configure the installation; we will discard some features and include others. Enter the complete next command in the terminal and press Enter:
 
 ```sh
 BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
@@ -410,13 +418,6 @@ BITCOIN_GENBUILD_NO_GIT=1 cmake -B build \
 **Example** of expected output:
 
 ```
-  -DBUILD_TESTS=OFF \
-  -DBUILD_TX=OFF \
-  -DBUILD_UTIL=OFF \
-  -DBUILD_WALLET_TOOL=OFF \
-  -DINSTALL_MAN=OFF \
-  -DWITH_ZMQ=ON \
-  --toolchain depends/x86_64-pc-linux-gnu/toolchain.cmake
 -- The CXX compiler identification is GNU 11.4.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
@@ -532,7 +533,7 @@ Copyright (C) 2009-2024 The Bitcoin Core developers
 cd ..
 ```
 
-* **(Optional)** Clean the installation files to be ready for the next update
+* **(Optional)** Clean the installation files to be ready for the next update:
 
 {% code overflow="wrap" %}
 ```bash
@@ -540,11 +541,13 @@ sudo rm -r bitcoin-$VERSION bitcoin-$VERSION.tar.gz SHA256SUMS SHA256SUMS.asc SH
 ```
 {% endcode %}
 
-* **(Optional)** Delete not necessary installed binaries
+* **(Optional)** Delete not necessary installed binaries:
 
 ```sh
 sudo rm /usr/local/bin/bitcoin
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Create the bitcoin user & group
 
@@ -656,7 +659,7 @@ Now, the configuration file `bitcoind` needs to be created. We'll also set the p
 nano /home/bitcoin/.bitcoin/bitcoin.conf
 ```
 
-* Enter the complete next configuration. Save and exit.
+* Enter the complete configuration below. Save and exit.
 
 {% hint style="danger" %}
 **Important!!** Remember to replace the whole line starting with `"rpcauth"` the connection string you just generated
@@ -679,7 +682,7 @@ Remember to accommodate the "`dbcache`" parameter depending on your hardware. Re
 <pre><code># MiniBolt: bitcoind configuration
 # /data/bitcoin/bitcoin.conf
 
-# Bitcoin daemon
+# Bitcoin client daemon
 server=1
 txindex=1
 
@@ -773,7 +776,7 @@ The system needs to run the bitcoin daemon automatically in the background. We u
 sudo nano /etc/systemd/system/bitcoind.service
 ```
 
-* Enter the complete next configuration. Save and exit.
+* Enter the complete configuration below. Save and exit.
 
 ```
 # MiniBolt: systemd unit for bitcoind
@@ -905,7 +908,7 @@ exit
 ```
 
 * Log in again as a user `admin` [opening a new SSH session](../../index-1/remote-access.md#access-with-secure-shell).
-* Check the symbolic link has been created correctly:
+* Check that the symbolic link has been created correctly:
 
 ```bash
 ls -la .bitcoin
@@ -997,7 +1000,7 @@ tcp   LISTEN 0      128            [::1]:8332          [::]:*    users:(("bitcoi
 </code></pre>
 
 * Please note:
-  * When “bitcoind” is still starting, you may get an error message like “verifying blocks”. That’s normal, just give it a few minutes.
+  * When “bitcoind” is still starting, you may get an error message like “verifying blocks”. That’s normal; just give it a few minutes.
   * Among other info, the “verificationprogress” is shown. Once this value reaches almost 1 or near (0.999…), the blockchain is up-to-date and fully validated.
 
 ## Bitcoin Core is syncing
@@ -1084,62 +1087,6 @@ sudo pip3 install --upgrade opentimestamps-client
 
 ## Extras (optional)
 
-```
-{
-  "transactions": [
-    {
-      "txid": "aab4a3b96ca35fc5dc4d4920f21f2de081cb4c2d625f1bbef2e1e31daca948b6",
-      "wtxid": "4689d1701a2a51c887e997492c9ce7e3fc3362a7139223b3a59122110667b1b4",
-      "hex": "0200000000010bcd96efb3a96d92945ab367cca1f3c828f9b656e6d353f37d7a9a6c2e36c58e9c0000000000fdffffffc5f7abc896687f9a7cf370ed7de2942093a4234b9ae7b5a8d52c114a2d269c990000000000fdffffff3e799405951cd46dc8d731cb378a016ca3cbc5f5
-a6887a455c00dfed1c19b7690100000000fdffffffb73c6858ab296b0e2bee3410580e86d2cf4ba6ebbecf362d80509f1b46e4c86a0100000000fdffffff2a0ec05571b10b904414488fd9844f4a0c82c04e3899779de04bfa930d86547e0100000000fdffffff79171052814ceb849bc6ba7972
-c7222c5af9ee55c470346e460bd66e0f64ffe90100000000fdffffffb1bc7983660429bf258d6bcb45da197330d01f9376143fb16b82d1866275dc9f0000000000fdfffffff67c64b4b1ba8453ab8a9e13da8e18efba449ede6296d62acb0fd38d8ce91b970000000000fdfffffff25f3aa7486e
-7a5a249d0f31992d1801401948ae30e5861b6d3258ce0e4342490100000000fdffffffd38145336c4be6ea9c6c2590d3886f455bd18bab440305a5287d4af51fffc9700000000000fdffffffa77321e0b86eb9bea38de4c2acc853e2b334968323dfe2451d280ce3320120850000000000fdffff
-ff0101a389f60100000016001470fadf8b0e753baaa72379f68813fdbfa682924c02473044022041be8482dea20f12c697754ebd8b627bf2e8acf82bd1d4fdeb26fd47d9634c1f022012d7ec6bad927576eb31957e1858953ab0346a5cb74f59ac7ea5f04cc08352400121026f3d0a3241f30a1e
-0bffeb9a0678856917264021604ddbb185338409a445548602473044022014471c3d104082e1a8f5bed597c7f011e532e38ad0cfaddba137286b0262c5ba02203a522e838b4f46f6e8d4b062d8f7c25e33e6d2e24095c82b7fbaefb1c817fac5012103b0787bf7fd79ae3e5d2e30879882d849e9
-e35ad562c125d2f35c0846e3b674b90247304402204d381441ee02bfdc33207ae93b6bd370d6a5975f84e935757de15bf853181ee302201de81c824d5f0b9e2f00ce4857fcf6a776070366a02bbc95b505956dffaf80280121027a42340870f0bda9a3f8c02a2878a0946a82abf55b9a5f9bbe1c
-311d382c6bb7024730440220269445c3ad7e5d67206ee6fc1c1525a0c60a14538663fd3f8384d56cdc6bd48e022040f2f8b249245694f29b8f5eab52147c4c200060e950281a5c3b8707d4bb3915012103a46b0f32ec166229f3391769af8b7de46f55d506acde33e642fb5ecc93ed67d8024730
-4402206e14273e0f68ae386562be58bd4447b561de509fdbed106af37e00a888ac48b002201418097e03984c5f25cf20bbc16248eeee1c96448c55139ec35b812cda841e3b0121028cfa16806071615f5a205a2bd3ff1094d16f6c61a7e29ed3b2a7bcc8b78169180247304402202bac194b7681
-40944077131c3604a550cd91e24ad643139405fac272c7b00642022076331a57d4be945c5205bf08d1dd3d044ce9c5918f457719f5c732bb16bd112e012103b0787bf7fd79ae3e5d2e30879882d849e9e35ad562c125d2f35c0846e3b674b90247304402203ca9bc03d3f8bdaa7802e4566bf0b6
-ca3b95109d9e0459aecc83bca944667ebe02206ebd3515d8f7672ae828c37085d3118324e46663cdd8cbc820248fe899a8dc3d0121029960082fb77b2938b87ad9279d0e305e21708889758ffdb24c7646398ce00ef10247304402201af546b42f6f24b95f5c57c3ed37a4f54f2f36c4381d65b6
-26687baa4d6f923b02202f885246a649fa7fcb82384c0edbfce9cfd580bb4f1f07d76262c649fa04c6b8012103b0787bf7fd79ae3e5d2e30879882d849e9e35ad562c125d2f35c0846e3b674b9024730440220568078f789ad53c42aa3371c55ed8b4477194d51e7984315cd1233fb48f4884302
-2008005e27669ea6a6570a0f6a400617d53a759b02388065927b7819eea044e5e201210291db1f7a583e0a51fe3753fdea16f1c672b1d4e065f363346d35e8221a674938024730440220152a2bbe6ea6957bf083ceb8c84530780cb06e4543f6b9b3d49f4918f917b62b022075ebc6241835d484
-217d96d87d4a87c121e48c0e3266063ea2189351571d1990012103318a33b4168d66a818504ef4d3bd220eaafb62754057495e19f57371244b35e2024730440220774af82d5a143b69dbad1d498cd05b0e06bf9b437c01b18a6d8e59ddb651412d02203ae424275e9d416407a3b3949ad4eb76ae
-0b1ba4a45c3948a69aeaec0cd10d3101210351ddbffdd80fd39eee271af6812d774c5cf6660cc6f684d5441675f58e0ddea364020200",
-      "peers": [
-        {
-          "address": "103.99.169.200:48333",
-          "sent": 1776799790,
-          "received": 1776799795
-        }
-      ]
-    }
-  ]
-}
-```
-
-* If you want to stop the private broadcast process for a specific transaction, use this command:
-
-<pre class="language-bash"><code class="lang-bash">bitcoin-cli abortprivatebroadcast <a data-footnote-ref href="#user-content-fn-12">&#x3C;txid></a>
-</code></pre>
-
-{% hint style="info" %}
-Remember to replace `<txid>` with the previously obtained value.
-{% endhint %}
-
-**Example** of expected output:
-
-```
-{
-  "removed_transactions": [
-    {
-      "txid": "bbb99f53e48a52194871b5c1ee283555ce1ac38ebdc0f16008e0757bb7559df5",
-      "wtxid": "c08fff08fc3c1d141e3ade472969b07a04d4f24634155e2583eb0984324bfd58",
-      "hex": "02000000000101b73c6858ab296b0e2bee3410580e86d2cf4ba6ebbecf362d80509f1b46e4c86a0000000000fdffffff01dd410f0000000000160014017ca593408640d7de708dbb4a8079c4d7473e64014050d609026644693856d3af7787eccca7476f0dccac700a49c9df159937391ce94dd08f5c780882b210394211acbe735a89ec7a341f76f6f685267ac76537411c64020200"
-    }
-  ]
-}
-```
-
 ### Ordisrespector patch filter
 
 {% hint style="info" %}
@@ -1169,7 +1116,7 @@ git apply ordisrespector.patch
 ```
 
 {% hint style="info" %}
-Return to continue with [Option 2: Compiling from the source code - Build step](bitcoin-core.md#build) in case of first installation or [Upgrade - Build step](bitcoin-core.md#build-1) in a upgrading process.
+Return to continue with [Option 2: Compiling from the source code - Build step](bitcoin-core.md#build) in case of first installation or [Upgrade - Build step](bitcoin-core.md#build-1) in an upgrading process.
 {% endhint %}
 
 ### Reject other possible data included in transactions
@@ -1210,9 +1157,9 @@ sudo nano /home/bitcoin/.bitcoin/bitcoin.conf
 
 <pre><code># Slow devices optimizations
 ## Limit the number of max peer connections
-<a data-footnote-ref href="#user-content-fn-13">maxconnections</a>=40
+<a data-footnote-ref href="#user-content-fn-12">maxconnections</a>=40
 ## Tries to keep outbound traffic under the given target per 24h
-<a data-footnote-ref href="#user-content-fn-14">maxuploadtarget</a>=5000
+<a data-footnote-ref href="#user-content-fn-13">maxuploadtarget</a>=5000
 ## Increase the number of threads to service RPC calls (default: 4)
 rpcthreads=128
 ## Increase the depth of the work queue to service RPC calls (default: 16)
@@ -1441,7 +1388,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 Or **add** under `bind=127.0.0.1` the next line allows **connections only from devices in the same local network** (**recommended option** to improve security):
 
-<pre><code>bind=<a data-footnote-ref href="#user-content-fn-15">192.168.x.x</a>
+<pre><code>bind=<a data-footnote-ref href="#user-content-fn-14">192.168.x.x</a>
 </code></pre>
 
 {% hint style="info" %}
@@ -1464,7 +1411,7 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Attaches and persists the connection **only** to the full-sync local MiniBolt node. Add the next line at the end of the file. Save and exit.
 
-<pre><code> connect=<a data-footnote-ref href="#user-content-fn-16">&#x3C;localip></a>:8333
+<pre><code> connect=<a data-footnote-ref href="#user-content-fn-15">&#x3C;localip></a>:8333
 </code></pre>
 
 {% hint style="info" %}
@@ -1518,8 +1465,8 @@ sudo nano /data/bitcoin/bitcoin.conf
 
 * Add at the end of the file the `onion` + `i2p` addresses of the desired peers that you want to add to improve the reliability of your Bitcoin Core on MiniBolt. Save and exit.
 
-<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.onion</a>>:8333
-addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-17">abcdefg..............xyz.b32</a>>.i2p:0
+<pre><code>addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.onion</a>>:8333
+addnode=&#x3C;<a data-footnote-ref href="#user-content-fn-16">abcdefg..............xyz.b32</a>>.i2p:0
 </code></pre>
 
 {% hint style="info" %}
@@ -1567,7 +1514,7 @@ out manual   i2p  1    401    939    1   49  418           1019        455 271 a
 Enables private transaction broadcasting by routing `sendrawtransaction` through ephemeral Tor/I2P connections, preventing IP leakage and minimizing correlation between broadcasts.
 
 {% hint style="warning" %}
-Section not yet compatible with [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md).
+This section is not yet compatible with [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md).
 {% endhint %}
 
 * With the user `admin`, edit the `bitcoin.conf` file:
@@ -1648,14 +1595,41 @@ d7f4081e16abf3d05cd83f25380bec8ad5c5104a48092739f55da22c4250edd8808946baa4493c51
 }
 ```
 
+* If you want to stop the private broadcast process for a specific transaction, use this command:
+
+<pre class="language-bash"><code class="lang-bash">bitcoin-cli abortprivatebroadcast <a data-footnote-ref href="#user-content-fn-17">&#x3C;txid></a>
+</code></pre>
+
+{% hint style="info" %}
+Remember to replace `<txid>` with the previously obtained value.
+{% endhint %}
+
+**Example** of expected output:
+
+```
+{
+  "removed_transactions": [
+    {
+      "txid": "bbb99f53e48a52194871b5c1ee283555ce1ac38ebdc0f16008e0757bb7559df5",
+      "wtxid": "c08fff08fc3c1d141e3ade472969b07a04d4f24634155e2583eb0984324bfd58",
+      "hex": "02000000000101b73c6858ab296b0e2bee3410580e86d2cf4ba6ebbecf362d80509f1b46e4c86a0000000000fdffffff01dd410f0000000000160014017ca593408640d7de708dbb4a8079c4d7473e64014050d609026644693856d3af7787eccca7476f0dccac700a49c9df159937391ce94dd08f5c780882b210394211acbe735a89ec7a341f76f6f685267ac76537411c64020200"
+    }
+  ]
+}
+```
+
 ## Upgrade
 
 The latest release can be found on the [GitHub page](https://github.com/bitcoin/bitcoin/releases) of the Bitcoin Core project. Always read the [RELEASE NOTES](https://github.com/bitcoin/bitcoin/tree/master/doc/release-notes) first! When upgrading, there might be breaking changes or changes in the data structure that need special attention. Replace the environment variable `"VERSION=x.xx"` value for the latest version if it has not already been changed in this guide.
 
-**-> 2 options depending on your case:**
+**-> 2 options depending on the case you followed on Installation:**
 
-#### Case you followed [Option 1: Using precompiled binaries](bitcoin-core.md#option-1-using-precompiled-binaries)
+#### [Option 1: Using precompiled binaries](bitcoin-core.md#option-1-using-precompiled-binaries)
 
+#### [Option 2: Compiling from source code](bitcoin-core.md#option-2-compiling-from-source-code)
+
+{% tabs %}
+{% tab title="Option 1: Using precompiled binaries" %}
 * Login as `admin` user and change to the temporary directory:
 
 ```sh
@@ -1819,9 +1793,9 @@ sudo systemctl restart bitcoind
 ```bash
 journalctl -fu bitcoind
 ```
+{% endtab %}
 
-#### Case you followed [Option 2: Compiling from source code](bitcoin-core.md#option-2-compiling-from-source-code)
-
+{% tab title="Option 2: Compiling from source code" %}
 * Login as `admin` user and change to the temporary directory:
 
 ```sh
@@ -2131,6 +2105,8 @@ sudo systemctl restart bitcoind
 ```bash
 journalctl -fu bitcoind
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Uninstall
 
@@ -2252,14 +2228,14 @@ sudo ufw delete X
 
 [^11]: Default P2P Tor port
 
-[^12]: Replace this
+[^12]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
 
-[^13]: Default 125 connections to different peers, 11 of which are outbound. You can therefore, have at most 114 inbound connections. Of the 11 outbound peers, there can be 8 full-relay connections, 2 block-relay-only ones and occasionally 1 short-lived feeler or an extra block-relay-only connection.
+[^13]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
 
-[^14]: This option can be specified in MiB per day and is turned off by default. \<MiB per day>
+[^14]: Replace with your IP
 
-[^15]: Replace with your IP
+[^15]: Replace with the local IP of the remote node e.g, `192.168.1.43`
 
-[^16]: Replace with the local IP of the remote node e.g, `192.168.1.43`
+[^16]: Replace with the desire address of the peer
 
-[^17]: Replace with the desire address of the peer
+[^17]: Replace this

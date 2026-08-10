@@ -613,7 +613,7 @@ nano mempool-config.json
 {% endhint %}
 
 <pre><code>{
-    "MEMPOOL": {
+  "MEMPOOL": {
     "NETWORK": "mainnet",
     "BACKEND": "electrum",
     "HTTP_PORT": 8999,

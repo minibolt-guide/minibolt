@@ -232,7 +232,7 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.6.9
+VERSION=2.6.10
 ```
 
 * Download the NBXplorer source code and enter the folder
@@ -273,7 +273,7 @@ Turn off this advice by setting config variable advice.detachedHead to false
 
 </details>
 
-* Modify NBXplorer run script
+* Modify the NBXplorer run script
 
 ```bash
 nano +3 run.sh
@@ -297,7 +297,7 @@ nano +3 run.sh
 nano +3 build.sh
 ```
 
-* Comment next line
+* Comment the next line
 
 ```
 #dotnet build -c Release NBXplorer/NBXplorer.csproj
@@ -570,10 +570,10 @@ sudo su - btcpay
 cd src
 ```
 
-* Set the variable environment version
+* Set the environment variable version
 
 ```bash
-VERSION=2.4.1
+VERSION=2.4.2
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -616,7 +616,7 @@ Turn off this advice by setting config variable advice.detachedHead to false
 
 </details>
 
-* Modify BTCPay Server run script
+* Modify the BTCPay Server run script
 
 ```bash
 nano +4 run.sh
@@ -1171,7 +1171,7 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.6.9
+VERSION=2.6.10
 ```
 
 * Fetch the changes of the latest wish tag
@@ -1330,7 +1330,7 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.4.1
+VERSION=2.4.2
 ```
 
 * Fetch the changes from the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications

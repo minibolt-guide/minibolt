@@ -37,11 +37,11 @@ layout:
 
 #### Bitcoin with hardware wallets
 
-The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://bitbox.swiss/bitbox02/), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security, privacy, and eliminates the need to trust a third party to verify transactions.
+The best way to safely keep your bitcoin (meaning the best combination of security and usability) is to use a hardware wallet (like [BitBox](https://bitbox.swiss/bitbox02/), [Coldcard](https://coldcard.com/), [Ledger](https://www.ledger.com), or [Trezor](https://trezor.io)) in combination with your own Bitcoin node. This gives you security and privacy, and eliminates the need to trust a third party to verify transactions.
 
-Bitcoin Core on the MiniBolt itself is not meant to hold funds.
+The Bitcoin client on the MiniBolt itself is not meant to hold funds.
 
-One possibility to use Bitcoin Core with your Bitcoin wallets is to use an Electrum server as middleware. It imports data from Bitcoin Core and provides it to software wallets supporting the Electrum protocol. Desktop wallets like [Sparrow](https://sparrowwallet.com/), the [BitBoxApp](https://shiftcrypto.ch/app/), [Electrum](https://electrum.org/), or [Specter Desktop](https://specter.solutions/desktop/) that support hardware wallets can then be used with your own sovereign Bitcoin node.
+One possibility to use the Bitcoin client with your Bitcoin wallets is to use an Electrum server as middleware. It imports data from the Bitcoin client and provides it to software wallets supporting the Electrum protocol. Desktop wallets like [Sparrow](https://sparrowwallet.com/), the [BitBoxApp](https://shiftcrypto.ch/app/), [Electrum](https://electrum.org/), or [Specter Desktop](https://specter.solutions/desktop/) that support hardware wallets can then be used with your own sovereign Bitcoin node.
 
 ## Preparations
 
@@ -93,13 +93,13 @@ zmqpubhashblock=tcp://127.0.0.1:8433
 zmqpubhashtx=tcp://127.0.0.1:9332
 ```
 
-* Restart Bitcoin Core to apply changes
+* Restart the Bitcoin client to apply changes
 
 ```sh
 sudo systemctl restart bitcoind
 ```
 
-* Check if Bitcoin Core is enabled `zmqpubhashblock` on the `8433` port and `zmqpubhashtx` on the `9332` port
+* Check if the Bitcoin client is enabled `zmqpubhashblock` on the `8433` port and `zmqpubhashtx` on the `9332` port
 
 ```bash
 sudo ss -tulpn | grep -E '(:8433|:9332)'
@@ -115,7 +115,7 @@ tcp   LISTEN 0      100            127.0.0.1:<a data-footnote-ref href="#user-co
 
 ### Download binaries
 
-We have our Bitcoin Core configuration file set up and can move on to the next part of the Fulcrum installation.
+We have our Bitcoin client configuration file set up and can move on to the next part of the Fulcrum installation.
 
 * Login as `admin` user and change to a temporary directory, which is cleared on reboot
 
@@ -356,7 +356,7 @@ Remember to accommodate the `db_mem` parameter depending on your hardware
 <pre><code># MiniBolt: fulcrum configuration
 # /data/fulcrum/fulcrum.conf
 
-## Bitcoin Core settings
+## Bitcoin client settings
 bitcoind = 127.0.0.1:8332
 rpccookie = /data/bitcoin/.cookie
 

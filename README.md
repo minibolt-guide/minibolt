@@ -106,15 +106,11 @@ Feel free to join the many other contributors if you see something that can be i
 
 {% tabs %}
 {% tab title="Electrum server" %}
-{% hint style="warning" %}
-Service temporarily unavailable due to [BIP110](https://bip110.org/)
-{% endhint %}
-
 {% hint style="info" %}
-Use a signing app ([Sparrow Wallet](bitcoin/bitcoin/sparrow.md) or [Electrum Wallet desktop](bonus/bitcoin/electrum-wallet-desktop.md)) to connect
+Use a signing app ([Sparrow Wallet](bitcoin/bitcoin/sparrow.md) or [Electrum Wallet desktop](bonus/bitcoin/electrum-wallet-desktop.md)) to connect.
 {% endhint %}
 
-* Fulcrum - mainnet (🧅onion):
+* Fulcrum - **mainnet** (🧅onion):
 
 ```url
 tcp://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50001
@@ -124,7 +120,7 @@ tcp://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50001
 ssl://vr4bgiwqlhuweftttc6bj7lm5ijjyafwsr43nmeiu3k4mcgtl4tpozyd.onion:50002
 ```
 
-* Fulcrum - testnet4 (🧅onion):
+* Fulcrum - **testnet4** (🧅onion):
 
 ```url
 tcp://bnfpvanrc2g7r5o5kaabbbyjv6ddh46jmasfatrvbbsvjb7cdik5n7ad.onion:40001
@@ -146,7 +142,7 @@ http://rzcj4r2p6wterkto5prigsplq6iva5bqhcxr7y3d6w4hoc3uwizpp5qd.onion
 
 {% tab title="Nostr relay" %}
 {% hint style="info" %}
-Use [a Nostr client](bonus-guides/nostr/nostr-rs-relay.md#nostr-clients) to connect
+Use [a Nostr client](bonus-guides/nostr/nostr-rs-relay.md#nostr-clients) to connect.
 {% endhint %}
 
 * Nostr relay in Rust (🚾clearnet):
@@ -168,6 +164,19 @@ ws://xib7qeea6f5nz3ueko4kwcsddpvggdray4nhagcvofbioot3n2qrapid.onion
 ```
 http://fr2bbk7gitvpielymw7jmbkmm7glrzs2avxyxsh3rqbszkwavmqkklid.onion
 ```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Mempool visualizer" %}
+* Mempool visualizer - **mainnet** (🚾clearnet): [https://mempool.minibolt.info](https://mempool.minibolt.info/)
+* Mempool visualizer - **mainnet** (🧅onion - Use [Tor browser](https://www.torproject.org/download/)):
+
+{% code overflow="wrap" %}
+```
+http://kd3xv6vomhnwhzldh6476gmq466thi6tc7fjjtacsfmic3nvvdasbbad.onion
+```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
