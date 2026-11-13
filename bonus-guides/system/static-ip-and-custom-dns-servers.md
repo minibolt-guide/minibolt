@@ -379,7 +379,7 @@ The name of the file could be different in your case. If the file is empty when 
 ```yaml
 network:
   ethernets:
-    <interface>
+    <interface>:
       dhcp4: true
   version: 2
 ```
