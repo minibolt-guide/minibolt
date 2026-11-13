@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -9,6 +10,10 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
     visible: true
 ---
 
@@ -24,4 +29,3 @@ layout:
 ### Resilience
 
 * [**Tor services: bridges & relays**](tor-services.md) - collaborate to provide anonymous, censorship-resistant internet access by routing traffic through decentralized nodes
-

@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -9,6 +10,10 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
     visible: true
 ---
 
@@ -25,7 +30,7 @@ Your personal computer is starting and gets a new address from your home network
 * On your regular computer, open the Terminal (also known as "command line")
   * On Linux/macOS with a graphical interface, search on the application list, "Terminal" or press the keyboard shortcut `Ctrl + Alt + T`
   * On Windows, search on the application list `cmd`
-* Try to ping using the IP assigned to your MiniBolt in the before step
+* Try to ping using the IP assigned to your MiniBolt in the before step:
 
 ```sh
 ping 192.168.x.xxx
@@ -41,7 +46,7 @@ PING 192.168.1.147 (192.168.1.147) 56(84) bytes of data.
 64 bytes from 192.168.1.147: icmp_seq=4 ttl=64 time=1.58 ms
 ```
 
-* If  the`ping` command fails or does not return anything, you need to manually look for your PC
+* If the`ping` command fails or does not return anything, you need to manually look for your PC
 * You should now be able to reach your PC, with the IP address like `192.168.x.xxx`
 
 ## Access with Secure Shell

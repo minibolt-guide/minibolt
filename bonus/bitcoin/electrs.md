@@ -6,6 +6,7 @@ nav_exclude: true
 has_children: false
 has_toc: false
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -15,6 +16,12 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
     visible: true
 ---
 
@@ -26,17 +33,19 @@ layout:
 Difficulty: Medium
 {% endhint %}
 
-![](../../images/electrs-logo.png)
+![](../../.gitbook/assets/electrs-logo.png)
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../../bonus-guides/bitcoin/bitcoin-knots.md)
 * Others
-  * [Rustup + Cargo](../../bonus-guides/system/rustup-+-cargo.md)
+  * [Rustup + Cargo](../../bonus-guides/system/rustup-cargo.md)
 
 ## Preparations
 
--> Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-client.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
+{% hint style="info" %}
+Make sure that you have followed the [Activate mempool & reduce 'dbcache' after a full sync](../../bitcoin/bitcoin/bitcoin-core.md#activate-mempool-and-reduce-dbcache-after-a-full-sync) section.
+{% endhint %}
 
 ### Install dependencies
 
@@ -50,7 +59,7 @@ sudo apt update && sudo apt full-upgrade
 
 {% code overflow="wrap" %}
 ```sh
-sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev make g++ clang cmake build-essential
+sudo apt install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev clang llvm-dev libclang-dev make g++ cmake build-essential
 ```
 {% endcode %}
 
@@ -63,7 +72,7 @@ cd /tmp
 * Clone the [rocksdb](https://github.com/facebook/rocksdb) GitHub repository and enter the `rocksdb` folder
 
 ```bash
-git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb && cd rocksdb
+git clone -b v9.10.0 --depth 1 https://github.com/facebook/rocksdb && cd rocksdb
 ```
 
 * Compile it
@@ -102,7 +111,7 @@ $DEBUG_LEVEL is 0
 </details>
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take several minutes, 10-15 minutes, or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Install it
@@ -196,7 +205,7 @@ cargo 1.71.0 (cfd3bbd8f 2023-06-08)
 ```
 
 {% hint style="warning" %}
-If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-+-cargo.md) to install it and then come back to continue with the guide
+If you obtain "**command not found**" outputs, you need to follow the [Rustup + Cargo bonus section](../../bonus-guides/system/rustup-cargo.md) to install it, and then come back to continue with the guide
 {% endhint %}
 
 ### Reverse proxy & Firewall
@@ -209,7 +218,7 @@ In the [Security section](../../index-1/security.md), we already set up Nginx as
 sudo nano /etc/nginx/streams-available/electrs-reverse-proxy.conf
 ```
 
-* Paste the complete following configuration. Save and exit
+* Paste the following complete configuration. Save and exit
 
 ```nginx
 upstream electrs {
@@ -270,10 +279,10 @@ There are no precompiled binaries available for Electrs, so we should compile th
 cd /tmp
 ```
 
-* Set a temporary version environment variable to the installation
+* Set a temporary version of the environment variable for the installation
 
 ```sh
-VERSION=0.10.9
+VERSION=0.11.1
 ```
 
 * Download the source code and go to the `electrs` folder
@@ -282,38 +291,45 @@ VERSION=0.10.9
 git clone --branch v$VERSION https://github.com/romanz/electrs.git && cd electrs
 ```
 
-* To avoid using bad source code, verify that the release has been properly signed by the main developer [Roman Zeyde](https://github.com/romanz)
+* To avoid using bad source code, verify that the main developer, Roman Zeyde, has properly signed the release. Create the `git` folder inside the `.config` folder in the `admin` home
 
-```sh
-curl https://romanzey.de/pgp.txt | gpg --import
+```shellscript
+mkdir /home/admin/.config/git
 ```
 
-Expected output:
+* Create the `allowed_signers` file
 
-<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-<strong>                                   Dload  Upload   Total   Spent    Left  Speed
-</strong>100  1255  100  1255    0     0   3562      0 --:--:-- --:--:-- --:--:--  3555
-gpg: key 87CAE5FA46917CBB: public key "Roman Zeyde &#x3C;me@romanzey.de>" imported
-gpg: Total number processed: 1
-gpg:               imported: 1
-</code></pre>
+```bash
+nano /home/admin/.config/git/allowed_signers
+```
+
+* Enter the next content. Save and exit
+
+```
+git@romanzey.de ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAZVq/3fgkildjN/MqEnhrP5550sDpFzGxMwevr5q/9w
+```
+
+* Tell Git about this file
+
+```bash
+git config --global gpg.ssh.allowedSignersFile ~/.config/git/allowed_signers
+```
 
 * Verify the release
 
-```sh
-git verify-tag v$VERSION
+```shellscript
+git verify-tag -v v$VERSION
 ```
 
-Expected output:
+**Example** of expected output:
 
-<pre><code>gpg: Signature made Thu 03 Nov 2022 03:37:23 PM UTC
-gpg:                using ECDSA key 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
-gpg:                issuer "me@romanzey.de"
-gpg: <a data-footnote-ref href="#user-content-fn-1">Good signature</a> from "Roman Zeyde &#x3C;me@romanzey.de>" [unknown]
-gpg:                 aka "Roman Zeyde &#x3C;roman.zeyde@gmail.com>" [unknown]
-gpg: WARNING: This key is not certified with a trusted signature!
-gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: 15C8 C357 4AE4 F1E2 5F3F  35C5 87CA E5FA 4691 7CBB
+<pre><code>object 35216c6d30148be8e6763d913d437330f431fc03
+type commit
+tag v0.11.1
+tagger Roman Zeyde &#x3C;me@romanzey.de> 1771763419 +0100
+
+v0.11.1
+<a data-footnote-ref href="#user-content-fn-1">Good "git" signature for git@romanzey.de with ED25519 key SHA256:GifMn7F2swVKyn6MewbQHrYCs4i/bPK7gnwxhuPz/YA</a>
 </code></pre>
 
 * Now compile the source code into an executable binary
@@ -363,6 +379,10 @@ info: installing component 'rustfmt'
   Downloaded lazycell v1.3.0
   Downloaded num_cpus v1.16.0
 [...]
+  Compiling bitcoin_slices v0.10.0
+  Compiling crossbeam-channel v0.5.15
+  Compiling rust-rocksdb v0.36.0
+   Finished `release` profile [optimized] target(s) in 7m 17s
 ```
 
 </details>
@@ -397,8 +417,14 @@ v0.10.0
 sudo rm -r /tmp/electrs
 ```
 
+* Return to the home folder
+
+```bash
+cd
+```
+
 {% hint style="success" %}
-If you come to update this is the final step
+If you come to update, this is the final step
 {% endhint %}
 
 ### Create the electrs user & group <a href="#create-the-bitcoin-user-and-group" id="create-the-bitcoin-user-and-group"></a>
@@ -421,7 +447,7 @@ sudo adduser electrs bitcoin
 sudo mkdir /data/electrs
 ```
 
-* Assign as the owner to the `electrs` user
+* Assign the owner to the `electrs` user
 
 ```sh
 sudo chown electrs:electrs /data/electrs
@@ -447,9 +473,9 @@ nano /data/electrs/electrs.conf
 # MiniBolt: electrs configuration
 # /data/electrs/electrs.conf
 
-# Bitcoin Core settings
+# Bitcoin client settings
 network = "bitcoin"
-cookie_file= "/data/bitcoin/.cookie"
+cookie_file = "/data/bitcoin/.cookie"
 
 # Electrs settings
 electrum_rpc_addr = "0.0.0.0:50021"
@@ -457,9 +483,9 @@ db_dir = "/data/electrs/db"
 server_banner = "Welcome to electrs (Electrum Rust Server) running on a MiniBolt node!"
 skip_block_download_wait = true
 
-# Allow concurrent DB background operations. i.e. for 4 threads max use.
-# Customize with your available threads.
-db_parallelism=4
+# Allow concurrent DB background operations. e.g., for 4 threads max use.
+# Customise with your available threads.
+db_parallelism = 4
 
 # Logging
 log_filters = "INFO"
@@ -479,7 +505,7 @@ exit
 sudo nano /etc/systemd/system/electrs.service
 ```
 
-* Enter the complete following configuration. Save and exit
+* Enter the following complete configuration. Save and exit
 
 ```
 # MiniBolt: systemd unit for electrs
@@ -524,7 +550,7 @@ WantedBy=multi-user.target
 sudo systemctl enable electrs
 ```
 
-* Prepare "electrs" monitoring by the systemd journal and check log logging output. You can exit monitoring at any time with `Ctrl-C`
+* Prepare "electrs" monitoring by the systemd journal and check the log output. You can exit monitoring at any time with `Ctrl-C`
 
 ```sh
 journalctl -fu electrs
@@ -532,7 +558,7 @@ journalctl -fu electrs
 
 ## Run
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg, PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * Start the service
 
@@ -540,7 +566,7 @@ To keep an eye on the software movements, [start your SSH program](../../index-1
 sudo systemctl start electrs
 ```
 
-* Monitor the systemd journal at the first session created to check if everything works fine
+* Monitor the systemd journal in the first session created to check if everything works fine
 
 <details>
 
@@ -574,12 +600,12 @@ sudo systemctl start electrs
 </details>
 
 {% hint style="success" %}
-Congrats! Now you have a self-hosted Electrum Server on your node. Now you can process installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/blockchain-explorer.md) or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
+Congrats! Now you have a self-hosted Electrum Server on your node. Now you can proceed with installing the [Blockchain Explorer: BTC RPC Explorer](../../bitcoin/bitcoin/btc-rpc-explorer.md), or connect your [Desktop signing app: Sparrow Wallet](../../bitcoin/bitcoin/sparrow.md) or [Electrum Wallet ](electrum-wallet-desktop.md)[Desktop](electrum-wallet-desktop.md)
 {% endhint %}
 
 ### Validation
 
-* Ensure electrs service is working and listening at the default TCP `50021` port and the monitoring `14224` port (not used on MiniBolt)
+* Ensure electrs service is working and listening on the default TCP `50021` port and the monitoring `14224` port (not used on MiniBolt)
 
 ```sh
 sudo ss -tulpn | grep electrs
@@ -605,7 +631,7 @@ tcp   LISTEN 0   511   0.0.0.0:50022   0.0.0.0:*    users:(("nginx",pid=719,fd=5
 ```
 
 {% hint style="info" %}
-Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/bitcoin/desktop-signing-app-sparrow.md) once Electrs is ready
+Electrs must first fully index the blockchain and compact its database before you can connect to it with your wallets. This can take a few hours. Only proceed with the [next section](../../bitcoin/bitcoin/sparrow.md) once Electrs is ready
 {% endhint %}
 
 ## Extras (optional)
@@ -625,7 +651,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Electrs TCP & SSL
 HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 50021 127.0.0.1:50021
 HiddenServicePort 50022 127.0.0.1:50022
@@ -650,35 +676,12 @@ abcdefg..............xyz.onion
 ```
 
 {% hint style="info" %}
-You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50022 (SSL)` or `50021 (TCP)`
+You should now be able to connect to your Electrs server remotely via Tor using your hostname and port `50022 (SSL)` , or `50021 (TCP)`
 {% endhint %}
-
-### Migrate BTC RPC Explorer to Electrs API connection
-
-To get address balances, either an Electrum server or an external service is necessary. Your local Electrs server can provide address transaction lists, balances, and more.
-
-* As user `admin`, open the `btcrpcexplorer` service
-
-```sh
-sudo nano /etc/systemd/system/btcrpcexplorer.service
-```
-
-* Replace the `fulcrum.service` with the `electrs.service`. Save and exit
-
-```sh
-Requires=bitcoind.service electrs.service
-After=bitcoind.service electrs.service
-```
-
-* Restart the BTC RPC Explorer service to apply the changes
-
-```sh
-sudo systemctl restart btcrpcexplorer
-```
 
 ## Upgrade
 
-* First, ensure that you have the latest Rustc version following the [Upgrade section](../../bonus-guides/system/rustup-+-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-+-cargo.md)
+* First, ensure that you have the latest Rustc version, following the [Upgrade section](../../bonus-guides/system/rustup-cargo.md#upgrade) of the [Rustup + Cargo bonus guide](../../bonus-guides/system/rustup-cargo.md)
 * Follow the complete [Build from the source code](electrs.md#build-from-the-source-code) section
 * When you finish, restart Electrs to apply the new version
 
@@ -686,7 +689,7 @@ sudo systemctl restart btcrpcexplorer
 sudo systemctl restart electrs
 ```
 
-* Check logs and pay attention to the next log if that attends to the new version installed and no error logs
+* Check logs and pay attention to the next log if that refers to the new version installed, and no error logs
 
 ```bash
 journalctl -fu electrs
@@ -726,6 +729,10 @@ Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path:
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall service
 
 * With the user `admin`, stop electrs
@@ -734,7 +741,7 @@ Starting electrs 0.10.0 on x86_64 linux with Config { network: Bitcoin, db_path:
 sudo systemctl stop electrs
 ```
 
-* Disable autoboot (if eneabled)
+* Disable autoboot (if enabled)
 
 ```bash
 sudo systemctl disable electrs
@@ -748,7 +755,7 @@ sudo rm /etc/systemd/system/electrs.service
 
 ### Delete user & group
 
-* Ensure you are logged in with the user `admin`. Delete the `electrs` user.\
+* Ensure you are logged in as the user `admin`. Delete the `electrs` user.\
   Don't worry about `userdel: electrs mail spool (/var/mail/electrs) not found` output, the uninstall has been successful
 
 ```bash
@@ -757,7 +764,7 @@ sudo userdel -rf electrs
 
 ### Delete data directory
 
-* Delete electrs directory
+* Delete the electrs directory
 
 ```bash
 sudo rm -rf /data/electrs
@@ -765,7 +772,7 @@ sudo rm -rf /data/electrs
 
 ### Uninstall Tor hidden service
 
-* Ensure that you are logged in with the user `admin` , edit the `torrc` config file
+* Ensure that you are logged in as the user `admin` , edit the `torrc` config file
 
 ```bash
 sudo nano +63 /etc/tor/torrc --linenumbers
@@ -776,7 +783,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service Electrs TCP & SSL
 #HiddenServiceDir /var/lib/tor/hidden_service_electrs_tcp_ssl/
-#HiddenServiceVersion 3
+#HiddenServiceEnableIntroDoSDefense 1
 #HiddenServicePoWDefensesEnabled 1
 #HiddenServicePort 50021 127.0.0.1:50021
 #HiddenServicePort 50022 127.0.0.1:50022
@@ -790,13 +797,13 @@ sudo systemctl reload tor
 
 ### Uninstall reverse proxy & FW configuration
 
-* Ensure you are logged in with the user `admin`, delete the reverse proxy config file
+* Ensure you are logged in as the user `admin`, delete the reverse proxy config file
 
 ```bash
 sudo rm /etc/nginx/sites-available/electrs-reverse-proxy.conf
 ```
 
-* Delete the simbolic link
+* Delete the symbolic link
 
 ```bash
 sudo rm /etc/nginx/sites-enabled/electrs-reverse-proxy.conf
@@ -842,7 +849,7 @@ sudo ufw delete X
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="PM9OdZyqffcj" label="TCP" color="blue"></option><option value="fow02dq4Lt4x" label="SSL" color="blue"></option><option value="HHci4T1IS7Pb" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50021</td><td><span data-option="PM9OdZyqffcj">TCP</span></td><td align="center">Default port</td></tr><tr><td align="center">50022</td><td><span data-option="fow02dq4Lt4x">SSL</span></td><td align="center">Encrypted port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="109">Protocol<select><option value="PM9OdZyqffcj" label="TCP" color="blue"></option><option value="fow02dq4Lt4x" label="SSL" color="blue"></option><option value="HHci4T1IS7Pb" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">50021</td><td><span data-option="PM9OdZyqffcj">TCP</span></td><td align="center">TCP port</td></tr><tr><td align="center">50022</td><td><span data-option="fow02dq4Lt4x">SSL</span></td><td align="center">SSL port</td></tr></tbody></table>
 
 [^1]: Check this
 

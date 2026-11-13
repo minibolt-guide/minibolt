@@ -5,6 +5,7 @@ parent: Bonus Section
 has_children: false
 has_toc: false
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -14,6 +15,12 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
     visible: true
 ---
 
@@ -34,12 +41,12 @@ layout:
 ### Common programming languages
 
 * [**Node + NPM**](nodejs-npm.md) - Install / Update / Uninstall Node + NPM
-* [**Rustup + Cargo**](../../bonus-guides/system/rustup-+-cargo.md) - Install / Update / Uninstall Rustup + Cargo
-* [**Go**](../../bonus-guides/system/go.md) - Install / Update / Uninstall Go
+* [**Rustup + Cargo**](../../bonus-guides/system/rustup-cargo.md) - Install / Update / Uninstall Rustup + Cargo
 
 ### Databases
 
 * [**PostgreSQL**](../../bonus-guides/system/postgresql.md) - Install / Update / Uninstall PostgreSQL database
+* [**MariaDB**](../../bonus-guides/system/mariadb.md) - a community-developed, commercially supported fork of the MySQL relational database management system (RDBMS)
 
 ### Hardware
 

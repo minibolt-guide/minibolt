@@ -5,6 +5,7 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -14,6 +15,10 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
     visible: true
 ---
 
@@ -25,7 +30,7 @@ If you want to use a different disk to store data (blockchain and other database
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/store-data-secondary-disk.PNG)
+![](../../.gitbook/assets/store-data-secondary-disk.PNG)
 
 ## Case 1: during the Ubuntu server guided installation
 
@@ -111,10 +116,10 @@ sudo fdisk /dev/sdb
 -> **2 cases**, depending on whether your drive contains partitions or not:
 
 {% tabs %}
-{% tab title="Case 1: doesn't contain existing partitions" %}
+{% tab title="Case 1: doesn" %}
 If you don't see any "sdb**X**" partition in the previous step, i.e `sdb1`:
 
-* Press **`"n"`** to create a new partition and then press ENTER until the prompt shows you:&#x20;
+* Press **`"n"`** to create a new partition and then press ENTER until the prompt shows you:
 
 ```
 Created a new partition X of type 'Linux filesystem'
@@ -145,7 +150,7 @@ Created a new partition X of type 'Linux filesystem'
 {% endtab %}
 {% endtabs %}
 
--> Finally, don't forget, to type **`w`**  and **ENTER** to write table to disk and exit
+-> Finally, don't forget, to type **`w`** and **ENTER** to write table to disk and exit
 
 {% hint style="info" %}
 This will create a new partition called probably **`"sdb1"`**

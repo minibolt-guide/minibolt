@@ -5,6 +5,7 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -14,6 +15,10 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
     visible: true
 ---
 
@@ -25,7 +30,7 @@ layout:
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/nodejs-logo.png) ![](../../images/npm-logo.png)
+![](../../.gitbook/assets/nodejs-logo.png) ![](../../.gitbook/assets/npm-logo.png)
 
 ## Installation
 
@@ -97,9 +102,68 @@ npm -v
 rm nodesource_setup.sh
 ```
 
+{% hint style="info" %}
+**(Optional)** Improve your privacy by opting out of Next.js [telemetry](https://nextjs.org/telemetry)
+
+```bash
+npx next telemetry disable
+```
+
+When the prompt asks you this:
+
+```
+Need to install the following packages:
+next@16.2.1
+Ok to proceed? (y)
+```
+
+* Type "y" and press `Enter`
+
+Expected output:
+
+```
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+Your preference has been saved to /home/thunderhub/.config/nextjs-nodejs/config.json.
+
+Status: Disabled
+
+You have opted-out of Next.js' anonymous telemetry program.
+No data will be collected from your machine.
+
+Learn more: https://nextjs.org/telemetry
+npm notice
+npm notice New major version of npm available! 10.9.7 -> 11.12.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.12.1
+npm notice To update run: npm install -g npm@11.12.1
+npm notice
+```
+
+If you are not sure if you have already disabled the telemetry, check with the next command:
+
+```bash
+npx next telemetry status
+```
+
+**Example** of expected output:
+
+<pre><code>Next.js Telemetry
+
+Status: <a data-footnote-ref href="#user-content-fn-1">Disabled</a>
+
+You have opted-out of Next.js' anonymous telemetry program.
+No data will be collected from your machine.
+
+Learn more: https://nextjs.org/telemetry
+</code></pre>
+{% endhint %}
+
 ## Upgrade
 
-* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + Thunderhub
+* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + ThunderHub
 
 ```bash
 sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
@@ -117,15 +181,21 @@ sudo apt update && sudo apt full-upgrade
 node -v && npm -v
 ```
 
-* Start BTC RPC Explorer & Thunderhub again
+* **(Optional)** Delete the setup script
+
+```bash
+rm nodesource_setup.sh
+```
+
+* Start BTC RPC Explorer & ThunderHub again
 
 ```bash
 sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
 ```
 
-### Upgrade to major version
+### Upgrade to the major version
 
-* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + Thunderhub
+* With user `admin`, stop the current dependencies services of the Node + NPM, that are actually BTC RPC Explorer + ThunderHub
 
 ```bash
 sudo systemctl stop btcrpcexplorer && sudo systemctl stop thunderhub
@@ -144,7 +214,7 @@ VERSION=22
 ```
 
 {% hint style="info" %}
-Here is important that you change the environment variable to the immediately higher LTS version, for example: `20 > 22`
+You must change the environment variable to the immediately higher LTS version, for example: `20 > 22`
 {% endhint %}
 
 * We will use the NodeSource Node.js Binary Distributions [repository](https://github.com/nodesource/distributions) instructions. Download the setup script
@@ -173,7 +243,13 @@ sudo apt update && sudo apt install nodejs
 node -v && npm -v
 ```
 
-* Start BTC RPC Explorer & Thunderhub again
+* **(Optional)** Delete the setup script
+
+```bash
+rm nodesource_setup.sh
+```
+
+* Start BTC RPC Explorer & ThunderHub again
 
 ```bash
 sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
@@ -181,10 +257,16 @@ sudo systemctl start btcrpcexplorer && sudo systemctl start thunderhub
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 * To uninstall, type this command and press "**y**" and "**enter**" when needed
 
 {% code overflow="wrap" %}
 ```sh
-sudo apt autoremove nodejs --purge && sudo rm /etc/apt/sources.list.d/nodesource.list
+sudo apt autoremove nodejs --purge && sudo rm /etc/apt/sources.list.d/nodesource.sources
 ```
 {% endcode %}
+
+[^1]: Check this

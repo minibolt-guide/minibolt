@@ -3,6 +3,7 @@ title: System
 nav_order: 20
 has_children: true
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -12,6 +13,10 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
     visible: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -9,6 +10,12 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
     visible: true
 ---
 
@@ -30,8 +37,8 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Requirements
 
-* [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-client.md)
-* [LND](../../lightning/lightning-client.md) (optional)
+* Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](bitcoin-knots.md)
+* [LND](../../lightning/lightning/lnd.md) (optional)
 * [NBXplorer](btcpay-server.md#install-nbxplorer)
 * Others
   * [.NET Core SDK](btcpay-server.md#install-.net-core-sdk)
@@ -39,7 +46,7 @@ More information can be found in its [documentation](https://docs.btcpayserver.o
 
 ## Preparations
 
-To run the BTCPay Server you will need to install `.NET Core SDK`, `PostgreSQL`, and `NBXplorer`
+To run the BTCPay Server, you will need to install `.NET Core SDK`, `PostgreSQL`, and `NBXplorer`
 
 ### Firewall
 
@@ -93,10 +100,10 @@ wget https://builds.dotnet.microsoft.com/dotnet/scripts/v1/dotnet-install.sh
 chmod +x ./dotnet-install.sh
 ```
 
-* Set environment variable version
+* Set the environment variable version
 
 ```bash
-VERSION=8.0
+VERSION=10.0
 ```
 
 * Install .NET Core SDK
@@ -107,7 +114,7 @@ VERSION=8.0
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 dotnet-install: Attempting to download using aka.ms link https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.405/dotnet-sdk-8.0.405-linux-x64.tar.gz
@@ -153,7 +160,7 @@ dotnet --version
 **Example** of expected output:
 
 ```
-8.0.405
+10.0.201
 ```
 
 * Delete the installation script
@@ -162,7 +169,7 @@ dotnet --version
 rm dotnet-install.sh
 ```
 
-* Come back to the "admin" user
+* Come back to the `admin` user
 
 ```bash
 exit
@@ -208,7 +215,7 @@ sudo -u postgres psql -c "CREATE DATABASE btcpay TEMPLATE 'template0' LC_CTYPE '
 
 ### Install NBXplorer
 
-[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, used by BTCPay Server
+[NBXplorer](https://github.com/dgarage/NBXplorer) is a minimalist UTXO tracker for HD Wallets, used by BTCPay Server.
 
 * With user `admin`, switch to the `btcpay` user
 
@@ -225,18 +232,18 @@ mkdir src && cd src
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.25
+VERSION=2.6.10
 ```
 
 * Download the NBXplorer source code and enter the folder
 
 ```bash
-git clone --branch v$VERSION https://github.com/dgarage/NBXplorer.git && cd NBXplorer
+git clone --branch v$VERSION https://github.com/btcpayserver/NBXplorer.git && cd NBXplorer
 ```
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 Cloning into 'btcpayserver'...
@@ -266,7 +273,7 @@ Turn off this advice by setting config variable advice.detachedHead to false
 
 </details>
 
-* Modify NBXplorer run script
+* Modify the NBXplorer run script
 
 ```bash
 nano +3 run.sh
@@ -290,7 +297,7 @@ nano +3 run.sh
 nano +3 build.sh
 ```
 
-* Comment next line
+* Comment the next line
 
 ```
 #dotnet build -c Release NBXplorer/NBXplorer.csproj
@@ -313,9 +320,9 @@ nano +3 build.sh
 <summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-Welcome to .NET 8.0!
+Welcome to .NET 10.0!
 ---------------------
-SDK Version: 8.0.100
+SDK Version: 10.0.201
 
 ----------------
 Installed an ASP.NET Core HTTPS development certificate.
@@ -328,24 +335,30 @@ Explore documentation: https://aka.ms/dotnet-docs
 Report issues and find source on GitHub: https://github.com/dotnet/core
 Use 'dotnet --help' to see available commands or visit: https://aka.ms/dotnet-cli
 --------------------------------------------------------------------------------------
-MSBuild version 17.8.3+195e7f5a3 for .NET
-  Determining projects to restore...
-  Restored /home/btcpay/src/NBXplorer/NBXplorer.Client/NBXplorer.Client.csproj (in 30.33 sec).
-  Restored /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj (in 30.35 sec).
-  NBXplorer.Client -> /home/btcpay/src/NBXplorer/NBXplorer.Client/bin/Release/netstandard2.1/NBXplorer.Client.dll
-  NBXplorer -> /home/btcpay/src/NBXplorer/NBXplorer/bin/Release/net8.0/NBXplorer.dll
+Restore succeeded with 2 warning(s) in 0.9s
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'Microsoft.IdentityModel.JsonWebTokens' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'System.IdentityModel.Tokens.Jwt' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+  NBXplorer.Client net10.0 succeeded with 3 warning(s) (0.7s) → NBXplorer.Client/bin/Release/net10.0/NBXplorer.Client.dll
+    /home/btcpay/src/NBXplorer/NBXplorer.Client/Models/TrackedSource.cs(219,8): warning CA2265: Comparing a span to 'null' might be redundant, the 'null' literal will be implicitly converted to a 'Span<T>.Empty' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2265)
+    /home/btcpay/src/NBXplorer/NBXplorer.Client/Models/TrackedSource.cs(180,8): warning CA2265: Comparing a span to 'null' might be redundant, the 'null' literal will be implicitly converted to a 'Span<T>.Empty' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2265)
+    /home/btcpay/src/NBXplorer/NBXplorer.Client/Models/TrackedSource.cs(130,8): warning CA2265: Comparing a span to 'null' might be redundant, the 'null' literal will be implicitly converted to a 'Span<T>.Empty' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2265)
+  NBXplorer net10.0 succeeded with 8 warning(s) (2.1s) → NBXplorer/bin/Release/net10.0/NBXplorer.dll
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'Microsoft.IdentityModel.JsonWebTokens' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'System.IdentityModel.Tokens.Jwt' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+    /home/btcpay/src/NBXplorer/NBXplorer/Backend/Repository.cs(1056,11): warning CS0618: 'RPCClient.ImportPrivKeyAsync(BitcoinSecret, string, bool)' is obsolete: 'Unsupported by new versions of Bitcoin Core'
+    /home/btcpay/src/NBXplorer/NBXplorer/Backend/Repository.cs(1062,12): warning CS0618: 'RPCClient.ImportAddressAsync(BitcoinAddress, string, bool)' is obsolete: 'Unsupported by new versions of Bitcoin Core'
+    /home/btcpay/src/NBXplorer/NBXplorer/Program.cs(24,4): warning ASPDEPR008: 'IWebHost' is obsolete: 'IWebHost is obsolete. Use IHost instead. For more information, visit https://aka.ms/aspnet/deprecate/008.' (https://aka.ms/aspnet/deprecate/008)
+    /home/btcpay/src/NBXplorer/NBXplorer/Program.cs(37,16): warning ASPDEPR004: 'WebHostBuilder' is obsolete: 'WebHostBuilder is deprecated in favor of HostBuilder and WebApplicationBuilder. For more information, visit https://aka.ms/aspnet/deprecate/004.' (https://aka.ms/aspnet/deprecate/004)
+    /home/btcpay/src/NBXplorer/NBXplorer/Program.cs(37,12): warning ASPDEPR008: 'IWebHostBuilder.Build()' is obsolete: 'IWebHost is obsolete. Use IHost instead. For more information, visit https://aka.ms/aspnet/deprecate/008.' (https://aka.ms/aspnet/deprecate/008)
+    /home/btcpay/src/NBXplorer/NBXplorer/Logging/LogAllRequestsMiddleware.cs(64,10): warning CA2022: Avoid inexact read with 'System.IO.Stream.ReadAsync(byte[], int, int)' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2022)
 
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:41.43
+Build succeeded with 13 warning(s) in 4.6s
 ```
 
 </details>
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take several minutes, 10-15 minutes, or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Check the correct installation
@@ -377,13 +390,13 @@ cd ~/.nbxplorer/Main
 nano settings.config
 ```
 
-* Add the entire next lines. Save and exit
+* Add the entire next line. Save and exit
 
 ```
 # MiniBolt: nbxplorer configuration
 # /home/btcpay/.nbxplorer/Main/settings.config
 
-# Bitcoind connection
+# Bitcoin client connection
 btc.rpc.cookiefile=/data/bitcoin/.cookie
 
 # Database
@@ -445,19 +458,19 @@ WantedBy=multi-user.target
 sudo systemctl enable nbxplorer
 ```
 
-* Prepare `nbxplorer` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare `nbxplorer` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
 journalctl -fu nbxplorer
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
+Keep **this terminal open;** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
 ### Running NBXplorer
 
-To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as "admin"
+To keep an eye on the software movements, [start your SSH program](../../index-1/remote-access.md#access-with-secure-shell) (eg. PuTTY) a second time, connect to the MiniBolt node, and log in as `admin`
 
 * With user `admin`, start the `nbxplorer` service
 
@@ -522,7 +535,7 @@ Ignore the next warning log:
 warn: NBXplorer.Indexer.BTC: BTC: Your NBXplorer server is not whitelisted by your node, you should add "whitelist=127.0.0.1" to the configuration file of your node. (Or use whitebind)
 ```
 
--> It's a wrong warning since we connected to Bitcoin Core locally,  so there is no point in having to whitelist the connection.
+-> It's a wrong warning since we connected to Bitcoin Core locally, so there is no point in having to whitelist the connection.
 {% endhint %}
 
 #### Validation
@@ -557,10 +570,10 @@ sudo su - btcpay
 cd src
 ```
 
-* Set the variable environment version
+* Set the environment variable version
 
 ```bash
-VERSION=2.1.0
+VERSION=2.4.2
 ```
 
 * Clone the BTCPay Server official GitHub repository and enter the folder
@@ -573,7 +586,7 @@ git clone --branch v$VERSION https://github.com/btcpayserver/btcpayserver && cd 
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 Cloning into 'btcpayserver'...
@@ -603,13 +616,13 @@ Turn off this advice by setting config variable advice.detachedHead to false
 
 </details>
 
-* Modify BTCPay Server run script
+* Modify the BTCPay Server run script
 
 ```bash
 nano +4 run.sh
 ```
 
-* Comment next line
+* Comment the next line
 
 ```
 #dotnet "BTCPayServer.dll" $@
@@ -627,7 +640,7 @@ nano +4 run.sh
 nano +3 build.sh
 ```
 
-* Comment next line
+* Comment the next line
 
 ```
 #dotnet publish --no-cache -o BTCPayServer/bin/Release/publish/ -c Release BTCPayServer/BTCPayServer.csproj
@@ -647,31 +660,28 @@ nano +3 build.sh
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-MSBuild version 17.3.2+561848881 for .NET
-  Determining projects to restore...
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Rating/BTCPayServer.Rating.csproj (in 32.66 sec).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Data/BTCPayServer.Data.csproj (in 1.41 sec).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Common/BTCPayServer.Common.csproj (in 392 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Client/BTCPayServer.Client.csproj (in 1.1 sec).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj (in 8 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj (in 36.6 sec).
-  BTCPayServer.Common -> /home/btcpay/src/btcpayserver/BTCPayServer.Common/bin/Release/net6.0/BTCPayServer.Common.dll
-  BTCPayServer.Client -> /home/btcpay/src/btcpayserver/BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
-  BTCPayServer.Rating -> /home/btcpay/src/btcpayserver/BTCPayServer.Rating/bin/Release/net6.0/BTCPayServer.Rating.dll
-  BTCPayServer.Abstractions -> /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/bin/Release/net6.0/BTCPayServer.Abstractions.dll
-  BTCPayServer.Data -> /home/btcpay/src/btcpayserver/BTCPayServer.Data/bin/Release/net6.0/BTCPayServer.Data.dll
-/home/btcpay/src/btcpayserver/BTCPayServer/Services/Cheater.cs(37,35): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj]
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/net6.0/BTCPayServer.dll
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/publish/
+Restore succeeded with 1 warning(s) in 13.7s
+    /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj : warning NU1903: Package 'Microsoft.Bcl.Memory' 9.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-73j8-2gch-69rq
+  BTCPayServer.Common net10.0 succeeded (1.0s) → BTCPayServer.Common/bin/Release/net10.0/BTCPayServer.Common.dll
+  BTCPayServer.Rating net10.0 succeeded (1.8s) → BTCPayServer.Rating/bin/Release/net10.0/BTCPayServer.Rating.dll
+  BTCPayServer.Client netstandard2.1 succeeded (1.9s) → BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
+  BTCPayServer.Abstractions net10.0 succeeded (1.3s) → BTCPayServer.Abstractions/bin/Release/net10.0/BTCPayServer.Abstractions.dll
+  BTCPayServer.Data net10.0 succeeded (2.3s) → BTCPayServer.Data/bin/Release/net10.0/BTCPayServer.Data.dll
+  BTCPayServer net10.0 succeeded with 3 warning(s) (28.8s) → BTCPayServer/bin/Release/publish/
+    /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj : warning NU1903: Package 'Microsoft.Bcl.Memory' 9.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-73j8-2gch-69rq
+    /home/btcpay/src/btcpayserver/BTCPayServer/Extensions.cs(826,16): warning CS8603: Possible null reference return.
+    /home/btcpay/src/btcpayserver/BTCPayServer/Controllers/UIInvoiceController.cs(157,51): warning CS9336: The pattern is redundant.
+
+Build succeeded with 4 warning(s) in 48.7s
 ```
 
 </details>
 
 {% hint style="info" %}
-This process can take quite **a long time**, 10-15 minutes or more, depending on the performance of your device. Please be patient until the prompt shows again
+This process can take several minutes, 10-15 minutes, or more, depending on the performance of your device. Please be patient until the prompt shows again
 {% endhint %}
 
 * Check the correct installation
@@ -700,7 +710,7 @@ mkdir -p ~/.btcpayserver/Main && cd ~/.btcpayserver/Main
 nano settings.config
 ```
 
-* Add the complete following lines
+* Add the following lines
 
 <pre><code># MiniBolt: btcpayserver configuration
 # /home/btcpay/.btcpayserver/Main/settings.config
@@ -717,9 +727,9 @@ postgres=User ID=admin;Password=admin;Host=localhost;Port=5432;Database=btcpay;
 </code></pre>
 
 {% hint style="info" %}
--> If you want to connect your Lightning LND node to BTCPay Server too, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
+-> If you want to connect your LND node to BTCPay Server, go to the [Connect to your LND internal node](btcpay-server.md#connect-to-your-lnd-internal-node) optional section
 
--> The `socksendpoint=127.0.0.1:9050` parameter is optional but recommended to increase your privacy, if you want to delete, comment with # before it or delete it directly
+-> The `socksendpoint=127.0.0.1:9050` parameter is optional, but recommended to increase your privacy; if you want to delete, comment with `#` before it, or delete it directly
 {% endhint %}
 
 * Go back to the `admin` user
@@ -743,8 +753,8 @@ sudo nano /etc/systemd/system/btcpay.service
 
 <strong>[Unit]
 </strong>Description=BTCPay Server
-Requires=nbxplorer.service postgresql.service lnd.service
-After=nbxplorer.service postgresql.service lnd.service
+Requires=nbxplorer.service postgresql.service
+After=nbxplorer.service postgresql.service
 
 [Service]
 WorkingDirectory=/home/btcpay/src/btcpayserver
@@ -768,14 +778,14 @@ WantedBy=multi-user.target
 sudo systemctl enable btcpay
 ```
 
-* Prepare `btcpay` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with Ctrl-C
+* Prepare `btcpay` monitoring by the systemd journal and checking the logging output. You can exit monitoring at any time with `Ctrl-C`
 
 ```bash
 journalctl -fu btcpay
 ```
 
 {% hint style="info" %}
-Keep **this terminal open,** you'll need to come back here on the next step to monitor the logs
+Keep **this terminal open;** you'll need to come back here on the next step to monitor the logs
 {% endhint %}
 
 ### Running BTCPay Server
@@ -835,7 +845,7 @@ tcp   LISTEN 0   512        0.0.0.0:23000   0.0.0.0:*    users:(("dotnet",pid=28
 ```
 
 {% hint style="success" %}
-When you follow the "[Use Cloudflare tunnel to expose publicly](btcpay-server.md#use-cloudflare-tunnel-to-expose-publicly)" section, point your browser to your publicly exposed BTCPay Server, i.e: `btcpay.domain.com`
+When you follow the [Use Cloudflare tunnel to expose publicly](btcpay-server.md#use-cloudflare-tunnel-to-expose-publicly) section, point your browser to your publicly exposed BTCPay Server, i.e: `btcpay.domain.com`
 {% endhint %}
 
 {% hint style="danger" %}
@@ -856,7 +866,7 @@ You can now create the first account to access the dashboard using a real (recom
 
 #### Configure LND
 
-* Stay logged with the`admin` user, and configure LND to allow LND REST from anywhere by editing the `lnd.conf` file
+* Stay logged in with the`admin` user, and configure LND to allow LND REST from anywhere by editing the `lnd.conf` file
 
 ```bash
 sudo nano /data/lnd/lnd.conf
@@ -865,7 +875,7 @@ sudo nano /data/lnd/lnd.conf
 * Add the next line under the `[Application Options]` section. Save and exit
 
 ```
-# Specify all ipv4 interfaces to listen on for REST connections
+# Specify all IPv4 interfaces to listen on for REST connections
 restlisten=0.0.0.0:8080
 ```
 
@@ -906,7 +916,7 @@ sudo su - btcpay
 nano .btcpayserver/Main/settings.config
 ```
 
-* Add the next content to the end of the file. Save and exit
+* Add the following content to the end of the file. Save and exit
 
 ```
 # Lightning internal node connection
@@ -921,12 +931,19 @@ exit
 
 #### Modify the BTCPay Server systemd service
 
-* Modify the next lines of the systemd service file by following [this section](btcpay-server.md#create-btcpay-server-systemd-service), adding the `lnd.service` dependency
+* With user `admin`, modify the systemd service file
 
+{% code overflow="wrap" %}
+```bash
+sudo nano /etc/systemd/system/btcpay.service
 ```
-Requires=nbxplorer.service lnd.service
-After=nbxplorer.service lnd.service
-```
+{% endcode %}
+
+* Add the `lnd.service` dependency. Save and exit
+
+<pre><code>Requires=nbxplorer.service postgresql.service <a data-footnote-ref href="#user-content-fn-2">lnd.service</a>
+After=nbxplorer.service postgresql.service <a data-footnote-ref href="#user-content-fn-2">lnd.service</a>
+</code></pre>
 
 * Reload the systemd daemon
 
@@ -959,7 +976,7 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 ```
 # Hidden Service BTCPay Server
 HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 80 127.0.0.1:23000
 ```
@@ -989,24 +1006,24 @@ abcdefg..............xyz.onion
 You may want to expose your BTCPay Server publicly using a clearnet address. To do this, follow the next steps:
 
 * Follow the [Cloudflare tunnel](../networking/cloudflare-tunnel.md) guide to install and create the Cloudflare tunnel from your MiniBolt to Cloudflare
-* When you finish the "[Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name)" section, you can skip the "[Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic)" section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
+* When you finish the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section, you can skip the [Start routing traffic](../networking/cloudflare-tunnel.md#id-5-start-routing-traffic) section and go to your [Cloudflare account](https://dash.cloudflare.com/login) -> From the left sidebar, select **Websites,** click on your site, and again from the new left sidebar, click on **DNS -> Records**
 * Click on the **\[+ Add record]** button
 
-<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_mod.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/add_new_cname_tunnel_cloudflare.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 > Select the **CNAME** type
 
 > Type the selected subdomain (i.e service name "btcpay") as the **Name** field
 
-> Type the tunnel `<UUID>`  of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
+> Type the tunnel `<UUID>` of your previously obtained in the [Create a tunnel and give it a name](../networking/cloudflare-tunnel.md#id-3-create-a-tunnel-and-give-it-a-name) section as the **Target** field
 
 > Ensure you enable the switch on the `Proxy status` field to be "Proxied"
 
 Click on the \[Save] button to save the new DNS registry
 {% endhint %}
 
-* If you didn't follow before, continue with the "[Configuration](../networking/cloudflare-tunnel.md#configuration)" section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
+* If you didn't follow before, continue with the [Configuration](../networking/cloudflare-tunnel.md#configuration) section of the [Cloudflare tunnel guide](../networking/cloudflare-tunnel.md) to [Increase the maximum UDP Buffer Sizes](../networking/cloudflare-tunnel.md#increase-the-maximum-udp-buffer-sizes) and [Create systemd service](../networking/cloudflare-tunnel.md#create-systemd-service)
 * Edit the`config.yml`
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo nano /home/admin/.cloudflared/config.yml
@@ -1015,7 +1032,7 @@ Click on the \[Save] button to save the new DNS registry
 * Add the next lines to the `config.yml`
 
 <pre><code># BTCPay Server
-  - hostname: <a data-footnote-ref href="#user-content-fn-2">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-3">&#x3C;domain.com></a>
+  - hostname: <a data-footnote-ref href="#user-content-fn-3">&#x3C;subdomain></a>.<a data-footnote-ref href="#user-content-fn-4">&#x3C;domain.com></a>
     service: http://localhost:23000
 </code></pre>
 
@@ -1066,7 +1083,7 @@ chmod +x ./dotnet-install.sh
 * Set the new `VERSION` environment variable, for example, 6.0 -> 8.0
 
 ```bash
-VERSION=8.0
+VERSION=10.0
 ```
 
 * Install .NET Core SDK
@@ -1077,15 +1094,16 @@ VERSION=8.0
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-dotnet-install: Attempting to download using aka.ms link https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.417/dotnet-sdk-6.0.417-linux-x64.tar.gz
-dotnet-install: Remote file https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.417/dotnet-sdk-6.0.417-linux-x64.tar.gz size is 186250370 bytes.
-dotnet-install: Extracting zip from https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.417/dotnet-sdk-6.0.417-linux-x64.tar.gz
-dotnet-install: Downloaded file size is 186250370 bytes.
+dotnet-install: Attempting to download using aka.ms link https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.201/dotnet-sdk-10.0.201-linux-x64.tar.gz
+dotnet-install: Remote file https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.201/dotnet-sdk-10.0.201-linux-x64.tar.gz size is 242025193 bytes.
+dotnet-install: Extracting archive from https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.201/dotnet-sdk-10.0.201-linux-x64.tar.gz
+cp: cannot create regular file '/home/btcpay/.dotnet/dotnet': Text file busy
+dotnet-install: Downloaded file size is 242025193 bytes.
 dotnet-install: The remote and local file sizes are equal.
-dotnet-install: Installed version is 6.0.417
+dotnet-install: Installed version is 10.0.201
 dotnet-install: Adding to current process PATH: `/home/btcpay/.dotnet`. Note: This change will be visible only when sourcing script.
 dotnet-install: Note that the script does not resolve dependencies during installation.
 dotnet-install: To check the list of dependencies, go to https://learn.microsoft.com/dotnet/core/install, select your operating system and check the "Dependencies" section.
@@ -1106,7 +1124,7 @@ echo 'export DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-* Check the new .NET SDK version has been correctly installed
+* Check that the new .NET SDK version has been correctly installed
 
 ```bash
 dotnet --version
@@ -1115,7 +1133,7 @@ dotnet --version
 **Example** of expected output:
 
 ```
-6.0.411
+10.0.201
 ```
 
 * Delete the installation script
@@ -1153,12 +1171,12 @@ cd src/NBXplorer
 * Set the environment variable version
 
 ```bash
-VERSION=2.5.25
+VERSION=2.6.10
 ```
 
 * Fetch the changes of the latest wish tag
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>git pull https://github.com/dgarage/NBXplorer.git v$VERSION
+<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>git pull https://github.com/btcpayserver/NBXplorer.git v$VERSION
 </strong></code></pre>
 
 **Example** of expected output:
@@ -1178,9 +1196,7 @@ Fast-forward
 {% hint style="warning" %}
 **Troubleshooting notes:**
 
-
-
-If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
+1. If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
 git config user.email "minibolt@dummyemail.com"
@@ -1190,11 +1206,9 @@ git config user.email "minibolt@dummyemail.com"
 git config user.name "MiniBolt"
 ```
 
--> And try again the last command
+-> And try the last command again
 
-
-
-If the prompt shows you this:
+2. If the prompt shows you this:
 
 ```
 hint: You have divergent branches and need to specify how to reconcile them.
@@ -1211,14 +1225,14 @@ hint: or --ff-only on the command line to override the configured default per
 hint: invocation.
 ```
 
-You need to do and exec the before `git pull` command again:
+You need to do and execute the previous `git pull` command again:
 
 ```bash
 git config pull.rebase false
 ```
 {% endhint %}
 
-* Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to no apply modifications
+* Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` not apply modifications
 * Build it
 
 ```bash
@@ -1227,21 +1241,44 @@ git config pull.rebase false
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-MSBuild version 17.8.3+195e7f5a3 for .NET
-  Determining projects to restore...
-  Restored /home/btcpay/src/NBXplorer/NBXplorer.Client/NBXplorer.Client.csproj (in 2.43 sec).
-  Restored /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj (in 2.47 sec).
-  NBXplorer.Client -> /home/btcpay/src/NBXplorer/NBXplorer.Client/bin/Release/netstandard2.1/NBXplorer.Client.dll
-  NBXplorer -> /home/btcpay/src/NBXplorer/NBXplorer/bin/Release/net8.0/NBXplorer.dll
 
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
+Welcome to .NET 10.0!
+---------------------
+SDK Version: 10.0.201
 
-Time Elapsed 00:00:19.80
+----------------
+Installed an ASP.NET Core HTTPS development certificate.
+To trust the certificate, run 'dotnet dev-certs https --trust'
+Learn about HTTPS: https://aka.ms/dotnet-https
+
+----------------
+Write your first app: https://aka.ms/dotnet-hello-world
+Find out what's new: https://aka.ms/dotnet-whats-new
+Explore documentation: https://aka.ms/dotnet-docs
+Report issues and find source on GitHub: https://github.com/dotnet/core
+Use 'dotnet --help' to see available commands or visit: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+Restore succeeded with 2 warning(s) in 2.3s
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'Microsoft.IdentityModel.JsonWebTokens' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'System.IdentityModel.Tokens.Jwt' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+  NBXplorer.Client net10.0 succeeded with 3 warning(s) (3.6s) → NBXplorer.Client/bin/Release/net10.0/NBXplorer.Client.dll
+    /home/btcpay/src/NBXplorer/NBXplorer.Client/Models/TrackedSource.cs(219,8): warning CA2265: Comparing a span to 'null' might be redundant, the 'null' literal will be implicitly converted to a 'Span<T>.Empty' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2265)
+    /home/btcpay/src/NBXplorer/NBXplorer.Client/Models/TrackedSource.cs(180,8): warning CA2265: Comparing a span to 'null' might be redundant, the 'null' literal will be implicitly converted to a 'Span<T>.Empty' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2265)
+    /home/btcpay/src/NBXplorer/NBXplorer.Client/Models/TrackedSource.cs(130,8): warning CA2265: Comparing a span to 'null' might be redundant, the 'null' literal will be implicitly converted to a 'Span<T>.Empty' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2265)
+  NBXplorer net10.0 succeeded with 8 warning(s) (3.7s) → NBXplorer/bin/Release/net10.0/NBXplorer.dll
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'Microsoft.IdentityModel.JsonWebTokens' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+    /home/btcpay/src/NBXplorer/NBXplorer/NBXplorer.csproj : warning NU1902: Package 'System.IdentityModel.Tokens.Jwt' 5.4.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52
+    /home/btcpay/src/NBXplorer/NBXplorer/Program.cs(24,4): warning ASPDEPR008: 'IWebHost' is obsolete: 'IWebHost is obsolete. Use IHost instead. For more information, visit https://aka.ms/aspnet/deprecate/008.' (https://aka.ms/aspnet/deprecate/008)
+    /home/btcpay/src/NBXplorer/NBXplorer/Program.cs(37,16): warning ASPDEPR004: 'WebHostBuilder' is obsolete: 'WebHostBuilder is deprecated in favor of HostBuilder and WebApplicationBuilder. For more information, visit https://aka.ms/aspnet/deprecate/004.' (https://aka.ms/aspnet/deprecate/004)
+    /home/btcpay/src/NBXplorer/NBXplorer/Program.cs(37,12): warning ASPDEPR008: 'IWebHostBuilder.Build()' is obsolete: 'IWebHost is obsolete. Use IHost instead. For more information, visit https://aka.ms/aspnet/deprecate/008.' (https://aka.ms/aspnet/deprecate/008)
+    /home/btcpay/src/NBXplorer/NBXplorer/Backend/Repository.cs(1056,11): warning CS0618: 'RPCClient.ImportPrivKeyAsync(BitcoinSecret, string, bool)' is obsolete: 'Unsupported by new versions of Bitcoin Core'
+    /home/btcpay/src/NBXplorer/NBXplorer/Backend/Repository.cs(1062,12): warning CS0618: 'RPCClient.ImportAddressAsync(BitcoinAddress, string, bool)' is obsolete: 'Unsupported by new versions of Bitcoin Core'
+    /home/btcpay/src/NBXplorer/NBXplorer/Logging/LogAllRequestsMiddleware.cs(64,10): warning CA2022: Avoid inexact read with 'System.IO.Stream.ReadAsync(byte[], int, int)' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2022)
+
+Build succeeded with 13 warning(s) in 10.9s
 ```
 
 </details>
@@ -1293,10 +1330,10 @@ cd src/btcpayserver
 * Set the environment variable version
 
 ```bash
-VERSION=2.1.0
+VERSION=2.4.2
 ```
 
-* Fetch the changes of the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
+* Fetch the changes from the latest tag. Press `Ctrl+X` when the nano automatically opens the `MERGE_MSG` to apply modifications
 
 {% code overflow="wrap" %}
 ```bash
@@ -1307,21 +1344,25 @@ git pull https://github.com/btcpayserver/btcpayserver.git v$VERSION
 **Example** of expected output:
 
 ```
+remote: Enumerating objects: 6946, done.
+remote: Counting objects: 100% (3933/3933), done.
+remote: Compressing objects: 100% (265/265), done.
+remote: Total 6946 (delta 3771), reused 3668 (delta 3668), pack-reused 3013 (from 3)
+Receiving objects: 100% (6946/6946), 3.73 MiB | 11.86 MiB/s, done.
+Resolving deltas: 100% (5227/5227), completed with 559 local objects.
 From https://github.com/btcpayserver/btcpayserver
- * tag                   v1.12.0    -> FETCH_HEAD
-Updating 541cef55b..6ecfe073e
-Fast-forward
- BTCPayServer.Data/ApplicationDbContext.cs                         |  2 +-
- BTCPayServer.Data/Data/AppData.cs                                 | 10 +++++++++-
+ * tag                   v2.3.3     -> FETCH_HEAD
+Merge made by the 'ort' strategy.
+ .circleci/config.yml                                                                 |  22 ++++++++++++++++++++
+ .circleci/verify-signed-commit.sh                                                    |   8 ++++++++
+ .coderabbit.yaml                                                                     |   2 +-
 [...]
 ```
 
 {% hint style="warning" %}
 **Troubleshooting notes:**
 
-
-
-If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
+1. If the prompt shows you: `"fatal: unable to auto-detect email address (got 'btcpay@minibolt.(none)')"`⬇️
 
 ```bash
 git config user.email "minibolt@dummyemail.com"
@@ -1331,21 +1372,17 @@ git config user.email "minibolt@dummyemail.com"
 git config user.name "MiniBolt"
 ```
 
--> And try again the last command
+-> And try the last command again
 
-
-
-If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
+2. If the prompt shows you: `fatal: Need to specify how to reconcile divergent branches.`⬇️
 
 ```bash
 git config pull.rebase false
 ```
 
--> And try again the last command
+-> And try the last command again
 
-
-
-If the prompts show you logs like these:
+3. If the prompts show you logs like these:
 
 ```
 Auto-merging BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj
@@ -1365,7 +1402,7 @@ sudo rm -r /home/btcpay/src/btcpayserver
 sudo systemctl start btcpayserver
 ```
 
-The prompt shows you logs like these:
+The prompt of `journalctl -fu btcpay` shows you logs like these:
 
 ```
 [...]
@@ -1379,6 +1416,32 @@ Oct 30 16:26:48 minibolt run.sh[3307655]: info: BTCPayServer.HostedServices.Invo
 Oct 30 16:26:48 minibolt run.sh[3307655]: info: BTCPayServer.HostedServices.PaymentRequestsMigratorHostedService: Migrating from the beginning
 [...]
 ```
+
+4. If the prompts show you logs like these:
+
+{% code overflow="wrap" %}
+```
+[...]
+Auto-merging Build/Common.csproj
+Auto-merging Dockerfile
+CONFLICT (content): Merge conflict in Dockerfile
+Automatic merge failed; fix conflicts and then commit the result.
+```
+{% endcode %}
+
+Follow these steps and continue with the next step:
+
+{% code overflow="wrap" %}
+```bash
+git fetch --tags
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
+git checkout v$VERSION
+```
+{% endcode %}
 {% endhint %}
 
 * Build it
@@ -1389,23 +1452,22 @@ Oct 30 16:26:48 minibolt run.sh[3307655]: info: BTCPayServer.HostedServices.Paym
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
-  Determining projects to restore...
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/BTCPayServer.Abstractions.csproj (in 965 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Client/BTCPayServer.Client.csproj (in 965 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Common/BTCPayServer.Common.csproj (in 978 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Data/BTCPayServer.Data.csproj (in 113 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer.Rating/BTCPayServer.Rating.csproj (in 178 ms).
-  Restored /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj (in 1.9 sec).
-  BTCPayServer.Client -> /home/btcpay/src/btcpayserver/BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
-  BTCPayServer.Common -> /home/btcpay/src/btcpayserver/BTCPayServer.Common/bin/Release/net8.0/BTCPayServer.Common.dll
-  BTCPayServer.Rating -> /home/btcpay/src/btcpayserver/BTCPayServer.Rating/bin/Release/net8.0/BTCPayServer.Rating.dll
-  BTCPayServer.Abstractions -> /home/btcpay/src/btcpayserver/BTCPayServer.Abstractions/bin/Release/net8.0/BTCPayServer.Abstractions.dll
-  BTCPayServer.Data -> /home/btcpay/src/btcpayserver/BTCPayServer.Data/bin/Release/net8.0/BTCPayServer.Data.dll
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/net8.0/BTCPayServer.dll
-  BTCPayServer -> /home/btcpay/src/btcpayserver/BTCPayServer/bin/Release/publish/
+Restore succeeded with 1 warning(s) in 8.0s
+    /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj : warning NU1903: Package 'Microsoft.Bcl.Memory' 9.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-73j8-2gch-69rq
+  BTCPayServer.Common net10.0 succeeded (0.9s) → BTCPayServer.Common/bin/Release/net10.0/BTCPayServer.Common.dll
+  BTCPayServer.Rating net10.0 succeeded (1.6s) → BTCPayServer.Rating/bin/Release/net10.0/BTCPayServer.Rating.dll
+  BTCPayServer.Client netstandard2.1 succeeded (2.0s) → BTCPayServer.Client/bin/Release/netstandard2.1/BTCPayServer.Client.dll
+  BTCPayServer.Abstractions net10.0 succeeded (1.1s) → BTCPayServer.Abstractions/bin/Release/net10.0/BTCPayServer.Abstractions.dll
+  BTCPayServer.Data net10.0 succeeded (1.8s) → BTCPayServer.Data/bin/Release/net10.0/BTCPayServer.Data.dll
+  BTCPayServer net10.0 succeeded with 3 warning(s) (29.7s) → BTCPayServer/bin/Release/publish/
+    /home/btcpay/src/btcpayserver/BTCPayServer/BTCPayServer.csproj : warning NU1903: Package 'Microsoft.Bcl.Memory' 9.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-73j8-2gc                          h-69rq
+    /home/btcpay/src/btcpayserver/BTCPayServer/Extensions.cs(826,16): warning CS8603: Possible null reference return.
+    /home/btcpay/src/btcpayserver/BTCPayServer/Controllers/UIInvoiceController.cs(157,51): warning CS9336: The pattern is redundant.
+
+Build succeeded with 4 warning(s) in 43.4s
 ```
 
 </details>
@@ -1428,7 +1490,7 @@ head -n 3 /home/btcpay/src/btcpayserver/Build/Version.csproj | grep Version
 exit
 ```
 
-* Start the BTCpay server again. Monitor logs with `journalctl -fu btcpay` to ensure that all is running well
+* Start the BTCPay Server again. Monitor logs with `journalctl -fu btcpay` to ensure that all is running well
 
 ```bash
 sudo systemctl start btcpay
@@ -1436,9 +1498,13 @@ sudo systemctl start btcpay
 
 ## Uninstall
 
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
+
 ### Uninstall service
 
-* With user `admin`, stop btcpay and nbxplorer&#x20;
+* With user `admin`, stop btcpay and nbxplorer
 
 ```bash
 sudo systemctl stop btcpay && sudo systemctl stop nbxplorer
@@ -1470,7 +1536,7 @@ sudo userdel -rf btcpay
 
 ### Uninstall Firewall **configuration** & reverse proxy
 
-* With the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCPay Server (e.g. X and Y below)
+* With the user `admin`, display the UFW firewall rules, and note the numbers of the rules for BTCPay Server (e.g., X and Y below)
 
 ```bash
 sudo ufw status numbered
@@ -1498,12 +1564,13 @@ sudo nano +63 /etc/tor/torrc --linenumbers
 
 * Comment or remove the btcpay hidden service in the torrc. Save and exit
 
-<pre><code># Hidden Service BTCPay Server
+```
+# Hidden Service BTCPay Server
 #HiddenServiceDir /var/lib/tor/hidden_service_btcpay/
-#HiddenServiceVersion 3
-<strong>#HiddenServicePoWDefensesEnabled 1
-</strong>#HiddenServicePort 80 127.0.0.1:23000
-</code></pre>
+#HiddenServiceEnableIntroDoSDefense 1
+#HiddenServicePoWDefensesEnabled 1
+#HiddenServicePort 80 127.0.0.1:23000
+```
 
 * Reload the torrc config
 
@@ -1523,12 +1590,14 @@ sudo -u postgres psql -c "DROP DATABASE nbxplorer;" && sudo -u postgres psql -c 
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="rkiNy94w5TMP" label="TCP" color="blue"></option><option value="kp1yVZsvp7BD" label="SSL" color="blue"></option><option value="1NWHw2jvEWNw" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">24444</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">NBXplorer default port</td></tr><tr><td align="center">23000</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">BTCPay Server default port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="rkiNy94w5TMP" label="TCP" color="blue"></option><option value="kp1yVZsvp7BD" label="SSL" color="blue"></option><option value="1NWHw2jvEWNw" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">24444</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">NBXplorer default port</td></tr><tr><td align="center">23000</td><td><span data-option="rkiNy94w5TMP">TCP</span></td><td align="center">BTCPay Server HTTP default port</td></tr></tbody></table>
 
-[^1]: \<Optional>
+[^1]: (Optional)
 
-[^2]: Replace with the selected name of your service\
+[^2]: Add this
+
+[^3]: Replace with the selected name of your service\
     i.e: `explorer`
 
-[^3]: Replace with your domain\
+[^4]: Replace with your domain\
     i.e: `domain.com`

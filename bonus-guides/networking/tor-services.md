@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -9,6 +10,12 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
     visible: true
 ---
 
@@ -28,9 +35,9 @@ Difficulty: Medium
 
 ## Obsf4 bridge
 
-The design of the Tor network means that the IP address of Tor relays is public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called [obfs4](https://gitlab.com/yawning/obfs4), a special kind of bridge, to address this by adding a layer of obfuscation.
+The design of the Tor network means that the IP addresses of Tor relays are public. However, one of the ways Tor can be blocked by governments or ISPs is by blocklisting the IP addresses of these public Tor nodes. [Tor Bridges](https://tb-manual.torproject.org/bridges/) are nodes in the network that are not listed in the public Tor directory, which makes it harder for ISPs and governments to block them. We are going to use a kind of [pluggable transport](https://tb-manual.torproject.org/circumvention/) called [obfs4](https://gitlab.com/yawning/obfs4), a special kind of bridge, to address this by adding a layer of obfuscation.
 
-We will create a separate instance for the **obfs4 bridge** and **Guard/Middle relay** instead of using the default Tor instance, this ensures improved security, flexibility, and resource management. By isolating that, you reduce the risk of exposing sensitive services in case of a compromise, as the bridge acts as a shield against censorship circumvention techniques. Additionally, running it separately allows for fine-tuned configuration and resource allocation, ensuring optimal performance without interference from other services running on the default instance, which could cause conflicts or degrade performance.
+We will create a separate instance for the **obfs4 bridge** and **Guard/Middle relay** instead of using the default Tor instance. This ensures improved security, flexibility, and resource management. By isolating that, you reduce the risk of exposing sensitive services in case of a compromise, as the bridge acts as a shield against censorship circumvention techniques. Additionally, running it separately allows for fine-tuned configuration and resource allocation, ensuring optimal performance without interference from other services running on the default instance, which could cause conflicts or degrade performance.
 
 ## Requirements
 
@@ -42,7 +49,7 @@ We will create a separate instance for the **obfs4 bridge** and **Guard/Middle r
 
 #### **Install Tor**
 
-* With user `admin`, check if you have Tor daemon installed
+* With user `admin`, check if you have the Tor daemon installed
 
 ```bash
 tor --version
@@ -56,14 +63,14 @@ Tor version 0.4.7.13.
 ```
 
 {% hint style="info" %}
-If you obtain `"command not found"` output, you need to [install Tor](../../index-1/privacy.md#tor-installation) following the proper section on MiniBolt and come back to continue with the guide
+If you obtain `"command not found"` output, you need to [install Tor](../../index-1/privacy.md#tor-installation) following the proper section on MiniBolt, and come back to continue with the guide
 {% endhint %}
 
 #### Install obfs4 proxy
 
 [obfs4](https://gitlab.com/yawning/obfs4) makes Tor traffic look random and prevents censors from finding bridges by internet scanning.
 
-* Ensure you are logged in with the user `admin` and install obfs4 proxy. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* Ensure you are logged in as the user `admin` and install obfs4 proxy. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```sh
 sudo apt install obfs4proxy
@@ -83,7 +90,7 @@ obfs4proxy-0.0.8
 
 ## **Installation** obfs4 bridge
 
-* Ensure you have Tor daemon installed in your system
+* Ensure you have the Tor daemon installed on your system
 
 ```sh
 tor --version
@@ -97,7 +104,7 @@ Tor version 0.4.7.10.
 ```
 
 {% hint style="info" %}
-If you obtain `"command not found"` output, follow only the [Tor installation](../../index-1/privacy.md#tor-installation) section in the Privacy section to install it and come back to follow the rest of the guide
+If you obtain `"command not found"` output, follow only the [Tor installation](../../index-1/privacy.md#tor-installation) section in the Privacy section to install it, and come back to follow the rest of the guide
 {% endhint %}
 
 ### **Configure Firewall & Router (NAT)**
@@ -119,7 +126,7 @@ If your bridge is behind a NAT, make sure to open both ports. See [portforward.c
 
 You can use our reachability [test](https://bridges.torproject.org/scan/) to see if your obfs4 port **`<TODO2>`** is reachable from the Internet.
 
-Enter the website your public **"IP ADDRESS"** obtained with **`curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port.
+Enter the website, your public **"IP ADDRESS"** obtained with **`curl icanhazip.com`** or navigate directly with your regular browser to [icanhazip.com](https://icanhazip.com/) on your personal computer inside of the same local network, and put your **`<TODO2>`** port.
 {% endhint %}
 
 ### Create the obfs4 bridge user & group
@@ -188,7 +195,7 @@ ContactInfo &#x3C;address@email.com>
 Nickname &#x3C;PickANickname>
 
 # Don't self-test, to minimise exposure.
-# Make sure you open the port correctly and it is reachable from the outside.
+# Make sure you open the port correctly, and it is reachable from the outside.
 AssumeReachable 1
 </code></pre>
 
@@ -254,7 +261,7 @@ By default, Tor will advertise your bridge to users through various [mechanisms]
 
 Currently valid, recognized options are: `none` | `any` | `https` | `email` | `moat`
 
-If you don't specify this line, by default the method will be `any` , this means that you give the choice of whatever method it sees fit
+If you don't specify this line, by default, the method will be `any` , this means that you give the choice of whatever method it sees fit
 {% endhint %}
 
 * Enable autoboot **(optional)**
@@ -283,7 +290,7 @@ sudo systemctl start tor@obfs4bridge
 
 <details>
 
-<summary>Example of expected output on <code>journalctl -fu tor@obfs4bridge</code> ⬇️</summary>
+<summary><strong>Example</strong> of expected output on <code>journalctl -fu tor@obfs4bridge</code> ⬇️</summary>
 
 <pre><code>Oct 20 14:42:36 minibolt systemd[1]: Starting Anonymizing overlay network for TCP (instance obfs4bridge)...
 Oct 20 14:42:37 minibolt sed[15620]: DataDirectory /var/lib/tor-instances/obfs4bridge
@@ -389,9 +396,9 @@ Oct 20 14:42:37 minibolt Tor-obfs4bridge[15624]: Your Tor bridge's hashed identi
 ```
 
 {% hint style="info" %}
--> In this example, HASHED FINGERPRINT, would be: `29CA77BDCA7C00A7079CDDC0258A4DE0F1170157`
+-> In this example, the HASHED FINGERPRINT would be: `29CA77BDCA7C00A7079CDDC0258A4DE0F1170157`
 
--> Take note of this, about **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname, public IP address, or HASHED FINGERPRINT and monitor your Guard/Middle relay usage on Relay Search. Just enter some of them in the form and click on "Search"
+-> Take note of this: about **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname, public IP address, or HASHED FINGERPRINT and monitor your Guard/Middle relay usage on Relay Search. Just enter some of them in the form and click on "Search"
 
 -> Also, you can check the status of your bridge relay on this URL: `https://bridges.torproject.org/status?id=<HASHEDFINGERPRINT>`, replacing `<HASHEDFINGERPRINT>` for you one
 {% endhint %}
@@ -415,7 +422,7 @@ Example of expected output:
 
 ### Validation
 
-* Ensure that the Tor port related to the bridge and the Obfs4proxy service are working and listening at the the ports selected
+* Ensure that the Tor port related to the bridge and the Obfs4proxy service are working and listening on the ports selected
 
 ```bash
 sudo ss -tulpn | grep '\(tor\|obfs4proxy\)'
@@ -447,7 +454,7 @@ Bridge obfs4 <IPADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
 ```
 
 {% hint style="info" %}
--> You'll need to replace \<IPADDRESS>, \<PORT>, and \<FINGERPRINT> with the actual values, which you can find in the Tor log. Make sure that you use **"PORT"** as the obfs4 port <**TODO2>,** not ~~**\<TODO1>,**~~ and that you chose **"FINGERPRINT",** not ~~**"HASHED FINGERPRINT"**~~
+-> You'll need to replace \<IPADDRESS>, \<PORT>, and \<FINGERPRINT> with the actual values, which you can find in the Tor log. Make sure that you use **"PORT"** as the obfs4 port <**TODO2>,** not ~~**\<TODO1>,**~~ and that you choose **"FINGERPRINT",** not ~~**"HASHED FINGERPRINT"**~~
 
 -> Remember to exclude the "`Bridge`" word to avoid incompatibility with the Tor Browser Android version
 
@@ -465,6 +472,10 @@ sudo apt update && sudo apt upgrade
 ```
 
 ## Uninstall obfs4 bridge
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * With user `admin`, stop obsfs4 bridge service. Wait until the prompts show you again
 
@@ -527,7 +538,7 @@ sudo ufw status verbose
 ```
 
 {% hint style="info" %}
-Reverts router NAT configuration following the same [Configure Firewall & Router (NAT) ](tor-services.md#configure-firewall-and-router-nat)previous step but this time deleting the configuration setting
+Reverts router NAT configuration following the same [Configure Firewall & Router (NAT) ](tor-services.md#configure-firewall-and-router-nat)previous step, but this time deleting the configuration setting
 {% endhint %}
 
 ## Guard/Middle relay
@@ -535,14 +546,14 @@ Reverts router NAT configuration following the same [Configure Firewall & Router
 _(also known as non-exit relays)_
 
 {% hint style="danger" %}
-Attention!! The IP addresses of the Guard/Middle relays are listed in the public Tor relay directory, this could be a security and privacy risk, so we recommended running this on a security/privacy-focused VPS service like [1984.hosting](https://1984.hosting/)
+Attention!! The IP addresses of the Guard/Middle relays are listed in the public Tor relay directory. This could be a security and privacy risk, so we recommend running this on a security/privacy-focused VPS service like [1984.hosting](https://1984.hosting/)
 {% endhint %}
 
-A guard relay is the first relay (hop) in a Tor circuit. A middle relay is a relay that acts as the second hop in the Tor circuit. To become a guard relay, the relay has to be stable and fast (at least 2MByte/s of upstream and downstream bandwidth) otherwise it will remain a middle relay.
+A guard relay is the first relay (hop) in a Tor circuit. A middle relay is a relay that acts as the second hop in the Tor circuit. To become a guard relay, the relay has to be stable and fast (at least 2MByte/s of upstream and downstream bandwidth), otherwise it will remain a middle relay.
 
 Guard and middle relays usually do not receive abuse complaints. However, all relays are listed in the public Tor relay directory, and as a result, they may be blocked by certain services. These include services that either misunderstand how Tor works or deliberately want to censor Tor users, for example, online banking and streaming services.
 
-A non-exit Tor relay requires minimal maintenance efforts and bandwidth usage can be highly customized in the Tor configuration. The so called "exit policy" of the relay decides if it is a relay allowing clients to exit or not. A non-exit relay does not allow exiting in its exit policy.
+A non-exit Tor relay requires minimal maintenance efforts, and bandwidth usage can be highly customized in the Tor configuration. The so-called "exit policy" of the relay decides if it is a relay allowing clients to exit or not. A non-exit relay does not allow exiting in its exit policy.
 
 {% hint style="warning" %}
 **Important:** If you are running a relay from home with a single static IP address and are concerned about your IP being blocked by certain online services, consider running a bridge like the before [Obfs4 bridge](tor-services.md#obsf4-bridge) or a Tor [snowflake proxy](https://community.torproject.org/relay/setup/snowflake/) (not covered in this guide yet) instead. This alternative can help prevent your non-Tor traffic from being mistakenly blocked as though it's coming from a Tor relay.
@@ -556,7 +567,7 @@ A non-exit Tor relay requires minimal maintenance efforts and bandwidth usage ca
 
 #### **Install Tor**
 
-* With user `admin`, check if you have Tor daemon installed
+* With user `admin`, check if you have the Tor daemon installed
 
 ```bash
 tor --version
@@ -570,7 +581,7 @@ Tor version 0.4.7.13.
 ```
 
 {% hint style="info" %}
-If you obtain `"command not found"` output, you need to [install Tor](../../index-1/privacy.md#tor-installation) following the proper section on MiniBolt and come back to continue with the guide
+If you obtain `"command not found"` output, you need to [install Tor](../../index-1/privacy.md#tor-installation) following the proper section on MiniBolt, and come back to continue with the guide
 {% endhint %}
 
 ## Preparations Guard/Middle relay
@@ -645,8 +656,8 @@ sudo nano /etc/tor/instances/guardmidrelay/torrc
 
 <pre><code># MiniBolt: Guard/Middle configuration
 # /etc/tor/instances/guardmidrelay/torrc
-<strong>
-</strong><strong>## Control port selected for Guard/Middle relay
+
+<strong>## Control port selected for Guard/Middle relay
 </strong>ControlPort 9053
 
 ## Guard/Middle relay conf
@@ -883,14 +894,14 @@ Oct 20 14:03:49 minibolt Tor-guardmidrelay[15079]: Your Tor server's identity ke
 ```
 
 {% hint style="info" %}
--> In this example, HASHED FINGERPRINT, would be: `8D4FE09E8CF58EEB437A6A7FB36B09D7D8D24389`
+-> In this example, the HASHED FINGERPRINT would be: `8D4FE09E8CF58EEB437A6A7FB36B09D7D8D24389`
 
--> Take note of this, about **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname, public IP address, or `HASHED FINGERPRINT` and monitor your Guard/Middle relay usage on Relay Search. Just enter some of them in the form and click on "Search"
+-> Take note of this: about **3 hours** after you start your relay, it should appear on [Relay Search](https://metrics.torproject.org/rs.html) on the Metrics portal. You can search for your relay using your nickname, public IP address, or `HASHED FINGERPRINT` and monitor your Guard/Middle relay usage on Relay Search. Just enter some of them in the form and click on "Search"
 {% endhint %}
 
 ### Validation
 
-* Ensure that the Tor port related to the bridge and the Obfs4proxy service are working and listening at the the ports selected
+* Ensure that the Tor port related to the bridge and the Obfs4proxy service are working and listening at the ports selected
 
 ```bash
 sudo ss -tulpn | grep tor
@@ -913,6 +924,10 @@ sudo apt update && sudo apt upgrade
 ```
 
 ## **Uninstall Tor Guard/Middle**
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 ### Delete user & group <a href="#delete-user-and-group" id="delete-user-and-group"></a>
 
@@ -960,14 +975,14 @@ sudo ufw status verbose
 ```
 
 {% hint style="info" %}
-Reverts router NAT configuration following the same [Configure Firewall & ](tor-services.md#configure-firewall-and-router-nat-1)[Router (NAT) ](tor-services.md#configure-firewall-and-router-nat-1)previous step but this time deleting the configuration setting
+Reverts router NAT configuration following the same [Configure Firewall & ](tor-services.md#configure-firewall-and-router-nat-1)[Router (NAT) ](tor-services.md#configure-firewall-and-router-nat-1)previous step, but this time deleting the configuration setting
 {% endhint %}
 
 ## Extras (optional)
 
 ### **Nyx**
 
-[Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relays such as bandwidth usage, connections, logs, and much more.
+[Nyx](https://github.com/torproject/nyx) is a command-line monitor for Tor. With this, you can get detailed real-time information about your relays, such as bandwidth usage, connections, logs, and much more.
 
 * With user `admin`, install the Nyx package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
@@ -1003,7 +1018,7 @@ sudo adduser admin debian-tor
 {% endtab %}
 {% endtabs %}
 
-* The assigned group becomes active only in a new user session. Log out from SSH
+* The assigned group becomes active only in a new user session. Log out of SSH
 
 ```bash
 exit
@@ -1040,17 +1055,17 @@ nyx -i 9051
 
 * Press the **right** `->` **navigation key** to navigate to page 2/5 to show the traffic of your Tor instance
 
-![Example of an obsf4 bridge running](../../images/nyx-tor-bridge.png)
+![Example of an obsf4 bridge running](../../.gitbook/assets/nyx-tor-bridge.png)
 
 * Press `"q"` key **2 times** to exit
 
 ### **Add obfs4 bridge to the default Tor instance**
 
-On some occasions, due to some circumstances, your ISP, the company's network, your country, etc, could be censoring your access to Tor and with it the proper functioning of MiniBolt services **(used on Bitcoin Core / LND + others)**
+On some occasions, due to some circumstances, your ISP, the company's network, your country, etc, could be censoring your access to Tor and with it the proper functioning of MiniBolt services **(used on** Bitcoin client: [Bitcoin Core](../../bitcoin/bitcoin/bitcoin-core.md) or [Bitcoin Knots](../bitcoin/bitcoin-knots.md) **/ Lightning client:** [**LND**](../../lightning/lightning/lnd.md) **+ others)**
 
-![](../../images/tor-failing.jpg)
+![](../../.gitbook/assets/tor-failing.jpg)
 
-* On the MiniBolt or external node, with the user `admin`, [install Tor](../../index-1/privacy.md#tor-installation) and the `ofbs4 proxy`.  Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* On the MiniBolt or external node, with the user `admin`, [install Tor](../../index-1/privacy.md#tor-installation) and the `ofbs4 proxy`. Press "**y**" and `enter` or directly `enter` when the prompt asks you
 
 ```bash
 sudo apt install obfs4proxy
@@ -1092,15 +1107,15 @@ Bridge obfs4 <IPADDRESS>:<PORT> <FINGERPRINT> cert=<CERTIFICATE> iat-mode=0
 {% endhint %}
 
 {% hint style="info" %}
--> It is recommended to add more obfs4 bridges, you should have at least two for conflux
+-> It is recommended to add more obfs4 bridges; you should have at least two for conflux
 
--> Since many bridge addresses aren’t public, you may need to request some from the Tor Project. Visit this website [CLEARNET](https://bridges.torproject.org/options) / [ONION](http://yq5jjvr7drkjrelzhut7kgclfuro65jjlivyzfmxiq2kyv5lickrl4qd.onion/options), to get bridges. Push the **`Just give me bridges`** button or select obfs4 on the drop down and push the **`Get Bridges`** button. Select one or the 2 offered, and add the content to the `torrc` configuration as a line more similar like `Bridge obfs4 <IPADDRESS>:...`⬇️
+-> Since many bridge addresses aren’t public, you may need to request some from the Tor Project. Visit this website, [CLEARNET](https://bridges.torproject.org/options) / [ONION](http://yq5jjvr7drkjrelzhut7kgclfuro65jjlivyzfmxiq2kyv5lickrl4qd.onion/options), to get bridges. Push the **`Just give me bridges`** button or select obfs4 in the drop-down and push the **`Get Bridges`** button. Select one of the 2 offered, and add the content to the `torrc` configuration as a line more similar to `Bridge obfs4 <IPADDRESS>:...`⬇️
 {% endhint %}
 
-<figure><img src="../../images/get-bridge.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/get-bridge.PNG" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
--> Remember to add the word "`Bridge`" before the `obfs4 IP...` line got from Tor, if not, Tor daemon will give you an error.
+-> Remember to add the word "`Bridge`" before the `obfs4 IP...` line got from Tor; if not, the Tor daemon will give you an error.
 
 Example:
 
@@ -1109,13 +1124,11 @@ Bridge obfs4 158.91.178.132:3304 34B1F1F5F1632381AFE5C7CAC4C1754AC361B036 cert=I
 Bridge obfs4 81.177.121.63:9471 68E9BE060C7CB1F4958DFFF9B76D64DE4DEABD74 cert=CMBeCEftMpVP1IPefS0uqbDwYvEf4CneC9DyW4/HkigxAu1W99MODbkv5Yv+oXYp5wi2Ig iat-mode=0
 ```
 
-
-
 -> There are many options to request and use bridges apart from using the "`https`" before explained method:
 
 * Request bridges by emailing [bridges@torproject.org](mailto:bridges@torproject.org)
 * Request bridges from within the Tor Browser:
-  * Tor Browser Desktop: Click on "**Settings**" in the hamburger **menu (≡)** and then on "**Connection**" in the sidebar. In the "**Bridges**" section, from the option "**Find more bridges**" click on the "**Request bridges..**" button, and complete the captcha. Finally, if you wish, you can push the button "**Copy addresses**" to use it on the MiniBolt node or another Tor browser, like the Android version.&#x20;
+  * Tor Browser Desktop: Click on "**Settings**" in the hamburger **menu (≡)** and then on "**Connection**" in the sidebar. In the "**Bridges**" section, from the option "**Find more bridges**" click on the "**Request bridges...**" button, and complete the captcha. Finally, if you wish, you can push the button "**Copy addresses**" to use it on the MiniBolt node or another Tor browser, like the Android version.
 * Use bridges from within the Tor Browser:
   * Tor Browser Desktop: Click on "**Settings**" in the hamburger **menu (≡)** and then on "**Connection**" in the sidebar. In the "**Bridges**" section, from the option "**Add bridges**" click on "**Add new bridges**" and enter each bridge address on a separate line.
   * Tor Browser Android: Tap on "**Settings"** (⚙️) and then on "**Config Bridge**". Toggle on "**Use a Bridge**" and select "Provide a Bridge I know'. Enter the bridge address. Note: remember not to add the word: "`Bridge`" before the `obfs4 IP...` line this is not compatible with the Tor browser Android version. Also, you can use random public obfs4 bridges by simply selecting the "**`obfs4`**" bridge option.
@@ -1128,13 +1141,13 @@ Bridge obfs4 81.177.121.63:9471 68E9BE060C7CB1F4958DFFF9B76D64DE4DEABD74 cert=CM
 sudo systemctl restart tor@default
 ```
 
-* Monitor tor logs to ensure all is correct
+* Monitor the Tor logs to ensure all is correct
 
 ```bash
 journalctl -fu tor@default
 ```
 
-Ensure a similar line of the next appear on Tor logs:
+Ensure a similar line of the next appears on Tor logs:
 
 ```
 Oct 18 21:31:35 minibolt Tor[1081477]: new bridge descriptor 'Obfs4Bridge' (fresh): $162CC010CF75411BCD67991C4DA1F166BF669754~Obfs4Bridge [luTt2cQAGji/6Obr+d7gSvpZo1uecd3SUROwCAxlpIk] at 11.11.94.58
@@ -1161,7 +1174,7 @@ Example of expected output:
 
 ### Limit bandwidth
 
-If you use a VPS to host the obfs4 bridge or guard/middle relay, you probably have limited bandwidth in your plan. Tor has different parameters to limit the available bandwidth for each Tor service and not to overline it
+If you use a VPS to host the obfs4 bridge or guard/middle relay, you probably have limited bandwidth in your plan. Tor has different parameters to limit the available bandwidth for each Tor service, and not to overload it
 
 * With user `admin` edit the torrc config file, 3 options depending on the instance:
 

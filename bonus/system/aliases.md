@@ -5,6 +5,7 @@ grand_parent: Bonus Section
 nav_exclude: true
 has_toc: false
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -14,6 +15,10 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
     visible: true
 ---
 
@@ -25,7 +30,7 @@ Aliases are shortcuts for commands that can save time and make it easier to exec
 Difficulty: Easy
 {% endhint %}
 
-![](../../images/aliases-demo.PNG)
+<figure><img src="../../.gitbook/assets/aliases_minibolt_demo.png" alt=""><figcaption></figcaption></figure>
 
 ## Introduction
 
@@ -82,7 +87,7 @@ showmainversion
 
 <details>
 
-<summary>Example of expected output ⬇️</summary>
+<summary><strong>Example</strong> of expected output ⬇️</summary>
 
 ```
 The installed versions of the services are as follows:
@@ -102,13 +107,17 @@ nginx version: nginx/1.18.0 (Ubuntu)
 
 ## Upgrade
 
-Follow again the [Set up Aliases](aliases.md#set-up-aliases) section again to overwrite aliases.
+Follow the [Installation section](aliases.md#installation) again to overwrite aliases.
 
 {% hint style="info" %}
 You can see if the aliases have a recent update by entering [here](https://github.com/minibolt-guide/minibolt/commits/main/resources/.bash_aliases)
 {% endhint %}
 
 ## Uninstall
+
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
 * To remove these special aliases, with the user `admin`, simply deletes the `.bash_aliases` and executes a source command to register changes. The aliases will be gone with the next login
 

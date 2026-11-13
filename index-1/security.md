@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -10,6 +11,12 @@ layout:
     visible: true
   pagination:
     visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # 1.5 Security
@@ -18,29 +25,7 @@ We make sure that your MiniBolt is secured against unauthorized remote access.
 
 The MiniBolt needs to be secured against online attacks using various methods.
 
-<figure><img src="../.gitbook/assets/security.jpg" alt="" width="375"><figcaption></figcaption></figure>
-
-## Check IPv6 availability
-
-* With user `admin`, check your IPv6 availability
-
-{% code overflow="wrap" %}
-```bash
-ping6 -c2 2001:858:2:2:aabb:0:563b:1526 && ping6 -c2 2620:13:4000:6000::1000:118 && ping6 -c2 2001:67c:289c::9 && ping6 -c2 2001:678:558:1000::244 && ping6 -c2 2001:638:a000:4140::ffff:189 && echo OK.
-```
-{% endcode %}
-
-**-> 2 output options:**
-
-{% tabs %}
-{% tab title="First (more common)" %}
-If you obtain `ping6: connect: Network is unreachable`, you don't have IPv6 availability, don't worry, the IPv6 adoption is new, you will use your internet connection using the common IPv4. Additionally, you can obtain your public IPv4 with: `curl -s ipv4.icanhazip.com`
-{% endtab %}
-
-{% tab title="Second" %}
-If you obtain the `"OK."` output, you have IPv6 availability, additionally, you can obtain your IPv6 with: `curl -s ipv6.icanhazip.com` you are **OK**, continue the guide without modifications
-{% endtab %}
-{% endtabs %}
+<figure><img src="../.gitbook/assets/security_cover.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
 ## Uncomplicated Firewall
 
@@ -50,9 +35,9 @@ For now, only SSH should be reachable from the outside. Bitcoin Core and LND are
 
 ### Configuration
 
-If you don't have [IPv6 availability](security.md#check-ipv6-availability), you can disable IPv6 on UFW to avoid the creation of rules related to it:
+If you don't have [IPv6 availability](configuration.md#check-ipv6-availability), you can disable IPv6 on UFW to avoid the creation of rules related to it.
 
-* Edit the UFW configuration
+* Edit the UFW configuration:
 
 ```bash
 sudo nano /etc/default/ufw
@@ -64,13 +49,13 @@ sudo nano /etc/default/ufw
 IPV6=no
 ```
 
-* Disable logging
+* Disable logging:
 
 ```sh
 sudo ufw logging off
 ```
 
-* Allow SSH incoming connection
+* Allow SSH incoming connection:
 
 {% hint style="warning" %}
 Attention! Don't forget the next step!
@@ -82,7 +67,7 @@ sudo ufw allow 22/tcp comment 'allow SSH from anywhere'
 
 ### Enable
 
-* Enable the UFW, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press `"y"` and enter
+* Enable the UFW, when the prompt shows you `"Command may disrupt existing ssh connections. Proceed with operation (y|n)?"`, press `"y"` and enter:
 
 ```sh
 sudo ufw enable
@@ -94,7 +79,7 @@ Expected output:
 Firewall is active and enabled on system startup
 ```
 
-* Check if the UFW is properly configured and active
+* Check if the UFW is properly configured and active:
 
 ```sh
 sudo ufw status verbose
@@ -125,19 +110,19 @@ More info: [UFW Essentials](https://www.digitalocean.com/community/tutorials/ufw
 
 ## Monitoring SSH authentication logs (optional)
 
-* You can monitor authentication general logs in your system in real-time
+* You can monitor the authentication general logs in your system in real-time:
 
 ```sh
 sudo tail -f /var/log/auth.log
 ```
 
-* Or filtering only by SSH authentication logs in the last 500 lines
+* Or filtering only by SSH authentication logs in the last 500 lines:
 
 ```sh
 sudo tail --lines 500 /var/log/auth.log | grep sshd
 ```
 
-* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt since 7 days ago. Change `-7days` option to do whatever you want
+* With this command, you can show a listing of the last satisfactory logged-in users in your MiniBolt for the last 7 days. Change `-7days` option to do whatever you want:
 
 ```sh
 last -s -7days -t today
@@ -153,23 +138,80 @@ Do this regularly to get security-related incidents
 
 ### Installation
 
-Several components of this guide will expose a communication port, for example, the Block Explorer, or the ThunderHub web interface for your Lightning node. Even if you use these services only within your home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
+Several components of this guide will expose a communication port, for example, the [BTC RPC Explorer](../bitcoin/bitcoin/btc-rpc-explorer.md) or [ThunderHub](../lightning/lightning/thunderhub.md) web interface for your Lightning node. Even if you use these services only within your home network, communication should always be encrypted. Otherwise, any device in the same network can listen to the exchanged data, including passwords.
 
-We use Ngnix to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": Nginx provides secure communication to the outside and routes the traffic back to the internal service without encryption.
+We use Nginx to encrypt the communication with SSL/TLS (Transport Layer Security). This setup is called a "reverse proxy": Nginx provides secure communication to the outside and routes the traffic back to the internal service without encryption.
 
-* With user `admin`, update and upgrade the OS
+* With user `admin`, update and upgrade the OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```bash
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install Ngnix. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* Import an official Nginx signing key so apt could verify the package's authenticity. Fetch the key:
 
-```sh
-sudo apt install nginx
+```bash
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 ```
 
-* Check the correct installation
+Expected output:
+
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 11809  100 11809    0     0  45819      0 --:--:-- --:--:-- --:--:-- 45949
+```
+
+* Verify that the downloaded file contains the proper key:
+
+{% code overflow="wrap" %}
+```bash
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+```
+{% endcode %}
+
+Expected output:
+
+<pre data-overflow="wrap"><code>pub   rsa4096 2024-05-29 [SC]
+      8540A6F18833A80E9C1653A42FD21310B49F6B46
+uid                      nginx signing key &#x3C;signing-key-2@nginx.com>
+
+pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
+      <a data-footnote-ref href="#user-content-fn-1">573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</a>
+uid                      nginx signing key &#x3C;signing-key@nginx.com>
+
+pub   rsa4096 2024-05-29 [SC]
+      9E9BE90EACBCDE69FE9B204CBCDCD8A38D88A2B3
+uid                      nginx signing key &#x3C;signing-key-3@nginx.com>
+</code></pre>
+
+* To set up the apt repository for stable Nginx packages, run the following command:
+
+{% code overflow="wrap" %}
+```bash
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+https://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+{% endcode %}
+
+* Set up repository pinning to prefer the Nginx packages over distribution-provided ones:
+
+{% code overflow="wrap" %}
+```bash
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+```
+{% endcode %}
+
+* Install Nginx. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
+
+```sh
+sudo apt update && sudo apt install nginx
+```
+
+* Check the correct installation:
 
 ```bash
 nginx -v
@@ -178,10 +220,10 @@ nginx -v
 **Example** of expected output:
 
 ```
-nginx version: nginx/1.18.0 (Ubuntu)
+nginx version: nginx/1.30.0
 ```
 
-* Create a self-signed SSL/TLS certificate (valid for 10 years)
+* Create a self-signed SSL/TLS certificate (valid for 10 years):
 
 {% code overflow="wrap" %}
 ```bash
@@ -197,19 +239,19 @@ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-se
 
 ### Configuration
 
-* NGINX is also a full web server. To use it only as a reverse proxy, backup the default configuration
+* Nginx is also a full web server. To use it only as a reverse proxy, backup the default configuration:
 
 ```bash
 sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 ```
 
-* Create a new blank configuration file
+* Create a new blank configuration file:
 
 ```bash
 sudo nano /etc/nginx/nginx.conf
 ```
 
-* Paste the following configuration into the `nginx.conf` file. Save and exit
+* Paste the following configuration into the `nginx.conf` file. Save and exit.
 
 ```nginx
 user www-data;
@@ -229,6 +271,8 @@ http {
   ssl_protocols TLSv1.2 TLSv1.3;
   ssl_prefer_server_ciphers on;
   include /etc/nginx/sites-enabled/*.conf;
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
 }
 
 stream {
@@ -242,7 +286,7 @@ stream {
 }
 ```
 
-* Create the `streams-available` and `streams-enabled` directories for future configuration files
+* Create the `streams-available` and `streams-enabled` directories for future configuration files:
 
 ```bash
 sudo mkdir /etc/nginx/streams-available
@@ -252,17 +296,17 @@ sudo mkdir /etc/nginx/streams-available
 sudo mkdir /etc/nginx/streams-enabled
 ```
 
-* Remove the Nginx `site available` and `site enabled` default configuration files
+* Create the `sites-available` and `sites-enabled` directories for future configuration files:
 
 ```bash
-sudo rm /etc/nginx/sites-available/default
+sudo mkdir /etc/nginx/sites-available
 ```
 
 ```sh
-sudo rm /etc/nginx/sites-enabled/default
+sudo mkdir /etc/nginx/sites-enabled
 ```
 
-* Test this barebone Nginx configuration
+* Test this barebone Nginx configuration:
 
 ```sh
 sudo nginx -t
@@ -275,15 +319,13 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-* Reload Nginx to apply the configuration
+* Start Nginx:
 
 ```sh
-sudo systemctl reload nginx
+sudo systemctl start nginx
 ```
 
-{% hint style="info" %}
-You can monitor the Nginx logs by entering this command. Exit with Ctrl + C
-{% endhint %}
+* **(Optional)** You can monitor the Nginx logs by entering this command. Exit with `Ctrl + C`.
 
 ```bash
 journalctl -fu nginx
@@ -291,43 +333,49 @@ journalctl -fu nginx
 
 Expected output:
 
-<pre><code><strong>Jun 04 18:21:09 minibolt systemd[1]: Starting A high performance web server and a reverse proxy server...
-</strong>Jun 04 18:21:09 minibolt systemd[1]: Started A high performance web server and a reverse proxy server.
-Jun 04 18:25:18 minibolt systemd[1]: Reloading A high performance web server and a reverse proxy server...
-Jun 04 18:25:18 minibolt systemd[1]: Reloaded A high performance web server and a reverse proxy server.
-</code></pre>
+```
+Apr 07 06:04:39 minibolt systemd[1]: Started nginx.service - nginx - high performance web server.
+```
 
 {% hint style="info" %}
-**(Optional)** You can monitor Nginx error logs by entering the next command. Exit with `Ctrl + C`
-{% endhint %}
+**(Optional)** You can monitor Nginx error logs by entering the following command. Exit with `Ctrl + C`.
 
 ```bash
 sudo tail -f /var/log/nginx/error.log
 ```
+{% endhint %}
 
 ### Upgrade
 
-* To upgrade, with the user `admin` type this command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* To upgrade, with the user `admin` type this command. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```bash
 sudo apt update && sudo apt upgrade
 ```
 
+{% hint style="danger" %}
+ATTENTION!!! Do not proceed to the [next Uninstall section](privacy.md#uninstall) if you **do not wish to uninstall**. Skip directly to the [Extras (optional)](security.md#extras-optional) section
+{% endhint %}
+
 ### Uninstall
 
-* With the user `admin` stopping the`nginx.service`
+{% hint style="danger" %}
+Warning: This section removes the installation. Only run these commands if you intend to uninstall
+{% endhint %}
 
-```purebasic
+* With the user `admin` stopping the `nginx.service`:
+
+```bash
 sudo systemctl stop nginx
 ```
 
-* Type this command to use the package manager and uninstall it. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* Type this command to use the package manager and uninstall it. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```bash
 sudo apt autoremove nginx
 ```
 
-* Clean the system's residual files
+* Clean the system's residual files:
 
 {% code overflow="wrap" %}
 ```bash
@@ -340,7 +388,9 @@ sudo rm -rf /etc/nginx && sudo rm -f /etc/ssl/certs/nginx-selfsigned.crt && sudo
 ### [Enable DoT + DNSSEC / DoH](../bonus-guides/system/static-ip-and-custom-dns-servers.md#dot-doh--dnssec)
 
 {% hint style="info" %}
-For privacy and security reasons, you could want to enable [Option 1: DoT (DNS over TLS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) or [Option 2: DoH (DNS over HTTPS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns) to encrypt DNS requests from your MiniBolt to the selected DNS servers, and validate the authenticity and ensure the integrity of DNS responses by enabling [DNSSEC](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved).&#x20;
+For privacy and security reasons, you could want to enable [Option 1: DoT (DNS over TLS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) or [Option 2: DoH (DNS over HTTPS)](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-2-use-doh-with-cloudflared-proxy-dns) to encrypt DNS requests from your MiniBolt to the selected DNS servers, and validate the authenticity and ensure the integrity of DNS responses by enabling [DNSSEC](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved).
 
-Note: you can only **enable DNSSEC** validation if you follow [Option 1](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (**recommended**)
+**Note:** You can only **enable DNSSEC** validation if you follow [Option 1](../bonus-guides/system/static-ip-and-custom-dns-servers.md#option-1-use-dot-and-dnssec-validation-with-systemd-resolved) (**recommended**)
 {% endhint %}
+
+[^1]: Check this is present

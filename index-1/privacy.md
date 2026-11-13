@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -9,6 +10,12 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
     visible: true
 ---
 
@@ -26,7 +33,7 @@ True, it's only your IP address that is revealed, but using services like [iploc
 
 ## Tor Project
 
-<div align="left"><img src="../images/tor-logo.png" alt="" width="166"></div>
+<div align="left"><img src="../.gitbook/assets/tor-logo.png" alt="" width="166"></div>
 
 We use Tor, a free software built by the [Tor Project](https://www.torproject.org). It allows you to anonymize internet traffic by routing it through a network of nodes, hiding your location and usage profile.
 
@@ -34,58 +41,41 @@ It is called "Tor" for "The Onion Router": information is routed through many ho
 
 ### **Tor installation**
 
-* With user `admin`, update and upgrade the packages to keep up to date with the OS
+* With user `admin`, update and upgrade the packages to keep up to date with the OS. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```bash
 sudo apt update && sudo apt full-upgrade
 ```
 
-* Install dependency. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* Add the GPG key used to sign the packages by running the following command at your command prompt:
 
+{% code overflow="wrap" %}
 ```sh
-sudo apt install apt-transport-https
+wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc \
+| gpg --dearmor \
+| sudo tee /usr/share/keyrings/tor-archive-keyring.gpg > /dev/null
 ```
+{% endcode %}
 
-* Create a new file called `tor.list`
+* Create a new file called `tor.list`:
 
 ```sh
 sudo nano /etc/apt/sources.list.d/tor.list
 ```
 
-* Add the following entries. Save and exit
+* Add the following entries. Save and exit.
 
 ```
-deb     [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
-deb-src [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
+deb [arch=amd64 signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
 ```
 
-* Up to `"root"` user temporarily
-
-```sh
-sudo su
-```
-
-* Add the GPG key used to sign the packages by running the following command at your command prompt
-
-{% code overflow="wrap" %}
-```sh
-wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
-```
-{% endcode %}
-
-* Return to `admin` using `exit` command
-
-```bash
-exit
-```
-
-* Update the apt repository, and install Tor and Tor Debian keyring. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* Update the apt repository, and install Tor and the Tor Debian keyring. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```sh
 sudo apt update && sudo apt install tor deb.torproject.org-keyring
 ```
 
-* Check Tor has been correctly installed
+* Check that Tor has been correctly installed:
 
 ```sh
 tor --version
@@ -99,49 +89,45 @@ Tor version 0.4.7.13.
 ```
 
 {% hint style="info" %}
-Please note that the before version number might change in your case, this is just an example of when the guide was made
+Please note that the version number before might change in your case; this is just an example of when the guide was made.
 {% endhint %}
 
 ### **Tor configuration**
 
 Bitcoin Core will communicate directly with the Tor daemon to route all traffic through the Tor network. We need to enable Tor to accept instructions through its control port, with the proper authentication.
 
-* Edit the Tor configuration
+* Edit the Tor configuration:
 
 ```sh
 sudo nano +56 -l /etc/tor/torrc
 ```
 
-* Uncomment **line 56** to enable the control port by deleting `#` at the beginning of the line. Save and exit
+* Uncomment **line 56** to enable the control port by deleting `#` at the beginning of the line. Save and exit.
 
 ```
 ControlPort 9051
 ```
 
-* Reload the Tor configuration to activate the modifications
+* Reload the Tor configuration to activate the modifications:
 
 ```sh
 sudo systemctl reload tor
 ```
 
-* Ensure that the Tor service is working and listening at the default ports `9050` and `9051` on the localhost (127.0.0.1)
+* Ensure that the Tor service is working and listening on the default ports `9050` and `9051` on localhost (`127.0.0.1`):
 
 ```sh
 sudo ss -tulpn | grep tor
 ```
 
-<details>
-
-<summary>Expected output ⬇️</summary>
+Expected output:
 
 ```
 tcp     LISTEN 0    4096     127.0.0.1:9050   0.0.0.0:*    users:(("tor",pid=795,fd=6))
 tcp     LISTEN 0    4096     127.0.0.1:9051   0.0.0.0:*    users:(("tor",pid=795,fd=7))
 ```
 
-</details>
-
-* **(Optional)** Check the systemd journal to see Tor in real time updates output logs. Ctrl + C to exit
+* **(Optional)** Check the systemd journal to see Tor in real-time updates and output logs. Ctrl + C to exit.
 
 ```sh
 journalctl -fu tor@default --since='1 hour ago'
@@ -180,11 +166,11 @@ Nov 13 23:19:20 minibolt systemd[1]: Reloaded tor@default.service - Anonymizing 
 </details>
 
 {% hint style="info" %}
-Not all network traffic is routed over the Tor network, by default some services don't include a proxy SOCKS5 configuration. Anyway, we now have the base to configure sensitive applications to use it
+Not all network traffic is routed over the Tor network; by default, some services don't include a proxy SOCKS5 configuration. Anyway, we now have the base to configure sensitive applications to use it.
 {% endhint %}
 
 {% hint style="info" %}
-**(Optional)** -> If you want, you can **disable the autoboot** option for Tor using:
+**(Optional, but not recommended)** -> If you want, you can **disable the autoboot** option for Tor using:
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl disable tor
 </strong></code></pre>
@@ -201,41 +187,52 @@ Removed /etc/systemd/system/multi-user.target.wants/tor.service.
 {% hint style="info" %}
 -> If you want to **avoid your ISP knowing you are using Tor**, follow the [**Add obfs4 bridge to the default Tor instance**](../bonus-guides/networking/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) section on the Tor services bonus guide to use ofbs4 bridges
 
--> You can host [**your Tor obfs4 bridge**](../bonus-guides/networking/tor-services.md#obsf4-bridge) or connect to an external one as mentioned before
+-> You can host [**your Tor obfs4 bridge**](../bonus-guides/networking/tor-services.md#obsf4-bridge) or connect to an external one, as mentioned before
 {% endhint %}
 
 ## I2P Project
 
-<div align="left"><img src="../images/i2pd.png" alt="" width="150"></div>
+<div align="left"><img src="../.gitbook/assets/i2pd.png" alt="" width="150"></div>
 
-[I2P](https://geti2p.net/en/) is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted, participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
+[I2P](https://geti2p.net/en/) is a universal anonymous network layer. All communications over I2P are anonymous and end-to-end encrypted; participants don't reveal their real IP addresses. I2P allows people from all around the world to communicate and share information without restrictions.
 
 I2P client is software used for building and using anonymous I2P networks. Such networks are commonly used for anonymous peer-to-peer applications (filesharing, cryptocurrencies) and anonymous client-server applications (websites, instant messengers, chat-servers).
 
-We are to use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client, as a Tor network complement.
+We will use [i2pd](https://i2pd.readthedocs.io/en/latest/) (I2P Daemon), a full-featured C++ implementation of the I2P client, as a complement to the Tor network.
 
 ### **I2P installation**
 
-* Ensure that you are logged in with the user `admin` and add the i2pd repository
+* With user `admin`, add the GPG key used to sign the packages by running the following command at your command prompt:
 
-```sh
-wget -q -O - https://repo.i2pd.xyz/.help/add_repo | sudo bash -s -
+{% code overflow="wrap" %}
+```bash
+wget -qO- https://repo.i2pd.xyz/r4sas.gpg \
+  | gpg --dearmor \
+  | sudo tee /usr/share/keyrings/purplei2p.gpg > /dev/null
+```
+{% endcode %}
+
+* Create a new file called `purplei2p.list`:
+
+{% code overflow="wrap" %}
+```bash
+sudo nano /etc/apt/sources.list.d/purplei2p.list
+```
+{% endcode %}
+
+* Add the following entries. Save and exit.
+
+```
+deb [arch=amd64 signed-by=/usr/share/keyrings/purplei2p.gpg] https://repo.i2pd.xyz/ubuntu jammy main
 ```
 
-Expected output:
-
-```
-Importing signing key
-Adding APT repository
-```
-
-* Update the apt repository and install i2pd as any other software package. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* Update the apt repository and install i2pd as any other software package. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```sh
 sudo apt update && sudo apt install i2pd
 ```
 
-* Check that i2pd has been correctly installed
+* Check that i2pd has been correctly installed:
 
 ```sh
 i2pd --version
@@ -247,7 +244,7 @@ i2pd --version
 </strong>[...]
 </code></pre>
 
-* Ensure that the i2pd service is working and listening at the default ports
+* Ensure that the i2pd service is working and listening on the default ports:
 
 ```sh
 sudo ss -tulpn | grep i2pd
@@ -270,7 +267,7 @@ tcp   LISTEN 0      4096           127.0.0.1:4447       0.0.0.0:*    users:(("i2
 
 </details>
 
-* See “i2p” in action by monitoring its log file. Exit with Ctrl-C
+* See “i2p” in action by monitoring its log file. Exit with Ctrl-C.
 
 ```sh
 sudo tail -f /var/log/i2pd/i2pd.log
@@ -315,19 +312,19 @@ Removed /etc/systemd/system/multi-user.target.wants/i2pd.service.
 
 ### Access to the i2pd webconsole
 
-I2P by default creates an HTTP web service that makes it easy to view node statistics such as tunnels, bandwidth, active connections, and network configuration. If you want to use that the only one have to do is secure the connection, configure the auth method, reverse proxy, and open the UFW. Follow the next steps
+I2P by default creates an HTTP web service that makes it easy to view node statistics such as tunnels, bandwidth, active connections, and network configuration. If you want to use that, the only one have to do is secure the connection, configure the auth method, reverse proxy, and open the UFW. Follow the next steps
 
 {% hint style="info" %}
-Realize that if you modify the config file, you will need to select "Keep" or reconfigure the i2p config file again when the prompt asks you in the next update process
+Realize that if you modify the config file, you will need to select "Keep" or reconfigure the i2p config file again when the prompt asks you in the next update process.
 {% endhint %}
 
-* With user `admin`, create the reverse proxy configuration
+* With user `admin`, create the reverse proxy configuration:
 
 ```bash
 sudo nano /etc/nginx/sites-available/i2pd-webconsole-reverse-proxy.conf
 ```
 
-* Paste the complete following configuration. Save and exit
+* Paste the following complete configuration. Save and exit.
 
 ```nginx
 server {
@@ -339,7 +336,7 @@ server {
 }
 ```
 
-* Create the symbolic link that points to the directory `sites-enabled`
+* Create the symbolic link that points to the directory `sites-enabled`:
 
 {% code overflow="wrap" %}
 ```bash
@@ -347,7 +344,7 @@ sudo ln -s /etc/nginx/sites-available/i2pd-webconsole-reverse-proxy.conf /etc/ng
 ```
 {% endcode %}
 
-* Test Nginx configuration
+* Test Nginx configuration:
 
 ```sh
 sudo nginx -t
@@ -360,25 +357,25 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-* Reload the Nginx configuration to apply changes
+* Reload the Nginx configuration to apply changes:
 
 ```sh
 sudo systemctl reload nginx
 ```
 
-* Configure the firewall to allow incoming HTTPS requests
+* Configure the firewall to allow incoming HTTPS requests:
 
 ```bash
 sudo ufw allow 7071/tcp comment 'allow i2pd webconsole SSL from anywhere'
 ```
 
-* Enable i2pd webconsole authentication
+* Enable i2pd webconsole authentication:
 
 ```bash
-sudo nano +130 -l /etc/i2pd/i2pd.conf
+sudo nano +134 -l /etc/i2pd/i2pd.conf
 ```
 
-* Uncomment (delete "#" at the first of the lines) and replace "`changeme`" with your "`[ F ] i2pd webconsole password`". Save and exit
+* Uncomment (delete "#" at the beginning of the lines) and replace "`changeme`" with your "`[ F ] i2pd webconsole password`". Save and exit.
 
 ```
 auth = true
@@ -386,7 +383,7 @@ user = i2pd
 pass = [ F ] i2pd webconsole password
 ```
 
-* Restart i2pd to apply changes
+* Restart i2pd to apply changes:
 
 ```bash
 sudo systemctl restart i2pd
@@ -394,7 +391,7 @@ sudo systemctl restart i2pd
 
 #### Validation
 
-* Ensure that the i2pd service is working and listening on the webconsole HTTP & HTTPS ports
+* Ensure that the i2pd service is working and listening on the webconsole HTTP & HTTPS ports:
 
 ```bash
 sudo ss -tulpn | grep -E '(:7070|:7071)'
@@ -408,15 +405,15 @@ tcp   LISTEN 0      4096       127.0.0.1:7070       0.0.0.0:*    users:(("i2pd",
 ```
 
 {% hint style="info" %}
-Now, point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://ramix.local:7071"` (or your node IP address) like `"https://192.168.x.xxx:7071"`. Type the credentials before configurated (`user: i2pd; password: [ F ] i2pd webconsole password`). After that, you should see something similar to the next screenshot
+Now, point your browser to the secure access point provided by the NGINX web proxy, for example, `"https://minibolt.local:7071"` (or your node IP address) like `"https://192.168.x.xxx:7071"`. Type the credentials before configuration (`user: i2pd; password: [ F ] i2pd webconsole password`). After that, you should see something similar to the next screenshot.
 
-This access is only available from the local network; no Tor or Wireguard VPN is allowed
+This access is only available from the local network; no Tor or Wireguard VPN is allowed.
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/i2pd_webconsole.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Take into account that if you update I2P, the configuration will be deleted, and you will need to make the configuration again
+Take into account that if you update I2P, the configuration will be deleted, and you will need to make the configuration again.
 {% endhint %}
 
 ### **SSH remote access through Tor**
@@ -425,29 +422,29 @@ If you want to log into your MiniBolt with SSH when you're away, you can easily 
 
 #### **SSH server**
 
-* Ensure that you are logged in with the user `admin` , edit the `torrc` file
+* Ensure that you are logged in as the user `admin` , edit the `torrc` file:
 
 ```sh
 sudo nano +63 /etc/tor/torrc
 ```
 
-* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit
+* Add the following lines in the "location hidden services" section, below "`## This section is just for location-hidden services ##`" in the torrc file. Save and exit.
 
 ```
 # Hidden Service SSH server
 HiddenServiceDir /var/lib/tor/hidden_service_ssh_server/
-HiddenServiceVersion 3
+HiddenServiceEnableIntroDoSDefense 1
 HiddenServicePoWDefensesEnabled 1
 HiddenServicePort 22 127.0.0.1:22
 ```
 
-* Reload the Tor configuration to apply the configuration
+* Reload the Tor configuration to apply the configuration:
 
 ```sh
 sudo systemctl reload tor
 ```
 
-* Get the SSH Onion address
+* Get the SSH Onion address:
 
 ```sh
 sudo cat /var/lib/tor/hidden_service_ssh_server/hostname
@@ -459,7 +456,7 @@ sudo cat /var/lib/tor/hidden_service_ssh_server/hostname
 abcdefg..............xyz.onion
 ```
 
-* Save the Tor address in a secure location, e.g. your password manager
+* Save the Tor address in a secure location, e.g., your password manager
 
 #### **SSH client**
 
@@ -467,7 +464,7 @@ You also need to have Tor installed on your regular computer where you start the
 
 * **Windows**:
 
-To enable Tor in the background follow the same instructions for the [preparations](../bitcoin/bitcoin/desktop-signing-app-sparrow.md#preparations-on-your-computer) section of the Desktop Wallet guide.
+To enable Tor in the background, follow the same instructions for the [preparations](../bitcoin/bitcoin/sparrow.md#preparations-on-your-computer) section of the Desktop Wallet guide.
 
 * PuTTY:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for PuTTY, but this time type the `.onion` address on the hostname.
@@ -475,15 +472,15 @@ To enable Tor in the background follow the same instructions for the [preparatio
     * Press the button OPEN, when a "PuTTY security alert" banner appears, and press on the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 * MobaXterm:
   * Follow the same instructions of the [remote access section](remote-access.md#access-with-secure-shell) for MobaXterm, but this time type the `.onion` address on the hostname.
-  * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, left empty, port "9050".
-  * Press the button OK, when a "Connexion to..." banner appears press the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
+  * Go to the "Network settings" tab, select Proxy type "Socks5" on the host, type "localhost", for login, leave it empty, and port "9050".
+  * Press the button OK, when a "Connexion to..." banner appears, press the "Accept" button, if the prompt asks you user/password, leave it empty and press ENTER directly, and finally type your `password [A]`.
 
 {% hint style="info" %}
-If you use PuTTY and fail to connect to your PC by setting port 9050 in the PuTTY proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process it uses port 9150
+If you use PuTTY and fail to connect to your PC by setting port 9050 in the PuTTY proxy settings, try setting port 9150 instead. When Tor runs as an installed application instead of a background process, it uses port 9150
 {% endhint %}
 
 * **Linux**:
-  * Use `torify` or `torsocks`, both work similarly; just use whatever you have available
+  * Use `torify` or `torsocks`, both work similarly; just use whatever you have available:
 
 ```bash
 torify ssh admin@abcdefg..............xyz.onion
@@ -494,10 +491,10 @@ torsocks ssh admin@abcdefg..............xyz.onion
 ```
 
 {% hint style="info" %}
-When the prompt asks you "Are you sure you want to continue connecting?" type "yes" and press ENTER
+When the prompt asks you, "Are you sure you want to continue connecting?" type "yes" and press ENTER.
 {% endhint %}
 
-* **macOS**: Using `torify` or `torsocks` may not work due to Apple's _System Integrity Protection (SIP)_ which will deny access to `/usr/bin/ssh`.
+* **macOS**: Using `torify` or `torsocks` may not work due to Apple's _System Integrity Protection (SIP),_ which will deny access to `/usr/bin/ssh`.
 
 To work around this, first, make sure Tor is installed and running on your Mac:
 
@@ -513,7 +510,7 @@ ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" admin@abcdefg.............
 ```
 {% endcode %}
 
-* For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want, save, and exit
+* For a more permanent solution, add these six lines below to your local SSH config file. Choose any HOSTNICKNAME you want. Save and exit.
 
 ```bash
 sudo nano .ssh/config
@@ -528,13 +525,13 @@ Host HOSTNICKNAME
   ProxyCommand /usr/bin/nc -x localhost:9050 %h %p
 ```
 
-* Restart Tor
+* Restart Tor:
 
 ```bash
 brew services restart tor
 ```
 
-* You should now be able to SSH to your PC with
+* You should now be able to SSH to your PC with:
 
 ```bash
 ssh HOSTNICKNAME
@@ -542,39 +539,33 @@ ssh HOSTNICKNAME
 
 ### **Use the Tor proxy from another device**
 
-It's possible to use the Tor proxy of the node from another device in the same local network (e.g your regular computer)
+It's possible to use the Tor proxy of the node from another device in the same local network (e.g, your regular computer)
 
-* With `admin` user, edit the torrc file
+* With `admin` user, edit the torrc file:
 
 ```bash
 sudo nano +18 /etc/tor/torrc -l
 ```
 
-* Replace the existing line 18 with this
+* Replace the existing line 18 with this:
 
 ```
 SocksPort 0.0.0.0:9050
 ```
 
-* Add down the next line (on line 19). Save and exit
-
-```
-SocksPort unix:/run/tor/socks WorldWritable
-```
-
-* Reload the Tor configuration to apply changes
+* Reload the Tor configuration to apply changes:
 
 ```bash
 sudo systemctl reload tor
 ```
 
-* Configure the firewall to allow incoming Tor connections from anywhere
+* Configure the firewall to allow incoming Tor connections from anywhere:
 
 ```bash
 sudo ufw allow 9050/tcp comment 'allow Tor SOCKS5 from anywhere'
 ```
 
-* Ensure that the Tor service is working and listening on the default ports `9050` on the `0.0.0.0`
+* Ensure that the Tor service is working and listening on the default ports `9050` on the `0.0.0.0`:
 
 ```bash
 sudo ss -tulpn | grep tor
@@ -587,23 +578,23 @@ tcp   LISTEN 0      4096       127.0.0.1:9051       0.0.0.0:*    users:(("tor",p
 </code></pre>
 
 {% hint style="info" %}
-You can use this connection from another device in the same local network, for example, to navigate using a standard browser, without using the Tor browser
+You can use this connection from another device in the same local network, for example, to navigate using a standard browser, without using the Tor browser.
 {% endhint %}
 
 #### **Example from Firefox:**
 
 -> Go to Settings > General > Network Settings > Push to the "Settings" button
 
-Edit the screen to match this, replacing `SOCKS Host`, with your node's local IP address:
+* Edit the screen to match this, replacing `SOCKS Host`, with your node's local IP address:
 
 <figure><img src="../.gitbook/assets/tor-proxy-browser.png" alt="" width="563"><figcaption></figcaption></figure>
 
--> Click on the **OK** button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info), if it resolves, you are OK.
+-> Click on the **OK** button, and try to navigate to some clearnet domain like [https://minibolt.info](https://minibolt.info). If it resolves, you are OK.
 
 {% hint style="info" %}
 You can also go to this [website](https://check.torproject.org/) and see "_Congratulations. This browser is configured to use Tor."_
 
-Also, you can use the Tor proxy connection to reach clearnet or a third-party address connection on the Sparrow wallet. Check out the [Desktop signing app: Sparrow Wallet](../bitcoin/bitcoin/desktop-signing-app-sparrow.md) guide to get instructions.
+Also, you can use the Tor proxy connection to reach clearnet or a third-party address connection on the Sparrow wallet. Check out the [Desktop signing app: Sparrow Wallet](../bitcoin/bitcoin/sparrow.md) guide to get instructions.
 {% endhint %}
 
 ## Upgrade Tor and I2P
@@ -628,7 +619,7 @@ i2pd (2.53.0-1) unstable; urgency=medium
  -- r4sas <r4sas@i2pmail.org>  Fri, 19 Jul 2024 16:00:00 +0000
 ```
 
-Simply press `Ctrl + X` and then the update will continue
+Simply press `Ctrl + X` and then the update will continue.
 
 \
 If you obtain the next:
@@ -649,11 +640,15 @@ Configuration file '/etc/i2pd/i2pd.conf'
 * Press "Y" and ENTER, but take into account that you will need to reconfigure I2P if you followed the "[Access to the i2pd webconsole](privacy.md#access-to-the-i2pd-webconsole)" section, since this overwrites I2P's previous configuration.
 {% endhint %}
 
+{% hint style="danger" %}
+ATTENTION!!! Do not proceed to the [next Uninstall section](privacy.md#uninstall) if you **do not wish to uninstall**. Skip directly to the [Bitcoin client](../bitcoin/bitcoin/) section
+{% endhint %}
+
 ## Uninstall
 
 ### Uninstall Tor
 
-* With user `admin`, enter the next command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* With user `admin`, enter the next command. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```bash
 sudo apt autoremove tor deb.torproject.org-keyring && sudo apt purge tor
@@ -670,7 +665,7 @@ The following packages will be REMOVED:
 
 ### Uninstall I2P
 
-* With user `admin`, enter the next command. Press "**y**" and `enter` or directly `enter` when the prompt asks you
+* With user `admin`, enter the next command. Press "**y**" and `enter` or directly `enter` when the prompt asks you:
 
 ```bash
 sudo apt autoremove i2pd && sudo apt purge i2pd
@@ -691,35 +686,35 @@ The following packages will be REMOVED:
 
 #### **Tor network issues**
 
-If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc...), it is possible that the set of entry guards is overloaded, delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
+If you have problems with the Tor connection (LN channels offline, excessive delay to the hidden services access, etc), it is possible that the set of entry guards is overloaded. Delete the file called "state" in your Tor directory, and you will be forcing Tor to select an entirely new set of entry guards next time it starts.
 
-* Stop Tor
+* Stop Tor:
 
 ```sh
 sudo systemctl stop tor
 ```
 
-* Delete the file called "`state`" in your Tor directory
+* Delete the file called "`state`" in your Tor directory:
 
 ```sh
 sudo rm /var/lib/tor/state
 ```
 
-* Start Tor again
+* Start Tor again:
 
 ```sh
 sudo systemctl start tor
 ```
 
 {% hint style="info" %}
--> If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to
+-> If your new set of entry guards still produces the stream error, try connecting to the internet using a cable if you're using Wireless. If that doesn't help, I'd suggest downloading [Wireshark](https://www.wireshark.org/) and seeing if you're getting drowned in TCP transmission errors for non-Tor traffic. If yes, your ISP is who you need to talk to.
 
--> If not, try using [obfs4 bridges](../bonus-guides/networking/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) and see if that helps. Your ISP, the company's network, your country, etc, could be censoring completely your Tor access, use of obfs4 bridges could help to avoid this censorship
+-> If not, try using [obfs4 bridges](../bonus-guides/networking/tor-services.md#add-obfs4-bridge-to-the-default-tor-instance) and see if that helps. Your ISP, the company's network, your country, etc, could be completely censoring your Tor access; use of obfs4 bridges could help to avoid this censorship.
 {% endhint %}
 
 **Example** of Tor censorship output:
 
-![](../images/tor-censorship.png)
+![](../.gitbook/assets/tor-censorship.png)
 
 #### Tor signature verification error
 
@@ -728,53 +723,43 @@ If you obtain this error [after updating](privacy.md#upgrade-tor-and-i2p) the re
 <figure><img src="../.gitbook/assets/tor_keyring_error.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-This means Tor has renovated the signature due probably that is soon to expiry or expired, follow the next steps to fix that ⬇️
+This means Tor has renewed the signature because it is probably soon to expire or has expired. Follow the next steps to fix that ⬇️
 {% endhint %}
 
-* With user `admin`, up to `"root"` user temporarily
-
-```sh
-sudo su
-```
-
-* Add the GPG key used to sign the packages by running the following command at your command prompt
+* Add the GPG key used to sign the packages by running the following command at your command prompt:
 
 {% code overflow="wrap" %}
 ```sh
-wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
+wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc \
+| gpg --dearmor \
+| sudo tee /usr/share/keyrings/tor-archive-keyring.gpg > /dev/null
 ```
 {% endcode %}
 
-* Return to `admin` using `exit` command
-
-```bash
-exit
-```
-
 {% hint style="info" %}
-Try to do `sudo apt update` again and see the error doesn't appear
+Try to do `sudo apt update` again and see if the error doesn't appear.
 {% endhint %}
 
 ### **I2P troubleshooting**
 
 If you see these output logs on Bitcoin Core, normally, it could be that I2P is failing:
 
-![](../images/i2p-troubleshoting.png)
+![](../.gitbook/assets/i2p-troubleshoting.png)
 
 {% hint style="info" %}
 If this happens, usually this fix only with **restarting** the i2pd service
 {% endhint %}
 
-* With user `admin`, restart the service
+* With user `admin`, restart the service:
 
 ```sh
 sudo systemctl restart i2pd
 ```
 
-* Check again the Bitcoin Core logs to ensure that the errors don't appear anymore
+* Check the Bitcoin Core logs again to ensure that the errors don't appear anymore.
 
 ## Port reference
 
-<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="R45vFWjozrnP" label="TCP" color="blue"></option><option value="dG3sAn1EEZfR" label="SSL" color="blue"></option><option value="ceqHkY4KSaBT" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">9050</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default SOCKS port</td></tr><tr><td align="center">9051</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default control port</td></tr><tr><td align="center">7656</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default I2P SAM proxy port</td></tr><tr><td align="center">7070</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default I2Pd web console port</td></tr><tr><td align="center">7071</td><td><span data-option="dG3sAn1EEZfR">SSL</span></td><td align="center">I2Pd web console SSL port</td></tr></tbody></table>
+<table><thead><tr><th align="center">Port</th><th width="100">Protocol<select><option value="R45vFWjozrnP" label="TCP" color="blue"></option><option value="dG3sAn1EEZfR" label="SSL" color="blue"></option><option value="ceqHkY4KSaBT" label="UDP" color="blue"></option></select></th><th align="center">Use</th></tr></thead><tbody><tr><td align="center">9050</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default Tor SOCKS port</td></tr><tr><td align="center">9051</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default Tor control port</td></tr><tr><td align="center">7656</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default I2P SAM proxy port</td></tr><tr><td align="center">7070</td><td><span data-option="R45vFWjozrnP">TCP</span></td><td align="center">Default I2Pd HTTP web console port</td></tr><tr><td align="center">7071</td><td><span data-option="dG3sAn1EEZfR">SSL</span></td><td align="center">I2Pd web console SSL port</td></tr></tbody></table>
 
 [^1]: Check this

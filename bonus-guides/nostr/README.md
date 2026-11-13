@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -10,6 +11,12 @@ layout:
     visible: true
   pagination:
     visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # 🦩 Nostr
@@ -18,4 +25,4 @@ layout:
 
 ### Relays
 
-* [**Nostr relay in Rust**](nostr-relay.md) - a nostr relay written in Rust with support for the entire relay protocol and data persistence using PostgreSQL or SQLite
+* [**Nostr relay in Rust**](nostr-rs-relay.md) - a nostr relay written in Rust with support for the entire relay protocol and data persistence using PostgreSQL or SQLite

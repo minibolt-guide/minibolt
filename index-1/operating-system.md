@@ -1,5 +1,6 @@
 ---
 layout:
+  width: default
   title:
     visible: true
   description:
@@ -9,6 +10,10 @@ layout:
   outline:
     visible: true
   pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
     visible: true
 ---
 
@@ -61,9 +66,9 @@ It should display a **"Flash Complete!"** message after
 4. Press the key quickly to **enter THE BIOS setup** or directly to the **boot menu** to select the **pen drive as the 1st boot priority device** (normally, F9, Esc, F12, or Supr keys).
 
 {% hint style="info" %}
-In this step, you might want to activate the **Restore on AC** / **After power failure** or similar in the BIOS setup.&#x20;
+In this step, you might want to activate the **Restore on AC** / **After power failure** or similar in the BIOS setup.
 
-Normally found in **Advanced** -> **Power** / **ACPI Configuration**, switching to **Last State / Memory** or similar (System power on depends on the status before AC lost) or **Power ON / Full on** or similar (Always power on the system when AC back) depends on your preference.&#x20;
+Normally found in **Advanced** -> **Power** / **ACPI Configuration**, switching to **Last State / Memory** or similar (System power on depends on the status before AC lost) or **Power ON / Full on** or similar (Always power on the system when AC back) depends on your preference.
 
 With this, you can get the PC to start automatically after a power loss, ensuring services are back available in your absence.
 {% endhint %}
